@@ -7,7 +7,6 @@
 //
 
 #import "IFExtensionsPage.h"
-#import "IFJSProject.h"
 #import "IFPreferences.h"
 #import "IFMaintenanceTask.h"
 #import "IFAppDelegate.h"
@@ -15,12 +14,14 @@
 #import "IFExtensionsManager.h"
 #import "IFProjectController.h"
 #import "IFPageBarCell.h"
-#import "IFProjectPolicy.h"
+#import "IFProject.h"
+#import "IFWebViewHelper.h"
 
 @implementation IFExtensionsPage {
     // The documentation view
     /// The web view that displays the documentation
-    WebView* wView;
+    WKWebView* wView;
+    IFWebViewHelper* helper;
 
     // Page cells
     /// The 'Home' cell
@@ -30,59 +31,64 @@
     /// Maps URL paths to cells
     NSDictionary* tabDictionary;
 
-    bool reloadingBecauseCensusCompleted;
-    BOOL loadingFailureWebPage;
+    bool loadingFailureWebPage;
+
+    int inhibitAddToHistory;
 }
 
 #pragma mark - Initialisation
 
-- (instancetype) initWithProjectController: (IFProjectController*) controller {
+- (instancetype) initWithProjectController: (IFProjectController*) controller
+                                  withPane: (IFProjectPane*) pane {
 	self = [super initWithNibName: @"Documentation"
 				projectController: controller];
 	
 	if (self) {
-        reloadingBecauseCensusCompleted = false;
+        inhibitAddToHistory = 0;
+        loadingFailureWebPage = false;
 
 		homeCell = [[IFPageBarCell alloc] initImageCell:[NSImage imageNamed:NSImageNameHomeTemplate]];
-		[homeCell setTarget: self];
-		[homeCell setAction: @selector(showHome:)];
+		homeCell.target = self;
+		homeCell.action = @selector(showHome:);
 
 		publicLibraryCell = [[IFPageBarCell alloc] initTextCell: [IFUtility localizedString: @"ExtensionPublicLibrary"
                                                                                     default: @"Public Library"]];
-		[publicLibraryCell setTarget: self];
-		[publicLibraryCell setAction: @selector(showPublicLibrary:)];
+		publicLibraryCell.target = self;
+		publicLibraryCell.action = @selector(showPublicLibrary:);
 
         // Static dictionary mapping tab names to cells
-        tabDictionary = @{@"inform://Extensions/Extensions.html": homeCell,
-                          [[IFUtility publicLibraryURL] absoluteString]: publicLibraryCell};
+        IFProject* project = (self.parent).document;
+        NSString* extensions;
+        if (project.useNewExtensions) {
+            extensions = @"inform://Extensions/Reserved/Documentation/Extensions.html";
+        } else {
+            extensions = @"inform://Extensions/Extensions.html";
+        }
+        tabDictionary = @{ extensions: homeCell,
+                           [IFUtility publicLibraryURL].absoluteString: publicLibraryCell };
 
 		[[NSNotificationCenter defaultCenter] addObserver: self
-												 selector: @selector(preferencesChanged:)
+                                                 selector: @selector(fontSizePreferenceChanged:)
 													 name: IFPreferencesAppFontSizeDidChangeNotification
 												   object: [IFPreferences sharedPreferences]];
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(censusCompleted:)
 													 name: IFCensusFinishedNotification
 												   object: nil];
-		
-        // Create the view for the extensions tab
-        wView = [[WebView alloc] init];
-        [wView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
-        [wView setResourceLoadDelegate: self];
-        [wView setFrameLoadDelegate: self];
-        
-        [wView setFrame: [self.view bounds]];
-        [wView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
-        [self.view addSubview: wView];
-        
-        NSURL* url = [NSURL URLWithString: @"inform://Extensions/Extensions.html"];
-        NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url];
-        [[wView mainFrame] loadRequest: urlRequest];
 
-        [wView setPolicyDelegate: [self.parent extensionsPolicy]];
-        
-        [wView setUIDelegate: self.parent];
-        [wView setHostWindow: [self.parent window]];
+        helper = [[IFWebViewHelper alloc] initWithProjectController: controller
+                                                           withPane: [controller oppositePane: pane]];
+        wView = [helper createWebViewWithFrame: (self.view).bounds];
+
+        // Set delegates
+        wView.navigationDelegate = self;
+
+        // Add to view hieracrchy
+        [self.view addSubview: wView];
+
+        NSURL* url = [NSURL URLWithString: extensions];
+        NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url];
+        [wView loadRequest: urlRequest];
 	}
 
 	return self;
@@ -106,156 +112,177 @@
 #pragma mark - Updating extensions
 
 - (void) censusCompleted: (NSNotification*) not {
-    reloadingBecauseCensusCompleted = true;
+    inhibitAddToHistory++;
 	// Force the documentation view to reload (the 'installed extensions' page may be updated)
 	[wView reload: self];
-    reloadingBecauseCensusCompleted = false;
-}
-
-#pragma mark - Preferences
-
-- (void) preferencesChanged: (NSNotification*) not {
-	[wView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
 }
 
 #pragma mark - Documentation
 
 - (void) openURL: (NSURL*) url  {
-	[self switchToPage];
-	
-	[[wView mainFrame] loadRequest: [[NSURLRequest alloc] initWithURL: url]];
+    NSAssert(url != nil, @"Bad URL");
+
+    [self switchToPage];
+
+    NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url];
+    [wView loadRequest: urlRequest];
 }
 
-- (void) openURLWithString: (NSString*) urlString {
-	if (urlString == nil) return;
-	[self openURL: [NSURL URLWithString: urlString]];
+- (void) openHistoricalURL: (NSURL*) url {
+    if (url == nil) return;
+
+    // Because we are opening this URL as part of replaying history, we don't add it to the history itself.
+    inhibitAddToHistory++;
+    [self openURL: url];
 }
 
 - (void) highlightTabForURL:(NSString*) urlString {
     for (NSString*key in tabDictionary) {
         if( [key caseInsensitiveCompare:urlString] == NSOrderedSame ) {
-            [(IFPageBarCell*)tabDictionary[key] setState:NSControlStateValueOn];
+            ((IFPageBarCell*)tabDictionary[key]).state = NSControlStateValueOn;
         }
         else {
-            [(IFPageBarCell*)tabDictionary[key] setState:NSControlStateValueOff];
+            ((IFPageBarCell*)tabDictionary[key]).state = NSControlStateValueOff;
         }
     }
 }
 
--(void) loadFailurePage: (WebFrame*) frame {
+-(void) loadFailurePage: (NSString *) urlString {
     if( loadingFailureWebPage ) {
         return;
     }
+    NSURL* url;
 
-    NSURL* url = [NSURL URLWithString: @"inform:/pl404.html"];
-    NSURLRequest* urlRequest = [NSURLRequest requestWithURL: url];
-    [frame loadRequest: urlRequest];
+    // Default to public library error
+    IFProject* project = (self.parent).document;
+    url = [NSURL URLWithString: @"inform:/pl404.html"];
+
+    if (![urlString isEqualToString:[IFUtility publicLibraryURL].absoluteString]) {
+        if (project.useNewExtensions) {
+            // If the file doesn't exist, then show a default error page
+            NSString* path = [NSBundle mainBundle].resourcePath;
+            path = [IFUtility pathForInformInternalAppSupport:@""];
+            path = [path stringByAppendingPathComponent: @"HTML"];
+            path = [path stringByAppendingPathComponent: @"NoExtensions.html"];
+            url = [NSURL fileURLWithPath: path];
+        }
+    }
+
+    inhibitAddToHistory++;
+    NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url];
+
+    [wView loadRequest: urlRequest];
     loadingFailureWebPage = true;
 }
 
-#pragma mark - WebResourceLoadDelegate methods
+#pragma mark - WKNavigationDelegate
+- (void)                    webView:(WKWebView *)webView
+    decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+                    decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    // Allow everything for now
+    decisionHandler(WKNavigationActionPolicyAllow);
 
-- (void)			webView:(WebView *)sender 
-				   resource:(id)identifier 
-	didFailLoadingWithError:(NSError *)error 
-			 fromDataSource:(WebDataSource *)dataSource {
-    NSString *urlString = (error.userInfo)[@"NSErrorFailingURLStringKey"];
+    //NSURL *u1 = webView.URL;
+    //NSURL *u2 = navigationAction.request.URL; //If changing URLs this one will be different
+}
+
+- (void)                webView:(WKWebView *)webView
+  didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation {
+
+    // Highlight appropriate tab
+    [self highlightTabForURL: webView.URL.absoluteString];
+
+    // Add to history...
+    // ... except when reloading after the census
+    // ... except on initial load
+    // ... except when clicking the forward or back arrows
+    // ... except when going to the error page
+    // ... except when downloading from the public library (scheme "library")
+
+    // Each time we get here will remove one of these exceptions if present.
+
+    if (self.pageIsVisible) {
+        if (inhibitAddToHistory <= 0) {
+            if (![webView.URL.scheme  isEqual: @"library"]) {
+                LogHistory(@"HISTORY: Extensions Page: (didStartProvisionalLoadForFrame) URL %@", [webView.URL absoluteString]);
+                [self.history switchToPage];
+                [(IFExtensionsPage*)self.history openHistoricalURL: webView.URL];
+            }
+        }
+    }
+
+    // reduce the number of reasons to inhibit adding to history
+    if (inhibitAddToHistory > 0) {
+        inhibitAddToHistory--;
+    } else {
+        inhibitAddToHistory = 0;
+    }
+}
+
+-(void)                  webView: (WKWebView *) webView
+    didFailProvisionalNavigation: (WKNavigation *) navigation
+                       withError: (NSError *) error {
+    NSString* urlString = nil;
+
+    NSURL *url = (error.userInfo)[NSURLErrorFailingURLErrorKey];
+    if (url) {
+        urlString = url.absoluteString;
+    } else {
+        urlString = (error.userInfo)[NSURLErrorFailingURLStringErrorKey];
+    }
+    NSLog(@"didFail for webview %@, wView:%@, url:%@", webView, wView, urlString);
 
     if (error.code == NSURLErrorCancelled) {
         //NSLog(@"IFExtensionsPage: load of URL %@ was cancelled", urlString);
-        loadingFailureWebPage = NO;
+        loadingFailureWebPage = false;
         return;
     }
-	NSLog(@"IFExtensionsPage: failed to load URL %@ with error: %@", urlString, [error localizedDescription]);
-    [self loadFailurePage: [wView mainFrame]];
+    if (![error.domain isEqualToString: INFORM_ERROR_DOMAIN]) {
+        NSLog(@"IFExtensionsPage: failed to load URL %@ (provisional) with error: %@", urlString, error.localizedDescription);
+        [self loadFailurePage: urlString];
+    }
 }
 
-#pragma mark - WebFrameLoadDelegate methods
+-(void)       webView: (WKWebView *) webView
+    didFailNavigation: (WKNavigation *) navigation
+            withError: (NSError *) error {
+    NSString* urlString = nil;
 
-- (void)					webView: (WebView *) sender
-	didStartProvisionalLoadForFrame: (WebFrame *) frame {
-    // When opening a new URL in the main frame, record it as part of the history for this page
-    NSURL* url;
-    WebDataSource* wds = nil;
-    if ([frame provisionalDataSource] ) {
-        wds = [frame provisionalDataSource];
+    NSURL *url = (error.userInfo)[NSURLErrorFailingURLErrorKey];
+    if (url) {
+        urlString = url.absoluteString;
     } else {
-        wds = [frame dataSource];
+        urlString = (error.userInfo)[NSURLErrorFailingURLStringErrorKey];
     }
-    url = [[wds request] URL];
-    url = [url copy];
 
-    // Highlight appropriate tab
-    [self highlightTabForURL:[url absoluteString]];
-
-	if (frame == [wView mainFrame]) {
-        if ([self pageIsVisible]) {
-            if( !reloadingBecauseCensusCompleted )
-            {
-                LogHistory(@"HISTORY: Documentation Page: (didStartProvisionalLoadForFrame) URL %@", [url absoluteString]);
-                [[self history] switchToPage];
-                [(IFExtensionsPage*)[self history] openURLWithString: [url absoluteString]];
-            }
-        }
+    if (error.code == NSURLErrorCancelled) {
+        //NSLog(@"IFExtensionsPage: load of URL %@ was cancelled", urlString);
+        loadingFailureWebPage = false;
+        return;
     }
+    NSLog(@"IFExtensionsPage: failed to load URL %@ with error: %@", urlString, error.localizedDescription);
+    [self loadFailurePage: urlString];
 }
 
-- (void)            webView: (WebView *) sender
-      didCommitLoadForFrame: (WebFrame *) frame {
-	if (frame == [wView mainFrame]) {
-        WebDataSource* wds = nil;
-        if ([frame provisionalDataSource] ) {
-            wds = [frame provisionalDataSource];
-        } else {
-            wds = [frame dataSource];
-        }
-
-        NSURLResponse* response = [wds response];
-        if( [response isKindOfClass:[NSHTTPURLResponse class]] ) {
-            NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*) response;
-            NSInteger statusCode = [httpResponse statusCode];
-            if( statusCode >= 400 ) {
-                [frame stopLoading];
-
-                [self loadFailurePage: frame];
-            }
-        }
-    }
-}
-
-- (void)                 webView: (WebView *) sender
-                        resource: (id) identifier
-  didFinishLoadingFromDataSource: (WebDataSource *) dataSource {
-    loadingFailureWebPage = NO;
-}
-
-- (void)        webView: (WebView *) sender
-   didClearWindowObject: (WebScriptObject *) windowObject
-               forFrame: (WebFrame *) frame {
-	if (self.otherPane) {
-		// Attach the JavaScript object to the opposing view
-		IFJSProject* js = [[IFJSProject alloc] initWithPane: self.otherPane];
-		
-		// Attach it to the script object
-		[[sender windowScriptObject] setValue: js
-									   forKey: @"Project"];
-	}
+-(void)         webView:(WKWebView *)webView
+    didFinishNavigation:(WKNavigation *)navigation {
+    loadingFailureWebPage = false;
 }
 
 #pragma mark - History
 
 - (void) didSwitchToPage {
-	WebFrame* frame = [wView mainFrame];
-	NSURL* url;
-	if ([frame provisionalDataSource]) {
-		url = [[[frame provisionalDataSource] request] URL];
-	} else {
-		url = [[[frame dataSource] request] URL];
-	}
-	NSString* urlString = [url absoluteString];
-	
-    LogHistory(@"HISTORY: Documentation Page: (didSwitchToPage) URL %@", urlString);
-	[[self history] openURLWithString: urlString];
+    NSURL* url = wView.URL;
+
+    LogHistory(@"HISTORY: Extensions Page: (didSwitchToPage) URL %@", url);
+	[self.history openHistoricalURL: url];
+    [wView reload: self];
+}
+
+#pragma mark - Preferences
+
+- (void) fontSizePreferenceChanged: (NSNotification*) not {
+    [helper fontSizePreferenceChanged: wView];
 }
 
 #pragma mark - Page bar cells
@@ -284,7 +311,7 @@
 - (void) extensionUpdated:(NSString*) javascriptId {
     NSString* js = [NSString stringWithFormat:@"window.downloadSucceeded(%@);", javascriptId];
     //NSLog(@"Calling javascript: %@", js);
-    [wView stringByEvaluatingJavaScriptFromString: js];
+    [wView evaluateJavaScript: js completionHandler:nil];
 }
 
 - (void) willClose {

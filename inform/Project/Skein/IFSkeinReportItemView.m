@@ -51,14 +51,14 @@ static const CGFloat kBlessButtonHeight = 13.0f;
 
     _textHeight = _textView.frame.size.height;
 
-    [self setFrame: NSMakeRect(self.frame.origin.x,
+    self.frame = NSMakeRect(self.frame.origin.x,
                                self.frame.origin.y,
                                kSkeinReportWidth,
-                               _textHeight)];
+                               _textHeight);
 }
 
 -(void) setFrame:(NSRect)frame {
-    [super setFrame: frame];
+    super.frame = frame;
 
     _textView.frame = NSMakeRect(kSkeinReportInsideLeftBorder,
                                  frame.size.height - _topBorderHeight - _textHeight,

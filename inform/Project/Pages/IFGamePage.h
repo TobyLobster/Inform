@@ -32,7 +32,7 @@
 @property (atomic, readonly)         BOOL         disableLogo;
 
 #pragma mark - Methods
-- (instancetype) initWithProjectController: (IFProjectController*) controller;
+- (instancetype) initWithProjectController: (IFProjectController*) controller NS_DESIGNATED_INITIALIZER;
 
 /// Notify that the next game run should be run with debugging on (breakpoints will be set)
 - (void) activateDebug;

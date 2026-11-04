@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 // Notification strings
 extern NSNotificationName const IFSettingHasChangedNotification;
 extern NSString* const IFSettingCreateBlorb;
@@ -24,7 +26,7 @@ extern NSString* const IFSettingCreateBlorb;
 @interface IFSetting : NSObject
 
 /// Initialises the setting object, and loads the given nib
-- (instancetype) initWithNibName: (NSString*) nibName NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithNibName: (nullable NSNibName) nibName NS_DESIGNATED_INITIALIZER;
 
 // Setting up the view
 /// The settings view
@@ -37,7 +39,7 @@ extern NSString* const IFSettingCreateBlorb;
 /// The compiler settings object that this setting will use
 @property (atomic, weak) IFCompilerSettings *compilerSettings;
 /// Retrieves the settings dictionary for this object
-- (NSMutableDictionary*) dictionary;
+- (nullable NSMutableDictionary*) dictionary;
 
 // Communicating with the IFCompilerSettings object
 /// (OVERRIDE) Sets values in the compiler settings (or the dictionary) from the current UI choices
@@ -49,13 +51,15 @@ extern NSString* const IFSettingCreateBlorb;
 
 // Notifying the controller about things
 /// Action called when the user changes a setting option
-- (IBAction) settingsHaveChanged: (id) sender;
+- (IBAction) settingsHaveChanged: (nullable id) sender;
 
 // Saving settings
 /// Retrieves the Plist dictionary for this setting
-@property (atomic, readonly, copy) NSDictionary *plistEntries;
+@property (atomic, readonly, copy, nullable) NSDictionary *plistEntries;
 /// Updates the values for this setting from a Plist dictionary
 - (void) updateSettings: (IFCompilerSettings*) settings
 	   withPlistEntries: (NSDictionary*) entries;
 
 @end
+
+NS_ASSUME_NONNULL_END

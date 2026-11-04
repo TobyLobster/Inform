@@ -11,13 +11,14 @@
 
 #import <WebKit/WebKit.h>
 #import "IFAppDelegate.h"
-#import "IFRecentFileCellInfo.h"
-#import "IFRecentFileCell.h"
 
 #import "IFMaintenanceTask.h"
 #import "IFUtility.h"
 #import "IFExtensionsManager.h"
 #import "IFPreferences.h"
+#import "IFWebViewHelper.h"
+
+#import "Inform-Swift.h"
 
 @implementation IFWelcomeWindow {
     /// Progress indicator that shows when a background process is running
@@ -43,7 +44,10 @@
     /// Parent
     IBOutlet NSView*                parentView;
     /// Show a web page (for advice)
-    IBOutlet WebView*               webView;
+    IBOutlet NSView*                webViewParent;
+    /// Web View Helper for advice
+    IFWebViewHelper*                helper;
+
     /// Show the middle section
     IBOutlet NSView*                middleView;
     /// Top banner image, as a button
@@ -59,6 +63,7 @@
     NSMutableArray*                 newsArray;
 
     WKNavigation *                  newsNav;
+    WKWebView *                     adviceWebView;
 }
 
 static const int maxItemsInRecentMenu = 8;
@@ -78,7 +83,7 @@ static IFWelcomeWindow* sharedWindow = nil;
 
 + (void) hideWelcomeWindow {
     if( sharedWindow != nil ) {
-        [[[IFWelcomeWindow sharedWelcomeWindow] window] close];
+        [[IFWelcomeWindow sharedWelcomeWindow].window close];
     }
 }
 
@@ -96,7 +101,7 @@ static IFWelcomeWindow* sharedWindow = nil;
 
     // Show window
     [self showWindow: self];
-    [[self window] orderFront: self];
+    [self.window orderFront: self];
 
     //NSLog(@"FRAME = %@", recentDocumentsTableView.frame);
     //NSLog(@"bounds = %@", recentDocumentsTableView.bounds);
@@ -117,9 +122,9 @@ static IFWelcomeWindow* sharedWindow = nil;
     if (self->newsWebConfiguration == nil) {
         self->newsWebConfiguration = [[WKWebViewConfiguration alloc] init];
         // Set the navigation delegate
-        IFAppDelegate* appDelegate = (IFAppDelegate*)[NSApp delegate];
+        IFAppDelegate* appDelegate = (IFAppDelegate*)NSApp.delegate;
         [self->newsWebConfiguration setURLSchemeHandler: appDelegate.newsManager.newsSchemeHandler
-                              forURLScheme: @"inform"];
+                                           forURLScheme: @"inform"];
         self->newsWebView = [[WKWebView alloc] initWithFrame: self->newsWebParent.bounds
                                                configuration: self->newsWebConfiguration];
     }
@@ -135,24 +140,35 @@ static IFWelcomeWindow* sharedWindow = nil;
 
     // Refresh news if needed
     [self checkIfNewsRefreshIsNeeded];
+
+    helper = [[IFWebViewHelper alloc] initWithProjectController: nil
+                                                       withPane: nil];
+    adviceWebView = [helper createWebViewWithFrame: webViewParent.bounds];
+
+    // Set delegates
+    adviceWebView.navigationDelegate = self;
+
+    // Add to view hieracrchy
+    [webViewParent addSubview: adviceWebView];
+
 }
 
 - (void) hideWebView {
-    [webView setHidden: YES];
+    [webViewParent setHidden: YES];
     [middleView setHidden: NO];
 }
 
 - (void) showWebView {
-    [webView setHidden: NO];
+    [webViewParent setHidden: NO];
     [middleView setHidden: YES];
 }
 
 - (void) checkIfNewsRefreshIsNeeded {
     // Get the news from the news manager
     // when done, call the completion handler
-    IFAppDelegate* appDelegate = (IFAppDelegate*)[NSApp delegate];
+    IFAppDelegate* appDelegate = (IFAppDelegate*)NSApp.delegate;
 
-    [[appDelegate newsManager] getNewsWithCompletionHandler: ^(NSString* latestNews, NSURLResponse* response, NSError* error) {
+    [appDelegate.newsManager getNewsWithCompletionHandler: ^(NSString* latestNews, NSURLResponse* response, NSError* error) {
         // When finished, refreshNews on main thread
         [self performSelectorOnMainThread:@selector(refreshNews:) withObject:latestNews waitUntilDone:NO];
     }];
@@ -184,22 +200,22 @@ static IFWelcomeWindow* sharedWindow = nil;
 
         // parse data
         NSISO8601DateFormatter* format = [[NSISO8601DateFormatter alloc] init];
-        [format setFormatOptions: NSISO8601DateFormatWithFullDate];
+        format.formatOptions = NSISO8601DateFormatWithFullDate;
 
         NSMutableArray *data = [[latestNews componentsSeparatedByCharactersInSet: [NSCharacterSet newlineCharacterSet]] mutableCopy];
         NSString* str = @"";
-        for (int i = 0; i < [data count]; i++)
+        for (int i = 0; i < data.count; i++)
         {
             // Parse line
-            NSString *line = [data objectAtIndex: i];
+            NSString *line = data[i];
             NSArray* lineParts = [line componentsSeparatedByString:@"\t"];
-            if ([lineParts count] >= 3) {
+            if (lineParts.count >= 3) {
                 NSDate* startDate = [format dateFromString: lineParts[0]];
                 NSDate* endDate = [format dateFromString: lineParts[1]];
                 NSString* headline = [self encodeForHTML:lineParts[2]];
                 NSString* link = @"";
 
-                if ([lineParts count] >= 4) {
+                if (lineParts.count >= 4) {
                     link = lineParts[3];
                 }
 
@@ -232,15 +248,15 @@ static IFWelcomeWindow* sharedWindow = nil;
     recentInfoArray = [[NSMutableArray alloc] init];
     
     NSInteger index = 0;
-    for( NSURL* url in [[NSDocumentController sharedDocumentController] recentDocumentURLs] ) {
+    for( NSURL* url in [NSDocumentController sharedDocumentController].recentDocumentURLs ) {
         if (![url getResourceValue:&icon forKey:NSURLEffectiveIconKey error: NULL]) {
-            icon = [[NSWorkspace sharedWorkspace] iconForFile: [url path]];
+            icon = [[NSWorkspace sharedWorkspace] iconForFile: url.path];
         }
-        
-        IFRecentFileCellInfo* info = [[IFRecentFileCellInfo alloc] initWithTitle: [url lastPathComponent]
+
+        IFRecentFileCellInfo* info = [[IFRecentFileCellInfo alloc] initWithTitle: url.lastPathComponent
                                                                             image: icon
                                                                               url: url
-                                                                             type: IFRecentFile];
+                                                                             type: IFRecentFileTypeFile];
         [recentInfoArray addObject: info];
         index++;
         
@@ -254,7 +270,7 @@ static IFWelcomeWindow* sharedWindow = nil;
     IFRecentFileCellInfo* info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Open..."]
                                                                         image: icon
                                                                           url: nil
-                                                                         type: IFRecentOpen];
+                                                                         type: IFRecentFileTypeOpen];
     [recentInfoArray addObject: info];
     [recentDocumentsTableView reloadData];
 }
@@ -287,21 +303,21 @@ static IFWelcomeWindow* sharedWindow = nil;
         IFRecentFileCellInfo* info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Create Project..."]
                                                                             image: icon
                                                                               url: nil
-                                                                             type: IFRecentCreateProject];
+                                                                             type: IFRecentFileTypeCreateProject];
         [createInfoArray addObject: info];
 
         icon = [NSImage imageNamed: @"i7xfile"];
         info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Create Extension..."]
                                                       image: icon
                                                         url: nil
-                                                       type: IFRecentCreateExtension];
+                                                       type: IFRecentFileTypeCreateExtension];
         [createInfoArray addObject: info];
         
         icon = [NSImage imageNamed: NSImageNameFolder];
         info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Save Documentation as eBooks"]
                                                       image: icon
                                                         url: nil
-                                                       type: IFRecentSaveEPubs];
+                                                       type: IFRecentFileTypeSaveEPubs];
         [createInfoArray addObject: info];
 
         // --- Items that copy sample documents ---
@@ -311,17 +327,17 @@ static IFWelcomeWindow* sharedWindow = nil;
         sampleInfoArray = [[NSMutableArray alloc] init];
         icon = [NSImage imageNamed: @"informfile"];
 
-        NSString* pathStart = [[NSBundle mainBundle] resourcePath];
+        NSString* pathStart = [NSBundle mainBundle].resourcePath;
         pathStart = [pathStart stringByAppendingPathComponent: @"App"];
         pathStart = [pathStart stringByAppendingPathComponent: @"Samples"];
 
-        for( int index = 0; index < [sampleArray count]; index += 2 ) {
+        for( int index = 0; index < sampleArray.count; index += 2 ) {
             NSString* path = [pathStart stringByAppendingPathComponent: sampleArray[index + 1]];
             info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: sampleArray[index]]
                                                           image: icon
                                                             url: [NSURL fileURLWithPath: path
                                                                             isDirectory: YES]
-                                                           type: IFRecentCopySample];
+                                                           type: IFRecentFileTypeCopySample];
             [sampleInfoArray addObject: info];
         }
 
@@ -330,7 +346,7 @@ static IFWelcomeWindow* sharedWindow = nil;
         info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Link to IFDB"]
                                                       image: icon
                                                         url: [NSURL URLWithString:@"http://ifdb.tads.org/search?sortby=new&newSortBy.x=0&newSortBy.y=0&searchfor=tag%3A+i7+source+available"]
-                                                       type: IFRecentWebsiteLink];
+                                                       type: IFRecentFileTypeWebsiteLink];
         [sampleInfoArray addObject: info];
 	}
 
@@ -339,22 +355,22 @@ static IFWelcomeWindow* sharedWindow = nil;
 
 - (void) windowDidLoad {
 	// Center the window on whichever screen it will appear on
-	NSRect winFrame = [[self window] frame];
+	NSRect winFrame = self.window.frame;
 	
-	NSScreen* winScreen = [[self window] screen];
-	NSRect screenFrame = [winScreen frame];
+	NSScreen* winScreen = self.window.screen;
+	NSRect screenFrame = winScreen.frame;
 	
 	winFrame.origin.x = (screenFrame.size.width - winFrame.size.width)/2 + screenFrame.origin.x;
 	winFrame.origin.y = (screenFrame.size.height - winFrame.size.height)/2 + screenFrame.origin.y;
 	
-	[[self window] setFrame: winFrame
+	[self.window setFrame: winFrame
 					display: NO];
 	
 	// This window shouldn't 'float' above the other windows like most panels
-	[[self window] setLevel: NSNormalWindowLevel];
+	self.window.level = NSNormalWindowLevel;
 
     // Don't darken the image when clicked, show the alternate image
-    [[imageButton cell] setHighlightsBy: NSContentsCellMask];
+    [imageButton.cell setHighlightsBy: NSContentsCellMask];
 }
 
 #pragma mark - Actions
@@ -387,16 +403,17 @@ static IFWelcomeWindow* sharedWindow = nil;
                                  @"inform:/AdviceCredits.html"];
 
     NSString* urlString = nil;
-    NSInteger index = [(NSView *)sender tag];
-    if((index >= 0) && ( index < [linkArray count])) {
+    NSInteger index = ((NSView *)sender).tag;
+    if((index >= 0) && ( index < linkArray.count)) {
         urlString = linkArray[index];
         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: urlString]];
     } else {
-        index -= [linkArray count];
+        index -= linkArray.count;
         // Is it a link for advice?
-        if((index >= 0) && ( index < [adviceLinkArray count])) {
+        if((index >= 0) && ( index < adviceLinkArray.count)) {
             urlString = adviceLinkArray[index];
-            [[webView mainFrame] loadRequest: [[NSURLRequest alloc] initWithURL: [NSURL URLWithString:urlString]]];
+            NSURLRequest* request = [NSURLRequest requestWithURL: [NSURL URLWithString: urlString]];
+            [adviceWebView loadRequest: request];
             [self showWebView];
         }
     }
@@ -406,13 +423,13 @@ static IFWelcomeWindow* sharedWindow = nil;
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     if( tableView == recentDocumentsTableView ) {
-        return [recentInfoArray count];
+        return recentInfoArray.count;
     }
     if( tableView == createDocumentsTableView ) {
-        return [createInfoArray count];
+        return createInfoArray.count;
     }
     if( tableView == sampleDocumentsTableView ) {
-        return [sampleInfoArray count];
+        return sampleInfoArray.count;
     }
     
     return 0;
@@ -445,64 +462,64 @@ static IFWelcomeWindow* sharedWindow = nil;
         info = sampleInfoArray[row];
     }
     IFRecentFileCell* cCell = (IFRecentFileCell *) cell;
-    cCell.image    = info.image;
     cCell.title    = info.title;
+    [cCell setImage: info.image];
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification {
-    if( [aNotification object] == recentDocumentsTableView ) {
-        NSInteger row = [recentDocumentsTableView selectedRow];
+    if( aNotification.object == recentDocumentsTableView ) {
+        NSInteger row = recentDocumentsTableView.selectedRow;
 
         if( row >= 0 ) {
             [recentDocumentsTableView deselectAll: self];
 
             IFRecentFileCellInfo* info = recentInfoArray[row];
-            if( info.type == IFRecentOpen ) {
+            if( info.type == IFRecentFileTypeOpen ) {
                 [NSApp sendAction: @selector(openDocument:)
                                to: nil
                              from: self];
-            } else if ( info.type == IFRecentFile ) {
+            } else if ( info.type == IFRecentFileTypeFile ) {
                 NSDocumentController* docControl = [NSDocumentController sharedDocumentController];
                 [docControl openDocumentWithContentsOfURL: info.url
                                                   display: YES
                                         completionHandler: ^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable error) {
                     //Do nothing
                 }];
-            }            
+            }
         }
-    } else if( [aNotification object] == createDocumentsTableView ) {
-        NSInteger row = [createDocumentsTableView selectedRow];
+    } else if( aNotification.object == createDocumentsTableView ) {
+        NSInteger row = createDocumentsTableView.selectedRow;
         
         if( row >= 0 ) {
             [createDocumentsTableView deselectAll: self];
             
             IFRecentFileCellInfo* info = createInfoArray[row];
-            if( info.type == IFRecentCreateProject ) {
+            if( info.type == IFRecentFileTypeCreateProject ) {
                 // Create new project
                 [NSApp sendAction: @selector(newProject:)
                                to: nil
                              from: self];
-            } else if( info.type == IFRecentCreateExtension ) {
+            } else if( info.type == IFRecentFileTypeCreateExtension ) {
                 // Create new extension
                 [NSApp sendAction: @selector(newExtension:)
                                to: nil
                              from: self];
                 [[self class] hideWelcomeWindow];
-            } else if( info.type == IFRecentSaveEPubs ) {
+            } else if( info.type == IFRecentFileTypeSaveEPubs ) {
                 // Save epubs
                 [NSApp sendAction: @selector(exportToEPub:)
                                to: nil
                              from: self];
             }
         }
-    } else if( [aNotification object] == sampleDocumentsTableView ) {
-        NSInteger row = [sampleDocumentsTableView selectedRow];
+    } else if( aNotification.object == sampleDocumentsTableView ) {
+        NSInteger row = sampleDocumentsTableView.selectedRow;
         
         if( row >= 0 ) {
             [sampleDocumentsTableView deselectAll: self];
             
             IFRecentFileCellInfo* info = sampleInfoArray[row];
-            if( info.type == IFRecentCopySample ) {
+            if( info.type == IFRecentFileTypeCopySample ) {
                 NSURL* source = info.url;
 
                 NSOpenPanel * chooseDirectoryPanel = [NSOpenPanel openPanel];
@@ -510,22 +527,22 @@ static IFWelcomeWindow* sharedWindow = nil;
                 [chooseDirectoryPanel setCanChooseDirectories:YES];
                 [chooseDirectoryPanel setCanCreateDirectories:YES];
                 [chooseDirectoryPanel setAllowsMultipleSelection:NO];
-                [chooseDirectoryPanel setTitle: [IFUtility localizedString:@"Choose a directory to save into"]];
-                [chooseDirectoryPanel setPrompt: [IFUtility localizedString:@"Choose Directory"]];
+                chooseDirectoryPanel.title = [IFUtility localizedString:@"Choose a directory to save into"];
+                chooseDirectoryPanel.prompt = [IFUtility localizedString:@"Choose Directory"];
 
-                [chooseDirectoryPanel beginSheetModalForWindow: [sharedWindow window]
+                [chooseDirectoryPanel beginSheetModalForWindow: sharedWindow.window
                                              completionHandler: ^(NSInteger result)
                  {
                      if (result == NSModalResponseOK) {
-                         NSURL* destination = [chooseDirectoryPanel URL];
+                         NSURL* destination = chooseDirectoryPanel.URL;
 
                          // Append last path component of source onto destination
-                         destination = [destination URLByAppendingPathComponent: [source lastPathComponent]];
-                         [(IFAppDelegate*)[NSApp delegate] doCopyProject: source
+                         destination = [destination URLByAppendingPathComponent: source.lastPathComponent];
+                         [(IFAppDelegate*)NSApp.delegate doCopyProject: source
                                                                       to: destination];
                      }
                  }];
-            } else if( info.type == IFRecentWebsiteLink ) {
+            } else if( info.type == IFRecentFileTypeWebsiteLink ) {
                 [[NSWorkspace sharedWorkspace] openURL: info.url];
             }
         }
@@ -538,10 +555,10 @@ static IFWelcomeWindow* sharedWindow = nil;
   decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
                   decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     if (navigationAction.navigationType == WKNavigationTypeLinkActivated) {
-        NSURL* url = [navigationAction.request URL];
+        NSURL* url = (navigationAction.request).URL;
 
         // Open extenal links in separate default browser app
-        if (([[url scheme] isEqualTo: @"http"]) || ([[url scheme] isEqualTo: @"https"])) {
+        if (([url.scheme isEqualTo: @"http"]) || ([url.scheme isEqualTo: @"https"])) {
             decisionHandler(WKNavigationActionPolicyCancel);
             [[NSWorkspace sharedWorkspace] openURL:url];
             return;

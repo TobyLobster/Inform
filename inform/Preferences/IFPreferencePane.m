@@ -22,8 +22,8 @@
 	self = [super init];
 	
 	if (self) {
-		[NSBundle oldLoadNibNamed: nibName
-                            owner: self];
+		[NSBundle customLoadNib: nibName
+                          owner: self];
 	}
 	
 	return self;
@@ -51,7 +51,7 @@
 }
 
 - (CGFloat) minHeight {
-    return [self maxHeight];
+    return self.maxHeight;
 }
 
 @synthesize preferenceView;

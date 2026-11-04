@@ -20,7 +20,7 @@
 }
 
 -(void) createUUID {
-    if ([bundleDirectory fileWrappers][@"uuid.txt"] == nil) {
+    if (bundleDirectory.fileWrappers[@"uuid.txt"] == nil) {
         // Generate a UUID string
         [bundleDirectory addRegularFileWithContents: [NSUUID.UUID.UUIDString dataUsingEncoding: NSUTF8StringEncoding]
                                   preferredFilename: @"uuid.txt"];
@@ -41,9 +41,9 @@
         srcDir   = [[NSFileWrapper alloc] initDirectoryWithFileWrappers: @{}];
         bldDir   = [[NSFileWrapper alloc] initDirectoryWithFileWrappers: @{}];
         indexDir = [[NSFileWrapper alloc] initDirectoryWithFileWrappers: @{}];
-        [srcDir   setPreferredFilename: @"Source"];
-        [bldDir   setPreferredFilename: @"Build"];
-        [indexDir setPreferredFilename: @"Index"];
+        srcDir.preferredFilename = @"Source";
+        bldDir.preferredFilename = @"Build";
+        indexDir.preferredFilename = @"Index";
 
         if (srcDir == nil || bldDir == nil) {
             
@@ -66,30 +66,30 @@
 - (instancetype) initWithFileWrapper: (NSFileWrapper*) fileWrapper {
     self = [super init];
     if( self ) {
-        if( ![fileWrapper isDirectory] ) {
+        if( !fileWrapper.directory ) {
             return nil;
         }
 
         bundleDirectory = fileWrapper;
-        sourceDirectory = [fileWrapper fileWrappers][@"Source"];
-        buildDirectory =  [fileWrapper fileWrappers][@"Build"];
+        sourceDirectory = fileWrapper.fileWrappers[@"Source"];
+        buildDirectory =  fileWrapper.fileWrappers[@"Build"];
         if( !sourceDirectory ) {
             sourceDirectory = [[NSFileWrapper alloc] initDirectoryWithFileWrappers: @{}];
-            [sourceDirectory setPreferredFilename: @"Source"];
+            sourceDirectory.preferredFilename = @"Source";
         }
         if( !buildDirectory ) {
             buildDirectory  = [[NSFileWrapper alloc] initDirectoryWithFileWrappers: @{}];
-            [buildDirectory  setPreferredFilename: @"Build"];
+            buildDirectory.preferredFilename = @"Build";
         }
 
         [bundleDirectory addFileWrapper:sourceDirectory];
         [bundleDirectory addFileWrapper:buildDirectory];
 
-        if( ![sourceDirectory isDirectory] ) {
+        if( !sourceDirectory.directory ) {
             sourceDirectory = nil;
         }
 
-        if( ![buildDirectory isDirectory] ) {
+        if( !buildDirectory.directory ) {
             buildDirectory = nil;
         }
 
@@ -112,32 +112,33 @@
 
 - (void) setSettings: (IFCompilerSettings*) settings {
     // Add the settings plist to the wrapper
-    [bundleDirectory removeFileWrapper: [bundleDirectory fileWrappers][@"Settings.plist"]];
+    [bundleDirectory removeFileWrapper: bundleDirectory.fileWrappers[@"Settings.plist"]];
 	
-	NSData* settingsData = [settings currentPlist];
+	NSData* settingsData = settings.currentPlist;
 
     [bundleDirectory addRegularFileWithContents: settingsData
                               preferredFilename: @"Settings.plist"];
 
 	// Delete the old-style file, if it exists
-	NSFileWrapper* settingsFile = [bundleDirectory fileWrappers][@"Settings"];
+	NSFileWrapper* settingsFile = bundleDirectory.fileWrappers[@"Settings"];
 	if (settingsFile) [bundleDirectory removeFileWrapper: settingsFile];
 }
 
 - (IFCompilerSettings*) settings {
-    NSFileWrapper* settingsFile = [bundleDirectory fileWrappers][@"Settings.plist"];
+    NSFileWrapper* settingsFile = bundleDirectory.fileWrappers[@"Settings.plist"];
 
 	if (settingsFile == nil) {
 		// Old-style loading
-		settingsFile = [bundleDirectory fileWrappers][@"Settings"];
+		settingsFile = bundleDirectory.fileWrappers[@"Settings"];
 
 		if (settingsFile == nil) {
 			return nil;
 		}
 
-		NSData* settingsData = [settingsFile regularFileContents];
-		NSUnarchiver* theCoder = [[NSUnarchiver alloc] initForReadingWithData:
-			settingsData];
+		NSData* settingsData = settingsFile.regularFileContents;
+        NSError* error;
+        NSKeyedUnarchiver* theCoder = [[NSKeyedUnarchiver alloc] initForReadingFromData: settingsData
+                                                                                  error: &error];
 
 		// Decode the file
 		NSString* creator = [theCoder decodeObject];
@@ -156,7 +157,7 @@
 		// New-style loading
 		IFCompilerSettings* newSettings = [[IFCompilerSettings alloc] init];
 		
-		[newSettings restoreSettingsFromPlist: [settingsFile regularFileContents]];
+		[newSettings restoreSettingsFromPlist: settingsFile.regularFileContents];
 		
 		return newSettings;
 	}
@@ -164,10 +165,10 @@
 
 - (void) clearIndex {
 	// Delete the contents of the index file wrapper
-	NSFileWrapper* index = [bundleDirectory fileWrappers][@"Index"];
+	NSFileWrapper* index = bundleDirectory.fileWrappers[@"Index"];
 	
-	for(NSString* file in [[index fileWrappers] copy]) {
-		[index removeFileWrapper: [index fileWrappers][file]];
+	for(NSString* file in [index.fileWrappers copy]) {
+		[index removeFileWrapper: index.fileWrappers[file]];
 	}
 }
 
@@ -176,13 +177,13 @@
 }
 
 - (NSFileWrapper*) syntaxDirectory {
-    return [bundleDirectory fileWrappers][@"Syntax"];
+    return bundleDirectory.fileWrappers[@"Syntax"];
 }
 
 // Load the notes (if present)
 - (NSTextStorage *) loadNotes {
-    NSFileWrapper* noteWrapper = [bundleDirectory fileWrappers][@"notes.rtf"];
-    NSData* data = [noteWrapper regularFileContents];
+    NSFileWrapper* noteWrapper = bundleDirectory.fileWrappers[@"notes.rtf"];
+    NSData* data = noteWrapper.regularFileContents;
     if (data != nil) {
         return [[NSTextStorage alloc] initWithRTF: data
                                 documentAttributes: nil];
@@ -192,13 +193,13 @@
 
 -(BOOL) loadIntoSkein: (IFSkein *) skein
              fromFile: (NSString*) skeinFilename {
-    NSFileWrapper* skeinWrapper = [bundleDirectory fileWrappers][skeinFilename];
-    NSData* data = [skeinWrapper regularFileContents];
+    NSFileWrapper* skeinWrapper = bundleDirectory.fileWrappers[skeinFilename];
+    NSData* data = skeinWrapper.regularFileContents;
     if (data != nil) {
         [skein parseXmlData: data];
 
         // Set the root command to the title of the project
-        skein.rootItem.command = [[bundleDirectory.preferredFilename lastPathComponent] stringByDeletingPathExtension];
+        skein.rootItem.command = (bundleDirectory.preferredFilename).lastPathComponent.stringByDeletingPathExtension;
 
         [skein setActiveItem: nil];
         [skein postSkeinChangedWithAnimate: NO
@@ -221,13 +222,13 @@
     }
     else {
         // Load all skeins for an extension project
-        NSDictionary* wrappers = [bundleDirectory fileWrappers];
+        NSDictionary* wrappers = bundleDirectory.fileWrappers;
         for(int alphabetCount = 0; alphabetCount < 26; alphabetCount++ ) {
             BOOL found = NO;
             NSString* fileToFind = [NSString stringWithFormat:@"Skein%c.skein", 'A' + alphabetCount];
             for( NSString* key in wrappers ) {
                 NSFileWrapper* wrapper = wrappers[key];
-                if( [wrapper isRegularFile] ) {
+                if( wrapper.regularFile ) {
                     if( [wrapper.filename isEqualToStringCaseInsensitive: fileToFind] ) {
                         skein = [[IFSkein alloc] initWithProject: project];
                         if( [self loadIntoSkein: skein fromFile: fileToFind] ) {
@@ -248,7 +249,7 @@
         skein = [[IFSkein alloc] initWithProject: project];
 
         // Set the root command to the title of the project
-        skein.rootItem.command = [[bundleDirectory.preferredFilename lastPathComponent] stringByDeletingPathExtension];
+        skein.rootItem.command = (bundleDirectory.preferredFilename).lastPathComponent.stringByDeletingPathExtension;
         
         [skeins addObject: skein];
     }
@@ -256,11 +257,11 @@
 
 -(NSMutableArray*) loadWatchpoints {
     // Load the watchpoints file (if present)
-    NSFileWrapper* watchWrapper = [bundleDirectory fileWrappers][@"Watchpoints.plist"];
-    if (watchWrapper != nil && [watchWrapper regularFileContents] != nil) {
+    NSFileWrapper* watchWrapper = bundleDirectory.fileWrappers[@"Watchpoints.plist"];
+    if (watchWrapper != nil && watchWrapper.regularFileContents != nil) {
         NSError* propError = nil;
         NSPropertyListFormat format = NSPropertyListXMLFormat_v1_0;
-        NSArray* array = [NSPropertyListSerialization propertyListWithData: [watchWrapper regularFileContents]
+        NSArray* array = [NSPropertyListSerialization propertyListWithData: watchWrapper.regularFileContents
                                                           options: NSPropertyListImmutable
                                                                     format: &format
                                                           error: &propError];
@@ -271,11 +272,11 @@
 
 -(NSMutableArray*) loadBreakpoints {
     // Load the breakpoints file (if present)
-    NSFileWrapper* breakWrapper = [bundleDirectory fileWrappers][@"Breakpoints.plist"];
-    if (breakWrapper != nil && [breakWrapper regularFileContents] != nil) {
+    NSFileWrapper* breakWrapper = bundleDirectory.fileWrappers[@"Breakpoints.plist"];
+    if (breakWrapper != nil && breakWrapper.regularFileContents != nil) {
         NSError* propError = nil;
         NSPropertyListFormat format = NSPropertyListXMLFormat_v1_0;
-        NSArray* array = [NSPropertyListSerialization propertyListWithData: [breakWrapper regularFileContents]
+        NSArray* array = [NSPropertyListSerialization propertyListWithData: breakWrapper.regularFileContents
                                                                    options: NSPropertyListImmutable
                                                                     format: &format
                                                                      error: &propError];
@@ -285,28 +286,28 @@
 }
 
 -(NSString*) loadUUID {
-    NSFileWrapper* uuidWrapper = [bundleDirectory fileWrappers][@"uuid.txt"];
-    if (uuidWrapper != nil && [uuidWrapper regularFileContents] != nil) {
+    NSFileWrapper* uuidWrapper = bundleDirectory.fileWrappers[@"uuid.txt"];
+    if (uuidWrapper != nil && uuidWrapper.regularFileContents != nil) {
 
-        NSString* uuidString = [NSString stringWithUTF8String:[[uuidWrapper regularFileContents] bytes]];
+        NSString* uuidString = [NSString stringWithUTF8String:uuidWrapper.regularFileContents.bytes];
         return uuidString;
     }
     return nil;
 }
 
 -(void) setPreferredFilename:(NSString*) name {
-    [bundleDirectory setPreferredFilename:name];
+    bundleDirectory.preferredFilename = name;
 }
 
 -(void) replaceSourceDirectoryWrapper: (NSFileWrapper*) newWrapper {
     // Replace the source file wrapper
-    [bundleDirectory removeFileWrapper: [bundleDirectory fileWrappers][@"Source"]];
+    [bundleDirectory removeFileWrapper: bundleDirectory.fileWrappers[@"Source"]];
     [bundleDirectory addFileWrapper: newWrapper];
 }
 
 -(void) replaceIndexDirectoryWrapper: (NSFileWrapper*) newWrapper {
     // Replace the source file wrapper
-    [bundleDirectory removeFileWrapper: [bundleDirectory fileWrappers][@"Index"]];
+    [bundleDirectory removeFileWrapper: bundleDirectory.fileWrappers[@"Index"]];
     if( newWrapper != nil ) {
         [bundleDirectory addFileWrapper: newWrapper];
     }
@@ -314,20 +315,20 @@
 
 -(void) replaceWrapper: (NSFileWrapper*) newWrapper {
     // Remove all old items
-    while ([bundleDirectory fileWrappers].count > 0 ) {
-        NSFileWrapper* wrapper = [[bundleDirectory fileWrappers] allValues][0];
+    while (bundleDirectory.fileWrappers.count > 0 ) {
+        NSFileWrapper* wrapper = bundleDirectory.fileWrappers.allValues[0];
         [bundleDirectory removeFileWrapper: wrapper];
     }
 
     // Add new items
-    NSDictionary* itemsToAdd = [newWrapper fileWrappers];
+    NSDictionary* itemsToAdd = newWrapper.fileWrappers;
     for( NSString* key in itemsToAdd ) {
         [bundleDirectory addFileWrapper: itemsToAdd[key]];
     }
 }
 
 -(void) writeNotes:(NSData*) noteData {
-    [bundleDirectory removeFileWrapper: [bundleDirectory fileWrappers][@"notes.rtf"]];
+    [bundleDirectory removeFileWrapper: bundleDirectory.fileWrappers[@"notes.rtf"]];
     [bundleDirectory addRegularFileWithContents: noteData
                               preferredFilename: @"notes.rtf"];
 }
@@ -337,7 +338,7 @@
     NSString* fullXMLString = [@"<?xml version=\"1.0\"?>\n" stringByAppendingString: xmlString];
     NSData* skeinData = [fullXMLString dataUsingEncoding: NSUTF8StringEncoding];
     
-	[bundleDirectory removeFileWrapper: [bundleDirectory fileWrappers][toFilename]];
+	[bundleDirectory removeFileWrapper: bundleDirectory.fileWrappers[toFilename]];
 	[bundleDirectory addRegularFileWithContents: skeinData
                               preferredFilename: toFilename];
 }
@@ -351,22 +352,22 @@
                 break;
             }
             NSString* toFilename = [NSString stringWithFormat:@"Skein%c.skein", 'A' + alphabetCount];
-            [self writeSkein: [skein getXMLString] toFilename: toFilename];
+            [self writeSkein: skein.XMLString toFilename: toFilename];
             alphabetCount++;
         }
     }
     else {
         // Set the root command to the title of the project
-        (skeins[0]).rootItem.command = [[bundleDirectory.preferredFilename lastPathComponent] stringByDeletingPathExtension];
-        [self writeSkein: [skeins[0] getXMLString] toFilename: @"Skein.skein"];
+        (skeins[0]).rootItem.command = (bundleDirectory.preferredFilename).lastPathComponent.stringByDeletingPathExtension;
+        [self writeSkein: (skeins[0]).XMLString toFilename: @"Skein.skein"];
     }
 }
 
 -(void) writeWatchpoints:(NSArray *) watchExpressions {
     // The watchpoints file
-    [bundleDirectory removeFileWrapper: [bundleDirectory fileWrappers][@"Watchpoints.plist"]];
+    [bundleDirectory removeFileWrapper: bundleDirectory.fileWrappers[@"Watchpoints.plist"]];
 
-    if ([watchExpressions count] > 0) {
+    if (watchExpressions.count > 0) {
         NSData* watchData = [NSPropertyListSerialization dataWithPropertyList: watchExpressions
                                                                        format: NSPropertyListXMLFormat_v1_0
                                                                       options: 0
@@ -379,9 +380,9 @@
 
 -(void) writeBreakpoints:(NSArray *) breakpoints {
     // The breakpoints file
-    [bundleDirectory removeFileWrapper: [bundleDirectory fileWrappers][@"Breakpoints.plist"]];
+    [bundleDirectory removeFileWrapper: bundleDirectory.fileWrappers[@"Breakpoints.plist"]];
 
-    if ([breakpoints count] > 0) {
+    if (breakpoints.count > 0) {
         NSData* breakData = [NSPropertyListSerialization dataWithPropertyList: breakpoints
                                                                        format: NSPropertyListXMLFormat_v1_0
                                                                       options: 0
@@ -394,42 +395,48 @@
 
 - (void) cleanOutUnnecessaryFiles: (BOOL) alsoCleanIndex {
 	// Clean out the build folder from the project
-	NSFileWrapper* build = [bundleDirectory fileWrappers][@"Build"];
+	NSFileWrapper* build = bundleDirectory.fileWrappers[@"Build"];
 	if (build) [bundleDirectory removeFileWrapper: build];
 	
 	// Replace it with an empty directory
 	build = [[NSFileWrapper alloc] initDirectoryWithFileWrappers: @{}];
-	[build setPreferredFilename: @"Build"];
+	build.preferredFilename = @"Build";
 	[bundleDirectory addFileWrapper: build];
 	
 	// There may also be a 'Temp' directory: remove that too (no need to recreate this)
-	NSFileWrapper* temp = [bundleDirectory fileWrappers][@"Temp"];
+	NSFileWrapper* temp = bundleDirectory.fileWrappers[@"Temp"];
 	if (temp) [bundleDirectory removeFileWrapper: temp];
 
 	// Clean out the index folder from the project
 	if (alsoCleanIndex) {
-		NSFileWrapper* index = [bundleDirectory fileWrappers][@"Index"];
+		NSFileWrapper* index = bundleDirectory.fileWrappers[@"Index"];
 		if (index) [bundleDirectory removeFileWrapper: index];
 		
 		// Replace it with an empty directory
 		index = [[NSFileWrapper alloc] initDirectoryWithFileWrappers: @{}];
-		[index setPreferredFilename: @"Index"];
+		index.preferredFilename = @"Index";
 		[bundleDirectory addFileWrapper: index];
 	}
 }
 
 -(NSString*) filename {
-    return [bundleDirectory filename];
+    return bundleDirectory.filename;
 }
 
 -(void) setFilename:(NSString*) newFilename {
-    [bundleDirectory setFilename: newFilename];
+    bundleDirectory.filename = newFilename;
 }
 
 -(BOOL) write {
-    return [bundleDirectory writeToFile: [self filename]
-                             atomically: YES
-                        updateFilenames: YES];
+    // Should use
+    // - (BOOL)writeToURL:(NSURL *)url options:(NSFileWrapperWritingOptions)options originalContentsURL:(nullable NSURL *)originalContentsURL error:(NSError **)outError
+    NSError *error;
+    NSURL* writeToURL = [[NSURL alloc] initFileURLWithPath: self.filename];
+
+    return [bundleDirectory writeToURL: writeToURL
+                               options: NSFileWrapperWritingAtomic | NSFileWrapperWritingWithNameUpdating
+                   originalContentsURL: nil
+                                 error: &error];
 }
 
 - (void) DEBUGverifyWrapper: (NSDictionary*) dict
@@ -438,12 +445,12 @@
         NSString* fullPath = [filepath stringByAppendingPathComponent: key];
         //NSLog(@"key=%@\n", fullPath);
         NSFileWrapper* wrapper = dict[key];
-        if( [wrapper isDirectory] ) {
-            [self DEBUGverifyWrapper: [wrapper fileWrappers]
+        if( wrapper.directory ) {
+            [self DEBUGverifyWrapper: wrapper.fileWrappers
                             filepath: fullPath];
         }
         else {
-            NSData* data = [wrapper regularFileContents];
+            NSData* data = wrapper.regularFileContents;
             if( data == nil ) {
                 NSLog(@"Error loading %@\n", fullPath);
             }
@@ -452,11 +459,11 @@
 }
 
 - (void) DEBUGverifyWrapper {
-    [self DEBUGverifyWrapper: [bundleDirectory fileWrappers] filepath: [bundleDirectory filename]];
+    [self DEBUGverifyWrapper: bundleDirectory.fileWrappers filepath: bundleDirectory.filename];
 }
 
 -(NSFileWrapper*) buildWrapper {
-    return [bundleDirectory fileWrappers][@"Build"];
+    return bundleDirectory.fileWrappers[@"Build"];
 }
 
 @end

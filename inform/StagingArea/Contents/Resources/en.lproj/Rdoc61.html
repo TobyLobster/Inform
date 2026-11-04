@@ -84,31 +84,31 @@
     <p class="sectionheading">§7.15. Goal-Seeking Characters</p>
     <p>Goal-seeking characters are the most advanced IF life-form: they want to achieve specific outcomes, and they are able to work out plans of approach in order to bring these things about. They walk to rooms, open containers to search for things, use keys and tools, and ask leading questions in conversation.</p>
     <p>A really advanced implementation of goal-seeking behavior is beyond the scope of our examples (though extensions exist that treat the problem more thoroughly). We can accomplish a surprising amount without heavy customization, though, if we keep in mind three points of technique:</p>
-    <p>First: it helps to think abstractly and to create broadly-defined actions as a first step to more specific tasks. For instance, a character's goal might be to eat some dinner. He'd be equally satisfied with spaghetti carbonara or with braised lamb shanks, but he needs to figure out which is available. So we might have our every turn rule (or whatever we're using to activate the character) say something like</p>
-    <!--START CODE "c13344"-->
-    <blockquote class="code"><p class="quoted"><a id="c13344"></a>Every turn when Clark is hungry:
+    <p>First: it helps to think abstractly and to create broadly-defined actions as a first step to more specific tasks. For instance, a character's goal might be to eat some dinner. They'd be equally satisfied with spaghetti carbonara or with braised lamb shanks, but they need to figure out which is available. So we might have our every turn rule (or whatever we're using to activate the character) say something like</p>
+    <!--START CODE "c13372"-->
+    <blockquote class="code"><p class="quoted"><a id="c13372"></a>Every turn when Clark is hungry:
     <br>
     &#160;&#160;&#160;&#160;try Clark dining.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Dining would then be an action we've defined specially, which looks around Clark's environment for suitable food; if it finds food, it issues a</p>
-    <!--START CODE "c13345"-->
-    <blockquote class="code"><p class="quoted"><a id="c13345"></a>try Clark eating the suitable food;
+    <!--START CODE "c13373"-->
+    <blockquote class="code"><p class="quoted"><a id="c13373"></a>try Clark eating the suitable food;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>command; but if not, it sends Clark off to look for something likely. <span class="boldface">The Man of Steel</span> demonstrates the use of this.</p>
     <p>Second: though it doesn't actually contribute to the goal-seeking per se, lively reporting brings characters' generated behavior to life.</p>
-    <!--START CODE "c13346"-->
-    <blockquote class="code"><p class="quoted"><a id="c13346"></a>Clark eats a donut.
+    <!--START CODE "c13374"-->
+    <blockquote class="code"><p class="quoted"><a id="c13374"></a>Clark eats a donut.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>doesn't characterize Clark very much, even though the eating may be part of a subtle, intelligent plan to seduce Lois Lane. We'll do better if we replace a lot of the character reporting rules: to that end, see the example <span class="boldface">The Man of Steel Excuses Himself</span>.</p>
     <p>Third: goal-seeking characters notice when something is in the way of the action they want to perform. When that happens, they form a plan about how to remove the obstacle. We've already seen this kind of implementation on the player's behalf: the player will pick up items before eating them, say. We can use Before rules to do similar things for other characters, as in</p>
-    <!--START CODE "c13347"-->
-    <blockquote class="code"><p class="quoted"><a id="c13347"></a>Before Clark eating the wrapped candy:
+    <!--START CODE "c13375"-->
+    <blockquote class="code"><p class="quoted"><a id="c13375"></a>Before Clark eating the wrapped candy:
     <br>
     &#160;&#160;&#160;&#160;try Clark unwrapping the candy;
     <br>
@@ -116,10 +116,10 @@
     </p>
     </blockquote>
     <!--END CODE-->
-    <p>Here we've set things up so that if Clark tries to eat the wrapped candy, he'll be interrupted by this other command; and if his unwrapping-the-candy attempt fails, he won't go on and eat the thing. <span class="boldface">IQ Test</span> demonstrates a character who shows this kind of planning intelligence.</p>
+    <p>Here we've set things up so that if Clark tries to eat the wrapped candy, he'll be interrupted by this other command; and if his unwrapping-the-candy attempt fails, he won't go on to eat the thing. <span class="boldface">IQ Test</span> demonstrates a character who shows this kind of planning intelligence.</p>
     <p>Because before-rules chain neatly, we can trigger whole plans of behavior if we have a sensible set, as in</p>
-    <!--START CODE "c13348"-->
-    <blockquote class="code"><p class="quoted"><a id="c13348"></a>Before someone entering a closed container: try the person asked opening the noun.
+    <!--START CODE "c13376"-->
+    <blockquote class="code"><p class="quoted"><a id="c13376"></a>Before someone entering a closed container: try the person asked opening the noun.
     <br>
     Before someone opening a locked container: try the person asked unlocking the noun.
     <br>
@@ -134,65 +134,65 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "189: IQ Test" "e272"-->
-        <a id="e272"></a><table class="egcue">
+        <!--START EXAMPLE "189: IQ Test" "e193"-->
+        <a id="e193"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example272'); return false;"><b>189</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example193'); return false;"><b>189</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example272'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">IQ Test</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example193'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">IQ Test</span></b></a><br>
                     Introducing Ogg, a person who will unlock and open a container when the player tells him to get something inside.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc180.html#e272"><i>WI</i></a></div>
+                        <a href="doc180.html#e193"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example272" style="display: none;">
+        <div class="egpanel" id="example193" style="display: none;">
             <p>We have already seen how Before... rules can generate implicit actions for the player, so that the player will, for instance, open doors before trying to walk through them. The same can be done for characters other than the player; so for instance:</p>
-            <!--START CODE "c13349_272"-->
-            <blockquote class="code"><p class="quoted"><a id="c13349_272"></a><a href="javascript:pasteCode(' [=0x0022=]IQ Test[=0x0022=][=0x000A=][=0x000A=]The Donut Shop is a room. [=0x0022=]Vibrantly decorated in donut colors: pink, brown, and cream.[=0x0022=][=0x000A=][=0x000A=]Ogg is a man in the Donut Shop. [=0x0022=]Ogg is slumped in the corner[if Ogg carries something] with [a list of things carried by Ogg][end if]. He wears a nametag which says [=0x0027=]HELLO MY NAME IS OG.[=0x0027=][=0x0022=] Understand [=0x0022=]og[=0x0022=] as Ogg. Ogg wears a nametag. The description of the nametag is [=0x0022=]Sadly misspelled.[=0x0022=][=0x000A=][=0x000A=]The Donut Shop contains a transparent closed openable locked lockable container called a case. The case contains some cake donuts. The donuts are edible.[=0x000A=][=0x000A=]The matching key of the case is a silver key. The silver key is carried by Ogg.[=0x000A=][=0x000A=]A persuasion rule for asking someone to try doing something:[=0x000A=][=0x0009=]persuasion succeeds.[=0x000A=][=0x000A=]Before someone opening a locked thing (called the sealed chest):[=0x000A=][=0x0009=]if the person asked is carrying the matching key of the sealed chest, try the person asked unlocking the sealed chest with the matching key of the sealed chest;[=0x000A=][=0x0009=]if the sealed chest is locked, stop the action.[=0x000A=][=0x000A=]Before someone taking something which is in a closed container (called the shut chest):[=0x000A=][=0x0009=]try the person asked opening the shut chest;[=0x000A=][=0x0009=]if the shut chest is closed, stop the action.[=0x000A=][=0x000A=]The block giving rule is not listed in the check giving it to rules.[=0x000A=][=0x000A=]Test me with [=0x0022=]open case / get donuts / og, get donuts / og, give me the donuts / eat donuts[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject(' [=0x0022=]IQ Test[=0x0022=][=0x000A=][=0x000A=]The Donut Shop is a room. [=0x0022=]Vibrantly decorated in donut colors: pink, brown, and cream.[=0x0022=][=0x000A=][=0x000A=]Ogg is a man in the Donut Shop. [=0x0022=]Ogg is slumped in the corner[if Ogg carries something] with [a list of things carried by Ogg][end if]. He wears a nametag which says [=0x0027=]HELLO MY NAME IS OG.[=0x0027=][=0x0022=] Understand [=0x0022=]og[=0x0022=] as Ogg. Ogg wears a nametag. The description of the nametag is [=0x0022=]Sadly misspelled.[=0x0022=][=0x000A=][=0x000A=]The Donut Shop contains a transparent closed openable locked lockable container called a case. The case contains some cake donuts. The donuts are edible.[=0x000A=][=0x000A=]The matching key of the case is a silver key. The silver key is carried by Ogg.[=0x000A=][=0x000A=]A persuasion rule for asking someone to try doing something:[=0x000A=][=0x0009=]persuasion succeeds.[=0x000A=][=0x000A=]Before someone opening a locked thing (called the sealed chest):[=0x000A=][=0x0009=]if the person asked is carrying the matching key of the sealed chest, try the person asked unlocking the sealed chest with the matching key of the sealed chest;[=0x000A=][=0x0009=]if the sealed chest is locked, stop the action.[=0x000A=][=0x000A=]Before someone taking something which is in a closed container (called the shut chest):[=0x000A=][=0x0009=]try the person asked opening the shut chest;[=0x000A=][=0x0009=]if the shut chest is closed, stop the action.[=0x000A=][=0x000A=]The block giving rule is not listed in the check giving it to rules.[=0x000A=][=0x000A=]Test me with [=0x0022=]open case / get donuts / og, get donuts / og, give me the donuts / eat donuts[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - IQ Test')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp;  &quot;IQ Test&quot;
+            <!--START CODE "c13377_193"-->
+            <blockquote class="code"><p class="quoted"><a id="c13377_193"></a><a href="javascript:pasteCode('[=0x0022=]IQ Test[=0x0022=][=0x000A=][=0x000A=]The Donut Shop is a room. [=0x0022=]Vibrantly decorated in donut colors: pink, brown, and cream.[=0x0022=][=0x000A=][=0x000A=]Ogg is a man in the Donut Shop. [=0x0022=]Ogg is slumped in the corner[if Ogg carries something] with [a list of things carried by Ogg][end if]. He wears a nametag which says [=0x0027=]HELLO MY NAME IS OG.[=0x0027=][=0x0022=] Understand [=0x0022=]og[=0x0022=] as Ogg. Ogg wears a nametag. The description of the nametag is [=0x0022=]Sadly misspelled.[=0x0022=][=0x000A=][=0x000A=]The Donut Shop contains a transparent closed openable locked lockable container called a case. The case contains some cake donuts. The donuts are edible.[=0x000A=][=0x000A=]The matching key of the case is a silver key. The silver key is carried by Ogg.[=0x000A=][=0x000A=]A persuasion rule for asking someone to try doing something:[=0x000A=][=0x0009=]persuasion succeeds.[=0x000A=][=0x000A=]Before someone opening a locked thing (called the sealed chest):[=0x000A=][=0x0009=]if the person asked is carrying the matching key of the sealed chest, try the person asked unlocking the sealed chest with the matching key of the sealed chest;[=0x000A=][=0x0009=]if the sealed chest is locked, stop the action.[=0x000A=][=0x000A=]Before someone taking something which is in a closed container (called the shut chest):[=0x000A=][=0x0009=]try the person asked opening the shut chest;[=0x000A=][=0x0009=]if the shut chest is closed, stop the action.[=0x000A=][=0x000A=]The block giving rule is not listed in the check giving it to rules.[=0x000A=][=0x000A=]Test me with [=0x0022=]open case / get donuts / og, get donuts / og, give me the donuts / eat donuts[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]IQ Test[=0x0022=][=0x000A=][=0x000A=]The Donut Shop is a room. [=0x0022=]Vibrantly decorated in donut colors: pink, brown, and cream.[=0x0022=][=0x000A=][=0x000A=]Ogg is a man in the Donut Shop. [=0x0022=]Ogg is slumped in the corner[if Ogg carries something] with [a list of things carried by Ogg][end if]. He wears a nametag which says [=0x0027=]HELLO MY NAME IS OG.[=0x0027=][=0x0022=] Understand [=0x0022=]og[=0x0022=] as Ogg. Ogg wears a nametag. The description of the nametag is [=0x0022=]Sadly misspelled.[=0x0022=][=0x000A=][=0x000A=]The Donut Shop contains a transparent closed openable locked lockable container called a case. The case contains some cake donuts. The donuts are edible.[=0x000A=][=0x000A=]The matching key of the case is a silver key. The silver key is carried by Ogg.[=0x000A=][=0x000A=]A persuasion rule for asking someone to try doing something:[=0x000A=][=0x0009=]persuasion succeeds.[=0x000A=][=0x000A=]Before someone opening a locked thing (called the sealed chest):[=0x000A=][=0x0009=]if the person asked is carrying the matching key of the sealed chest, try the person asked unlocking the sealed chest with the matching key of the sealed chest;[=0x000A=][=0x0009=]if the sealed chest is locked, stop the action.[=0x000A=][=0x000A=]Before someone taking something which is in a closed container (called the shut chest):[=0x000A=][=0x0009=]try the person asked opening the shut chest;[=0x000A=][=0x0009=]if the shut chest is closed, stop the action.[=0x000A=][=0x000A=]The block giving rule is not listed in the check giving it to rules.[=0x000A=][=0x000A=]Test me with [=0x0022=]open case / get donuts / og, get donuts / og, give me the donuts / eat donuts[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - IQ Test')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;IQ Test&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13350_272"-->
-            <blockquote class="code"><p class="quoted"><a id="c13350_272"></a>The Donut Shop is a room. &quot;Vibrantly decorated in donut colors: pink, brown, and cream.&quot;
+            <!--START CODE "c13378_193"-->
+            <blockquote class="code"><p class="quoted"><a id="c13378_193"></a>The Donut Shop is a room. &quot;Vibrantly decorated in donut colors: pink, brown, and cream.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13351_272"-->
-            <blockquote class="code"><p class="quoted"><a id="c13351_272"></a>Ogg is a man in the Donut Shop. &quot;Ogg is slumped in the corner[if Ogg carries something] with [a list of things carried by Ogg][end if]. He wears a nametag which says 'HELLO MY NAME IS OG.'&quot; Understand &quot;og&quot; as Ogg. Ogg wears a nametag. The description of the nametag is &quot;Sadly misspelled.&quot;
+            <!--START CODE "c13379_193"-->
+            <blockquote class="code"><p class="quoted"><a id="c13379_193"></a>Ogg is a man in the Donut Shop. &quot;Ogg is slumped in the corner[if Ogg carries something] with [a list of things carried by Ogg][end if]. He wears a nametag which says 'HELLO MY NAME IS OG.'&quot; Understand &quot;og&quot; as Ogg. Ogg wears a nametag. The description of the nametag is &quot;Sadly misspelled.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13352_272"-->
-            <blockquote class="code"><p class="quoted"><a id="c13352_272"></a>The Donut Shop contains a transparent closed openable locked lockable container called a case. The case contains some cake donuts. The donuts are edible.
+            <!--START CODE "c13380_193"-->
+            <blockquote class="code"><p class="quoted"><a id="c13380_193"></a>The Donut Shop contains a transparent closed openable locked lockable container called a case. The case contains some cake donuts. The donuts are edible.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13353_272"-->
-            <blockquote class="code"><p class="quoted"><a id="c13353_272"></a>The matching key of the case is a silver key. The silver key is carried by Ogg.
+            <!--START CODE "c13381_193"-->
+            <blockquote class="code"><p class="quoted"><a id="c13381_193"></a>The matching key of the case is a silver key. The silver key is carried by Ogg.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13354_272"-->
-            <blockquote class="code"><p class="quoted"><a id="c13354_272"></a>A persuasion rule for asking someone to try doing something:
+            <!--START CODE "c13382_193"-->
+            <blockquote class="code"><p class="quoted"><a id="c13382_193"></a>A persuasion rule for asking someone to try doing something:
             <br>
             &#160;&#160;&#160;&#160;persuasion succeeds.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13355_272"-->
-            <blockquote class="code"><p class="quoted"><a id="c13355_272"></a>Before someone opening a locked thing (called the sealed chest):
+            <!--START CODE "c13383_193"-->
+            <blockquote class="code"><p class="quoted"><a id="c13383_193"></a>Before someone opening a locked thing (called the sealed chest):
             <br>
             &#160;&#160;&#160;&#160;if the person asked is carrying the matching key of the sealed chest, try the person asked unlocking the sealed chest with the matching key of the sealed chest;
             <br>
@@ -200,8 +200,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13356_272"-->
-            <blockquote class="code"><p class="quoted"><a id="c13356_272"></a>Before someone taking something which is in a closed container (called the shut chest):
+            <!--START CODE "c13384_193"-->
+            <blockquote class="code"><p class="quoted"><a id="c13384_193"></a>Before someone taking something which is in a closed container (called the shut chest):
             <br>
             &#160;&#160;&#160;&#160;try the person asked opening the shut chest;
             <br>
@@ -209,13 +209,13 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13357_272"-->
-            <blockquote class="code"><p class="quoted"><a id="c13357_272"></a>The block giving rule is not listed in the check giving it to rules.
+            <!--START CODE "c13385_193"-->
+            <blockquote class="code"><p class="quoted"><a id="c13385_193"></a>The block giving rule is not listed in the check giving it to rules.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13358_272"-->
-            <blockquote class="code"><p class="quoted"><a id="c13358_272"></a>Test me with &quot;open case / get donuts / og, get donuts / og, give me the donuts / eat donuts&quot;.
+            <!--START CODE "c13386_193"-->
+            <blockquote class="code"><p class="quoted"><a id="c13386_193"></a>Test me with &quot;open case / get donuts / og, get donuts / og, give me the donuts / eat donuts&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -223,44 +223,44 @@
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "203: The Man of Steel" "e83"-->
-        <a id="e83"></a><table class="egcue">
+        <!--START EXAMPLE "203: The Man of Steel" "e375"-->
+        <a id="e375"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example83'); return false;"><b>203</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example375'); return false;"><b>203</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example83'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">The Man of Steel</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example375'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">The Man of Steel</span></b></a><br>
                     An escaping action which means "go to any room you can reach from here", and is only useful to non-player characters.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc185.html#e83"><i>WI</i></a></div>
+                        <a href="doc185.html#e375"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example83" style="display: none;">
+        <div class="egpanel" id="example375" style="display: none;">
             <p>It will sometimes be handy to write actions that are only available to the non-player characters and not to the player. To do this, we just define an action which has no &quot;understand&quot;: the player will never be able to specify this command himself, but other characters can try it.</p>
             <p>This is particularly useful for creating abstract or general actions for when we want a character to eat something, wear something, or go somewhere, but aren't too particular as to what the object is; as here, where we just want Clark to move away from the kryptonite, regardless of direction:</p>
-            <!--START CODE "c13359_83"-->
-            <blockquote class="code"><p class="quoted"><a id="c13359_83"></a><a href="javascript:pasteCode('[=0x0022=]The Man of Steel[=0x0022=][=0x000A=][=0x000A=]Escaping is an action applying to nothing.[=0x000A=][=0x000A=]Carry out someone escaping:[=0x000A=][=0x0009=]let space be the holder of the person asked;[=0x000A=][=0x0009=]let place be a random room which is adjacent to the space;[=0x000A=][=0x0009=]let way be the best route from the space to the place;[=0x000A=][=0x0009=]try the person asked going way.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if Clark Kent can see kryptonite, try Clark Kent escaping.[=0x000A=][=0x000A=]The Daily Planet Newsroom is a room.[=0x000A=][=0x000A=]Perry White[=0x0027=]s Office is west of the Newsroom. In Perry White[=0x0027=]s Office are a desk and a poster of Elvis. On the desk is a lead-lined box. The box is openable. In the box is the green kryptonite crystal.[=0x000A=][=0x000A=]The Supply Closet is east of the Newsroom. The Elevator Bank is north of the Newsroom.[=0x000A=][=0x000A=]Clark Kent is a man in the Newsroom. [=0x0022=]Clark [if Clark can see the kryptonite]looks a bit ill[otherwise]is here, frowning as he revises his latest article[end if].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]west / get box / east / close box / east / west / north / south / west[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Man of Steel[=0x0022=][=0x000A=][=0x000A=]Escaping is an action applying to nothing.[=0x000A=][=0x000A=]Carry out someone escaping:[=0x000A=][=0x0009=]let space be the holder of the person asked;[=0x000A=][=0x0009=]let place be a random room which is adjacent to the space;[=0x000A=][=0x0009=]let way be the best route from the space to the place;[=0x000A=][=0x0009=]try the person asked going way.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if Clark Kent can see kryptonite, try Clark Kent escaping.[=0x000A=][=0x000A=]The Daily Planet Newsroom is a room.[=0x000A=][=0x000A=]Perry White[=0x0027=]s Office is west of the Newsroom. In Perry White[=0x0027=]s Office are a desk and a poster of Elvis. On the desk is a lead-lined box. The box is openable. In the box is the green kryptonite crystal.[=0x000A=][=0x000A=]The Supply Closet is east of the Newsroom. The Elevator Bank is north of the Newsroom.[=0x000A=][=0x000A=]Clark Kent is a man in the Newsroom. [=0x0022=]Clark [if Clark can see the kryptonite]looks a bit ill[otherwise]is here, frowning as he revises his latest article[end if].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]west / get box / east / close box / east / west / north / south / west[=0x0022=].[=0x000A=]\n', 'Example - The Man of Steel')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Man of Steel&quot;
+            <!--START CODE "c13387_375"-->
+            <blockquote class="code"><p class="quoted"><a id="c13387_375"></a><a href="javascript:pasteCode('[=0x0022=]The Man of Steel[=0x0022=][=0x000A=][=0x000A=]Escaping is an action applying to nothing.[=0x000A=][=0x000A=]Carry out someone escaping:[=0x000A=][=0x0009=]let space be the holder of the person asked;[=0x000A=][=0x0009=]let place be a random room which is adjacent to the space;[=0x000A=][=0x0009=]let way be the best route from the space to the place;[=0x000A=][=0x0009=]try the person asked going way.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if Clark Kent can see kryptonite, try Clark Kent escaping.[=0x000A=][=0x000A=]The Daily Planet Newsroom is a room.[=0x000A=][=0x000A=]Perry White[=0x0027=]s Office is west of the Newsroom. In Perry White[=0x0027=]s Office are a desk and a poster of Elvis. On the desk is a lead-lined box. The box is openable. In the box is the green kryptonite crystal.[=0x000A=][=0x000A=]The Supply Closet is east of the Newsroom. The Elevator Bank is north of the Newsroom.[=0x000A=][=0x000A=]Clark Kent is a man in the Newsroom. [=0x0022=]Clark [if Clark can see the kryptonite]looks a bit ill[otherwise]is here, frowning as he revises his latest article[end if].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]west / get box / east / close box / east / west / north / south / west[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Man of Steel[=0x0022=][=0x000A=][=0x000A=]Escaping is an action applying to nothing.[=0x000A=][=0x000A=]Carry out someone escaping:[=0x000A=][=0x0009=]let space be the holder of the person asked;[=0x000A=][=0x0009=]let place be a random room which is adjacent to the space;[=0x000A=][=0x0009=]let way be the best route from the space to the place;[=0x000A=][=0x0009=]try the person asked going way.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if Clark Kent can see kryptonite, try Clark Kent escaping.[=0x000A=][=0x000A=]The Daily Planet Newsroom is a room.[=0x000A=][=0x000A=]Perry White[=0x0027=]s Office is west of the Newsroom. In Perry White[=0x0027=]s Office are a desk and a poster of Elvis. On the desk is a lead-lined box. The box is openable. In the box is the green kryptonite crystal.[=0x000A=][=0x000A=]The Supply Closet is east of the Newsroom. The Elevator Bank is north of the Newsroom.[=0x000A=][=0x000A=]Clark Kent is a man in the Newsroom. [=0x0022=]Clark [if Clark can see the kryptonite]looks a bit ill[otherwise]is here, frowning as he revises his latest article[end if].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]west / get box / east / close box / east / west / north / south / west[=0x0022=].[=0x000A=]\n', 'Example - The Man of Steel')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Man of Steel&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13360_83"-->
-            <blockquote class="code"><p class="quoted"><a id="c13360_83"></a>Escaping is an action applying to nothing.
+            <!--START CODE "c13388_375"-->
+            <blockquote class="code"><p class="quoted"><a id="c13388_375"></a>Escaping is an action applying to nothing.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13361_83"-->
-            <blockquote class="code"><p class="quoted"><a id="c13361_83"></a>Carry out someone escaping:
+            <!--START CODE "c13389_375"-->
+            <blockquote class="code"><p class="quoted"><a id="c13389_375"></a>Carry out someone escaping:
             <br>
             &#160;&#160;&#160;&#160;let space be the holder of the person asked;
             <br>
@@ -272,83 +272,133 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13362_83"-->
-            <blockquote class="code"><p class="quoted"><a id="c13362_83"></a>Every turn:
+            <!--START CODE "c13390_375"-->
+            <blockquote class="code"><p class="quoted"><a id="c13390_375"></a>Every turn:
             <br>
             &#160;&#160;&#160;&#160;if Clark Kent can see kryptonite, try Clark Kent escaping.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13363_83"-->
-            <blockquote class="code"><p class="quoted"><a id="c13363_83"></a>The Daily Planet Newsroom is a room.
+            <!--START CODE "c13391_375"-->
+            <blockquote class="code"><p class="quoted"><a id="c13391_375"></a>The Daily Planet Newsroom is a room.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13364_83"-->
-            <blockquote class="code"><p class="quoted"><a id="c13364_83"></a>Perry White's Office is west of the Newsroom. In Perry White's Office are a desk and a poster of Elvis. On the desk is a lead-lined box. The box is openable. In the box is the green kryptonite crystal.
+            <!--START CODE "c13392_375"-->
+            <blockquote class="code"><p class="quoted"><a id="c13392_375"></a>Perry White's Office is west of the Newsroom. In Perry White's Office are a desk and a poster of Elvis. On the desk is a lead-lined box. The box is openable. In the box is the green kryptonite crystal.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13365_83"-->
-            <blockquote class="code"><p class="quoted"><a id="c13365_83"></a>The Supply Closet is east of the Newsroom. The Elevator Bank is north of the Newsroom.
+            <!--START CODE "c13393_375"-->
+            <blockquote class="code"><p class="quoted"><a id="c13393_375"></a>The Supply Closet is east of the Newsroom. The Elevator Bank is north of the Newsroom.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13366_83"-->
-            <blockquote class="code"><p class="quoted"><a id="c13366_83"></a>Clark Kent is a man in the Newsroom. &quot;Clark [if Clark can see the kryptonite]looks a bit ill[otherwise]is here, frowning as he revises his latest article[end if].&quot;
+            <!--START CODE "c13394_375"-->
+            <blockquote class="code"><p class="quoted"><a id="c13394_375"></a>Clark Kent is a man in the Newsroom. &quot;Clark [if Clark can see the kryptonite]looks a bit ill[otherwise]is here, frowning as he revises his latest article[end if].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13367_83"-->
-            <blockquote class="code"><p class="quoted"><a id="c13367_83"></a>Test me with &quot;west / get box / east / close box / east / west / north / south / west&quot;.
+            <!--START CODE "c13395_375"-->
+            <blockquote class="code"><p class="quoted"><a id="c13395_375"></a>Test me with &quot;west / get box / east / close box / east / west / north / south / west&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "208: The Man of Steel Excuses Himself" "e82"-->
-        <a id="e82"></a><table class="egcue">
+        <!--START EXAMPLE "208: The Man of Steel Excuses Himself" "e376"-->
+        <a id="e376"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example82'); return false;"><b>208</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example376'); return false;"><b>208</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example82'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">The Man of Steel Excuses Himself</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example376'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">The Man of Steel Excuses Himself</span></b></a><br>
                     Elaborating the report rules to be more interesting than "Clark goes west."</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc187.html#e82"><i>WI</i></a></div>
+                        <a href="doc187.html#e376"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example82" style="display: none;">
+        <div class="egpanel" id="example376" style="display: none;">
             <p>Report rules can be a good point at which to add local color: while Inform provides default descriptions of character behavior, these are rather generic and can stand to be customized.</p>
             <p>For instance, if we wanted to liven up our previous Clark Kent example:</p>
-            <!--START CODE "c13368_82"-->
-            <blockquote class="code"><p class="quoted"><a id="c13368_82"></a><a href="javascript:pasteCode('Report Clark Kent going a direction (called the way):[=0x000A=][=0x0009=]say [=0x0022=][one of]With a particularly weak excuse[or]Muttering[at random] about [random excuse subject], Clark heads [way].[=0x0022=] instead.[=0x000A=][=0x000A=]To say random excuse subject:[=0x000A=][=0x0009=]choose a random row in the Table of Lame Excuses; say [=0x0022=][reply entry][=0x0022=].[=0x000A=][=0x000A=]Table of Lame Excuses[=0x000A=]reply[=0x000A=][=0x0022=]needing a paper-clip[=0x0022=][=0x000A=][=0x0022=]wanting an English-Tuvalu dictionary[=0x0022=][=0x000A=][=0x0022=]walking a neighbor[=0x0027=]s dog[=0x0022=][=0x000A=][=0x0022=]hearing air-raid sirens[=0x0022=][=0x000A=][=0x0022=]having drunk too much coffee[=0x0022=][=0x000A=][=0x0022=]thinking he smells smoke[=0x0022=][=0x000A=][=0x0022=]wondering where Lois got to[=0x0022=][=0x000A=][=0x0022=]needing to speak to Jimmy[=0x0022=][=0x000A=][=0x0022=]noticing the Good Year blimp[=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('Report Clark Kent going a direction (called the way):[=0x000A=][=0x0009=]say [=0x0022=][one of]With a particularly weak excuse[or]Muttering[at random] about [random excuse subject], Clark heads [way].[=0x0022=] instead.[=0x000A=][=0x000A=]To say random excuse subject:[=0x000A=][=0x0009=]choose a random row in the Table of Lame Excuses; say [=0x0022=][reply entry][=0x0022=].[=0x000A=][=0x000A=]Table of Lame Excuses[=0x000A=]reply[=0x000A=][=0x0022=]needing a paper-clip[=0x0022=][=0x000A=][=0x0022=]wanting an English-Tuvalu dictionary[=0x0022=][=0x000A=][=0x0022=]walking a neighbor[=0x0027=]s dog[=0x0022=][=0x000A=][=0x0022=]hearing air-raid sirens[=0x0022=][=0x000A=][=0x0022=]having drunk too much coffee[=0x0022=][=0x000A=][=0x0022=]thinking he smells smoke[=0x0022=][=0x000A=][=0x0022=]wondering where Lois got to[=0x0022=][=0x000A=][=0x0022=]needing to speak to Jimmy[=0x0022=][=0x000A=][=0x0022=]noticing the Good Year blimp[=0x0022=][=0x000A=][=0x000A=]\n', 'Example - The Man of Steel Excuses Himself')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; Report Clark Kent going a direction (called the way):
+            <!--START CODE "c13396_376"-->
+            <blockquote class="code"><p class="quoted"><a id="c13396_376"></a><a href="javascript:pasteCode('[=0x0022=]The Man of Steel Excuses Himself[=0x0022=][=0x000A=][=0x000A=]Escaping is an action applying to nothing.[=0x000A=][=0x000A=]Carry out someone escaping:[=0x000A=][=0x0009=]let space be the holder of the person asked;[=0x000A=][=0x0009=]let place be a random room which is adjacent to the space;[=0x000A=][=0x0009=]let way be the best route from the space to the place;[=0x000A=][=0x0009=]try the person asked going way.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if Clark Kent can see kryptonite, try Clark Kent escaping.[=0x000A=][=0x000A=]The Daily Planet Newsroom is a room.[=0x000A=][=0x000A=]Perry White[=0x0027=]s Office is west of the Newsroom. In Perry White[=0x0027=]s Office are a desk and a poster of Elvis. On the desk is a lead-lined box. The box is openable. In the box is the green kryptonite crystal.[=0x000A=][=0x000A=]The Supply Closet is east of the Newsroom. The Elevator Bank is north of the Newsroom.[=0x000A=][=0x000A=]Clark Kent is a man in the Newsroom. [=0x0022=]Clark [if Clark can see the kryptonite]looks a bit ill[otherwise]is here, frowning as he revises his latest article[end if].[=0x0022=][=0x000A=][=0x000A=]Report Clark Kent going a direction (called the way):[=0x000A=][=0x0009=]say [=0x0022=][one of]With a particularly weak excuse[or]Muttering[at random] about [random excuse subject], Clark heads [way].[=0x0022=] instead.[=0x000A=][=0x000A=]To say random excuse subject:[=0x000A=][=0x0009=]choose a random row in the Table of Lame Excuses; say [=0x0022=][reply entry][=0x0022=].[=0x000A=][=0x000A=]Table of Lame Excuses[=0x000A=]reply[=0x000A=][=0x0022=]needing a paper-clip[=0x0022=][=0x000A=][=0x0022=]wanting an English-Tuvalu dictionary[=0x0022=][=0x000A=][=0x0022=]walking a neighbor[=0x0027=]s dog[=0x0022=][=0x000A=][=0x0022=]hearing air-raid sirens[=0x0022=][=0x000A=][=0x0022=]having drunk too much coffee[=0x0022=][=0x000A=][=0x0022=]thinking he smells smoke[=0x0022=][=0x000A=][=0x0022=]wondering where Lois got to[=0x0022=][=0x000A=][=0x0022=]needing to speak to Jimmy[=0x0022=][=0x000A=][=0x0022=]noticing the Good Year blimp[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]west / get box / east / close box / east / west / north / south / west[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Man of Steel Excuses Himself[=0x0022=][=0x000A=][=0x000A=]Escaping is an action applying to nothing.[=0x000A=][=0x000A=]Carry out someone escaping:[=0x000A=][=0x0009=]let space be the holder of the person asked;[=0x000A=][=0x0009=]let place be a random room which is adjacent to the space;[=0x000A=][=0x0009=]let way be the best route from the space to the place;[=0x000A=][=0x0009=]try the person asked going way.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if Clark Kent can see kryptonite, try Clark Kent escaping.[=0x000A=][=0x000A=]The Daily Planet Newsroom is a room.[=0x000A=][=0x000A=]Perry White[=0x0027=]s Office is west of the Newsroom. In Perry White[=0x0027=]s Office are a desk and a poster of Elvis. On the desk is a lead-lined box. The box is openable. In the box is the green kryptonite crystal.[=0x000A=][=0x000A=]The Supply Closet is east of the Newsroom. The Elevator Bank is north of the Newsroom.[=0x000A=][=0x000A=]Clark Kent is a man in the Newsroom. [=0x0022=]Clark [if Clark can see the kryptonite]looks a bit ill[otherwise]is here, frowning as he revises his latest article[end if].[=0x0022=][=0x000A=][=0x000A=]Report Clark Kent going a direction (called the way):[=0x000A=][=0x0009=]say [=0x0022=][one of]With a particularly weak excuse[or]Muttering[at random] about [random excuse subject], Clark heads [way].[=0x0022=] instead.[=0x000A=][=0x000A=]To say random excuse subject:[=0x000A=][=0x0009=]choose a random row in the Table of Lame Excuses; say [=0x0022=][reply entry][=0x0022=].[=0x000A=][=0x000A=]Table of Lame Excuses[=0x000A=]reply[=0x000A=][=0x0022=]needing a paper-clip[=0x0022=][=0x000A=][=0x0022=]wanting an English-Tuvalu dictionary[=0x0022=][=0x000A=][=0x0022=]walking a neighbor[=0x0027=]s dog[=0x0022=][=0x000A=][=0x0022=]hearing air-raid sirens[=0x0022=][=0x000A=][=0x0022=]having drunk too much coffee[=0x0022=][=0x000A=][=0x0022=]thinking he smells smoke[=0x0022=][=0x000A=][=0x0022=]wondering where Lois got to[=0x0022=][=0x000A=][=0x0022=]needing to speak to Jimmy[=0x0022=][=0x000A=][=0x0022=]noticing the Good Year blimp[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]west / get box / east / close box / east / west / north / south / west[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - The Man of Steel Excuses Himself')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Man of Steel Excuses Himself&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c13397_376"-->
+            <blockquote class="code"><p class="quoted"><a id="c13397_376"></a>Escaping is an action applying to nothing.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c13398_376"-->
+            <blockquote class="code"><p class="quoted"><a id="c13398_376"></a>Carry out someone escaping:
+            <br>
+            &#160;&#160;&#160;&#160;let space be the holder of the person asked;
+            <br>
+            &#160;&#160;&#160;&#160;let place be a random room which is adjacent to the space;
+            <br>
+            &#160;&#160;&#160;&#160;let way be the best route from the space to the place;
+            <br>
+            &#160;&#160;&#160;&#160;try the person asked going way.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c13399_376"-->
+            <blockquote class="code"><p class="quoted"><a id="c13399_376"></a>Every turn:
+            <br>
+            &#160;&#160;&#160;&#160;if Clark Kent can see kryptonite, try Clark Kent escaping.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c13400_376"-->
+            <blockquote class="code"><p class="quoted"><a id="c13400_376"></a>The Daily Planet Newsroom is a room.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c13401_376"-->
+            <blockquote class="code"><p class="quoted"><a id="c13401_376"></a>Perry White's Office is west of the Newsroom. In Perry White's Office are a desk and a poster of Elvis. On the desk is a lead-lined box. The box is openable. In the box is the green kryptonite crystal.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c13402_376"-->
+            <blockquote class="code"><p class="quoted"><a id="c13402_376"></a>The Supply Closet is east of the Newsroom. The Elevator Bank is north of the Newsroom.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c13403_376"-->
+            <blockquote class="code"><p class="quoted"><a id="c13403_376"></a>Clark Kent is a man in the Newsroom. &quot;Clark [if Clark can see the kryptonite]looks a bit ill[otherwise]is here, frowning as he revises his latest article[end if].&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c13404_376"-->
+            <blockquote class="code"><p class="quoted"><a id="c13404_376"></a>Report Clark Kent going a direction (called the way):
             <br>
             &#160;&#160;&#160;&#160;say &quot;[one of]With a particularly weak excuse[or]Muttering[at random] about [random excuse subject], Clark heads [way].&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13369_82"-->
-            <blockquote class="code"><p class="quoted"><a id="c13369_82"></a>To say random excuse subject:
+            <!--START CODE "c13405_376"-->
+            <blockquote class="code"><p class="quoted"><a id="c13405_376"></a>To say random excuse subject:
             <br>
             &#160;&#160;&#160;&#160;choose a random row in the Table of Lame Excuses; say &quot;[reply entry]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13370_82"-->
-            <blockquote class="code"><p class="quoted"><a id="c13370_82"></a>Table of Lame Excuses
+            <!--START CODE "c13406_376"-->
+            <blockquote class="code"><p class="quoted"><a id="c13406_376"></a>Table of Lame Excuses
             <br>
             reply
             <br>
@@ -372,67 +422,72 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c13407_376"-->
+            <blockquote class="code"><p class="quoted"><a id="c13407_376"></a>Test me with &quot;west / get box / east / close box / east / west / north / south / west&quot;.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <p>It's good to be careful, as the library report rules have been designed and tested to describe every contingency (going through doors, going in vehicles, etc.): so when replacing a report rule, we should try to consider all the possible variations of the action that we might want to describe.</p>
             <p>However, in this case, our scenario is so simple that there are no doors, vehicles, or pushable objects, so we're safe in giving Clark a very simple reporting scheme.</p>
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "190: Boston Cream" "e105"-->
-        <a id="e105"></a><table class="egcue">
+        <!--START EXAMPLE "190: Boston Cream" "e52"-->
+        <a id="e52"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example105'); return false;"><b>190</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example52'); return false;"><b>190</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example105'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Boston Cream</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example52'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Boston Cream</span></b></a><br>
                     A fuller implementation of Ogg, giving him a motivation of his own and allowing him to react to the situation created by the player.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc180.html#e105"><i>WI</i></a></div>
+                        <a href="doc180.html#e52"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example105" style="display: none;">
-            <!--START CODE "c13371_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13371_105"></a><a href="javascript:pasteCode('[=0x0022=]Boston Cream[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]The Donut Shop is a room. [=0x0022=]Vibrantly decorated in donut colors: pink, brown, and cream.[=0x0022=][=0x000A=][=0x000A=]Ogg is a man in the Donut Shop. [=0x0022=]Ogg is slumped in the corner[if Ogg carries something] with [a list of things carried by Ogg][end if]. He wears a nametag which says [=0x0027=]HELLO MY NAME IS OG.[=0x0027=][=0x0022=] Understand [=0x0022=]og[=0x0022=] as Ogg. Ogg wears a nametag. The description of the nametag is [=0x0022=]Very neatly written.[=0x0022=][=0x000A=][=0x000A=]The Donut Shop contains a transparent closed openable locked lockable enterable container called a case. The case is fixed in place. The case contains some cake donuts, some jelly donuts, and some apple fritters. [=0x0022=]The [if unopenable]damaged[otherwise]gleaming[end if] donut case [if something is in the case]contains [a list of things in the case][otherwise]has been stripped of its contents[end if].[=0x0022=] The cake donuts, the jelly donuts, and the apple fritters are edible.[=0x000A=][=0x000A=]The matching key of the case is a silver key. The silver key is in a mesh basket. The mesh basket is closed, transparent, and openable. It is in the Donut Shop.[=0x000A=][=0x000A=]Before someone taking something which is carried by the player:[=0x000A=][=0x0009=]if the person asked cannot touch the player:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Ogg looks with a fixed frown at [the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]continue the action;[=0x000A=][=0x0009=]say [=0x0022=][The person asked] comes up and shakes your arm until you drop [the noun].[=0x0022=];[=0x000A=][=0x0009=]say line break;[=0x000A=][=0x0009=]silently try dropping the noun;[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Before someone unlocking a locked thing with something which is not carried by the person asked:[=0x000A=][=0x0009=]try the person asked taking the second noun;[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Before someone opening a locked thing (called the sealed chest):[=0x000A=][=0x0009=]if the person asked can see the matching key of the sealed chest:[=0x000A=][=0x0009=][=0x0009=]if the matching key of the sealed chest is enclosed by the sealed chest:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Seeing the paradoxical location of [the matching key of the sealed chest], [the person asked] gives a howl of rage.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the score;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]end the story finally saying [=0x0022=]You have thwarted Ogg[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]try the person asked unlocking the sealed chest with the matching key of the sealed chest;[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Before someone taking something which is in a closed container (called the shut chest):[=0x000A=][=0x0009=]try the person asked opening the shut chest;[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Ogg has a number called hunger. The hunger of Ogg is 0.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]increment the hunger of Ogg;[=0x000A=][=0x0009=]if the hunger of Ogg is 2 and Ogg is visible, say [=0x0022=]Ogg[=0x0027=]s stomach growls.[=0x0022=];[=0x000A=][=0x0009=]if the hunger of Ogg is 3 and Ogg is visible:[=0x000A=][=0x0009=][=0x0009=]if Ogg can see an edible thing (called the target):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Ogg eyes [the target] with obvious intent.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Ogg glances at you in a disturbingly shifty way.[=0x0022=];[=0x000A=][=0x0009=]if the hunger of Ogg is greater than 3:[=0x000A=][=0x0009=][=0x0009=]if Ogg carries an edible thing (called the target):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]try Ogg eating the target;[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let new target be a random edible thing which can be seen by Ogg;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the new target is a thing:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]try Ogg taking the new target;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]if Ogg can touch the player, end the story saying [=0x0022=]Ogg is gnawing your ankle[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]otherwise try Ogg taking the player.[=0x000A=][=0x000A=]The crumbs are a thing. [=0x0022=]Crumbs of [the list of edible things which cannot be seen by the player] lie scattered over the whole floor.[=0x0022=][=0x000A=][=0x000A=]Instead of asking Ogg to try doing something when Ogg cannot touch the player:[=0x000A=][=0x0009=]say [=0x0022=]Ogg tilts his head and shrugs, unable to hear your instruction clearly.[=0x0022=][=0x000A=][=0x000A=]Instead of asking Ogg to try eating something:[=0x000A=][=0x0009=]say [=0x0022=]It[=0x0027=]s not as though Ogg really needs any encouragement in that department, is it?[=0x0022=][=0x000A=][=0x000A=]Definition: Ogg is hungry if the hunger of Ogg is greater than 2.[=0x000A=][=0x000A=]Persuasion rule for asking Ogg to try doing something: if Ogg is hungry, persuasion fails; persuasion succeeds.[=0x000A=][=0x000A=]Persuasion rule for asking Ogg to try giving something edible to the player:[=0x000A=][=0x0009=]persuasion fails.[=0x000A=][=0x000A=]Unsuccessful attempt by Ogg doing something:[=0x000A=][=0x0009=]if the reason the action failed is a failing listed in the Table of Ogg Retorts:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][reply entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Ogg looks adorably confused.[=0x0022=][=0x000A=][=0x000A=]Table of Ogg Retorts[=0x000A=]failing[=0x0009=]reply[=0x000A=]can[=0x0027=]t take people[=0x0027=]s possessions rule[=0x0009=][=0x0022=][=0x0027=]Ogg too polite.[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t take other people rule[=0x0009=][=0x0022=][=0x0027=]Ogg not that greedy.[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t take scenery rule[=0x0009=][=0x0022=][=0x0027=][The noun] very very heavy.[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t take what[=0x0027=]s fixed in place rule[=0x0009=][=0x0022=][=0x0027=][The noun] very heavy.[=0x0022=][=0x000A=]can[=0x0027=]t drop what[=0x0027=]s not held rule[=0x0009=][=0x0022=][=0x0027=]Hunh?[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Carry out Ogg eating an edible thing:[=0x000A=][=0x0009=]move the crumbs to the holder of Ogg;[=0x000A=][=0x0009=]now the hunger of Ogg is 0.[=0x000A=][=0x000A=]Report Ogg unlocking something with something:[=0x000A=][=0x0009=]say [=0x0022=]Ogg struggles a bit with [the second noun] in the lock of [the noun], but does eventually succeed. [=0x0027=]Hunh![=0x0027=] says Ogg.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Carry out Ogg opening the case when the case has been open:[=0x000A=][=0x0009=]now the case is unopenable.[=0x000A=][=0x000A=]Instead of closing the unopenable case:[=0x000A=][=0x0009=]say [=0x0022=]The glass panels are no longer properly seated in their tracks, and the case cannot be closed ever again.[=0x0022=][=0x000A=][=0x000A=]Report Ogg opening the unopenable case:[=0x000A=][=0x0009=]say [=0x0022=]Ogg forces [the case] so hard that it does break.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Report Ogg opening the case:[=0x000A=][=0x0009=]say [=0x0022=]Ogg yanks [the noun] open with such force that you fear for its structural integrity.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Report Ogg taking something edible:[=0x000A=][=0x0009=]say [=0x0022=]Ogg acquires [the noun] with a look of tender affection.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Report Ogg eating something:[=0x000A=][=0x0009=]say [=0x0022=]Ogg chows down on [the noun], scattering crumbs in all directions.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Report Ogg eating something when the number of visible edible things is 1:[=0x000A=][=0x0009=]say [=0x0022=]Ogg eats [the noun] in his trademark style. You can no longer bear to watch.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]After entering the case:[=0x000A=][=0x0009=]say [=0x0022=]You climb inside the case, folding yourself up uncomfortably.[=0x0022=][=0x000A=][=0x000A=]After locking the case with something when the player is in the case:[=0x000A=][=0x0009=]say [=0x0022=]You turn the key firmly in the lock -- amazing it locks from within, but it does -- and settle yourself for a long wait, hoping this thing is not air-tight.[=0x0022=][=0x000A=][=0x000A=]The maximum score is 1.[=0x000A=][=0x000A=]Test me with [=0x0022=]open mesh / get key / unlock case / open case / enter case / close case / lock case / wait / wait[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Boston Cream[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]The Donut Shop is a room. [=0x0022=]Vibrantly decorated in donut colors: pink, brown, and cream.[=0x0022=][=0x000A=][=0x000A=]Ogg is a man in the Donut Shop. [=0x0022=]Ogg is slumped in the corner[if Ogg carries something] with [a list of things carried by Ogg][end if]. He wears a nametag which says [=0x0027=]HELLO MY NAME IS OG.[=0x0027=][=0x0022=] Understand [=0x0022=]og[=0x0022=] as Ogg. Ogg wears a nametag. The description of the nametag is [=0x0022=]Very neatly written.[=0x0022=][=0x000A=][=0x000A=]The Donut Shop contains a transparent closed openable locked lockable enterable container called a case. The case is fixed in place. The case contains some cake donuts, some jelly donuts, and some apple fritters. [=0x0022=]The [if unopenable]damaged[otherwise]gleaming[end if] donut case [if something is in the case]contains [a list of things in the case][otherwise]has been stripped of its contents[end if].[=0x0022=] The cake donuts, the jelly donuts, and the apple fritters are edible.[=0x000A=][=0x000A=]The matching key of the case is a silver key. The silver key is in a mesh basket. The mesh basket is closed, transparent, and openable. It is in the Donut Shop.[=0x000A=][=0x000A=]Before someone taking something which is carried by the player:[=0x000A=][=0x0009=]if the person asked cannot touch the player:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Ogg looks with a fixed frown at [the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]continue the action;[=0x000A=][=0x0009=]say [=0x0022=][The person asked] comes up and shakes your arm until you drop [the noun].[=0x0022=];[=0x000A=][=0x0009=]say line break;[=0x000A=][=0x0009=]silently try dropping the noun;[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Before someone unlocking a locked thing with something which is not carried by the person asked:[=0x000A=][=0x0009=]try the person asked taking the second noun;[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Before someone opening a locked thing (called the sealed chest):[=0x000A=][=0x0009=]if the person asked can see the matching key of the sealed chest:[=0x000A=][=0x0009=][=0x0009=]if the matching key of the sealed chest is enclosed by the sealed chest:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Seeing the paradoxical location of [the matching key of the sealed chest], [the person asked] gives a howl of rage.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the score;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]end the story finally saying [=0x0022=]You have thwarted Ogg[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]try the person asked unlocking the sealed chest with the matching key of the sealed chest;[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Before someone taking something which is in a closed container (called the shut chest):[=0x000A=][=0x0009=]try the person asked opening the shut chest;[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Ogg has a number called hunger. The hunger of Ogg is 0.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]increment the hunger of Ogg;[=0x000A=][=0x0009=]if the hunger of Ogg is 2 and Ogg is visible, say [=0x0022=]Ogg[=0x0027=]s stomach growls.[=0x0022=];[=0x000A=][=0x0009=]if the hunger of Ogg is 3 and Ogg is visible:[=0x000A=][=0x0009=][=0x0009=]if Ogg can see an edible thing (called the target):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Ogg eyes [the target] with obvious intent.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Ogg glances at you in a disturbingly shifty way.[=0x0022=];[=0x000A=][=0x0009=]if the hunger of Ogg is greater than 3:[=0x000A=][=0x0009=][=0x0009=]if Ogg carries an edible thing (called the target):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]try Ogg eating the target;[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let new target be a random edible thing which can be seen by Ogg;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the new target is a thing:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]try Ogg taking the new target;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]if Ogg can touch the player, end the story saying [=0x0022=]Ogg is gnawing your ankle[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]otherwise try Ogg taking the player.[=0x000A=][=0x000A=]The crumbs are a thing. [=0x0022=]Crumbs of [the list of edible things which cannot be seen by the player] lie scattered over the whole floor.[=0x0022=][=0x000A=][=0x000A=]Instead of asking Ogg to try doing something when Ogg cannot touch the player:[=0x000A=][=0x0009=]say [=0x0022=]Ogg tilts his head and shrugs, unable to hear your instruction clearly.[=0x0022=][=0x000A=][=0x000A=]Instead of asking Ogg to try eating something:[=0x000A=][=0x0009=]say [=0x0022=]It[=0x0027=]s not as though Ogg really needs any encouragement in that department, is it?[=0x0022=][=0x000A=][=0x000A=]Definition: Ogg is hungry if the hunger of Ogg is greater than 2.[=0x000A=][=0x000A=]Persuasion rule for asking Ogg to try doing something: if Ogg is hungry, persuasion fails; persuasion succeeds.[=0x000A=][=0x000A=]Persuasion rule for asking Ogg to try giving something edible to the player:[=0x000A=][=0x0009=]persuasion fails.[=0x000A=][=0x000A=]Unsuccessful attempt by Ogg doing something:[=0x000A=][=0x0009=]if the reason the action failed is a failing listed in the Table of Ogg Retorts:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][reply entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Ogg looks adorably confused.[=0x0022=][=0x000A=][=0x000A=]Table of Ogg Retorts[=0x000A=]failing[=0x0009=]reply[=0x000A=]can[=0x0027=]t take people[=0x0027=]s possessions rule[=0x0009=][=0x0022=][=0x0027=]Ogg too polite.[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t take other people rule[=0x0009=][=0x0022=][=0x0027=]Ogg not that greedy.[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t take scenery rule[=0x0009=][=0x0022=][=0x0027=][The noun] very very heavy.[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t take what[=0x0027=]s fixed in place rule[=0x0009=][=0x0022=][=0x0027=][The noun] very heavy.[=0x0022=][=0x000A=]can[=0x0027=]t drop what[=0x0027=]s not held rule[=0x0009=][=0x0022=][=0x0027=]Hunh?[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Carry out Ogg eating an edible thing:[=0x000A=][=0x0009=]move the crumbs to the holder of Ogg;[=0x000A=][=0x0009=]now the hunger of Ogg is 0.[=0x000A=][=0x000A=]Report Ogg unlocking something with something:[=0x000A=][=0x0009=]say [=0x0022=]Ogg struggles a bit with [the second noun] in the lock of [the noun], but does eventually succeed. [=0x0027=]Hunh![=0x0027=] says Ogg.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Carry out Ogg opening the case when the case has been open:[=0x000A=][=0x0009=]now the case is unopenable.[=0x000A=][=0x000A=]Instead of closing the unopenable case:[=0x000A=][=0x0009=]say [=0x0022=]The glass panels are no longer properly seated in their tracks, and the case cannot be closed ever again.[=0x0022=][=0x000A=][=0x000A=]Report Ogg opening the unopenable case:[=0x000A=][=0x0009=]say [=0x0022=]Ogg forces [the case] so hard that it does break.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Report Ogg opening the case:[=0x000A=][=0x0009=]say [=0x0022=]Ogg yanks [the noun] open with such force that you fear for its structural integrity.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Report Ogg taking something edible:[=0x000A=][=0x0009=]say [=0x0022=]Ogg acquires [the noun] with a look of tender affection.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Report Ogg eating something:[=0x000A=][=0x0009=]say [=0x0022=]Ogg chows down on [the noun], scattering crumbs in all directions.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Report Ogg eating something when the number of visible edible things is 1:[=0x000A=][=0x0009=]say [=0x0022=]Ogg eats [the noun] in his trademark style. You can no longer bear to watch.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]After entering the case:[=0x000A=][=0x0009=]say [=0x0022=]You climb inside the case, folding yourself up uncomfortably.[=0x0022=][=0x000A=][=0x000A=]After locking the case with something when the player is in the case:[=0x000A=][=0x0009=]say [=0x0022=]You turn the key firmly in the lock -- amazing it locks from within, but it does -- and settle yourself for a long wait, hoping this thing is not air-tight.[=0x0022=][=0x000A=][=0x000A=]The maximum score is 1.[=0x000A=][=0x000A=]Test me with [=0x0022=]open mesh / get key / unlock case / open case / enter case / close case / lock case / wait / wait[=0x0022=].[=0x000A=]\n', 'Example - Boston Cream')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Boston Cream&quot;
+        <div class="egpanel" id="example52" style="display: none;">
+            <!--START CODE "c13408_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13408_52"></a><a href="javascript:pasteCode('[=0x0022=]Boston Cream[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]The Donut Shop is a room. [=0x0022=]Vibrantly decorated in donut colors: pink, brown, and cream.[=0x0022=][=0x000A=][=0x000A=]Ogg is a man in the Donut Shop. [=0x0022=]Ogg is slumped in the corner[if Ogg carries something] with [a list of things carried by Ogg][end if]. He wears a nametag which says [=0x0027=]HELLO MY NAME IS OG.[=0x0027=][=0x0022=] Understand [=0x0022=]og[=0x0022=] as Ogg. Ogg wears a nametag. The description of the nametag is [=0x0022=]Very neatly written.[=0x0022=][=0x000A=][=0x000A=]The Donut Shop contains a transparent closed openable locked lockable enterable container called a case. The case is fixed in place. The case contains some cake donuts, some jelly donuts, and some apple fritters. [=0x0022=]The [if unopenable]damaged[otherwise]gleaming[end if] donut case [if something is in the case]contains [a list of things in the case][otherwise]has been stripped of its contents[end if].[=0x0022=] The cake donuts, the jelly donuts, and the apple fritters are edible.[=0x000A=][=0x000A=]The matching key of the case is a silver key. The silver key is in a mesh basket. The mesh basket is closed, transparent, and openable. It is in the Donut Shop.[=0x000A=][=0x000A=]Before someone taking something which is carried by the player:[=0x000A=][=0x0009=]if the person asked cannot touch the player:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Ogg looks with a fixed frown at [the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]continue the action;[=0x000A=][=0x0009=]say [=0x0022=][The person asked] comes up and shakes your arm until you drop [the noun].[=0x0022=];[=0x000A=][=0x0009=]say line break;[=0x000A=][=0x0009=]silently try dropping the noun;[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Before someone unlocking a locked thing with something which is not carried by the person asked:[=0x000A=][=0x0009=]try the person asked taking the second noun;[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Before someone opening a locked thing (called the sealed chest):[=0x000A=][=0x0009=]if the person asked can see the matching key of the sealed chest:[=0x000A=][=0x0009=][=0x0009=]if the matching key of the sealed chest is enclosed by the sealed chest:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Seeing the paradoxical location of [the matching key of the sealed chest], [the person asked] gives a howl of rage.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the score;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]end the story finally saying [=0x0022=]You have thwarted Ogg[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]try the person asked unlocking the sealed chest with the matching key of the sealed chest;[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Before someone taking something which is in a closed container (called the shut chest):[=0x000A=][=0x0009=]try the person asked opening the shut chest;[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Ogg has a number called hunger. The hunger of Ogg is 0.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]increment the hunger of Ogg;[=0x000A=][=0x0009=]if the hunger of Ogg is 2 and Ogg is visible, say [=0x0022=]Ogg[=0x0027=]s stomach growls.[=0x0022=];[=0x000A=][=0x0009=]if the hunger of Ogg is 3 and Ogg is visible:[=0x000A=][=0x0009=][=0x0009=]if Ogg can see an edible thing (called the target):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Ogg eyes [the target] with obvious intent.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Ogg glances at you in a disturbingly shifty way.[=0x0022=];[=0x000A=][=0x0009=]if the hunger of Ogg is greater than 3:[=0x000A=][=0x0009=][=0x0009=]if Ogg carries an edible thing (called the target):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]try Ogg eating the target;[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let new target be a random edible thing which can be seen by Ogg;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the new target is a thing:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]try Ogg taking the new target;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]if Ogg can touch the player, end the story saying [=0x0022=]Ogg is gnawing your ankle[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]otherwise try Ogg taking the player.[=0x000A=][=0x000A=]The crumbs are a thing. [=0x0022=]Crumbs of [the list of edible things which cannot be seen by the player] lie scattered over the whole floor.[=0x0022=][=0x000A=][=0x000A=]Instead of asking Ogg to try doing something when Ogg cannot touch the player:[=0x000A=][=0x0009=]say [=0x0022=]Ogg tilts his head and shrugs, unable to hear your instruction clearly.[=0x0022=][=0x000A=][=0x000A=]Instead of asking Ogg to try eating something:[=0x000A=][=0x0009=]say [=0x0022=]It[=0x0027=]s not as though Ogg really needs any encouragement in that department, is it?[=0x0022=][=0x000A=][=0x000A=]Definition: Ogg is hungry if the hunger of Ogg is greater than 2.[=0x000A=][=0x000A=]Persuasion rule for asking Ogg to try doing something: if Ogg is hungry, persuasion fails; persuasion succeeds.[=0x000A=][=0x000A=]Persuasion rule for asking Ogg to try giving something edible to the player:[=0x000A=][=0x0009=]persuasion fails.[=0x000A=][=0x000A=]Unsuccessful attempt by Ogg doing something:[=0x000A=][=0x0009=]if the reason the action failed is a failing listed in the Table of Ogg Retorts:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][reply entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Ogg looks adorably confused.[=0x0022=][=0x000A=][=0x000A=]Table of Ogg Retorts[=0x000A=]failing[=0x0009=]reply[=0x000A=]can[=0x0027=]t take people[=0x0027=]s possessions rule[=0x0009=][=0x0022=][=0x0027=]Ogg too polite.[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t take other people rule[=0x0009=][=0x0022=][=0x0027=]Ogg not that greedy.[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t take scenery rule[=0x0009=][=0x0022=][=0x0027=][The noun] very very heavy.[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t take what[=0x0027=]s fixed in place rule[=0x0009=][=0x0022=][=0x0027=][The noun] very heavy.[=0x0022=][=0x000A=]can[=0x0027=]t drop what[=0x0027=]s not held rule[=0x0009=][=0x0022=][=0x0027=]Hunh?[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Carry out Ogg eating an edible thing:[=0x000A=][=0x0009=]move the crumbs to the holder of Ogg;[=0x000A=][=0x0009=]now the hunger of Ogg is 0.[=0x000A=][=0x000A=]Report Ogg unlocking something with something:[=0x000A=][=0x0009=]say [=0x0022=]Ogg struggles a bit with [the second noun] in the lock of [the noun], but does eventually succeed. [=0x0027=]Hunh![=0x0027=] says Ogg.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Carry out Ogg opening the case when the case has been open:[=0x000A=][=0x0009=]now the case is unopenable.[=0x000A=][=0x000A=]Instead of closing the unopenable case:[=0x000A=][=0x0009=]say [=0x0022=]The glass panels are no longer properly seated in their tracks, and the case cannot be closed ever again.[=0x0022=][=0x000A=][=0x000A=]Report Ogg opening the unopenable case:[=0x000A=][=0x0009=]say [=0x0022=]Ogg forces [the case] so hard that it does break.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Report Ogg opening the case:[=0x000A=][=0x0009=]say [=0x0022=]Ogg yanks [the noun] open with such force that you fear for its structural integrity.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Report Ogg taking something edible:[=0x000A=][=0x0009=]say [=0x0022=]Ogg acquires [the noun] with a look of tender affection.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Report Ogg eating something:[=0x000A=][=0x0009=]say [=0x0022=]Ogg chows down on [the noun], scattering crumbs in all directions.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Report Ogg eating something when the number of visible edible things is 1:[=0x000A=][=0x0009=]say [=0x0022=]Ogg eats [the noun] in his trademark style. You can no longer bear to watch.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]After entering the case:[=0x000A=][=0x0009=]say [=0x0022=]You climb inside the case, folding yourself up uncomfortably.[=0x0022=][=0x000A=][=0x000A=]After locking the case with something when the player is in the case:[=0x000A=][=0x0009=]say [=0x0022=]You turn the key firmly in the lock -- amazing it locks from within, but it does -- and settle yourself for a long wait, hoping this thing is not air-tight.[=0x0022=][=0x000A=][=0x000A=]The maximum score is 1.[=0x000A=][=0x000A=]Test me with [=0x0022=]open mesh / get key / unlock case / open case / enter case / close case / lock case / wait / wait[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Boston Cream[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]The Donut Shop is a room. [=0x0022=]Vibrantly decorated in donut colors: pink, brown, and cream.[=0x0022=][=0x000A=][=0x000A=]Ogg is a man in the Donut Shop. [=0x0022=]Ogg is slumped in the corner[if Ogg carries something] with [a list of things carried by Ogg][end if]. He wears a nametag which says [=0x0027=]HELLO MY NAME IS OG.[=0x0027=][=0x0022=] Understand [=0x0022=]og[=0x0022=] as Ogg. Ogg wears a nametag. The description of the nametag is [=0x0022=]Very neatly written.[=0x0022=][=0x000A=][=0x000A=]The Donut Shop contains a transparent closed openable locked lockable enterable container called a case. The case is fixed in place. The case contains some cake donuts, some jelly donuts, and some apple fritters. [=0x0022=]The [if unopenable]damaged[otherwise]gleaming[end if] donut case [if something is in the case]contains [a list of things in the case][otherwise]has been stripped of its contents[end if].[=0x0022=] The cake donuts, the jelly donuts, and the apple fritters are edible.[=0x000A=][=0x000A=]The matching key of the case is a silver key. The silver key is in a mesh basket. The mesh basket is closed, transparent, and openable. It is in the Donut Shop.[=0x000A=][=0x000A=]Before someone taking something which is carried by the player:[=0x000A=][=0x0009=]if the person asked cannot touch the player:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Ogg looks with a fixed frown at [the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]continue the action;[=0x000A=][=0x0009=]say [=0x0022=][The person asked] comes up and shakes your arm until you drop [the noun].[=0x0022=];[=0x000A=][=0x0009=]say line break;[=0x000A=][=0x0009=]silently try dropping the noun;[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Before someone unlocking a locked thing with something which is not carried by the person asked:[=0x000A=][=0x0009=]try the person asked taking the second noun;[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Before someone opening a locked thing (called the sealed chest):[=0x000A=][=0x0009=]if the person asked can see the matching key of the sealed chest:[=0x000A=][=0x0009=][=0x0009=]if the matching key of the sealed chest is enclosed by the sealed chest:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Seeing the paradoxical location of [the matching key of the sealed chest], [the person asked] gives a howl of rage.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the score;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]end the story finally saying [=0x0022=]You have thwarted Ogg[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]try the person asked unlocking the sealed chest with the matching key of the sealed chest;[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Before someone taking something which is in a closed container (called the shut chest):[=0x000A=][=0x0009=]try the person asked opening the shut chest;[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Ogg has a number called hunger. The hunger of Ogg is 0.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]increment the hunger of Ogg;[=0x000A=][=0x0009=]if the hunger of Ogg is 2 and Ogg is visible, say [=0x0022=]Ogg[=0x0027=]s stomach growls.[=0x0022=];[=0x000A=][=0x0009=]if the hunger of Ogg is 3 and Ogg is visible:[=0x000A=][=0x0009=][=0x0009=]if Ogg can see an edible thing (called the target):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Ogg eyes [the target] with obvious intent.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Ogg glances at you in a disturbingly shifty way.[=0x0022=];[=0x000A=][=0x0009=]if the hunger of Ogg is greater than 3:[=0x000A=][=0x0009=][=0x0009=]if Ogg carries an edible thing (called the target):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]try Ogg eating the target;[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let new target be a random edible thing which can be seen by Ogg;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the new target is a thing:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]try Ogg taking the new target;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]if Ogg can touch the player, end the story saying [=0x0022=]Ogg is gnawing your ankle[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]otherwise try Ogg taking the player.[=0x000A=][=0x000A=]The crumbs are a thing. [=0x0022=]Crumbs of [the list of edible things which cannot be seen by the player] lie scattered over the whole floor.[=0x0022=][=0x000A=][=0x000A=]Instead of asking Ogg to try doing something when Ogg cannot touch the player:[=0x000A=][=0x0009=]say [=0x0022=]Ogg tilts his head and shrugs, unable to hear your instruction clearly.[=0x0022=][=0x000A=][=0x000A=]Instead of asking Ogg to try eating something:[=0x000A=][=0x0009=]say [=0x0022=]It[=0x0027=]s not as though Ogg really needs any encouragement in that department, is it?[=0x0022=][=0x000A=][=0x000A=]Definition: Ogg is hungry if the hunger of Ogg is greater than 2.[=0x000A=][=0x000A=]Persuasion rule for asking Ogg to try doing something: if Ogg is hungry, persuasion fails; persuasion succeeds.[=0x000A=][=0x000A=]Persuasion rule for asking Ogg to try giving something edible to the player:[=0x000A=][=0x0009=]persuasion fails.[=0x000A=][=0x000A=]Unsuccessful attempt by Ogg doing something:[=0x000A=][=0x0009=]if the reason the action failed is a failing listed in the Table of Ogg Retorts:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][reply entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Ogg looks adorably confused.[=0x0022=][=0x000A=][=0x000A=]Table of Ogg Retorts[=0x000A=]failing[=0x0009=]reply[=0x000A=]can[=0x0027=]t take people[=0x0027=]s possessions rule[=0x0009=][=0x0022=][=0x0027=]Ogg too polite.[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t take other people rule[=0x0009=][=0x0022=][=0x0027=]Ogg not that greedy.[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t take scenery rule[=0x0009=][=0x0022=][=0x0027=][The noun] very very heavy.[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t take what[=0x0027=]s fixed in place rule[=0x0009=][=0x0022=][=0x0027=][The noun] very heavy.[=0x0022=][=0x000A=]can[=0x0027=]t drop what[=0x0027=]s not held rule[=0x0009=][=0x0022=][=0x0027=]Hunh?[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Carry out Ogg eating an edible thing:[=0x000A=][=0x0009=]move the crumbs to the holder of Ogg;[=0x000A=][=0x0009=]now the hunger of Ogg is 0.[=0x000A=][=0x000A=]Report Ogg unlocking something with something:[=0x000A=][=0x0009=]say [=0x0022=]Ogg struggles a bit with [the second noun] in the lock of [the noun], but does eventually succeed. [=0x0027=]Hunh![=0x0027=] says Ogg.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Carry out Ogg opening the case when the case has been open:[=0x000A=][=0x0009=]now the case is unopenable.[=0x000A=][=0x000A=]Instead of closing the unopenable case:[=0x000A=][=0x0009=]say [=0x0022=]The glass panels are no longer properly seated in their tracks, and the case cannot be closed ever again.[=0x0022=][=0x000A=][=0x000A=]Report Ogg opening the unopenable case:[=0x000A=][=0x0009=]say [=0x0022=]Ogg forces [the case] so hard that it does break.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Report Ogg opening the case:[=0x000A=][=0x0009=]say [=0x0022=]Ogg yanks [the noun] open with such force that you fear for its structural integrity.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Report Ogg taking something edible:[=0x000A=][=0x0009=]say [=0x0022=]Ogg acquires [the noun] with a look of tender affection.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Report Ogg eating something:[=0x000A=][=0x0009=]say [=0x0022=]Ogg chows down on [the noun], scattering crumbs in all directions.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Report Ogg eating something when the number of visible edible things is 1:[=0x000A=][=0x0009=]say [=0x0022=]Ogg eats [the noun] in his trademark style. You can no longer bear to watch.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]After entering the case:[=0x000A=][=0x0009=]say [=0x0022=]You climb inside the case, folding yourself up uncomfortably.[=0x0022=][=0x000A=][=0x000A=]After locking the case with something when the player is in the case:[=0x000A=][=0x0009=]say [=0x0022=]You turn the key firmly in the lock -- amazing it locks from within, but it does -- and settle yourself for a long wait, hoping this thing is not air-tight.[=0x0022=][=0x000A=][=0x000A=]The maximum score is 1.[=0x000A=][=0x000A=]Test me with [=0x0022=]open mesh / get key / unlock case / open case / enter case / close case / lock case / wait / wait[=0x0022=].[=0x000A=]\n', 'Example - Boston Cream')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Boston Cream&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13372_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13372_105"></a>Use scoring.
+            <!--START CODE "c13409_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13409_52"></a>Use scoring.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13373_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13373_105"></a>The Donut Shop is a room. &quot;Vibrantly decorated in donut colors: pink, brown, and cream.&quot;
+            <!--START CODE "c13410_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13410_52"></a>The Donut Shop is a room. &quot;Vibrantly decorated in donut colors: pink, brown, and cream.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13374_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13374_105"></a>Ogg is a man in the Donut Shop. &quot;Ogg is slumped in the corner[if Ogg carries something] with [a list of things carried by Ogg][end if]. He wears a nametag which says 'HELLO MY NAME IS OG.'&quot; Understand &quot;og&quot; as Ogg. Ogg wears a nametag. The description of the nametag is &quot;Very neatly written.&quot;
+            <!--START CODE "c13411_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13411_52"></a>Ogg is a man in the Donut Shop. &quot;Ogg is slumped in the corner[if Ogg carries something] with [a list of things carried by Ogg][end if]. He wears a nametag which says 'HELLO MY NAME IS OG.'&quot; Understand &quot;og&quot; as Ogg. Ogg wears a nametag. The description of the nametag is &quot;Very neatly written.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13375_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13375_105"></a>The Donut Shop contains a transparent closed openable locked lockable enterable container called a case. The case is fixed in place. The case contains some cake donuts, some jelly donuts, and some apple fritters. &quot;The [if unopenable]damaged[otherwise]gleaming[end if] donut case [if something is in the case]contains [a list of things in the case][otherwise]has been stripped of its contents[end if].&quot; The cake donuts, the jelly donuts, and the apple fritters are edible.
+            <!--START CODE "c13412_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13412_52"></a>The Donut Shop contains a transparent closed openable locked lockable enterable container called a case. The case is fixed in place. The case contains some cake donuts, some jelly donuts, and some apple fritters. &quot;The [if unopenable]damaged[otherwise]gleaming[end if] donut case [if something is in the case]contains [a list of things in the case][otherwise]has been stripped of its contents[end if].&quot; The cake donuts, the jelly donuts, and the apple fritters are edible.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13376_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13376_105"></a>The matching key of the case is a silver key. The silver key is in a mesh basket. The mesh basket is closed, transparent, and openable. It is in the Donut Shop.
+            <!--START CODE "c13413_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13413_52"></a>The matching key of the case is a silver key. The silver key is in a mesh basket. The mesh basket is closed, transparent, and openable. It is in the Donut Shop.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13377_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13377_105"></a>Before someone taking something which is carried by the player:
+            <!--START CODE "c13414_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13414_52"></a>Before someone taking something which is carried by the player:
             <br>
             &#160;&#160;&#160;&#160;if the person asked cannot touch the player:
             <br>
@@ -450,8 +505,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13378_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13378_105"></a>Before someone unlocking a locked thing with something which is not carried by the person asked:
+            <!--START CODE "c13415_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13415_52"></a>Before someone unlocking a locked thing with something which is not carried by the person asked:
             <br>
             &#160;&#160;&#160;&#160;try the person asked taking the second noun;
             <br>
@@ -459,8 +514,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13379_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13379_105"></a>Before someone opening a locked thing (called the sealed chest):
+            <!--START CODE "c13416_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13416_52"></a>Before someone opening a locked thing (called the sealed chest):
             <br>
             &#160;&#160;&#160;&#160;if the person asked can see the matching key of the sealed chest:
             <br>
@@ -480,8 +535,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13380_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13380_105"></a>Before someone taking something which is in a closed container (called the shut chest):
+            <!--START CODE "c13417_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13417_52"></a>Before someone taking something which is in a closed container (called the shut chest):
             <br>
             &#160;&#160;&#160;&#160;try the person asked opening the shut chest;
             <br>
@@ -489,13 +544,13 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13381_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13381_105"></a>Ogg has a number called hunger. The hunger of Ogg is 0.
+            <!--START CODE "c13418_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13418_52"></a>Ogg has a number called hunger. The hunger of Ogg is 0.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13382_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13382_105"></a>Every turn:
+            <!--START CODE "c13419_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13419_52"></a>Every turn:
             <br>
             &#160;&#160;&#160;&#160;increment the hunger of Ogg;
             <br>
@@ -533,44 +588,44 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13383_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13383_105"></a>The crumbs are a thing. &quot;Crumbs of [the list of edible things which cannot be seen by the player] lie scattered over the whole floor.&quot;
+            <!--START CODE "c13420_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13420_52"></a>The crumbs are a thing. &quot;Crumbs of [the list of edible things which cannot be seen by the player] lie scattered over the whole floor.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13384_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13384_105"></a>Instead of asking Ogg to try doing something when Ogg cannot touch the player:
+            <!--START CODE "c13421_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13421_52"></a>Instead of asking Ogg to try doing something when Ogg cannot touch the player:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Ogg tilts his head and shrugs, unable to hear your instruction clearly.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13385_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13385_105"></a>Instead of asking Ogg to try eating something:
+            <!--START CODE "c13422_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13422_52"></a>Instead of asking Ogg to try eating something:
             <br>
             &#160;&#160;&#160;&#160;say &quot;It's not as though Ogg really needs any encouragement in that department, is it?&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13386_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13386_105"></a>Definition: Ogg is hungry if the hunger of Ogg is greater than 2.
+            <!--START CODE "c13423_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13423_52"></a>Definition: Ogg is hungry if the hunger of Ogg is greater than 2.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13387_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13387_105"></a>Persuasion rule for asking Ogg to try doing something: if Ogg is hungry, persuasion fails; persuasion succeeds.
+            <!--START CODE "c13424_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13424_52"></a>Persuasion rule for asking Ogg to try doing something: if Ogg is hungry, persuasion fails; persuasion succeeds.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13388_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13388_105"></a>Persuasion rule for asking Ogg to try giving something edible to the player:
+            <!--START CODE "c13425_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13425_52"></a>Persuasion rule for asking Ogg to try giving something edible to the player:
             <br>
             &#160;&#160;&#160;&#160;persuasion fails.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13389_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13389_105"></a>Unsuccessful attempt by Ogg doing something:
+            <!--START CODE "c13426_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13426_52"></a>Unsuccessful attempt by Ogg doing something:
             <br>
             &#160;&#160;&#160;&#160;if the reason the action failed is a failing listed in the Table of Ogg Retorts:
             <br>
@@ -582,8 +637,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13390_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13390_105"></a>Table of Ogg Retorts
+            <!--START CODE "c13427_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13427_52"></a>Table of Ogg Retorts
             <br>
             </p>
             </blockquote>
@@ -652,8 +707,8 @@
             <blockquote><p></p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13391_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13391_105"></a>Carry out Ogg eating an edible thing:
+            <!--START CODE "c13428_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13428_52"></a>Carry out Ogg eating an edible thing:
             <br>
             &#160;&#160;&#160;&#160;move the crumbs to the holder of Ogg;
             <br>
@@ -661,8 +716,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13392_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13392_105"></a>Report Ogg unlocking something with something:
+            <!--START CODE "c13429_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13429_52"></a>Report Ogg unlocking something with something:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Ogg struggles a bit with [the second noun] in the lock of [the noun], but does eventually succeed. 'Hunh!' says Ogg.&quot;;
             <br>
@@ -670,22 +725,22 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13393_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13393_105"></a>Carry out Ogg opening the case when the case has been open:
+            <!--START CODE "c13430_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13430_52"></a>Carry out Ogg opening the case when the case has been open:
             <br>
             &#160;&#160;&#160;&#160;now the case is unopenable.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13394_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13394_105"></a>Instead of closing the unopenable case:
+            <!--START CODE "c13431_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13431_52"></a>Instead of closing the unopenable case:
             <br>
             &#160;&#160;&#160;&#160;say &quot;The glass panels are no longer properly seated in their tracks, and the case cannot be closed ever again.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13395_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13395_105"></a>Report Ogg opening the unopenable case:
+            <!--START CODE "c13432_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13432_52"></a>Report Ogg opening the unopenable case:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Ogg forces [the case] so hard that it does break.&quot;;
             <br>
@@ -693,8 +748,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13396_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13396_105"></a>Report Ogg opening the case:
+            <!--START CODE "c13433_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13433_52"></a>Report Ogg opening the case:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Ogg yanks [the noun] open with such force that you fear for its structural integrity.&quot;;
             <br>
@@ -702,8 +757,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13397_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13397_105"></a>Report Ogg taking something edible:
+            <!--START CODE "c13434_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13434_52"></a>Report Ogg taking something edible:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Ogg acquires [the noun] with a look of tender affection.&quot;;
             <br>
@@ -711,8 +766,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13398_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13398_105"></a>Report Ogg eating something:
+            <!--START CODE "c13435_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13435_52"></a>Report Ogg eating something:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Ogg chows down on [the noun], scattering crumbs in all directions.&quot;;
             <br>
@@ -720,8 +775,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13399_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13399_105"></a>Report Ogg eating something when the number of visible edible things is 1:
+            <!--START CODE "c13436_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13436_52"></a>Report Ogg eating something when the number of visible edible things is 1:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Ogg eats [the noun] in his trademark style. You can no longer bear to watch.&quot;;
             <br>
@@ -729,27 +784,27 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13400_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13400_105"></a>After entering the case:
+            <!--START CODE "c13437_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13437_52"></a>After entering the case:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You climb inside the case, folding yourself up uncomfortably.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13401_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13401_105"></a>After locking the case with something when the player is in the case:
+            <!--START CODE "c13438_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13438_52"></a>After locking the case with something when the player is in the case:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You turn the key firmly in the lock -- amazing it locks from within, but it does -- and settle yourself for a long wait, hoping this thing is not air-tight.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13402_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13402_105"></a>The maximum score is 1.
+            <!--START CODE "c13439_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13439_52"></a>The maximum score is 1.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c13403_105"-->
-            <blockquote class="code"><p class="quoted"><a id="c13403_105"></a>Test me with &quot;open mesh / get key / unlock case / open case / enter case / close case / lock case / wait / wait&quot;.
+            <!--START CODE "c13440_52"-->
+            <blockquote class="code"><p class="quoted"><a id="c13440_52"></a>Test me with &quot;open mesh / get key / unlock case / open case / enter case / close case / lock case / wait / wait&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

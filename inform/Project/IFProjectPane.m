@@ -21,11 +21,8 @@
 #import "IFExtensionsPage.h"
 #import "IFSettingsPage.h"
 
-#import "IFIsFiles.h"
-
 #import "IFPreferences.h"
 
-#import "IFJSProject.h"
 #import "IFRuntimeErrorParser.h"
 #import "IFMaintenanceTask.h"
 
@@ -167,7 +164,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 												location: 64.0 * (x+1)];
 		[tabStops addObject: tab];
 	}
-	[tabStyle setTabStops: tabStops];
+	tabStyle.tabStops = tabStops;
 
     // Natural inform syntax types
 	IFSyntaxAttributes[IFSyntaxNaturalInform] = @{ NSFontAttributeName:            systemFont,
@@ -222,23 +219,23 @@ static NSDictionary* IFSyntaxAttributes[256];
 }
 
 + (NSDictionary*) attributeForStyle: (IFSyntaxStyle) style {
-	return [[IFPreferences sharedPreferences] styles][(unsigned)style];
+	return [IFPreferences sharedPreferences].styles[(unsigned)style];
 }
 
 @synthesize paneView;
 - (NSView*) paneView {
     if (!awake) {
-        [NSBundle oldLoadNibNamed: @"ProjectPane"
-                            owner: self];
+        [NSBundle customLoadNib: @"ProjectPane"
+                          owner: self];
     }
     
     return paneView;
 }
 
 - (NSView*) activeView {
-    switch ([self currentView]) {
-        case IFSourcePane:  return [sourcePage activeView];
-        default:            return [[tabView selectedTabViewItem] view];
+    switch (self.currentView) {
+        case IFSourcePane:  return sourcePage.activeView;
+        default:            return tabView.selectedTabViewItem.view;
     }
 }
 
@@ -250,27 +247,28 @@ static NSDictionary* IFSyntaxAttributes[256];
     IFProject* doc;
     IFProjectController* ourParent = parent;
 	
-    doc = [ourParent document];
+    doc = ourParent.document;
 	
 	// Remove the first tab view item - which we can't do in interface builder :-/
-	[tabView removeTabViewItem: [tabView tabViewItems][0]];
+	[tabView removeTabViewItem: tabView.tabViewItems[0]];
 	
 	// Source page
 	sourcePage = [[IFSourcePage alloc] initWithProjectController: ourParent];
 	[self addPage: sourcePage];
 
-    if( [doc mainSourceFile] != nil ) {
-        [sourcePage showSourceFile: [doc mainSourceFile]];
+    if( doc.mainSourceFile != nil ) {
+        [sourcePage showSourceFile: doc.mainSourceFile];
         [sourcePage updateHighlightedLines];
     }
-	
+
 	// Errors page
-	errorsPage = [[IFErrorsPage alloc] initWithProjectController: ourParent];
+	errorsPage = [[IFErrorsPage alloc] initWithProjectController: ourParent
+                                                        withPane: self];
 	[self addPage: errorsPage];
     
 	// Compiler (lives on the errors page)
-    [[errorsPage compilerController] setCompiler: [doc compiler]];
-    [[errorsPage compilerController] setProjectController: ourParent];
+    errorsPage.compilerController.compiler = doc.compiler;
+    [errorsPage.compilerController setProjectController: ourParent withPane: self];
 
     // Game page
     if( viewIndex == 1 ) {
@@ -279,11 +277,13 @@ static NSDictionary* IFSyntaxAttributes[256];
     }
     
     // Skein page
-    skeinPage = [[IFSkeinPage alloc] initWithProjectController: ourParent];
+    skeinPage = [[IFSkeinPage alloc] initWithProjectController: ourParent
+                                                      withPane: self];
     [self addPage: skeinPage];
     
 	// Index page
-	indexPage = [[IFIndexPage alloc] initWithProjectController: ourParent];
+    indexPage = [[IFIndexPage alloc] initWithProjectController: ourParent
+                                                      withPane: self];
 	[self addPage: indexPage];
 	
 	[indexPage updateIndexView];
@@ -291,16 +291,18 @@ static NSDictionary* IFSyntaxAttributes[256];
     [indexPage switchToTab:IFIndexWelcome];
 	
 	// Documentation page
-	documentationPage = [[IFDocumentationPage alloc] initWithProjectController: ourParent];
+    documentationPage = [[IFDocumentationPage alloc] initWithProjectController: ourParent
+                                                                      withPane: self];
 	[self addPage: documentationPage];
     LogHistory(@"HISTORY: ProjectPane (%@): (setupFromController) documentationPage:showToc", self);
-	[(IFDocumentationPage*)[documentationPage history] showToc: self];
+	[(IFDocumentationPage*)documentationPage.history showToc: self];
 	
     // Extensions page
-    extensionsPage = [[IFExtensionsPage alloc] initWithProjectController: ourParent];
+    extensionsPage = [[IFExtensionsPage alloc] initWithProjectController: ourParent
+                                                                withPane: self];
 	[self addPage: extensionsPage];
     LogHistory(@"HISTORY: ProjectPane (%@): (setupFromController) extensionsPage:showHome", self);
-	[(IFExtensionsPage*)[extensionsPage history] showHome: self];
+	[(IFExtensionsPage*)extensionsPage.history showHome: self];
 
 	// Settings
 	settingsPage = [[IFSettingsPage alloc] initWithProjectController: ourParent];
@@ -311,13 +313,13 @@ static NSDictionary* IFSyntaxAttributes[256];
 	// Misc stuff
 
 	// Resize the tab view so that the only margin is on the left
-	NSView* tabViewParent = [tabView superview];
-	NSView* tabViewClient = [[tabView selectedTabViewItem] view];
+	NSView* tabViewParent = tabView.superview;
+	NSView* tabViewClient = tabView.selectedTabViewItem.view;
 
-	NSRect clientRect   = [tabViewParent convertRect: [tabViewClient bounds]
+	NSRect clientRect   = [tabViewParent convertRect: tabViewClient.bounds
                                             fromView: tabViewClient];
-	NSRect parentRect   = [tabViewParent bounds];
-	NSRect tabRect      = [tabView frame];
+	NSRect parentRect   = tabViewParent.bounds;
+	NSRect tabRect      = tabView.frame;
 
 	//float leftMissing = NSMinX(clientRect) - NSMinX(parentRect);
 	CGFloat topMissing    = NSMinY(clientRect) - NSMinY(parentRect);
@@ -328,9 +330,9 @@ static NSDictionary* IFSyntaxAttributes[256];
 	tabRect.origin.y -= topMissing;
 	tabRect.size.height += topMissing + bottomMissing;
 
-	[tabView setFrame: tabRect];
+	tabView.frame = tabRect;
 
-	[[self history] selectViewOfType: IFSourcePane];
+	[self.history selectViewOfType: IFSourcePane];
 }
 
 - (void) awakeFromNib {
@@ -341,7 +343,7 @@ static NSDictionary* IFSyntaxAttributes[256];
         [gamePage stopRunningGame];
     }
 	
-    [tabView setDelegate: self];
+    tabView.delegate = self;
 	
 	// Set up the backwards/forwards buttons
 	backCell    = [[IFPageBarCell alloc] initImageCell: [NSImage imageNamed: NSImageNameGoBackTemplate]];
@@ -350,10 +352,10 @@ static NSDictionary* IFSyntaxAttributes[256];
 	[backCell    setKeyEquivalent: @"-"];
 	[forwardCell setKeyEquivalent: @"="];
 
-	[backCell    setTarget: self];
-	[forwardCell setTarget: self];
-	[backCell    setAction: @selector(goBackwards:)];
-	[forwardCell setAction: @selector(goForwards:)];
+	backCell.target = self;
+	forwardCell.target = self;
+	backCell.action = @selector(goBackwards:);
+	forwardCell.action = @selector(goForwards:);
 
 	[pageBar setLeftCells: @[backCell, forwardCell]];
 }
@@ -363,8 +365,8 @@ static NSDictionary* IFSyntaxAttributes[256];
 - (void) setController: (IFProjectController*) p
              viewIndex: (NSInteger) viewIndex {
     if (!awake) {
-        [NSBundle oldLoadNibNamed: @"ProjectPane"
-                            owner: self];
+        [NSBundle customLoadNib: @"ProjectPane"
+                          owner: self];
     }
 
     parent = p;
@@ -388,13 +390,13 @@ static NSDictionary* IFSyntaxAttributes[256];
 }
 
 - (NSTabViewItem*) tabViewItemForPage: (IFPage*) page {
-	return [tabView tabViewItemAtIndex: [tabView indexOfTabViewItemWithIdentifier: [page identifier]]];
+	return [tabView tabViewItemAtIndex: [tabView indexOfTabViewItemWithIdentifier: page.identifier]];
 }
 
 - (IFPage*) pageForTabViewItem: (NSTabViewItem*) item {
-	NSString* identifier = [item identifier];
+	NSString* identifier = item.identifier;
 	for( IFPage* page in pages ) {
-		if ([[page identifier] isEqualToString: identifier]) {
+		if ([page.identifier isEqualToString: identifier]) {
 			return page;
 		}
 	}
@@ -404,8 +406,8 @@ static NSDictionary* IFSyntaxAttributes[256];
 
 - (void) selectViewOfType: (enum IFProjectPaneType) pane {
     if (!awake) {
-        [NSBundle oldLoadNibNamed: @"ProjectPane"
-                            owner: self];
+        [NSBundle customLoadNib: @"ProjectPane"
+                          owner: self];
     }
     
     NSTabViewItem* toSelect = nil;
@@ -430,15 +432,15 @@ static NSDictionary* IFSyntaxAttributes[256];
 }
 
 - (enum IFProjectPaneType) currentView {
-    id selectedId = [[tabView selectedTabViewItem] identifier];
+    id selectedId = tabView.selectedTabViewItem.identifier;
 
-    if ([selectedId isEqualTo: [sourcePage identifier]])        return IFSourcePane;
-    if ([selectedId isEqualTo: [errorsPage identifier]])        return IFErrorPane;
-    if ([selectedId isEqualTo: [gamePage identifier]])          return IFGamePane;
-    if ([selectedId isEqualTo: [documentationPage identifier]]) return IFDocumentationPane;
-	if ([selectedId isEqualTo: [indexPage identifier]])         return IFIndexPane;
-	if ([selectedId isEqualTo: [skeinPage identifier]])         return IFSkeinPane;
-    if ([selectedId isEqualTo: [extensionsPage identifier]])    return IFExtensionsPane;
+    if ([selectedId isEqualTo: sourcePage.identifier])        return IFSourcePane;
+    if ([selectedId isEqualTo: errorsPage.identifier])        return IFErrorPane;
+    if ([selectedId isEqualTo: gamePage.identifier])          return IFGamePane;
+    if ([selectedId isEqualTo: documentationPage.identifier]) return IFDocumentationPane;
+	if ([selectedId isEqualTo: indexPage.identifier])         return IFIndexPane;
+	if ([selectedId isEqualTo: skeinPage.identifier])         return IFSkeinPane;
+    if ([selectedId isEqualTo: extensionsPage.identifier])    return IFExtensionsPane;
 
     return IFSourcePane;
 }
@@ -448,7 +450,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 }
 
 - (IFCompilerController*) compilerController {
-    return [errorsPage compilerController];
+    return errorsPage.compilerController;
 }
 
 #pragma mark - Menu actions
@@ -464,7 +466,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 }
 
 - (void) showSourceFile: (NSString*) file {
-	[[self sourcePage] showSourceFile: file];
+	[self.sourcePage showSourceFile: file];
 }
 
 #pragma mark - The pages
@@ -489,13 +491,13 @@ static NSDictionary* IFSyntaxAttributes[256];
 - (BOOL)            tabView: (NSTabView *)view 
     shouldSelectTabViewItem: (NSTabViewItem *)item {
 	// Get the identifier for this tab page
-	id identifier = [item identifier];
+	id identifier = item.identifier;
 	if (identifier == nil) return YES;
 	
 	// Find the associated IFPage object
     IFPage* page = nil;
 	for( IFPage* possiblePage in pages ) {
-		if ([[possiblePage identifier] isEqual: identifier]) {
+		if ([possiblePage.identifier isEqual: identifier]) {
             page = possiblePage;
 			break;
 		}
@@ -504,10 +506,10 @@ static NSDictionary* IFSyntaxAttributes[256];
 	if (page != nil) {
         // HACK: When Lion auto-restores documents, it wants to switch pages to something random.
         // We stop the madness here.
-        if( ![parent safeToSwitchTabs] ) {
+        if( !parent.safeToSwitchTabs ) {
             return NO;
         }
-		return [page shouldShowPage];
+		return page.shouldShowPage;
 	}
 	
 	return YES;
@@ -519,18 +521,18 @@ static NSDictionary* IFSyntaxAttributes[256];
 
 - (void) activatePage: (IFPage*) page {
 	// Select the active view for the specified page
-	[[parent window] makeFirstResponder: [page activeView]];
+	[parent.window makeFirstResponder: page.activeView];
 }
 
 - (void)        tabView: (NSTabView *)thisTabView
   willSelectTabViewItem: (NSTabViewItem *)tabViewItem {
 	IFPage* page		= [self pageForTabViewItem: tabViewItem];
-	IFPage* lastPage	= [self pageForTabViewItem: [thisTabView selectedTabViewItem]];
+	IFPage* lastPage	= [self pageForTabViewItem: thisTabView.selectedTabViewItem];
 	
 	// Record in the history
     LogHistory(@"HISTORY: Project Pane (%@): (willSelectTabViewItem) page %@ tabViewItem %@", self, page, tabViewItem);
-	[[self history] selectTabViewItem: tabViewItem];
-	[[self history] activatePage: page];
+	[self.history selectTabViewItem: tabViewItem];
+	[self.history activatePage: page];
 
 	// Notify the page that it has been selected
 	[page setPageIsVisible: YES];
@@ -539,7 +541,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 	[page didSwitchToPage];
 	
 	// Update the right-hand page bar cells
-	[pageBar setRightCells: [[self pageForTabViewItem: tabViewItem] toolbarCells]];
+	[pageBar setRightCells: [self pageForTabViewItem: tabViewItem].toolbarCells];
 }
 
 #pragma mark - The tab view
@@ -555,25 +557,25 @@ static NSDictionary* IFSyntaxAttributes[256];
 
 - (void) refreshToolbarCells: (NSNotification*) not {
 	// Work out which page we're updating
-	IFPage* page = [not object];
+	IFPage* page = not.object;
 	
 	// Refresh the page bar cells
-	if (page == [self pageForTabViewItem: [tabView selectedTabViewItem]]) {
-		[pageBar setRightCells: [page toolbarCells]];
+	if (page == [self pageForTabViewItem: tabView.selectedTabViewItem]) {
+		[pageBar setRightCells: page.toolbarCells];
 	}
 }
 
 - (void) switchToPage: (NSNotification*) not {
 	// Work out which page we're switching to, and the optional page that must be showing for the switch to occur
-	NSString* identifier = [not userInfo][@"Identifier"];
-	NSString* fromPage = [not userInfo][@"OldPageIdentifier"];
+	NSString* identifier = not.userInfo[@"Identifier"];
+	NSString* fromPage = not.userInfo[@"OldPageIdentifier"];
 
 	// If no 'to' page is specified, then switch to the sending object
-	if (identifier == nil) identifier = [(IFPage*)[not object] identifier];
+	if (identifier == nil) identifier = ((IFPage*)not.object).identifier;
 	
 	// If a 'from' page is specified, then the current page must be that page, or the switch won't take place
 	if (fromPage != nil) {
-		id currentPage = [[tabView selectedTabViewItem] identifier];
+		id currentPage = tabView.selectedTabViewItem.identifier;
 		if (![fromPage isEqualTo: currentPage]) {
 			return;
 		}
@@ -586,9 +588,9 @@ static NSDictionary* IFSyntaxAttributes[256];
 - (void) addPage: (IFPage*) newPage {
 	// Add this page to the list of pages being managed by this control
 	[pages addObject: newPage];
-	[newPage setThisPane: self];
-	[newPage setOtherPane: [parent oppositePane: self]];
-	[newPage setRecorder: self];
+	newPage.thisPane = self;
+	newPage.otherPane = [parent oppositePane: self];
+	newPage.recorder = self;
 
 	// Register for notifications from this page
 	[[NSNotificationCenter defaultCenter] addObserver: self
@@ -601,16 +603,16 @@ static NSDictionary* IFSyntaxAttributes[256];
 											   object: newPage];
 
 	// Add the page to the tab view
-	NSTabViewItem* newItem = [[NSTabViewItem alloc] initWithIdentifier: [newPage identifier]];
-	[newItem setLabel: [newPage title]];
+	NSTabViewItem* newItem = [[NSTabViewItem alloc] initWithIdentifier: newPage.identifier];
+	newItem.label = newPage.title;
 
 	[tabView addTabViewItem: newItem];
 
-	if ([[newItem view] frame].size.width <= 0) {
-		[[newItem view] setFrameSize: NSMakeSize(1280, 1024)];
+	if (newItem.view.frame.size.width <= 0) {
+		[newItem.view setFrameSize: NSMakeSize(1280, 1024)];
 	}
-	[[newPage view] setFrame: [[newItem view] bounds]];
-	[[newItem view] addSubview: [newPage view]];
+	newPage.view.frame = newItem.view.bounds;
+	[newItem.view addSubview: newPage.view];
 }
 
 #pragma mark - The history
@@ -622,7 +624,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 		[backCell setEnabled: YES];
 	}
 
-	if (historyPos >= [history count]-1) {
+	if (historyPos >= history.count-1) {
 		[forwardCell setEnabled: NO];
 	} else {
 		[forwardCell setEnabled: YES];
@@ -638,8 +640,8 @@ static NSDictionary* IFSyntaxAttributes[256];
 	if (newEvent == nil) return;
 	
 	// If we've gone backwards in the history, then remove the 'forward' history items
-	if (historyPos != [history count]-1) {
-		[history removeObjectsInRange: NSMakeRange(historyPos+1, [history count]-(historyPos+1))];
+	if (historyPos != history.count-1) {
+		[history removeObjectsInRange: NSMakeRange(historyPos+1, history.count-(historyPos+1))];
 	}
 	
 	// Add the new history item
@@ -700,8 +702,8 @@ static NSDictionary* IFSyntaxAttributes[256];
 	}
 	
 	// Return a suitable proxy
-	[event setTarget: self];
-	return [event proxy];
+	event.target = self;
+	return event.proxy;
 }
 
 - (void) goBackwards: (id) sender {
@@ -717,7 +719,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 }
 
 - (void) goForwards: (id) sender {
-	if (historyPos >= [history count]-1) return;
+	if (historyPos >= history.count-1) return;
 	
 	
 	replaying = YES;

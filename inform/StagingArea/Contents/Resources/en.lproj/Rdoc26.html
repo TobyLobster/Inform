@@ -83,85 +83,85 @@
     <!--END IGNORE-->
     <p class="sectionheading">§5.4. Background</p>
     <p>In IF, as in all interactive storytelling, an essential problem is that the player does not begin the story knowing everything that the player character should, and so may implausibly bumble through situations that the player character should be quite comfortable in. If the player character has friends, an unusual job, a home or environment we're not familiar with, a secret past, these will all be a blank to the player.</p>
-    <p>Some games get around this by making the player character an amnesiac, or positioning him as a newcomer to a strange world in which his disorientation is explicable; but there are stories that cannot be told this way, and so we need other methods of getting the player to know what the player character already does.</p>
+    <p>Some games get around this by making the player character an amnesiac, or positioning them as a newcomer to a strange world in which their disorientation is explicable; but there are stories that cannot be told this way, and so we need other methods of getting the player to know what the player character already does.</p>
     <p>Our first opportunity to inform the player about the player character is in the opening text of a story:</p>
-    <!--START CODE "c11185"-->
-    <blockquote class="code"><p class="quoted"><a id="c11185"></a>When play begins:
+    <!--START CODE "c11213"-->
+    <blockquote class="code"><p class="quoted"><a id="c11213"></a>When play begins:
     <br>
     &#160;&#160;&#160;&#160;say &quot;The funeral is exactly a month ago now, but Elise's shoes are still on the shoe tree.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>We may also want to write descriptions of objects to give extra background information the first time the player encounters them:</p>
-    <!--START CODE "c11186"-->
-    <blockquote class="code"><p class="quoted"><a id="c11186"></a>A thing can be examined or unexamined. A thing is usually unexamined. After examining something: now the noun is examined; continue the action.
+    <!--START CODE "c11214"-->
+    <blockquote class="code"><p class="quoted"><a id="c11214"></a>A thing can be examined or unexamined. A thing is usually unexamined. After examining something: now the noun is examined; continue the action.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c11187"-->
-    <blockquote class="code"><p class="quoted"><a id="c11187"></a>The description of the newspaper is &quot;A rolled-up newspaper[if unexamined], and thus a symbol of your newly-single state: Elise always had it open and the Local Metro section next to your plate by the time you got out of the shower[end if].&quot;
+    <!--START CODE "c11215"-->
+    <blockquote class="code"><p class="quoted"><a id="c11215"></a>The description of the newspaper is &quot;A rolled-up newspaper[if unexamined], and thus a symbol of your newly-single state: Elise always had it open and the Local Metro section next to your plate by the time you got out of the shower[end if].&quot;
     </p>
     </blockquote>
     <!--END CODE-->
-    <p>To expand on this, we could give the player a THINK ABOUT or REMEMBER command, with which he can call up information about people he meets or references he encounters in descriptions, so that he could (for instance) next type REMEMBER ELISE. <span class="boldface">Merlin</span> demonstrates one way to implement a character with memory; <span class="boldface">One of Those Mornings</span> puts a twist on this by letting the player FIND things which he knows his character possessed at some time before the story started.</p>
+    <p>To expand on this, we could give the player a THINK ABOUT or REMEMBER command, with which they can call up information about people they meet or references they encounter in descriptions, so that they could (for instance) next type REMEMBER ELISE. <span class="boldface">Merlin</span> demonstrates one way to implement a character with memory; <span class="boldface">One of Those Mornings</span> puts a twist on this by letting the player FIND things which they know the player character possessed at some time before the story started.</p>
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "277: Merlin" "e321"-->
-        <a id="e321"></a><table class="egcue">
+        <!--START EXAMPLE "278: Merlin" "e223"-->
+        <a id="e223"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example321'); return false;"><b>277</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example223'); return false;"><b>278</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example321'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Merlin</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example223'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Merlin</span></b></a><br>
                     A REMEMBER command which accepts any text and looks up a response in a table of recollections.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc256.html#e321"><i>WI</i></a></div>
+                        <a href="doc256.html#e223"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example321" style="display: none;">
-            <!--START CODE "c11188_321"-->
-            <blockquote class="code"><p class="quoted"><a id="c11188_321"></a><a href="javascript:pasteCode('[=0x0022=]Merlin[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]remember [text][=0x0022=] as remembering.[=0x000A=][=0x000A=]Remembering is an action applying to one topic.[=0x000A=][=0x000A=]Carry out remembering:[=0x000A=][=0x0009=]say [=0x0022=]Nothing comes to mind.[=0x0022=].[=0x000A=][=0x000A=]Instead of remembering a topic listed in the Table of Recollections:[=0x000A=][=0x0009=]say [=0x0022=][response entry][paragraph break][=0x0022=].[=0x000A=][=0x000A=]Table of Recollections[=0x000A=]Topic[=0x0009=]Response[=0x000A=][=0x0022=]rain/weather[=0x0022=][=0x0009=][=0x0022=]You[=0x0027=]ve seen worse, but not often: it[=0x0027=]s falling so hard now that the tin rattles and the runoff, on the low side of the roof, would be a tenable source of hydroelectric power.[=0x0022=][=0x000A=][=0x0022=]hydroelectric power[=0x0022=] or [=0x0022=]power/hydroelectric[=0x0022=][=0x0009=][=0x0022=]It[=0x0027=]s not as though you have any sort of light bulb in here to turn on, even if you could power it.[=0x0022=][=0x000A=][=0x0022=]light bulb[=0x0022=] or [=0x0022=]light/bulb[=0x0022=][=0x0009=][=0x0022=]Light bulbs, like so much else, are a thing of your past. Or is it your future? Tricky, the way the world loops round on itself.[=0x0022=][=0x000A=][=0x0022=]past/time/future[=0x0022=][=0x0009=][=0x0022=]Living backwards has its drawbacks. A tendency to confuse and annoy your friends, being one; the total inability to maintain a stable relationship; and a deep dissatisfaction with most of the bodily processes people enjoy, since they ultimately make you hungrier, colder, or-- no point dwelling on it, really.[=0x0022=][=0x000A=][=0x0022=]backwards[=0x0022=][=0x0009=][=0x0022=]It[=0x0027=]s not even exactly *backwards*, now is it? It[=0x0027=]s more like a series of forwardses stuck back to back. As though someone had taken each track of a CD and put them in the exactly wrong order. You miss that. The music on demand.[=0x0022=][=0x000A=][=0x000A=]The Inadequate Shelter is a room. [=0x0022=]A piece of corrugated tin, leaned on two sticks, and pathetically augmented with a tire (on one side) and a cardboard box (on the side towards the wind). And that[=0x0027=]s what you[=0x0027=]ve got between you and the driving rain.[=0x000A=][=0x000A=]At the moment rain is all you can remember, in fact.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]remember rain / remember power / remember light bulb / remember future / remember backwards[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Merlin[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]remember [text][=0x0022=] as remembering.[=0x000A=][=0x000A=]Remembering is an action applying to one topic.[=0x000A=][=0x000A=]Carry out remembering:[=0x000A=][=0x0009=]say [=0x0022=]Nothing comes to mind.[=0x0022=].[=0x000A=][=0x000A=]Instead of remembering a topic listed in the Table of Recollections:[=0x000A=][=0x0009=]say [=0x0022=][response entry][paragraph break][=0x0022=].[=0x000A=][=0x000A=]Table of Recollections[=0x000A=]Topic[=0x0009=]Response[=0x000A=][=0x0022=]rain/weather[=0x0022=][=0x0009=][=0x0022=]You[=0x0027=]ve seen worse, but not often: it[=0x0027=]s falling so hard now that the tin rattles and the runoff, on the low side of the roof, would be a tenable source of hydroelectric power.[=0x0022=][=0x000A=][=0x0022=]hydroelectric power[=0x0022=] or [=0x0022=]power/hydroelectric[=0x0022=][=0x0009=][=0x0022=]It[=0x0027=]s not as though you have any sort of light bulb in here to turn on, even if you could power it.[=0x0022=][=0x000A=][=0x0022=]light bulb[=0x0022=] or [=0x0022=]light/bulb[=0x0022=][=0x0009=][=0x0022=]Light bulbs, like so much else, are a thing of your past. Or is it your future? Tricky, the way the world loops round on itself.[=0x0022=][=0x000A=][=0x0022=]past/time/future[=0x0022=][=0x0009=][=0x0022=]Living backwards has its drawbacks. A tendency to confuse and annoy your friends, being one; the total inability to maintain a stable relationship; and a deep dissatisfaction with most of the bodily processes people enjoy, since they ultimately make you hungrier, colder, or-- no point dwelling on it, really.[=0x0022=][=0x000A=][=0x0022=]backwards[=0x0022=][=0x0009=][=0x0022=]It[=0x0027=]s not even exactly *backwards*, now is it? It[=0x0027=]s more like a series of forwardses stuck back to back. As though someone had taken each track of a CD and put them in the exactly wrong order. You miss that. The music on demand.[=0x0022=][=0x000A=][=0x000A=]The Inadequate Shelter is a room. [=0x0022=]A piece of corrugated tin, leaned on two sticks, and pathetically augmented with a tire (on one side) and a cardboard box (on the side towards the wind). And that[=0x0027=]s what you[=0x0027=]ve got between you and the driving rain.[=0x000A=][=0x000A=]At the moment rain is all you can remember, in fact.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]remember rain / remember power / remember light bulb / remember future / remember backwards[=0x0022=].[=0x000A=]\n', 'Example - Merlin')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Merlin&quot;
+        <div class="egpanel" id="example223" style="display: none;">
+            <!--START CODE "c11216_223"-->
+            <blockquote class="code"><p class="quoted"><a id="c11216_223"></a><a href="javascript:pasteCode('[=0x0022=]Merlin[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]remember [text][=0x0022=] as remembering.[=0x000A=][=0x000A=]Remembering is an action applying to one topic.[=0x000A=][=0x000A=]Carry out remembering:[=0x000A=][=0x0009=]say [=0x0022=]Nothing comes to mind.[=0x0022=].[=0x000A=][=0x000A=]Instead of remembering a topic listed in the Table of Recollections:[=0x000A=][=0x0009=]say [=0x0022=][response entry][paragraph break][=0x0022=].[=0x000A=][=0x000A=]Table of Recollections[=0x000A=]Topic[=0x0009=]Response[=0x000A=][=0x0022=]rain/weather[=0x0022=][=0x0009=][=0x0022=]You[=0x0027=]ve seen worse, but not often: it[=0x0027=]s falling so hard now that the tin rattles and the runoff, on the low side of the roof, would be a tenable source of hydroelectric power.[=0x0022=][=0x000A=][=0x0022=]hydroelectric power[=0x0022=] or [=0x0022=]power/hydroelectric[=0x0022=][=0x0009=][=0x0022=]It[=0x0027=]s not as though you have any sort of light bulb in here to turn on, even if you could power it.[=0x0022=][=0x000A=][=0x0022=]light bulb[=0x0022=] or [=0x0022=]light/bulb[=0x0022=][=0x0009=][=0x0022=]Light bulbs, like so much else, are a thing of your past. Or is it your future? Tricky, the way the world loops round on itself.[=0x0022=][=0x000A=][=0x0022=]past/time/future[=0x0022=][=0x0009=][=0x0022=]Living backwards has its drawbacks. A tendency to confuse and annoy your friends, being one; the total inability to maintain a stable relationship; and a deep dissatisfaction with most of the bodily processes people enjoy, since they ultimately make you hungrier, colder, or-- no point dwelling on it, really.[=0x0022=][=0x000A=][=0x0022=]backwards[=0x0022=][=0x0009=][=0x0022=]It[=0x0027=]s not even exactly *backwards*, now is it? It[=0x0027=]s more like a series of forwardses stuck back to back. As though someone had taken each track of a CD and put them in the exactly wrong order. You miss that. The music on demand.[=0x0022=][=0x000A=][=0x000A=]The Inadequate Shelter is a room. [=0x0022=]A piece of corrugated tin, leaned on two sticks, and pathetically augmented with a tire (on one side) and a cardboard box (on the side towards the wind). And that[=0x0027=]s what you[=0x0027=]ve got between you and the driving rain.[=0x000A=][=0x000A=]At the moment rain is all you can remember, in fact.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]remember rain / remember power / remember light bulb / remember future / remember backwards[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Merlin[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]remember [text][=0x0022=] as remembering.[=0x000A=][=0x000A=]Remembering is an action applying to one topic.[=0x000A=][=0x000A=]Carry out remembering:[=0x000A=][=0x0009=]say [=0x0022=]Nothing comes to mind.[=0x0022=].[=0x000A=][=0x000A=]Instead of remembering a topic listed in the Table of Recollections:[=0x000A=][=0x0009=]say [=0x0022=][response entry][paragraph break][=0x0022=].[=0x000A=][=0x000A=]Table of Recollections[=0x000A=]Topic[=0x0009=]Response[=0x000A=][=0x0022=]rain/weather[=0x0022=][=0x0009=][=0x0022=]You[=0x0027=]ve seen worse, but not often: it[=0x0027=]s falling so hard now that the tin rattles and the runoff, on the low side of the roof, would be a tenable source of hydroelectric power.[=0x0022=][=0x000A=][=0x0022=]hydroelectric power[=0x0022=] or [=0x0022=]power/hydroelectric[=0x0022=][=0x0009=][=0x0022=]It[=0x0027=]s not as though you have any sort of light bulb in here to turn on, even if you could power it.[=0x0022=][=0x000A=][=0x0022=]light bulb[=0x0022=] or [=0x0022=]light/bulb[=0x0022=][=0x0009=][=0x0022=]Light bulbs, like so much else, are a thing of your past. Or is it your future? Tricky, the way the world loops round on itself.[=0x0022=][=0x000A=][=0x0022=]past/time/future[=0x0022=][=0x0009=][=0x0022=]Living backwards has its drawbacks. A tendency to confuse and annoy your friends, being one; the total inability to maintain a stable relationship; and a deep dissatisfaction with most of the bodily processes people enjoy, since they ultimately make you hungrier, colder, or-- no point dwelling on it, really.[=0x0022=][=0x000A=][=0x0022=]backwards[=0x0022=][=0x0009=][=0x0022=]It[=0x0027=]s not even exactly *backwards*, now is it? It[=0x0027=]s more like a series of forwardses stuck back to back. As though someone had taken each track of a CD and put them in the exactly wrong order. You miss that. The music on demand.[=0x0022=][=0x000A=][=0x000A=]The Inadequate Shelter is a room. [=0x0022=]A piece of corrugated tin, leaned on two sticks, and pathetically augmented with a tire (on one side) and a cardboard box (on the side towards the wind). And that[=0x0027=]s what you[=0x0027=]ve got between you and the driving rain.[=0x000A=][=0x000A=]At the moment rain is all you can remember, in fact.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]remember rain / remember power / remember light bulb / remember future / remember backwards[=0x0022=].[=0x000A=]\n', 'Example - Merlin')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Merlin&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11189_321"-->
-            <blockquote class="code"><p class="quoted"><a id="c11189_321"></a>Understand &quot;remember [text]&quot; as remembering.
+            <!--START CODE "c11217_223"-->
+            <blockquote class="code"><p class="quoted"><a id="c11217_223"></a>Understand &quot;remember [text]&quot; as remembering.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11190_321"-->
-            <blockquote class="code"><p class="quoted"><a id="c11190_321"></a>Remembering is an action applying to one topic.
+            <!--START CODE "c11218_223"-->
+            <blockquote class="code"><p class="quoted"><a id="c11218_223"></a>Remembering is an action applying to one topic.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11191_321"-->
-            <blockquote class="code"><p class="quoted"><a id="c11191_321"></a>Carry out remembering:
+            <!--START CODE "c11219_223"-->
+            <blockquote class="code"><p class="quoted"><a id="c11219_223"></a>Carry out remembering:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Nothing comes to mind.&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11192_321"-->
-            <blockquote class="code"><p class="quoted"><a id="c11192_321"></a>Instead of remembering a topic listed in the Table of Recollections:
+            <!--START CODE "c11220_223"-->
+            <blockquote class="code"><p class="quoted"><a id="c11220_223"></a>Instead of remembering a topic listed in the Table of Recollections:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[response entry][paragraph break]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11193_321"-->
-            <blockquote class="code"><p class="quoted"><a id="c11193_321"></a>Table of Recollections
+            <!--START CODE "c11221_223"-->
+            <blockquote class="code"><p class="quoted"><a id="c11221_223"></a>Table of Recollections
             <br>
             </p>
             </blockquote>
@@ -230,66 +230,66 @@
             <blockquote><p></p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11194_321"-->
-            <blockquote class="code"><p class="quoted"><a id="c11194_321"></a>The Inadequate Shelter is a room. &quot;A piece of corrugated tin, leaned on two sticks, and pathetically augmented with a tire (on one side) and a cardboard box (on the side towards the wind). And that's what you've got between you and the driving rain.
+            <!--START CODE "c11222_223"-->
+            <blockquote class="code"><p class="quoted"><a id="c11222_223"></a>The Inadequate Shelter is a room. &quot;A piece of corrugated tin, leaned on two sticks, and pathetically augmented with a tire (on one side) and a cardboard box (on the side towards the wind). And that's what you've got between you and the driving rain.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11195_321"-->
-            <blockquote class="code"><p class="quoted"><a id="c11195_321"></a>At the moment rain is all you can remember, in fact.&quot;
+            <!--START CODE "c11223_223"-->
+            <blockquote class="code"><p class="quoted"><a id="c11223_223"></a>At the moment rain is all you can remember, in fact.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11196_321"-->
-            <blockquote class="code"><p class="quoted"><a id="c11196_321"></a>Test me with &quot;remember rain / remember power / remember light bulb / remember future / remember backwards&quot;.
+            <!--START CODE "c11224_223"-->
+            <blockquote class="code"><p class="quoted"><a id="c11224_223"></a>Test me with &quot;remember rain / remember power / remember light bulb / remember future / remember backwards&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "301: One of Those Mornings" "e251"-->
-        <a id="e251"></a><table class="egcue">
+        <!--START EXAMPLE "302: One of Those Mornings" "e260"-->
+        <a id="e260"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example251'); return false;"><b>301</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example260'); return false;"><b>302</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example251'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">One of Those Mornings</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example260'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">One of Those Mornings</span></b></a><br>
                     A FIND command that allows the player to find a lost object anywhere</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc269.html#e251"><i>WI</i></a></div>
+                        <a href="doc269.html#e260"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example251" style="display: none;">
-            <p>Suppose that, contrary to the usual rules of interactive fiction, we want to allow the player to discover the locations of things he hasn't actually seen yet:</p>
-            <!--START CODE "c11197_251"-->
-            <blockquote class="code"><p class="quoted"><a id="c11197_251"></a><a href="javascript:pasteCode('[=0x0022=]One of Those Mornings[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]find [any thing][=0x0022=] as finding.[=0x000A=][=0x000A=]Finding is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out finding:[=0x000A=][=0x0009=]if the player is carrying the noun:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You[=0x0027=]re holding [the noun]![=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You left [the noun] [if the noun is on a supporter]on[otherwise]in[end if] [the holder of the noun].[=0x0022=][=0x000A=][=0x000A=][The holder of the noun can be a room, a supporter, or a container: the phrase is not picky. We would want to be a little more careful if it were ever possible for an item to have been [=0x0022=]removed from play[=0x0022=] in our game, since then the holder could be nothing, and that would have odd results. In this particular example, though, that will not arise.][=0x000A=][=0x000A=][And that[=0x0027=]s it, as far as the find command goes. The rest is local color.][=0x000A=][=0x000A=]The Exhibition Room is a room. It contains a closed locked lockable transparent openable container called the display case. The display case contains a priceless pearl. The display case is scenery. The description of the Exhibition Room is [=0x0022=]By far the finest thing in the room is a priceless pearl in a glass display case. It should of course be yours[if key is not visible], if only you can remember where you hid the key[end if].[=0x0022=][=0x000A=][=0x000A=]The silver key unlocks the display case.[=0x000A=][=0x000A=]A jade vase, a teak chest, a bronze teakettle, and a child[=0x0027=]s burial casket are openable closed containers in the Exhibition Room.[=0x000A=][=0x000A=]After taking the pearl:[=0x000A=][=0x0009=]say [=0x0022=]The pearl rolls into your hand, gleaming in the oblique light; your fortune is made.[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=][If we want to have the key found in different places when the game is replayed:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]let the space be a random container which is not the display case;[=0x000A=][=0x0009=]move the silver key to the space.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]say [=0x0022=]Your watch ticks with maddening loudness.[=0x0022=][=0x000A=][=0x000A=]The time of day is 1:02 AM.[=0x000A=][=0x000A=]At 1:08 AM: say [=0x0022=]The security guard arrives to find you fumbling about with keys. Curses.[=0x0022=]; end the story.[=0x000A=][=0x000A=]Test me with [=0x0022=]find pearl / find teakettle / get teakettle / find teakettle / find key[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]One of Those Mornings[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]find [any thing][=0x0022=] as finding.[=0x000A=][=0x000A=]Finding is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out finding:[=0x000A=][=0x0009=]if the player is carrying the noun:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You[=0x0027=]re holding [the noun]![=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You left [the noun] [if the noun is on a supporter]on[otherwise]in[end if] [the holder of the noun].[=0x0022=][=0x000A=][=0x000A=][The holder of the noun can be a room, a supporter, or a container: the phrase is not picky. We would want to be a little more careful if it were ever possible for an item to have been [=0x0022=]removed from play[=0x0022=] in our game, since then the holder could be nothing, and that would have odd results. In this particular example, though, that will not arise.][=0x000A=][=0x000A=][And that[=0x0027=]s it, as far as the find command goes. The rest is local color.][=0x000A=][=0x000A=]The Exhibition Room is a room. It contains a closed locked lockable transparent openable container called the display case. The display case contains a priceless pearl. The display case is scenery. The description of the Exhibition Room is [=0x0022=]By far the finest thing in the room is a priceless pearl in a glass display case. It should of course be yours[if key is not visible], if only you can remember where you hid the key[end if].[=0x0022=][=0x000A=][=0x000A=]The silver key unlocks the display case.[=0x000A=][=0x000A=]A jade vase, a teak chest, a bronze teakettle, and a child[=0x0027=]s burial casket are openable closed containers in the Exhibition Room.[=0x000A=][=0x000A=]After taking the pearl:[=0x000A=][=0x0009=]say [=0x0022=]The pearl rolls into your hand, gleaming in the oblique light; your fortune is made.[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=][If we want to have the key found in different places when the game is replayed:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]let the space be a random container which is not the display case;[=0x000A=][=0x0009=]move the silver key to the space.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]say [=0x0022=]Your watch ticks with maddening loudness.[=0x0022=][=0x000A=][=0x000A=]The time of day is 1:02 AM.[=0x000A=][=0x000A=]At 1:08 AM: say [=0x0022=]The security guard arrives to find you fumbling about with keys. Curses.[=0x0022=]; end the story.[=0x000A=][=0x000A=]Test me with [=0x0022=]find pearl / find teakettle / get teakettle / find teakettle / find key[=0x0022=].[=0x000A=]\n', 'Example - One of Those Mornings')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;One of Those Mornings&quot;
+        <div class="egpanel" id="example260" style="display: none;">
+            <p>Suppose that, contrary to the usual rules of interactive fiction, we want to allow the player to discover the locations of things they haven't actually seen yet:</p>
+            <!--START CODE "c11225_260"-->
+            <blockquote class="code"><p class="quoted"><a id="c11225_260"></a><a href="javascript:pasteCode('[=0x0022=]One of Those Mornings[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]find [any thing][=0x0022=] as finding.[=0x000A=][=0x000A=]Finding is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out finding:[=0x000A=][=0x0009=]if the player is carrying the noun:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You[=0x0027=]re holding [the noun]![=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You left [the noun] [if the noun is on a supporter]on[otherwise]in[end if] [the holder of the noun].[=0x0022=][=0x000A=][=0x000A=][The holder of the noun can be a room, a supporter, or a container: the phrase is not picky. We would want to be a little more careful if it were ever possible for an item to have been [=0x0022=]removed from play[=0x0022=] in our game, since then the holder could be nothing, and that would have odd results. In this particular example, though, that will not arise.][=0x000A=][=0x000A=][And that[=0x0027=]s it, as far as the find command goes. The rest is local color.][=0x000A=][=0x000A=]The Exhibition Room is a room. It contains a closed locked lockable transparent openable container called the display case. The display case contains a priceless pearl. The display case is scenery. The description of the Exhibition Room is [=0x0022=]By far the finest thing in the room is a priceless pearl in a glass display case. It should of course be yours[if key is not visible], if only you can remember where you hid the key[end if].[=0x0022=][=0x000A=][=0x000A=]The silver key unlocks the display case.[=0x000A=][=0x000A=]A jade vase, a teak chest, a bronze teakettle, and a child[=0x0027=]s burial casket are openable closed containers in the Exhibition Room.[=0x000A=][=0x000A=]After taking the pearl:[=0x000A=][=0x0009=]say [=0x0022=]The pearl rolls into your hand, gleaming in the oblique light; your fortune is made.[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=][If we want to have the key found in different places when the game is replayed:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]let the space be a random container which is not the display case;[=0x000A=][=0x0009=]move the silver key to the space.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]say [=0x0022=]Your watch ticks with maddening loudness.[=0x0022=][=0x000A=][=0x000A=]The time of day is 1:02 AM.[=0x000A=][=0x000A=]At 1:08 AM: say [=0x0022=]The security guard arrives to find you fumbling about with keys. Curses.[=0x0022=]; end the story.[=0x000A=][=0x000A=]Test me with [=0x0022=]find pearl / find teakettle / get teakettle / find teakettle / find key[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]One of Those Mornings[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]find [any thing][=0x0022=] as finding.[=0x000A=][=0x000A=]Finding is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out finding:[=0x000A=][=0x0009=]if the player is carrying the noun:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You[=0x0027=]re holding [the noun]![=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You left [the noun] [if the noun is on a supporter]on[otherwise]in[end if] [the holder of the noun].[=0x0022=][=0x000A=][=0x000A=][The holder of the noun can be a room, a supporter, or a container: the phrase is not picky. We would want to be a little more careful if it were ever possible for an item to have been [=0x0022=]removed from play[=0x0022=] in our game, since then the holder could be nothing, and that would have odd results. In this particular example, though, that will not arise.][=0x000A=][=0x000A=][And that[=0x0027=]s it, as far as the find command goes. The rest is local color.][=0x000A=][=0x000A=]The Exhibition Room is a room. It contains a closed locked lockable transparent openable container called the display case. The display case contains a priceless pearl. The display case is scenery. The description of the Exhibition Room is [=0x0022=]By far the finest thing in the room is a priceless pearl in a glass display case. It should of course be yours[if key is not visible], if only you can remember where you hid the key[end if].[=0x0022=][=0x000A=][=0x000A=]The silver key unlocks the display case.[=0x000A=][=0x000A=]A jade vase, a teak chest, a bronze teakettle, and a child[=0x0027=]s burial casket are openable closed containers in the Exhibition Room.[=0x000A=][=0x000A=]After taking the pearl:[=0x000A=][=0x0009=]say [=0x0022=]The pearl rolls into your hand, gleaming in the oblique light; your fortune is made.[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=][If we want to have the key found in different places when the game is replayed:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]let the space be a random container which is not the display case;[=0x000A=][=0x0009=]move the silver key to the space.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]say [=0x0022=]Your watch ticks with maddening loudness.[=0x0022=][=0x000A=][=0x000A=]The time of day is 1:02 AM.[=0x000A=][=0x000A=]At 1:08 AM: say [=0x0022=]The security guard arrives to find you fumbling about with keys. Curses.[=0x0022=]; end the story.[=0x000A=][=0x000A=]Test me with [=0x0022=]find pearl / find teakettle / get teakettle / find teakettle / find key[=0x0022=].[=0x000A=]\n', 'Example - One of Those Mornings')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;One of Those Mornings&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11198_251"-->
-            <blockquote class="code"><p class="quoted"><a id="c11198_251"></a>Understand &quot;find [any thing]&quot; as finding.
+            <!--START CODE "c11226_260"-->
+            <blockquote class="code"><p class="quoted"><a id="c11226_260"></a>Understand &quot;find [any thing]&quot; as finding.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11199_251"-->
-            <blockquote class="code"><p class="quoted"><a id="c11199_251"></a>Finding is an action applying to one visible thing.
+            <!--START CODE "c11227_260"-->
+            <blockquote class="code"><p class="quoted"><a id="c11227_260"></a>Finding is an action applying to one visible thing.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11200_251"-->
-            <blockquote class="code"><p class="quoted"><a id="c11200_251"></a>Carry out finding:
+            <!--START CODE "c11228_260"-->
+            <blockquote class="code"><p class="quoted"><a id="c11228_260"></a>Carry out finding:
             <br>
             &#160;&#160;&#160;&#160;if the player is carrying the noun:
             <br>
@@ -303,23 +303,23 @@
             <!--END CODE-->
             <p>The holder of the noun can be a room, a supporter, or a container: the phrase is not picky. We would want to be a little more careful if it were ever possible for an item to have been &quot;removed from play&quot; in our game, since then the holder could be nothing, and that would have odd results. In this particular example, though, that will not arise.</p>
             <p>And that's it, as far as the find command goes. The rest is local color.</p>
-            <!--START CODE "c11201_251"-->
-            <blockquote class="code"><p class="quoted"><a id="c11201_251"></a>The Exhibition Room is a room. It contains a closed locked lockable transparent openable container called the display case. The display case contains a priceless pearl. The display case is scenery. The description of the Exhibition Room is &quot;By far the finest thing in the room is a priceless pearl in a glass display case. It should of course be yours[if key is not visible], if only you can remember where you hid the key[end if].&quot;
+            <!--START CODE "c11229_260"-->
+            <blockquote class="code"><p class="quoted"><a id="c11229_260"></a>The Exhibition Room is a room. It contains a closed locked lockable transparent openable container called the display case. The display case contains a priceless pearl. The display case is scenery. The description of the Exhibition Room is &quot;By far the finest thing in the room is a priceless pearl in a glass display case. It should of course be yours[if key is not visible], if only you can remember where you hid the key[end if].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11202_251"-->
-            <blockquote class="code"><p class="quoted"><a id="c11202_251"></a>The silver key unlocks the display case.
+            <!--START CODE "c11230_260"-->
+            <blockquote class="code"><p class="quoted"><a id="c11230_260"></a>The silver key unlocks the display case.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11203_251"-->
-            <blockquote class="code"><p class="quoted"><a id="c11203_251"></a>A jade vase, a teak chest, a bronze teakettle, and a child's burial casket are openable closed containers in the Exhibition Room.
+            <!--START CODE "c11231_260"-->
+            <blockquote class="code"><p class="quoted"><a id="c11231_260"></a>A jade vase, a teak chest, a bronze teakettle, and a child's burial casket are openable closed containers in the Exhibition Room.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11204_251"-->
-            <blockquote class="code"><p class="quoted"><a id="c11204_251"></a>After taking the pearl:
+            <!--START CODE "c11232_260"-->
+            <blockquote class="code"><p class="quoted"><a id="c11232_260"></a>After taking the pearl:
             <br>
             &#160;&#160;&#160;&#160;say &quot;The pearl rolls into your hand, gleaming in the oblique light; your fortune is made.&quot;;
             <br>
@@ -328,8 +328,8 @@
             </blockquote>
             <!--END CODE-->
             <p>If we want to have the key found in different places when the game is replayed:</p>
-            <!--START CODE "c11205_251"-->
-            <blockquote class="code"><p class="quoted"><a id="c11205_251"></a>When play begins:
+            <!--START CODE "c11233_260"-->
+            <blockquote class="code"><p class="quoted"><a id="c11233_260"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;let the space be a random container which is not the display case;
             <br>
@@ -337,25 +337,25 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11206_251"-->
-            <blockquote class="code"><p class="quoted"><a id="c11206_251"></a>Every turn:
+            <!--START CODE "c11234_260"-->
+            <blockquote class="code"><p class="quoted"><a id="c11234_260"></a>Every turn:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Your watch ticks with maddening loudness.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11207_251"-->
-            <blockquote class="code"><p class="quoted"><a id="c11207_251"></a>The time of day is 1:02 AM.
+            <!--START CODE "c11235_260"-->
+            <blockquote class="code"><p class="quoted"><a id="c11235_260"></a>The time of day is 1:02 AM.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11208_251"-->
-            <blockquote class="code"><p class="quoted"><a id="c11208_251"></a>At 1:08 AM: say &quot;The security guard arrives to find you fumbling about with keys. Curses.&quot;; end the story.
+            <!--START CODE "c11236_260"-->
+            <blockquote class="code"><p class="quoted"><a id="c11236_260"></a>At 1:08 AM: say &quot;The security guard arrives to find you fumbling about with keys. Curses.&quot;; end the story.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11209_251"-->
-            <blockquote class="code"><p class="quoted"><a id="c11209_251"></a>Test me with &quot;find pearl / find teakettle / get teakettle / find teakettle / find key&quot;.
+            <!--START CODE "c11237_260"-->
+            <blockquote class="code"><p class="quoted"><a id="c11237_260"></a>Test me with &quot;find pearl / find teakettle / get teakettle / find teakettle / find key&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

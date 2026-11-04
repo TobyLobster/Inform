@@ -86,8 +86,8 @@
     <p>Sometimes this can be done with good rules about the assumptions Inform should make. <span class="boldface">Alpaca Farm</span> demonstrates a USE command, always a challenge because USE can mean very different actions with different items.</p>
     <p>There are also times when we need to ask the player for more information. <span class="boldface">Apples</span> demonstrates how sensibly to use properties to disambiguate between similar objects, while <span class="boldface">Walls and Noses</span> rephrases the disambiguation question when special objects are involved: examining one of the walls of the room will make the story ask &quot;In which direction?&quot; and EXAMINE NOSE will lead to &quot;Whose nose do you mean, Frederica's, Betty's, Wilma's or your own?&quot;</p>
     <p>At other times, the player types something that is wrong in a predictable way: for instance, we might want to remove all the &quot;with...&quot; phrases from commands like</p>
-    <!--START CODE "c12012"-->
-    <blockquote class="code"><p class="quoted"><a id="c12012"></a>HIT DOOR WITH FIST
+    <!--START CODE "c12040"-->
+    <blockquote class="code"><p class="quoted"><a id="c12040"></a>HIT DOOR WITH FIST
     <br>
     KICK DRAGON WITH FOOT
     <br>
@@ -101,234 +101,234 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "289: Alpaca Farm" "e7"-->
-        <a id="e7"></a><table class="egcue">
+        <!--START EXAMPLE "290: Alpaca Farm" "e18"-->
+        <a id="e18"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example7'); return false;"><b>289</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example18'); return false;"><b>290</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example7'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Alpaca Farm</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example18'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Alpaca Farm</span></b></a><br>
                     A generic USE action which behaves sensibly with a range of different objects.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc264.html#e7"><i>WI</i></a></div>
+                        <a href="doc264.html#e18"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example7" style="display: none;">
+        <div class="egpanel" id="example18" style="display: none;">
             <p>This example takes the ordering of grammar lines to its logical extreme, sorting the player's input into different categories depending on the kind and condition of the objects mentioned.</p>
-            <!--START CODE "c12013_7"-->
-            <blockquote class="code"><p class="quoted"><a id="c12013_7"></a><a href="javascript:pasteCode('[=0x0022=]Alpaca Farm[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]use [an edible thing][=0x0022=] as eating.[=0x000A=][=0x000A=]Understand [=0x0022=]use [a wearable thing][=0x0022=] as wearing.[=0x000A=][=0x000A=]Understand [=0x0022=]use [a closed openable container][=0x0022=] as opening. Understand [=0x0022=]use [an open openable container][=0x0022=] as closing.[=0x000A=][=0x000A=]Understand [=0x0022=]use [something preferably held] on [a locked lockable thing][=0x0022=] as unlocking it with (with nouns reversed). Understand [=0x0022=]use [something preferably held] on [an unlocked lockable thing][=0x0022=] as locking it with (with nouns reversed).[=0x000A=][=0x000A=]Understand [=0x0022=]use [a switched off device][=0x0022=] as switching on.[=0x000A=][=0x000A=]Understand [=0x0022=]use [something][=0x0022=] as using. Using is an action applying to one thing. Carry out using: say [=0x0022=]You will have to be more specific about your intentions.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]use [a door][=0x0022=] as opening. Understand [=0x0022=]use [an open door][=0x0022=] as entering.[=0x000A=][=0x000A=]The Llama Pen is a room. North of the Pen is the gate. The gate is a door. North of the gate is the Rocky Path. The brown llama is an animal in the Llama Pen.[=0x000A=][=0x000A=]Appearance is a kind of value. The appearances are muddy, scruffy, fluffy, and dapper. The brown llama has an appearance. The brown llama is muddy. Before printing the name of the brown llama, say [=0x0022=][appearance] [=0x0022=]. Before printing the name of the brown llama while grooming: say [=0x0022=]now-[if appearance of the brown llama is less than dapper]merely-[end if][=0x0022=].[=0x000A=][=0x000A=]A grooming tool is a kind of thing. Understand [=0x0022=]use [a grooming tool] on [something][=0x0022=] as grooming it with (with nouns reversed). Grooming it with is an action applying to two things. Understand [=0x0022=]groom [something] with [something][=0x0022=] as grooming it with.[=0x000A=][=0x000A=]Carry out grooming it with:[=0x000A=][=0x0009=]if the appearance of the noun is less than dapper, now the appearance of the noun is the appearance after the appearance of the noun.[=0x000A=][=0x000A=]Report grooming it with:[=0x000A=][=0x0009=]say [=0x0022=]You attend diligently to the appearance and hygiene of [the noun].[=0x0022=][=0x000A=][=0x000A=]Instead of using a grooming tool in the presence of the brown llama:[=0x000A=][=0x0009=]try grooming the brown llama with the noun.[=0x000A=][=0x000A=]The player carries some nail nippers, a slicker brush, and an apple. The apple is edible. The brush and the nippers are grooming tools. The player wears a sombrero.[=0x000A=][=0x000A=]The description of the nail nippers is [=0x0022=]Ten inches long, to give you the necessary leverage to cut tough llama toenails. It still helps to soften them up by making the llama stand in a bucket of water first, though.[=0x0022=][=0x000A=][=0x000A=]The description of the slicker brush is [=0x0022=]Fine, angled soft bristles set into a broad back, perfect for removing mud from the coat of a long-woolled llama.[=0x0022=][=0x000A=][=0x000A=]The industrial-strength blower is a fixed in place device in the Llama Pen. [=0x0022=]Attached to the nearest wall, on its own movable boom, is an industrial-strength blower for doing llama hair.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]use [switched off blower][=0x0022=] as switching on. Understand [=0x0022=]use [switched on blower] on [brown llama][=0x0022=] as grooming it with (with nouns reversed). Instead of using the blower in the presence of the brown llama, try grooming the brown llama with the blower.[=0x000A=][=0x000A=]Test me with [=0x0022=]use gate / use blower / use nippers / use brush / use apple / remove sombrero / use sombrero[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Alpaca Farm[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]use [an edible thing][=0x0022=] as eating.[=0x000A=][=0x000A=]Understand [=0x0022=]use [a wearable thing][=0x0022=] as wearing.[=0x000A=][=0x000A=]Understand [=0x0022=]use [a closed openable container][=0x0022=] as opening. Understand [=0x0022=]use [an open openable container][=0x0022=] as closing.[=0x000A=][=0x000A=]Understand [=0x0022=]use [something preferably held] on [a locked lockable thing][=0x0022=] as unlocking it with (with nouns reversed). Understand [=0x0022=]use [something preferably held] on [an unlocked lockable thing][=0x0022=] as locking it with (with nouns reversed).[=0x000A=][=0x000A=]Understand [=0x0022=]use [a switched off device][=0x0022=] as switching on.[=0x000A=][=0x000A=]Understand [=0x0022=]use [something][=0x0022=] as using. Using is an action applying to one thing. Carry out using: say [=0x0022=]You will have to be more specific about your intentions.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]use [a door][=0x0022=] as opening. Understand [=0x0022=]use [an open door][=0x0022=] as entering.[=0x000A=][=0x000A=]The Llama Pen is a room. North of the Pen is the gate. The gate is a door. North of the gate is the Rocky Path. The brown llama is an animal in the Llama Pen.[=0x000A=][=0x000A=]Appearance is a kind of value. The appearances are muddy, scruffy, fluffy, and dapper. The brown llama has an appearance. The brown llama is muddy. Before printing the name of the brown llama, say [=0x0022=][appearance] [=0x0022=]. Before printing the name of the brown llama while grooming: say [=0x0022=]now-[if appearance of the brown llama is less than dapper]merely-[end if][=0x0022=].[=0x000A=][=0x000A=]A grooming tool is a kind of thing. Understand [=0x0022=]use [a grooming tool] on [something][=0x0022=] as grooming it with (with nouns reversed). Grooming it with is an action applying to two things. Understand [=0x0022=]groom [something] with [something][=0x0022=] as grooming it with.[=0x000A=][=0x000A=]Carry out grooming it with:[=0x000A=][=0x0009=]if the appearance of the noun is less than dapper, now the appearance of the noun is the appearance after the appearance of the noun.[=0x000A=][=0x000A=]Report grooming it with:[=0x000A=][=0x0009=]say [=0x0022=]You attend diligently to the appearance and hygiene of [the noun].[=0x0022=][=0x000A=][=0x000A=]Instead of using a grooming tool in the presence of the brown llama:[=0x000A=][=0x0009=]try grooming the brown llama with the noun.[=0x000A=][=0x000A=]The player carries some nail nippers, a slicker brush, and an apple. The apple is edible. The brush and the nippers are grooming tools. The player wears a sombrero.[=0x000A=][=0x000A=]The description of the nail nippers is [=0x0022=]Ten inches long, to give you the necessary leverage to cut tough llama toenails. It still helps to soften them up by making the llama stand in a bucket of water first, though.[=0x0022=][=0x000A=][=0x000A=]The description of the slicker brush is [=0x0022=]Fine, angled soft bristles set into a broad back, perfect for removing mud from the coat of a long-woolled llama.[=0x0022=][=0x000A=][=0x000A=]The industrial-strength blower is a fixed in place device in the Llama Pen. [=0x0022=]Attached to the nearest wall, on its own movable boom, is an industrial-strength blower for doing llama hair.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]use [switched off blower][=0x0022=] as switching on. Understand [=0x0022=]use [switched on blower] on [brown llama][=0x0022=] as grooming it with (with nouns reversed). Instead of using the blower in the presence of the brown llama, try grooming the brown llama with the blower.[=0x000A=][=0x000A=]Test me with [=0x0022=]use gate / use blower / use nippers / use brush / use apple / remove sombrero / use sombrero[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Alpaca Farm')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Alpaca Farm&quot;
+            <!--START CODE "c12041_18"-->
+            <blockquote class="code"><p class="quoted"><a id="c12041_18"></a><a href="javascript:pasteCode('[=0x0022=]Alpaca Farm[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]use [an edible thing][=0x0022=] as eating.[=0x000A=][=0x000A=]Understand [=0x0022=]use [a wearable thing][=0x0022=] as wearing.[=0x000A=][=0x000A=]Understand [=0x0022=]use [a closed openable container][=0x0022=] as opening. Understand [=0x0022=]use [an open openable container][=0x0022=] as closing.[=0x000A=][=0x000A=]Understand [=0x0022=]use [something preferably held] on [a locked lockable thing][=0x0022=] as unlocking it with (with nouns reversed). Understand [=0x0022=]use [something preferably held] on [an unlocked lockable thing][=0x0022=] as locking it with (with nouns reversed).[=0x000A=][=0x000A=]Understand [=0x0022=]use [a switched off device][=0x0022=] as switching on.[=0x000A=][=0x000A=]Understand [=0x0022=]use [something][=0x0022=] as using. Using is an action applying to one thing. Carry out using: say [=0x0022=]You will have to be more specific about your intentions.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]use [a door][=0x0022=] as opening. Understand [=0x0022=]use [an open door][=0x0022=] as entering.[=0x000A=][=0x000A=]The Llama Pen is a room. North of the Pen is the gate. The gate is a door. North of the gate is the Rocky Path. The brown llama is an animal in the Llama Pen.[=0x000A=][=0x000A=]Appearance is a kind of value. The appearances are muddy, scruffy, fluffy, and dapper. The brown llama has an appearance. The brown llama is muddy. Before printing the name of the brown llama, say [=0x0022=][appearance] [=0x0022=]. Before printing the name of the brown llama while grooming: say [=0x0022=]now-[if appearance of the brown llama is less than dapper]merely-[end if][=0x0022=].[=0x000A=][=0x000A=]A grooming tool is a kind of thing. Understand [=0x0022=]use [a grooming tool] on [something][=0x0022=] as grooming it with (with nouns reversed). Grooming it with is an action applying to two things. Understand [=0x0022=]groom [something] with [something][=0x0022=] as grooming it with.[=0x000A=][=0x000A=]Carry out grooming it with:[=0x000A=][=0x0009=]if the appearance of the noun is less than dapper, now the appearance of the noun is the appearance after the appearance of the noun.[=0x000A=][=0x000A=]Report grooming it with:[=0x000A=][=0x0009=]say [=0x0022=]You attend diligently to the appearance and hygiene of [the noun].[=0x0022=][=0x000A=][=0x000A=]Instead of using a grooming tool in the presence of the brown llama:[=0x000A=][=0x0009=]try grooming the brown llama with the noun.[=0x000A=][=0x000A=]The player carries some nail nippers, a slicker brush, and an apple. The apple is edible. The brush and the nippers are grooming tools. The player wears a sombrero.[=0x000A=][=0x000A=]The description of the nail nippers is [=0x0022=]Ten inches long, to give you the necessary leverage to cut tough llama toenails. It still helps to soften them up by making the llama stand in a bucket of water first, though.[=0x0022=][=0x000A=][=0x000A=]The description of the slicker brush is [=0x0022=]Fine, angled soft bristles set into a broad back, perfect for removing mud from the coat of a long-woolled llama.[=0x0022=][=0x000A=][=0x000A=]The industrial-strength blower is a fixed in place device in the Llama Pen. [=0x0022=]Attached to the nearest wall, on its own movable boom, is an industrial-strength blower for doing llama hair.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]use [switched off blower][=0x0022=] as switching on. Understand [=0x0022=]use [switched on blower] on [brown llama][=0x0022=] as grooming it with (with nouns reversed). Instead of using the blower in the presence of the brown llama, try grooming the brown llama with the blower.[=0x000A=][=0x000A=]Test me with [=0x0022=]use gate / use blower / use nippers / use brush / use apple / remove sombrero / use sombrero[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Alpaca Farm[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]use [an edible thing][=0x0022=] as eating.[=0x000A=][=0x000A=]Understand [=0x0022=]use [a wearable thing][=0x0022=] as wearing.[=0x000A=][=0x000A=]Understand [=0x0022=]use [a closed openable container][=0x0022=] as opening. Understand [=0x0022=]use [an open openable container][=0x0022=] as closing.[=0x000A=][=0x000A=]Understand [=0x0022=]use [something preferably held] on [a locked lockable thing][=0x0022=] as unlocking it with (with nouns reversed). Understand [=0x0022=]use [something preferably held] on [an unlocked lockable thing][=0x0022=] as locking it with (with nouns reversed).[=0x000A=][=0x000A=]Understand [=0x0022=]use [a switched off device][=0x0022=] as switching on.[=0x000A=][=0x000A=]Understand [=0x0022=]use [something][=0x0022=] as using. Using is an action applying to one thing. Carry out using: say [=0x0022=]You will have to be more specific about your intentions.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]use [a door][=0x0022=] as opening. Understand [=0x0022=]use [an open door][=0x0022=] as entering.[=0x000A=][=0x000A=]The Llama Pen is a room. North of the Pen is the gate. The gate is a door. North of the gate is the Rocky Path. The brown llama is an animal in the Llama Pen.[=0x000A=][=0x000A=]Appearance is a kind of value. The appearances are muddy, scruffy, fluffy, and dapper. The brown llama has an appearance. The brown llama is muddy. Before printing the name of the brown llama, say [=0x0022=][appearance] [=0x0022=]. Before printing the name of the brown llama while grooming: say [=0x0022=]now-[if appearance of the brown llama is less than dapper]merely-[end if][=0x0022=].[=0x000A=][=0x000A=]A grooming tool is a kind of thing. Understand [=0x0022=]use [a grooming tool] on [something][=0x0022=] as grooming it with (with nouns reversed). Grooming it with is an action applying to two things. Understand [=0x0022=]groom [something] with [something][=0x0022=] as grooming it with.[=0x000A=][=0x000A=]Carry out grooming it with:[=0x000A=][=0x0009=]if the appearance of the noun is less than dapper, now the appearance of the noun is the appearance after the appearance of the noun.[=0x000A=][=0x000A=]Report grooming it with:[=0x000A=][=0x0009=]say [=0x0022=]You attend diligently to the appearance and hygiene of [the noun].[=0x0022=][=0x000A=][=0x000A=]Instead of using a grooming tool in the presence of the brown llama:[=0x000A=][=0x0009=]try grooming the brown llama with the noun.[=0x000A=][=0x000A=]The player carries some nail nippers, a slicker brush, and an apple. The apple is edible. The brush and the nippers are grooming tools. The player wears a sombrero.[=0x000A=][=0x000A=]The description of the nail nippers is [=0x0022=]Ten inches long, to give you the necessary leverage to cut tough llama toenails. It still helps to soften them up by making the llama stand in a bucket of water first, though.[=0x0022=][=0x000A=][=0x000A=]The description of the slicker brush is [=0x0022=]Fine, angled soft bristles set into a broad back, perfect for removing mud from the coat of a long-woolled llama.[=0x0022=][=0x000A=][=0x000A=]The industrial-strength blower is a fixed in place device in the Llama Pen. [=0x0022=]Attached to the nearest wall, on its own movable boom, is an industrial-strength blower for doing llama hair.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]use [switched off blower][=0x0022=] as switching on. Understand [=0x0022=]use [switched on blower] on [brown llama][=0x0022=] as grooming it with (with nouns reversed). Instead of using the blower in the presence of the brown llama, try grooming the brown llama with the blower.[=0x000A=][=0x000A=]Test me with [=0x0022=]use gate / use blower / use nippers / use brush / use apple / remove sombrero / use sombrero[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Alpaca Farm')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Alpaca Farm&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12014_7"-->
-            <blockquote class="code"><p class="quoted"><a id="c12014_7"></a>Understand &quot;use [an edible thing]&quot; as eating.
+            <!--START CODE "c12042_18"-->
+            <blockquote class="code"><p class="quoted"><a id="c12042_18"></a>Understand &quot;use [an edible thing]&quot; as eating.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12015_7"-->
-            <blockquote class="code"><p class="quoted"><a id="c12015_7"></a>Understand &quot;use [a wearable thing]&quot; as wearing.
+            <!--START CODE "c12043_18"-->
+            <blockquote class="code"><p class="quoted"><a id="c12043_18"></a>Understand &quot;use [a wearable thing]&quot; as wearing.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12016_7"-->
-            <blockquote class="code"><p class="quoted"><a id="c12016_7"></a>Understand &quot;use [a closed openable container]&quot; as opening. Understand &quot;use [an open openable container]&quot; as closing.
+            <!--START CODE "c12044_18"-->
+            <blockquote class="code"><p class="quoted"><a id="c12044_18"></a>Understand &quot;use [a closed openable container]&quot; as opening. Understand &quot;use [an open openable container]&quot; as closing.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12017_7"-->
-            <blockquote class="code"><p class="quoted"><a id="c12017_7"></a>Understand &quot;use [something preferably held] on [a locked lockable thing]&quot; as unlocking it with (with nouns reversed). Understand &quot;use [something preferably held] on [an unlocked lockable thing]&quot; as locking it with (with nouns reversed).
+            <!--START CODE "c12045_18"-->
+            <blockquote class="code"><p class="quoted"><a id="c12045_18"></a>Understand &quot;use [something preferably held] on [a locked lockable thing]&quot; as unlocking it with (with nouns reversed). Understand &quot;use [something preferably held] on [an unlocked lockable thing]&quot; as locking it with (with nouns reversed).
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12018_7"-->
-            <blockquote class="code"><p class="quoted"><a id="c12018_7"></a>Understand &quot;use [a switched off device]&quot; as switching on.
+            <!--START CODE "c12046_18"-->
+            <blockquote class="code"><p class="quoted"><a id="c12046_18"></a>Understand &quot;use [a switched off device]&quot; as switching on.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12019_7"-->
-            <blockquote class="code"><p class="quoted"><a id="c12019_7"></a>Understand &quot;use [something]&quot; as using. Using is an action applying to one thing. Carry out using: say &quot;You will have to be more specific about your intentions.&quot;
+            <!--START CODE "c12047_18"-->
+            <blockquote class="code"><p class="quoted"><a id="c12047_18"></a>Understand &quot;use [something]&quot; as using. Using is an action applying to one thing. Carry out using: say &quot;You will have to be more specific about your intentions.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12020_7"-->
-            <blockquote class="code"><p class="quoted"><a id="c12020_7"></a>Understand &quot;use [a door]&quot; as opening. Understand &quot;use [an open door]&quot; as entering.
+            <!--START CODE "c12048_18"-->
+            <blockquote class="code"><p class="quoted"><a id="c12048_18"></a>Understand &quot;use [a door]&quot; as opening. Understand &quot;use [an open door]&quot; as entering.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12021_7"-->
-            <blockquote class="code"><p class="quoted"><a id="c12021_7"></a>The Llama Pen is a room. North of the Pen is the gate. The gate is a door. North of the gate is the Rocky Path. The brown llama is an animal in the Llama Pen.
+            <!--START CODE "c12049_18"-->
+            <blockquote class="code"><p class="quoted"><a id="c12049_18"></a>The Llama Pen is a room. North of the Pen is the gate. The gate is a door. North of the gate is the Rocky Path. The brown llama is an animal in the Llama Pen.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12022_7"-->
-            <blockquote class="code"><p class="quoted"><a id="c12022_7"></a>Appearance is a kind of value. The appearances are muddy, scruffy, fluffy, and dapper. The brown llama has an appearance. The brown llama is muddy. Before printing the name of the brown llama, say &quot;[appearance] &quot;. Before printing the name of the brown llama while grooming: say &quot;now-[if appearance of the brown llama is less than dapper]merely-[end if]&quot;.
+            <!--START CODE "c12050_18"-->
+            <blockquote class="code"><p class="quoted"><a id="c12050_18"></a>Appearance is a kind of value. The appearances are muddy, scruffy, fluffy, and dapper. The brown llama has an appearance. The brown llama is muddy. Before printing the name of the brown llama, say &quot;[appearance] &quot;. Before printing the name of the brown llama while grooming: say &quot;now-[if appearance of the brown llama is less than dapper]merely-[end if]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12023_7"-->
-            <blockquote class="code"><p class="quoted"><a id="c12023_7"></a>A grooming tool is a kind of thing. Understand &quot;use [a grooming tool] on [something]&quot; as grooming it with (with nouns reversed). Grooming it with is an action applying to two things. Understand &quot;groom [something] with [something]&quot; as grooming it with.
+            <!--START CODE "c12051_18"-->
+            <blockquote class="code"><p class="quoted"><a id="c12051_18"></a>A grooming tool is a kind of thing. Understand &quot;use [a grooming tool] on [something]&quot; as grooming it with (with nouns reversed). Grooming it with is an action applying to two things. Understand &quot;groom [something] with [something]&quot; as grooming it with.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12024_7"-->
-            <blockquote class="code"><p class="quoted"><a id="c12024_7"></a>Carry out grooming it with:
+            <!--START CODE "c12052_18"-->
+            <blockquote class="code"><p class="quoted"><a id="c12052_18"></a>Carry out grooming it with:
             <br>
             &#160;&#160;&#160;&#160;if the appearance of the noun is less than dapper, now the appearance of the noun is the appearance after the appearance of the noun.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12025_7"-->
-            <blockquote class="code"><p class="quoted"><a id="c12025_7"></a>Report grooming it with:
+            <!--START CODE "c12053_18"-->
+            <blockquote class="code"><p class="quoted"><a id="c12053_18"></a>Report grooming it with:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You attend diligently to the appearance and hygiene of [the noun].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12026_7"-->
-            <blockquote class="code"><p class="quoted"><a id="c12026_7"></a>Instead of using a grooming tool in the presence of the brown llama:
+            <!--START CODE "c12054_18"-->
+            <blockquote class="code"><p class="quoted"><a id="c12054_18"></a>Instead of using a grooming tool in the presence of the brown llama:
             <br>
             &#160;&#160;&#160;&#160;try grooming the brown llama with the noun.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12027_7"-->
-            <blockquote class="code"><p class="quoted"><a id="c12027_7"></a>The player carries some nail nippers, a slicker brush, and an apple. The apple is edible. The brush and the nippers are grooming tools. The player wears a sombrero.
+            <!--START CODE "c12055_18"-->
+            <blockquote class="code"><p class="quoted"><a id="c12055_18"></a>The player carries some nail nippers, a slicker brush, and an apple. The apple is edible. The brush and the nippers are grooming tools. The player wears a sombrero.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12028_7"-->
-            <blockquote class="code"><p class="quoted"><a id="c12028_7"></a>The description of the nail nippers is &quot;Ten inches long, to give you the necessary leverage to cut tough llama toenails. It still helps to soften them up by making the llama stand in a bucket of water first, though.&quot;
+            <!--START CODE "c12056_18"-->
+            <blockquote class="code"><p class="quoted"><a id="c12056_18"></a>The description of the nail nippers is &quot;Ten inches long, to give you the necessary leverage to cut tough llama toenails. It still helps to soften them up by making the llama stand in a bucket of water first, though.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12029_7"-->
-            <blockquote class="code"><p class="quoted"><a id="c12029_7"></a>The description of the slicker brush is &quot;Fine, angled soft bristles set into a broad back, perfect for removing mud from the coat of a long-woolled llama.&quot;
+            <!--START CODE "c12057_18"-->
+            <blockquote class="code"><p class="quoted"><a id="c12057_18"></a>The description of the slicker brush is &quot;Fine, angled soft bristles set into a broad back, perfect for removing mud from the coat of a long-woolled llama.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12030_7"-->
-            <blockquote class="code"><p class="quoted"><a id="c12030_7"></a>The industrial-strength blower is a fixed in place device in the Llama Pen. &quot;Attached to the nearest wall, on its own movable boom, is an industrial-strength blower for doing llama hair.&quot;
+            <!--START CODE "c12058_18"-->
+            <blockquote class="code"><p class="quoted"><a id="c12058_18"></a>The industrial-strength blower is a fixed in place device in the Llama Pen. &quot;Attached to the nearest wall, on its own movable boom, is an industrial-strength blower for doing llama hair.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12031_7"-->
-            <blockquote class="code"><p class="quoted"><a id="c12031_7"></a>Understand &quot;use [switched off blower]&quot; as switching on. Understand &quot;use [switched on blower] on [brown llama]&quot; as grooming it with (with nouns reversed). Instead of using the blower in the presence of the brown llama, try grooming the brown llama with the blower.
+            <!--START CODE "c12059_18"-->
+            <blockquote class="code"><p class="quoted"><a id="c12059_18"></a>Understand &quot;use [switched off blower]&quot; as switching on. Understand &quot;use [switched on blower] on [brown llama]&quot; as grooming it with (with nouns reversed). Instead of using the blower in the presence of the brown llama, try grooming the brown llama with the blower.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12032_7"-->
-            <blockquote class="code"><p class="quoted"><a id="c12032_7"></a>Test me with &quot;use gate / use blower / use nippers / use brush / use apple / remove sombrero / use sombrero&quot;.
+            <!--START CODE "c12060_18"-->
+            <blockquote class="code"><p class="quoted"><a id="c12060_18"></a>Test me with &quot;use gate / use blower / use nippers / use brush / use apple / remove sombrero / use sombrero&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <p>Whether we actually want a USE action is a subject of some theoretical debate in the IF community. On the one hand, it helps avoid guess-the-verb problems where the player cannot figure out what term to use in order to express a fairly simple idea. On the other, it encourages the player to think that all items have one and exactly one use, rather than getting him to consider the range of possibilities that arise from having a complex vocabulary.</p>
+            <p>Whether we actually want a USE action is a subject of some theoretical debate in the IF community. On the one hand, it helps avoid guess-the-verb problems where the player cannot figure out what term to use in order to express a fairly simple idea. On the other, it encourages the player to think that all items have one and exactly one use, rather than getting them to consider the range of possibilities that arise from having a complex vocabulary.</p>
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "368: Apples" "e13"-->
-        <a id="e13"></a><table class="egcue">
+        <!--START EXAMPLE "369: Apples" "e25"-->
+        <a id="e25"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example13'); return false;"><b>368</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example25'); return false;"><b>369</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example13'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Apples</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example25'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Apples</span></b></a><br>
                     Prompting the player on how to disambiguate otherwise similar objects.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc315.html#e13"><i>WI</i></a></div>
+                        <a href="doc315.html#e25"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example13" style="display: none;">
+        <div class="egpanel" id="example25" style="display: none;">
             <p>Inform by default detects whether two objects can be disambiguated by any vocabulary available to the player. If so, it asks a question; if not, it picks one of the identical objects at random.</p>
             <p>Generally this produces good behavior. Occasionally, though, two objects have some distinguishing characteristic that doesn't appear in the object name. For instance, suppose we've created a class of apples that can be told apart depending on whether they've been bitten or not:</p>
-            <!--START CODE "c12033_13"-->
-            <blockquote class="code"><p class="quoted"><a id="c12033_13"></a>An apple is a kind of thing. Consumption is a kind of value. The consumptions are pristine and bitten. An apple has a consumption. The description of an apple is &quot;It is [consumption].&quot;
+            <!--START CODE "c12061_25"-->
+            <blockquote class="code"><p class="quoted"><a id="c12061_25"></a>An apple is a kind of thing. Consumption is a kind of value. The consumptions are pristine and bitten. An apple has a consumption. The description of an apple is &quot;It is [consumption].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12034_13"-->
-            <blockquote class="code"><p class="quoted"><a id="c12034_13"></a>Understand the consumption property as describing an apple.
+            <!--START CODE "c12062_25"-->
+            <blockquote class="code"><p class="quoted"><a id="c12062_25"></a>Understand the consumption property as describing an apple.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>The player can meaningfully type</p>
-            <!--START CODE "c12035_13"-->
-            <blockquote class="code"><p class="quoted"><a id="c12035_13"></a>&gt;EAT BITTEN APPLE
+            <!--START CODE "c12063_25"-->
+            <blockquote class="code"><p class="quoted"><a id="c12063_25"></a>&gt;EAT BITTEN APPLE
             </p>
             </blockquote>
             <!--END CODE-->
             <p>or</p>
-            <!--START CODE "c12036_13"-->
-            <blockquote class="code"><p class="quoted"><a id="c12036_13"></a>&gt;EAT PRISTINE APPLE
+            <!--START CODE "c12064_25"-->
+            <blockquote class="code"><p class="quoted"><a id="c12064_25"></a>&gt;EAT PRISTINE APPLE
             </p>
             </blockquote>
             <!--END CODE-->
-            <p>but if he types</p>
-            <!--START CODE "c12037_13"-->
-            <blockquote class="code"><p class="quoted"><a id="c12037_13"></a>&gt;EAT APPLE
+            <p>but if they type</p>
+            <!--START CODE "c12065_25"-->
+            <blockquote class="code"><p class="quoted"><a id="c12065_25"></a>&gt;EAT APPLE
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Inform will, annoyingly, ask</p>
-            <!--START CODE "c12038_13"-->
-            <blockquote class="code"><p class="quoted"><a id="c12038_13"></a>Which do you mean, an apple or the apple?
+            <!--START CODE "c12066_25"-->
+            <blockquote class="code"><p class="quoted"><a id="c12066_25"></a>Which do you mean, an apple or the apple?
             </p>
             </blockquote>
             <!--END CODE-->
             <p>This gives the player no indication of why Inform is making a distinction. So here we add a special &quot;printing the name&quot; rule to get around that situation:</p>
-            <!--START CODE "c12039_13"-->
-            <blockquote class="code"><p class="quoted"><a id="c12039_13"></a><a href="javascript:pasteCode(' [=0x0022=]Apples[=0x0022=][=0x000A=][=0x000A=]Orchard is a room.[=0x000A=][=0x000A=]An apple is a kind of thing. Consumption is a kind of value. The consumptions are pristine and bitten. An apple has a consumption. The description of an apple is [=0x0022=]It is [consumption].[=0x0022=][=0x000A=][=0x000A=]Understand the consumption property as describing an apple.[=0x000A=][=0x000A=]Before printing the name of an apple while asking which do you mean: say [=0x0022=][consumption] [=0x0022=]. Before printing the plural name of an apple while asking which do you mean: say [=0x0022=][consumption] [=0x0022=].[=0x000A=][=0x000A=]The player carries three apples.[=0x000A=][=0x000A=]Instead of eating a pristine apple (called the fruit):[=0x000A=][=0x0009=]say [=0x0022=]You take a satisfying bite.[=0x0022=];[=0x000A=][=0x0009=]now the fruit is bitten.[=0x000A=][=0x000A=]Instead of eating a bitten apple (called the fruit):[=0x000A=][=0x0009=]say [=0x0022=]You consume the apple entirely.[=0x0022=];[=0x000A=][=0x0009=]now the fruit is nowhere.[=0x000A=][=0x000A=][Inform will also separate the bitten from the pristine apples in inventory listings and room descriptions, even though it[=0x0027=]s not clear why; we can improve on that behavior thus:][=0x000A=][=0x000A=]Before listing contents: group apples together.[=0x000A=][=0x000A=]Rule for grouping together an apple (called target):[=0x000A=][=0x0009=]let source be the holder of the target;[=0x000A=][=0x0009=]say [=0x0022=][number of apples held by the source in words] apple[s], some bitten[=0x0022=].[=0x000A=][=0x000A=]Before printing the plural name of an apple (called target):[=0x000A=][=0x0009=]let source be the holder of the target;[=0x000A=][=0x0009=]if every apple held by the source is bitten, say [=0x0022=]bitten [=0x0022=];[=0x000A=][=0x0009=]if every apple held by the source is pristine, say [=0x0022=]pristine [=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]i / eat apple / i / eat apple / pristine / i / eat apple / pristine / i[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject(' [=0x0022=]Apples[=0x0022=][=0x000A=][=0x000A=]Orchard is a room.[=0x000A=][=0x000A=]An apple is a kind of thing. Consumption is a kind of value. The consumptions are pristine and bitten. An apple has a consumption. The description of an apple is [=0x0022=]It is [consumption].[=0x0022=][=0x000A=][=0x000A=]Understand the consumption property as describing an apple.[=0x000A=][=0x000A=]Before printing the name of an apple while asking which do you mean: say [=0x0022=][consumption] [=0x0022=]. Before printing the plural name of an apple while asking which do you mean: say [=0x0022=][consumption] [=0x0022=].[=0x000A=][=0x000A=]The player carries three apples.[=0x000A=][=0x000A=]Instead of eating a pristine apple (called the fruit):[=0x000A=][=0x0009=]say [=0x0022=]You take a satisfying bite.[=0x0022=];[=0x000A=][=0x0009=]now the fruit is bitten.[=0x000A=][=0x000A=]Instead of eating a bitten apple (called the fruit):[=0x000A=][=0x0009=]say [=0x0022=]You consume the apple entirely.[=0x0022=];[=0x000A=][=0x0009=]now the fruit is nowhere.[=0x000A=][=0x000A=][Inform will also separate the bitten from the pristine apples in inventory listings and room descriptions, even though it[=0x0027=]s not clear why; we can improve on that behavior thus:][=0x000A=][=0x000A=]Before listing contents: group apples together.[=0x000A=][=0x000A=]Rule for grouping together an apple (called target):[=0x000A=][=0x0009=]let source be the holder of the target;[=0x000A=][=0x0009=]say [=0x0022=][number of apples held by the source in words] apple[s], some bitten[=0x0022=].[=0x000A=][=0x000A=]Before printing the plural name of an apple (called target):[=0x000A=][=0x0009=]let source be the holder of the target;[=0x000A=][=0x0009=]if every apple held by the source is bitten, say [=0x0022=]bitten [=0x0022=];[=0x000A=][=0x0009=]if every apple held by the source is pristine, say [=0x0022=]pristine [=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]i / eat apple / i / eat apple / pristine / i / eat apple / pristine / i[=0x0022=].[=0x000A=]\n', 'Example - Apples')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp;  &quot;Apples&quot;
+            <!--START CODE "c12067_25"-->
+            <blockquote class="code"><p class="quoted"><a id="c12067_25"></a><a href="javascript:pasteCode('[=0x0022=]Apples[=0x0022=][=0x000A=][=0x000A=]Orchard is a room.[=0x000A=][=0x000A=]An apple is a kind of thing. Consumption is a kind of value. The consumptions are pristine and bitten. An apple has a consumption. The description of an apple is [=0x0022=]It is [consumption].[=0x0022=][=0x000A=][=0x000A=]Understand the consumption property as describing an apple.[=0x000A=][=0x000A=]Before printing the name of an apple while asking which do you mean: say [=0x0022=][consumption] [=0x0022=]. Before printing the plural name of an apple while asking which do you mean: say [=0x0022=][consumption] [=0x0022=].[=0x000A=][=0x000A=]The player carries three apples.[=0x000A=][=0x000A=]Instead of eating a pristine apple (called the fruit):[=0x000A=][=0x0009=]say [=0x0022=]You take a satisfying bite.[=0x0022=];[=0x000A=][=0x0009=]now the fruit is bitten.[=0x000A=][=0x000A=]Instead of eating a bitten apple (called the fruit):[=0x000A=][=0x0009=]say [=0x0022=]You consume the apple entirely.[=0x0022=];[=0x000A=][=0x0009=]now the fruit is nowhere.[=0x000A=][=0x000A=][Inform will also separate the bitten from the pristine apples in inventory listings and room descriptions, even though it[=0x0027=]s not clear why; we can improve on that behavior thus:][=0x000A=][=0x000A=]Before listing contents: group apples together.[=0x000A=][=0x000A=]Rule for grouping together an apple (called target):[=0x000A=][=0x0009=]let source be the holder of the target;[=0x000A=][=0x0009=]say [=0x0022=][number of apples held by the source in words] apple[s], some bitten[=0x0022=].[=0x000A=][=0x000A=]Before printing the plural name of an apple (called target):[=0x000A=][=0x0009=]let source be the holder of the target;[=0x000A=][=0x0009=]if every apple held by the source is bitten, say [=0x0022=]bitten [=0x0022=];[=0x000A=][=0x0009=]if every apple held by the source is pristine, say [=0x0022=]pristine [=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]i / eat apple / i / eat apple / pristine / i / eat apple / pristine / i[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Apples[=0x0022=][=0x000A=][=0x000A=]Orchard is a room.[=0x000A=][=0x000A=]An apple is a kind of thing. Consumption is a kind of value. The consumptions are pristine and bitten. An apple has a consumption. The description of an apple is [=0x0022=]It is [consumption].[=0x0022=][=0x000A=][=0x000A=]Understand the consumption property as describing an apple.[=0x000A=][=0x000A=]Before printing the name of an apple while asking which do you mean: say [=0x0022=][consumption] [=0x0022=]. Before printing the plural name of an apple while asking which do you mean: say [=0x0022=][consumption] [=0x0022=].[=0x000A=][=0x000A=]The player carries three apples.[=0x000A=][=0x000A=]Instead of eating a pristine apple (called the fruit):[=0x000A=][=0x0009=]say [=0x0022=]You take a satisfying bite.[=0x0022=];[=0x000A=][=0x0009=]now the fruit is bitten.[=0x000A=][=0x000A=]Instead of eating a bitten apple (called the fruit):[=0x000A=][=0x0009=]say [=0x0022=]You consume the apple entirely.[=0x0022=];[=0x000A=][=0x0009=]now the fruit is nowhere.[=0x000A=][=0x000A=][Inform will also separate the bitten from the pristine apples in inventory listings and room descriptions, even though it[=0x0027=]s not clear why; we can improve on that behavior thus:][=0x000A=][=0x000A=]Before listing contents: group apples together.[=0x000A=][=0x000A=]Rule for grouping together an apple (called target):[=0x000A=][=0x0009=]let source be the holder of the target;[=0x000A=][=0x0009=]say [=0x0022=][number of apples held by the source in words] apple[s], some bitten[=0x0022=].[=0x000A=][=0x000A=]Before printing the plural name of an apple (called target):[=0x000A=][=0x0009=]let source be the holder of the target;[=0x000A=][=0x0009=]if every apple held by the source is bitten, say [=0x0022=]bitten [=0x0022=];[=0x000A=][=0x0009=]if every apple held by the source is pristine, say [=0x0022=]pristine [=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]i / eat apple / i / eat apple / pristine / i / eat apple / pristine / i[=0x0022=].[=0x000A=]\n', 'Example - Apples')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Apples&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12040_13"-->
-            <blockquote class="code"><p class="quoted"><a id="c12040_13"></a>Orchard is a room.
+            <!--START CODE "c12068_25"-->
+            <blockquote class="code"><p class="quoted"><a id="c12068_25"></a>Orchard is a room.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12041_13"-->
-            <blockquote class="code"><p class="quoted"><a id="c12041_13"></a>An apple is a kind of thing. Consumption is a kind of value. The consumptions are pristine and bitten. An apple has a consumption. The description of an apple is &quot;It is [consumption].&quot;
+            <!--START CODE "c12069_25"-->
+            <blockquote class="code"><p class="quoted"><a id="c12069_25"></a>An apple is a kind of thing. Consumption is a kind of value. The consumptions are pristine and bitten. An apple has a consumption. The description of an apple is &quot;It is [consumption].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12042_13"-->
-            <blockquote class="code"><p class="quoted"><a id="c12042_13"></a>Understand the consumption property as describing an apple.
+            <!--START CODE "c12070_25"-->
+            <blockquote class="code"><p class="quoted"><a id="c12070_25"></a>Understand the consumption property as describing an apple.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12043_13"-->
-            <blockquote class="code"><p class="quoted"><a id="c12043_13"></a>Before printing the name of an apple while asking which do you mean: say &quot;[consumption] &quot;. Before printing the plural name of an apple while asking which do you mean: say &quot;[consumption] &quot;.
+            <!--START CODE "c12071_25"-->
+            <blockquote class="code"><p class="quoted"><a id="c12071_25"></a>Before printing the name of an apple while asking which do you mean: say &quot;[consumption] &quot;. Before printing the plural name of an apple while asking which do you mean: say &quot;[consumption] &quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12044_13"-->
-            <blockquote class="code"><p class="quoted"><a id="c12044_13"></a>The player carries three apples.
+            <!--START CODE "c12072_25"-->
+            <blockquote class="code"><p class="quoted"><a id="c12072_25"></a>The player carries three apples.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12045_13"-->
-            <blockquote class="code"><p class="quoted"><a id="c12045_13"></a>Instead of eating a pristine apple (called the fruit):
+            <!--START CODE "c12073_25"-->
+            <blockquote class="code"><p class="quoted"><a id="c12073_25"></a>Instead of eating a pristine apple (called the fruit):
             <br>
             &#160;&#160;&#160;&#160;say &quot;You take a satisfying bite.&quot;;
             <br>
@@ -336,8 +336,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12046_13"-->
-            <blockquote class="code"><p class="quoted"><a id="c12046_13"></a>Instead of eating a bitten apple (called the fruit):
+            <!--START CODE "c12074_25"-->
+            <blockquote class="code"><p class="quoted"><a id="c12074_25"></a>Instead of eating a bitten apple (called the fruit):
             <br>
             &#160;&#160;&#160;&#160;say &quot;You consume the apple entirely.&quot;;
             <br>
@@ -346,13 +346,13 @@
             </blockquote>
             <!--END CODE-->
             <p>Inform will also separate the bitten from the pristine apples in inventory listings and room descriptions, even though it's not clear why; we can improve on that behavior thus:</p>
-            <!--START CODE "c12047_13"-->
-            <blockquote class="code"><p class="quoted"><a id="c12047_13"></a>Before listing contents: group apples together.
+            <!--START CODE "c12075_25"-->
+            <blockquote class="code"><p class="quoted"><a id="c12075_25"></a>Before listing contents: group apples together.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12048_13"-->
-            <blockquote class="code"><p class="quoted"><a id="c12048_13"></a>Rule for grouping together an apple (called target):
+            <!--START CODE "c12076_25"-->
+            <blockquote class="code"><p class="quoted"><a id="c12076_25"></a>Rule for grouping together an apple (called target):
             <br>
             &#160;&#160;&#160;&#160;let source be the holder of the target;
             <br>
@@ -360,8 +360,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12049_13"-->
-            <blockquote class="code"><p class="quoted"><a id="c12049_13"></a>Before printing the plural name of an apple (called target):
+            <!--START CODE "c12077_25"-->
+            <blockquote class="code"><p class="quoted"><a id="c12077_25"></a>Before printing the plural name of an apple (called target):
             <br>
             &#160;&#160;&#160;&#160;let source be the holder of the target;
             <br>
@@ -371,41 +371,41 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12050_13"-->
-            <blockquote class="code"><p class="quoted"><a id="c12050_13"></a>Test me with &quot;i / eat apple / i / eat apple / pristine / i / eat apple / pristine / i&quot;.
+            <!--START CODE "c12078_25"-->
+            <blockquote class="code"><p class="quoted"><a id="c12078_25"></a>Test me with &quot;i / eat apple / i / eat apple / pristine / i / eat apple / pristine / i&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "380: WXPQ" "e443"-->
-        <a id="e443"></a><table class="egcue">
+        <!--START EXAMPLE "381: WXPQ" "e441"-->
+        <a id="e441"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example443'); return false;"><b>380</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example441'); return false;"><b>381</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example443'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">WXPQ</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example441'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">WXPQ</span></b></a><br>
                     Creating a more sensible parser error than "that noun did not make sense in this context".</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc319.html#e443"><i>WI</i></a></div>
+                        <a href="doc319.html#e441"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example443" style="display: none;">
+        <div class="egpanel" id="example441" style="display: none;">
             <p>The parser error &quot;That noun did not make sense in this context&quot; arises instead of &quot;You can't see any such thing&quot; when the player uses a command that could apply to any item in the game -- that is, a command such as</p>
-            <!--START CODE "c12051_443"-->
-            <blockquote class="code"><p class="quoted"><a id="c12051_443"></a>Understand &quot;go to [any room]&quot; as going directly to.
+            <!--START CODE "c12079_441"-->
+            <blockquote class="code"><p class="quoted"><a id="c12079_441"></a>Understand &quot;go to [any room]&quot; as going directly to.
             <br>
             Understand &quot;talk about [any subject]&quot; as discussing.
             </p>
@@ -413,48 +413,48 @@
             <!--END CODE-->
             <p>...and so on. The idea here is that &quot;You can't see any such thing&quot; isn't a sensible rejoinder when the player doesn't really need to be able to see the object.</p>
             <p>Nonetheless, &quot;That noun did not make sense...&quot; is itself a fairly dry and uninformative response, and we may want to override it to something more appropriate for the specific kind of context in which it might appear. For instance:</p>
-            <!--START CODE "c12052_443"-->
-            <blockquote class="code"><p class="quoted"><a id="c12052_443"></a><a href="javascript:pasteCode(' [=0x0022=]WXPQ[=0x0022=][=0x000A=][=0x000A=]WXPQ Studio is a room. [=0x0022=]After about 2 AM, no one is listening anyway, so you can more or less make up whatever you like to fill the airwaves.[=0x0022=][=0x000A=][=0x000A=]John F Kennedy, Elvis, Ralph Nader, Tony Blair, and single-origin chocolate are things.[=0x000A=][=0x000A=]Understand [=0x0022=]talk about [any thing][=0x0022=] or [=0x0022=]discuss [any thing][=0x0022=] as discussing. Discussing is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out discussing:[=0x000A=][=0x0009=]say [=0x0022=]You babble for a while about your [one of]interest in[or]hatred of[or]passionate devotion to[or]conspiracy theory concerning[or]mother[=0x0027=]s secret love affair with[as decreasingly likely outcomes] [the noun].[=0x0022=][=0x000A=][=0x000A=]Rule for printing a parser error when the latest parser error is the noun did not make sense in that context error:[=0x000A=][=0x0009=]say [=0x0022=]For once, you[=0x0027=]re at a loss for anything to say.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]discuss Elvis / discuss Kennedy / discuss chocolate / discuss narratology vs ludology debate[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject(' [=0x0022=]WXPQ[=0x0022=][=0x000A=][=0x000A=]WXPQ Studio is a room. [=0x0022=]After about 2 AM, no one is listening anyway, so you can more or less make up whatever you like to fill the airwaves.[=0x0022=][=0x000A=][=0x000A=]John F Kennedy, Elvis, Ralph Nader, Tony Blair, and single-origin chocolate are things.[=0x000A=][=0x000A=]Understand [=0x0022=]talk about [any thing][=0x0022=] or [=0x0022=]discuss [any thing][=0x0022=] as discussing. Discussing is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out discussing:[=0x000A=][=0x0009=]say [=0x0022=]You babble for a while about your [one of]interest in[or]hatred of[or]passionate devotion to[or]conspiracy theory concerning[or]mother[=0x0027=]s secret love affair with[as decreasingly likely outcomes] [the noun].[=0x0022=][=0x000A=][=0x000A=]Rule for printing a parser error when the latest parser error is the noun did not make sense in that context error:[=0x000A=][=0x0009=]say [=0x0022=]For once, you[=0x0027=]re at a loss for anything to say.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]discuss Elvis / discuss Kennedy / discuss chocolate / discuss narratology vs ludology debate[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - WXPQ')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp;  &quot;WXPQ&quot;
+            <!--START CODE "c12080_441"-->
+            <blockquote class="code"><p class="quoted"><a id="c12080_441"></a><a href="javascript:pasteCode('[=0x0022=]WXPQ[=0x0022=][=0x000A=][=0x000A=]WXPQ Studio is a room. [=0x0022=]After about 2 AM, no one is listening anyway, so you can more or less make up whatever you like to fill the airwaves.[=0x0022=][=0x000A=][=0x000A=]John F Kennedy, Elvis, Ralph Nader, Tony Blair, and single-origin chocolate are things.[=0x000A=][=0x000A=]Understand [=0x0022=]talk about [any thing][=0x0022=] or [=0x0022=]discuss [any thing][=0x0022=] as discussing. Discussing is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out discussing:[=0x000A=][=0x0009=]say [=0x0022=]You babble for a while about your [one of]interest in[or]hatred of[or]passionate devotion to[or]conspiracy theory concerning[or]mother[=0x0027=]s secret love affair with[as decreasingly likely outcomes] [the noun].[=0x0022=][=0x000A=][=0x000A=]Rule for printing a parser error when the latest parser error is the noun did not make sense in that context error:[=0x000A=][=0x0009=]say [=0x0022=]For once, you[=0x0027=]re at a loss for anything to say.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]discuss Elvis / discuss Kennedy / discuss chocolate / discuss narratology vs ludology debate[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]WXPQ[=0x0022=][=0x000A=][=0x000A=]WXPQ Studio is a room. [=0x0022=]After about 2 AM, no one is listening anyway, so you can more or less make up whatever you like to fill the airwaves.[=0x0022=][=0x000A=][=0x000A=]John F Kennedy, Elvis, Ralph Nader, Tony Blair, and single-origin chocolate are things.[=0x000A=][=0x000A=]Understand [=0x0022=]talk about [any thing][=0x0022=] or [=0x0022=]discuss [any thing][=0x0022=] as discussing. Discussing is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out discussing:[=0x000A=][=0x0009=]say [=0x0022=]You babble for a while about your [one of]interest in[or]hatred of[or]passionate devotion to[or]conspiracy theory concerning[or]mother[=0x0027=]s secret love affair with[as decreasingly likely outcomes] [the noun].[=0x0022=][=0x000A=][=0x000A=]Rule for printing a parser error when the latest parser error is the noun did not make sense in that context error:[=0x000A=][=0x0009=]say [=0x0022=]For once, you[=0x0027=]re at a loss for anything to say.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]discuss Elvis / discuss Kennedy / discuss chocolate / discuss narratology vs ludology debate[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - WXPQ')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;WXPQ&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12053_443"-->
-            <blockquote class="code"><p class="quoted"><a id="c12053_443"></a>WXPQ Studio is a room. &quot;After about 2 AM, no one is listening anyway, so you can more or less make up whatever you like to fill the airwaves.&quot;
+            <!--START CODE "c12081_441"-->
+            <blockquote class="code"><p class="quoted"><a id="c12081_441"></a>WXPQ Studio is a room. &quot;After about 2 AM, no one is listening anyway, so you can more or less make up whatever you like to fill the airwaves.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12054_443"-->
-            <blockquote class="code"><p class="quoted"><a id="c12054_443"></a>John F Kennedy, Elvis, Ralph Nader, Tony Blair, and single-origin chocolate are things.
+            <!--START CODE "c12082_441"-->
+            <blockquote class="code"><p class="quoted"><a id="c12082_441"></a>John F Kennedy, Elvis, Ralph Nader, Tony Blair, and single-origin chocolate are things.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12055_443"-->
-            <blockquote class="code"><p class="quoted"><a id="c12055_443"></a>Understand &quot;talk about [any thing]&quot; or &quot;discuss [any thing]&quot; as discussing. Discussing is an action applying to one visible thing.
+            <!--START CODE "c12083_441"-->
+            <blockquote class="code"><p class="quoted"><a id="c12083_441"></a>Understand &quot;talk about [any thing]&quot; or &quot;discuss [any thing]&quot; as discussing. Discussing is an action applying to one visible thing.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12056_443"-->
-            <blockquote class="code"><p class="quoted"><a id="c12056_443"></a>Carry out discussing:
+            <!--START CODE "c12084_441"-->
+            <blockquote class="code"><p class="quoted"><a id="c12084_441"></a>Carry out discussing:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You babble for a while about your [one of]interest in[or]hatred of[or]passionate devotion to[or]conspiracy theory concerning[or]mother's secret love affair with[as decreasingly likely outcomes] [the noun].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12057_443"-->
-            <blockquote class="code"><p class="quoted"><a id="c12057_443"></a>Rule for printing a parser error when the latest parser error is the noun did not make sense in that context error:
+            <!--START CODE "c12085_441"-->
+            <blockquote class="code"><p class="quoted"><a id="c12085_441"></a>Rule for printing a parser error when the latest parser error is the noun did not make sense in that context error:
             <br>
             &#160;&#160;&#160;&#160;say &quot;For once, you're at a loss for anything to say.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12058_443"-->
-            <blockquote class="code"><p class="quoted"><a id="c12058_443"></a>Test me with &quot;discuss Elvis / discuss Kennedy / discuss chocolate / discuss narratology vs ludology debate&quot;.
+            <!--START CODE "c12086_441"-->
+            <blockquote class="code"><p class="quoted"><a id="c12086_441"></a>Test me with &quot;discuss Elvis / discuss Kennedy / discuss chocolate / discuss narratology vs ludology debate&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Note that this solution works as simply as it does because we only have one command in the game that can apply to an &quot;[any]&quot; token. If we had several, we'd need to distinguish between the parser error attached to &quot;discuss&quot; and the parser error attached to &quot;go to&quot; (for instance). In that case, we might instead write something like</p>
-            <!--START CODE "c12059_443"-->
-            <blockquote class="code"><p class="quoted"><a id="c12059_443"></a>Rule for printing a parser error when the latest parser error is the noun did not make sense in that context error:
+            <!--START CODE "c12087_441"-->
+            <blockquote class="code"><p class="quoted"><a id="c12087_441"></a>Rule for printing a parser error when the latest parser error is the noun did not make sense in that context error:
             <br>
             if the player's command includes &quot;go&quot;:
             <br>
@@ -469,49 +469,49 @@
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "370: Walls and Noses" "e422"-->
-        <a id="e422"></a><table class="egcue">
+        <!--START EXAMPLE "371: Walls and Noses" "e424"-->
+        <a id="e424"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example422'); return false;"><b>370</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example424'); return false;"><b>371</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example422'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Walls and Noses</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example424'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Walls and Noses</span></b></a><br>
                     Responding to "EXAMINE WALL" with "In which direction?", and to "EXAMINE NOSE" with "Whose nose do you mean, Frederica's, Betty's, Wilma's or your own?"</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc315.html#e422"><i>WI</i></a></div>
+                        <a href="doc315.html#e424"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example422" style="display: none;">
+        <div class="egpanel" id="example424" style="display: none;">
             <p>Suppose we want our game to respond to &quot;EXAMINE WALL&quot; with &quot;In which direction?&quot;, and to &quot;EXAMINE NOSE&quot; with &quot;Whose nose do you mean, Frederica's, Betty's, Wilma's or your own?&quot;</p>
             <p>For the case of EXAMINE WALL, we need a way to determine whether every item being disambiguated is a direction. We'll start by making a &quot;matched&quot; adjective which will identify items being disambiguated:</p>
-            <!--START CODE "c12060_422"-->
-            <blockquote class="code"><p class="quoted"><a id="c12060_422"></a><a href="javascript:pasteCode('[=0x0022=]Walls and Noses[=0x0022=][=0x000A=][=0x000A=]Eight-Walled Chamber is a room. [=0x0022=]A perfectly octagonal room whose walls are tinted in various hues.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]wall[=0x0022=] as a direction.[=0x000A=][=0x000A=]Definition: a direction is matched if it fits the parse list.[=0x000A=]Definition: a room is matched if it fits the parse list.[=0x000A=]Definition: a thing is matched if it fits the parse list.[=0x000A=][=0x000A=]Rule for asking which do you mean when everything matched is direction:[=0x000A=][=0x0009=]say [=0x0022=]In which direction?[=0x0022=][=0x000A=][=0x000A=][Checking the parse list requires a bit of behind-the-scenes work with Inform 6. Fortunately, you don[=0x0027=]t have to understand this entirely in order to use the rest of the example:][=0x000A=][=0x000A=]To decide whether (N - an object) fits the parse list:[=0x000A=][=0x0009=](- (FindInParseList({N})) -)[=0x000A=][=0x000A=]Include (-[=0x000A=][ FindInParseList obj i k marker;[=0x000A=][=0x0009=]marker = 0;[=0x000A=][=0x0009=]for (i=1 : i[=0x003C=]=number_of_classes : i++) {[=0x000A=][=0x0009=]while (((match_classes--[=0x003E=]marker) ~= i) [=0x0026=][=0x0026=] ((match_classes--[=0x003E=]marker) ~= -i)) marker++;[=0x000A=][=0x0009=]k = match_list--[=0x003E=]marker;[=0x000A=][=0x0009=]if (k==obj) rtrue;[=0x000A=][=0x0009=]}[=0x000A=][=0x0009=]rfalse;[=0x000A=]];[=0x000A=]-)[=0x000A=][=0x000A=][Now that we[=0x0027=]ve defined our [=0x0022=]matched[=0x0022=] adjective, we can use it for other purposes as well -- even generating our own lists. Our second challenge was to respond to EXAMINE NOSE with [=0x0022=]Whose nose do you mean, Frederica[=0x0027=]s, Betty[=0x0027=]s, Wilma[=0x0027=]s or your own?[=0x0022=]][=0x000A=][=0x000A=][Here we need to change the way the question is worded (not [=0x0022=]which do you mean[=0x0022=] but [=0x0022=]whose nose do you mean[=0x0022=]). We also have to the names of the noses as they[=0x0027=]re printed in this particular context, so that they don[=0x0027=]t repeat the word [=0x0022=]nose[=0x0022=] over and over. And -- as a point of good English style -- we also want [=0x0022=]your own[=0x0022=] nose always to be last on the list.][=0x000A=][=0x000A=][For this purpose we may want to use the built-in [=0x0022=]Complex Listing[=0x0022=] extension, which allows us to print specially ordered lists. So:][=0x000A=][=0x000A=]Include Complex Listing by Emily Short.[=0x000A=][=0x000A=]Wilma, Betty, and Frederica are women in the Eight-Walled Chamber. Understand [=0x0022=]lady[=0x0022=] or [=0x0022=]woman[=0x0022=] as a woman. A nose is a kind of thing. A nose is part of every person.[=0x000A=][=0x000A=]Rule for asking which do you mean when everything matched is a nose:[=0x000A=][=0x0009=]prepare a list of matched things;[=0x000A=][=0x0009=]if your nose is an output listed in the Table of Scored Listing:[=0x000A=][=0x0009=][=0x0009=]choose row with an output of your nose in the Table of Scored Listing;[=0x000A=][=0x0009=][=0x0009=]now the assigned score entry is -1;[=0x000A=][=0x0009=]say [=0x0022=]Whose nose do you mean, [the prepared list delimited in disjunctive style]?[=0x0022=][=0x000A=][=0x000A=]Rule for printing the name of a nose (called target) while asking which do you mean :[=0x000A=][=0x0009=]if everything matched is a nose:[=0x000A=][=0x0009=][=0x0009=]if the target is part of a person (called owner):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the owner is the player, say [=0x0022=]your own[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=][the owner][apostrophe]s[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]make no decision.[=0x000A=][=0x000A=]Understand [=0x0022=]own[=0x0022=] or [=0x0022=]mine[=0x0022=] as your nose.[=0x000A=][=0x000A=]Test me with [=0x0022=]x wall / north / x nose / mine[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Walls and Noses[=0x0022=][=0x000A=][=0x000A=]Eight-Walled Chamber is a room. [=0x0022=]A perfectly octagonal room whose walls are tinted in various hues.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]wall[=0x0022=] as a direction.[=0x000A=][=0x000A=]Definition: a direction is matched if it fits the parse list.[=0x000A=]Definition: a room is matched if it fits the parse list.[=0x000A=]Definition: a thing is matched if it fits the parse list.[=0x000A=][=0x000A=]Rule for asking which do you mean when everything matched is direction:[=0x000A=][=0x0009=]say [=0x0022=]In which direction?[=0x0022=][=0x000A=][=0x000A=][Checking the parse list requires a bit of behind-the-scenes work with Inform 6. Fortunately, you don[=0x0027=]t have to understand this entirely in order to use the rest of the example:][=0x000A=][=0x000A=]To decide whether (N - an object) fits the parse list:[=0x000A=][=0x0009=](- (FindInParseList({N})) -)[=0x000A=][=0x000A=]Include (-[=0x000A=][ FindInParseList obj i k marker;[=0x000A=][=0x0009=]marker = 0;[=0x000A=][=0x0009=]for (i=1 : i[=0x003C=]=number_of_classes : i++) {[=0x000A=][=0x0009=]while (((match_classes--[=0x003E=]marker) ~= i) [=0x0026=][=0x0026=] ((match_classes--[=0x003E=]marker) ~= -i)) marker++;[=0x000A=][=0x0009=]k = match_list--[=0x003E=]marker;[=0x000A=][=0x0009=]if (k==obj) rtrue;[=0x000A=][=0x0009=]}[=0x000A=][=0x0009=]rfalse;[=0x000A=]];[=0x000A=]-)[=0x000A=][=0x000A=][Now that we[=0x0027=]ve defined our [=0x0022=]matched[=0x0022=] adjective, we can use it for other purposes as well -- even generating our own lists. Our second challenge was to respond to EXAMINE NOSE with [=0x0022=]Whose nose do you mean, Frederica[=0x0027=]s, Betty[=0x0027=]s, Wilma[=0x0027=]s or your own?[=0x0022=]][=0x000A=][=0x000A=][Here we need to change the way the question is worded (not [=0x0022=]which do you mean[=0x0022=] but [=0x0022=]whose nose do you mean[=0x0022=]). We also have to the names of the noses as they[=0x0027=]re printed in this particular context, so that they don[=0x0027=]t repeat the word [=0x0022=]nose[=0x0022=] over and over. And -- as a point of good English style -- we also want [=0x0022=]your own[=0x0022=] nose always to be last on the list.][=0x000A=][=0x000A=][For this purpose we may want to use the built-in [=0x0022=]Complex Listing[=0x0022=] extension, which allows us to print specially ordered lists. So:][=0x000A=][=0x000A=]Include Complex Listing by Emily Short.[=0x000A=][=0x000A=]Wilma, Betty, and Frederica are women in the Eight-Walled Chamber. Understand [=0x0022=]lady[=0x0022=] or [=0x0022=]woman[=0x0022=] as a woman. A nose is a kind of thing. A nose is part of every person.[=0x000A=][=0x000A=]Rule for asking which do you mean when everything matched is a nose:[=0x000A=][=0x0009=]prepare a list of matched things;[=0x000A=][=0x0009=]if your nose is an output listed in the Table of Scored Listing:[=0x000A=][=0x0009=][=0x0009=]choose row with an output of your nose in the Table of Scored Listing;[=0x000A=][=0x0009=][=0x0009=]now the assigned score entry is -1;[=0x000A=][=0x0009=]say [=0x0022=]Whose nose do you mean, [the prepared list delimited in disjunctive style]?[=0x0022=][=0x000A=][=0x000A=]Rule for printing the name of a nose (called target) while asking which do you mean :[=0x000A=][=0x0009=]if everything matched is a nose:[=0x000A=][=0x0009=][=0x0009=]if the target is part of a person (called owner):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the owner is the player, say [=0x0022=]your own[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=][the owner][apostrophe]s[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]make no decision.[=0x000A=][=0x000A=]Understand [=0x0022=]own[=0x0022=] or [=0x0022=]mine[=0x0022=] as your nose.[=0x000A=][=0x000A=]Test me with [=0x0022=]x wall / north / x nose / mine[=0x0022=].[=0x000A=]\n', 'Example - Walls and Noses')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Walls and Noses&quot;
+            <!--START CODE "c12088_424"-->
+            <blockquote class="code"><p class="quoted"><a id="c12088_424"></a><a href="javascript:pasteCode('[=0x0022=]Walls and Noses[=0x0022=][=0x000A=][=0x000A=]Eight-Walled Chamber is a room. [=0x0022=]A perfectly octagonal room whose walls are tinted in various hues.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]wall[=0x0022=] as a direction.[=0x000A=][=0x000A=]Definition: a direction is matched if it fits the parse list.[=0x000A=]Definition: a room is matched if it fits the parse list.[=0x000A=]Definition: a thing is matched if it fits the parse list.[=0x000A=][=0x000A=]Rule for asking which do you mean when everything matched is direction:[=0x000A=][=0x0009=]say [=0x0022=]In which direction?[=0x0022=][=0x000A=][=0x000A=][Checking the parse list requires a bit of behind-the-scenes work with Inform 6. Fortunately, you don[=0x0027=]t have to understand this entirely in order to use the rest of the example:][=0x000A=][=0x000A=]To decide whether (N - an object) fits the parse list:[=0x000A=][=0x0009=](- (FindInParseList({N})) -)[=0x000A=][=0x000A=]Include (-[=0x000A=][ FindInParseList obj i k marker;[=0x000A=][=0x0009=]marker = 0;[=0x000A=][=0x0009=]for (i=1 : i[=0x003C=]=number_of_classes : i++) {[=0x000A=][=0x0009=]while (((match_classes--[=0x003E=]marker) ~= i) [=0x0026=][=0x0026=] ((match_classes--[=0x003E=]marker) ~= -i)) marker++;[=0x000A=][=0x0009=]k = match_list--[=0x003E=]marker;[=0x000A=][=0x0009=]if (k==obj) rtrue;[=0x000A=][=0x0009=]}[=0x000A=][=0x0009=]rfalse;[=0x000A=]];[=0x000A=]-)[=0x000A=][=0x000A=][Now that we[=0x0027=]ve defined our [=0x0022=]matched[=0x0022=] adjective, we can use it for other purposes as well -- even generating our own lists. Our second challenge was to respond to EXAMINE NOSE with [=0x0022=]Whose nose do you mean, Frederica[=0x0027=]s, Betty[=0x0027=]s, Wilma[=0x0027=]s or your own?[=0x0022=]][=0x000A=][=0x000A=][Here we need to change the way the question is worded (not [=0x0022=]which do you mean[=0x0022=] but [=0x0022=]whose nose do you mean[=0x0022=]). We also have to the names of the noses as they[=0x0027=]re printed in this particular context, so that they don[=0x0027=]t repeat the word [=0x0022=]nose[=0x0022=] over and over. And -- as a point of good English style -- we also want [=0x0022=]your own[=0x0022=] nose always to be last on the list.][=0x000A=][=0x000A=][For this purpose we may want to use the built-in [=0x0022=]Complex Listing[=0x0022=] extension, which allows us to print specially ordered lists. So:][=0x000A=][=0x000A=]Include Complex Listing by Emily Short.[=0x000A=][=0x000A=]Wilma, Betty, and Frederica are women in the Eight-Walled Chamber. Understand [=0x0022=]lady[=0x0022=] or [=0x0022=]woman[=0x0022=] as a woman. A nose is a kind of thing. A nose is part of every person.[=0x000A=][=0x000A=]Rule for asking which do you mean when everything matched is a nose:[=0x000A=][=0x0009=]prepare a list of matched things;[=0x000A=][=0x0009=]if your nose is an output listed in the Table of Scored Listing:[=0x000A=][=0x0009=][=0x0009=]choose row with an output of your nose in the Table of Scored Listing;[=0x000A=][=0x0009=][=0x0009=]now the assigned score entry is -1;[=0x000A=][=0x0009=]say [=0x0022=]Whose nose do you mean, [the prepared list delimited in disjunctive style]?[=0x0022=][=0x000A=][=0x000A=]Rule for printing the name of a nose (called target) while asking which do you mean :[=0x000A=][=0x0009=]if everything matched is a nose:[=0x000A=][=0x0009=][=0x0009=]if the target is part of a person (called owner):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the owner is the player, say [=0x0022=]your own[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=][the owner][apostrophe]s[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]make no decision.[=0x000A=][=0x000A=]Understand [=0x0022=]own[=0x0022=] or [=0x0022=]mine[=0x0022=] as your nose.[=0x000A=][=0x000A=]Test me with [=0x0022=]x wall / north / x nose / mine[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Walls and Noses[=0x0022=][=0x000A=][=0x000A=]Eight-Walled Chamber is a room. [=0x0022=]A perfectly octagonal room whose walls are tinted in various hues.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]wall[=0x0022=] as a direction.[=0x000A=][=0x000A=]Definition: a direction is matched if it fits the parse list.[=0x000A=]Definition: a room is matched if it fits the parse list.[=0x000A=]Definition: a thing is matched if it fits the parse list.[=0x000A=][=0x000A=]Rule for asking which do you mean when everything matched is direction:[=0x000A=][=0x0009=]say [=0x0022=]In which direction?[=0x0022=][=0x000A=][=0x000A=][Checking the parse list requires a bit of behind-the-scenes work with Inform 6. Fortunately, you don[=0x0027=]t have to understand this entirely in order to use the rest of the example:][=0x000A=][=0x000A=]To decide whether (N - an object) fits the parse list:[=0x000A=][=0x0009=](- (FindInParseList({N})) -)[=0x000A=][=0x000A=]Include (-[=0x000A=][ FindInParseList obj i k marker;[=0x000A=][=0x0009=]marker = 0;[=0x000A=][=0x0009=]for (i=1 : i[=0x003C=]=number_of_classes : i++) {[=0x000A=][=0x0009=]while (((match_classes--[=0x003E=]marker) ~= i) [=0x0026=][=0x0026=] ((match_classes--[=0x003E=]marker) ~= -i)) marker++;[=0x000A=][=0x0009=]k = match_list--[=0x003E=]marker;[=0x000A=][=0x0009=]if (k==obj) rtrue;[=0x000A=][=0x0009=]}[=0x000A=][=0x0009=]rfalse;[=0x000A=]];[=0x000A=]-)[=0x000A=][=0x000A=][Now that we[=0x0027=]ve defined our [=0x0022=]matched[=0x0022=] adjective, we can use it for other purposes as well -- even generating our own lists. Our second challenge was to respond to EXAMINE NOSE with [=0x0022=]Whose nose do you mean, Frederica[=0x0027=]s, Betty[=0x0027=]s, Wilma[=0x0027=]s or your own?[=0x0022=]][=0x000A=][=0x000A=][Here we need to change the way the question is worded (not [=0x0022=]which do you mean[=0x0022=] but [=0x0022=]whose nose do you mean[=0x0022=]). We also have to the names of the noses as they[=0x0027=]re printed in this particular context, so that they don[=0x0027=]t repeat the word [=0x0022=]nose[=0x0022=] over and over. And -- as a point of good English style -- we also want [=0x0022=]your own[=0x0022=] nose always to be last on the list.][=0x000A=][=0x000A=][For this purpose we may want to use the built-in [=0x0022=]Complex Listing[=0x0022=] extension, which allows us to print specially ordered lists. So:][=0x000A=][=0x000A=]Include Complex Listing by Emily Short.[=0x000A=][=0x000A=]Wilma, Betty, and Frederica are women in the Eight-Walled Chamber. Understand [=0x0022=]lady[=0x0022=] or [=0x0022=]woman[=0x0022=] as a woman. A nose is a kind of thing. A nose is part of every person.[=0x000A=][=0x000A=]Rule for asking which do you mean when everything matched is a nose:[=0x000A=][=0x0009=]prepare a list of matched things;[=0x000A=][=0x0009=]if your nose is an output listed in the Table of Scored Listing:[=0x000A=][=0x0009=][=0x0009=]choose row with an output of your nose in the Table of Scored Listing;[=0x000A=][=0x0009=][=0x0009=]now the assigned score entry is -1;[=0x000A=][=0x0009=]say [=0x0022=]Whose nose do you mean, [the prepared list delimited in disjunctive style]?[=0x0022=][=0x000A=][=0x000A=]Rule for printing the name of a nose (called target) while asking which do you mean :[=0x000A=][=0x0009=]if everything matched is a nose:[=0x000A=][=0x0009=][=0x0009=]if the target is part of a person (called owner):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the owner is the player, say [=0x0022=]your own[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=][the owner][apostrophe]s[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]make no decision.[=0x000A=][=0x000A=]Understand [=0x0022=]own[=0x0022=] or [=0x0022=]mine[=0x0022=] as your nose.[=0x000A=][=0x000A=]Test me with [=0x0022=]x wall / north / x nose / mine[=0x0022=].[=0x000A=]\n', 'Example - Walls and Noses')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Walls and Noses&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12061_422"-->
-            <blockquote class="code"><p class="quoted"><a id="c12061_422"></a>Eight-Walled Chamber is a room. &quot;A perfectly octagonal room whose walls are tinted in various hues.&quot;
+            <!--START CODE "c12089_424"-->
+            <blockquote class="code"><p class="quoted"><a id="c12089_424"></a>Eight-Walled Chamber is a room. &quot;A perfectly octagonal room whose walls are tinted in various hues.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12062_422"-->
-            <blockquote class="code"><p class="quoted"><a id="c12062_422"></a>Understand &quot;wall&quot; as a direction.
+            <!--START CODE "c12090_424"-->
+            <blockquote class="code"><p class="quoted"><a id="c12090_424"></a>Understand &quot;wall&quot; as a direction.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12063_422"-->
-            <blockquote class="code"><p class="quoted"><a id="c12063_422"></a>Definition: a direction is matched if it fits the parse list.
+            <!--START CODE "c12091_424"-->
+            <blockquote class="code"><p class="quoted"><a id="c12091_424"></a>Definition: a direction is matched if it fits the parse list.
             <br>
             Definition: a room is matched if it fits the parse list.
             <br>
@@ -519,23 +519,23 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12064_422"-->
-            <blockquote class="code"><p class="quoted"><a id="c12064_422"></a>Rule for asking which do you mean when everything matched is direction:
+            <!--START CODE "c12092_424"-->
+            <blockquote class="code"><p class="quoted"><a id="c12092_424"></a>Rule for asking which do you mean when everything matched is direction:
             <br>
             &#160;&#160;&#160;&#160;say &quot;In which direction?&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Checking the parse list requires a bit of behind-the-scenes work with Inform 6. Fortunately, you don't have to understand this entirely in order to use the rest of the example:</p>
-            <!--START CODE "c12065_422"-->
-            <blockquote class="code"><p class="quoted"><a id="c12065_422"></a>To decide whether (N - an object) fits the parse list:
+            <!--START CODE "c12093_424"-->
+            <blockquote class="code"><p class="quoted"><a id="c12093_424"></a>To decide whether (N - an object) fits the parse list:
             <br>
             &#160;&#160;&#160;&#160;(- (FindInParseList({N})) -)
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12066_422"-->
-            <blockquote class="code"><p class="quoted"><a id="c12066_422"></a>Include (-
+            <!--START CODE "c12094_424"-->
+            <blockquote class="code"><p class="quoted"><a id="c12094_424"></a>Include (-
             <br>
             [ FindInParseList obj i k marker;
             <br>
@@ -562,18 +562,18 @@
             <p>Now that we've defined our &quot;matched&quot; adjective, we can use it for other purposes as well -- even generating our own lists. Our second challenge was to respond to EXAMINE NOSE with &quot;Whose nose do you mean, Frederica's, Betty's, Wilma's or your own?&quot;</p>
             <p>Here we need to change the way the question is worded (not &quot;which do you mean&quot; but &quot;whose nose do you mean&quot;). We also have to the names of the noses as they're printed in this particular context, so that they don't repeat the word &quot;nose&quot; over and over. And -- as a point of good English style -- we also want &quot;your own&quot; nose always to be last on the list.</p>
             <p>For this purpose we may want to use the built-in &quot;Complex Listing&quot; extension, which allows us to print specially ordered lists. So:</p>
-            <!--START CODE "c12067_422"-->
-            <blockquote class="code"><p class="quoted"><a id="c12067_422"></a>Include Complex Listing by Emily Short.
+            <!--START CODE "c12095_424"-->
+            <blockquote class="code"><p class="quoted"><a id="c12095_424"></a>Include Complex Listing by Emily Short.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12068_422"-->
-            <blockquote class="code"><p class="quoted"><a id="c12068_422"></a>Wilma, Betty, and Frederica are women in the Eight-Walled Chamber. Understand &quot;lady&quot; or &quot;woman&quot; as a woman. A nose is a kind of thing. A nose is part of every person.
+            <!--START CODE "c12096_424"-->
+            <blockquote class="code"><p class="quoted"><a id="c12096_424"></a>Wilma, Betty, and Frederica are women in the Eight-Walled Chamber. Understand &quot;lady&quot; or &quot;woman&quot; as a woman. A nose is a kind of thing. A nose is part of every person.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12069_422"-->
-            <blockquote class="code"><p class="quoted"><a id="c12069_422"></a>Rule for asking which do you mean when everything matched is a nose:
+            <!--START CODE "c12097_424"-->
+            <blockquote class="code"><p class="quoted"><a id="c12097_424"></a>Rule for asking which do you mean when everything matched is a nose:
             <br>
             &#160;&#160;&#160;&#160;prepare a list of matched things;
             <br>
@@ -587,8 +587,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12070_422"-->
-            <blockquote class="code"><p class="quoted"><a id="c12070_422"></a>Rule for printing the name of a nose (called target) while asking which do you mean :
+            <!--START CODE "c12098_424"-->
+            <blockquote class="code"><p class="quoted"><a id="c12098_424"></a>Rule for printing the name of a nose (called target) while asking which do you mean :
             <br>
             &#160;&#160;&#160;&#160;if everything matched is a nose:
             <br>
@@ -604,43 +604,43 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12071_422"-->
-            <blockquote class="code"><p class="quoted"><a id="c12071_422"></a>Understand &quot;own&quot; or &quot;mine&quot; as your nose.
+            <!--START CODE "c12099_424"-->
+            <blockquote class="code"><p class="quoted"><a id="c12099_424"></a>Understand &quot;own&quot; or &quot;mine&quot; as your nose.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12072_422"-->
-            <blockquote class="code"><p class="quoted"><a id="c12072_422"></a>Test me with &quot;x wall / north / x nose / mine&quot;.
+            <!--START CODE "c12100_424"-->
+            <blockquote class="code"><p class="quoted"><a id="c12100_424"></a>Test me with &quot;x wall / north / x nose / mine&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "423: Cave-troll" "e68"-->
-        <a id="e68"></a><table class="egcue">
+        <!--START EXAMPLE "424: Cave-troll" "e64"-->
+        <a id="e64"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example68'); return false;"><b>423</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example64'); return false;"><b>424</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example68'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Cave-troll</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example64'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Cave-troll</span></b></a><br>
                     Determining that the command the player typed is invalid, editing it, and re-examining it to see whether it now reads correctly.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc348.html#e68"><i>WI</i></a></div>
+                        <a href="doc348.html#e64"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example68" style="display: none;">
+        <div class="egpanel" id="example64" style="display: none;">
             <p>Novice players of interactive fiction, unfamiliar with its conventions, will often try to add extra phrases to a command that the game cannot properly parse: HIT DOOR WITH FIST, for instance, instead of HIT DOOR.</p>
             <p>While we can deal with some of these instances by expanding our range of actions, at some point it becomes impossible to account for all the possible prepositional phrases that the player might want to tack on. So what do we do if we want to handle those appended bits of text sensibly?</p>
             <p>We could go through and remove any piece of text containing &quot;with ...&quot; from the end of a player's command; the problem with that is that it overzealously lops off the ends of valid commands like UNLOCK DOOR WITH KEY, as well. So clearly we don't want to do this as part of the &quot;After reading a command...&quot; stage.</p>
@@ -648,28 +648,28 @@
             <p>The next problem, though, is that after we've edited the player's text we want to feed the corrected version back to Inform and try once more to interpret it.</p>
             <p>This is where we have a valid reason to write a new &quot;rule for reading a command&quot;. We will tell Inform that when we have just corrected the player's input to something new, it should not ask for a new command (by printing a prompt and waiting for another line of input); it should instead paste our stored corrected command back into &quot;the player's command&quot; and proceed as though that new text had just been typed.</p>
             <p>Thanks to John Clemens for the specifics of the implementation.</p>
-            <!--START CODE "c12073_68"-->
-            <blockquote class="code"><p class="quoted"><a id="c12073_68"></a><a href="javascript:pasteCode('[=0x0022=]Cave-troll[=0x0022=] by JDC[=0x000A=][=0x000A=]Section 1 - The Mechanism[=0x000A=][=0x000A=]The last command is a text that varies.[=0x000A=][=0x000A=]The parser error flag is a truth state that varies. The parser error flag is false.[=0x000A=][=0x000A=]Rule for printing a parser error when the latest parser error is the only understood as far as error and the player[=0x0027=]s command matches the text [=0x0022=]with[=0x0022=]:[=0x000A=][=0x0009=]now the last command is the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the parser error flag is true;[=0x000A=][=0x0009=]let n be [=0x0022=][the player[=0x0027=]s command][=0x0022=];[=0x000A=][=0x0009=]replace the regular expression [=0x0022=].* with (.*)[=0x0022=] in n with [=0x0022=]with [=0x005C=]1[=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=](ignoring the unnecessary words [=0x0027=][n][=0x0027=])[line break][=0x0022=];[=0x000A=][=0x0009=]replace the regular expression [=0x0022=]with .*[=0x0022=] in the last command with [=0x0022=][=0x0022=].[=0x000A=][=0x000A=]Rule for reading a command when the parser error flag is true:[=0x000A=][=0x0009=]now the parser error flag is false;[=0x000A=][=0x0009=]change the text of the player[=0x0027=]s command to the last command.[=0x000A=][=0x000A=]Section 2 - The Scenario[=0x000A=][=0x000A=]The Cave is a room.[=0x000A=][=0x000A=]The troll is a man in the cave.[=0x000A=][=0x000A=]The player carries a sword.[=0x000A=][=0x000A=]The chest is a locked lockable container in the cave.[=0x000A=][=0x000A=]Test me with [=0x0022=]attack troll with sword / unlock chest with sword / attack troll as a test[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Cave-troll[=0x0022=] by JDC[=0x000A=][=0x000A=]Section 1 - The Mechanism[=0x000A=][=0x000A=]The last command is a text that varies.[=0x000A=][=0x000A=]The parser error flag is a truth state that varies. The parser error flag is false.[=0x000A=][=0x000A=]Rule for printing a parser error when the latest parser error is the only understood as far as error and the player[=0x0027=]s command matches the text [=0x0022=]with[=0x0022=]:[=0x000A=][=0x0009=]now the last command is the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the parser error flag is true;[=0x000A=][=0x0009=]let n be [=0x0022=][the player[=0x0027=]s command][=0x0022=];[=0x000A=][=0x0009=]replace the regular expression [=0x0022=].* with (.*)[=0x0022=] in n with [=0x0022=]with [=0x005C=]1[=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=](ignoring the unnecessary words [=0x0027=][n][=0x0027=])[line break][=0x0022=];[=0x000A=][=0x0009=]replace the regular expression [=0x0022=]with .*[=0x0022=] in the last command with [=0x0022=][=0x0022=].[=0x000A=][=0x000A=]Rule for reading a command when the parser error flag is true:[=0x000A=][=0x0009=]now the parser error flag is false;[=0x000A=][=0x0009=]change the text of the player[=0x0027=]s command to the last command.[=0x000A=][=0x000A=]Section 2 - The Scenario[=0x000A=][=0x000A=]The Cave is a room.[=0x000A=][=0x000A=]The troll is a man in the cave.[=0x000A=][=0x000A=]The player carries a sword.[=0x000A=][=0x000A=]The chest is a locked lockable container in the cave.[=0x000A=][=0x000A=]Test me with [=0x0022=]attack troll with sword / unlock chest with sword / attack troll as a test[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Cave-troll')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Cave-troll&quot; by JDC
+            <!--START CODE "c12101_64"-->
+            <blockquote class="code"><p class="quoted"><a id="c12101_64"></a><a href="javascript:pasteCode('[=0x0022=]Cave-troll[=0x0022=] by JDC[=0x000A=][=0x000A=]Section 1 - The Mechanism[=0x000A=][=0x000A=]The last command is a text that varies.[=0x000A=][=0x000A=]The parser error flag is a truth state that varies. The parser error flag is false.[=0x000A=][=0x000A=]Rule for printing a parser error when the latest parser error is the only understood as far as error and the player[=0x0027=]s command matches the text [=0x0022=]with[=0x0022=]:[=0x000A=][=0x0009=]now the last command is the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the parser error flag is true;[=0x000A=][=0x0009=]let n be [=0x0022=][the player[=0x0027=]s command][=0x0022=];[=0x000A=][=0x0009=]replace the regular expression [=0x0022=].* with (.*)[=0x0022=] in n with [=0x0022=]with [=0x005C=]1[=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=](ignoring the unnecessary words [=0x0027=][n][=0x0027=])[line break][=0x0022=];[=0x000A=][=0x0009=]replace the regular expression [=0x0022=]with .*[=0x0022=] in the last command with [=0x0022=][=0x0022=].[=0x000A=][=0x000A=]Rule for reading a command when the parser error flag is true:[=0x000A=][=0x0009=]now the parser error flag is false;[=0x000A=][=0x0009=]change the text of the player[=0x0027=]s command to the last command.[=0x000A=][=0x000A=]Section 2 - The Scenario[=0x000A=][=0x000A=]The Cave is a room.[=0x000A=][=0x000A=]The troll is a man in the cave.[=0x000A=][=0x000A=]The player carries a sword.[=0x000A=][=0x000A=]The chest is a locked lockable container in the cave.[=0x000A=][=0x000A=]Test me with [=0x0022=]attack troll with sword / unlock chest with sword / attack troll as a test[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Cave-troll[=0x0022=] by JDC[=0x000A=][=0x000A=]Section 1 - The Mechanism[=0x000A=][=0x000A=]The last command is a text that varies.[=0x000A=][=0x000A=]The parser error flag is a truth state that varies. The parser error flag is false.[=0x000A=][=0x000A=]Rule for printing a parser error when the latest parser error is the only understood as far as error and the player[=0x0027=]s command matches the text [=0x0022=]with[=0x0022=]:[=0x000A=][=0x0009=]now the last command is the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the parser error flag is true;[=0x000A=][=0x0009=]let n be [=0x0022=][the player[=0x0027=]s command][=0x0022=];[=0x000A=][=0x0009=]replace the regular expression [=0x0022=].* with (.*)[=0x0022=] in n with [=0x0022=]with [=0x005C=]1[=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=](ignoring the unnecessary words [=0x0027=][n][=0x0027=])[line break][=0x0022=];[=0x000A=][=0x0009=]replace the regular expression [=0x0022=]with .*[=0x0022=] in the last command with [=0x0022=][=0x0022=].[=0x000A=][=0x000A=]Rule for reading a command when the parser error flag is true:[=0x000A=][=0x0009=]now the parser error flag is false;[=0x000A=][=0x0009=]change the text of the player[=0x0027=]s command to the last command.[=0x000A=][=0x000A=]Section 2 - The Scenario[=0x000A=][=0x000A=]The Cave is a room.[=0x000A=][=0x000A=]The troll is a man in the cave.[=0x000A=][=0x000A=]The player carries a sword.[=0x000A=][=0x000A=]The chest is a locked lockable container in the cave.[=0x000A=][=0x000A=]Test me with [=0x0022=]attack troll with sword / unlock chest with sword / attack troll as a test[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Cave-troll')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Cave-troll&quot; by JDC
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12074_68"-->
-            <blockquote class="code"><p class="quoted"><a id="c12074_68"></a>Section 1 - The Mechanism
+            <!--START CODE "c12102_64"-->
+            <blockquote class="code"><p class="quoted"><a id="c12102_64"></a>Section 1 - The Mechanism
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12075_68"-->
-            <blockquote class="code"><p class="quoted"><a id="c12075_68"></a>The last command is a text that varies.
+            <!--START CODE "c12103_64"-->
+            <blockquote class="code"><p class="quoted"><a id="c12103_64"></a>The last command is a text that varies.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12076_68"-->
-            <blockquote class="code"><p class="quoted"><a id="c12076_68"></a>The parser error flag is a truth state that varies. The parser error flag is false.
+            <!--START CODE "c12104_64"-->
+            <blockquote class="code"><p class="quoted"><a id="c12104_64"></a>The parser error flag is a truth state that varies. The parser error flag is false.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12077_68"-->
-            <blockquote class="code"><p class="quoted"><a id="c12077_68"></a>Rule for printing a parser error when the latest parser error is the only understood as far as error and the player's command matches the text &quot;with&quot;:
+            <!--START CODE "c12105_64"-->
+            <blockquote class="code"><p class="quoted"><a id="c12105_64"></a>Rule for printing a parser error when the latest parser error is the only understood as far as error and the player's command matches the text &quot;with&quot;:
             <br>
             &#160;&#160;&#160;&#160;now the last command is the player's command;
             <br>
@@ -685,8 +685,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12078_68"-->
-            <blockquote class="code"><p class="quoted"><a id="c12078_68"></a>Rule for reading a command when the parser error flag is true:
+            <!--START CODE "c12106_64"-->
+            <blockquote class="code"><p class="quoted"><a id="c12106_64"></a>Rule for reading a command when the parser error flag is true:
             <br>
             &#160;&#160;&#160;&#160;now the parser error flag is false;
             <br>
@@ -694,33 +694,33 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12079_68"-->
-            <blockquote class="code"><p class="quoted"><a id="c12079_68"></a>Section 2 - The Scenario
+            <!--START CODE "c12107_64"-->
+            <blockquote class="code"><p class="quoted"><a id="c12107_64"></a>Section 2 - The Scenario
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12080_68"-->
-            <blockquote class="code"><p class="quoted"><a id="c12080_68"></a>The Cave is a room.
+            <!--START CODE "c12108_64"-->
+            <blockquote class="code"><p class="quoted"><a id="c12108_64"></a>The Cave is a room.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12081_68"-->
-            <blockquote class="code"><p class="quoted"><a id="c12081_68"></a>The troll is a man in the cave.
+            <!--START CODE "c12109_64"-->
+            <blockquote class="code"><p class="quoted"><a id="c12109_64"></a>The troll is a man in the cave.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12082_68"-->
-            <blockquote class="code"><p class="quoted"><a id="c12082_68"></a>The player carries a sword.
+            <!--START CODE "c12110_64"-->
+            <blockquote class="code"><p class="quoted"><a id="c12110_64"></a>The player carries a sword.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12083_68"-->
-            <blockquote class="code"><p class="quoted"><a id="c12083_68"></a>The chest is a locked lockable container in the cave.
+            <!--START CODE "c12111_64"-->
+            <blockquote class="code"><p class="quoted"><a id="c12111_64"></a>The chest is a locked lockable container in the cave.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12084_68"-->
-            <blockquote class="code"><p class="quoted"><a id="c12084_68"></a>Test me with &quot;attack troll with sword / unlock chest with sword / attack troll as a test&quot;.
+            <!--START CODE "c12112_64"-->
+            <blockquote class="code"><p class="quoted"><a id="c12112_64"></a>Test me with &quot;attack troll with sword / unlock chest with sword / attack troll as a test&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

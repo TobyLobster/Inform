@@ -7,13 +7,12 @@
 
 #import "IFToolbarManager.h"
 #import "IFToolbarStatusView.h"
-#import "IFToolbarStatusSpacingView.h"
-#import "IFToolbar.h"
 #import "IFCompilerSettings.h"
 #import "IFProject.h"
 #import "IFProjectController.h"
 #import "IFUtility.h"
 #import "IFProgress.h"
+#import "Inform-Swift.h"
 
 @interface IFToolbarManager () <IFProgressDelegate>
 
@@ -98,75 +97,75 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
                         @"toolbarStatusSpacingPaletteItem": toolbarStatusSpacingPaletteItem };
 
 	// Images
-	[compileItem            setImage: [NSImage imageNamed: @"App/Toolbar/compile"]];
-	[compileAndRunItem      setImage: [NSImage imageNamed: @"App/Toolbar/run"]];
-	[releaseItem            setImage: [NSImage imageNamed: @"App/Toolbar/release"]];
-    [installExtensionItem   setImage: [NSImage imageNamed: @"App/Toolbar/install"]];
-    [testItem               setImage: [NSImage imageNamed: @"App/Toolbar/test"]];
-	[replayItem             setImage: [NSImage imageNamed: @"App/Toolbar/replay"]];
-	[refreshIndexItem       setImage: [NSImage imageNamed: @"App/Toolbar/refresh_index"]];
+	compileItem.image = [NSImage imageNamed: @"App/Toolbar/compile"];
+	compileAndRunItem.image = [NSImage imageNamed: @"App/Toolbar/run"];
+	releaseItem.image = [NSImage imageNamed: @"App/Toolbar/release"];
+    installExtensionItem.image = [NSImage imageNamed: @"App/Toolbar/install"];
+    testItem.image = [NSImage imageNamed: @"App/Toolbar/test"];
+	replayItem.image = [NSImage imageNamed: @"App/Toolbar/replay"];
+	refreshIndexItem.image = [NSImage imageNamed: @"App/Toolbar/refresh_index"];
 	
-	[stopItem               setImage: [NSImage imageNamed: @"App/Toolbar/stop"]];
+	stopItem.image = [NSImage imageNamed: @"App/Toolbar/stop"];
 
-    [toolbarStatusSpacingPaletteItem setImage: [NSImage imageNamed: @"App/Toolbar/status"]];
+    toolbarStatusSpacingPaletteItem.image = [NSImage imageNamed: @"App/Toolbar/status"];
 
 	// Labels
-    [compileItem         setLabel: [IFUtility localizedString: @"Compile"]];
-    [compileAndRunItem   setLabel: [IFUtility localizedString: @"Go!"]];
-    [releaseItem         setLabel: [IFUtility localizedString: @"Release"]];
-    [replayItem          setLabel: [IFUtility localizedString: @"Replay"]];
-    [refreshIndexItem    setLabel: [IFUtility localizedString: @"Refresh Index"]];
+    compileItem.label = [IFUtility localizedString: @"Compile"];
+    compileAndRunItem.label = [IFUtility localizedString: @"Go!"];
+    releaseItem.label = [IFUtility localizedString: @"Release"];
+    replayItem.label = [IFUtility localizedString: @"Replay"];
+    refreshIndexItem.label = [IFUtility localizedString: @"Refresh Index"];
 	
-	[stopItem            setLabel: [IFUtility localizedString: @"Stop"]];
+	stopItem.label = [IFUtility localizedString: @"Stop"];
 
-    [testSelectorItem     setLabel: [IFUtility localizedString: @"Test Case"]];
-    [installExtensionItem setLabel: [IFUtility localizedString: @"Install Extension"]];
-    [testItem             setLabel: [IFUtility localizedString: @"Test"]];
+    testSelectorItem.label = [IFUtility localizedString: @"Test Case"];
+    installExtensionItem.label = [IFUtility localizedString: @"Install Extension"];
+    testItem.label = [IFUtility localizedString: @"Test"];
 
-	[searchDocsItem      setLabel: [IFUtility localizedString: @"Search Documentation"]];
-	[searchProjectItem   setLabel: [IFUtility localizedString: @"Search Project"]];
+	searchDocsItem.label = [IFUtility localizedString: @"Search Documentation"];
+	searchProjectItem.label = [IFUtility localizedString: @"Search Project"];
 
-    [toolbarStatusSpacingItem setMinSize: NSMakeSize(10, 1)];
-    [toolbarStatusSpacingItem setMaxSize: NSMakeSize(10000, 1)];
-    [toolbarStatusSpacingItem setView: toolbarStatusSpacingView];
-    [toolbarStatusSpacingItem setLabel: @""];
+    toolbarStatusSpacingItem.minSize = NSMakeSize(10, 1);
+    toolbarStatusSpacingItem.maxSize = NSMakeSize(10000, 1);
+    toolbarStatusSpacingItem.view = toolbarStatusSpacingView;
+    toolbarStatusSpacingItem.label = @"";
 
     // Set palette labels
     for(NSToolbarItem* item in [itemDictionary objectEnumerator]) {
-        [item setPaletteLabel:[item label]];
+        item.paletteLabel = item.label;
     }
     
     // Special case - this shows "Status" when on the customization palette
-    [toolbarStatusSpacingPaletteItem setLabel: @""];
-    [toolbarStatusSpacingPaletteItem setPaletteLabel: [IFUtility localizedString: @"Status"]];
+    toolbarStatusSpacingPaletteItem.label = @"";
+    toolbarStatusSpacingPaletteItem.paletteLabel = [IFUtility localizedString: @"Status"];
 
 	// The tooltips
-    [compileItem            setToolTip: [IFUtility localizedString: @"CompileTip"   default: nil]];
-    [compileAndRunItem      setToolTip: [IFUtility localizedString: @"GoTip"        default: nil]];
-    [releaseItem            setToolTip: [IFUtility localizedString: @"ReleaseTip"   default: nil]];
-	[replayItem             setToolTip: [IFUtility localizedString: @"ReplayTip"    default: nil]];
+    compileItem.toolTip = [IFUtility localizedString: @"CompileTip"   default: nil];
+    compileAndRunItem.toolTip = [IFUtility localizedString: @"GoTip"        default: nil];
+    releaseItem.toolTip = [IFUtility localizedString: @"ReleaseTip"   default: nil];
+	replayItem.toolTip = [IFUtility localizedString: @"ReplayTip"    default: nil];
 	
-	[stopItem               setToolTip: [IFUtility localizedString: @"StopTip"      default: nil]];
+	stopItem.toolTip = [IFUtility localizedString: @"StopTip"      default: nil];
 
-	[searchDocsItem         setToolTip: [IFUtility localizedString: @"SearchDocsTip"    default: nil]];
-	[searchProjectItem      setToolTip: [IFUtility localizedString: @"SearchProjectTip" default: nil]];
+	searchDocsItem.toolTip = [IFUtility localizedString: @"SearchDocsTip"    default: nil];
+	searchProjectItem.toolTip = [IFUtility localizedString: @"SearchProjectTip" default: nil];
 	
-	[refreshIndexItem       setToolTip: [IFUtility localizedString: @"RefreshIndexTip"  default: nil]];
-    [testSelectorItem       setToolTip: [IFUtility localizedString: @"TestSelectorTip"  default: nil]];
-    [installExtensionItem   setToolTip: [IFUtility localizedString: @"InstallExtensionTip"  default: nil]];
-    [testItem               setToolTip: [IFUtility localizedString: @"TestTip"              default: nil]];
+	refreshIndexItem.toolTip = [IFUtility localizedString: @"RefreshIndexTip"  default: nil];
+    testSelectorItem.toolTip = [IFUtility localizedString: @"TestSelectorTip"  default: nil];
+    installExtensionItem.toolTip = [IFUtility localizedString: @"InstallExtensionTip"  default: nil];
+    testItem.toolTip = [IFUtility localizedString: @"TestTip"              default: nil];
 
     // The action heroes
-    [compileItem            setAction: @selector(compile:)];
-    [compileAndRunItem      setAction: @selector(compileAndRun:)];
-    [releaseItem            setAction: @selector(release:)];
-    [replayItem             setAction: @selector(replayUsingSkein:)];
-    [refreshIndexItem       setAction: @selector(compileAndRefresh:)];
+    compileItem.action = @selector(compile:);
+    compileAndRunItem.action = @selector(compileAndRun:);
+    releaseItem.action = @selector(release:);
+    replayItem.action = @selector(replayUsingSkein:);
+    refreshIndexItem.action = @selector(compileAndRefresh:);
 	
-    [stopItem               setAction: @selector(stopProcess:)];
-    [testSelectorItem       setAction: @selector(testSelector:)];
-    [installExtensionItem   setAction: @selector(installExtension:)];
-    [testItem               setAction: @selector(testMe:)];
+    stopItem.action = @selector(stopProcess:);
+    testSelectorItem.action = @selector(testSelector:);
+    installExtensionItem.action = @selector(installLegacyExtension:);
+    testItem.action = @selector(testMe:);
 
 }
 
@@ -180,7 +179,7 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
         toolbar = nil;
         projectController = pc;
         toolbarStatusView   = [[IFToolbarStatusView alloc] initWithFrame: NSMakeRect(0, 0, toolbarStatusWidth, 32)];
-        [toolbarStatusView setDelegate: self];
+        toolbarStatusView.delegate = self;
 
         // Progress
 		progressObjects = [[NSMutableArray alloc] init];
@@ -192,7 +191,7 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
                                                    object: nil];
         [[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(toolbarChangedVisibility:)
-                                                     name: IFToolbarChangedVisibility
+                                                     name: IFToolbar.ChangedVisibility
                                                    object: nil];
 
         // Only 10.7 Lion or later has Full Screen support
@@ -220,31 +219,31 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 }
 
 -(void) willEnterFullScreen:(NSNotification*) notification {
-    if( [notification object] == projectController.window ) {
+    if( notification.object == projectController.window ) {
         [toolbarStatusView removeFromSuperview];
     }
 }
 
 -(void) didEnterFullScreen:(NSNotification*) notification {
-    if( [notification object] == projectController.window ) {
+    if( notification.object == projectController.window ) {
         [self adjustToolbarStatusView];
     }
 }
 
 -(void) willExitFullScreen:(NSNotification*) notification {
-    if( [notification object] == projectController.window ) {
+    if( notification.object == projectController.window ) {
         [toolbarStatusView removeFromSuperview];
     }
 }
 
 -(void) didExitFullScreen:(NSNotification*) notification {
-    if( [notification object] == projectController.window ) {
+    if( notification.object == projectController.window ) {
         [self adjustToolbarStatusView];
     }
 }
 
 -(void) toolbarChangedVisibility:(NSNotification*) notification {
-    if( [notification object] == toolbar ) {
+    if( notification.object == toolbar ) {
         [self adjustToolbarStatusView];
     }
 }
@@ -258,36 +257,36 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 
 - (void) updateSettings {
 	// Update the toolbar if required
-	NSString* toolbarIdentifier = [self toolbarIdentifier];
+	NSString* toolbarIdentifier = self.toolbarIdentifier;
 	
-	if (![[toolbar identifier] isEqualToString: toolbarIdentifier]) {
+	if (![toolbar.identifier isEqualToString: toolbarIdentifier]) {
 		
 		toolbar = [[IFToolbar alloc] initWithIdentifier: toolbarIdentifier];
 
-		[toolbar setDelegate: self];
+		toolbar.delegate = self;
 		[toolbar setAllowsUserCustomization: YES];
 		[toolbar setAutosavesConfiguration: YES];
 
-		[projectController.window setToolbar: toolbar];
+		(projectController.window).toolbar = toolbar;
 	}
 }
 
 -(NSView*) toolbarStatusViewParent {
     // Support for 10.11 and above
     if( [IFUtility hasUpdatedToolbarFeature] ) {
-        return [[projectController.window standardWindowButton:NSWindowCloseButton] superview];
+        return [projectController.window standardWindowButton:NSWindowCloseButton].superview;
     }
 
     // Support for 10.6.8 to 10.10.X
     // Find the parent view, the superview of our status view. Sadly, if window is in fullscreen
     // mode, the parent view is different than normal mode.
     // See http://stackoverflow.com/questions/6169255/is-it-possible-to-draw-in-the-label-area-of-nstoolbar
-    BOOL isFullscreen = (([projectController.window styleMask] & NSWindowStyleMaskFullScreen) == NSWindowStyleMaskFullScreen);
+    BOOL isFullscreen = (((projectController.window).styleMask & NSWindowStyleMaskFullScreen) == NSWindowStyleMaskFullScreen);
     if( isFullscreen ) {
-        return [toolbarView superview];
+        return toolbarView.superview;
     }
 
-    return [projectController.window.contentView superview];
+    return (projectController.window.contentView).superview;
 }
 
 // This function keeps the toolbar status view in the right place on the toolbar.
@@ -305,7 +304,7 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
     // Find the toolbar view. The toolbar view isn't easily available. We have to search the
     // subviews of the content view to find it. Once we've found it, we remember it.
     if( toolbarView == nil ) {
-        for( NSView* subview in [[projectController.window.contentView superview] subviews] ) {
+        for( NSView* subview in (projectController.window.contentView).superview.subviews ) {
             // 10.9 and earlier? has an NSToolbarView
             if( [subview isKindOfClass: NSClassFromString(@"NSToolbarView")]) {
                 toolbarView = subview;
@@ -326,7 +325,7 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 
     if( toolbarView ) {
         // Position our view within the toolbar
-        NSRect toolbarRect = [parentView convertRect: [toolbarView bounds]
+        NSRect toolbarRect = [parentView convertRect: toolbarView.bounds
                                             fromView: toolbarView];
 
         // Calculate the ideal frame to centre the toolbar status view in the toolbar
@@ -348,15 +347,15 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
         BOOL found = NO;
         NSPoint startPoint;
         NSPoint endPoint;
-        for(NSToolbarItem* item in [toolbar items]) {
-            if( [[item view] isKindOfClass: [IFToolbarStatusSpacingView class] ] ) {
-                startPoint = [item view].bounds.origin;
-                endPoint = NSMakePoint([item view].bounds.origin.x + [item view].bounds.size.width,
-                                       [item view].bounds.origin.y + [item view].bounds.size.height);
+        for(NSToolbarItem* item in toolbar.items) {
+            if( [item.view isKindOfClass: [IFToolbarStatusSpacingView class] ] ) {
+                startPoint = item.view.bounds.origin;
+                endPoint = NSMakePoint(item.view.bounds.origin.x + item.view.bounds.size.width,
+                                       item.view.bounds.origin.y + item.view.bounds.size.height);
 
-                startPoint = [[item view] convertPoint: startPoint
+                startPoint = [item.view convertPoint: startPoint
                                                 toView: parentView];
-                endPoint = [[item view] convertPoint: endPoint
+                endPoint = [item.view convertPoint: endPoint
                                               toView: parentView];
                 found = YES;
                 break;
@@ -378,17 +377,17 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
             return;
         }
 
-        [toolbarStatusView setFrame: newFrame];
+        toolbarStatusView.frame = newFrame;
         [toolbarStatusView setNeedsDisplay:YES];
         [toolbarView setNeedsDisplay:YES];
     }
     
     // Update visibility
-    if( [toolbar isVisible] && [toolbarStatusView superview] == nil ) {
+    if( toolbar.visible && toolbarStatusView.superview == nil ) {
         [parentView addSubview: toolbarStatusView
                     positioned: NSWindowAbove
                     relativeTo: nil];
-    } else if (![toolbar isVisible] && [toolbarStatusView superview] != nil ) {
+    } else if (!toolbar.visible && toolbarStatusView.superview != nil ) {
         [toolbarStatusView removeFromSuperview];
     }
 }
@@ -403,19 +402,19 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 
 - (void) setToolbar {
     // Create the view switch toolbar
-    toolbar = [[IFToolbar alloc] initWithIdentifier: [self toolbarIdentifier]];
+    toolbar = [[IFToolbar alloc] initWithIdentifier: self.toolbarIdentifier];
 	
-    [toolbar setDelegate: self];
+    toolbar.delegate = self;
     [toolbar setAllowsUserCustomization: NO];
 	[toolbar setAutosavesConfiguration: NO];
-    [toolbar setDisplayMode: NSToolbarDisplayModeIconAndLabel];
+    toolbar.displayMode = NSToolbarDisplayModeIconAndLabel;
 
-    [projectController.window setToolbar: toolbar];
+    (projectController.window).toolbar = toolbar;
 
     // Remove all items from the context menu
-    if ([projectController.window contentView] != nil) {
-        if([[projectController.window contentView] superview] != nil) {
-            NSMenu* context_menu = [[[projectController.window contentView] superview] menu];
+    if ((projectController.window).contentView != nil) {
+        if((projectController.window).contentView.superview != nil) {
+            NSMenu* context_menu = (projectController.window).contentView.superview.menu;
             if (context_menu != nil) {
                 [context_menu removeAllItems];
             }
@@ -456,47 +455,47 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 	// The search views need to be set up here
 	if ([itemIdentifier isEqualToString: @"searchDocsItem"]) {
 		NSSearchField* searchDocs = [[NSSearchField alloc] initWithFrame: NSMakeRect(0,0,130,22)];
-		[[searchDocs cell] setPlaceholderString: [IFUtility localizedString: @"Documentation"]];
+		[searchDocs.cell setPlaceholderString: [IFUtility localizedString: @"Documentation"]];
 
-		[item setMinSize: NSMakeSize(70, 22)];
-		[item setMaxSize: NSMakeSize(150, 22)];
-		[item setView: searchDocs];
+		item.minSize = NSMakeSize(70, 22);
+		item.maxSize = NSMakeSize(150, 22);
+		item.view = searchDocs;
 		[searchDocs sizeToFit];
-        [[searchDocs cell] setScrollable:YES];
+        [searchDocs.cell setScrollable:YES];
 
 		[searchDocs setContinuous: NO];
-		[(NSSearchFieldCell*) [searchDocs cell] setSendsWholeSearchString: YES];
-		[searchDocs setTarget: projectController];
-		[searchDocs setAction: @selector(searchDocs:)];
+		[(NSSearchFieldCell*) searchDocs.cell setSendsWholeSearchString: YES];
+		searchDocs.target = projectController;
+		searchDocs.action = @selector(searchDocs:);
 
-		[item setLabel: @""];
+		item.label = @"";
 
 		return item;
 	} else if ([itemIdentifier isEqualToString: @"searchProjectItem"]) {
 		NSSearchField* searchProject = [[NSSearchField alloc] initWithFrame: NSMakeRect(0,0,130,22)];
-		[[searchProject cell] setPlaceholderString: [IFUtility localizedString: @"Project"]];
+		[searchProject.cell setPlaceholderString: [IFUtility localizedString: @"Project"]];
 
-		[item setMinSize: NSMakeSize(70, 22)];
-		[item setMaxSize: NSMakeSize(150, 22)];
-		[item setView: searchProject];
+		item.minSize = NSMakeSize(70, 22);
+		item.maxSize = NSMakeSize(150, 22);
+		item.view = searchProject;
 		[searchProject sizeToFit];
-        [[searchProject cell] setScrollable:YES];
+        [searchProject.cell setScrollable:YES];
 
 		[searchProject setContinuous: NO];
-		[(NSSearchFieldCell*) [searchProject cell] setSendsWholeSearchString: YES];
-		[searchProject setTarget: projectController];
-		[searchProject setAction: @selector(searchProject:)];
+		[(NSSearchFieldCell*) searchProject.cell setSendsWholeSearchString: YES];
+		searchProject.target = projectController;
+		searchProject.action = @selector(searchProject:);
 
-		[item setLabel: @""];
+		item.label = @"";
 
 		return item;
     } else if ([itemIdentifier isEqualToString: @"testSelectorItem"]) {
         testCasesPopUpButton = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(0, 0, 190, 22)];
-        [item setMinSize: NSMakeSize(100, 22)];
-        [item setMaxSize: NSMakeSize(190, 22)];
-        [item setView: testCasesPopUpButton];
-        [testCasesPopUpButton setTarget: projectController];
-        [testCasesPopUpButton setAction: @selector(testSelector:)];
+        item.minSize = NSMakeSize(100, 22);
+        item.maxSize = NSMakeSize(190, 22);
+        item.view = testCasesPopUpButton;
+        testCasesPopUpButton.target = projectController;
+        testCasesPopUpButton.action = @selector(testSelector:);
     }
 
 	return item;
@@ -518,7 +517,7 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 }
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)tb {
-    NSString* identifier = [tb identifier];
+    NSString* identifier = tb.identifier;
 	if ([identifier isEqualToString: @"IFInform7Toolbar"]) {
 		return @[@"compileAndRunItem",
                  @"replayItem",
@@ -559,18 +558,18 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 // == Toolbar item validation ==
 
 - (BOOL) validateToolbarItem: (NSToolbarItem*) item {
-    SEL itemSelector = [item action];
-    NSString* itemIdentifier = [item itemIdentifier];
+    SEL itemSelector = item.action;
+    NSString* itemIdentifier = item.itemIdentifier;
 
-	if ([itemIdentifier isEqualToString: [stopItem itemIdentifier]]) {
+	if ([itemIdentifier isEqualToString: stopItem.itemIdentifier]) {
 		return projectController.isRunningGame;
 	}
 	
     if( itemSelector == @selector(testMe:) ) {
-        if( [testCases count] == 0 ) {
+        if( testCases.count == 0 ) {
             return NO;
         }
-        if( [projectController isCurrentlyTesting] ) {
+        if( projectController.currentlyTesting ) {
             return NO;
         }
     }
@@ -584,13 +583,13 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 
         BOOL isExtensionProject = [projectController.document projectFileType] == IFFileTypeInform7ExtensionProject;
         BOOL selectedNoTestCase = isExtensionProject && ((testCases.count == 0) ||
-                                                         ([self currentTestCase] == nil));
+                                                         (self.currentTestCase == nil));
 
         // If we are in an Extension Project, and there are no test cases to run, disable Go! (etc) buttons.
         if( selectedNoTestCase ) {
             return NO;
         }
-		return ![projectController isCompiling];
+		return !projectController.compiling;
 	}
 
 	return YES;
@@ -601,8 +600,8 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 }
 
 - (void) windowDidResize: (NSNotification*) notification {
-    NSWindow* window = [notification object];
-    if( window == [projectController window] ) {
+    NSWindow* window = notification.object;
+    if( window == projectController.window ) {
         // Adjust toolbar status window appropriately
         [self adjustToolbarStatusView];
     }
@@ -617,10 +616,10 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
     int         bestPriority = 0;
 
     for( IFProgress* progress in progressObjects ) {
-        BOOL isActive = [progress isInProgress];
+        BOOL isActive = progress.inProgress;
         if (isActive == active ) {
-            if( [progress priority] > bestPriority ) {
-                bestPriority = [progress priority];
+            if( progress.priority > bestPriority ) {
+                bestPriority = progress.priority;
                 best = progress;
             }
         }
@@ -641,8 +640,8 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 - (void) updateProgress {
     IFProgress* best = [self currentProgress];
 
-    [toolbarStatusView canCancel: [best canCancel] && ![best isCancelled]];
-	if ((best != nil) && ([best showsProgressBar])) {
+    [toolbarStatusView canCancel: best.canCancel && !best.cancelled];
+	if ((best != nil) && (best.showsProgressBar)) {
         // Enable progress bar
         [toolbarStatusView startProgress];
     }
@@ -654,7 +653,7 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 	[toolbarStatusView setProgressMaxValue: 100.0f];
 	
 	// Set percentage
-    CGFloat currentProgress = [best percentage];
+    CGFloat currentProgress = best.percentage;
 	if (currentProgress > 0.0f) {
         [toolbarStatusView updateProgress: currentProgress];
 		[toolbarStatusView setProgressIndeterminate: NO];
@@ -662,8 +661,8 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 		[toolbarStatusView setProgressIndeterminate: YES];
 	}
     
-    if ([best message]) {
-        [toolbarStatusView showMessage: [best message]];
+    if (best.message) {
+        [toolbarStatusView showMessage: best.message];
     }
 
     // Make sure parent redraws (avoids blocky edges where semi-transparent pixels are repeatedly redrawn)
@@ -671,7 +670,7 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 }
 
 - (void) addProgressIndicator: (IFProgress*) indicator {
-	[indicator setDelegate: self];
+	indicator.delegate = self;
 	[progressObjects addObject: indicator];
 	
 	[self updateProgress];
@@ -736,7 +735,7 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 -(void) setTestCases:(NSArray*) testCasesArray {
     if( testCasesPopUpButton != nil ) {
         // Remember current selected item
-        NSString* selectedTitle = [[testCasesPopUpButton selectedItem] title];
+        NSString* selectedTitle = testCasesPopUpButton.selectedItem.title;
 
         // Remove all items, then repopulate
         [testCasesPopUpButton removeAllItems];
@@ -756,8 +755,8 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
             [testCasesPopUpButton selectItemWithTitle: selectedTitle];
 
             // If that didn't work, select the first item
-            if( [testCasesPopUpButton selectedItem] == nil ) {
-                if( [[testCasesPopUpButton itemArray] count] > 0 ) {
+            if( testCasesPopUpButton.selectedItem == nil ) {
+                if( testCasesPopUpButton.itemArray.count > 0 ) {
                     [testCasesPopUpButton selectItemAtIndex:0];
                 }
             }
@@ -799,7 +798,7 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 }
 
 -(int) getTestCaseIndex {
-    int selectedIndex = (int) [testCasesPopUpButton indexOfSelectedItem];
+    int selectedIndex = (int) testCasesPopUpButton.indexOfSelectedItem;
     if( selectedIndex < 0 ) {
         return -1;
     }

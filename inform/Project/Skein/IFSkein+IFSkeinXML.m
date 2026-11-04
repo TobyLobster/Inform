@@ -43,7 +43,7 @@ static NSString* idForNode(IFSkeinItem* item) {
                                                         options: NSXMLNodeOptionsNone
                                                           error: &error];
     if( error != nil ) {
-        NSLog(@"Error reading XML. \"%@\" (code %lu)\n", error, [error code]);
+        NSLog(@"Error reading XML. \"%@\" (code %lu)\n", error, error.code);
         return NO;
     }
 
@@ -83,8 +83,8 @@ static NSString* idForNode(IFSkeinItem* item) {
         if ([annotation startsWith:@"***"]) {
             _winningItem = newItem;
         }
-        [newItem setActual: actual];
-        [newItem setIdeal: ideal];
+        newItem.actual = actual;
+        newItem.ideal = ideal;
 
         itemDictionary[itemNodeId] = newItem;
     }
@@ -204,9 +204,9 @@ static NSString* idForNode(IFSkeinItem* item) {
     NSMutableArray* itemStack = [NSMutableArray array];
     [itemStack addObject: _rootItem];
 
-    while ([itemStack count] > 0) {
+    while (itemStack.count > 0) {
         // Pop from the stack
-        IFSkeinItem* node = [itemStack lastObject];
+        IFSkeinItem* node = itemStack.lastObject;
         [itemStack removeLastObject];
 
         // Push any children of this node
@@ -236,7 +236,7 @@ static NSString* idForNode(IFSkeinItem* item) {
 
             [root addChild: item];
 
-            if ([node.children count] > 0) {
+            if ((node.children).count > 0) {
                 NSXMLElement* children = [IFSkein elementWithName: @"children" value: @"" preserveWhitespace: NO];
                 [item addChild: children];
 

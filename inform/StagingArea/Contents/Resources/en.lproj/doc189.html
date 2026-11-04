@@ -84,16 +84,16 @@
     <p class="sectionheading">§12.15. Out of world actions</p>
     <p>The actions seen so far are all impulses causing the protagonist inside the fictional world to do something, or at least try to. But when the player types &quot;quit&quot; or &quot;save&quot;, that is not a request for anything to happen in the fictional world: it is an instruction to the program simulating that world. In fact, just the same, such requests are treated as actions, but of a special category called &quot;out of world&quot; actions. They do not cause time to pass by, so the turn counter does not advance, nor does this command cycle count as a turn at all; and they are altogether exempt from &quot;Before&quot;, &quot;Instead&quot; and &quot;After&quot; rules. Only the player is allowed to try them.</p>
     <p>We can also create new out-of-world actions. Suppose we want a dialogue like so:</p>
-    <!--START CODE "c3531"-->
-    <blockquote class="code"><p class="quoted"><a id="c3531"></a>&gt;ROOMS
+    <!--START CODE "c3539"-->
+    <blockquote class="code"><p class="quoted"><a id="c3539"></a>&gt;ROOMS
     <br>
     You have been to 1 out of 8 rooms.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Here is a complete implementation:</p>
-    <!--START CODE "c3532"-->
-    <blockquote class="code"><p class="quoted"><a id="c3532"></a>Requesting the room tally is an action out of world.
+    <!--START CODE "c3540"-->
+    <blockquote class="code"><p class="quoted"><a id="c3540"></a>Requesting the room tally is an action out of world.
     <br>
     Report requesting the room tally: say &quot;You have been to [number of visited rooms] out of [number of rooms] room[s].&quot;
     <br>
@@ -105,33 +105,33 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "210: Spellbreaker" "e403"-->
-        <a id="e403"></a><table class="egcue">
+        <!--START EXAMPLE "210: Spellbreaker" "e338"-->
+        <a id="e338"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example403'); return false;"><b>210</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example338'); return false;"><b>210</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example403'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Spellbreaker</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example338'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Spellbreaker</span></b></a><br>
                     P. David Lebling's classic "Spellbreaker" (1986) includes a room where the game cannot be saved: here is an Inform implementation.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc92.html#e403"><i>RB</i></a></div>
+                        <a href="Rdoc92.html#e338"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example403" style="display: none;">
+        <div class="egpanel" id="example338" style="display: none;">
             <p>The answer is easy, but there is a trap:</p>
-            <!--START CODE "c3533_403"-->
-            <blockquote class="code"><p class="quoted"><a id="c3533_403"></a>Check saving the game when the location is the Vault: say &quot;That spell does not work here.&quot; instead.
+            <!--START CODE "c3541_338"-->
+            <blockquote class="code"><p class="quoted"><a id="c3541_338"></a>Check saving the game when the location is the Vault: say &quot;That spell does not work here.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -140,47 +140,47 @@
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "211: A point for never saving the game" "e216"-->
-        <a id="e216"></a><table class="egcue">
+        <!--START EXAMPLE "211: A point for never saving the game" "e24"-->
+        <a id="e24"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example216'); return false;"><b>211</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example24'); return false;"><b>211</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example216'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">A point for never saving the game</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example24'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">A point for never saving the game</span></b></a><br>
                     In some of the late 1970s "cave crawl" adventure games, an elaborate scoring system might still leave the player perplexed as to why an apparently perfect play-through resulted in a score which was still one point short of the supposed maximum. Why only 349 out of 350? The answer varied, but sometimes the last point was earned by never saving the game - in other words by playing it right through with nothing to guard against mistakes (except perhaps UNDO for the last command), and in one long session.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc92.html#e216"><i>RB</i></a></div>
+                        <a href="Rdoc92.html#e24"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example216" style="display: none;">
+        <div class="egpanel" id="example24" style="display: none;">
             <p>Here is one way to score this point with Inform:</p>
-            <!--START CODE "c3534_216"-->
-            <blockquote class="code"><p class="quoted"><a id="c3534_216"></a>Check saving the game for the first time: decrement the score.
+            <!--START CODE "c3542_24"-->
+            <blockquote class="code"><p class="quoted"><a id="c3542_24"></a>Check saving the game for the first time: decrement the score.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>That has the right effect, but it just isn't sneaky enough. Instead let us quietly keep track of how many times the player saves:</p>
-            <!--START CODE "c3535_216"-->
-            <blockquote class="code"><p class="quoted"><a id="c3535_216"></a>Check saving the game: increment the number of saves.
+            <!--START CODE "c3543_24"-->
+            <blockquote class="code"><p class="quoted"><a id="c3543_24"></a>Check saving the game: increment the number of saves.
             <br>
             When play ends: if the number of saves is 0, increment the score.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Sneakier, certainly, but now we could get the bonus even if the game ends earlier on, so finally:</p>
-            <!--START CODE "c3536_216"-->
-            <blockquote class="code"><p class="quoted"><a id="c3536_216"></a>When play ends: if the number of saves is 0 and the score is 349, increment the score.
+            <!--START CODE "c3544_24"-->
+            <blockquote class="code"><p class="quoted"><a id="c3544_24"></a>When play ends: if the number of saves is 0 and the score is 349, increment the score.
             </p>
             </blockquote>
             <!--END CODE-->

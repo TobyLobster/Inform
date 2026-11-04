@@ -85,14 +85,14 @@
     <p><span class="boldface">1. When it happens.</span> When reading a command from the keyboard.</p>
     <p><span class="boldface">2. The default behaviour.</span> Print the prompt text; wait for the player to type something and press return. Reject an entirely blank line, and treat a command beginning &quot;oops&quot; as a correction to the previous one. This is a fairly complicated business, so it is probably best not to change the &quot;for&quot; rules for this activity: &quot;before&quot;, and especially &quot;after&quot;, are another matter. (Note, however, that if Inform does reject a blank line and ask for another then this all happens inside the &quot;for&quot; rules: no &quot;after&quot; occurs after the blank line, nor does a &quot;before&quot; happen before the second attempt by the player. It is all a single round of the activity, not two.)</p>
     <p><span class="boldface">3. Examples.</span> (a) To lead absolute beginners in gently:</p>
-    <!--START CODE "c7176"-->
-    <blockquote class="code"><p class="quoted"><a id="c7176"></a>Before reading a command while the turn count is 1, say &quot;(This is your chance to say what the protagonist should do next. After the '&gt;', try typing 'take inventory'.)&quot;
+    <!--START CODE "c7193"-->
+    <blockquote class="code"><p class="quoted"><a id="c7193"></a>Before reading a command while the turn count is 1, say &quot;(This is your chance to say what the protagonist should do next. After the '&gt;', try typing 'take inventory'.)&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>(b) The following responds politely but firmly if the player tries to type &quot;please look&quot;, say, instead of just &quot;look&quot;:</p>
-    <!--START CODE "c7177"-->
-    <blockquote class="code"><p class="quoted"><a id="c7177"></a><a href="javascript:pasteCode('After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=]please[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Please do not say please.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> After reading a command:
+    <!--START CODE "c7194"-->
+    <blockquote class="code"><p class="quoted"><a id="c7194"></a><a href="javascript:pasteCode('After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=]please[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Please do not say please.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> After reading a command:
     <br>
     &#160;&#160;&#160;&#160;if the player's command includes &quot;please&quot;:
     <br>
@@ -103,16 +103,16 @@
     </blockquote>
     <!--END CODE-->
     <p>To explain. Fragments of what the player has typed are called snippets: &quot;the player's command&quot; is the entire thing. We can test if a snippet matches a given pattern like so:</p>
-        <!--START PHRASE "defn264"-->
+        <!--START PHRASE "defn265"-->
         <div class="definition">
-            <a id="defn264"></a><p class='defnprototype'><b>if </b>(snippet)<b> matches </b>(topic)<b>:</b></p>
+            <a id="defn265"></a><p class='defnprototype'><b>if </b>(snippet)<b> matches </b>(topic)<b>:</b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_snippetmatches-->
 
     <p>    This condition is true if the given snippet exactly matches the specification. Example:</p>
-    <!--START CODE "c7178"-->
-    <blockquote class="code"><p class="quoted"><a id="c7178"></a>if the player's command matches &quot;room [number]&quot;, ...
+    <!--START CODE "c7195"-->
+    <blockquote class="code"><p class="quoted"><a id="c7195"></a>if the player's command matches &quot;room [number]&quot;, ...
     </p>
     </blockquote>
     <!--END CODE-->
@@ -121,9 +121,9 @@
         <!--end definition-->
     </div>
 
-        <!--START PHRASE "defn265"-->
+        <!--START PHRASE "defn266"-->
         <div class="definition">
-            <a id="defn265"></a><p class='defnprototype'><b>if </b>(snippet)<b> does not match </b>(topic)<b>:</b></p>
+            <a id="defn266"></a><p class='defnprototype'><b>if </b>(snippet)<b> does not match </b>(topic)<b>:</b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_snippetdoesnotmatch-->
@@ -133,16 +133,16 @@
         <!--end definition-->
     </div>
 
-        <!--START PHRASE "defn266"-->
+        <!--START PHRASE "defn267"-->
         <div class="definition">
-            <a id="defn266"></a><p class='defnprototype'><b>if </b>(snippet)<b> includes </b>(topic)<b>:</b></p>
+            <a id="defn267"></a><p class='defnprototype'><b>if </b>(snippet)<b> includes </b>(topic)<b>:</b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_snippetincludes-->
 
     <p>    This condition is true if the given snippet includes words matching the specification, either at the beginning, in the middle, or at the end. Example:</p>
-    <!--START CODE "c7179"-->
-    <blockquote class="code"><p class="quoted"><a id="c7179"></a>if the player's command includes &quot;room [number]&quot;, ...
+    <!--START CODE "c7196"-->
+    <blockquote class="code"><p class="quoted"><a id="c7196"></a>if the player's command includes &quot;room [number]&quot;, ...
     </p>
     </blockquote>
     <!--END CODE-->
@@ -151,9 +151,9 @@
         <!--end definition-->
     </div>
 
-        <!--START PHRASE "defn267"-->
+        <!--START PHRASE "defn268"-->
         <div class="definition">
-            <a id="defn267"></a><p class='defnprototype'><b>if </b>(snippet)<b> does not include </b>(topic)<b>:</b></p>
+            <a id="defn268"></a><p class='defnprototype'><b>if </b>(snippet)<b> does not include </b>(topic)<b>:</b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_snippetdoesnotinclude-->
@@ -164,9 +164,9 @@
     </div>
 
     <p>Lastly, we took drastic action with another new phrase:</p>
-        <!--START PHRASE "defn268"-->
+        <!--START PHRASE "defn269"-->
         <div class="definition">
-            <a id="defn268"></a><p class='defnprototype'><b>reject the player's command</b></p>
+            <a id="defn269"></a><p class='defnprototype'><b>reject the player's command</b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_rejectcommand-->
@@ -177,8 +177,8 @@
     </div>
 
     <p>(c) An improved version takes commands like &quot;please drop the coin&quot; and strips &quot;please&quot; from them, but then allows them to proceed normally:</p>
-    <!--START CODE "c7180"-->
-    <blockquote class="code"><p class="quoted"><a id="c7180"></a><a href="javascript:pasteCode('After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=]please[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](Quelle politesse! But no need to say please.)[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]cut the matched text.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> After reading a command:
+    <!--START CODE "c7197"-->
+    <blockquote class="code"><p class="quoted"><a id="c7197"></a><a href="javascript:pasteCode('After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=]please[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](Quelle politesse! But no need to say please.)[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]cut the matched text.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> After reading a command:
     <br>
     &#160;&#160;&#160;&#160;if the player's command includes &quot;please&quot;:
     <br>
@@ -189,16 +189,16 @@
     </blockquote>
     <!--END CODE-->
     <p>&quot;Matched text&quot; is a snippet containing the words which matched against the pattern in the most recent &quot;includes&quot; condition, so in this case it contains just the single word &quot;please&quot;. Two phrases allow snippets to be altered:</p>
-        <!--START PHRASE "defn269"-->
+        <!--START PHRASE "defn270"-->
         <div class="definition">
-            <a id="defn269"></a><p class='defnprototype'><b>replace </b>(snippet)<b> with </b>(text)<b></b></p>
+            <a id="defn270"></a><p class='defnprototype'><b>replace </b>(snippet)<b> with </b>(text)<b></b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_replacesnippet-->
 
     <p>    This phrase should be used only in &quot;after&quot; rules for the &quot;reading a command&quot; activity; it replaces the snippet of command, usually the &quot;matched text&quot; found immediately before, with the given text. Example:</p>
-    <!--START CODE "c7181"-->
-    <blockquote class="code"><p class="quoted"><a id="c7181"></a>if the player's command includes &quot;room [number]&quot;:
+    <!--START CODE "c7198"-->
+    <blockquote class="code"><p class="quoted"><a id="c7198"></a>if the player's command includes &quot;room [number]&quot;:
     <br>
     &#160;&#160;&#160;&#160;replace the matched text with &quot;office&quot;.
     </p>
@@ -208,16 +208,16 @@
         <!--end definition-->
     </div>
 
-        <!--START PHRASE "defn270"-->
+        <!--START PHRASE "defn271"-->
         <div class="definition">
-            <a id="defn270"></a><p class='defnprototype'><b>cut </b>(snippet)<b></b></p>
+            <a id="defn271"></a><p class='defnprototype'><b>cut </b>(snippet)<b></b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_cutsnippet-->
 
     <p>    This phrase should be used only in &quot;after&quot; rules for the &quot;reading a command&quot; activity; it removes the snippet of command. Example:</p>
-    <!--START CODE "c7182"-->
-    <blockquote class="code"><p class="quoted"><a id="c7182"></a>if the player's command includes &quot;or else&quot;:
+    <!--START CODE "c7199"-->
+    <blockquote class="code"><p class="quoted"><a id="c7199"></a>if the player's command includes &quot;or else&quot;:
     <br>
     &#160;&#160;&#160;&#160;cut the matched text.
     </p>
@@ -229,8 +229,8 @@
 
     <p>Note that &quot;replace&quot; and &quot;cut&quot; can only be used in &quot;after reading a command&quot; rules: not when an action has been chosen and has gone ahead into its rulebooks. Once the &quot;reading a command&quot; activity has finished, the command is final.</p>
     <p>(d) To make the word &quot;grab&quot; an abbreviation for &quot;take all&quot;:</p>
-    <!--START CODE "c7183"-->
-    <blockquote class="code"><p class="quoted"><a id="c7183"></a><a href="javascript:pasteCode('After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command matches [=0x0022=]grab[=0x0022=], replace the player[=0x0027=]s command with [=0x0022=]take all[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> After reading a command:
+    <!--START CODE "c7200"-->
+    <blockquote class="code"><p class="quoted"><a id="c7200"></a><a href="javascript:pasteCode('After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command matches [=0x0022=]grab[=0x0022=], replace the player[=0x0027=]s command with [=0x0022=]take all[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> After reading a command:
     <br>
     &#160;&#160;&#160;&#160;if the player's command matches &quot;grab&quot;, replace the player's command with &quot;take all&quot;.
     </p>
@@ -238,16 +238,16 @@
     <!--END CODE-->
     <p>(&quot;Snippet&quot; is actually a kind of value, so we could say &quot;Ah, you typed '[the player's command]'!&quot; or some such if we liked. But in practice only three snippets are likely to be useful: the two mentioned above, &quot;player's command&quot; and &quot;matched text&quot;, and the &quot;topic understood&quot;, used when matching the &quot;[text]&quot; token in command grammar.)</p>
     <p>(e) Finally, we can make still more detailed alterations to the text of the command using the techniques presented in the Advanced Text chapter. For instance:</p>
-        <!--START PHRASE "defn271"-->
+        <!--START PHRASE "defn272"-->
         <div class="definition">
-            <a id="defn271"></a><p class='defnprototype'><b>change the text of the player's command to </b>(text)<b></b></p>
+            <a id="defn272"></a><p class='defnprototype'><b>change the text of the player's command to </b>(text)<b></b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_changecommand-->
 
     <p>    This phrase should be used only in &quot;after&quot; rules for the &quot;reading a command&quot; activity; it replaces the current command text entirely. Example:</p>
-    <!--START CODE "c7184"-->
-    <blockquote class="code"><p class="quoted"><a id="c7184"></a>After reading a command:
+    <!--START CODE "c7201"-->
+    <blockquote class="code"><p class="quoted"><a id="c7201"></a>After reading a command:
     <br>
     &#160;&#160;&#160;&#160;let T be &quot;[the player's command]&quot;;
     <br>
@@ -265,45 +265,45 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "373: Cloves" "e85"-->
-        <a id="e85"></a><table class="egcue">
+        <!--START EXAMPLE "374: Cloves" "e77"-->
+        <a id="e77"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example85'); return false;"><b>373</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example77'); return false;"><b>374</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example85'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Cloves</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example77'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Cloves</span></b></a><br>
                     Accepting adverbs anywhere in a command, registering what the player typed but then cutting them out before interpreting the command.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc46.html#e85"><i>RB</i></a></div>
+                        <a href="Rdoc46.html#e77"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example85" style="display: none;">
-            <p>It has sometimes been suggested that IF should allow for the player to use adverbs, so that doing something &quot;carefully&quot; will have a different effect from doing it &quot;quickly&quot;. There are several inherent challenges here: it's a good idea to make very sure the player knows all his adverb options, and the list of possibilities should probably not be too long.</p>
+        <div class="egpanel" id="example77" style="display: none;">
+            <p>It has sometimes been suggested that IF should allow for the player to use adverbs, so that doing something &quot;carefully&quot; will have a different effect from doing it &quot;quickly&quot;. There are several inherent challenges here: it's a good idea to make very sure the player knows all their adverb options, and the list of possibilities should probably not be too long.</p>
             <p>Another trick is that adverbs complicate understanding commands, because they can occur anywhere: one might type &gt;GO WEST CAREFULLY or &gt;CAREFULLY GO WEST, and ideally the game should understand both. After reading a command is the best point to do this sort of thing, because we can find adverbs, interpret them, and remove them from the command stream. So:</p>
-            <!--START CODE "c7185_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c7185_85"></a><a href="javascript:pasteCode('[=0x0022=]Cloves[=0x0022=][=0x000A=][=0x000A=]Manner is a kind of value. The manners are insouciantly, sheepishly, and defiantly.[=0x000A=][=0x000A=][Now we have, automatically, a value called manner understood to be used whenever parsing manners, and we can use this even during the [=0x0022=]after reading a command[=0x0022=] stage, so:][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=][manner][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]cut the matched text;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]But how, my dear boy, how? You simply can[=0x0027=]t do something without a pose. Thus far you have mastered doing things [list of manners].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]Behaving [manner understood][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=][location][=0x0022=];[=0x000A=][=0x0009=]now the manner understood is insouciantly.[=0x000A=][=0x000A=]The Poseur Club is a room. [=0x0022=]Lady Mary is laid out on a sofa, her wrists bandaged importantly[if the manner understood is insouciantly] -- and she looks all the more depressed by your indifference to her state[end if]; Salvatore is at the gaming table, clutching his hair with both hands[if the manner understood is defiantly] -- though he looks up long enough to snarl in response to that expression of yours[end if]; Frackenbush is muttering lines from another of his works in progress, as though poetry has nearly made him mad[if the manner understood is sheepishly]. But he spares you a reassuring smile. He[=0x0027=]s not a bad fellow, Frackenbush[end if].[=0x000A=][=0x000A=]The usual people, in short.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something other than waiting or looking:[=0x000A=][=0x0009=]say [=0x0022=]Dear. No. That would smack of effort.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is sheepishly:[=0x000A=][=0x0009=]say [=0x0022=]You scuff your foot against the ground for a moment, and allow a seemly blush to creep over your cheek. It[=0x0027=]s quite effective, you are sure, though you can[=0x0027=]t look up and see how it is going.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is insouciantly:[=0x000A=][=0x0009=]say [=0x0022=]Thrusting your hands into your pockets, you whistle a jaunty tune.[=0x000A=][=0x000A=][=0x0027=]Do shut up,[=0x0027=] says a Melancholy Poseur from over by the window.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is defiantly:[=0x000A=][=0x0009=]say [=0x0022=]You raise your chin and give a pointed glance around the room as though to say that you are waiting for someone; you are unembarrassed about waiting for her; you have by no means been stood up; and the first person to comment will receive a poke in the eye.[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is sheepishly:[=0x000A=][=0x0009=]say [=0x0022=]You gaze up from under your brows...[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is defiantly:[=0x000A=][=0x0009=]say [=0x0022=]You cast a withering gaze over the room.[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is insouciantly:[=0x000A=][=0x0009=]if turn count [=0x003E=] 1,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You turn an eye to your surroundings, looking faintly-- just faintly-- amused.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]wait / wait insouciantly / sheepishly look / defiantly look / look insouciantly[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Cloves[=0x0022=][=0x000A=][=0x000A=]Manner is a kind of value. The manners are insouciantly, sheepishly, and defiantly.[=0x000A=][=0x000A=][Now we have, automatically, a value called manner understood to be used whenever parsing manners, and we can use this even during the [=0x0022=]after reading a command[=0x0022=] stage, so:][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=][manner][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]cut the matched text;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]But how, my dear boy, how? You simply can[=0x0027=]t do something without a pose. Thus far you have mastered doing things [list of manners].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]Behaving [manner understood][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=][location][=0x0022=];[=0x000A=][=0x0009=]now the manner understood is insouciantly.[=0x000A=][=0x000A=]The Poseur Club is a room. [=0x0022=]Lady Mary is laid out on a sofa, her wrists bandaged importantly[if the manner understood is insouciantly] -- and she looks all the more depressed by your indifference to her state[end if]; Salvatore is at the gaming table, clutching his hair with both hands[if the manner understood is defiantly] -- though he looks up long enough to snarl in response to that expression of yours[end if]; Frackenbush is muttering lines from another of his works in progress, as though poetry has nearly made him mad[if the manner understood is sheepishly]. But he spares you a reassuring smile. He[=0x0027=]s not a bad fellow, Frackenbush[end if].[=0x000A=][=0x000A=]The usual people, in short.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something other than waiting or looking:[=0x000A=][=0x0009=]say [=0x0022=]Dear. No. That would smack of effort.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is sheepishly:[=0x000A=][=0x0009=]say [=0x0022=]You scuff your foot against the ground for a moment, and allow a seemly blush to creep over your cheek. It[=0x0027=]s quite effective, you are sure, though you can[=0x0027=]t look up and see how it is going.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is insouciantly:[=0x000A=][=0x0009=]say [=0x0022=]Thrusting your hands into your pockets, you whistle a jaunty tune.[=0x000A=][=0x000A=][=0x0027=]Do shut up,[=0x0027=] says a Melancholy Poseur from over by the window.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is defiantly:[=0x000A=][=0x0009=]say [=0x0022=]You raise your chin and give a pointed glance around the room as though to say that you are waiting for someone; you are unembarrassed about waiting for her; you have by no means been stood up; and the first person to comment will receive a poke in the eye.[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is sheepishly:[=0x000A=][=0x0009=]say [=0x0022=]You gaze up from under your brows...[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is defiantly:[=0x000A=][=0x0009=]say [=0x0022=]You cast a withering gaze over the room.[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is insouciantly:[=0x000A=][=0x0009=]if turn count [=0x003E=] 1,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You turn an eye to your surroundings, looking faintly-- just faintly-- amused.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]wait / wait insouciantly / sheepishly look / defiantly look / look insouciantly[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Cloves')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Cloves&quot;
+            <!--START CODE "c7202_77"-->
+            <blockquote class="code"><p class="quoted"><a id="c7202_77"></a><a href="javascript:pasteCode('[=0x0022=]Cloves[=0x0022=][=0x000A=][=0x000A=]Manner is a kind of value. The manners are insouciantly, sheepishly, and defiantly.[=0x000A=][=0x000A=][Now we have, automatically, a value called manner understood to be used whenever parsing manners, and we can use this even during the [=0x0022=]after reading a command[=0x0022=] stage, so:][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=][manner][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]cut the matched text;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]But how, my dear boy, how? You simply can[=0x0027=]t do something without a pose. Thus far you have mastered doing things [list of manners].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]Behaving [manner understood][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=][location][=0x0022=];[=0x000A=][=0x0009=]now the manner understood is insouciantly.[=0x000A=][=0x000A=]The Poseur Club is a room. [=0x0022=]Lady Mary is laid out on a sofa, her wrists bandaged importantly[if the manner understood is insouciantly] -- and she looks all the more depressed by your indifference to her state[end if]; Salvatore is at the gaming table, clutching his hair with both hands[if the manner understood is defiantly] -- though he looks up long enough to snarl in response to that expression of yours[end if]; Frackenbush is muttering lines from another of his works in progress, as though poetry has nearly made him mad[if the manner understood is sheepishly]. But he spares you a reassuring smile. He[=0x0027=]s not a bad fellow, Frackenbush[end if].[=0x000A=][=0x000A=]The usual people, in short.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something other than waiting or looking:[=0x000A=][=0x0009=]say [=0x0022=]Dear. No. That would smack of effort.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is sheepishly:[=0x000A=][=0x0009=]say [=0x0022=]You scuff your foot against the ground for a moment, and allow a seemly blush to creep over your cheek. It[=0x0027=]s quite effective, you are sure, though you can[=0x0027=]t look up and see how it is going.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is insouciantly:[=0x000A=][=0x0009=]say [=0x0022=]Thrusting your hands into your pockets, you whistle a jaunty tune.[=0x000A=][=0x000A=][=0x0027=]Do shut up,[=0x0027=] says a Melancholy Poseur from over by the window.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is defiantly:[=0x000A=][=0x0009=]say [=0x0022=]You raise your chin and give a pointed glance around the room as though to say that you are waiting for someone; you are unembarrassed about waiting for her; you have by no means been stood up; and the first person to comment will receive a poke in the eye.[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is sheepishly:[=0x000A=][=0x0009=]say [=0x0022=]You gaze up from under your brows...[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is defiantly:[=0x000A=][=0x0009=]say [=0x0022=]You cast a withering gaze over the room.[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is insouciantly:[=0x000A=][=0x0009=]if turn count [=0x003E=] 1,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You turn an eye to your surroundings, looking faintly-- just faintly-- amused.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]wait / wait insouciantly / sheepishly look / defiantly look / look insouciantly[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Cloves[=0x0022=][=0x000A=][=0x000A=]Manner is a kind of value. The manners are insouciantly, sheepishly, and defiantly.[=0x000A=][=0x000A=][Now we have, automatically, a value called manner understood to be used whenever parsing manners, and we can use this even during the [=0x0022=]after reading a command[=0x0022=] stage, so:][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=][manner][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]cut the matched text;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]But how, my dear boy, how? You simply can[=0x0027=]t do something without a pose. Thus far you have mastered doing things [list of manners].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]Behaving [manner understood][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=][location][=0x0022=];[=0x000A=][=0x0009=]now the manner understood is insouciantly.[=0x000A=][=0x000A=]The Poseur Club is a room. [=0x0022=]Lady Mary is laid out on a sofa, her wrists bandaged importantly[if the manner understood is insouciantly] -- and she looks all the more depressed by your indifference to her state[end if]; Salvatore is at the gaming table, clutching his hair with both hands[if the manner understood is defiantly] -- though he looks up long enough to snarl in response to that expression of yours[end if]; Frackenbush is muttering lines from another of his works in progress, as though poetry has nearly made him mad[if the manner understood is sheepishly]. But he spares you a reassuring smile. He[=0x0027=]s not a bad fellow, Frackenbush[end if].[=0x000A=][=0x000A=]The usual people, in short.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something other than waiting or looking:[=0x000A=][=0x0009=]say [=0x0022=]Dear. No. That would smack of effort.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is sheepishly:[=0x000A=][=0x0009=]say [=0x0022=]You scuff your foot against the ground for a moment, and allow a seemly blush to creep over your cheek. It[=0x0027=]s quite effective, you are sure, though you can[=0x0027=]t look up and see how it is going.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is insouciantly:[=0x000A=][=0x0009=]say [=0x0022=]Thrusting your hands into your pockets, you whistle a jaunty tune.[=0x000A=][=0x000A=][=0x0027=]Do shut up,[=0x0027=] says a Melancholy Poseur from over by the window.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is defiantly:[=0x000A=][=0x0009=]say [=0x0022=]You raise your chin and give a pointed glance around the room as though to say that you are waiting for someone; you are unembarrassed about waiting for her; you have by no means been stood up; and the first person to comment will receive a poke in the eye.[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is sheepishly:[=0x000A=][=0x0009=]say [=0x0022=]You gaze up from under your brows...[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is defiantly:[=0x000A=][=0x0009=]say [=0x0022=]You cast a withering gaze over the room.[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is insouciantly:[=0x000A=][=0x0009=]if turn count [=0x003E=] 1,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You turn an eye to your surroundings, looking faintly-- just faintly-- amused.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]wait / wait insouciantly / sheepishly look / defiantly look / look insouciantly[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Cloves')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Cloves&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7186_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c7186_85"></a>Manner is a kind of value. The manners are insouciantly, sheepishly, and defiantly.
+            <!--START CODE "c7203_77"-->
+            <blockquote class="code"><p class="quoted"><a id="c7203_77"></a>Manner is a kind of value. The manners are insouciantly, sheepishly, and defiantly.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now we have, automatically, a value called manner understood to be used whenever parsing manners, and we can use this even during the &quot;after reading a command&quot; stage, so:</p>
-            <!--START CODE "c7187_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c7187_85"></a>After reading a command:
+            <!--START CODE "c7204_77"-->
+            <blockquote class="code"><p class="quoted"><a id="c7204_77"></a>After reading a command:
             <br>
             &#160;&#160;&#160;&#160;if the player's command includes &quot;[manner]&quot;:
             <br>
@@ -317,8 +317,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7188_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c7188_85"></a>When play begins:
+            <!--START CODE "c7205_77"-->
+            <blockquote class="code"><p class="quoted"><a id="c7205_77"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;now the left hand status line is &quot;Behaving [manner understood]&quot;;
             <br>
@@ -328,65 +328,65 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7189_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c7189_85"></a>The Poseur Club is a room. &quot;Lady Mary is laid out on a sofa, her wrists bandaged importantly[if the manner understood is insouciantly] -- and she looks all the more depressed by your indifference to her state[end if]; Salvatore is at the gaming table, clutching his hair with both hands[if the manner understood is defiantly] -- though he looks up long enough to snarl in response to that expression of yours[end if]; Frackenbush is muttering lines from another of his works in progress, as though poetry has nearly made him mad[if the manner understood is sheepishly]. But he spares you a reassuring smile. He's not a bad fellow, Frackenbush[end if].
+            <!--START CODE "c7206_77"-->
+            <blockquote class="code"><p class="quoted"><a id="c7206_77"></a>The Poseur Club is a room. &quot;Lady Mary is laid out on a sofa, her wrists bandaged importantly[if the manner understood is insouciantly] -- and she looks all the more depressed by your indifference to her state[end if]; Salvatore is at the gaming table, clutching his hair with both hands[if the manner understood is defiantly] -- though he looks up long enough to snarl in response to that expression of yours[end if]; Frackenbush is muttering lines from another of his works in progress, as though poetry has nearly made him mad[if the manner understood is sheepishly]. But he spares you a reassuring smile. He's not a bad fellow, Frackenbush[end if].
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7190_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c7190_85"></a>The usual people, in short.&quot;
+            <!--START CODE "c7207_77"-->
+            <blockquote class="code"><p class="quoted"><a id="c7207_77"></a>The usual people, in short.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7191_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c7191_85"></a>Instead of doing something other than waiting or looking:
+            <!--START CODE "c7208_77"-->
+            <blockquote class="code"><p class="quoted"><a id="c7208_77"></a>Instead of doing something other than waiting or looking:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Dear. No. That would smack of effort.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7192_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c7192_85"></a>Instead of waiting when the manner understood is sheepishly:
+            <!--START CODE "c7209_77"-->
+            <blockquote class="code"><p class="quoted"><a id="c7209_77"></a>Instead of waiting when the manner understood is sheepishly:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You scuff your foot against the ground for a moment, and allow a seemly blush to creep over your cheek. It's quite effective, you are sure, though you can't look up and see how it is going.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7193_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c7193_85"></a>Instead of waiting when the manner understood is insouciantly:
+            <!--START CODE "c7210_77"-->
+            <blockquote class="code"><p class="quoted"><a id="c7210_77"></a>Instead of waiting when the manner understood is insouciantly:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Thrusting your hands into your pockets, you whistle a jaunty tune.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7194_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c7194_85"></a>'Do shut up,' says a Melancholy Poseur from over by the window.&quot;
+            <!--START CODE "c7211_77"-->
+            <blockquote class="code"><p class="quoted"><a id="c7211_77"></a>'Do shut up,' says a Melancholy Poseur from over by the window.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7195_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c7195_85"></a>Instead of waiting when the manner understood is defiantly:
+            <!--START CODE "c7212_77"-->
+            <blockquote class="code"><p class="quoted"><a id="c7212_77"></a>Instead of waiting when the manner understood is defiantly:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You raise your chin and give a pointed glance around the room as though to say that you are waiting for someone; you are unembarrassed about waiting for her; you have by no means been stood up; and the first person to comment will receive a poke in the eye.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7196_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c7196_85"></a>Before looking when the manner understood is sheepishly:
+            <!--START CODE "c7213_77"-->
+            <blockquote class="code"><p class="quoted"><a id="c7213_77"></a>Before looking when the manner understood is sheepishly:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You gaze up from under your brows...&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7197_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c7197_85"></a>Before looking when the manner understood is defiantly:
+            <!--START CODE "c7214_77"-->
+            <blockquote class="code"><p class="quoted"><a id="c7214_77"></a>Before looking when the manner understood is defiantly:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You cast a withering gaze over the room.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7198_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c7198_85"></a>Before looking when the manner understood is insouciantly:
+            <!--START CODE "c7215_77"-->
+            <blockquote class="code"><p class="quoted"><a id="c7215_77"></a>Before looking when the manner understood is insouciantly:
             <br>
             &#160;&#160;&#160;&#160;if turn count &gt; 1,
             <br>
@@ -394,8 +394,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7199_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c7199_85"></a>Test me with &quot;wait / wait insouciantly / sheepishly look / defiantly look / look insouciantly&quot;.
+            <!--START CODE "c7216_77"-->
+            <blockquote class="code"><p class="quoted"><a id="c7216_77"></a>Test me with &quot;wait / wait insouciantly / sheepishly look / defiantly look / look insouciantly&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -404,43 +404,43 @@
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "374: Fragment of a Greek Tragedy" "e191"-->
-        <a id="e191"></a><table class="egcue">
+        <!--START EXAMPLE "375: Fragment of a Greek Tragedy" "e151"-->
+        <a id="e151"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example191'); return false;"><b>374</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example151'); return false;"><b>375</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example191'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Fragment of a Greek Tragedy</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example151'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Fragment of a Greek Tragedy</span></b></a><br>
                     Responding to the player's input based on keywords only, and overriding the original parser entirely.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc46.html#e191"><i>RB</i></a></div>
+                        <a href="Rdoc46.html#e151"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example191" style="display: none;">
+        <div class="egpanel" id="example151" style="display: none;">
             <p>Apologies to the shade of A. E. Housman.</p>
-            <!--START CODE "c7200_191"-->
-            <blockquote class="code"><p class="quoted"><a id="c7200_191"></a><a href="javascript:pasteCode('[=0x0022=]Fragment of a Greek Tragedy[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]restart/restore/save/quit[=0x0022=] as [=0x0022=][meta-command][=0x0022=].[=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command matches [=0x0022=][meta-command][=0x0022=], make no decision;[=0x000A=][=0x0009=]say line break;[=0x000A=][=0x0009=]repeat through Table of Current Topics:[=0x000A=][=0x0009=][=0x0009=]if the player[=0x0027=]s command includes topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]CHORUS: [reply entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]follow the advance time rule;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][italic type]   Pause.[roman type][line break][=0x0022=];[=0x000A=][=0x0009=]follow the advance time rule;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]Table of Current Topics[=0x000A=]topic[=0x0009=]reply[=0x000A=][=0x0022=]journey/trip/travel/came/arrived[=0x0022=][=0x0009=][=0x0022=]Sailing on horseback, or with feet for oars?[=0x0022=][=0x000A=][=0x0022=]horseback/legs/feet/oars[=0x0022=][=0x0009=][=0x0022=]Beneath a shining or a rainy Zeus?[=0x0022=][=0x000A=][=0x0022=]shining/rainy/weather/zeus[=0x0022=][=0x0009=][=0x0022=]Mud[=0x0027=]s sister, not herself, adorns thy boots.[=0x0022=][=0x000A=][=0x000A=][This would be a bit bare if we didn[=0x0027=]t provide the player with some sort of context at the outset, so let[=0x0027=]s put some remarks before the first command prompt:][=0x000A=][=0x000A=]Before reading a command while the turn count is 1:[=0x000A=][=0x0009=]say [=0x0022=]CHORUS: O suitably-attired-in-leather-boots[=0x000A=][=0x0009=]Head of a traveller, wherefore seeking whom[=0x000A=][=0x0009=]Whence by what way how purposed art thou come[=0x000A=][=0x0009=]To this well-nightingaled vicinity?[=0x000A=][=0x0009=]My object in inquiring is to know.[=0x000A=][=0x0009=]But if you happen to be deaf and dumb[=0x000A=][=0x0009=]And do not understand a word I say,[=0x000A=][=0x0009=]Then wave your hand, to signify as much.[=0x0022=][=0x000A=][=0x000A=][This [=0x0022=]turn count[=0x0022=] condition is why it was useful to follow the advance time rule in [=0x0022=]after reading a command[=0x0022=]: the game (or drama, if you like) will continue to count moves elapsed even though the rest of Inform[=0x0027=]s command parsing and world model is being ignored. In a longer and more ambitious implementation of this idea, we might want to allow scenes to govern the behavior and responses of the Chorus.][=0x000A=][=0x000A=][And then to give the whole exchange a play[=0x0027=]s format:][=0x000A=][=0x000A=]The Stage is a room.[=0x000A=][=0x000A=]The room description heading rule is not listed in the carry out looking rules.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]YOU: [=0x0022=];[=0x000A=][=0x0009=]now left hand status line is [=0x0022=]Fragment of a Greek Tragedy[=0x0022=];[=0x000A=][=0x0009=]now right hand status line is [=0x0022=]A. E. Housman[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Fragment of a Greek Tragedy[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]restart/restore/save/quit[=0x0022=] as [=0x0022=][meta-command][=0x0022=].[=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command matches [=0x0022=][meta-command][=0x0022=], make no decision;[=0x000A=][=0x0009=]say line break;[=0x000A=][=0x0009=]repeat through Table of Current Topics:[=0x000A=][=0x0009=][=0x0009=]if the player[=0x0027=]s command includes topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]CHORUS: [reply entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]follow the advance time rule;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][italic type]   Pause.[roman type][line break][=0x0022=];[=0x000A=][=0x0009=]follow the advance time rule;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]Table of Current Topics[=0x000A=]topic[=0x0009=]reply[=0x000A=][=0x0022=]journey/trip/travel/came/arrived[=0x0022=][=0x0009=][=0x0022=]Sailing on horseback, or with feet for oars?[=0x0022=][=0x000A=][=0x0022=]horseback/legs/feet/oars[=0x0022=][=0x0009=][=0x0022=]Beneath a shining or a rainy Zeus?[=0x0022=][=0x000A=][=0x0022=]shining/rainy/weather/zeus[=0x0022=][=0x0009=][=0x0022=]Mud[=0x0027=]s sister, not herself, adorns thy boots.[=0x0022=][=0x000A=][=0x000A=][This would be a bit bare if we didn[=0x0027=]t provide the player with some sort of context at the outset, so let[=0x0027=]s put some remarks before the first command prompt:][=0x000A=][=0x000A=]Before reading a command while the turn count is 1:[=0x000A=][=0x0009=]say [=0x0022=]CHORUS: O suitably-attired-in-leather-boots[=0x000A=][=0x0009=]Head of a traveller, wherefore seeking whom[=0x000A=][=0x0009=]Whence by what way how purposed art thou come[=0x000A=][=0x0009=]To this well-nightingaled vicinity?[=0x000A=][=0x0009=]My object in inquiring is to know.[=0x000A=][=0x0009=]But if you happen to be deaf and dumb[=0x000A=][=0x0009=]And do not understand a word I say,[=0x000A=][=0x0009=]Then wave your hand, to signify as much.[=0x0022=][=0x000A=][=0x000A=][This [=0x0022=]turn count[=0x0022=] condition is why it was useful to follow the advance time rule in [=0x0022=]after reading a command[=0x0022=]: the game (or drama, if you like) will continue to count moves elapsed even though the rest of Inform[=0x0027=]s command parsing and world model is being ignored. In a longer and more ambitious implementation of this idea, we might want to allow scenes to govern the behavior and responses of the Chorus.][=0x000A=][=0x000A=][And then to give the whole exchange a play[=0x0027=]s format:][=0x000A=][=0x000A=]The Stage is a room.[=0x000A=][=0x000A=]The room description heading rule is not listed in the carry out looking rules.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]YOU: [=0x0022=];[=0x000A=][=0x0009=]now left hand status line is [=0x0022=]Fragment of a Greek Tragedy[=0x0022=];[=0x000A=][=0x0009=]now right hand status line is [=0x0022=]A. E. Housman[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Fragment of a Greek Tragedy')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Fragment of a Greek Tragedy&quot;
+            <!--START CODE "c7217_151"-->
+            <blockquote class="code"><p class="quoted"><a id="c7217_151"></a><a href="javascript:pasteCode('[=0x0022=]Fragment of a Greek Tragedy[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]restart/restore/save/quit[=0x0022=] as [=0x0022=][meta-command][=0x0022=].[=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command matches [=0x0022=][meta-command][=0x0022=], make no decision;[=0x000A=][=0x0009=]say line break;[=0x000A=][=0x0009=]repeat through Table of Current Topics:[=0x000A=][=0x0009=][=0x0009=]if the player[=0x0027=]s command includes topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]CHORUS: [reply entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]follow the advance time rule;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][italic type]   Pause.[roman type][line break][=0x0022=];[=0x000A=][=0x0009=]follow the advance time rule;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]Table of Current Topics[=0x000A=]topic[=0x0009=]reply[=0x000A=][=0x0022=]journey/trip/travel/came/arrived[=0x0022=][=0x0009=][=0x0022=]Sailing on horseback, or with feet for oars?[=0x0022=][=0x000A=][=0x0022=]horseback/legs/feet/oars[=0x0022=][=0x0009=][=0x0022=]Beneath a shining or a rainy Zeus?[=0x0022=][=0x000A=][=0x0022=]shining/rainy/weather/zeus[=0x0022=][=0x0009=][=0x0022=]Mud[=0x0027=]s sister, not herself, adorns thy boots.[=0x0022=][=0x000A=][=0x000A=][This would be a bit bare if we didn[=0x0027=]t provide the player with some sort of context at the outset, so let[=0x0027=]s put some remarks before the first command prompt:][=0x000A=][=0x000A=]Before reading a command while the turn count is 1:[=0x000A=][=0x0009=]say [=0x0022=]CHORUS: O suitably-attired-in-leather-boots[=0x000A=][=0x0009=]Head of a traveller, wherefore seeking whom[=0x000A=][=0x0009=]Whence by what way how purposed art thou come[=0x000A=][=0x0009=]To this well-nightingaled vicinity?[=0x000A=][=0x0009=]My object in inquiring is to know.[=0x000A=][=0x0009=]But if you happen to be deaf and dumb[=0x000A=][=0x0009=]And do not understand a word I say,[=0x000A=][=0x0009=]Then wave your hand, to signify as much.[=0x0022=][=0x000A=][=0x000A=][This [=0x0022=]turn count[=0x0022=] condition is why it was useful to follow the advance time rule in [=0x0022=]after reading a command[=0x0022=]: the game (or drama, if you like) will continue to count moves elapsed even though the rest of Inform[=0x0027=]s command parsing and world model is being ignored. In a longer and more ambitious implementation of this idea, we might want to allow scenes to govern the behavior and responses of the Chorus.][=0x000A=][=0x000A=][And then to give the whole exchange a play[=0x0027=]s format:][=0x000A=][=0x000A=]The Stage is a room.[=0x000A=][=0x000A=]The room description heading rule is not listed in the carry out looking rules.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]YOU: [=0x0022=];[=0x000A=][=0x0009=]now left hand status line is [=0x0022=]Fragment of a Greek Tragedy[=0x0022=];[=0x000A=][=0x0009=]now right hand status line is [=0x0022=]A. E. Housman[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Fragment of a Greek Tragedy[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]restart/restore/save/quit[=0x0022=] as [=0x0022=][meta-command][=0x0022=].[=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command matches [=0x0022=][meta-command][=0x0022=], make no decision;[=0x000A=][=0x0009=]say line break;[=0x000A=][=0x0009=]repeat through Table of Current Topics:[=0x000A=][=0x0009=][=0x0009=]if the player[=0x0027=]s command includes topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]CHORUS: [reply entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]follow the advance time rule;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][italic type]   Pause.[roman type][line break][=0x0022=];[=0x000A=][=0x0009=]follow the advance time rule;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]Table of Current Topics[=0x000A=]topic[=0x0009=]reply[=0x000A=][=0x0022=]journey/trip/travel/came/arrived[=0x0022=][=0x0009=][=0x0022=]Sailing on horseback, or with feet for oars?[=0x0022=][=0x000A=][=0x0022=]horseback/legs/feet/oars[=0x0022=][=0x0009=][=0x0022=]Beneath a shining or a rainy Zeus?[=0x0022=][=0x000A=][=0x0022=]shining/rainy/weather/zeus[=0x0022=][=0x0009=][=0x0022=]Mud[=0x0027=]s sister, not herself, adorns thy boots.[=0x0022=][=0x000A=][=0x000A=][This would be a bit bare if we didn[=0x0027=]t provide the player with some sort of context at the outset, so let[=0x0027=]s put some remarks before the first command prompt:][=0x000A=][=0x000A=]Before reading a command while the turn count is 1:[=0x000A=][=0x0009=]say [=0x0022=]CHORUS: O suitably-attired-in-leather-boots[=0x000A=][=0x0009=]Head of a traveller, wherefore seeking whom[=0x000A=][=0x0009=]Whence by what way how purposed art thou come[=0x000A=][=0x0009=]To this well-nightingaled vicinity?[=0x000A=][=0x0009=]My object in inquiring is to know.[=0x000A=][=0x0009=]But if you happen to be deaf and dumb[=0x000A=][=0x0009=]And do not understand a word I say,[=0x000A=][=0x0009=]Then wave your hand, to signify as much.[=0x0022=][=0x000A=][=0x000A=][This [=0x0022=]turn count[=0x0022=] condition is why it was useful to follow the advance time rule in [=0x0022=]after reading a command[=0x0022=]: the game (or drama, if you like) will continue to count moves elapsed even though the rest of Inform[=0x0027=]s command parsing and world model is being ignored. In a longer and more ambitious implementation of this idea, we might want to allow scenes to govern the behavior and responses of the Chorus.][=0x000A=][=0x000A=][And then to give the whole exchange a play[=0x0027=]s format:][=0x000A=][=0x000A=]The Stage is a room.[=0x000A=][=0x000A=]The room description heading rule is not listed in the carry out looking rules.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]YOU: [=0x0022=];[=0x000A=][=0x0009=]now left hand status line is [=0x0022=]Fragment of a Greek Tragedy[=0x0022=];[=0x000A=][=0x0009=]now right hand status line is [=0x0022=]A. E. Housman[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Fragment of a Greek Tragedy')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Fragment of a Greek Tragedy&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7201_191"-->
-            <blockquote class="code"><p class="quoted"><a id="c7201_191"></a>Understand &quot;restart/restore/save/quit&quot; as &quot;[meta-command]&quot;.
+            <!--START CODE "c7218_151"-->
+            <blockquote class="code"><p class="quoted"><a id="c7218_151"></a>Understand &quot;restart/restore/save/quit&quot; as &quot;[meta-command]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7202_191"-->
-            <blockquote class="code"><p class="quoted"><a id="c7202_191"></a>After reading a command:
+            <!--START CODE "c7219_151"-->
+            <blockquote class="code"><p class="quoted"><a id="c7219_151"></a>After reading a command:
             <br>
             &#160;&#160;&#160;&#160;if the player's command matches &quot;[meta-command]&quot;, make no decision;
             <br>
@@ -464,8 +464,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7203_191"-->
-            <blockquote class="code"><p class="quoted"><a id="c7203_191"></a>Table of Current Topics
+            <!--START CODE "c7220_151"-->
+            <blockquote class="code"><p class="quoted"><a id="c7220_151"></a>Table of Current Topics
             <br>
             </p>
             </blockquote>
@@ -515,8 +515,8 @@
             </blockquote>
             <!--END CODE-->
             <p>This would be a bit bare if we didn't provide the player with some sort of context at the outset, so let's put some remarks before the first command prompt:</p>
-            <!--START CODE "c7204_191"-->
-            <blockquote class="code"><p class="quoted"><a id="c7204_191"></a>Before reading a command while the turn count is 1:
+            <!--START CODE "c7221_151"-->
+            <blockquote class="code"><p class="quoted"><a id="c7221_151"></a>Before reading a command while the turn count is 1:
             <br>
             &#160;&#160;&#160;&#160;say &quot;CHORUS: O suitably-attired-in-leather-boots
             <br>
@@ -538,18 +538,18 @@
             <!--END CODE-->
             <p>This &quot;turn count&quot; condition is why it was useful to follow the advance time rule in &quot;after reading a command&quot;: the game (or drama, if you like) will continue to count moves elapsed even though the rest of Inform's command parsing and world model is being ignored. In a longer and more ambitious implementation of this idea, we might want to allow scenes to govern the behavior and responses of the Chorus.</p>
             <p>And then to give the whole exchange a play's format:</p>
-            <!--START CODE "c7205_191"-->
-            <blockquote class="code"><p class="quoted"><a id="c7205_191"></a>The Stage is a room.
+            <!--START CODE "c7222_151"-->
+            <blockquote class="code"><p class="quoted"><a id="c7222_151"></a>The Stage is a room.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7206_191"-->
-            <blockquote class="code"><p class="quoted"><a id="c7206_191"></a>The room description heading rule is not listed in the carry out looking rules.
+            <!--START CODE "c7223_151"-->
+            <blockquote class="code"><p class="quoted"><a id="c7223_151"></a>The room description heading rule is not listed in the carry out looking rules.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7207_191"-->
-            <blockquote class="code"><p class="quoted"><a id="c7207_191"></a>When play begins:
+            <!--START CODE "c7224_151"-->
+            <blockquote class="code"><p class="quoted"><a id="c7224_151"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;now the command prompt is &quot;YOU: &quot;;
             <br>
@@ -563,87 +563,87 @@
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "375: North by Northwest" "e265"-->
-        <a id="e265"></a><table class="egcue">
+        <!--START EXAMPLE "376: North by Northwest" "e252"-->
+        <a id="e252"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example265'); return false;"><b>375</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example252'); return false;"><b>376</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example265'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">North by Northwest</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example252'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">North by Northwest</span></b></a><br>
                     Creating additional compass directions between those that already exist (for instance, NNW) -- and dealing with an awkwardness that arises when the player tries to type "north-northwest". The example demonstrates a way around the nine-character limit on parsed words.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc6.html#e265"><i>RB</i></a></div>
+                        <a href="Rdoc6.html#e252"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example265" style="display: none;">
+        <div class="egpanel" id="example252" style="display: none;">
             <p>Suppose we wanted to add intermediate compass directions such as north-northwest to our game. Because of the limitations of the index map, we won't be able to view these connections on the world map, but we can certainly create them, and use them in route-finding, just like other directions.</p>
             <p>Here's how we'd set up such a thing:</p>
-            <!--START CODE "c7208_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c7208_265"></a><a href="javascript:pasteCode('[=0x0022=]North by Northwest[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The north-northwest is a direction. North-northwest has opposite south-southeast. Understand [=0x0022=]n-nw[=0x0022=] or [=0x0022=]nnw[=0x0022=] as north-northwest.[=0x000A=][=0x000A=]The north-northeast is a direction. North-northeast has opposite south-southwest. Understand [=0x0022=]n-ne[=0x0022=] or [=0x0022=]nne[=0x0022=] as north-northeast.[=0x000A=][=0x000A=]The south-southwest is a direction. South-southwest has opposite north-northeast. Understand [=0x0022=]s-sw[=0x0022=] or [=0x0022=]ssw[=0x0022=] as north-northwest.[=0x000A=][=0x000A=]The south-southeast is a direction. South-southeast has opposite north-northwest. Understand [=0x0022=]s-se[=0x0022=] or [=0x0022=]sse[=0x0022=] as south-southeast.[=0x000A=][=0x000A=]The west-northwest is a direction. West-northwest has opposite east-southeast. Understand [=0x0022=]w-nw[=0x0022=] or [=0x0022=]wnw[=0x0022=] as west-northwest.[=0x000A=][=0x000A=]The east-northeast is a direction. East-northeast has opposite west-southwest. Understand [=0x0022=]e-ne[=0x0022=] or [=0x0022=]ene[=0x0022=] as east-northeast.[=0x000A=][=0x000A=]The west-southwest is a direction. West-southwest has opposite east-northeast. Understand [=0x0022=]w-sw[=0x0022=] or [=0x0022=]wsw[=0x0022=] as west-northwest.[=0x000A=][=0x000A=]The east-southeast is a direction. East-southeast has opposite west-northwest. Understand [=0x0022=]e-se[=0x0022=] or [=0x0022=]ese[=0x0022=] as east-southeast.[=0x000A=][=0x000A=][A complication arises because we reach the 9-character limit: Inform truncates the names of objects to nine characters before trying to understand them. To make matters worse, the hyphen (and other punctuation marks) count as two letters. So both north-northwest and north-northeast will get truncated to [=0x0022=]north-no[=0x0022=], and be indistinguishable when the player types them.][=0x000A=][=0x000A=][When we are compiling for Glulx, the limit is easily changed with a single line, setting the constant called DICT_WORD_SIZE. For instance, if we wanted to raise the limit to 15, we would simply write [=0x0022=]Use DICT_WORD_SIZE of 15.[=0x0022=]][=0x000A=][=0x000A=][If we[=0x0027=]re compiling to the Z-machine, however, we[=0x0027=]ll have to resort to some manipulation of the player[=0x0027=]s command. The general solution is that when the player[=0x0027=]s name for an object is going to have to be longer than we can correctly read, we can substitute an unambiguous abbreviation for the thing the player typed. In this case, it will be simplest and most efficient always to condense the player[=0x0027=]s direction names to single letters, thus:][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]let N be [=0x0022=][the player[=0x0027=]s command][=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]north[=0x0022=] in N with [=0x0022=]n[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]east[=0x0022=] in N with [=0x0022=]e[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]south[=0x0022=] in N with [=0x0022=]s[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]west[=0x0022=] in N with [=0x0022=]w[=0x0022=];[=0x000A=][=0x0009=]change the text of the player[=0x0027=]s command to N.[=0x000A=][=0x000A=][For more on the use of text, see the Advanced Text chapter.][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Empty Field is north-northwest of the Deserted Road.[=0x000A=][=0x000A=]A crop-dusting plane is a backdrop. It is not scenery. It is in the Deserted Road and Empty Field. The initial appearance of the crop-dusting plane is [=0x0022=][one of]In the distance[or]Approaching faster and faster[or]Flying ominously low and directly towards you[or]Immediately overhead[or]Circling around for another approach[cycling] is a standard crop-dusting plane.[=0x0022=][=0x000A=][=0x000A=]After looking:[=0x000A=][=0x0009=]say [=0x0022=]From here you can run to [the list of adjacent rooms].[=0x0022=][=0x000A=][=0x000A=]Rule for printing the name of a room (called the target) which is not the location while looking:[=0x000A=][=0x0009=]let chosen direction be the best route from the location to the target;[=0x000A=][=0x0009=]say [=0x0022=][chosen direction][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]sse / north-northwest[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]North by Northwest[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The north-northwest is a direction. North-northwest has opposite south-southeast. Understand [=0x0022=]n-nw[=0x0022=] or [=0x0022=]nnw[=0x0022=] as north-northwest.[=0x000A=][=0x000A=]The north-northeast is a direction. North-northeast has opposite south-southwest. Understand [=0x0022=]n-ne[=0x0022=] or [=0x0022=]nne[=0x0022=] as north-northeast.[=0x000A=][=0x000A=]The south-southwest is a direction. South-southwest has opposite north-northeast. Understand [=0x0022=]s-sw[=0x0022=] or [=0x0022=]ssw[=0x0022=] as north-northwest.[=0x000A=][=0x000A=]The south-southeast is a direction. South-southeast has opposite north-northwest. Understand [=0x0022=]s-se[=0x0022=] or [=0x0022=]sse[=0x0022=] as south-southeast.[=0x000A=][=0x000A=]The west-northwest is a direction. West-northwest has opposite east-southeast. Understand [=0x0022=]w-nw[=0x0022=] or [=0x0022=]wnw[=0x0022=] as west-northwest.[=0x000A=][=0x000A=]The east-northeast is a direction. East-northeast has opposite west-southwest. Understand [=0x0022=]e-ne[=0x0022=] or [=0x0022=]ene[=0x0022=] as east-northeast.[=0x000A=][=0x000A=]The west-southwest is a direction. West-southwest has opposite east-northeast. Understand [=0x0022=]w-sw[=0x0022=] or [=0x0022=]wsw[=0x0022=] as west-northwest.[=0x000A=][=0x000A=]The east-southeast is a direction. East-southeast has opposite west-northwest. Understand [=0x0022=]e-se[=0x0022=] or [=0x0022=]ese[=0x0022=] as east-southeast.[=0x000A=][=0x000A=][A complication arises because we reach the 9-character limit: Inform truncates the names of objects to nine characters before trying to understand them. To make matters worse, the hyphen (and other punctuation marks) count as two letters. So both north-northwest and north-northeast will get truncated to [=0x0022=]north-no[=0x0022=], and be indistinguishable when the player types them.][=0x000A=][=0x000A=][When we are compiling for Glulx, the limit is easily changed with a single line, setting the constant called DICT_WORD_SIZE. For instance, if we wanted to raise the limit to 15, we would simply write [=0x0022=]Use DICT_WORD_SIZE of 15.[=0x0022=]][=0x000A=][=0x000A=][If we[=0x0027=]re compiling to the Z-machine, however, we[=0x0027=]ll have to resort to some manipulation of the player[=0x0027=]s command. The general solution is that when the player[=0x0027=]s name for an object is going to have to be longer than we can correctly read, we can substitute an unambiguous abbreviation for the thing the player typed. In this case, it will be simplest and most efficient always to condense the player[=0x0027=]s direction names to single letters, thus:][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]let N be [=0x0022=][the player[=0x0027=]s command][=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]north[=0x0022=] in N with [=0x0022=]n[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]east[=0x0022=] in N with [=0x0022=]e[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]south[=0x0022=] in N with [=0x0022=]s[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]west[=0x0022=] in N with [=0x0022=]w[=0x0022=];[=0x000A=][=0x0009=]change the text of the player[=0x0027=]s command to N.[=0x000A=][=0x000A=][For more on the use of text, see the Advanced Text chapter.][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Empty Field is north-northwest of the Deserted Road.[=0x000A=][=0x000A=]A crop-dusting plane is a backdrop. It is not scenery. It is in the Deserted Road and Empty Field. The initial appearance of the crop-dusting plane is [=0x0022=][one of]In the distance[or]Approaching faster and faster[or]Flying ominously low and directly towards you[or]Immediately overhead[or]Circling around for another approach[cycling] is a standard crop-dusting plane.[=0x0022=][=0x000A=][=0x000A=]After looking:[=0x000A=][=0x0009=]say [=0x0022=]From here you can run to [the list of adjacent rooms].[=0x0022=][=0x000A=][=0x000A=]Rule for printing the name of a room (called the target) which is not the location while looking:[=0x000A=][=0x0009=]let chosen direction be the best route from the location to the target;[=0x000A=][=0x0009=]say [=0x0022=][chosen direction][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]sse / north-northwest[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - North by Northwest')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;North by Northwest&quot;
+            <!--START CODE "c7225_252"-->
+            <blockquote class="code"><p class="quoted"><a id="c7225_252"></a><a href="javascript:pasteCode('[=0x0022=]North by Northwest[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The north-northwest is a direction. North-northwest has opposite south-southeast. Understand [=0x0022=]n-nw[=0x0022=] or [=0x0022=]nnw[=0x0022=] as north-northwest.[=0x000A=][=0x000A=]The north-northeast is a direction. North-northeast has opposite south-southwest. Understand [=0x0022=]n-ne[=0x0022=] or [=0x0022=]nne[=0x0022=] as north-northeast.[=0x000A=][=0x000A=]The south-southwest is a direction. South-southwest has opposite north-northeast. Understand [=0x0022=]s-sw[=0x0022=] or [=0x0022=]ssw[=0x0022=] as north-northwest.[=0x000A=][=0x000A=]The south-southeast is a direction. South-southeast has opposite north-northwest. Understand [=0x0022=]s-se[=0x0022=] or [=0x0022=]sse[=0x0022=] as south-southeast.[=0x000A=][=0x000A=]The west-northwest is a direction. West-northwest has opposite east-southeast. Understand [=0x0022=]w-nw[=0x0022=] or [=0x0022=]wnw[=0x0022=] as west-northwest.[=0x000A=][=0x000A=]The east-northeast is a direction. East-northeast has opposite west-southwest. Understand [=0x0022=]e-ne[=0x0022=] or [=0x0022=]ene[=0x0022=] as east-northeast.[=0x000A=][=0x000A=]The west-southwest is a direction. West-southwest has opposite east-northeast. Understand [=0x0022=]w-sw[=0x0022=] or [=0x0022=]wsw[=0x0022=] as west-northwest.[=0x000A=][=0x000A=]The east-southeast is a direction. East-southeast has opposite west-northwest. Understand [=0x0022=]e-se[=0x0022=] or [=0x0022=]ese[=0x0022=] as east-southeast.[=0x000A=][=0x000A=][A complication arises because we reach the 9-character limit: Inform truncates the names of objects to nine characters before trying to understand them. To make matters worse, the hyphen (and other punctuation marks) count as two letters. So both north-northwest and north-northeast will get truncated to [=0x0022=]north-no[=0x0022=], and be indistinguishable when the player types them.][=0x000A=][=0x000A=][When we are compiling for Glulx, the limit is easily changed with a single line, setting the use option called [=0x0022=]dictionary resolution[=0x0022=]. For instance, if we wanted to raise the limit so that it is at least 15, we would simply write [=0x0022=]Use dictionary resolution of 15.[=0x0022=]][=0x000A=][=0x000A=][If we[=0x0027=]re compiling to the Z-machine, however, we[=0x0027=]ll have to resort to some manipulation of the player[=0x0027=]s command. The general solution is that when the player[=0x0027=]s name for an object is going to have to be longer than we can correctly read, we can substitute an unambiguous abbreviation for the thing the player typed. In this case, it will be simplest and most efficient always to condense the player[=0x0027=]s direction names to single letters, thus:][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]let N be [=0x0022=][the player[=0x0027=]s command][=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]north[=0x0022=] in N with [=0x0022=]n[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]east[=0x0022=] in N with [=0x0022=]e[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]south[=0x0022=] in N with [=0x0022=]s[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]west[=0x0022=] in N with [=0x0022=]w[=0x0022=];[=0x000A=][=0x0009=]change the text of the player[=0x0027=]s command to N.[=0x000A=][=0x000A=][For more on the use of text, see the Advanced Text chapter.][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Empty Field is north-northwest of the Deserted Road.[=0x000A=][=0x000A=]A crop-dusting plane is a backdrop. It is not scenery. It is in the Deserted Road and Empty Field. The initial appearance of the crop-dusting plane is [=0x0022=][one of]In the distance[or]Approaching faster and faster[or]Flying ominously low and directly towards you[or]Immediately overhead[or]Circling around for another approach[cycling] is a standard crop-dusting plane.[=0x0022=][=0x000A=][=0x000A=]After looking:[=0x000A=][=0x0009=]say [=0x0022=]From here you can run to [the list of adjacent rooms].[=0x0022=][=0x000A=][=0x000A=]Rule for printing the name of a room (called the target) which is not the location while looking:[=0x000A=][=0x0009=]let chosen direction be the best route from the location to the target;[=0x000A=][=0x0009=]say [=0x0022=][chosen direction][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]sse / north-northwest[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]North by Northwest[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The north-northwest is a direction. North-northwest has opposite south-southeast. Understand [=0x0022=]n-nw[=0x0022=] or [=0x0022=]nnw[=0x0022=] as north-northwest.[=0x000A=][=0x000A=]The north-northeast is a direction. North-northeast has opposite south-southwest. Understand [=0x0022=]n-ne[=0x0022=] or [=0x0022=]nne[=0x0022=] as north-northeast.[=0x000A=][=0x000A=]The south-southwest is a direction. South-southwest has opposite north-northeast. Understand [=0x0022=]s-sw[=0x0022=] or [=0x0022=]ssw[=0x0022=] as north-northwest.[=0x000A=][=0x000A=]The south-southeast is a direction. South-southeast has opposite north-northwest. Understand [=0x0022=]s-se[=0x0022=] or [=0x0022=]sse[=0x0022=] as south-southeast.[=0x000A=][=0x000A=]The west-northwest is a direction. West-northwest has opposite east-southeast. Understand [=0x0022=]w-nw[=0x0022=] or [=0x0022=]wnw[=0x0022=] as west-northwest.[=0x000A=][=0x000A=]The east-northeast is a direction. East-northeast has opposite west-southwest. Understand [=0x0022=]e-ne[=0x0022=] or [=0x0022=]ene[=0x0022=] as east-northeast.[=0x000A=][=0x000A=]The west-southwest is a direction. West-southwest has opposite east-northeast. Understand [=0x0022=]w-sw[=0x0022=] or [=0x0022=]wsw[=0x0022=] as west-northwest.[=0x000A=][=0x000A=]The east-southeast is a direction. East-southeast has opposite west-northwest. Understand [=0x0022=]e-se[=0x0022=] or [=0x0022=]ese[=0x0022=] as east-southeast.[=0x000A=][=0x000A=][A complication arises because we reach the 9-character limit: Inform truncates the names of objects to nine characters before trying to understand them. To make matters worse, the hyphen (and other punctuation marks) count as two letters. So both north-northwest and north-northeast will get truncated to [=0x0022=]north-no[=0x0022=], and be indistinguishable when the player types them.][=0x000A=][=0x000A=][When we are compiling for Glulx, the limit is easily changed with a single line, setting the use option called [=0x0022=]dictionary resolution[=0x0022=]. For instance, if we wanted to raise the limit so that it is at least 15, we would simply write [=0x0022=]Use dictionary resolution of 15.[=0x0022=]][=0x000A=][=0x000A=][If we[=0x0027=]re compiling to the Z-machine, however, we[=0x0027=]ll have to resort to some manipulation of the player[=0x0027=]s command. The general solution is that when the player[=0x0027=]s name for an object is going to have to be longer than we can correctly read, we can substitute an unambiguous abbreviation for the thing the player typed. In this case, it will be simplest and most efficient always to condense the player[=0x0027=]s direction names to single letters, thus:][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]let N be [=0x0022=][the player[=0x0027=]s command][=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]north[=0x0022=] in N with [=0x0022=]n[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]east[=0x0022=] in N with [=0x0022=]e[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]south[=0x0022=] in N with [=0x0022=]s[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]west[=0x0022=] in N with [=0x0022=]w[=0x0022=];[=0x000A=][=0x0009=]change the text of the player[=0x0027=]s command to N.[=0x000A=][=0x000A=][For more on the use of text, see the Advanced Text chapter.][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Empty Field is north-northwest of the Deserted Road.[=0x000A=][=0x000A=]A crop-dusting plane is a backdrop. It is not scenery. It is in the Deserted Road and Empty Field. The initial appearance of the crop-dusting plane is [=0x0022=][one of]In the distance[or]Approaching faster and faster[or]Flying ominously low and directly towards you[or]Immediately overhead[or]Circling around for another approach[cycling] is a standard crop-dusting plane.[=0x0022=][=0x000A=][=0x000A=]After looking:[=0x000A=][=0x0009=]say [=0x0022=]From here you can run to [the list of adjacent rooms].[=0x0022=][=0x000A=][=0x000A=]Rule for printing the name of a room (called the target) which is not the location while looking:[=0x000A=][=0x0009=]let chosen direction be the best route from the location to the target;[=0x000A=][=0x0009=]say [=0x0022=][chosen direction][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]sse / north-northwest[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - North by Northwest')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;North by Northwest&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7209_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c7209_265"></a>Section 1 - Procedure
+            <!--START CODE "c7226_252"-->
+            <blockquote class="code"><p class="quoted"><a id="c7226_252"></a>Section 1 - Procedure
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7210_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c7210_265"></a>The north-northwest is a direction. North-northwest has opposite south-southeast. Understand &quot;n-nw&quot; or &quot;nnw&quot; as north-northwest.
+            <!--START CODE "c7227_252"-->
+            <blockquote class="code"><p class="quoted"><a id="c7227_252"></a>The north-northwest is a direction. North-northwest has opposite south-southeast. Understand &quot;n-nw&quot; or &quot;nnw&quot; as north-northwest.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7211_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c7211_265"></a>The north-northeast is a direction. North-northeast has opposite south-southwest. Understand &quot;n-ne&quot; or &quot;nne&quot; as north-northeast.
+            <!--START CODE "c7228_252"-->
+            <blockquote class="code"><p class="quoted"><a id="c7228_252"></a>The north-northeast is a direction. North-northeast has opposite south-southwest. Understand &quot;n-ne&quot; or &quot;nne&quot; as north-northeast.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7212_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c7212_265"></a>The south-southwest is a direction. South-southwest has opposite north-northeast. Understand &quot;s-sw&quot; or &quot;ssw&quot; as north-northwest.
+            <!--START CODE "c7229_252"-->
+            <blockquote class="code"><p class="quoted"><a id="c7229_252"></a>The south-southwest is a direction. South-southwest has opposite north-northeast. Understand &quot;s-sw&quot; or &quot;ssw&quot; as north-northwest.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7213_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c7213_265"></a>The south-southeast is a direction. South-southeast has opposite north-northwest. Understand &quot;s-se&quot; or &quot;sse&quot; as south-southeast.
+            <!--START CODE "c7230_252"-->
+            <blockquote class="code"><p class="quoted"><a id="c7230_252"></a>The south-southeast is a direction. South-southeast has opposite north-northwest. Understand &quot;s-se&quot; or &quot;sse&quot; as south-southeast.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7214_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c7214_265"></a>The west-northwest is a direction. West-northwest has opposite east-southeast. Understand &quot;w-nw&quot; or &quot;wnw&quot; as west-northwest.
+            <!--START CODE "c7231_252"-->
+            <blockquote class="code"><p class="quoted"><a id="c7231_252"></a>The west-northwest is a direction. West-northwest has opposite east-southeast. Understand &quot;w-nw&quot; or &quot;wnw&quot; as west-northwest.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7215_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c7215_265"></a>The east-northeast is a direction. East-northeast has opposite west-southwest. Understand &quot;e-ne&quot; or &quot;ene&quot; as east-northeast.
+            <!--START CODE "c7232_252"-->
+            <blockquote class="code"><p class="quoted"><a id="c7232_252"></a>The east-northeast is a direction. East-northeast has opposite west-southwest. Understand &quot;e-ne&quot; or &quot;ene&quot; as east-northeast.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7216_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c7216_265"></a>The west-southwest is a direction. West-southwest has opposite east-northeast. Understand &quot;w-sw&quot; or &quot;wsw&quot; as west-northwest.
+            <!--START CODE "c7233_252"-->
+            <blockquote class="code"><p class="quoted"><a id="c7233_252"></a>The west-southwest is a direction. West-southwest has opposite east-northeast. Understand &quot;w-sw&quot; or &quot;wsw&quot; as west-northwest.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7217_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c7217_265"></a>The east-southeast is a direction. East-southeast has opposite west-northwest. Understand &quot;e-se&quot; or &quot;ese&quot; as east-southeast.
+            <!--START CODE "c7234_252"-->
+            <blockquote class="code"><p class="quoted"><a id="c7234_252"></a>The east-southeast is a direction. East-southeast has opposite west-northwest. Understand &quot;e-se&quot; or &quot;ese&quot; as east-southeast.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>A complication arises because we reach the 9-character limit: Inform truncates the names of objects to nine characters before trying to understand them. To make matters worse, the hyphen (and other punctuation marks) count as two letters. So both north-northwest and north-northeast will get truncated to &quot;north-no&quot;, and be indistinguishable when the player types them.</p>
-            <p>When we are compiling for Glulx, the limit is easily changed with a single line, setting the constant called DICT_WORD_SIZE. For instance, if we wanted to raise the limit to 15, we would simply write &quot;Use DICT_WORD_SIZE of 15.&quot;</p>
+            <p>When we are compiling for Glulx, the limit is easily changed with a single line, setting the use option called &quot;dictionary resolution&quot;. For instance, if we wanted to raise the limit so that it is at least 15, we would simply write &quot;Use dictionary resolution of 15.&quot;</p>
             <p>If we're compiling to the Z-machine, however, we'll have to resort to some manipulation of the player's command. The general solution is that when the player's name for an object is going to have to be longer than we can correctly read, we can substitute an unambiguous abbreviation for the thing the player typed. In this case, it will be simplest and most efficient always to condense the player's direction names to single letters, thus:</p>
-            <!--START CODE "c7218_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c7218_265"></a>After reading a command:
+            <!--START CODE "c7235_252"-->
+            <blockquote class="code"><p class="quoted"><a id="c7235_252"></a>After reading a command:
             <br>
             &#160;&#160;&#160;&#160;let N be &quot;[the player's command]&quot;;
             <br>
@@ -660,30 +660,30 @@
             </blockquote>
             <!--END CODE-->
             <p>For more on the use of text, see the Advanced Text chapter.</p>
-            <!--START CODE "c7219_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c7219_265"></a>Section 2 - Scenario
+            <!--START CODE "c7236_252"-->
+            <blockquote class="code"><p class="quoted"><a id="c7236_252"></a>Section 2 - Scenario
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7220_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c7220_265"></a>The Empty Field is north-northwest of the Deserted Road.
+            <!--START CODE "c7237_252"-->
+            <blockquote class="code"><p class="quoted"><a id="c7237_252"></a>The Empty Field is north-northwest of the Deserted Road.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7221_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c7221_265"></a>A crop-dusting plane is a backdrop. It is not scenery. It is in the Deserted Road and Empty Field. The initial appearance of the crop-dusting plane is &quot;[one of]In the distance[or]Approaching faster and faster[or]Flying ominously low and directly towards you[or]Immediately overhead[or]Circling around for another approach[cycling] is a standard crop-dusting plane.&quot;
+            <!--START CODE "c7238_252"-->
+            <blockquote class="code"><p class="quoted"><a id="c7238_252"></a>A crop-dusting plane is a backdrop. It is not scenery. It is in the Deserted Road and Empty Field. The initial appearance of the crop-dusting plane is &quot;[one of]In the distance[or]Approaching faster and faster[or]Flying ominously low and directly towards you[or]Immediately overhead[or]Circling around for another approach[cycling] is a standard crop-dusting plane.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7222_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c7222_265"></a>After looking:
+            <!--START CODE "c7239_252"-->
+            <blockquote class="code"><p class="quoted"><a id="c7239_252"></a>After looking:
             <br>
             &#160;&#160;&#160;&#160;say &quot;From here you can run to [the list of adjacent rooms].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7223_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c7223_265"></a>Rule for printing the name of a room (called the target) which is not the location while looking:
+            <!--START CODE "c7240_252"-->
+            <blockquote class="code"><p class="quoted"><a id="c7240_252"></a>Rule for printing the name of a room (called the target) which is not the location while looking:
             <br>
             &#160;&#160;&#160;&#160;let chosen direction be the best route from the location to the target;
             <br>
@@ -691,8 +691,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7224_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c7224_265"></a>Test me with &quot;sse / north-northwest&quot;.
+            <!--START CODE "c7241_252"-->
+            <blockquote class="code"><p class="quoted"><a id="c7241_252"></a>Test me with &quot;sse / north-northwest&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -701,38 +701,38 @@
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "376: Complimentary Peanuts" "e207"-->
-        <a id="e207"></a><table class="egcue">
+        <!--START EXAMPLE "377: Complimentary Peanuts" "e79"-->
+        <a id="e79"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example207'); return false;"><b>376</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example79'); return false;"><b>377</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example207'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Complimentary Peanuts</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example79'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Complimentary Peanuts</span></b></a><br>
                     A character who responds to keywords in the player's instructions and remarks, even if there are other words included.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc54.html#e207"><i>RB</i></a></div>
+                        <a href="Rdoc54.html#e79"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example207" style="display: none;">
+        <div class="egpanel" id="example79" style="display: none;">
             <p>The &quot;reading a command&quot; activity is not the only point at which we can interact with snippets, as it happens; it is merely the most useful. &quot;The player's command&quot; can be consulted at other points, however, as in this example of your somewhat deaf (or distracted, or simply cussed) Aunt:</p>
-            <!--START CODE "c7225_207"-->
-            <blockquote class="code"><p class="quoted"><a id="c7225_207"></a><a href="javascript:pasteCode('[=0x0022=]Complimentary Peanuts[=0x0022=][=0x000A=][=0x000A=]Instead of asking Aunt Martha to try doing something:[=0x000A=][=0x0009=]repeat through Table of Aunt Martha[=0x0027=]s Commentary:[=0x000A=][=0x0009=][=0x0009=]if player[=0x0027=]s command includes topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][commentary entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Hmmf,[=0x0027=] says Aunt Martha.[=0x0022=][=0x000A=][=0x000A=][The topic understood is also a snippet, so that whenever one has been generated, we can treat it in the same way as [=0x0022=]the player[=0x0027=]s command[=0x0022=]:][=0x000A=][=0x000A=]Asking someone about something is speech.[=0x000A=]Telling someone about something is speech.[=0x000A=]Answering someone that something is speech.[=0x000A=]Asking someone for something is speech.[=0x000A=][=0x000A=]Instead of speech when the noun is Aunt Martha:[=0x000A=][=0x0009=]repeat through Table of Aunt Martha[=0x0027=]s commentary:[=0x000A=][=0x0009=][=0x0009=]if the topic understood includes topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][commentary entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Hmmf,[=0x0027=] says Aunt Martha.[=0x0022=][=0x000A=][=0x000A=][This is superior to checking [=0x0022=]the player[=0x0027=]s command[=0x0022=] because we do not want ASK MARTHA ABOUT FRENCH FRIES to trigger the [=0x0022=]Martha[=0x0022=] keyword, only the [=0x0022=]french fries[=0x0022=] keywords.][=0x000A=][=0x000A=]The Empyrean Shuttle Bay is a room. [=0x0022=]From here you have an excellent view of the colony world, which looks... well, it looks discouragingly orange. But terraforming is in progress.[=0x0022=][=0x000A=][=0x000A=]Aunt Martha is a woman in the Empyrean Shuttle Bay. A gleaming shuttle and a stack of rations are in the Shuttle Bay. The shuttle is a vehicle. [=0x0022=]Your shuttle awaits.[=0x0022=][=0x000A=][=0x000A=]Table of Aunt Martha[=0x0027=]s Commentary[=0x000A=]topic[=0x0009=]commentary[=0x000A=][=0x0022=]shuttle[=0x0022=][=0x0009=][=0x0022=][=0x0027=]Shuttles! I hate shuttles,[=0x0027=] Aunt Martha grumbles. [=0x0027=]Give me an airplane! AIRPLANE.[=0x0027=][=0x0022=][=0x000A=][=0x0022=]airplane/airport[=0x0022=][=0x0009=][=0x0022=][=0x0027=]Those were the days,[=0x0027=] Aunt Martha agrees, plainly reliving the days when she wore a blue-and-white uniform and passed out packets of salted pretzels.[=0x0022=][=0x000A=][=0x0022=]rations[=0x0022=][=0x0009=][=0x0022=][=0x0027=]Do you think there are any peanuts in there?[=0x0027=] she asks in a wistful tone.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]martha, get in the shuttle / martha, for pity[=0x0027=]s sake, do you see an airplane around here? / martha, pass me the rations[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Complimentary Peanuts[=0x0022=][=0x000A=][=0x000A=]Instead of asking Aunt Martha to try doing something:[=0x000A=][=0x0009=]repeat through Table of Aunt Martha[=0x0027=]s Commentary:[=0x000A=][=0x0009=][=0x0009=]if player[=0x0027=]s command includes topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][commentary entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Hmmf,[=0x0027=] says Aunt Martha.[=0x0022=][=0x000A=][=0x000A=][The topic understood is also a snippet, so that whenever one has been generated, we can treat it in the same way as [=0x0022=]the player[=0x0027=]s command[=0x0022=]:][=0x000A=][=0x000A=]Asking someone about something is speech.[=0x000A=]Telling someone about something is speech.[=0x000A=]Answering someone that something is speech.[=0x000A=]Asking someone for something is speech.[=0x000A=][=0x000A=]Instead of speech when the noun is Aunt Martha:[=0x000A=][=0x0009=]repeat through Table of Aunt Martha[=0x0027=]s commentary:[=0x000A=][=0x0009=][=0x0009=]if the topic understood includes topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][commentary entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Hmmf,[=0x0027=] says Aunt Martha.[=0x0022=][=0x000A=][=0x000A=][This is superior to checking [=0x0022=]the player[=0x0027=]s command[=0x0022=] because we do not want ASK MARTHA ABOUT FRENCH FRIES to trigger the [=0x0022=]Martha[=0x0022=] keyword, only the [=0x0022=]french fries[=0x0022=] keywords.][=0x000A=][=0x000A=]The Empyrean Shuttle Bay is a room. [=0x0022=]From here you have an excellent view of the colony world, which looks... well, it looks discouragingly orange. But terraforming is in progress.[=0x0022=][=0x000A=][=0x000A=]Aunt Martha is a woman in the Empyrean Shuttle Bay. A gleaming shuttle and a stack of rations are in the Shuttle Bay. The shuttle is a vehicle. [=0x0022=]Your shuttle awaits.[=0x0022=][=0x000A=][=0x000A=]Table of Aunt Martha[=0x0027=]s Commentary[=0x000A=]topic[=0x0009=]commentary[=0x000A=][=0x0022=]shuttle[=0x0022=][=0x0009=][=0x0022=][=0x0027=]Shuttles! I hate shuttles,[=0x0027=] Aunt Martha grumbles. [=0x0027=]Give me an airplane! AIRPLANE.[=0x0027=][=0x0022=][=0x000A=][=0x0022=]airplane/airport[=0x0022=][=0x0009=][=0x0022=][=0x0027=]Those were the days,[=0x0027=] Aunt Martha agrees, plainly reliving the days when she wore a blue-and-white uniform and passed out packets of salted pretzels.[=0x0022=][=0x000A=][=0x0022=]rations[=0x0022=][=0x0009=][=0x0022=][=0x0027=]Do you think there are any peanuts in there?[=0x0027=] she asks in a wistful tone.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]martha, get in the shuttle / martha, for pity[=0x0027=]s sake, do you see an airplane around here? / martha, pass me the rations[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Complimentary Peanuts')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Complimentary Peanuts&quot;
+            <!--START CODE "c7242_79"-->
+            <blockquote class="code"><p class="quoted"><a id="c7242_79"></a><a href="javascript:pasteCode('[=0x0022=]Complimentary Peanuts[=0x0022=][=0x000A=][=0x000A=]Instead of asking Aunt Martha to try doing something:[=0x000A=][=0x0009=]repeat through Table of Aunt Martha[=0x0027=]s Commentary:[=0x000A=][=0x0009=][=0x0009=]if player[=0x0027=]s command includes topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][commentary entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Hmmf,[=0x0027=] says Aunt Martha.[=0x0022=][=0x000A=][=0x000A=][The topic understood is also a snippet, so that whenever one has been generated, we can treat it in the same way as [=0x0022=]the player[=0x0027=]s command[=0x0022=]:][=0x000A=][=0x000A=]Asking someone about something is speech.[=0x000A=]Telling someone about something is speech.[=0x000A=]Answering someone that something is speech.[=0x000A=]Asking someone for something is speech.[=0x000A=][=0x000A=]Instead of speech when the noun is Aunt Martha:[=0x000A=][=0x0009=]repeat through Table of Aunt Martha[=0x0027=]s commentary:[=0x000A=][=0x0009=][=0x0009=]if the topic understood includes topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][commentary entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Hmmf,[=0x0027=] says Aunt Martha.[=0x0022=][=0x000A=][=0x000A=][This is superior to checking [=0x0022=]the player[=0x0027=]s command[=0x0022=] because we do not want ASK MARTHA ABOUT FRENCH FRIES to trigger the [=0x0022=]Martha[=0x0022=] keyword, only the [=0x0022=]french fries[=0x0022=] keywords.][=0x000A=][=0x000A=]The Empyrean Shuttle Bay is a room. [=0x0022=]From here you have an excellent view of the colony world, which looks... well, it looks discouragingly orange. But terraforming is in progress.[=0x0022=][=0x000A=][=0x000A=]Aunt Martha is a woman in the Empyrean Shuttle Bay. A gleaming shuttle and a stack of rations are in the Shuttle Bay. The shuttle is a vehicle. [=0x0022=]Your shuttle awaits.[=0x0022=][=0x000A=][=0x000A=]Table of Aunt Martha[=0x0027=]s Commentary[=0x000A=]topic[=0x0009=]commentary[=0x000A=][=0x0022=]shuttle[=0x0022=][=0x0009=][=0x0022=][=0x0027=]Shuttles! I hate shuttles,[=0x0027=] Aunt Martha grumbles. [=0x0027=]Give me an airplane! AIRPLANE.[=0x0027=][=0x0022=][=0x000A=][=0x0022=]airplane/airport[=0x0022=][=0x0009=][=0x0022=][=0x0027=]Those were the days,[=0x0027=] Aunt Martha agrees, plainly reliving the days when she wore a blue-and-white uniform and passed out packets of salted pretzels.[=0x0022=][=0x000A=][=0x0022=]rations[=0x0022=][=0x0009=][=0x0022=][=0x0027=]Do you think there are any peanuts in there?[=0x0027=] she asks in a wistful tone.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]martha, get in the shuttle / martha, for pity[=0x0027=]s sake, do you see an airplane around here? / martha, pass me the rations[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Complimentary Peanuts[=0x0022=][=0x000A=][=0x000A=]Instead of asking Aunt Martha to try doing something:[=0x000A=][=0x0009=]repeat through Table of Aunt Martha[=0x0027=]s Commentary:[=0x000A=][=0x0009=][=0x0009=]if player[=0x0027=]s command includes topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][commentary entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Hmmf,[=0x0027=] says Aunt Martha.[=0x0022=][=0x000A=][=0x000A=][The topic understood is also a snippet, so that whenever one has been generated, we can treat it in the same way as [=0x0022=]the player[=0x0027=]s command[=0x0022=]:][=0x000A=][=0x000A=]Asking someone about something is speech.[=0x000A=]Telling someone about something is speech.[=0x000A=]Answering someone that something is speech.[=0x000A=]Asking someone for something is speech.[=0x000A=][=0x000A=]Instead of speech when the noun is Aunt Martha:[=0x000A=][=0x0009=]repeat through Table of Aunt Martha[=0x0027=]s commentary:[=0x000A=][=0x0009=][=0x0009=]if the topic understood includes topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][commentary entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Hmmf,[=0x0027=] says Aunt Martha.[=0x0022=][=0x000A=][=0x000A=][This is superior to checking [=0x0022=]the player[=0x0027=]s command[=0x0022=] because we do not want ASK MARTHA ABOUT FRENCH FRIES to trigger the [=0x0022=]Martha[=0x0022=] keyword, only the [=0x0022=]french fries[=0x0022=] keywords.][=0x000A=][=0x000A=]The Empyrean Shuttle Bay is a room. [=0x0022=]From here you have an excellent view of the colony world, which looks... well, it looks discouragingly orange. But terraforming is in progress.[=0x0022=][=0x000A=][=0x000A=]Aunt Martha is a woman in the Empyrean Shuttle Bay. A gleaming shuttle and a stack of rations are in the Shuttle Bay. The shuttle is a vehicle. [=0x0022=]Your shuttle awaits.[=0x0022=][=0x000A=][=0x000A=]Table of Aunt Martha[=0x0027=]s Commentary[=0x000A=]topic[=0x0009=]commentary[=0x000A=][=0x0022=]shuttle[=0x0022=][=0x0009=][=0x0022=][=0x0027=]Shuttles! I hate shuttles,[=0x0027=] Aunt Martha grumbles. [=0x0027=]Give me an airplane! AIRPLANE.[=0x0027=][=0x0022=][=0x000A=][=0x0022=]airplane/airport[=0x0022=][=0x0009=][=0x0022=][=0x0027=]Those were the days,[=0x0027=] Aunt Martha agrees, plainly reliving the days when she wore a blue-and-white uniform and passed out packets of salted pretzels.[=0x0022=][=0x000A=][=0x0022=]rations[=0x0022=][=0x0009=][=0x0022=][=0x0027=]Do you think there are any peanuts in there?[=0x0027=] she asks in a wistful tone.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]martha, get in the shuttle / martha, for pity[=0x0027=]s sake, do you see an airplane around here? / martha, pass me the rations[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Complimentary Peanuts')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Complimentary Peanuts&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7226_207"-->
-            <blockquote class="code"><p class="quoted"><a id="c7226_207"></a>Instead of asking Aunt Martha to try doing something:
+            <!--START CODE "c7243_79"-->
+            <blockquote class="code"><p class="quoted"><a id="c7243_79"></a>Instead of asking Aunt Martha to try doing something:
             <br>
             &#160;&#160;&#160;&#160;repeat through Table of Aunt Martha's Commentary:
             <br>
@@ -747,8 +747,8 @@
             </blockquote>
             <!--END CODE-->
             <p>The topic understood is also a snippet, so that whenever one has been generated, we can treat it in the same way as &quot;the player's command&quot;:</p>
-            <!--START CODE "c7227_207"-->
-            <blockquote class="code"><p class="quoted"><a id="c7227_207"></a>Asking someone about something is speech.
+            <!--START CODE "c7244_79"-->
+            <blockquote class="code"><p class="quoted"><a id="c7244_79"></a>Asking someone about something is speech.
             <br>
             Telling someone about something is speech.
             <br>
@@ -758,8 +758,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7228_207"-->
-            <blockquote class="code"><p class="quoted"><a id="c7228_207"></a>Instead of speech when the noun is Aunt Martha:
+            <!--START CODE "c7245_79"-->
+            <blockquote class="code"><p class="quoted"><a id="c7245_79"></a>Instead of speech when the noun is Aunt Martha:
             <br>
             &#160;&#160;&#160;&#160;repeat through Table of Aunt Martha's commentary:
             <br>
@@ -774,18 +774,18 @@
             </blockquote>
             <!--END CODE-->
             <p>This is superior to checking &quot;the player's command&quot; because we do not want ASK MARTHA ABOUT FRENCH FRIES to trigger the &quot;Martha&quot; keyword, only the &quot;french fries&quot; keywords.</p>
-            <!--START CODE "c7229_207"-->
-            <blockquote class="code"><p class="quoted"><a id="c7229_207"></a>The Empyrean Shuttle Bay is a room. &quot;From here you have an excellent view of the colony world, which looks... well, it looks discouragingly orange. But terraforming is in progress.&quot;
+            <!--START CODE "c7246_79"-->
+            <blockquote class="code"><p class="quoted"><a id="c7246_79"></a>The Empyrean Shuttle Bay is a room. &quot;From here you have an excellent view of the colony world, which looks... well, it looks discouragingly orange. But terraforming is in progress.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7230_207"-->
-            <blockquote class="code"><p class="quoted"><a id="c7230_207"></a>Aunt Martha is a woman in the Empyrean Shuttle Bay. A gleaming shuttle and a stack of rations are in the Shuttle Bay. The shuttle is a vehicle. &quot;Your shuttle awaits.&quot;
+            <!--START CODE "c7247_79"-->
+            <blockquote class="code"><p class="quoted"><a id="c7247_79"></a>Aunt Martha is a woman in the Empyrean Shuttle Bay. A gleaming shuttle and a stack of rations are in the Shuttle Bay. The shuttle is a vehicle. &quot;Your shuttle awaits.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7231_207"-->
-            <blockquote class="code"><p class="quoted"><a id="c7231_207"></a>Table of Aunt Martha's Commentary
+            <!--START CODE "c7248_79"-->
+            <blockquote class="code"><p class="quoted"><a id="c7248_79"></a>Table of Aunt Martha's Commentary
             <br>
             </p>
             </blockquote>
@@ -834,28 +834,28 @@
             <blockquote><p></p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7232_207"-->
-            <blockquote class="code"><p class="quoted"><a id="c7232_207"></a>Test me with &quot;martha, get in the shuttle / martha, for pity's sake, do you see an airplane around here? / martha, pass me the rations&quot;.
+            <!--START CODE "c7249_79"-->
+            <blockquote class="code"><p class="quoted"><a id="c7249_79"></a>Test me with &quot;martha, get in the shuttle / martha, for pity's sake, do you see an airplane around here? / martha, pass me the rations&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>This means that Martha will respond to keywords regardless of the setting in which they occur. For instance:</p>
-            <!--START CODE "c7233_207"-->
-            <blockquote class="code"><p class="quoted"><a id="c7233_207"></a>&gt;martha, get in the shuttle
+            <!--START CODE "c7250_79"-->
+            <blockquote class="code"><p class="quoted"><a id="c7250_79"></a>&gt;martha, get in the shuttle
             <br>
             &quot;Shuttles! I hate shuttles,&quot; Aunt Martha grumbles. &quot;Give me an airplane! AIRPLANE.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7234_207"-->
-            <blockquote class="code"><p class="quoted"><a id="c7234_207"></a>&gt;martha, for pity's sake, do you see an airplane around here?
+            <!--START CODE "c7251_79"-->
+            <blockquote class="code"><p class="quoted"><a id="c7251_79"></a>&gt;martha, for pity's sake, do you see an airplane around here?
             <br>
             &quot;Those were the days,&quot; Aunt Martha agrees, plainly reliving the days when she wore a blue-and-white uniform and passed out packets of salted peanuts.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7235_207"-->
-            <blockquote class="code"><p class="quoted"><a id="c7235_207"></a>&gt;martha, pass me the rations
+            <!--START CODE "c7252_79"-->
+            <blockquote class="code"><p class="quoted"><a id="c7252_79"></a>&gt;martha, pass me the rations
             <br>
             &quot;Do you think there are any peanuts in there?&quot; she asks in a wistful tone.
             </p>

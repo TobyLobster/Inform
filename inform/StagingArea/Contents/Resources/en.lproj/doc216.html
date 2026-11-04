@@ -83,24 +83,24 @@
     <!--END IGNORE-->
     <p class="sectionheading">§14.5. Adapting text referring to other things</p>
     <p>The family in the previous section - &quot;[we]&quot;, &quot;[us]&quot;, &quot;[our]&quot;, &quot;[ours]&quot;, &quot;[ourselves]&quot; - always referred to the player. But we also sometimes want to refer to other things without naming them. For example, how should we adapt this?</p>
-    <!--START CODE "c4394"-->
-    <blockquote class="code"><p class="quoted"><a id="c4394"></a>&gt; EXAMINE TREE
+    <!--START CODE "c4402"-->
+    <blockquote class="code"><p class="quoted"><a id="c4402"></a>&gt; EXAMINE TREE
     <br>
     It has no clear outline in this misty netherworld.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>We can easily make the verb adapt - change the &quot;has&quot; to &quot;[have]&quot; - but the trick here is to make the &quot;It&quot; adapt to cases where what's examined is plural, or animate. What we want is:</p>
-    <!--START CODE "c4395"-->
-    <blockquote class="code"><p class="quoted"><a id="c4395"></a>Instead of examining in the Netherworld:
+    <!--START CODE "c4403"-->
+    <blockquote class="code"><p class="quoted"><a id="c4403"></a>Instead of examining in the Netherworld:
     <br>
     &#160;&#160;&#160;&#160;say &quot;[regarding the noun][They] [have] no clear outline in this misty netherworld.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>For example, this produces:</p>
-    <!--START CODE "c4396"-->
-    <blockquote class="code"><p class="quoted"><a id="c4396"></a>&gt; EXAMINE ME
+    <!--START CODE "c4404"-->
+    <blockquote class="code"><p class="quoted"><a id="c4404"></a>&gt; EXAMINE ME
     <br>
     You have no clear outline in this misty netherworld.
     <br>
@@ -116,14 +116,14 @@
     <!--END CODE-->
     <p>Note that we have to say &quot;[regarding the noun]&quot;, not just start in with &quot;[They]&quot;, because nothing has been named so far in the sentence - so Inform doesn't know what object it refers to. &quot;[regarding the noun]&quot; prints nothing, and simply tells the printing part of Inform that the subject has changed.</p>
     <p>This isn't always needed:</p>
-    <!--START CODE "c4397"-->
-    <blockquote class="code"><p class="quoted"><a id="c4397"></a>&quot;[We] [have] a look at [the noun], but [they] [are] just too big.&quot;
+    <!--START CODE "c4405"-->
+    <blockquote class="code"><p class="quoted"><a id="c4405"></a>&quot;[We] [have] a look at [the noun], but [they] [are] just too big.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>works fine, because printing &quot;[the noun]&quot; changes the subject to that, and then &quot;[they]&quot; agrees with it automatically. The text might come out, for example, as:</p>
-    <!--START CODE "c4398"-->
-    <blockquote class="code"><p class="quoted"><a id="c4398"></a>I had a look at Peter Rabbit, but he was just too big.
+    <!--START CODE "c4406"-->
+    <blockquote class="code"><p class="quoted"><a id="c4406"></a>I had a look at Peter Rabbit, but he was just too big.
     <br>
     You have a look at the chessmen, but they are just too big.
     <br>
@@ -132,8 +132,8 @@
     </blockquote>
     <!--END CODE-->
     <p>We have a family of five text substitutions here, matching those in the previous section:</p>
-    <!--START CODE "c4399"-->
-    <blockquote class="code"><p class="quoted"><a id="c4399"></a>&quot;[They]&quot; or &quot;[they]&quot;
+    <!--START CODE "c4407"-->
+    <blockquote class="code"><p class="quoted"><a id="c4407"></a>&quot;[They]&quot; or &quot;[they]&quot;
     <br>
     &quot;[Them]&quot; or &quot;[them]&quot;
     <br>
@@ -146,24 +146,24 @@
     </blockquote>
     <!--END CODE-->
     <p>There's also the peculiar impersonal non-object for English sentences like &quot;It is raining&quot; or &quot;There are books&quot;:</p>
-    <!--START CODE "c4400"-->
-    <blockquote class="code"><p class="quoted"><a id="c4400"></a>&quot;[It]&quot; or &quot;[it]&quot;
+    <!--START CODE "c4408"-->
+    <blockquote class="code"><p class="quoted"><a id="c4408"></a>&quot;[It]&quot; or &quot;[it]&quot;
     <br>
     &quot;[There]&quot; or &quot;[there]&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>These look pointless - but consider the two texts</p>
-    <!--START CODE "c4401"-->
-    <blockquote class="code"><p class="quoted"><a id="c4401"></a>&quot;[We] [take] [the noun]. It [rain] harder.&quot;
+    <!--START CODE "c4409"-->
+    <blockquote class="code"><p class="quoted"><a id="c4409"></a>&quot;[We] [take] [the noun]. It [rain] harder.&quot;
     <br>
     &quot;[We] [take] [the noun]. [It] [rain] harder.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>The first one risks printing &quot;We took the scissors. It rain harder.&quot;, because it makes &quot;[rain]&quot; agree with &quot;scissors&quot;, which are plural. But the second text makes &quot;[rain]&quot; agree with &quot;[it]&quot;. And, as a convenience:</p>
-    <!--START CODE "c4402"-->
-    <blockquote class="code"><p class="quoted"><a id="c4402"></a>&quot;[It's]&quot; or &quot;[it's]&quot;
+    <!--START CODE "c4410"-->
+    <blockquote class="code"><p class="quoted"><a id="c4410"></a>&quot;[It's]&quot; or &quot;[it's]&quot;
     <br>
     &quot;[There's]&quot; or &quot;[there's]&quot;
     </p>
@@ -171,8 +171,8 @@
     <!--END CODE-->
     <p>do the obvious thing using the current story tense.</p>
     <p>Finally, we occasionally want to agree with a number:</p>
-    <!--START CODE "c4403"-->
-    <blockquote class="code"><p class="quoted"><a id="c4403"></a>&quot;Honestly, [dud count][regarding the dud count] of these [are] broken.&quot;
+    <!--START CODE "c4411"-->
+    <blockquote class="code"><p class="quoted"><a id="c4411"></a>&quot;Honestly, [dud count][regarding the dud count] of these [are] broken.&quot;
     </p>
     </blockquote>
     <!--END CODE-->

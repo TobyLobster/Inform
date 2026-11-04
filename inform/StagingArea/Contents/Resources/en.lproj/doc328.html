@@ -85,37 +85,37 @@
     <p>If rules can manage perfectly well without, why bother to have names for rules?</p>
     <p>The answer is that although Inform contains an elaborate mechanism for placing rules into the correct rulebook at the correct position, and this happens automatically, Inform will sometimes get it wrong. It will use a rule we do not want, or place them in an order which does not suit us. To put this right, we can give explicit instructions which take precedence over Inform's normal practice. This is done with the &quot;to list&quot; verb, as in the following examples.</p>
     <p>1. The simplest usage is to place a named rule, which currently has no home, in any rulebook of our choice. (This looks redundant, but just occasionally we want the same rule to appear in two different rulebooks.)</p>
-    <!--START CODE "c7435"-->
-    <blockquote class="code"><p class="quoted"><a id="c7435"></a>The blossom rule is listed in the every turn rules.
+    <!--START CODE "c7452"-->
+    <blockquote class="code"><p class="quoted"><a id="c7452"></a>The blossom rule is listed in the every turn rules.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>A rule can appear in more than one rulebook, but within any single rulebook it can only appear once.</p>
     <p>2. We can also specify that the rule needs to appear before, or after, some other named rule in the same rulebook:</p>
-    <!--START CODE "c7436"-->
-    <blockquote class="code"><p class="quoted"><a id="c7436"></a>The collapsing bridge rule is listed before the moving doorways rule in the instead rules.
+    <!--START CODE "c7453"-->
+    <blockquote class="code"><p class="quoted"><a id="c7453"></a>The collapsing bridge rule is listed before the moving doorways rule in the instead rules.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Instead of being placed in specificity order in the whole &quot;instead&quot; rulebook, the &quot;collapsing bridge&quot; rule would now be placed in specificity order only in the first half of the &quot;instead&quot; rulebook - the rules from the start up to (but not including) the &quot;moving doorways&quot; rule. To reiterate: that doesn't necessarily mean it will be immediately before the &quot;moving doorways&quot; rule; it will be placed according to Inform's usual sorting rules within that range.</p>
     <p>&quot;Listed&quot; sentences are obeyed by Inform in sequence, so if later ones issue instructions contradicting earlier ones, it's the later ones which win out. Thus if we say &quot;A is listed before B in X&quot; and then &quot;B is listed before A in X&quot;, the result is that B comes before A.</p>
     <p>3. We can specify that a rule needs to appear first or last in a given rulebook:</p>
-    <!--START CODE "c7437"-->
-    <blockquote class="code"><p class="quoted"><a id="c7437"></a>The collapsing bridge rule is listed first in the instead rules.
+    <!--START CODE "c7454"-->
+    <blockquote class="code"><p class="quoted"><a id="c7454"></a>The collapsing bridge rule is listed first in the instead rules.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Again, if we make several such instructions about the same rulebook then the most recent one wins: &quot;A is listed first in X. B is listed first in X. C is listed first in X.&quot; causes rulebook X to begin C, B, A.</p>
     <p>4. We can also substitute one rule for another:</p>
-    <!--START CODE "c7438"-->
-    <blockquote class="code"><p class="quoted"><a id="c7438"></a>My darkness rule is listed instead of the can't act in the dark rule in the visibility rules.
+    <!--START CODE "c7455"-->
+    <blockquote class="code"><p class="quoted"><a id="c7455"></a>My darkness rule is listed instead of the can't act in the dark rule in the visibility rules.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>If rule A is listed instead of rule B in rulebook X, and A was already a rule in rulebook X, then A will move from its previous position to occupy the place where B was, and B will disappear. (In particular rule A will not be duplicated, which would break the principle that no rule occurs twice in the same rulebook.)</p>
     <p>5. And we can strike down existing rules, either specifically or in all their applications:</p>
-    <!--START CODE "c7439"-->
-    <blockquote class="code"><p class="quoted"><a id="c7439"></a>The can't act in the dark rule is not listed in the visibility rules.
+    <!--START CODE "c7456"-->
+    <blockquote class="code"><p class="quoted"><a id="c7456"></a>The can't act in the dark rule is not listed in the visibility rules.
     <br>
     The can't remove from people rule is not listed in any rulebook.
     </p>
@@ -125,73 +125,73 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "393: Saint Eligius" "e336"-->
-        <a id="e336"></a><table class="egcue">
+        <!--START EXAMPLE "394: Saint Eligius" "e321"-->
+        <a id="e321"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example336'); return false;"><b>393</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example321'); return false;"><b>394</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example336'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Saint Eligius</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example321'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Saint Eligius</span></b></a><br>
                     Adding a first look rule that comments on locations when we visit them for the first time, inserting text after objects are listed but before any "every turn" rules might occur.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc37.html#e336"><i>RB</i></a></div>
+                        <a href="Rdoc37.html#e321"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example336" style="display: none;">
+        <div class="egpanel" id="example321" style="display: none;">
             <p>A not-infrequent desire in IF is to provide a few lines of comment when the player first enters a new room, after the objects are described but before anything else (such as an every turn rule) can fire. The cleanest, most systematic solution is to add a rule to the carry out looking rulebook, so:</p>
-            <!--START CODE "c7440_336"-->
-            <blockquote class="code"><p class="quoted"><a id="c7440_336"></a><a href="javascript:pasteCode('[=0x0022=]Saint Eligius[=0x0022=][=0x000A=][=0x000A=]The first look rule is listed after the room description paragraphs about objects rule in the carry out looking rules. A room can be commented or uncommented. A room is usually uncommented.[=0x000A=][=0x000A=]This is the first look rule:[=0x000A=][=0x0009=]if the location is uncommented, carry out the gawking at activity with the location.[=0x000A=][=0x000A=]Gawking at something is an activity.[=0x000A=][=0x000A=]Rule for gawking at the Diamond Market:[=0x000A=][=0x0009=]say [=0x0022=]Your throat closes and your eyes begin to sting. You have long disdained pomp and luxury, and railed against the oppression that brings such wealth to some men at the cost of the lives of others; you were not prepared for the magnificence.[=0x0022=][=0x000A=][=0x000A=]After gawking at a room (called the target): now the target is commented.[=0x000A=][=0x000A=][And now the scene itself:][=0x000A=][=0x000A=]The Cobbled Alley is a room. [=0x0022=]The Alley has never been made into a proper street: the buildings on either side are simply too important to tear down. For all that, there isn[=0x0027=]t much sign of the magnificence nearby. The entrance you seek is set below street level, four grimy steps down to a half-basement.[=0x0022=][=0x000A=][=0x000A=]After going to Diamond Market:[=0x000A=][=0x0009=]say [=0x0022=]You descend the steps quickly and step into the small foyer, allowing yourself to be searched for weapons, before going on to...[=0x0022=];[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]Diamond Market is down from Cobbled Alley. [=0x0022=]The roof is vaulted and painted in allegorical images representing Plenty, the Riches of the Earth, and Saint Eligius, patron of goldsmiths and jewelers.[=0x000A=][=0x000A=]Under their watchful eye, dozens of men in sober black robes sit; and on the tables before them are rubies, emeralds, sapphires from oversea, but most of all diamonds, both raw and cut.[=0x0022=][=0x000A=][=0x000A=]The burly guard is a man in Diamond Market. [=0x0022=]A burly guard patrols quite close to you, but even he is more sumptuously dressed than the average burly guard, and his buttons shine.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]d / look[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Saint Eligius[=0x0022=][=0x000A=][=0x000A=]The first look rule is listed after the room description paragraphs about objects rule in the carry out looking rules. A room can be commented or uncommented. A room is usually uncommented.[=0x000A=][=0x000A=]This is the first look rule:[=0x000A=][=0x0009=]if the location is uncommented, carry out the gawking at activity with the location.[=0x000A=][=0x000A=]Gawking at something is an activity.[=0x000A=][=0x000A=]Rule for gawking at the Diamond Market:[=0x000A=][=0x0009=]say [=0x0022=]Your throat closes and your eyes begin to sting. You have long disdained pomp and luxury, and railed against the oppression that brings such wealth to some men at the cost of the lives of others; you were not prepared for the magnificence.[=0x0022=][=0x000A=][=0x000A=]After gawking at a room (called the target): now the target is commented.[=0x000A=][=0x000A=][And now the scene itself:][=0x000A=][=0x000A=]The Cobbled Alley is a room. [=0x0022=]The Alley has never been made into a proper street: the buildings on either side are simply too important to tear down. For all that, there isn[=0x0027=]t much sign of the magnificence nearby. The entrance you seek is set below street level, four grimy steps down to a half-basement.[=0x0022=][=0x000A=][=0x000A=]After going to Diamond Market:[=0x000A=][=0x0009=]say [=0x0022=]You descend the steps quickly and step into the small foyer, allowing yourself to be searched for weapons, before going on to...[=0x0022=];[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]Diamond Market is down from Cobbled Alley. [=0x0022=]The roof is vaulted and painted in allegorical images representing Plenty, the Riches of the Earth, and Saint Eligius, patron of goldsmiths and jewelers.[=0x000A=][=0x000A=]Under their watchful eye, dozens of men in sober black robes sit; and on the tables before them are rubies, emeralds, sapphires from oversea, but most of all diamonds, both raw and cut.[=0x0022=][=0x000A=][=0x000A=]The burly guard is a man in Diamond Market. [=0x0022=]A burly guard patrols quite close to you, but even he is more sumptuously dressed than the average burly guard, and his buttons shine.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]d / look[=0x0022=].[=0x000A=]\n', 'Example - Saint Eligius')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Saint Eligius&quot;
+            <!--START CODE "c7457_321"-->
+            <blockquote class="code"><p class="quoted"><a id="c7457_321"></a><a href="javascript:pasteCode('[=0x0022=]Saint Eligius[=0x0022=][=0x000A=][=0x000A=]The first look rule is listed after the room description paragraphs about objects rule in the carry out looking rules. A room can be commented or uncommented. A room is usually uncommented.[=0x000A=][=0x000A=]This is the first look rule:[=0x000A=][=0x0009=]if the location is uncommented, carry out the gawking at activity with the location.[=0x000A=][=0x000A=]Gawking at something is an activity.[=0x000A=][=0x000A=]Rule for gawking at the Diamond Market:[=0x000A=][=0x0009=]say [=0x0022=]Your throat closes and your eyes begin to sting. You have long disdained pomp and luxury, and railed against the oppression that brings such wealth to some men at the cost of the lives of others; you were not prepared for the magnificence.[=0x0022=][=0x000A=][=0x000A=]After gawking at a room (called the target): now the target is commented.[=0x000A=][=0x000A=][And now the scene itself:][=0x000A=][=0x000A=]The Cobbled Alley is a room. [=0x0022=]The Alley has never been made into a proper street: the buildings on either side are simply too important to tear down. For all that, there isn[=0x0027=]t much sign of the magnificence nearby. The entrance you seek is set below street level, four grimy steps down to a half-basement.[=0x0022=][=0x000A=][=0x000A=]After going to Diamond Market:[=0x000A=][=0x0009=]say [=0x0022=]You descend the steps quickly and step into the small foyer, allowing yourself to be searched for weapons, before going on to...[=0x0022=];[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]Diamond Market is down from Cobbled Alley. [=0x0022=]The roof is vaulted and painted in allegorical images representing Plenty, the Riches of the Earth, and Saint Eligius, patron of goldsmiths and jewelers.[=0x000A=][=0x000A=]Under their watchful eye, dozens of men in sober black robes sit; and on the tables before them are rubies, emeralds, sapphires from oversea, but most of all diamonds, both raw and cut.[=0x0022=][=0x000A=][=0x000A=]The burly guard is a man in Diamond Market. [=0x0022=]A burly guard patrols quite close to you, but even he is more sumptuously dressed than the average burly guard, and his buttons shine.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]d / look[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Saint Eligius[=0x0022=][=0x000A=][=0x000A=]The first look rule is listed after the room description paragraphs about objects rule in the carry out looking rules. A room can be commented or uncommented. A room is usually uncommented.[=0x000A=][=0x000A=]This is the first look rule:[=0x000A=][=0x0009=]if the location is uncommented, carry out the gawking at activity with the location.[=0x000A=][=0x000A=]Gawking at something is an activity.[=0x000A=][=0x000A=]Rule for gawking at the Diamond Market:[=0x000A=][=0x0009=]say [=0x0022=]Your throat closes and your eyes begin to sting. You have long disdained pomp and luxury, and railed against the oppression that brings such wealth to some men at the cost of the lives of others; you were not prepared for the magnificence.[=0x0022=][=0x000A=][=0x000A=]After gawking at a room (called the target): now the target is commented.[=0x000A=][=0x000A=][And now the scene itself:][=0x000A=][=0x000A=]The Cobbled Alley is a room. [=0x0022=]The Alley has never been made into a proper street: the buildings on either side are simply too important to tear down. For all that, there isn[=0x0027=]t much sign of the magnificence nearby. The entrance you seek is set below street level, four grimy steps down to a half-basement.[=0x0022=][=0x000A=][=0x000A=]After going to Diamond Market:[=0x000A=][=0x0009=]say [=0x0022=]You descend the steps quickly and step into the small foyer, allowing yourself to be searched for weapons, before going on to...[=0x0022=];[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]Diamond Market is down from Cobbled Alley. [=0x0022=]The roof is vaulted and painted in allegorical images representing Plenty, the Riches of the Earth, and Saint Eligius, patron of goldsmiths and jewelers.[=0x000A=][=0x000A=]Under their watchful eye, dozens of men in sober black robes sit; and on the tables before them are rubies, emeralds, sapphires from oversea, but most of all diamonds, both raw and cut.[=0x0022=][=0x000A=][=0x000A=]The burly guard is a man in Diamond Market. [=0x0022=]A burly guard patrols quite close to you, but even he is more sumptuously dressed than the average burly guard, and his buttons shine.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]d / look[=0x0022=].[=0x000A=]\n', 'Example - Saint Eligius')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Saint Eligius&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7441_336"-->
-            <blockquote class="code"><p class="quoted"><a id="c7441_336"></a>The first look rule is listed after the room description paragraphs about objects rule in the carry out looking rules. A room can be commented or uncommented. A room is usually uncommented.
+            <!--START CODE "c7458_321"-->
+            <blockquote class="code"><p class="quoted"><a id="c7458_321"></a>The first look rule is listed after the room description paragraphs about objects rule in the carry out looking rules. A room can be commented or uncommented. A room is usually uncommented.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7442_336"-->
-            <blockquote class="code"><p class="quoted"><a id="c7442_336"></a>This is the first look rule:
+            <!--START CODE "c7459_321"-->
+            <blockquote class="code"><p class="quoted"><a id="c7459_321"></a>This is the first look rule:
             <br>
             &#160;&#160;&#160;&#160;if the location is uncommented, carry out the gawking at activity with the location.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7443_336"-->
-            <blockquote class="code"><p class="quoted"><a id="c7443_336"></a>Gawking at something is an activity.
+            <!--START CODE "c7460_321"-->
+            <blockquote class="code"><p class="quoted"><a id="c7460_321"></a>Gawking at something is an activity.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7444_336"-->
-            <blockquote class="code"><p class="quoted"><a id="c7444_336"></a>Rule for gawking at the Diamond Market:
+            <!--START CODE "c7461_321"-->
+            <blockquote class="code"><p class="quoted"><a id="c7461_321"></a>Rule for gawking at the Diamond Market:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Your throat closes and your eyes begin to sting. You have long disdained pomp and luxury, and railed against the oppression that brings such wealth to some men at the cost of the lives of others; you were not prepared for the magnificence.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7445_336"-->
-            <blockquote class="code"><p class="quoted"><a id="c7445_336"></a>After gawking at a room (called the target): now the target is commented.
+            <!--START CODE "c7462_321"-->
+            <blockquote class="code"><p class="quoted"><a id="c7462_321"></a>After gawking at a room (called the target): now the target is commented.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>And now the scene itself:</p>
-            <!--START CODE "c7446_336"-->
-            <blockquote class="code"><p class="quoted"><a id="c7446_336"></a>The Cobbled Alley is a room. &quot;The Alley has never been made into a proper street: the buildings on either side are simply too important to tear down. For all that, there isn't much sign of the magnificence nearby. The entrance you seek is set below street level, four grimy steps down to a half-basement.&quot;
+            <!--START CODE "c7463_321"-->
+            <blockquote class="code"><p class="quoted"><a id="c7463_321"></a>The Cobbled Alley is a room. &quot;The Alley has never been made into a proper street: the buildings on either side are simply too important to tear down. For all that, there isn't much sign of the magnificence nearby. The entrance you seek is set below street level, four grimy steps down to a half-basement.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7447_336"-->
-            <blockquote class="code"><p class="quoted"><a id="c7447_336"></a>After going to Diamond Market:
+            <!--START CODE "c7464_321"-->
+            <blockquote class="code"><p class="quoted"><a id="c7464_321"></a>After going to Diamond Market:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You descend the steps quickly and step into the small foyer, allowing yourself to be searched for weapons, before going on to...&quot;;
             <br>
@@ -199,66 +199,66 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7448_336"-->
-            <blockquote class="code"><p class="quoted"><a id="c7448_336"></a>Diamond Market is down from Cobbled Alley. &quot;The roof is vaulted and painted in allegorical images representing Plenty, the Riches of the Earth, and Saint Eligius, patron of goldsmiths and jewelers.
+            <!--START CODE "c7465_321"-->
+            <blockquote class="code"><p class="quoted"><a id="c7465_321"></a>Diamond Market is down from Cobbled Alley. &quot;The roof is vaulted and painted in allegorical images representing Plenty, the Riches of the Earth, and Saint Eligius, patron of goldsmiths and jewelers.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7449_336"-->
-            <blockquote class="code"><p class="quoted"><a id="c7449_336"></a>Under their watchful eye, dozens of men in sober black robes sit; and on the tables before them are rubies, emeralds, sapphires from oversea, but most of all diamonds, both raw and cut.&quot;
+            <!--START CODE "c7466_321"-->
+            <blockquote class="code"><p class="quoted"><a id="c7466_321"></a>Under their watchful eye, dozens of men in sober black robes sit; and on the tables before them are rubies, emeralds, sapphires from oversea, but most of all diamonds, both raw and cut.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7450_336"-->
-            <blockquote class="code"><p class="quoted"><a id="c7450_336"></a>The burly guard is a man in Diamond Market. &quot;A burly guard patrols quite close to you, but even he is more sumptuously dressed than the average burly guard, and his buttons shine.&quot;
+            <!--START CODE "c7467_321"-->
+            <blockquote class="code"><p class="quoted"><a id="c7467_321"></a>The burly guard is a man in Diamond Market. &quot;A burly guard patrols quite close to you, but even he is more sumptuously dressed than the average burly guard, and his buttons shine.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7451_336"-->
-            <blockquote class="code"><p class="quoted"><a id="c7451_336"></a>Test me with &quot;d / look&quot;.
+            <!--START CODE "c7468_321"-->
+            <blockquote class="code"><p class="quoted"><a id="c7468_321"></a>Test me with &quot;d / look&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "394: Uptempo" "e404"-->
-        <a id="e404"></a><table class="egcue">
+        <!--START EXAMPLE "395: Uptempo" "e410"-->
+        <a id="e410"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example404'); return false;"><b>394</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example410'); return false;"><b>395</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example404'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Uptempo</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example410'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Uptempo</span></b></a><br>
                     Adjust time advancement so the game clock moves fifteen minutes each turn.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc17.html#e404"><i>RB</i></a></div>
+                        <a href="Rdoc17.html#e410"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example404" style="display: none;">
+        <div class="egpanel" id="example410" style="display: none;">
             <p>Suppose a game in which all actions take a very long time. Here's a simple implementation:</p>
-            <!--START CODE "c7452_404"-->
-            <blockquote class="code"><p class="quoted"><a id="c7452_404"></a><a href="javascript:pasteCode('[=0x0022=]Uptempo[=0x0022=][=0x000A=][=0x000A=]The fast time rule is listed instead of the advance time rule in the turn sequence rules.[=0x000A=][=0x000A=]This is the fast time rule:[=0x000A=][=0x0009=]increment the turn count;[=0x000A=][=0x0009=]increase the time of day by 15 minutes.[=0x000A=][=0x000A=]When play begins: now the right hand status line is [=0x0022=][time of day][=0x0022=].[=0x000A=][=0x000A=]The Temporal Hot Spot is a room.[=0x000A=][=0x000A=]Test me with [=0x0022=]z / z[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Uptempo[=0x0022=][=0x000A=][=0x000A=]The fast time rule is listed instead of the advance time rule in the turn sequence rules.[=0x000A=][=0x000A=]This is the fast time rule:[=0x000A=][=0x0009=]increment the turn count;[=0x000A=][=0x0009=]increase the time of day by 15 minutes.[=0x000A=][=0x000A=]When play begins: now the right hand status line is [=0x0022=][time of day][=0x0022=].[=0x000A=][=0x000A=]The Temporal Hot Spot is a room.[=0x000A=][=0x000A=]Test me with [=0x0022=]z / z[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Uptempo')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Uptempo&quot;
+            <!--START CODE "c7469_410"-->
+            <blockquote class="code"><p class="quoted"><a id="c7469_410"></a><a href="javascript:pasteCode('[=0x0022=]Uptempo[=0x0022=][=0x000A=][=0x000A=]The fast time rule is listed instead of the advance time rule in the turn sequence rules.[=0x000A=][=0x000A=]This is the fast time rule:[=0x000A=][=0x0009=]increment the turn count;[=0x000A=][=0x0009=]increase the time of day by 15 minutes.[=0x000A=][=0x000A=]When play begins: now the right hand status line is [=0x0022=][time of day][=0x0022=].[=0x000A=][=0x000A=]The Temporal Hot Spot is a room.[=0x000A=][=0x000A=]Test me with [=0x0022=]z / z[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Uptempo[=0x0022=][=0x000A=][=0x000A=]The fast time rule is listed instead of the advance time rule in the turn sequence rules.[=0x000A=][=0x000A=]This is the fast time rule:[=0x000A=][=0x0009=]increment the turn count;[=0x000A=][=0x0009=]increase the time of day by 15 minutes.[=0x000A=][=0x000A=]When play begins: now the right hand status line is [=0x0022=][time of day][=0x0022=].[=0x000A=][=0x000A=]The Temporal Hot Spot is a room.[=0x000A=][=0x000A=]Test me with [=0x0022=]z / z[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Uptempo')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Uptempo&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7453_404"-->
-            <blockquote class="code"><p class="quoted"><a id="c7453_404"></a>The fast time rule is listed instead of the advance time rule in the turn sequence rules.
+            <!--START CODE "c7470_410"-->
+            <blockquote class="code"><p class="quoted"><a id="c7470_410"></a>The fast time rule is listed instead of the advance time rule in the turn sequence rules.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7454_404"-->
-            <blockquote class="code"><p class="quoted"><a id="c7454_404"></a>This is the fast time rule:
+            <!--START CODE "c7471_410"-->
+            <blockquote class="code"><p class="quoted"><a id="c7471_410"></a>This is the fast time rule:
             <br>
             &#160;&#160;&#160;&#160;increment the turn count;
             <br>
@@ -266,68 +266,68 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7455_404"-->
-            <blockquote class="code"><p class="quoted"><a id="c7455_404"></a>When play begins: now the right hand status line is &quot;[time of day]&quot;.
+            <!--START CODE "c7472_410"-->
+            <blockquote class="code"><p class="quoted"><a id="c7472_410"></a>When play begins: now the right hand status line is &quot;[time of day]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7456_404"-->
-            <blockquote class="code"><p class="quoted"><a id="c7456_404"></a>The Temporal Hot Spot is a room.
+            <!--START CODE "c7473_410"-->
+            <blockquote class="code"><p class="quoted"><a id="c7473_410"></a>The Temporal Hot Spot is a room.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7457_404"-->
-            <blockquote class="code"><p class="quoted"><a id="c7457_404"></a>Test me with &quot;z / z&quot;.
+            <!--START CODE "c7474_410"-->
+            <blockquote class="code"><p class="quoted"><a id="c7474_410"></a>Test me with &quot;z / z&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>This works fine as it stands, but we may run into some difficulty with it if we add scheduled events:</p>
-            <!--START CODE "c7458_404"-->
-            <blockquote class="code"><p class="quoted"><a id="c7458_404"></a><a href="javascript:pasteCode('At 9:30 AM:[=0x000A=][=0x0009=]say [=0x0022=]Two turtles run by, almost too fast to see.[=0x0022=][=0x000A=][=0x000A=]At 9:37 AM:[=0x000A=][=0x0009=]say [=0x0022=]A snail blitzes past.[=0x0022=][=0x000A=][=0x000A=]At 9:42 AM:[=0x000A=][=0x0009=]say [=0x0022=]The grass grows.[=0x0022=][=0x000A=][=0x000A=]At 9:50 AM:[=0x000A=][=0x0009=]say [=0x0022=]Several flowers burst open.[=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('At 9:30 AM:[=0x000A=][=0x0009=]say [=0x0022=]Two turtles run by, almost too fast to see.[=0x0022=][=0x000A=][=0x000A=]At 9:37 AM:[=0x000A=][=0x0009=]say [=0x0022=]A snail blitzes past.[=0x0022=][=0x000A=][=0x000A=]At 9:42 AM:[=0x000A=][=0x0009=]say [=0x0022=]The grass grows.[=0x0022=][=0x000A=][=0x000A=]At 9:50 AM:[=0x000A=][=0x0009=]say [=0x0022=]Several flowers burst open.[=0x0022=][=0x000A=][=0x000A=]\n', 'Example - Uptempo')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; At 9:30 AM:
+            <!--START CODE "c7475_410"-->
+            <blockquote class="code"><p class="quoted"><a id="c7475_410"></a><a href="javascript:pasteCode('At 9:30 AM:[=0x000A=][=0x0009=]say [=0x0022=]Two turtles run by, almost too fast to see.[=0x0022=][=0x000A=][=0x000A=]At 9:37 AM:[=0x000A=][=0x0009=]say [=0x0022=]A snail blitzes past.[=0x0022=][=0x000A=][=0x000A=]At 9:42 AM:[=0x000A=][=0x0009=]say [=0x0022=]The grass grows.[=0x0022=][=0x000A=][=0x000A=]At 9:50 AM:[=0x000A=][=0x0009=]say [=0x0022=]Several flowers burst open.[=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('At 9:30 AM:[=0x000A=][=0x0009=]say [=0x0022=]Two turtles run by, almost too fast to see.[=0x0022=][=0x000A=][=0x000A=]At 9:37 AM:[=0x000A=][=0x0009=]say [=0x0022=]A snail blitzes past.[=0x0022=][=0x000A=][=0x000A=]At 9:42 AM:[=0x000A=][=0x0009=]say [=0x0022=]The grass grows.[=0x0022=][=0x000A=][=0x000A=]At 9:50 AM:[=0x000A=][=0x0009=]say [=0x0022=]Several flowers burst open.[=0x0022=][=0x000A=][=0x000A=]\n', 'Example - Uptempo')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; At 9:30 AM:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Two turtles run by, almost too fast to see.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7459_404"-->
-            <blockquote class="code"><p class="quoted"><a id="c7459_404"></a>At 9:37 AM:
+            <!--START CODE "c7476_410"-->
+            <blockquote class="code"><p class="quoted"><a id="c7476_410"></a>At 9:37 AM:
             <br>
             &#160;&#160;&#160;&#160;say &quot;A snail blitzes past.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7460_404"-->
-            <blockquote class="code"><p class="quoted"><a id="c7460_404"></a>At 9:42 AM:
+            <!--START CODE "c7477_410"-->
+            <blockquote class="code"><p class="quoted"><a id="c7477_410"></a>At 9:42 AM:
             <br>
             &#160;&#160;&#160;&#160;say &quot;The grass grows.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7461_404"-->
-            <blockquote class="code"><p class="quoted"><a id="c7461_404"></a>At 9:50 AM:
+            <!--START CODE "c7478_410"-->
+            <blockquote class="code"><p class="quoted"><a id="c7478_410"></a>At 9:50 AM:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Several flowers burst open.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Time is counted forward after the schedule has already been consulted, so that only the 9:30 AM event happens between 9:30 and 9:45; the next two appear to occur between 9:45 and 10:00 AM, and the 9:50 AM event is not reported until the 10:00 AM to 10:15 wait. To get around this, we might schedule events only on the fifteen-minute mark when we want them to occur. Alternatively, we might try instead</p>
-            <!--START CODE "c7462_404"-->
-            <blockquote class="code"><p class="quoted"><a id="c7462_404"></a><a href="javascript:pasteCode('[=0x0022=]Uptempo[=0x0022=][=0x000A=][=0x000A=]The fast time rule is listed before the timed events rule in the turn sequence rules.[=0x000A=][=0x000A=]The advance time rule is not listed in the turn sequence rules.[=0x000A=][=0x000A=]This is the fast time rule:[=0x000A=][=0x0009=]increment the turn count;[=0x000A=][=0x0009=]increase the time of day by 15 minutes.[=0x000A=][=0x000A=]When play begins: now the right hand status line is [=0x0022=][time of day][=0x0022=].[=0x000A=][=0x000A=]The Temporal Hot Spot is a room.[=0x000A=][=0x000A=]At 9:30 AM:[=0x000A=][=0x0009=]say [=0x0022=]Two turtles run by, almost too fast to see.[=0x0022=][=0x000A=][=0x000A=]At 9:37 AM:[=0x000A=][=0x0009=]say [=0x0022=]A snail blitzes past.[=0x0022=][=0x000A=][=0x000A=]At 9:42 AM:[=0x000A=][=0x0009=]say [=0x0022=]The grass grows.[=0x0022=][=0x000A=][=0x000A=]At 9:50 AM:[=0x000A=][=0x0009=]say [=0x0022=]Several flowers burst open.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]z / z / z / z[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Uptempo[=0x0022=][=0x000A=][=0x000A=]The fast time rule is listed before the timed events rule in the turn sequence rules.[=0x000A=][=0x000A=]The advance time rule is not listed in the turn sequence rules.[=0x000A=][=0x000A=]This is the fast time rule:[=0x000A=][=0x0009=]increment the turn count;[=0x000A=][=0x0009=]increase the time of day by 15 minutes.[=0x000A=][=0x000A=]When play begins: now the right hand status line is [=0x0022=][time of day][=0x0022=].[=0x000A=][=0x000A=]The Temporal Hot Spot is a room.[=0x000A=][=0x000A=]At 9:30 AM:[=0x000A=][=0x0009=]say [=0x0022=]Two turtles run by, almost too fast to see.[=0x0022=][=0x000A=][=0x000A=]At 9:37 AM:[=0x000A=][=0x0009=]say [=0x0022=]A snail blitzes past.[=0x0022=][=0x000A=][=0x000A=]At 9:42 AM:[=0x000A=][=0x0009=]say [=0x0022=]The grass grows.[=0x0022=][=0x000A=][=0x000A=]At 9:50 AM:[=0x000A=][=0x0009=]say [=0x0022=]Several flowers burst open.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]z / z / z / z[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Uptempo')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Uptempo&quot;
+            <!--START CODE "c7479_410"-->
+            <blockquote class="code"><p class="quoted"><a id="c7479_410"></a><a href="javascript:pasteCode('[=0x0022=]Uptempo[=0x0022=][=0x000A=][=0x000A=]The fast time rule is listed before the timed events rule in the turn sequence rules.[=0x000A=][=0x000A=]The advance time rule is not listed in the turn sequence rules.[=0x000A=][=0x000A=]This is the fast time rule:[=0x000A=][=0x0009=]increment the turn count;[=0x000A=][=0x0009=]increase the time of day by 15 minutes.[=0x000A=][=0x000A=]When play begins: now the right hand status line is [=0x0022=][time of day][=0x0022=].[=0x000A=][=0x000A=]The Temporal Hot Spot is a room.[=0x000A=][=0x000A=]At 9:30 AM:[=0x000A=][=0x0009=]say [=0x0022=]Two turtles run by, almost too fast to see.[=0x0022=][=0x000A=][=0x000A=]At 9:37 AM:[=0x000A=][=0x0009=]say [=0x0022=]A snail blitzes past.[=0x0022=][=0x000A=][=0x000A=]At 9:42 AM:[=0x000A=][=0x0009=]say [=0x0022=]The grass grows.[=0x0022=][=0x000A=][=0x000A=]At 9:50 AM:[=0x000A=][=0x0009=]say [=0x0022=]Several flowers burst open.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]z / z / z / z[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Uptempo[=0x0022=][=0x000A=][=0x000A=]The fast time rule is listed before the timed events rule in the turn sequence rules.[=0x000A=][=0x000A=]The advance time rule is not listed in the turn sequence rules.[=0x000A=][=0x000A=]This is the fast time rule:[=0x000A=][=0x0009=]increment the turn count;[=0x000A=][=0x0009=]increase the time of day by 15 minutes.[=0x000A=][=0x000A=]When play begins: now the right hand status line is [=0x0022=][time of day][=0x0022=].[=0x000A=][=0x000A=]The Temporal Hot Spot is a room.[=0x000A=][=0x000A=]At 9:30 AM:[=0x000A=][=0x0009=]say [=0x0022=]Two turtles run by, almost too fast to see.[=0x0022=][=0x000A=][=0x000A=]At 9:37 AM:[=0x000A=][=0x0009=]say [=0x0022=]A snail blitzes past.[=0x0022=][=0x000A=][=0x000A=]At 9:42 AM:[=0x000A=][=0x0009=]say [=0x0022=]The grass grows.[=0x0022=][=0x000A=][=0x000A=]At 9:50 AM:[=0x000A=][=0x0009=]say [=0x0022=]Several flowers burst open.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]z / z / z / z[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Uptempo')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Uptempo&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7463_404"-->
-            <blockquote class="code"><p class="quoted"><a id="c7463_404"></a>The fast time rule is listed before the timed events rule in the turn sequence rules.
+            <!--START CODE "c7480_410"-->
+            <blockquote class="code"><p class="quoted"><a id="c7480_410"></a>The fast time rule is listed before the timed events rule in the turn sequence rules.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7464_404"-->
-            <blockquote class="code"><p class="quoted"><a id="c7464_404"></a>The advance time rule is not listed in the turn sequence rules.
+            <!--START CODE "c7481_410"-->
+            <blockquote class="code"><p class="quoted"><a id="c7481_410"></a>The advance time rule is not listed in the turn sequence rules.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7465_404"-->
-            <blockquote class="code"><p class="quoted"><a id="c7465_404"></a>This is the fast time rule:
+            <!--START CODE "c7482_410"-->
+            <blockquote class="code"><p class="quoted"><a id="c7482_410"></a>This is the fast time rule:
             <br>
             &#160;&#160;&#160;&#160;increment the turn count;
             <br>
@@ -335,46 +335,46 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7466_404"-->
-            <blockquote class="code"><p class="quoted"><a id="c7466_404"></a>When play begins: now the right hand status line is &quot;[time of day]&quot;.
+            <!--START CODE "c7483_410"-->
+            <blockquote class="code"><p class="quoted"><a id="c7483_410"></a>When play begins: now the right hand status line is &quot;[time of day]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7467_404"-->
-            <blockquote class="code"><p class="quoted"><a id="c7467_404"></a>The Temporal Hot Spot is a room.
+            <!--START CODE "c7484_410"-->
+            <blockquote class="code"><p class="quoted"><a id="c7484_410"></a>The Temporal Hot Spot is a room.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7468_404"-->
-            <blockquote class="code"><p class="quoted"><a id="c7468_404"></a>At 9:30 AM:
+            <!--START CODE "c7485_410"-->
+            <blockquote class="code"><p class="quoted"><a id="c7485_410"></a>At 9:30 AM:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Two turtles run by, almost too fast to see.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7469_404"-->
-            <blockquote class="code"><p class="quoted"><a id="c7469_404"></a>At 9:37 AM:
+            <!--START CODE "c7486_410"-->
+            <blockquote class="code"><p class="quoted"><a id="c7486_410"></a>At 9:37 AM:
             <br>
             &#160;&#160;&#160;&#160;say &quot;A snail blitzes past.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7470_404"-->
-            <blockquote class="code"><p class="quoted"><a id="c7470_404"></a>At 9:42 AM:
+            <!--START CODE "c7487_410"-->
+            <blockquote class="code"><p class="quoted"><a id="c7487_410"></a>At 9:42 AM:
             <br>
             &#160;&#160;&#160;&#160;say &quot;The grass grows.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7471_404"-->
-            <blockquote class="code"><p class="quoted"><a id="c7471_404"></a>At 9:50 AM:
+            <!--START CODE "c7488_410"-->
+            <blockquote class="code"><p class="quoted"><a id="c7488_410"></a>At 9:50 AM:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Several flowers burst open.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7472_404"-->
-            <blockquote class="code"><p class="quoted"><a id="c7472_404"></a>Test me with &quot;z / z / z / z&quot;.
+            <!--START CODE "c7489_410"-->
+            <blockquote class="code"><p class="quoted"><a id="c7489_410"></a>Test me with &quot;z / z / z / z&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -382,191 +382,191 @@
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "395: Verbosity 2" "e411"-->
-        <a id="e411"></a><table class="egcue">
+        <!--START EXAMPLE "396: Verbosity 2" "e417"-->
+        <a id="e417"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example411'); return false;"><b>395</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example417'); return false;"><b>396</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example411'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Verbosity 2</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example417'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Verbosity 2</span></b></a><br>
                     Making rooms give full descriptions each time we enter, even if we have visited before, and disallowing player use of BRIEF and SUPERBRIEF.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc32.html#e411"><i>RB</i></a></div>
+                        <a href="Rdoc32.html#e417"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example411" style="display: none;">
-            <p>Suppose that we want the player always to see full room descriptions, even if he tries to reset the defaults -- perhaps because there is vital information there which he will miss if he turns off full-length room descriptions.</p>
+        <div class="egpanel" id="example417" style="display: none;">
+            <p>Suppose that we want the player always to see full room descriptions, even if they try to reset the defaults -- perhaps because there is vital information there which they will miss if they turn off full-length room descriptions.</p>
             <p>To do this, we might want to remove the standard behavior of the three actions associated with BRIEF, SUPERBRIEF, and VERBOSE, replacing them with explanatory messages about how the game behaves. We cannot use Instead to override these actions, because Instead rules do not apply to actions out of world. Instead, we will want to remove and replace the carry out rules.</p>
             <p>We can do this easily by going to the Actions Index, looking up the detail panel for, say, &quot;preferring abbreviated room descriptions&quot;, and click the &quot;unlist&quot; button to paste in the sentence that will remove this rule from the rulebook.</p>
             <p>Let's remove all three of the carry out rules and substitute our own:</p>
-            <!--START CODE "c7473_411"-->
-            <blockquote class="code"><p class="quoted"><a id="c7473_411"></a><a href="javascript:pasteCode('[=0x0022=]Verbosity 2[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The prefer unabbreviated room descriptions rule is not listed in the carry out preferring unabbreviated room descriptions rulebook.[=0x000A=][=0x000A=]The prefer sometimes abbreviated room descriptions rule is not listed in the carry out preferring sometimes abbreviated room descriptions rulebook.[=0x000A=][=0x000A=]The prefer abbreviated room descriptions rule is not listed in the carry out preferring abbreviated room descriptions rulebook.[=0x000A=][=0x000A=]Carry out preferring unabbreviated room descriptions:[=0x000A=][=0x0009=]say [=0x0022=][story title] always provides full-length descriptions for your reading pleasure.[=0x0022=][=0x000A=][=0x000A=]Carry out preferring sometimes abbreviated room descriptions:[=0x000A=][=0x0009=]say [=0x0022=]For your playing protection, [story title] provides only full-length room descriptions.[=0x0022=][=0x000A=][=0x000A=]Carry out preferring abbreviated room descriptions:[=0x000A=][=0x0009=]try preferring sometimes abbreviated room descriptions instead.[=0x000A=][=0x000A=]The standard report preferring abbreviated room descriptions rule is not listed in the report preferring abbreviated room descriptions rulebook.[=0x000A=][=0x000A=]The standard report preferring unabbreviated room descriptions rule is not listed in the report preferring unabbreviated room descriptions rulebook.[=0x000A=][=0x000A=]The standard report preferring sometimes abbreviated room descriptions rule is not listed in the report preferring sometimes abbreviated room descriptions rulebook.[=0x000A=][=0x000A=]Use full-length room descriptions.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Wilkie Memorial Research Wing is a room. [=0x0022=]The research wing was built onto the science building in 1967, when the college[=0x0027=]s finances were good but its aesthetic standards at a local minimum. A dull brown corridor recedes both north and south; drab olive doors open onto the laboratories of individual faculty members. The twitchy fluorescent lighting makes the whole thing flicker, as though it might wink out of existence at any moment.[=0x000A=][=0x000A=]The Men[=0x0027=]s Restroom is immediately west of this point.[=0x0022=][=0x000A=][=0x000A=]The Men[=0x0027=]s Restroom is west of the Research Wing. [=0x0022=]Well, yes, you really shouldn[=0x0027=]t be in here. But the nearest women[=0x0027=]s room is on the other side of the building, and at this hour you have the labs mostly to yourself. All the same, you try not to read any of the things scrawled over the urinals which might have been intended in confidence.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]west / east / brief / w / e / superbrief / w / e / verbose[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Verbosity 2[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The prefer unabbreviated room descriptions rule is not listed in the carry out preferring unabbreviated room descriptions rulebook.[=0x000A=][=0x000A=]The prefer sometimes abbreviated room descriptions rule is not listed in the carry out preferring sometimes abbreviated room descriptions rulebook.[=0x000A=][=0x000A=]The prefer abbreviated room descriptions rule is not listed in the carry out preferring abbreviated room descriptions rulebook.[=0x000A=][=0x000A=]Carry out preferring unabbreviated room descriptions:[=0x000A=][=0x0009=]say [=0x0022=][story title] always provides full-length descriptions for your reading pleasure.[=0x0022=][=0x000A=][=0x000A=]Carry out preferring sometimes abbreviated room descriptions:[=0x000A=][=0x0009=]say [=0x0022=]For your playing protection, [story title] provides only full-length room descriptions.[=0x0022=][=0x000A=][=0x000A=]Carry out preferring abbreviated room descriptions:[=0x000A=][=0x0009=]try preferring sometimes abbreviated room descriptions instead.[=0x000A=][=0x000A=]The standard report preferring abbreviated room descriptions rule is not listed in the report preferring abbreviated room descriptions rulebook.[=0x000A=][=0x000A=]The standard report preferring unabbreviated room descriptions rule is not listed in the report preferring unabbreviated room descriptions rulebook.[=0x000A=][=0x000A=]The standard report preferring sometimes abbreviated room descriptions rule is not listed in the report preferring sometimes abbreviated room descriptions rulebook.[=0x000A=][=0x000A=]Use full-length room descriptions.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Wilkie Memorial Research Wing is a room. [=0x0022=]The research wing was built onto the science building in 1967, when the college[=0x0027=]s finances were good but its aesthetic standards at a local minimum. A dull brown corridor recedes both north and south; drab olive doors open onto the laboratories of individual faculty members. The twitchy fluorescent lighting makes the whole thing flicker, as though it might wink out of existence at any moment.[=0x000A=][=0x000A=]The Men[=0x0027=]s Restroom is immediately west of this point.[=0x0022=][=0x000A=][=0x000A=]The Men[=0x0027=]s Restroom is west of the Research Wing. [=0x0022=]Well, yes, you really shouldn[=0x0027=]t be in here. But the nearest women[=0x0027=]s room is on the other side of the building, and at this hour you have the labs mostly to yourself. All the same, you try not to read any of the things scrawled over the urinals which might have been intended in confidence.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]west / east / brief / w / e / superbrief / w / e / verbose[=0x0022=].[=0x000A=]\n', 'Example - Verbosity 2')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Verbosity 2&quot;
+            <!--START CODE "c7490_417"-->
+            <blockquote class="code"><p class="quoted"><a id="c7490_417"></a><a href="javascript:pasteCode('[=0x0022=]Verbosity 2[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The prefer unabbreviated room descriptions rule is not listed in the carry out preferring unabbreviated room descriptions rulebook.[=0x000A=][=0x000A=]The prefer sometimes abbreviated room descriptions rule is not listed in the carry out preferring sometimes abbreviated room descriptions rulebook.[=0x000A=][=0x000A=]The prefer abbreviated room descriptions rule is not listed in the carry out preferring abbreviated room descriptions rulebook.[=0x000A=][=0x000A=]Carry out preferring unabbreviated room descriptions:[=0x000A=][=0x0009=]say [=0x0022=][story title] always provides full-length descriptions for your reading pleasure.[=0x0022=][=0x000A=][=0x000A=]Carry out preferring sometimes abbreviated room descriptions:[=0x000A=][=0x0009=]say [=0x0022=]For your playing protection, [story title] provides only full-length room descriptions.[=0x0022=][=0x000A=][=0x000A=]Carry out preferring abbreviated room descriptions:[=0x000A=][=0x0009=]try preferring sometimes abbreviated room descriptions instead.[=0x000A=][=0x000A=]The standard report preferring abbreviated room descriptions rule is not listed in the report preferring abbreviated room descriptions rulebook.[=0x000A=][=0x000A=]The standard report preferring unabbreviated room descriptions rule is not listed in the report preferring unabbreviated room descriptions rulebook.[=0x000A=][=0x000A=]The standard report preferring sometimes abbreviated room descriptions rule is not listed in the report preferring sometimes abbreviated room descriptions rulebook.[=0x000A=][=0x000A=]Use full-length room descriptions.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Wilkie Memorial Research Wing is a room. [=0x0022=]The research wing was built onto the science building in 1967, when the college[=0x0027=]s finances were good but its aesthetic standards at a local minimum. A dull brown corridor recedes both north and south; drab olive doors open onto the laboratories of individual faculty members. The twitchy fluorescent lighting makes the whole thing flicker, as though it might wink out of existence at any moment.[=0x000A=][=0x000A=]The Men[=0x0027=]s Restroom is immediately west of this point.[=0x0022=][=0x000A=][=0x000A=]The Men[=0x0027=]s Restroom is west of the Research Wing. [=0x0022=]Well, yes, you really shouldn[=0x0027=]t be in here. But the nearest women[=0x0027=]s room is on the other side of the building, and at this hour you have the labs mostly to yourself. All the same, you try not to read any of the things scrawled over the urinals which might have been intended in confidence.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]west / east / brief / w / e / superbrief / w / e / verbose[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Verbosity 2[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The prefer unabbreviated room descriptions rule is not listed in the carry out preferring unabbreviated room descriptions rulebook.[=0x000A=][=0x000A=]The prefer sometimes abbreviated room descriptions rule is not listed in the carry out preferring sometimes abbreviated room descriptions rulebook.[=0x000A=][=0x000A=]The prefer abbreviated room descriptions rule is not listed in the carry out preferring abbreviated room descriptions rulebook.[=0x000A=][=0x000A=]Carry out preferring unabbreviated room descriptions:[=0x000A=][=0x0009=]say [=0x0022=][story title] always provides full-length descriptions for your reading pleasure.[=0x0022=][=0x000A=][=0x000A=]Carry out preferring sometimes abbreviated room descriptions:[=0x000A=][=0x0009=]say [=0x0022=]For your playing protection, [story title] provides only full-length room descriptions.[=0x0022=][=0x000A=][=0x000A=]Carry out preferring abbreviated room descriptions:[=0x000A=][=0x0009=]try preferring sometimes abbreviated room descriptions instead.[=0x000A=][=0x000A=]The standard report preferring abbreviated room descriptions rule is not listed in the report preferring abbreviated room descriptions rulebook.[=0x000A=][=0x000A=]The standard report preferring unabbreviated room descriptions rule is not listed in the report preferring unabbreviated room descriptions rulebook.[=0x000A=][=0x000A=]The standard report preferring sometimes abbreviated room descriptions rule is not listed in the report preferring sometimes abbreviated room descriptions rulebook.[=0x000A=][=0x000A=]Use full-length room descriptions.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Wilkie Memorial Research Wing is a room. [=0x0022=]The research wing was built onto the science building in 1967, when the college[=0x0027=]s finances were good but its aesthetic standards at a local minimum. A dull brown corridor recedes both north and south; drab olive doors open onto the laboratories of individual faculty members. The twitchy fluorescent lighting makes the whole thing flicker, as though it might wink out of existence at any moment.[=0x000A=][=0x000A=]The Men[=0x0027=]s Restroom is immediately west of this point.[=0x0022=][=0x000A=][=0x000A=]The Men[=0x0027=]s Restroom is west of the Research Wing. [=0x0022=]Well, yes, you really shouldn[=0x0027=]t be in here. But the nearest women[=0x0027=]s room is on the other side of the building, and at this hour you have the labs mostly to yourself. All the same, you try not to read any of the things scrawled over the urinals which might have been intended in confidence.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]west / east / brief / w / e / superbrief / w / e / verbose[=0x0022=].[=0x000A=]\n', 'Example - Verbosity 2')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Verbosity 2&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7474_411"-->
-            <blockquote class="code"><p class="quoted"><a id="c7474_411"></a>Section 1 - Procedure
+            <!--START CODE "c7491_417"-->
+            <blockquote class="code"><p class="quoted"><a id="c7491_417"></a>Section 1 - Procedure
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7475_411"-->
-            <blockquote class="code"><p class="quoted"><a id="c7475_411"></a>The prefer unabbreviated room descriptions rule is not listed in the carry out preferring unabbreviated room descriptions rulebook.
+            <!--START CODE "c7492_417"-->
+            <blockquote class="code"><p class="quoted"><a id="c7492_417"></a>The prefer unabbreviated room descriptions rule is not listed in the carry out preferring unabbreviated room descriptions rulebook.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7476_411"-->
-            <blockquote class="code"><p class="quoted"><a id="c7476_411"></a>The prefer sometimes abbreviated room descriptions rule is not listed in the carry out preferring sometimes abbreviated room descriptions rulebook.
+            <!--START CODE "c7493_417"-->
+            <blockquote class="code"><p class="quoted"><a id="c7493_417"></a>The prefer sometimes abbreviated room descriptions rule is not listed in the carry out preferring sometimes abbreviated room descriptions rulebook.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7477_411"-->
-            <blockquote class="code"><p class="quoted"><a id="c7477_411"></a>The prefer abbreviated room descriptions rule is not listed in the carry out preferring abbreviated room descriptions rulebook.
+            <!--START CODE "c7494_417"-->
+            <blockquote class="code"><p class="quoted"><a id="c7494_417"></a>The prefer abbreviated room descriptions rule is not listed in the carry out preferring abbreviated room descriptions rulebook.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7478_411"-->
-            <blockquote class="code"><p class="quoted"><a id="c7478_411"></a>Carry out preferring unabbreviated room descriptions:
+            <!--START CODE "c7495_417"-->
+            <blockquote class="code"><p class="quoted"><a id="c7495_417"></a>Carry out preferring unabbreviated room descriptions:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[story title] always provides full-length descriptions for your reading pleasure.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7479_411"-->
-            <blockquote class="code"><p class="quoted"><a id="c7479_411"></a>Carry out preferring sometimes abbreviated room descriptions:
+            <!--START CODE "c7496_417"-->
+            <blockquote class="code"><p class="quoted"><a id="c7496_417"></a>Carry out preferring sometimes abbreviated room descriptions:
             <br>
             &#160;&#160;&#160;&#160;say &quot;For your playing protection, [story title] provides only full-length room descriptions.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7480_411"-->
-            <blockquote class="code"><p class="quoted"><a id="c7480_411"></a>Carry out preferring abbreviated room descriptions:
+            <!--START CODE "c7497_417"-->
+            <blockquote class="code"><p class="quoted"><a id="c7497_417"></a>Carry out preferring abbreviated room descriptions:
             <br>
             &#160;&#160;&#160;&#160;try preferring sometimes abbreviated room descriptions instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7481_411"-->
-            <blockquote class="code"><p class="quoted"><a id="c7481_411"></a>The standard report preferring abbreviated room descriptions rule is not listed in the report preferring abbreviated room descriptions rulebook.
+            <!--START CODE "c7498_417"-->
+            <blockquote class="code"><p class="quoted"><a id="c7498_417"></a>The standard report preferring abbreviated room descriptions rule is not listed in the report preferring abbreviated room descriptions rulebook.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7482_411"-->
-            <blockquote class="code"><p class="quoted"><a id="c7482_411"></a>The standard report preferring unabbreviated room descriptions rule is not listed in the report preferring unabbreviated room descriptions rulebook.
+            <!--START CODE "c7499_417"-->
+            <blockquote class="code"><p class="quoted"><a id="c7499_417"></a>The standard report preferring unabbreviated room descriptions rule is not listed in the report preferring unabbreviated room descriptions rulebook.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7483_411"-->
-            <blockquote class="code"><p class="quoted"><a id="c7483_411"></a>The standard report preferring sometimes abbreviated room descriptions rule is not listed in the report preferring sometimes abbreviated room descriptions rulebook.
+            <!--START CODE "c7500_417"-->
+            <blockquote class="code"><p class="quoted"><a id="c7500_417"></a>The standard report preferring sometimes abbreviated room descriptions rule is not listed in the report preferring sometimes abbreviated room descriptions rulebook.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7484_411"-->
-            <blockquote class="code"><p class="quoted"><a id="c7484_411"></a>Use full-length room descriptions.
+            <!--START CODE "c7501_417"-->
+            <blockquote class="code"><p class="quoted"><a id="c7501_417"></a>Use full-length room descriptions.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7485_411"-->
-            <blockquote class="code"><p class="quoted"><a id="c7485_411"></a>Section 2 - Scenario
+            <!--START CODE "c7502_417"-->
+            <blockquote class="code"><p class="quoted"><a id="c7502_417"></a>Section 2 - Scenario
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7486_411"-->
-            <blockquote class="code"><p class="quoted"><a id="c7486_411"></a>The Wilkie Memorial Research Wing is a room. &quot;The research wing was built onto the science building in 1967, when the college's finances were good but its aesthetic standards at a local minimum. A dull brown corridor recedes both north and south; drab olive doors open onto the laboratories of individual faculty members. The twitchy fluorescent lighting makes the whole thing flicker, as though it might wink out of existence at any moment.
+            <!--START CODE "c7503_417"-->
+            <blockquote class="code"><p class="quoted"><a id="c7503_417"></a>The Wilkie Memorial Research Wing is a room. &quot;The research wing was built onto the science building in 1967, when the college's finances were good but its aesthetic standards at a local minimum. A dull brown corridor recedes both north and south; drab olive doors open onto the laboratories of individual faculty members. The twitchy fluorescent lighting makes the whole thing flicker, as though it might wink out of existence at any moment.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7487_411"-->
-            <blockquote class="code"><p class="quoted"><a id="c7487_411"></a>The Men's Restroom is immediately west of this point.&quot;
+            <!--START CODE "c7504_417"-->
+            <blockquote class="code"><p class="quoted"><a id="c7504_417"></a>The Men's Restroom is immediately west of this point.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7488_411"-->
-            <blockquote class="code"><p class="quoted"><a id="c7488_411"></a>The Men's Restroom is west of the Research Wing. &quot;Well, yes, you really shouldn't be in here. But the nearest women's room is on the other side of the building, and at this hour you have the labs mostly to yourself. All the same, you try not to read any of the things scrawled over the urinals which might have been intended in confidence.&quot;
+            <!--START CODE "c7505_417"-->
+            <blockquote class="code"><p class="quoted"><a id="c7505_417"></a>The Men's Restroom is west of the Research Wing. &quot;Well, yes, you really shouldn't be in here. But the nearest women's room is on the other side of the building, and at this hour you have the labs mostly to yourself. All the same, you try not to read any of the things scrawled over the urinals which might have been intended in confidence.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7489_411"-->
-            <blockquote class="code"><p class="quoted"><a id="c7489_411"></a>Test me with &quot;west / east / brief / w / e / superbrief / w / e / verbose&quot;.
+            <!--START CODE "c7506_417"-->
+            <blockquote class="code"><p class="quoted"><a id="c7506_417"></a>Test me with &quot;west / east / brief / w / e / superbrief / w / e / verbose&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "396: Slouching" "e349"-->
-        <a id="e349"></a><table class="egcue">
+        <!--START EXAMPLE "397: Slouching" "e332"-->
+        <a id="e332"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example349'); return false;"><b>396</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example332'); return false;"><b>397</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example349'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Slouching</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example332'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Slouching</span></b></a><br>
                     A system of postures allowing the player and other characters to sit, stand, or lie down explicitly or implicitly on a variety of enterable supporters or containers, or in location.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc23.html#e349"><i>RB</i></a></div>
+                        <a href="Rdoc23.html#e332"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example349" style="display: none;">
+        <div class="egpanel" id="example332" style="display: none;">
             <p>Suppose we want to let the player explicitly sit, stand, or lie down on different enterable objects. (Normally Inform treats all these actions as entering, but there may be cases where we want to distinguish between the player sitting on a chair and the player standing on it.)</p>
-            <p>Our implementation gives each kind of enterable a range of allowed postures, and one preferred posture. If the player enters the supporter or container without specifying a posture (as in ENTER CHAIR), he will be put in the preferred posture. If he explicitly says, e.g., STAND ON CHAIR, he will be put in the standing position as long as standing is a posture that suits the chair.</p>
-            <!--START CODE "c7490_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7490_349"></a><a href="javascript:pasteCode(' [=0x0022=]Slouching[=0x0022=][=0x000A=][=0x000A=]Section 1 - Posture Rules[=0x000A=][=0x000A=]A posture is a kind of value. The postures are seated, standing, and reclining.[=0x000A=][=0x000A=]A person has a posture. The posture of a person is usually standing.[=0x000A=][=0x000A=]A supporter has a posture. A container has a posture.[=0x000A=][=0x000A=]Posture-permission relates various things to various postures. The verb to allow means the posture-permission relation.[=0x000A=][=0x000A=]Understand the commands [=0x0022=]stand[=0x0022=] and [=0x0022=]sit[=0x0022=] and [=0x0022=]lie[=0x0022=] as something new.[=0x000A=][=0x000A=]Understand [=0x0022=]sit on/in [something][=0x0022=] as sitting on.[=0x000A=]Understand [=0x0022=]lie on/in [something][=0x0022=] as lying on.[=0x000A=]Understand [=0x0022=]stand on/in [something][=0x0022=] as standing up on.[=0x000A=][=0x000A=]Sitting on is an action applying to one thing.[=0x000A=]Lying on is an action applying to one thing.[=0x000A=]Standing up on is an action applying to one thing.[=0x000A=][=0x000A=]Carry out an actor sitting on:[=0x000A=][=0x0009=]if the holder of the actor is not the noun, silently try the actor entering the noun;[=0x000A=][=0x0009=]if the holder of the actor is the noun:[=0x000A=][=0x0009=][=0x0009=]if the actor is not seated, try the actor taking position seated;[=0x000A=][=0x0009=][=0x0009=]otherwise follow the report taking position rules.[=0x000A=][=0x000A=]Carry out an actor lying on:[=0x000A=][=0x0009=]if the holder of the actor is not the noun, silently try the actor entering the noun;[=0x000A=][=0x0009=]if the holder of the actor is the noun:[=0x000A=][=0x0009=][=0x0009=]if the actor is not reclining, try the actor taking position reclining;[=0x000A=][=0x0009=][=0x0009=]otherwise follow the report taking position rules.[=0x000A=][=0x000A=]Carry out an actor standing up on:[=0x000A=][=0x0009=]if the holder of the actor is not the noun, silently try the actor entering the noun;[=0x000A=][=0x0009=]if the holder of the actor is the noun:[=0x000A=][=0x0009=][=0x0009=]if the actor is not standing, try the actor taking position standing;[=0x000A=][=0x0009=][=0x0009=]otherwise follow the report taking position rules.[=0x000A=][=0x000A=][=0x000A=]Understand [=0x0022=]lie down[=0x0022=] as lying down.[=0x000A=]Understand [=0x0022=]sit down[=0x0022=] or [=0x0022=]sit[=0x0022=] or [=0x0022=]sit up[=0x0022=] as sitting down.[=0x000A=]Understand [=0x0022=]stand[=0x0022=] or [=0x0022=]stand up[=0x0022=] as standing up.[=0x000A=][=0x000A=]Lying down is an action applying to nothing.[=0x000A=]Sitting down is an action applying to nothing.[=0x000A=]Standing up is an action applying to nothing.[=0x000A=][=0x000A=]Taking position is an action applying to one posture.[=0x000A=][=0x000A=]Instead of an actor lying down:[=0x000A=][=0x0009=]try the actor taking position reclining; rule succeeds.[=0x000A=]Instead of an actor sitting down:[=0x000A=][=0x0009=]try the actor taking position seated; rule succeeds.[=0x000A=]Instead of an actor standing up:[=0x000A=][=0x0009=]try the actor taking position standing; rule succeeds.[=0x000A=][=0x000A=]Check an actor taking position:[=0x000A=][=0x0009=]if the holder of the actor is not a room and the holder of the actor does not allow the posture understood:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You can[=0x0027=]t take that position [in-on the holder of the actor].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise if the actor is visible:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][The actor] can[=0x0027=]t take that position.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Check an actor taking position:[=0x000A=][=0x0009=]if the posture understood is the posture of the actor:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You are already [the posture understood].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the actor is visible, say [=0x0022=][The actor] is already [the posture understood].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Carry out an actor taking position:[=0x000A=][=0x0009=]now the posture of the actor is the posture understood.[=0x000A=][=0x000A=]Report someone taking position (this is the position-report rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] is now [the posture of the actor][if the holder of the actor is not the location of the actor] [in-on the holder of the actor][end if].[=0x0022=][=0x000A=][=0x000A=]Report taking position:[=0x000A=][=0x0009=]say [=0x0022=]You are now [the posture of the player][if the holder of the player is not the location] [in-on the holder of the player][end if].[=0x0022=][=0x000A=][=0x000A=]To say in-on (item - a thing):[=0x000A=][=0x0009=]if the item is a container, say [=0x0022=]in [the item][=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]on [the item][=0x0022=].[=0x000A=][=0x000A=]Carry out an actor exiting (this is the departure-posture rule):[=0x000A=][=0x0009=]let N be the holder of the actor;[=0x000A=][=0x0009=]if N is a container or N is a supporter,[=0x000A=][=0x0009=][=0x0009=]now the posture of the actor is the posture of N;[=0x000A=][=0x0009=]otherwise now the posture of the actor is standing.[=0x000A=][=0x000A=]The departure-posture rule is listed after the standard exiting rule in the carry out exiting rulebook.[=0x000A=]The departure-posture rule is listed after the standard getting off rule in the carry out getting off rulebook.[=0x000A=][=0x000A=]Carry out an actor entering something (this is the arrival-posture rule):[=0x000A=][=0x0009=]if the noun is a container or the noun is a supporter,[=0x000A=][=0x0009=][=0x0009=]now the posture of the actor is the posture of the noun.[=0x000A=][=0x000A=]The arrival-posture rule is listed after the standard entering rule in the carry out entering rulebook.[=0x000A=][=0x000A=]Check an actor going somewhere:[=0x000A=][=0x0009=]if the actor is in a room and the actor is not standing:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]([if the actor is not the player][the actor] [end if]first standing up)[command clarification break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]silently try the actor taking position standing;[=0x000A=][=0x0009=][=0x0009=]if the actor is not standing, stop the action.[=0x000A=][=0x000A=]Section 2 - Some Generic Kinds[=0x000A=][=0x000A=]A chair is a kind of supporter. A chair is always enterable. Every chair allows seated and standing. A chair is usually seated.[=0x000A=]A sofa is a kind of supporter. A sofa is always enterable. Every sofa allows seated, standing and reclining. A sofa is usually seated.[=0x000A=]A hammock is a kind of container. A hammock is always enterable. Every hammock allows seated and reclining. A hammock is usually reclining.[=0x000A=][=0x000A=]Section 3 - The Scenario[=0x000A=][=0x000A=]The Resort is a room.[=0x000A=][=0x000A=]The banana hammock is a hammock in the Resort. The stone bench is a sofa in the resort.[=0x000A=][=0x000A=]Clark is a man in the Resort. A persuasion rule: persuasion succeeds.[=0x000A=][=0x000A=]Rule for writing a paragraph about someone (called target):[=0x000A=][=0x0009=]say [=0x0022=][The target] is [posture] [if the holder of the target is the location]nearby[otherwise][in-on the holder of the target][end if].[=0x0022=][=0x000A=][=0x000A=]Rule for writing a paragraph about something which encloses an unmentioned person (called target):[=0x000A=][=0x0009=]carry out the writing a paragraph about activity with the target instead.[=0x000A=][=0x000A=]Test me with [=0x0022=]sit on bench / stand on bench / get up / lie on hammock / sit up / g / clark, sit on bench / look / clark, lie down / g / look / clark, get up / look / clark, lie down / look / enter bench[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject(' [=0x0022=]Slouching[=0x0022=][=0x000A=][=0x000A=]Section 1 - Posture Rules[=0x000A=][=0x000A=]A posture is a kind of value. The postures are seated, standing, and reclining.[=0x000A=][=0x000A=]A person has a posture. The posture of a person is usually standing.[=0x000A=][=0x000A=]A supporter has a posture. A container has a posture.[=0x000A=][=0x000A=]Posture-permission relates various things to various postures. The verb to allow means the posture-permission relation.[=0x000A=][=0x000A=]Understand the commands [=0x0022=]stand[=0x0022=] and [=0x0022=]sit[=0x0022=] and [=0x0022=]lie[=0x0022=] as something new.[=0x000A=][=0x000A=]Understand [=0x0022=]sit on/in [something][=0x0022=] as sitting on.[=0x000A=]Understand [=0x0022=]lie on/in [something][=0x0022=] as lying on.[=0x000A=]Understand [=0x0022=]stand on/in [something][=0x0022=] as standing up on.[=0x000A=][=0x000A=]Sitting on is an action applying to one thing.[=0x000A=]Lying on is an action applying to one thing.[=0x000A=]Standing up on is an action applying to one thing.[=0x000A=][=0x000A=]Carry out an actor sitting on:[=0x000A=][=0x0009=]if the holder of the actor is not the noun, silently try the actor entering the noun;[=0x000A=][=0x0009=]if the holder of the actor is the noun:[=0x000A=][=0x0009=][=0x0009=]if the actor is not seated, try the actor taking position seated;[=0x000A=][=0x0009=][=0x0009=]otherwise follow the report taking position rules.[=0x000A=][=0x000A=]Carry out an actor lying on:[=0x000A=][=0x0009=]if the holder of the actor is not the noun, silently try the actor entering the noun;[=0x000A=][=0x0009=]if the holder of the actor is the noun:[=0x000A=][=0x0009=][=0x0009=]if the actor is not reclining, try the actor taking position reclining;[=0x000A=][=0x0009=][=0x0009=]otherwise follow the report taking position rules.[=0x000A=][=0x000A=]Carry out an actor standing up on:[=0x000A=][=0x0009=]if the holder of the actor is not the noun, silently try the actor entering the noun;[=0x000A=][=0x0009=]if the holder of the actor is the noun:[=0x000A=][=0x0009=][=0x0009=]if the actor is not standing, try the actor taking position standing;[=0x000A=][=0x0009=][=0x0009=]otherwise follow the report taking position rules.[=0x000A=][=0x000A=][=0x000A=]Understand [=0x0022=]lie down[=0x0022=] as lying down.[=0x000A=]Understand [=0x0022=]sit down[=0x0022=] or [=0x0022=]sit[=0x0022=] or [=0x0022=]sit up[=0x0022=] as sitting down.[=0x000A=]Understand [=0x0022=]stand[=0x0022=] or [=0x0022=]stand up[=0x0022=] as standing up.[=0x000A=][=0x000A=]Lying down is an action applying to nothing.[=0x000A=]Sitting down is an action applying to nothing.[=0x000A=]Standing up is an action applying to nothing.[=0x000A=][=0x000A=]Taking position is an action applying to one posture.[=0x000A=][=0x000A=]Instead of an actor lying down:[=0x000A=][=0x0009=]try the actor taking position reclining; rule succeeds.[=0x000A=]Instead of an actor sitting down:[=0x000A=][=0x0009=]try the actor taking position seated; rule succeeds.[=0x000A=]Instead of an actor standing up:[=0x000A=][=0x0009=]try the actor taking position standing; rule succeeds.[=0x000A=][=0x000A=]Check an actor taking position:[=0x000A=][=0x0009=]if the holder of the actor is not a room and the holder of the actor does not allow the posture understood:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You can[=0x0027=]t take that position [in-on the holder of the actor].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise if the actor is visible:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][The actor] can[=0x0027=]t take that position.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Check an actor taking position:[=0x000A=][=0x0009=]if the posture understood is the posture of the actor:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You are already [the posture understood].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the actor is visible, say [=0x0022=][The actor] is already [the posture understood].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Carry out an actor taking position:[=0x000A=][=0x0009=]now the posture of the actor is the posture understood.[=0x000A=][=0x000A=]Report someone taking position (this is the position-report rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] is now [the posture of the actor][if the holder of the actor is not the location of the actor] [in-on the holder of the actor][end if].[=0x0022=][=0x000A=][=0x000A=]Report taking position:[=0x000A=][=0x0009=]say [=0x0022=]You are now [the posture of the player][if the holder of the player is not the location] [in-on the holder of the player][end if].[=0x0022=][=0x000A=][=0x000A=]To say in-on (item - a thing):[=0x000A=][=0x0009=]if the item is a container, say [=0x0022=]in [the item][=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]on [the item][=0x0022=].[=0x000A=][=0x000A=]Carry out an actor exiting (this is the departure-posture rule):[=0x000A=][=0x0009=]let N be the holder of the actor;[=0x000A=][=0x0009=]if N is a container or N is a supporter,[=0x000A=][=0x0009=][=0x0009=]now the posture of the actor is the posture of N;[=0x000A=][=0x0009=]otherwise now the posture of the actor is standing.[=0x000A=][=0x000A=]The departure-posture rule is listed after the standard exiting rule in the carry out exiting rulebook.[=0x000A=]The departure-posture rule is listed after the standard getting off rule in the carry out getting off rulebook.[=0x000A=][=0x000A=]Carry out an actor entering something (this is the arrival-posture rule):[=0x000A=][=0x0009=]if the noun is a container or the noun is a supporter,[=0x000A=][=0x0009=][=0x0009=]now the posture of the actor is the posture of the noun.[=0x000A=][=0x000A=]The arrival-posture rule is listed after the standard entering rule in the carry out entering rulebook.[=0x000A=][=0x000A=]Check an actor going somewhere:[=0x000A=][=0x0009=]if the actor is in a room and the actor is not standing:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]([if the actor is not the player][the actor] [end if]first standing up)[command clarification break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]silently try the actor taking position standing;[=0x000A=][=0x0009=][=0x0009=]if the actor is not standing, stop the action.[=0x000A=][=0x000A=]Section 2 - Some Generic Kinds[=0x000A=][=0x000A=]A chair is a kind of supporter. A chair is always enterable. Every chair allows seated and standing. A chair is usually seated.[=0x000A=]A sofa is a kind of supporter. A sofa is always enterable. Every sofa allows seated, standing and reclining. A sofa is usually seated.[=0x000A=]A hammock is a kind of container. A hammock is always enterable. Every hammock allows seated and reclining. A hammock is usually reclining.[=0x000A=][=0x000A=]Section 3 - The Scenario[=0x000A=][=0x000A=]The Resort is a room.[=0x000A=][=0x000A=]The banana hammock is a hammock in the Resort. The stone bench is a sofa in the resort.[=0x000A=][=0x000A=]Clark is a man in the Resort. A persuasion rule: persuasion succeeds.[=0x000A=][=0x000A=]Rule for writing a paragraph about someone (called target):[=0x000A=][=0x0009=]say [=0x0022=][The target] is [posture] [if the holder of the target is the location]nearby[otherwise][in-on the holder of the target][end if].[=0x0022=][=0x000A=][=0x000A=]Rule for writing a paragraph about something which encloses an unmentioned person (called target):[=0x000A=][=0x0009=]carry out the writing a paragraph about activity with the target instead.[=0x000A=][=0x000A=]Test me with [=0x0022=]sit on bench / stand on bench / get up / lie on hammock / sit up / g / clark, sit on bench / look / clark, lie down / g / look / clark, get up / look / clark, lie down / look / enter bench[=0x0022=].[=0x000A=]\n', 'Example - Slouching')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp;  &quot;Slouching&quot;
+            <p>Our implementation gives each kind of enterable a range of allowed postures, and one preferred posture. If the player enters the supporter or container without specifying a posture (as in ENTER CHAIR), they will be put in the preferred posture. If they explicitly say, e.g., STAND ON CHAIR, they will be put in the standing position as long as standing is a posture that suits the chair.</p>
+            <!--START CODE "c7507_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7507_332"></a><a href="javascript:pasteCode('[=0x0022=]Slouching[=0x0022=][=0x000A=][=0x000A=]Section 1 - Posture Rules[=0x000A=][=0x000A=]A posture is a kind of value. The postures are seated, standing, and reclining.[=0x000A=][=0x000A=]A person has a posture. The posture of a person is usually standing.[=0x000A=][=0x000A=]A supporter has a posture. A container has a posture.[=0x000A=][=0x000A=]Posture-permission relates various things to various postures. The verb to allow means the posture-permission relation.[=0x000A=][=0x000A=]Understand the commands [=0x0022=]stand[=0x0022=] and [=0x0022=]sit[=0x0022=] and [=0x0022=]lie[=0x0022=] as something new.[=0x000A=][=0x000A=]Understand [=0x0022=]sit on/in [something][=0x0022=] as sitting on.[=0x000A=]Understand [=0x0022=]lie on/in [something][=0x0022=] as lying on.[=0x000A=]Understand [=0x0022=]stand on/in [something][=0x0022=] as standing up on.[=0x000A=][=0x000A=]Sitting on is an action applying to one thing.[=0x000A=]Lying on is an action applying to one thing.[=0x000A=]Standing up on is an action applying to one thing.[=0x000A=][=0x000A=]Carry out an actor sitting on:[=0x000A=][=0x0009=]if the holder of the actor is not the noun, silently try the actor entering the noun;[=0x000A=][=0x0009=]if the holder of the actor is the noun:[=0x000A=][=0x0009=][=0x0009=]if the actor is not seated, try the actor taking position seated;[=0x000A=][=0x0009=][=0x0009=]otherwise follow the report taking position rules.[=0x000A=][=0x000A=]Carry out an actor lying on:[=0x000A=][=0x0009=]if the holder of the actor is not the noun, silently try the actor entering the noun;[=0x000A=][=0x0009=]if the holder of the actor is the noun:[=0x000A=][=0x0009=][=0x0009=]if the actor is not reclining, try the actor taking position reclining;[=0x000A=][=0x0009=][=0x0009=]otherwise follow the report taking position rules.[=0x000A=][=0x000A=]Carry out an actor standing up on:[=0x000A=][=0x0009=]if the holder of the actor is not the noun, silently try the actor entering the noun;[=0x000A=][=0x0009=]if the holder of the actor is the noun:[=0x000A=][=0x0009=][=0x0009=]if the actor is not standing, try the actor taking position standing;[=0x000A=][=0x0009=][=0x0009=]otherwise follow the report taking position rules.[=0x000A=][=0x000A=][=0x000A=]Understand [=0x0022=]lie down[=0x0022=] as lying down.[=0x000A=]Understand [=0x0022=]sit down[=0x0022=] or [=0x0022=]sit[=0x0022=] or [=0x0022=]sit up[=0x0022=] as sitting down.[=0x000A=]Understand [=0x0022=]stand[=0x0022=] or [=0x0022=]stand up[=0x0022=] as standing up.[=0x000A=][=0x000A=]Lying down is an action applying to nothing.[=0x000A=]Sitting down is an action applying to nothing.[=0x000A=]Standing up is an action applying to nothing.[=0x000A=][=0x000A=]Taking position is an action applying to one posture.[=0x000A=][=0x000A=]Instead of an actor lying down:[=0x000A=][=0x0009=]try the actor taking position reclining; rule succeeds.[=0x000A=]Instead of an actor sitting down:[=0x000A=][=0x0009=]try the actor taking position seated; rule succeeds.[=0x000A=]Instead of an actor standing up:[=0x000A=][=0x0009=]try the actor taking position standing; rule succeeds.[=0x000A=][=0x000A=]Check an actor taking position:[=0x000A=][=0x0009=]if the holder of the actor is not a room and the holder of the actor does not allow the posture understood:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You can[=0x0027=]t take that position [in-on the holder of the actor].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise if the actor is visible:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][The actor] can[=0x0027=]t take that position.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Check an actor taking position:[=0x000A=][=0x0009=]if the posture understood is the posture of the actor:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You are already [the posture understood].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the actor is visible, say [=0x0022=][The actor] is already [the posture understood].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Carry out an actor taking position:[=0x000A=][=0x0009=]now the posture of the actor is the posture understood.[=0x000A=][=0x000A=]Report someone taking position (this is the position-report rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] is now [the posture of the actor][if the holder of the actor is not the location of the actor] [in-on the holder of the actor][end if].[=0x0022=][=0x000A=][=0x000A=]Report taking position:[=0x000A=][=0x0009=]say [=0x0022=]You are now [the posture of the player][if the holder of the player is not the location] [in-on the holder of the player][end if].[=0x0022=][=0x000A=][=0x000A=]To say in-on (item - a thing):[=0x000A=][=0x0009=]if the item is a container, say [=0x0022=]in [the item][=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]on [the item][=0x0022=].[=0x000A=][=0x000A=]Carry out an actor exiting (this is the departure-posture rule):[=0x000A=][=0x0009=]let N be the holder of the actor;[=0x000A=][=0x0009=]if N is a container or N is a supporter,[=0x000A=][=0x0009=][=0x0009=]now the posture of the actor is the posture of N;[=0x000A=][=0x0009=]otherwise now the posture of the actor is standing.[=0x000A=][=0x000A=]The departure-posture rule is listed after the standard exiting rule in the carry out exiting rulebook.[=0x000A=]The departure-posture rule is listed after the standard getting off rule in the carry out getting off rulebook.[=0x000A=][=0x000A=]Carry out an actor entering something (this is the arrival-posture rule):[=0x000A=][=0x0009=]if the noun is a container or the noun is a supporter,[=0x000A=][=0x0009=][=0x0009=]now the posture of the actor is the posture of the noun.[=0x000A=][=0x000A=]The arrival-posture rule is listed after the standard entering rule in the carry out entering rulebook.[=0x000A=][=0x000A=]Check an actor going somewhere:[=0x000A=][=0x0009=]if the actor is in a room and the actor is not standing:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]([if the actor is not the player][the actor] [end if]first standing up)[command clarification break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]silently try the actor taking position standing;[=0x000A=][=0x0009=][=0x0009=]if the actor is not standing, stop the action.[=0x000A=][=0x000A=]Section 2 - Some Generic Kinds[=0x000A=][=0x000A=]A chair is a kind of supporter. A chair is always enterable. Every chair allows seated and standing. A chair is usually seated.[=0x000A=]A sofa is a kind of supporter. A sofa is always enterable. Every sofa allows seated, standing and reclining. A sofa is usually seated.[=0x000A=]A hammock is a kind of container. A hammock is always enterable. Every hammock allows seated and reclining. A hammock is usually reclining.[=0x000A=][=0x000A=]Section 3 - The Scenario[=0x000A=][=0x000A=]The Resort is a room.[=0x000A=][=0x000A=]The banana hammock is a hammock in the Resort. The stone bench is a sofa in the resort.[=0x000A=][=0x000A=]Clark is a man in the Resort. A persuasion rule: persuasion succeeds.[=0x000A=][=0x000A=]Rule for writing a paragraph about someone (called target):[=0x000A=][=0x0009=]say [=0x0022=][The target] is [posture] [if the holder of the target is the location]nearby[otherwise][in-on the holder of the target][end if].[=0x0022=][=0x000A=][=0x000A=]Rule for writing a paragraph about something which encloses an unmentioned person (called target):[=0x000A=][=0x0009=]carry out the writing a paragraph about activity with the target instead.[=0x000A=][=0x000A=]Test me with [=0x0022=]sit on bench / stand on bench / get up / lie on hammock / sit up / g / clark, sit on bench / look / clark, lie down / g / look / clark, get up / look / clark, lie down / look / enter bench[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Slouching[=0x0022=][=0x000A=][=0x000A=]Section 1 - Posture Rules[=0x000A=][=0x000A=]A posture is a kind of value. The postures are seated, standing, and reclining.[=0x000A=][=0x000A=]A person has a posture. The posture of a person is usually standing.[=0x000A=][=0x000A=]A supporter has a posture. A container has a posture.[=0x000A=][=0x000A=]Posture-permission relates various things to various postures. The verb to allow means the posture-permission relation.[=0x000A=][=0x000A=]Understand the commands [=0x0022=]stand[=0x0022=] and [=0x0022=]sit[=0x0022=] and [=0x0022=]lie[=0x0022=] as something new.[=0x000A=][=0x000A=]Understand [=0x0022=]sit on/in [something][=0x0022=] as sitting on.[=0x000A=]Understand [=0x0022=]lie on/in [something][=0x0022=] as lying on.[=0x000A=]Understand [=0x0022=]stand on/in [something][=0x0022=] as standing up on.[=0x000A=][=0x000A=]Sitting on is an action applying to one thing.[=0x000A=]Lying on is an action applying to one thing.[=0x000A=]Standing up on is an action applying to one thing.[=0x000A=][=0x000A=]Carry out an actor sitting on:[=0x000A=][=0x0009=]if the holder of the actor is not the noun, silently try the actor entering the noun;[=0x000A=][=0x0009=]if the holder of the actor is the noun:[=0x000A=][=0x0009=][=0x0009=]if the actor is not seated, try the actor taking position seated;[=0x000A=][=0x0009=][=0x0009=]otherwise follow the report taking position rules.[=0x000A=][=0x000A=]Carry out an actor lying on:[=0x000A=][=0x0009=]if the holder of the actor is not the noun, silently try the actor entering the noun;[=0x000A=][=0x0009=]if the holder of the actor is the noun:[=0x000A=][=0x0009=][=0x0009=]if the actor is not reclining, try the actor taking position reclining;[=0x000A=][=0x0009=][=0x0009=]otherwise follow the report taking position rules.[=0x000A=][=0x000A=]Carry out an actor standing up on:[=0x000A=][=0x0009=]if the holder of the actor is not the noun, silently try the actor entering the noun;[=0x000A=][=0x0009=]if the holder of the actor is the noun:[=0x000A=][=0x0009=][=0x0009=]if the actor is not standing, try the actor taking position standing;[=0x000A=][=0x0009=][=0x0009=]otherwise follow the report taking position rules.[=0x000A=][=0x000A=][=0x000A=]Understand [=0x0022=]lie down[=0x0022=] as lying down.[=0x000A=]Understand [=0x0022=]sit down[=0x0022=] or [=0x0022=]sit[=0x0022=] or [=0x0022=]sit up[=0x0022=] as sitting down.[=0x000A=]Understand [=0x0022=]stand[=0x0022=] or [=0x0022=]stand up[=0x0022=] as standing up.[=0x000A=][=0x000A=]Lying down is an action applying to nothing.[=0x000A=]Sitting down is an action applying to nothing.[=0x000A=]Standing up is an action applying to nothing.[=0x000A=][=0x000A=]Taking position is an action applying to one posture.[=0x000A=][=0x000A=]Instead of an actor lying down:[=0x000A=][=0x0009=]try the actor taking position reclining; rule succeeds.[=0x000A=]Instead of an actor sitting down:[=0x000A=][=0x0009=]try the actor taking position seated; rule succeeds.[=0x000A=]Instead of an actor standing up:[=0x000A=][=0x0009=]try the actor taking position standing; rule succeeds.[=0x000A=][=0x000A=]Check an actor taking position:[=0x000A=][=0x0009=]if the holder of the actor is not a room and the holder of the actor does not allow the posture understood:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You can[=0x0027=]t take that position [in-on the holder of the actor].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise if the actor is visible:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][The actor] can[=0x0027=]t take that position.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Check an actor taking position:[=0x000A=][=0x0009=]if the posture understood is the posture of the actor:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You are already [the posture understood].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the actor is visible, say [=0x0022=][The actor] is already [the posture understood].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Carry out an actor taking position:[=0x000A=][=0x0009=]now the posture of the actor is the posture understood.[=0x000A=][=0x000A=]Report someone taking position (this is the position-report rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] is now [the posture of the actor][if the holder of the actor is not the location of the actor] [in-on the holder of the actor][end if].[=0x0022=][=0x000A=][=0x000A=]Report taking position:[=0x000A=][=0x0009=]say [=0x0022=]You are now [the posture of the player][if the holder of the player is not the location] [in-on the holder of the player][end if].[=0x0022=][=0x000A=][=0x000A=]To say in-on (item - a thing):[=0x000A=][=0x0009=]if the item is a container, say [=0x0022=]in [the item][=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]on [the item][=0x0022=].[=0x000A=][=0x000A=]Carry out an actor exiting (this is the departure-posture rule):[=0x000A=][=0x0009=]let N be the holder of the actor;[=0x000A=][=0x0009=]if N is a container or N is a supporter,[=0x000A=][=0x0009=][=0x0009=]now the posture of the actor is the posture of N;[=0x000A=][=0x0009=]otherwise now the posture of the actor is standing.[=0x000A=][=0x000A=]The departure-posture rule is listed after the standard exiting rule in the carry out exiting rulebook.[=0x000A=]The departure-posture rule is listed after the standard getting off rule in the carry out getting off rulebook.[=0x000A=][=0x000A=]Carry out an actor entering something (this is the arrival-posture rule):[=0x000A=][=0x0009=]if the noun is a container or the noun is a supporter,[=0x000A=][=0x0009=][=0x0009=]now the posture of the actor is the posture of the noun.[=0x000A=][=0x000A=]The arrival-posture rule is listed after the standard entering rule in the carry out entering rulebook.[=0x000A=][=0x000A=]Check an actor going somewhere:[=0x000A=][=0x0009=]if the actor is in a room and the actor is not standing:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]([if the actor is not the player][the actor] [end if]first standing up)[command clarification break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]silently try the actor taking position standing;[=0x000A=][=0x0009=][=0x0009=]if the actor is not standing, stop the action.[=0x000A=][=0x000A=]Section 2 - Some Generic Kinds[=0x000A=][=0x000A=]A chair is a kind of supporter. A chair is always enterable. Every chair allows seated and standing. A chair is usually seated.[=0x000A=]A sofa is a kind of supporter. A sofa is always enterable. Every sofa allows seated, standing and reclining. A sofa is usually seated.[=0x000A=]A hammock is a kind of container. A hammock is always enterable. Every hammock allows seated and reclining. A hammock is usually reclining.[=0x000A=][=0x000A=]Section 3 - The Scenario[=0x000A=][=0x000A=]The Resort is a room.[=0x000A=][=0x000A=]The banana hammock is a hammock in the Resort. The stone bench is a sofa in the resort.[=0x000A=][=0x000A=]Clark is a man in the Resort. A persuasion rule: persuasion succeeds.[=0x000A=][=0x000A=]Rule for writing a paragraph about someone (called target):[=0x000A=][=0x0009=]say [=0x0022=][The target] is [posture] [if the holder of the target is the location]nearby[otherwise][in-on the holder of the target][end if].[=0x0022=][=0x000A=][=0x000A=]Rule for writing a paragraph about something which encloses an unmentioned person (called target):[=0x000A=][=0x0009=]carry out the writing a paragraph about activity with the target instead.[=0x000A=][=0x000A=]Test me with [=0x0022=]sit on bench / stand on bench / get up / lie on hammock / sit up / g / clark, sit on bench / look / clark, lie down / g / look / clark, get up / look / clark, lie down / look / enter bench[=0x0022=].[=0x000A=]\n', 'Example - Slouching')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Slouching&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7491_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7491_349"></a>Section 1 - Posture Rules
+            <!--START CODE "c7508_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7508_332"></a>Section 1 - Posture Rules
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7492_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7492_349"></a>A posture is a kind of value. The postures are seated, standing, and reclining.
+            <!--START CODE "c7509_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7509_332"></a>A posture is a kind of value. The postures are seated, standing, and reclining.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7493_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7493_349"></a>A person has a posture. The posture of a person is usually standing.
+            <!--START CODE "c7510_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7510_332"></a>A person has a posture. The posture of a person is usually standing.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7494_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7494_349"></a>A supporter has a posture. A container has a posture.
+            <!--START CODE "c7511_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7511_332"></a>A supporter has a posture. A container has a posture.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7495_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7495_349"></a>Posture-permission relates various things to various postures. The verb to allow means the posture-permission relation.
+            <!--START CODE "c7512_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7512_332"></a>Posture-permission relates various things to various postures. The verb to allow means the posture-permission relation.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7496_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7496_349"></a>Understand the commands &quot;stand&quot; and &quot;sit&quot; and &quot;lie&quot; as something new.
+            <!--START CODE "c7513_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7513_332"></a>Understand the commands &quot;stand&quot; and &quot;sit&quot; and &quot;lie&quot; as something new.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7497_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7497_349"></a>Understand &quot;sit on/in [something]&quot; as sitting on.
+            <!--START CODE "c7514_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7514_332"></a>Understand &quot;sit on/in [something]&quot; as sitting on.
             <br>
             Understand &quot;lie on/in [something]&quot; as lying on.
             <br>
@@ -574,8 +574,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7498_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7498_349"></a>Sitting on is an action applying to one thing.
+            <!--START CODE "c7515_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7515_332"></a>Sitting on is an action applying to one thing.
             <br>
             Lying on is an action applying to one thing.
             <br>
@@ -583,8 +583,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7499_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7499_349"></a>Carry out an actor sitting on:
+            <!--START CODE "c7516_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7516_332"></a>Carry out an actor sitting on:
             <br>
             &#160;&#160;&#160;&#160;if the holder of the actor is not the noun, silently try the actor entering the noun;
             <br>
@@ -596,8 +596,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7500_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7500_349"></a>Carry out an actor lying on:
+            <!--START CODE "c7517_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7517_332"></a>Carry out an actor lying on:
             <br>
             &#160;&#160;&#160;&#160;if the holder of the actor is not the noun, silently try the actor entering the noun;
             <br>
@@ -609,8 +609,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7501_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7501_349"></a>Carry out an actor standing up on:
+            <!--START CODE "c7518_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7518_332"></a>Carry out an actor standing up on:
             <br>
             &#160;&#160;&#160;&#160;if the holder of the actor is not the noun, silently try the actor entering the noun;
             <br>
@@ -622,8 +622,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7502_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7502_349"></a>Understand &quot;lie down&quot; as lying down.
+            <!--START CODE "c7519_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7519_332"></a>Understand &quot;lie down&quot; as lying down.
             <br>
             Understand &quot;sit down&quot; or &quot;sit&quot; or &quot;sit up&quot; as sitting down.
             <br>
@@ -631,8 +631,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7503_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7503_349"></a>Lying down is an action applying to nothing.
+            <!--START CODE "c7520_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7520_332"></a>Lying down is an action applying to nothing.
             <br>
             Sitting down is an action applying to nothing.
             <br>
@@ -640,13 +640,13 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7504_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7504_349"></a>Taking position is an action applying to one posture.
+            <!--START CODE "c7521_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7521_332"></a>Taking position is an action applying to one posture.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7505_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7505_349"></a>Instead of an actor lying down:
+            <!--START CODE "c7522_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7522_332"></a>Instead of an actor lying down:
             <br>
             &#160;&#160;&#160;&#160;try the actor taking position reclining; rule succeeds.
             <br>
@@ -660,8 +660,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7506_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7506_349"></a>Check an actor taking position:
+            <!--START CODE "c7523_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7523_332"></a>Check an actor taking position:
             <br>
             &#160;&#160;&#160;&#160;if the holder of the actor is not a room and the holder of the actor does not allow the posture understood:
             <br>
@@ -677,8 +677,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7507_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7507_349"></a>Check an actor taking position:
+            <!--START CODE "c7524_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7524_332"></a>Check an actor taking position:
             <br>
             &#160;&#160;&#160;&#160;if the posture understood is the posture of the actor:
             <br>
@@ -694,29 +694,29 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7508_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7508_349"></a>Carry out an actor taking position:
+            <!--START CODE "c7525_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7525_332"></a>Carry out an actor taking position:
             <br>
             &#160;&#160;&#160;&#160;now the posture of the actor is the posture understood.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7509_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7509_349"></a>Report someone taking position (this is the position-report rule):
+            <!--START CODE "c7526_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7526_332"></a>Report someone taking position (this is the position-report rule):
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The actor] is now [the posture of the actor][if the holder of the actor is not the location of the actor] [in-on the holder of the actor][end if].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7510_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7510_349"></a>Report taking position:
+            <!--START CODE "c7527_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7527_332"></a>Report taking position:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You are now [the posture of the player][if the holder of the player is not the location] [in-on the holder of the player][end if].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7511_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7511_349"></a>To say in-on (item - a thing):
+            <!--START CODE "c7528_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7528_332"></a>To say in-on (item - a thing):
             <br>
             &#160;&#160;&#160;&#160;if the item is a container, say &quot;in [the item]&quot;;
             <br>
@@ -724,8 +724,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7512_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7512_349"></a>Carry out an actor exiting (this is the departure-posture rule):
+            <!--START CODE "c7529_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7529_332"></a>Carry out an actor exiting (this is the departure-posture rule):
             <br>
             &#160;&#160;&#160;&#160;let N be the holder of the actor;
             <br>
@@ -737,15 +737,15 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7513_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7513_349"></a>The departure-posture rule is listed after the standard exiting rule in the carry out exiting rulebook.
+            <!--START CODE "c7530_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7530_332"></a>The departure-posture rule is listed after the standard exiting rule in the carry out exiting rulebook.
             <br>
             The departure-posture rule is listed after the standard getting off rule in the carry out getting off rulebook.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7514_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7514_349"></a>Carry out an actor entering something (this is the arrival-posture rule):
+            <!--START CODE "c7531_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7531_332"></a>Carry out an actor entering something (this is the arrival-posture rule):
             <br>
             &#160;&#160;&#160;&#160;if the noun is a container or the noun is a supporter,
             <br>
@@ -753,13 +753,13 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7515_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7515_349"></a>The arrival-posture rule is listed after the standard entering rule in the carry out entering rulebook.
+            <!--START CODE "c7532_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7532_332"></a>The arrival-posture rule is listed after the standard entering rule in the carry out entering rulebook.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7516_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7516_349"></a>Check an actor going somewhere:
+            <!--START CODE "c7533_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7533_332"></a>Check an actor going somewhere:
             <br>
             &#160;&#160;&#160;&#160;if the actor is in a room and the actor is not standing:
             <br>
@@ -771,13 +771,13 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7517_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7517_349"></a>Section 2 - Some Generic Kinds
+            <!--START CODE "c7534_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7534_332"></a>Section 2 - Some Generic Kinds
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7518_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7518_349"></a>A chair is a kind of supporter. A chair is always enterable. Every chair allows seated and standing. A chair is usually seated.
+            <!--START CODE "c7535_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7535_332"></a>A chair is a kind of supporter. A chair is always enterable. Every chair allows seated and standing. A chair is usually seated.
             <br>
             A sofa is a kind of supporter. A sofa is always enterable. Every sofa allows seated, standing and reclining. A sofa is usually seated.
             <br>
@@ -785,101 +785,101 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7519_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7519_349"></a>Section 3 - The Scenario
+            <!--START CODE "c7536_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7536_332"></a>Section 3 - The Scenario
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7520_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7520_349"></a>The Resort is a room.
+            <!--START CODE "c7537_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7537_332"></a>The Resort is a room.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7521_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7521_349"></a>The banana hammock is a hammock in the Resort. The stone bench is a sofa in the resort.
+            <!--START CODE "c7538_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7538_332"></a>The banana hammock is a hammock in the Resort. The stone bench is a sofa in the resort.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7522_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7522_349"></a>Clark is a man in the Resort. A persuasion rule: persuasion succeeds.
+            <!--START CODE "c7539_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7539_332"></a>Clark is a man in the Resort. A persuasion rule: persuasion succeeds.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7523_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7523_349"></a>Rule for writing a paragraph about someone (called target):
+            <!--START CODE "c7540_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7540_332"></a>Rule for writing a paragraph about someone (called target):
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The target] is [posture] [if the holder of the target is the location]nearby[otherwise][in-on the holder of the target][end if].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7524_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7524_349"></a>Rule for writing a paragraph about something which encloses an unmentioned person (called target):
+            <!--START CODE "c7541_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7541_332"></a>Rule for writing a paragraph about something which encloses an unmentioned person (called target):
             <br>
             &#160;&#160;&#160;&#160;carry out the writing a paragraph about activity with the target instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7525_349"-->
-            <blockquote class="code"><p class="quoted"><a id="c7525_349"></a>Test me with &quot;sit on bench / stand on bench / get up / lie on hammock / sit up / g / clark, sit on bench / look / clark, lie down / g / look / clark, get up / look / clark, lie down / look / enter bench&quot;.
+            <!--START CODE "c7542_332"-->
+            <blockquote class="code"><p class="quoted"><a id="c7542_332"></a>Test me with &quot;sit on bench / stand on bench / get up / lie on hammock / sit up / g / clark, sit on bench / look / clark, lie down / g / look / clark, get up / look / clark, lie down / look / enter bench&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "397: Swigmore U." "e370"-->
-        <a id="e370"></a><table class="egcue">
+        <!--START EXAMPLE "398: Swigmore U." "e348"-->
+        <a id="e348"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example370'); return false;"><b>397</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example348'); return false;"><b>398</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example370'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Swigmore U.</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example348'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Swigmore U.</span></b></a><br>
                     Adding a new kind of supporter called a perch, where everything dropped lands on the floor.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc66.html#e370"><i>RB</i></a></div>
+                        <a href="Rdoc66.html#e348"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example370" style="display: none;">
-            <p>Inform's default assumption is that if a player on an enterable object drops something, the dropped article winds up beside him on the same supporter or in the same container. This makes lots of sense for a dais, say, or a king-sized bed. It's a little less sensible if the enterable supporter in question is a bar stool or the like. So suppose we want to add a new kind of supporter called a perch, where everything dropped lands on the floor.</p>
+        <div class="egpanel" id="example348" style="display: none;">
+            <p>Inform's default assumption is that if a player on an enterable object drops something, the dropped article winds up beside them on the same supporter or in the same container. This makes lots of sense for a dais, say, or a king-sized bed. It's a little less sensible if the enterable supporter in question is a bar stool or the like. So suppose we want to add a new kind of supporter called a perch, where everything dropped lands on the floor.</p>
             <p>There are actually several ways of implementing this, but one of them is to reach right into the drop action and replace the &quot;standard dropping rule&quot; with a different one of our own invention -- like this:</p>
-            <!--START CODE "c7526_370"-->
-            <blockquote class="code"><p class="quoted"><a id="c7526_370"></a><a href="javascript:pasteCode('[=0x0022=]Swigmore U.[=0x0022=][=0x000A=][=0x000A=]Moe[=0x0027=]s Tavern is a room. The bar is an enterable supporter in Moe[=0x0027=]s. A drink is a kind of thing. On the bar is a drink called a flaming Homer.[=0x000A=][=0x000A=]A perch is a kind of supporter. A perch is always enterable. The stool is a perch in Moe[=0x0027=]s.[=0x000A=][=0x000A=]The player carries a dead field mouse and a tomacco fruit.[=0x000A=][=0x000A=]The sophisticated dropping rule is listed instead of the standard dropping rule in the carry out dropping rulebook.[=0x000A=][=0x000A=]This is the sophisticated dropping rule:[=0x000A=][=0x0009=]if the player is on a perch (called the awkward position):[=0x000A=][=0x0009=][=0x0009=]let place be the holder of the awkward position;[=0x000A=][=0x0009=][=0x0009=]move the noun to the place;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]move the noun to the holder of the player.[=0x000A=][=0x000A=]Test me with [=0x0022=]sit on stool / drop mouse / look / get up / look[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Swigmore U.[=0x0022=][=0x000A=][=0x000A=]Moe[=0x0027=]s Tavern is a room. The bar is an enterable supporter in Moe[=0x0027=]s. A drink is a kind of thing. On the bar is a drink called a flaming Homer.[=0x000A=][=0x000A=]A perch is a kind of supporter. A perch is always enterable. The stool is a perch in Moe[=0x0027=]s.[=0x000A=][=0x000A=]The player carries a dead field mouse and a tomacco fruit.[=0x000A=][=0x000A=]The sophisticated dropping rule is listed instead of the standard dropping rule in the carry out dropping rulebook.[=0x000A=][=0x000A=]This is the sophisticated dropping rule:[=0x000A=][=0x0009=]if the player is on a perch (called the awkward position):[=0x000A=][=0x0009=][=0x0009=]let place be the holder of the awkward position;[=0x000A=][=0x0009=][=0x0009=]move the noun to the place;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]move the noun to the holder of the player.[=0x000A=][=0x000A=]Test me with [=0x0022=]sit on stool / drop mouse / look / get up / look[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Swigmore U.')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Swigmore U.&quot;
+            <!--START CODE "c7543_348"-->
+            <blockquote class="code"><p class="quoted"><a id="c7543_348"></a><a href="javascript:pasteCode('[=0x0022=]Swigmore U.[=0x0022=][=0x000A=][=0x000A=]Moe[=0x0027=]s Tavern is a room. The bar is an enterable supporter in Moe[=0x0027=]s. A drink is a kind of thing. On the bar is a drink called a flaming Homer.[=0x000A=][=0x000A=]A perch is a kind of supporter. A perch is always enterable. The stool is a perch in Moe[=0x0027=]s.[=0x000A=][=0x000A=]The player carries a dead field mouse and a tomacco fruit.[=0x000A=][=0x000A=]The sophisticated dropping rule is listed instead of the standard dropping rule in the carry out dropping rulebook.[=0x000A=][=0x000A=]This is the sophisticated dropping rule:[=0x000A=][=0x0009=]if the player is on a perch (called the awkward position):[=0x000A=][=0x0009=][=0x0009=]let place be the holder of the awkward position;[=0x000A=][=0x0009=][=0x0009=]move the noun to the place;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]move the noun to the holder of the player.[=0x000A=][=0x000A=]Test me with [=0x0022=]sit on stool / drop mouse / look / get up / look[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Swigmore U.[=0x0022=][=0x000A=][=0x000A=]Moe[=0x0027=]s Tavern is a room. The bar is an enterable supporter in Moe[=0x0027=]s. A drink is a kind of thing. On the bar is a drink called a flaming Homer.[=0x000A=][=0x000A=]A perch is a kind of supporter. A perch is always enterable. The stool is a perch in Moe[=0x0027=]s.[=0x000A=][=0x000A=]The player carries a dead field mouse and a tomacco fruit.[=0x000A=][=0x000A=]The sophisticated dropping rule is listed instead of the standard dropping rule in the carry out dropping rulebook.[=0x000A=][=0x000A=]This is the sophisticated dropping rule:[=0x000A=][=0x0009=]if the player is on a perch (called the awkward position):[=0x000A=][=0x0009=][=0x0009=]let place be the holder of the awkward position;[=0x000A=][=0x0009=][=0x0009=]move the noun to the place;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]move the noun to the holder of the player.[=0x000A=][=0x000A=]Test me with [=0x0022=]sit on stool / drop mouse / look / get up / look[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Swigmore U.')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Swigmore U.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7527_370"-->
-            <blockquote class="code"><p class="quoted"><a id="c7527_370"></a>Moe's Tavern is a room. The bar is an enterable supporter in Moe's. A drink is a kind of thing. On the bar is a drink called a flaming Homer.
+            <!--START CODE "c7544_348"-->
+            <blockquote class="code"><p class="quoted"><a id="c7544_348"></a>Moe's Tavern is a room. The bar is an enterable supporter in Moe's. A drink is a kind of thing. On the bar is a drink called a flaming Homer.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7528_370"-->
-            <blockquote class="code"><p class="quoted"><a id="c7528_370"></a>A perch is a kind of supporter. A perch is always enterable. The stool is a perch in Moe's.
+            <!--START CODE "c7545_348"-->
+            <blockquote class="code"><p class="quoted"><a id="c7545_348"></a>A perch is a kind of supporter. A perch is always enterable. The stool is a perch in Moe's.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7529_370"-->
-            <blockquote class="code"><p class="quoted"><a id="c7529_370"></a>The player carries a dead field mouse and a tomacco fruit.
+            <!--START CODE "c7546_348"-->
+            <blockquote class="code"><p class="quoted"><a id="c7546_348"></a>The player carries a dead field mouse and a tomacco fruit.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7530_370"-->
-            <blockquote class="code"><p class="quoted"><a id="c7530_370"></a>The sophisticated dropping rule is listed instead of the standard dropping rule in the carry out dropping rulebook.
+            <!--START CODE "c7547_348"-->
+            <blockquote class="code"><p class="quoted"><a id="c7547_348"></a>The sophisticated dropping rule is listed instead of the standard dropping rule in the carry out dropping rulebook.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7531_370"-->
-            <blockquote class="code"><p class="quoted"><a id="c7531_370"></a>This is the sophisticated dropping rule:
+            <!--START CODE "c7548_348"-->
+            <blockquote class="code"><p class="quoted"><a id="c7548_348"></a>This is the sophisticated dropping rule:
             <br>
             &#160;&#160;&#160;&#160;if the player is on a perch (called the awkward position):
             <br>
@@ -893,20 +893,20 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7532_370"-->
-            <blockquote class="code"><p class="quoted"><a id="c7532_370"></a>Test me with &quot;sit on stool / drop mouse / look / get up / look&quot;.
+            <!--START CODE "c7549_348"-->
+            <blockquote class="code"><p class="quoted"><a id="c7549_348"></a>Test me with &quot;sit on stool / drop mouse / look / get up / look&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now the carry-out behavior of the dropping action has been changed, but we haven't had to interfere in the checks or reporting at all. The rest of the action works just as it always did.</p>
             <p>Of course, maybe we do want to change the way the action is reported, to make it clearer to the player where the dropped article wound up:</p>
-            <!--START CODE "c7533_370"-->
-            <blockquote class="code"><p class="quoted"><a id="c7533_370"></a><a href="javascript:pasteCode('The sophisticated report dropping rule is listed instead of the standard report dropping rule in the report dropping rulebook.[=0x000A=][=0x000A=]This is the sophisticated report dropping rule:[=0x000A=][=0x0009=]say [=0x0022=]You drop [the noun] on [if the holder of the noun is a room]the ground[otherwise][the holder of the noun][end if].[=0x0022=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('The sophisticated report dropping rule is listed instead of the standard report dropping rule in the report dropping rulebook.[=0x000A=][=0x000A=]This is the sophisticated report dropping rule:[=0x000A=][=0x0009=]say [=0x0022=]You drop [the noun] on [if the holder of the noun is a room]the ground[otherwise][the holder of the noun][end if].[=0x0022=][=0x000A=]\n', 'Example - Swigmore U.')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; The sophisticated report dropping rule is listed instead of the standard report dropping rule in the report dropping rulebook.
+            <!--START CODE "c7550_348"-->
+            <blockquote class="code"><p class="quoted"><a id="c7550_348"></a><a href="javascript:pasteCode('The sophisticated report dropping rule is listed instead of the standard report dropping rule in the report dropping rulebook.[=0x000A=][=0x000A=]This is the sophisticated report dropping rule:[=0x000A=][=0x0009=]say [=0x0022=]You drop [the noun] on [if the holder of the noun is a room]the ground[otherwise][the holder of the noun][end if].[=0x0022=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('The sophisticated report dropping rule is listed instead of the standard report dropping rule in the report dropping rulebook.[=0x000A=][=0x000A=]This is the sophisticated report dropping rule:[=0x000A=][=0x0009=]say [=0x0022=]You drop [the noun] on [if the holder of the noun is a room]the ground[otherwise][the holder of the noun][end if].[=0x0022=][=0x000A=]\n', 'Example - Swigmore U.')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; The sophisticated report dropping rule is listed instead of the standard report dropping rule in the report dropping rulebook.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7534_370"-->
-            <blockquote class="code"><p class="quoted"><a id="c7534_370"></a>This is the sophisticated report dropping rule:
+            <!--START CODE "c7551_348"-->
+            <blockquote class="code"><p class="quoted"><a id="c7551_348"></a>This is the sophisticated report dropping rule:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You drop [the noun] on [if the holder of the noun is a room]the ground[otherwise][the holder of the noun][end if].&quot;
             </p>

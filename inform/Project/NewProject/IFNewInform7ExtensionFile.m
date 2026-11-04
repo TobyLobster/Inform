@@ -17,13 +17,24 @@
 
 @implementation IFNewInform7ExtensionFile {
     IFNewInform7ExtensionView* vw;
+    __weak IFProject *         project;
+}
+
+- (instancetype) initWithProject: (IFProject*) theProject {
+    self = [super init];
+
+    if (self) {
+        project = theProject;
+    }
+
+    return self;
 }
 
 - (NSObject<IFNewProjectSetupView>*) configView {
 	if (!vw) {
 		vw = [[IFNewInform7ExtensionView alloc] init];
-		[NSBundle oldLoadNibNamed: @"NaturalExtensionOptions"
-                            owner: vw];
+		[NSBundle customLoadNib: @"NaturalExtensionOptions"
+                          owner: vw];
 	}
 	
 	[vw setupControls];
@@ -38,10 +49,10 @@
 }
 
 - (NSString*) errorMessage {
-	if (![vw authorName] || [[vw authorName] isEqualToString: @""]) {
+	if (!vw.authorName || [vw.authorName isEqualToString: @""]) {
 		return [IFUtility localizedString: @"BadExtensionAuthor"];
 	}
-	if (![vw extensionName] || [[vw extensionName] isEqualToString: @""]) {
+	if (!vw.extensionName || [vw.extensionName isEqualToString: @""]) {
 		return [IFUtility localizedString: @"BadExtensionName"];
 	}
 	
@@ -49,7 +60,7 @@
 }
 
 - (NSString*) confirmationMessage {
-	if ([[NSFileManager defaultManager] fileExistsAtPath: [self saveFilename]]) {
+	if ([[NSFileManager defaultManager] fileExistsAtPath: self.saveFilename]) {
 		return [IFUtility localizedString: @"Extension already exists"];
 	}
 
@@ -57,9 +68,11 @@
 }
 
 - (NSString*) saveFilename {
-	NSString* extnDir = [IFUtility pathForInformExternalExtensions];
-    extnDir = [extnDir stringByAppendingPathComponent: [vw authorName]];
-    extnDir = [extnDir stringByAppendingPathComponent: [[vw extensionName] stringByAppendingPathExtension: @"i7x"]];
+	// OLD: NSString* extnDir = [IFUtility pathForInformExternalExtensions];
+    NSString* materialsPath  = (project.materialsDirectoryURL).path;
+    NSString* extnDir = [materialsPath stringByAppendingPathComponent: @"Extensions"];
+    extnDir = [extnDir stringByAppendingPathComponent: vw.authorName];
+    extnDir = [extnDir stringByAppendingPathComponent: [vw.extensionName stringByAppendingPathExtension: @"i7x"]];
     return extnDir;
 }
 
@@ -70,27 +83,27 @@
 - (void) createDeepDirectory: (NSURL*) deepDirectory {
 	// Creates a directory and any parent directories as required
     NSError* error;
-    [[NSFileManager defaultManager] createDirectoryAtPath: [deepDirectory path]
+    [[NSFileManager defaultManager] createDirectoryAtPath: deepDirectory.path
                               withIntermediateDirectories: YES
                                                attributes: nil
                                                     error: &error];
 }
 
 - (BOOL) createAndOpenDocument: (NSURL*) fileURL {
-	NSString* contents1 = [NSString stringWithFormat: @"%@ by %@ begins here.\n\n", [vw extensionName], [vw authorName]];
-	NSString* contents2 = [NSString stringWithFormat: @"\n\n%@ ends here.\n", [vw extensionName]];
+	NSString* contents1 = [NSString stringWithFormat: @"%@ by %@ begins here.\n\n", vw.extensionName, vw.authorName];
+	NSString* contents2 = [NSString stringWithFormat: @"\n\n%@ ends here.\n", vw.extensionName];
 	NSString* contents = [NSString stringWithFormat: @"%@%@", contents1, contents2];
 
-    NSRange range = NSMakeRange([contents1 length], 0);
+    NSRange range = NSMakeRange(contents1.length, 0);
 
 	NSData* contentData = [contents dataUsingEncoding: NSUTF8StringEncoding];
 
-    if( ![fileURL isFileURL] ) {
+    if( !fileURL.fileURL ) {
         return NO;
     }
     
 	// Try to create the extension directory, if necessary
-    [self createDeepDirectory: [fileURL URLByDeletingLastPathComponent]];
+    [self createDeepDirectory: fileURL.URLByDeletingLastPathComponent];
 
 	// Try to create the file
 	if (![[NSFileManager defaultManager] createFileAtPath: fileURL.path
@@ -104,14 +117,11 @@
 	IFSingleFile* newDoc = [[IFSingleFile alloc] initWithContentsOfURL: fileURL
                                                                  ofType: @"Inform 7 extension"
                                                                   error: &error];
-	[newDoc setInitialSelectionRange: range];
+	newDoc.initialSelectionRange = range;
 	[[NSDocumentController sharedDocumentController] addDocument: newDoc];
 	[newDoc makeWindowControllers];
 	[newDoc showWindows];
 
-	// Update the list of extensions
-	[[IFExtensionsManager sharedNaturalInformExtensionsManager] updateExtensions];
-	
 	return YES;
 }
 
@@ -143,27 +153,27 @@
 }
 
 - (void) setupControls {
-	NSString* longuserName = [[IFPreferences sharedPreferences] freshGameAuthorName];
+	NSString* longuserName = [IFPreferences sharedPreferences].freshGameAuthorName;
 
 	// If longuserName contains a '.', then we have to enclose it in quotes
 	BOOL needQuotes = NO;
 	int x;
-	for (x=0; x<[longuserName length]; x++) {
+	for (x=0; x<longuserName.length; x++) {
 		if ([longuserName characterAtIndex: x] == '.') needQuotes = YES;
 	}
 	
 	if (needQuotes) longuserName = [NSString stringWithFormat: @"\"%@\"", longuserName];
 	
-	[name setStringValue: longuserName];
-	[extensionName setStringValue: [IFUtility localizedString: @"New Extension"]];
+	name.stringValue = longuserName;
+	extensionName.stringValue = [IFUtility localizedString: @"New Extension"];
 }
 
 - (NSString*) authorName {
-	return [name stringValue];
+	return name.stringValue;
 }
 
 - (NSString*) extensionName {
-	return [extensionName stringValue];
+	return extensionName.stringValue;
 }
 
 - (void) setInitialFocus: (NSWindow*) window {

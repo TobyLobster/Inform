@@ -86,15 +86,15 @@
     <p>The following warnings are rather like the tiny print about side-effects on medicine bottles: that is, we mostly ignore them, and if the drugs should kill us, well, at least we have the consolation of knowing we were warned. There are basically three limitations on text:</p>
     <p>(1) An amount of memory has to be set aside for text (and other flexible-sized data), and Inform guesses the amount needed. Story files using the Glulx format (see the Settings panel) are able to increase this as necessary in play, so there's no problem if the guess was wrong. But Z-machine story files are stuck with whatever amount of memory was initially chosen.</p>
     <p>That choice can be increased with a use option, like so:</p>
-    <!--START CODE "c8069"-->
-    <blockquote class="code"><p class="quoted"><a id="c8069"></a>Use dynamic memory allocation of at least 16384.
+    <!--START CODE "c8087"-->
+    <blockquote class="code"><p class="quoted"><a id="c8087"></a>Use dynamic memory allocation of at least 16384.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Inform raises its estimate of the amount needed to ensure that this amount is always at least its own guess, and also at least any amount declared like this. (And then it rounds up to the nearest power of 2, as it happens.) The default value of &quot;dynamic memory allocation&quot; is 8192. In practice, this use option isn't needed much, though, because any story needing large amounts of dynamic memory will likely be on Glulx in any case.</p>
     <p>(2) Text has a maximum length. This maximum is normally 1000 characters, which ought to be plenty, but can be raised by sentences such as:</p>
-    <!--START CODE "c8070"-->
-    <blockquote class="code"><p class="quoted"><a id="c8070"></a>Use maximum text length of at least 2000.
+    <!--START CODE "c8088"-->
+    <blockquote class="code"><p class="quoted"><a id="c8088"></a>Use maximum text length of at least 2000.
     </p>
     </blockquote>
     <!--END CODE-->

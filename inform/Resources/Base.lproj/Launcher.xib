@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="20037"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
         <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,7 +20,7 @@
                 <outlet property="recentDocumentsTableView" destination="NoE-mA-glU" id="czx-f7-Z3X"/>
                 <outlet property="sampleDocumentsScrollView" destination="Kyt-Kl-ZsQ" id="k2B-xK-qX7"/>
                 <outlet property="sampleDocumentsTableView" destination="BlB-Pd-msR" id="LBQ-Gr-kCT"/>
-                <outlet property="webView" destination="YfN-KQ-zfl" id="7nn-uA-X9z"/>
+                <outlet property="webViewParent" destination="x8U-xq-nTl" id="VSP-dj-uKz"/>
                 <outlet property="window" destination="17" id="27"/>
             </connections>
         </customObject>
@@ -37,6 +36,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="650" height="621"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x8U-xq-nTl">
+                        <rect key="frame" x="0.0" y="25" width="650" height="494"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </customView>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0XH-lT-vVa" userLabel="Top Section">
                         <rect key="frame" x="0.0" y="379" width="650" height="240"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -132,7 +135,7 @@
                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </tableHeaderCell>
-                                                                <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" alignment="left" id="mCl-EN-4bX" customClass="IFRecentFileCell">
+                                                                <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" alignment="left" id="mCl-EN-4bX" customClass="IFRecentFileCell" customModule="Inform" customModuleProvider="target">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -189,7 +192,7 @@
                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </tableHeaderCell>
-                                                                <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" alignment="left" id="wh9-mg-kWg" customClass="IFRecentFileCell">
+                                                                <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" alignment="left" id="wh9-mg-kWg" customClass="IFRecentFileCell" customModule="Inform" customModuleProvider="target">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -242,7 +245,7 @@
                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </tableHeaderCell>
-                                                                <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" alignment="left" id="Jpi-iN-GmK" customClass="IFRecentFileCell">
+                                                                <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" alignment="left" id="Jpi-iN-GmK" customClass="IFRecentFileCell" customModule="Inform" customModuleProvider="target">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -444,13 +447,6 @@
                             </box>
                         </subviews>
                     </customView>
-                    <webView hidden="YES" fixedFrame="YES" maintainsBackForwardList="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YfN-KQ-zfl">
-                        <rect key="frame" x="0.0" y="8" width="650" height="511"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12" plugInsEnabled="NO" javaEnabled="NO" javaScriptCanOpenWindowsAutomatically="NO">
-                            <nil key="identifier"/>
-                        </webPreferences>
-                    </webView>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VBS-c8-3tI" userLabel="Bottom Section">
                         <rect key="frame" x="0.0" y="0.0" width="650" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>

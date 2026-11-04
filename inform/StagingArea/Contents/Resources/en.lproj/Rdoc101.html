@@ -83,56 +83,56 @@
     <!--END IGNORE-->
     <p class="sectionheading">§12.5. Glulx Multimedia Effects</p>
     <p>Glulx is one of the two basic story file formats to which Inform can work. It is the more powerful of the two, and modern-day Inform uses it by default. At one time it was a less universally playable format, but today players rarely have any trouble getting it to work.</p>
-    <p>Among its powers are the ability to display images, play back sound effects, and read and write external files to the disc. With care and a certain amount of fuss, this can even give a playing story file limited Internet connectivity, although it should be stressed that this can only be done if the player sets up his computer just right and runs an auxiliary program beside the story itself. That will mostly be too much to ask, if the player is playing offline, but when the story file is being run on an interpreter running at a server - so that the player simply sends commands to it and sees responses back on a web page - one could easily imagine setting up the server to provide these auxiliary programs, without any extra difficulty for the player.</p>
+    <p>Among its powers are the ability to display images, play back sound effects, and read and write external files to the disc. With care and a certain amount of fuss, this can even give a playing story file limited Internet connectivity, although it should be stressed that this can only be done if the player sets up their computer just right and runs an auxiliary program beside the story itself. That will mostly be too much to ask, if the player is playing offline, but when the story file is being run on an interpreter running at a server - so that the player simply sends commands to it and sees responses back on a web page - one could easily imagine setting up the server to provide these auxiliary programs, without any extra difficulty for the player.</p>
     <p>Many of the more advanced multimedia abilities of Glulx are best unlocked using extensions available from the Inform website or the Public Library. As of this writing, extensions exist to help authors create complex multi-windowed displays (including per-location pictures, visual status bars, and even limited animations and gradually-revealed maps).</p>
     <p>There is also work in progress on sound-management to allow the author to play sounds in multiple channels at once, to change sound volumes, and to create fade-in and fade-out effects.</p>
     <p>Without extensions, all these abilities are within reach for an author who is willing to do some fairly advanced programming.</p>
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "444: Flathead News Network" "e333"-->
-        <a id="e333"></a><table class="egcue">
+        <!--START EXAMPLE "445: Flathead News Network" "e141"-->
+        <a id="e141"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example333'); return false;"><b>444</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example141'); return false;"><b>445</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example333'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Flathead News Network</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example141'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Flathead News Network</span></b></a><br>
                     Using external files, together with a simple Unix script running in the background, to provide live news headlines inside a story file.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc385.html#e333"><i>WI</i></a></div>
+                        <a href="doc385.html#e141"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example333" style="display: none;">
+        <div class="egpanel" id="example141" style="display: none;">
             <p>This example can only work if we have a separate program running in the background while the story file is being played, and as such it will only work if we set things up in a special way. Exactly how to do this will vary from platform to platform.</p>
             <p>First, the source text for the Inform end of the communication line:</p>
-            <!--START CODE "c16524_333"-->
-            <blockquote class="code"><p class="quoted"><a id="c16524_333"></a><a href="javascript:pasteCode('[=0x0022=]Flathead News Network[=0x0022=][=0x000A=][=0x000A=]The file of RSS Requests is called [=0x0022=]rssrequest[=0x0022=].[=0x000A=][=0x000A=]The file of RSS Responses (owned by project [=0x0022=]RSS-SCRIPT[=0x0022=]) is called [=0x0022=]rssreply[=0x0022=].[=0x000A=][=0x000A=]To request (RSS feed address - text):[=0x000A=][=0x0009=]mark the file of RSS Responses as not ready to read;[=0x000A=][=0x0009=]write the RSS feed address to the file of RSS Requests.[=0x000A=][=0x000A=]Newsroom is a room. [=0x0022=]This is the secret nerve-centre of FNN, the Flathead News Network.[=0x0022=][=0x000A=][=0x000A=]The BBC button is in the Newsroom. Instead of pushing the BBC button: say [=0x0022=]Bong![=0x0022=]; request [=0x0022=]newsrss.bbc.co.uk/rss/newsonline_uk_edition/front_page/rss.xml[=0x0022=].[=0x000A=][=0x000A=]The NASA button is in the Newsroom. Instead of pushing the NASA button: say [=0x0022=]Bang![=0x0022=]; request [=0x0022=]www.nasa.gov/rss/breaking_news.rss[=0x0022=].[=0x000A=][=0x000A=]The WHO button is in the Newsroom. Instead of pushing the WHO button: say [=0x0022=]Bing![=0x0022=]; request [=0x0022=]http://www.doctorwhonews.net[=0x0022=].[=0x000A=][=0x000A=]A screen is in the Newsroom.[=0x000A=][=0x000A=]Instead of examining the screen:[=0x000A=][=0x0009=]if ready to read the file of RSS Responses, say [=0x0022=]From the screen you read:[line break][text of the file of RSS Responses][=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]The screen remains blank for now.[=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Flathead News Network[=0x0022=][=0x000A=][=0x000A=]The file of RSS Requests is called [=0x0022=]rssrequest[=0x0022=].[=0x000A=][=0x000A=]The file of RSS Responses (owned by project [=0x0022=]RSS-SCRIPT[=0x0022=]) is called [=0x0022=]rssreply[=0x0022=].[=0x000A=][=0x000A=]To request (RSS feed address - text):[=0x000A=][=0x0009=]mark the file of RSS Responses as not ready to read;[=0x000A=][=0x0009=]write the RSS feed address to the file of RSS Requests.[=0x000A=][=0x000A=]Newsroom is a room. [=0x0022=]This is the secret nerve-centre of FNN, the Flathead News Network.[=0x0022=][=0x000A=][=0x000A=]The BBC button is in the Newsroom. Instead of pushing the BBC button: say [=0x0022=]Bong![=0x0022=]; request [=0x0022=]newsrss.bbc.co.uk/rss/newsonline_uk_edition/front_page/rss.xml[=0x0022=].[=0x000A=][=0x000A=]The NASA button is in the Newsroom. Instead of pushing the NASA button: say [=0x0022=]Bang![=0x0022=]; request [=0x0022=]www.nasa.gov/rss/breaking_news.rss[=0x0022=].[=0x000A=][=0x000A=]The WHO button is in the Newsroom. Instead of pushing the WHO button: say [=0x0022=]Bing![=0x0022=]; request [=0x0022=]http://www.doctorwhonews.net[=0x0022=].[=0x000A=][=0x000A=]A screen is in the Newsroom.[=0x000A=][=0x000A=]Instead of examining the screen:[=0x000A=][=0x0009=]if ready to read the file of RSS Responses, say [=0x0022=]From the screen you read:[line break][text of the file of RSS Responses][=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]The screen remains blank for now.[=0x0022=][=0x000A=][=0x000A=]\n', 'Example - Flathead News Network')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Flathead News Network&quot;
+            <!--START CODE "c16569_141"-->
+            <blockquote class="code"><p class="quoted"><a id="c16569_141"></a><a href="javascript:pasteCode('[=0x0022=]Flathead News Network[=0x0022=][=0x000A=][=0x000A=]The file of RSS Requests is called [=0x0022=]rssrequest[=0x0022=].[=0x000A=][=0x000A=]The file of RSS Responses (owned by project [=0x0022=]RSS-SCRIPT[=0x0022=]) is called [=0x0022=]rssreply[=0x0022=].[=0x000A=][=0x000A=]To request (RSS feed address - text):[=0x000A=][=0x0009=]mark the file of RSS Responses as not ready to read;[=0x000A=][=0x0009=]write the RSS feed address to the file of RSS Requests.[=0x000A=][=0x000A=]Newsroom is a room. [=0x0022=]This is the secret nerve-centre of FNN, the Flathead News Network.[=0x0022=][=0x000A=][=0x000A=]The BBC button is in the Newsroom. Instead of pushing the BBC button: say [=0x0022=]Bong![=0x0022=]; request [=0x0022=]newsrss.bbc.co.uk/rss/newsonline_uk_edition/front_page/rss.xml[=0x0022=].[=0x000A=][=0x000A=]The NASA button is in the Newsroom. Instead of pushing the NASA button: say [=0x0022=]Bang![=0x0022=]; request [=0x0022=]www.nasa.gov/rss/breaking_news.rss[=0x0022=].[=0x000A=][=0x000A=]The WHO button is in the Newsroom. Instead of pushing the WHO button: say [=0x0022=]Bing![=0x0022=]; request [=0x0022=]http://www.doctorwhonews.net[=0x0022=].[=0x000A=][=0x000A=]A screen is in the Newsroom.[=0x000A=][=0x000A=]Instead of examining the screen:[=0x000A=][=0x0009=]if ready to read the file of RSS Responses, say [=0x0022=]From the screen you read:[line break][text of the file of RSS Responses][=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]The screen remains blank for now.[=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Flathead News Network[=0x0022=][=0x000A=][=0x000A=]The file of RSS Requests is called [=0x0022=]rssrequest[=0x0022=].[=0x000A=][=0x000A=]The file of RSS Responses (owned by project [=0x0022=]RSS-SCRIPT[=0x0022=]) is called [=0x0022=]rssreply[=0x0022=].[=0x000A=][=0x000A=]To request (RSS feed address - text):[=0x000A=][=0x0009=]mark the file of RSS Responses as not ready to read;[=0x000A=][=0x0009=]write the RSS feed address to the file of RSS Requests.[=0x000A=][=0x000A=]Newsroom is a room. [=0x0022=]This is the secret nerve-centre of FNN, the Flathead News Network.[=0x0022=][=0x000A=][=0x000A=]The BBC button is in the Newsroom. Instead of pushing the BBC button: say [=0x0022=]Bong![=0x0022=]; request [=0x0022=]newsrss.bbc.co.uk/rss/newsonline_uk_edition/front_page/rss.xml[=0x0022=].[=0x000A=][=0x000A=]The NASA button is in the Newsroom. Instead of pushing the NASA button: say [=0x0022=]Bang![=0x0022=]; request [=0x0022=]www.nasa.gov/rss/breaking_news.rss[=0x0022=].[=0x000A=][=0x000A=]The WHO button is in the Newsroom. Instead of pushing the WHO button: say [=0x0022=]Bing![=0x0022=]; request [=0x0022=]http://www.doctorwhonews.net[=0x0022=].[=0x000A=][=0x000A=]A screen is in the Newsroom.[=0x000A=][=0x000A=]Instead of examining the screen:[=0x000A=][=0x0009=]if ready to read the file of RSS Responses, say [=0x0022=]From the screen you read:[line break][text of the file of RSS Responses][=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]The screen remains blank for now.[=0x0022=][=0x000A=][=0x000A=]\n', 'Example - Flathead News Network')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Flathead News Network&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c16525_333"-->
-            <blockquote class="code"><p class="quoted"><a id="c16525_333"></a>The file of RSS Requests is called &quot;rssrequest&quot;.
+            <!--START CODE "c16570_141"-->
+            <blockquote class="code"><p class="quoted"><a id="c16570_141"></a>The file of RSS Requests is called &quot;rssrequest&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c16526_333"-->
-            <blockquote class="code"><p class="quoted"><a id="c16526_333"></a>The file of RSS Responses (owned by project &quot;RSS-SCRIPT&quot;) is called &quot;rssreply&quot;.
+            <!--START CODE "c16571_141"-->
+            <blockquote class="code"><p class="quoted"><a id="c16571_141"></a>The file of RSS Responses (owned by project &quot;RSS-SCRIPT&quot;) is called &quot;rssreply&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c16527_333"-->
-            <blockquote class="code"><p class="quoted"><a id="c16527_333"></a>To request (RSS feed address - text):
+            <!--START CODE "c16572_141"-->
+            <blockquote class="code"><p class="quoted"><a id="c16572_141"></a>To request (RSS feed address - text):
             <br>
             &#160;&#160;&#160;&#160;mark the file of RSS Responses as not ready to read;
             <br>
@@ -140,33 +140,33 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c16528_333"-->
-            <blockquote class="code"><p class="quoted"><a id="c16528_333"></a>Newsroom is a room. &quot;This is the secret nerve-centre of FNN, the Flathead News Network.&quot;
+            <!--START CODE "c16573_141"-->
+            <blockquote class="code"><p class="quoted"><a id="c16573_141"></a>Newsroom is a room. &quot;This is the secret nerve-centre of FNN, the Flathead News Network.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c16529_333"-->
-            <blockquote class="code"><p class="quoted"><a id="c16529_333"></a>The BBC button is in the Newsroom. Instead of pushing the BBC button: say &quot;Bong!&quot;; request &quot;newsrss.bbc.co.uk/rss/newsonline_uk_edition/front_page/rss.xml&quot;.
+            <!--START CODE "c16574_141"-->
+            <blockquote class="code"><p class="quoted"><a id="c16574_141"></a>The BBC button is in the Newsroom. Instead of pushing the BBC button: say &quot;Bong!&quot;; request &quot;newsrss.bbc.co.uk/rss/newsonline_uk_edition/front_page/rss.xml&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c16530_333"-->
-            <blockquote class="code"><p class="quoted"><a id="c16530_333"></a>The NASA button is in the Newsroom. Instead of pushing the NASA button: say &quot;Bang!&quot;; request &quot;www.nasa.gov/rss/breaking_news.rss&quot;.
+            <!--START CODE "c16575_141"-->
+            <blockquote class="code"><p class="quoted"><a id="c16575_141"></a>The NASA button is in the Newsroom. Instead of pushing the NASA button: say &quot;Bang!&quot;; request &quot;www.nasa.gov/rss/breaking_news.rss&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c16531_333"-->
-            <blockquote class="code"><p class="quoted"><a id="c16531_333"></a>The WHO button is in the Newsroom. Instead of pushing the WHO button: say &quot;Bing!&quot;; request &quot;http://www.doctorwhonews.net&quot;.
+            <!--START CODE "c16576_141"-->
+            <blockquote class="code"><p class="quoted"><a id="c16576_141"></a>The WHO button is in the Newsroom. Instead of pushing the WHO button: say &quot;Bing!&quot;; request &quot;http://www.doctorwhonews.net&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c16532_333"-->
-            <blockquote class="code"><p class="quoted"><a id="c16532_333"></a>A screen is in the Newsroom.
+            <!--START CODE "c16577_141"-->
+            <blockquote class="code"><p class="quoted"><a id="c16577_141"></a>A screen is in the Newsroom.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c16533_333"-->
-            <blockquote class="code"><p class="quoted"><a id="c16533_333"></a>Instead of examining the screen:
+            <!--START CODE "c16578_141"-->
+            <blockquote class="code"><p class="quoted"><a id="c16578_141"></a>Instead of examining the screen:
             <br>
             &#160;&#160;&#160;&#160;if ready to read the file of RSS Responses, say &quot;From the screen you read:[line break][text of the file of RSS Responses]&quot;;
             <br>
@@ -176,8 +176,8 @@
             <!--END CODE-->
             <p>As far as the story file is concerned, then, it sends a request down the communication line by writing the chosen RSS feed to the file named &quot;rssrequest&quot;, and expects a reply to come back down the line by being written to the file &quot;rssreply&quot;. However, the story file needs to expect that this might take some time. (Maybe forever, if there is no program responding, or if the Internet connection is not working.) The story file marks the &quot;rssreply&quot; file as not ready before it makes a request; if it subsequently finds that the file is now ready, that must mean that the other program has done the honours, and that all is well. In the mean time, &quot;The screen remains blank for now.&quot;</p>
             <p>Now for the RSS-SCRIPT program. The following provides a crude but workable program suitable for running as a Perl script on a system which provides the standard Internet fetching program &quot;curl&quot;: Mac OS X, for instance. (If you have OS X, you can paste the following into a (Unix-format) text file called &quot;rss-script.pl&quot;, place it in your home folder, open the Terminal utility, type &quot;perl rss-script.pl&quot;, and then hide the Terminal window again.)</p>
-            <!--START CODE "c16534_333"-->
-            <blockquote class="code"><p class="quoted"><a id="c16534_333"></a>for (;;) { # repeat forever:
+            <!--START CODE "c16579_141"-->
+            <blockquote class="code"><p class="quoted"><a id="c16579_141"></a>for (;;) { # repeat forever:
             <br>
             &#160;&#160;&#160;&#160;system(&quot;sleep 1&quot;); # wait 1 second
             <br>

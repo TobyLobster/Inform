@@ -11,7 +11,6 @@
 #import <Foundation/Foundation.h>
 
 // The settings keys
-extern NSString* const IFSettingLibraryToUse; // default is `Standard'
 extern NSString* const IFSettingZCodeVersion; // default is 5, 256 = GLULX
 
 // Switches
@@ -27,14 +26,10 @@ extern NSString* const IFSettingCompilerVersion;      // default "Latest"
 
 // Debug
 extern NSString* const IFSettingCompileNatOutput;
-extern NSString* const IFSettingRunBuildScript;
-extern NSString* const IFSettingMemoryDebug;
+extern NSString* const IFSettingAllowLegacyExtensionDirectory;
 
 // Notifications
 extern NSNotificationName const IFSettingNotification;
-
-// Natural Inform
-extern NSString* const IFSettingLoudly;
 
 // Compiler types
 extern NSString* const IFCompilerInform6;
@@ -62,9 +57,7 @@ extern NSString* const IFCompilerNaturalInform;
 @property (atomic) BOOL usingNaturalInform;
 @property (atomic) BOOL strict;
 @property (atomic) BOOL infix;
-@property (atomic) BOOL debug;
-@property (atomic) BOOL compileNaturalInformOutput;
-@property (atomic) BOOL runBuildScript;
+@property (atomic) BOOL allowLegacyExtensionDirectory;
 @property (atomic) BOOL nobbleRng;
 @property (atomic) BOOL basicInform;
 @property (atomic) BOOL testingTabHelpShown;
@@ -72,12 +65,8 @@ extern NSString* const IFCompilerNaturalInform;
 @property (atomic) NSString * compilerVersion;
 
 
-@property (atomic, copy) NSString *libraryToUse;
-
 @property (atomic, readwrite, setter=setZCodeVersion:) int zcodeVersion;
 @property (atomic, readonly, copy) NSString *fileExtension;
-
-@property (atomic) BOOL loudly;
 
 @property (atomic) BOOL debugMemory;
 
@@ -99,7 +88,7 @@ extern NSString* const IFCompilerNaturalInform;
 - (NSArray<NSString*>*) commandLineArgumentsForRelease: (BOOL) release
                                             forTesting: (BOOL) testing;
 /// Retrieves the path to the Inform 6 compiler that should be used
-@property (atomic, readonly, copy) NSString *compilerToUse;
+@property (atomic, readonly, copy) NSString *inform6CompilerToUse;
 /// Retrieves a list of supported Z-Machine versions for the Inform 6 compiler that should be used
 @property (atomic, readonly, copy) NSArray<NSNumber*> *supportedZMachines;
 

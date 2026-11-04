@@ -84,21 +84,21 @@
     <p class="sectionheading">§12.18. Changing reachability</p>
     <p>The question of what the player can, and cannot, reach to touch is important in interactive fiction. It contains some of the subtlest ideas in the model world, though they often go unnoticed. For instance, if a key is on a shelf which is part of a closed box, can we reach for the key? This comes down to whether the shelf, described only as &quot;part of&quot; the box, is on the inside or the outside: and in fact, because it cannot know which is the case, Inform allows either. So in general it is best to regard &quot;parts&quot; as being exterior parts, but to avoid having parts on containers that might in the course of play be closed up with the player inside.</p>
     <p>We can, if we wish, change the principles of what can be touched by writing new reaching inside or reaching outside rules. Returning to the example of the conical flask:</p>
-    <!--START CODE "c3589"-->
-    <blockquote class="code"><p class="quoted"><a id="c3589"></a>A rule for reaching inside the flask: say &quot;Your hand passes through the glass as if it were not there, chilling you to the bone.&quot;; allow access.
+    <!--START CODE "c3597"-->
+    <blockquote class="code"><p class="quoted"><a id="c3597"></a>A rule for reaching inside the flask: say &quot;Your hand passes through the glass as if it were not there, chilling you to the bone.&quot;; allow access.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>(Or this could equally be called &quot;a reaching inside rule for the flask&quot;.) More generally, we could give the usual flexible description of what the rule applies to:</p>
-    <!--START CODE "c3590"-->
-    <blockquote class="code"><p class="quoted"><a id="c3590"></a>A rule for reaching inside open containers: say &quot;Your hands seem enigmatically too large for [the container in question].&quot;; deny access.
+    <!--START CODE "c3598"-->
+    <blockquote class="code"><p class="quoted"><a id="c3598"></a>A rule for reaching inside open containers: say &quot;Your hands seem enigmatically too large for [the container in question].&quot;; deny access.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>The &quot;container in question&quot; is the one to which the rule is being applied. Note that a reaching inside rule can &quot;deny access&quot; (stopping with failure), or &quot;allow access&quot; (stopping with success), or neither, in which case the decision is left up to any subsequent rules in the rulebook to make. If none of them decide, access is allowed.</p>
     <p>If it seems possible that these rules will be employed by people other than the player, then we need to write them a little more carefully, and in particular we need to ensure that they print nothing for other people. In the first case below, anybody can reach through the glass; in the second case, only the player cannot reach into open containers.</p>
-    <!--START CODE "c3591"-->
-    <blockquote class="code"><p class="quoted"><a id="c3591"></a>A rule for reaching inside the flask:
+    <!--START CODE "c3599"-->
+    <blockquote class="code"><p class="quoted"><a id="c3599"></a>A rule for reaching inside the flask:
     <br>
     &#160;&#160;&#160;&#160;if the person reaching is the player, say &quot;Your hand passes through the glass as if it were not there, chilling you to the bone.&quot;;
     <br>
@@ -106,8 +106,8 @@
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c3592"-->
-    <blockquote class="code"><p class="quoted"><a id="c3592"></a>A rule for reaching inside open containers:
+    <!--START CODE "c3600"-->
+    <blockquote class="code"><p class="quoted"><a id="c3600"></a>A rule for reaching inside open containers:
     <br>
     &#160;&#160;&#160;&#160;if the person reaching is the player:
     <br>
@@ -121,69 +121,69 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "215: Magneto's Revenge" "e208"-->
-        <a id="e208"></a><table class="egcue">
+        <!--START EXAMPLE "215: Magneto's Revenge" "e217"-->
+        <a id="e217"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example208'); return false;"><b>215</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example217'); return false;"><b>215</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example208'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Magneto's Revenge</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example217'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Magneto's Revenge</span></b></a><br>
                     Kitty Pryde of the X-Men is able to reach through solid objects, so we might implement her with special powers that the player does not have...</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc89.html#e208"><i>RB</i></a></div>
+                        <a href="Rdoc89.html#e217"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example208" style="display: none;">
-            <!--START CODE "c3593_208"-->
-            <blockquote class="code"><p class="quoted"><a id="c3593_208"></a><a href="javascript:pasteCode('[=0x0022=]Magneto[=0x0027=]s Revenge[=0x0022=][=0x000A=][=0x000A=]The School for Gifted Youngsters is a room. Kitty Pryde is a woman in the School for Gifted Youngsters. [=0x0022=]Kitty Pryde waits for you to say why you summoned her out of class.[=0x0022=] The description is [=0x0022=]You see nothing special about Kitty Pryde. But that is only because she has learned to conceal her mutant powers: in fact she has the alternative name Shadowcat, and the ability to phase through solid objects.[=0x0022=][=0x000A=][=0x000A=]The glass box is a container in the School for Gifted Youngsters. It is closed, openable, and transparent. In the box is a quantity of poisonous gas. In the box is a thing called the message from Magneto.[=0x000A=][=0x000A=]Instead of examining the message when the player is not carrying the message:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]d need to be holding it before you could read it.[=0x0022=][=0x000A=][=0x000A=]Instead of opening the glass box: say [=0x0022=]You[=0x0027=]re deterred by the swirling bottle-green mist within.[=0x0022=][=0x000A=][=0x000A=]Check someone taking the gas (this is the gaseous object rule): rule fails.[=0x000A=][=0x000A=]Unsuccessful attempt by someone taking the gas: say [=0x0022=]The gas isn[=0x0027=]t something one can pick up in one[=0x0027=]s bare hands.[=0x0022=][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the player can touch the gas:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]The gas has reached your lungs![=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story.[=0x000A=][=0x000A=]A rule for reaching inside something:[=0x000A=][=0x0009=]if the person reaching is Kitty, allow access.[=0x000A=][=0x000A=]Persuasion rule for asking someone to try doing something: persuasion succeeds.[=0x000A=][=0x000A=]Test me with [=0x0022=]get message / kitty, get message / open box / kitty, open box[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Magneto[=0x0027=]s Revenge[=0x0022=][=0x000A=][=0x000A=]The School for Gifted Youngsters is a room. Kitty Pryde is a woman in the School for Gifted Youngsters. [=0x0022=]Kitty Pryde waits for you to say why you summoned her out of class.[=0x0022=] The description is [=0x0022=]You see nothing special about Kitty Pryde. But that is only because she has learned to conceal her mutant powers: in fact she has the alternative name Shadowcat, and the ability to phase through solid objects.[=0x0022=][=0x000A=][=0x000A=]The glass box is a container in the School for Gifted Youngsters. It is closed, openable, and transparent. In the box is a quantity of poisonous gas. In the box is a thing called the message from Magneto.[=0x000A=][=0x000A=]Instead of examining the message when the player is not carrying the message:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]d need to be holding it before you could read it.[=0x0022=][=0x000A=][=0x000A=]Instead of opening the glass box: say [=0x0022=]You[=0x0027=]re deterred by the swirling bottle-green mist within.[=0x0022=][=0x000A=][=0x000A=]Check someone taking the gas (this is the gaseous object rule): rule fails.[=0x000A=][=0x000A=]Unsuccessful attempt by someone taking the gas: say [=0x0022=]The gas isn[=0x0027=]t something one can pick up in one[=0x0027=]s bare hands.[=0x0022=][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the player can touch the gas:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]The gas has reached your lungs![=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story.[=0x000A=][=0x000A=]A rule for reaching inside something:[=0x000A=][=0x0009=]if the person reaching is Kitty, allow access.[=0x000A=][=0x000A=]Persuasion rule for asking someone to try doing something: persuasion succeeds.[=0x000A=][=0x000A=]Test me with [=0x0022=]get message / kitty, get message / open box / kitty, open box[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Magneto[=0x0027=]s Revenge')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Magneto's Revenge&quot;
+        <div class="egpanel" id="example217" style="display: none;">
+            <!--START CODE "c3601_217"-->
+            <blockquote class="code"><p class="quoted"><a id="c3601_217"></a><a href="javascript:pasteCode('[=0x0022=]Magneto[=0x0027=]s Revenge[=0x0022=][=0x000A=][=0x000A=]The School for Gifted Youngsters is a room. Kitty Pryde is a woman in the School for Gifted Youngsters. [=0x0022=]Kitty Pryde waits for you to say why you summoned her out of class.[=0x0022=] The description is [=0x0022=]You see nothing special about Kitty Pryde. But that is only because she has learned to conceal her mutant powers: in fact she has the alternative name Shadowcat, and the ability to phase through solid objects.[=0x0022=][=0x000A=][=0x000A=]The glass box is a container in the School for Gifted Youngsters. It is closed, openable, and transparent. In the box is a quantity of poisonous gas. In the box is a thing called the message from Magneto.[=0x000A=][=0x000A=]Instead of examining the message when the player is not carrying the message:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]d need to be holding it before you could read it.[=0x0022=][=0x000A=][=0x000A=]Instead of opening the glass box: say [=0x0022=]You[=0x0027=]re deterred by the swirling bottle-green mist within.[=0x0022=][=0x000A=][=0x000A=]Check someone taking the gas (this is the gaseous object rule): rule fails.[=0x000A=][=0x000A=]Unsuccessful attempt by someone taking the gas: say [=0x0022=]The gas isn[=0x0027=]t something one can pick up in one[=0x0027=]s bare hands.[=0x0022=][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the player can touch the gas:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]The gas has reached your lungs![=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story.[=0x000A=][=0x000A=]A rule for reaching inside something:[=0x000A=][=0x0009=]if the person reaching is Kitty, allow access.[=0x000A=][=0x000A=]Persuasion rule for asking someone to try doing something: persuasion succeeds.[=0x000A=][=0x000A=]Test me with [=0x0022=]get message / kitty, get message / open box / kitty, open box[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Magneto[=0x0027=]s Revenge[=0x0022=][=0x000A=][=0x000A=]The School for Gifted Youngsters is a room. Kitty Pryde is a woman in the School for Gifted Youngsters. [=0x0022=]Kitty Pryde waits for you to say why you summoned her out of class.[=0x0022=] The description is [=0x0022=]You see nothing special about Kitty Pryde. But that is only because she has learned to conceal her mutant powers: in fact she has the alternative name Shadowcat, and the ability to phase through solid objects.[=0x0022=][=0x000A=][=0x000A=]The glass box is a container in the School for Gifted Youngsters. It is closed, openable, and transparent. In the box is a quantity of poisonous gas. In the box is a thing called the message from Magneto.[=0x000A=][=0x000A=]Instead of examining the message when the player is not carrying the message:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]d need to be holding it before you could read it.[=0x0022=][=0x000A=][=0x000A=]Instead of opening the glass box: say [=0x0022=]You[=0x0027=]re deterred by the swirling bottle-green mist within.[=0x0022=][=0x000A=][=0x000A=]Check someone taking the gas (this is the gaseous object rule): rule fails.[=0x000A=][=0x000A=]Unsuccessful attempt by someone taking the gas: say [=0x0022=]The gas isn[=0x0027=]t something one can pick up in one[=0x0027=]s bare hands.[=0x0022=][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the player can touch the gas:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]The gas has reached your lungs![=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story.[=0x000A=][=0x000A=]A rule for reaching inside something:[=0x000A=][=0x0009=]if the person reaching is Kitty, allow access.[=0x000A=][=0x000A=]Persuasion rule for asking someone to try doing something: persuasion succeeds.[=0x000A=][=0x000A=]Test me with [=0x0022=]get message / kitty, get message / open box / kitty, open box[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Magneto[=0x0027=]s Revenge')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Magneto's Revenge&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3594_208"-->
-            <blockquote class="code"><p class="quoted"><a id="c3594_208"></a>The School for Gifted Youngsters is a room. Kitty Pryde is a woman in the School for Gifted Youngsters. &quot;Kitty Pryde waits for you to say why you summoned her out of class.&quot; The description is &quot;You see nothing special about Kitty Pryde. But that is only because she has learned to conceal her mutant powers: in fact she has the alternative name Shadowcat, and the ability to phase through solid objects.&quot;
+            <!--START CODE "c3602_217"-->
+            <blockquote class="code"><p class="quoted"><a id="c3602_217"></a>The School for Gifted Youngsters is a room. Kitty Pryde is a woman in the School for Gifted Youngsters. &quot;Kitty Pryde waits for you to say why you summoned her out of class.&quot; The description is &quot;You see nothing special about Kitty Pryde. But that is only because she has learned to conceal her mutant powers: in fact she has the alternative name Shadowcat, and the ability to phase through solid objects.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3595_208"-->
-            <blockquote class="code"><p class="quoted"><a id="c3595_208"></a>The glass box is a container in the School for Gifted Youngsters. It is closed, openable, and transparent. In the box is a quantity of poisonous gas. In the box is a thing called the message from Magneto.
+            <!--START CODE "c3603_217"-->
+            <blockquote class="code"><p class="quoted"><a id="c3603_217"></a>The glass box is a container in the School for Gifted Youngsters. It is closed, openable, and transparent. In the box is a quantity of poisonous gas. In the box is a thing called the message from Magneto.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3596_208"-->
-            <blockquote class="code"><p class="quoted"><a id="c3596_208"></a>Instead of examining the message when the player is not carrying the message:
+            <!--START CODE "c3604_217"-->
+            <blockquote class="code"><p class="quoted"><a id="c3604_217"></a>Instead of examining the message when the player is not carrying the message:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You'd need to be holding it before you could read it.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3597_208"-->
-            <blockquote class="code"><p class="quoted"><a id="c3597_208"></a>Instead of opening the glass box: say &quot;You're deterred by the swirling bottle-green mist within.&quot;
+            <!--START CODE "c3605_217"-->
+            <blockquote class="code"><p class="quoted"><a id="c3605_217"></a>Instead of opening the glass box: say &quot;You're deterred by the swirling bottle-green mist within.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3598_208"-->
-            <blockquote class="code"><p class="quoted"><a id="c3598_208"></a>Check someone taking the gas (this is the gaseous object rule): rule fails.
+            <!--START CODE "c3606_217"-->
+            <blockquote class="code"><p class="quoted"><a id="c3606_217"></a>Check someone taking the gas (this is the gaseous object rule): rule fails.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3599_208"-->
-            <blockquote class="code"><p class="quoted"><a id="c3599_208"></a>Unsuccessful attempt by someone taking the gas: say &quot;The gas isn't something one can pick up in one's bare hands.&quot;
+            <!--START CODE "c3607_217"-->
+            <blockquote class="code"><p class="quoted"><a id="c3607_217"></a>Unsuccessful attempt by someone taking the gas: say &quot;The gas isn't something one can pick up in one's bare hands.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3600_208"-->
-            <blockquote class="code"><p class="quoted"><a id="c3600_208"></a>Every turn:
+            <!--START CODE "c3608_217"-->
+            <blockquote class="code"><p class="quoted"><a id="c3608_217"></a>Every turn:
             <br>
             &#160;&#160;&#160;&#160;if the player can touch the gas:
             <br>
@@ -193,36 +193,36 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3601_208"-->
-            <blockquote class="code"><p class="quoted"><a id="c3601_208"></a>A rule for reaching inside something:
+            <!--START CODE "c3609_217"-->
+            <blockquote class="code"><p class="quoted"><a id="c3609_217"></a>A rule for reaching inside something:
             <br>
             &#160;&#160;&#160;&#160;if the person reaching is Kitty, allow access.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3602_208"-->
-            <blockquote class="code"><p class="quoted"><a id="c3602_208"></a>Persuasion rule for asking someone to try doing something: persuasion succeeds.
+            <!--START CODE "c3610_217"-->
+            <blockquote class="code"><p class="quoted"><a id="c3610_217"></a>Persuasion rule for asking someone to try doing something: persuasion succeeds.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3603_208"-->
-            <blockquote class="code"><p class="quoted"><a id="c3603_208"></a>Test me with &quot;get message / kitty, get message / open box / kitty, open box&quot;.
+            <!--START CODE "c3611_217"-->
+            <blockquote class="code"><p class="quoted"><a id="c3611_217"></a>Test me with &quot;get message / kitty, get message / open box / kitty, open box&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now the player can get Kitty to take the message without releasing the poisonous gas:</p>
-            <!--START CODE "c3604_208"-->
-            <blockquote class="code"><p class="quoted"><a id="c3604_208"></a>Kitty Pride waits for you to tell her why you summoned her out of class.
+            <!--START CODE "c3612_217"-->
+            <blockquote class="code"><p class="quoted"><a id="c3612_217"></a>Kitty Pride waits for you to tell her why you summoned her out of class.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3605_208"-->
-            <blockquote class="code"><p class="quoted"><a id="c3605_208"></a>You can also see a glass box (closed) (in which are some poisonous gas and a message from Magneto) here.
+            <!--START CODE "c3613_217"-->
+            <blockquote class="code"><p class="quoted"><a id="c3613_217"></a>You can also see a glass box (closed) (in which are some poisonous gas and a message from Magneto) here.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3606_208"-->
-            <blockquote class="code"><p class="quoted"><a id="c3606_208"></a>&gt;kitty, get message
+            <!--START CODE "c3614_217"-->
+            <blockquote class="code"><p class="quoted"><a id="c3614_217"></a>&gt;kitty, get message
             <br>
             Kitty Pryde picks up a message from Magneto.
             </p>
@@ -231,101 +231,101 @@
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "216: Waterworld" "e413"-->
-        <a id="e413"></a><table class="egcue">
+        <!--START EXAMPLE "216: Waterworld" "e425"-->
+        <a id="e425"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example413'); return false;"><b>216</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example425'); return false;"><b>216</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example413'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Waterworld</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example425'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Waterworld</span></b></a><br>
                     A backdrop which the player can examine, but cannot interact with in any other way.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc11.html#e413"><i>RB</i></a></div>
+                        <a href="Rdoc11.html#e425"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example413" style="display: none;">
+        <div class="egpanel" id="example425" style="display: none;">
             <p>It's tempting to handle the player's inability to interact with something with a simple instead rule:</p>
-            <!--START CODE "c3607_413"-->
-            <blockquote class="code"><p class="quoted"><a id="c3607_413"></a><a href="javascript:pasteCode('[=0x0022=]Waterworld 1[=0x0022=][=0x000A=][=0x000A=]A view is a kind of backdrop. Instead of doing something other than examining to a view, say [=0x0022=]You are too far from [the noun] to do anything but look.[=0x0022=][=0x000A=][=0x000A=]The sun is a view. It is everywhere. The description is [=0x0022=]A blazing sun makes you wish you had never been born.[=0x0022=][=0x000A=][=0x000A=]The Sahara is a room. North of the Sahara is More Sahara. North of More Sahara is Yet Further Sahara.[=0x000A=][=0x000A=]Test me with [=0x0022=]x sun / get sun / n / x sun / n / x sun[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Waterworld 1[=0x0022=][=0x000A=][=0x000A=]A view is a kind of backdrop. Instead of doing something other than examining to a view, say [=0x0022=]You are too far from [the noun] to do anything but look.[=0x0022=][=0x000A=][=0x000A=]The sun is a view. It is everywhere. The description is [=0x0022=]A blazing sun makes you wish you had never been born.[=0x0022=][=0x000A=][=0x000A=]The Sahara is a room. North of the Sahara is More Sahara. North of More Sahara is Yet Further Sahara.[=0x000A=][=0x000A=]Test me with [=0x0022=]x sun / get sun / n / x sun / n / x sun[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Waterworld')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Waterworld 1&quot;
+            <!--START CODE "c3615_425"-->
+            <blockquote class="code"><p class="quoted"><a id="c3615_425"></a><a href="javascript:pasteCode('[=0x0022=]Waterworld 1[=0x0022=][=0x000A=][=0x000A=]A view is a kind of backdrop. Instead of doing something other than examining to a view, say [=0x0022=]You are too far from [the noun] to do anything but look.[=0x0022=][=0x000A=][=0x000A=]The sun is a view. It is everywhere. The description is [=0x0022=]A blazing sun makes you wish you had never been born.[=0x0022=][=0x000A=][=0x000A=]The Sahara is a room. North of the Sahara is More Sahara. North of More Sahara is Yet Further Sahara.[=0x000A=][=0x000A=]Test me with [=0x0022=]x sun / get sun / n / x sun / n / x sun[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Waterworld 1[=0x0022=][=0x000A=][=0x000A=]A view is a kind of backdrop. Instead of doing something other than examining to a view, say [=0x0022=]You are too far from [the noun] to do anything but look.[=0x0022=][=0x000A=][=0x000A=]The sun is a view. It is everywhere. The description is [=0x0022=]A blazing sun makes you wish you had never been born.[=0x0022=][=0x000A=][=0x000A=]The Sahara is a room. North of the Sahara is More Sahara. North of More Sahara is Yet Further Sahara.[=0x000A=][=0x000A=]Test me with [=0x0022=]x sun / get sun / n / x sun / n / x sun[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Waterworld')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Waterworld 1&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3608_413"-->
-            <blockquote class="code"><p class="quoted"><a id="c3608_413"></a>A view is a kind of backdrop. Instead of doing something other than examining to a view, say &quot;You are too far from [the noun] to do anything but look.&quot;
+            <!--START CODE "c3616_425"-->
+            <blockquote class="code"><p class="quoted"><a id="c3616_425"></a>A view is a kind of backdrop. Instead of doing something other than examining to a view, say &quot;You are too far from [the noun] to do anything but look.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3609_413"-->
-            <blockquote class="code"><p class="quoted"><a id="c3609_413"></a>The sun is a view. It is everywhere. The description is &quot;A blazing sun makes you wish you had never been born.&quot;
+            <!--START CODE "c3617_425"-->
+            <blockquote class="code"><p class="quoted"><a id="c3617_425"></a>The sun is a view. It is everywhere. The description is &quot;A blazing sun makes you wish you had never been born.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3610_413"-->
-            <blockquote class="code"><p class="quoted"><a id="c3610_413"></a>The Sahara is a room. North of the Sahara is More Sahara. North of More Sahara is Yet Further Sahara.
+            <!--START CODE "c3618_425"-->
+            <blockquote class="code"><p class="quoted"><a id="c3618_425"></a>The Sahara is a room. North of the Sahara is More Sahara. North of More Sahara is Yet Further Sahara.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3611_413"-->
-            <blockquote class="code"><p class="quoted"><a id="c3611_413"></a>Test me with &quot;x sun / get sun / n / x sun / n / x sun&quot;.
+            <!--START CODE "c3619_425"-->
+            <blockquote class="code"><p class="quoted"><a id="c3619_425"></a>Test me with &quot;x sun / get sun / n / x sun / n / x sun&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Unfortunately, the rule does not address the case where the object in question is the second noun; so for instance the following example reveals the difficulty:</p>
-            <!--START CODE "c3612_413"-->
-            <blockquote class="code"><p class="quoted"><a id="c3612_413"></a><a href="javascript:pasteCode('[=0x0022=]Waterworld 2[=0x0022=][=0x000A=][=0x000A=]A view is a kind of backdrop. Instead of doing something other than examining to a view, say [=0x0022=]You are too far from [the noun] to do anything but look.[=0x0022=][=0x000A=][=0x000A=]The player carries a rope.[=0x000A=][=0x000A=]The sun is a view. It is everywhere. The description is [=0x0022=]A blazing sun makes you wish you had never been born.[=0x0022=][=0x000A=][=0x000A=]The Sahara is a room. North of the Sahara is More Sahara. North of More Sahara is Yet Further Sahara.[=0x000A=][=0x000A=]Test me with [=0x0022=]x sun / get sun / n / x sun / n / x sun / tie rope to the sun[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Waterworld 2[=0x0022=][=0x000A=][=0x000A=]A view is a kind of backdrop. Instead of doing something other than examining to a view, say [=0x0022=]You are too far from [the noun] to do anything but look.[=0x0022=][=0x000A=][=0x000A=]The player carries a rope.[=0x000A=][=0x000A=]The sun is a view. It is everywhere. The description is [=0x0022=]A blazing sun makes you wish you had never been born.[=0x0022=][=0x000A=][=0x000A=]The Sahara is a room. North of the Sahara is More Sahara. North of More Sahara is Yet Further Sahara.[=0x000A=][=0x000A=]Test me with [=0x0022=]x sun / get sun / n / x sun / n / x sun / tie rope to the sun[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Waterworld')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Waterworld 2&quot;
+            <!--START CODE "c3620_425"-->
+            <blockquote class="code"><p class="quoted"><a id="c3620_425"></a><a href="javascript:pasteCode('[=0x0022=]Waterworld 2[=0x0022=][=0x000A=][=0x000A=]A view is a kind of backdrop. Instead of doing something other than examining to a view, say [=0x0022=]You are too far from [the noun] to do anything but look.[=0x0022=][=0x000A=][=0x000A=]The player carries a rope.[=0x000A=][=0x000A=]The sun is a view. It is everywhere. The description is [=0x0022=]A blazing sun makes you wish you had never been born.[=0x0022=][=0x000A=][=0x000A=]The Sahara is a room. North of the Sahara is More Sahara. North of More Sahara is Yet Further Sahara.[=0x000A=][=0x000A=]Test me with [=0x0022=]x sun / get sun / n / x sun / n / x sun / tie rope to the sun[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Waterworld 2[=0x0022=][=0x000A=][=0x000A=]A view is a kind of backdrop. Instead of doing something other than examining to a view, say [=0x0022=]You are too far from [the noun] to do anything but look.[=0x0022=][=0x000A=][=0x000A=]The player carries a rope.[=0x000A=][=0x000A=]The sun is a view. It is everywhere. The description is [=0x0022=]A blazing sun makes you wish you had never been born.[=0x0022=][=0x000A=][=0x000A=]The Sahara is a room. North of the Sahara is More Sahara. North of More Sahara is Yet Further Sahara.[=0x000A=][=0x000A=]Test me with [=0x0022=]x sun / get sun / n / x sun / n / x sun / tie rope to the sun[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Waterworld')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Waterworld 2&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3613_413"-->
-            <blockquote class="code"><p class="quoted"><a id="c3613_413"></a>A view is a kind of backdrop. Instead of doing something other than examining to a view, say &quot;You are too far from [the noun] to do anything but look.&quot;
+            <!--START CODE "c3621_425"-->
+            <blockquote class="code"><p class="quoted"><a id="c3621_425"></a>A view is a kind of backdrop. Instead of doing something other than examining to a view, say &quot;You are too far from [the noun] to do anything but look.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3614_413"-->
-            <blockquote class="code"><p class="quoted"><a id="c3614_413"></a>The player carries a rope.
+            <!--START CODE "c3622_425"-->
+            <blockquote class="code"><p class="quoted"><a id="c3622_425"></a>The player carries a rope.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3615_413"-->
-            <blockquote class="code"><p class="quoted"><a id="c3615_413"></a>The sun is a view. It is everywhere. The description is &quot;A blazing sun makes you wish you had never been born.&quot;
+            <!--START CODE "c3623_425"-->
+            <blockquote class="code"><p class="quoted"><a id="c3623_425"></a>The sun is a view. It is everywhere. The description is &quot;A blazing sun makes you wish you had never been born.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3616_413"-->
-            <blockquote class="code"><p class="quoted"><a id="c3616_413"></a>The Sahara is a room. North of the Sahara is More Sahara. North of More Sahara is Yet Further Sahara.
+            <!--START CODE "c3624_425"-->
+            <blockquote class="code"><p class="quoted"><a id="c3624_425"></a>The Sahara is a room. North of the Sahara is More Sahara. North of More Sahara is Yet Further Sahara.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3617_413"-->
-            <blockquote class="code"><p class="quoted"><a id="c3617_413"></a>Test me with &quot;x sun / get sun / n / x sun / n / x sun / tie rope to the sun&quot;.
+            <!--START CODE "c3625_425"-->
+            <blockquote class="code"><p class="quoted"><a id="c3625_425"></a>Test me with &quot;x sun / get sun / n / x sun / n / x sun / tie rope to the sun&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>...where the response here behaves as though the sun is in reach. If we had a fully implemented tying action, the player would (even more disastrously) be allowed to lasso celestial objects.</p>
             <p>We could add a second instead rule as well:</p>
-            <!--START CODE "c3618_413"-->
-            <blockquote class="code"><p class="quoted"><a id="c3618_413"></a><a href="javascript:pasteCode('[=0x0022=]Waterworld 3[=0x0022=][=0x000A=][=0x000A=]A view is a kind of backdrop.[=0x000A=][=0x000A=]Instead of doing something other than examining when the noun is a view:[=0x000A=][=0x0009=]say [=0x0022=]You are too far from [the noun] to do anything but look.[=0x0022=][=0x000A=]Instead of doing something other than examining when the second noun is a view:[=0x000A=][=0x0009=]say [=0x0022=]You are too far from [the second noun] to do anything but look.[=0x0022=][=0x000A=][=0x000A=]The player carries a rope.[=0x000A=][=0x000A=]The sun is a view. It is everywhere. The description is [=0x0022=]A blazing sun makes you wish you had never been born.[=0x0022=][=0x000A=][=0x000A=]The Sahara is a room. North of the Sahara is More Sahara. North of More Sahara is Yet Further Sahara.[=0x000A=][=0x000A=]Test me with [=0x0022=]x sun / get sun / n / x sun / n / x sun / tie rope to sun[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Waterworld 3[=0x0022=][=0x000A=][=0x000A=]A view is a kind of backdrop.[=0x000A=][=0x000A=]Instead of doing something other than examining when the noun is a view:[=0x000A=][=0x0009=]say [=0x0022=]You are too far from [the noun] to do anything but look.[=0x0022=][=0x000A=]Instead of doing something other than examining when the second noun is a view:[=0x000A=][=0x0009=]say [=0x0022=]You are too far from [the second noun] to do anything but look.[=0x0022=][=0x000A=][=0x000A=]The player carries a rope.[=0x000A=][=0x000A=]The sun is a view. It is everywhere. The description is [=0x0022=]A blazing sun makes you wish you had never been born.[=0x0022=][=0x000A=][=0x000A=]The Sahara is a room. North of the Sahara is More Sahara. North of More Sahara is Yet Further Sahara.[=0x000A=][=0x000A=]Test me with [=0x0022=]x sun / get sun / n / x sun / n / x sun / tie rope to sun[=0x0022=].[=0x000A=]\n', 'Example - Waterworld')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Waterworld 3&quot;
+            <!--START CODE "c3626_425"-->
+            <blockquote class="code"><p class="quoted"><a id="c3626_425"></a><a href="javascript:pasteCode('[=0x0022=]Waterworld 3[=0x0022=][=0x000A=][=0x000A=]A view is a kind of backdrop.[=0x000A=][=0x000A=]Instead of doing something other than examining when the noun is a view:[=0x000A=][=0x0009=]say [=0x0022=]You are too far from [the noun] to do anything but look.[=0x0022=][=0x000A=]Instead of doing something other than examining when the second noun is a view:[=0x000A=][=0x0009=]say [=0x0022=]You are too far from [the second noun] to do anything but look.[=0x0022=][=0x000A=][=0x000A=]The player carries a rope.[=0x000A=][=0x000A=]The sun is a view. It is everywhere. The description is [=0x0022=]A blazing sun makes you wish you had never been born.[=0x0022=][=0x000A=][=0x000A=]The Sahara is a room. North of the Sahara is More Sahara. North of More Sahara is Yet Further Sahara.[=0x000A=][=0x000A=]Test me with [=0x0022=]x sun / get sun / n / x sun / n / x sun / tie rope to sun[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Waterworld 3[=0x0022=][=0x000A=][=0x000A=]A view is a kind of backdrop.[=0x000A=][=0x000A=]Instead of doing something other than examining when the noun is a view:[=0x000A=][=0x0009=]say [=0x0022=]You are too far from [the noun] to do anything but look.[=0x0022=][=0x000A=]Instead of doing something other than examining when the second noun is a view:[=0x000A=][=0x0009=]say [=0x0022=]You are too far from [the second noun] to do anything but look.[=0x0022=][=0x000A=][=0x000A=]The player carries a rope.[=0x000A=][=0x000A=]The sun is a view. It is everywhere. The description is [=0x0022=]A blazing sun makes you wish you had never been born.[=0x0022=][=0x000A=][=0x000A=]The Sahara is a room. North of the Sahara is More Sahara. North of More Sahara is Yet Further Sahara.[=0x000A=][=0x000A=]Test me with [=0x0022=]x sun / get sun / n / x sun / n / x sun / tie rope to sun[=0x0022=].[=0x000A=]\n', 'Example - Waterworld')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Waterworld 3&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3619_413"-->
-            <blockquote class="code"><p class="quoted"><a id="c3619_413"></a>A view is a kind of backdrop.
+            <!--START CODE "c3627_425"-->
+            <blockquote class="code"><p class="quoted"><a id="c3627_425"></a>A view is a kind of backdrop.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3620_413"-->
-            <blockquote class="code"><p class="quoted"><a id="c3620_413"></a>Instead of doing something other than examining when the noun is a view:
+            <!--START CODE "c3628_425"-->
+            <blockquote class="code"><p class="quoted"><a id="c3628_425"></a>Instead of doing something other than examining when the noun is a view:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You are too far from [the noun] to do anything but look.&quot;
             <br>
@@ -335,82 +335,82 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3621_413"-->
-            <blockquote class="code"><p class="quoted"><a id="c3621_413"></a>The player carries a rope.
+            <!--START CODE "c3629_425"-->
+            <blockquote class="code"><p class="quoted"><a id="c3629_425"></a>The player carries a rope.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3622_413"-->
-            <blockquote class="code"><p class="quoted"><a id="c3622_413"></a>The sun is a view. It is everywhere. The description is &quot;A blazing sun makes you wish you had never been born.&quot;
+            <!--START CODE "c3630_425"-->
+            <blockquote class="code"><p class="quoted"><a id="c3630_425"></a>The sun is a view. It is everywhere. The description is &quot;A blazing sun makes you wish you had never been born.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3623_413"-->
-            <blockquote class="code"><p class="quoted"><a id="c3623_413"></a>The Sahara is a room. North of the Sahara is More Sahara. North of More Sahara is Yet Further Sahara.
+            <!--START CODE "c3631_425"-->
+            <blockquote class="code"><p class="quoted"><a id="c3631_425"></a>The Sahara is a room. North of the Sahara is More Sahara. North of More Sahara is Yet Further Sahara.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3624_413"-->
-            <blockquote class="code"><p class="quoted"><a id="c3624_413"></a>Test me with &quot;x sun / get sun / n / x sun / n / x sun / tie rope to sun&quot;.
+            <!--START CODE "c3632_425"-->
+            <blockquote class="code"><p class="quoted"><a id="c3632_425"></a>Test me with &quot;x sun / get sun / n / x sun / n / x sun / tie rope to sun&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "217: Dinner is Served" "e438"-->
-        <a id="e438"></a><table class="egcue">
+        <!--START EXAMPLE "217: Dinner is Served" "e94"-->
+        <a id="e94"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example438'); return false;"><b>217</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example94'); return false;"><b>217</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example438'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Dinner is Served</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example94'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Dinner is Served</span></b></a><br>
                     A window between two locations. When the window is open, the player can reach through into the other location; when it isn't, access is barred.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc13.html#e438"><i>RB</i></a></div>
+                        <a href="Rdoc13.html#e94"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example438" style="display: none;">
-            <!--START CODE "c3625_438"-->
-            <blockquote class="code"><p class="quoted"><a id="c3625_438"></a><a href="javascript:pasteCode('[=0x0022=]Dinner is Served[=0x0022=][=0x000A=][=0x000A=]Street in Kolonaki is a room. [=0x0022=]There is a single round table out on the street here, and a window more or less at knee level looks down into the Olive Tree Gyro Shop, which is partly basement.[=0x0022=][=0x000A=][=0x000A=]The Street contains a round table. The table is scenery. On the round table is a plate. On the plate are a gyro and a mound of fresh potates. The plate is portable. The potates and the gyro are edible. The description of potates is [=0x0022=]They[=0x0027=]d be called french fries, at home, but these are steak-cut and fried in olive oil.[=0x0022=] The description of the gyro is [=0x0022=]Dripping garlic-yogurt sauce.[=0x0022=][=0x000A=][=0x000A=]Olive Tree Gyro Shop is inside from Street in Kolonaki. Kostis is a man in the Gyro Shop. In the Shop is a stand. On the stand is a rotating column of cooking lamb flesh. In the shop is a closed, openable container called a drinks refrigerator. The refrigerator contains a can of Mythos beer and a can of Coke Light.[=0x000A=][=0x000A=][Here[=0x0027=]s the part that allows reaching through the window.][=0x000A=][=0x000A=][We replace the usual rule that says the player can never reach into a room with one that more specifically checks whether we are trying to reach through the window. If we aren[=0x0027=]t, we return the usual refusal. If we are, we return a custom refusal if the window is closed ([=0x0022=]You can[=0x0027=]t reach through the closed window[=0x0022=]), but allow access if the window is open.][=0x000A=][=0x000A=]The can[=0x0027=]t reach through closed window rule is listed instead of the can[=0x0027=]t reach inside rooms rule in the reaching inside rules.[=0x000A=][=0x000A=]This is the can[=0x0027=]t reach through closed window rule:[=0x000A=][=0x0009=]let reaching through the window be false;[=0x000A=][=0x0009=]if the container in question is a room and the container in question is not the location:[=0x000A=][=0x0009=][=0x0009=]if the container in question is the Street and the location is the Olive Tree Gyro Shop:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now reaching through the window is true;[=0x000A=][=0x0009=][=0x0009=]if the container in question is the Gyro Shop and the location is the Street:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now reaching through the window is true;[=0x000A=][=0x0009=][=0x0009=]if reaching through the window is true:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the window is closed:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You can[=0x0027=]t reach through the closed window.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]deny access;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]allow access;[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You can[=0x0027=]t reach into [the container in question] from here.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]deny access.[=0x000A=][=0x000A=][And the rest is window-dressing.][=0x000A=][=0x000A=]After looking when a room (called the next room) is adjacent:[=0x000A=][=0x0009=]try examining the next room.[=0x000A=][=0x000A=]Instead of examining a supporter, say [=0x0022=]On [the noun] [is-are a list of things on the noun].[=0x0022=] Instead of examining an open container, say [=0x0022=]In [the noun] [is-are a list of things in the noun].[=0x0022=][=0x000A=][=0x000A=]The window is a backdrop. It is in the Street and the Shop. The window can be openable. The window can be open. The window is openable and closed. Instead of searching the window in the Street: try examining the shop. Instead of searching the window in the Shop: try examining the street.[=0x000A=][=0x000A=]Understand [=0x0022=]examine [any adjacent room][=0x0022=] as examining.[=0x000A=][=0x000A=]Instead of examining a room:[=0x000A=][=0x0009=]say [=0x0022=]Over in [the noun], you can see [a list of visible things in the noun].[=0x0022=][=0x000A=][=0x000A=]After deciding the scope of the player:[=0x000A=][=0x0009=]if the player is in the Street, place the Shop in scope;[=0x000A=][=0x0009=]if the player is in the Shop, place the Street in scope.[=0x000A=][=0x000A=]Test me with [=0x0022=]examine shop / open refrigerator / open window / examine shop / open refrigerator / get beer / in / examine street / out / get gyro / close window / put gyro in refrigerator / open window / put gyro in refrigerator[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Dinner is Served[=0x0022=][=0x000A=][=0x000A=]Street in Kolonaki is a room. [=0x0022=]There is a single round table out on the street here, and a window more or less at knee level looks down into the Olive Tree Gyro Shop, which is partly basement.[=0x0022=][=0x000A=][=0x000A=]The Street contains a round table. The table is scenery. On the round table is a plate. On the plate are a gyro and a mound of fresh potates. The plate is portable. The potates and the gyro are edible. The description of potates is [=0x0022=]They[=0x0027=]d be called french fries, at home, but these are steak-cut and fried in olive oil.[=0x0022=] The description of the gyro is [=0x0022=]Dripping garlic-yogurt sauce.[=0x0022=][=0x000A=][=0x000A=]Olive Tree Gyro Shop is inside from Street in Kolonaki. Kostis is a man in the Gyro Shop. In the Shop is a stand. On the stand is a rotating column of cooking lamb flesh. In the shop is a closed, openable container called a drinks refrigerator. The refrigerator contains a can of Mythos beer and a can of Coke Light.[=0x000A=][=0x000A=][Here[=0x0027=]s the part that allows reaching through the window.][=0x000A=][=0x000A=][We replace the usual rule that says the player can never reach into a room with one that more specifically checks whether we are trying to reach through the window. If we aren[=0x0027=]t, we return the usual refusal. If we are, we return a custom refusal if the window is closed ([=0x0022=]You can[=0x0027=]t reach through the closed window[=0x0022=]), but allow access if the window is open.][=0x000A=][=0x000A=]The can[=0x0027=]t reach through closed window rule is listed instead of the can[=0x0027=]t reach inside rooms rule in the reaching inside rules.[=0x000A=][=0x000A=]This is the can[=0x0027=]t reach through closed window rule:[=0x000A=][=0x0009=]let reaching through the window be false;[=0x000A=][=0x0009=]if the container in question is a room and the container in question is not the location:[=0x000A=][=0x0009=][=0x0009=]if the container in question is the Street and the location is the Olive Tree Gyro Shop:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now reaching through the window is true;[=0x000A=][=0x0009=][=0x0009=]if the container in question is the Gyro Shop and the location is the Street:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now reaching through the window is true;[=0x000A=][=0x0009=][=0x0009=]if reaching through the window is true:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the window is closed:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You can[=0x0027=]t reach through the closed window.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]deny access;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]allow access;[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You can[=0x0027=]t reach into [the container in question] from here.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]deny access.[=0x000A=][=0x000A=][And the rest is window-dressing.][=0x000A=][=0x000A=]After looking when a room (called the next room) is adjacent:[=0x000A=][=0x0009=]try examining the next room.[=0x000A=][=0x000A=]Instead of examining a supporter, say [=0x0022=]On [the noun] [is-are a list of things on the noun].[=0x0022=] Instead of examining an open container, say [=0x0022=]In [the noun] [is-are a list of things in the noun].[=0x0022=][=0x000A=][=0x000A=]The window is a backdrop. It is in the Street and the Shop. The window can be openable. The window can be open. The window is openable and closed. Instead of searching the window in the Street: try examining the shop. Instead of searching the window in the Shop: try examining the street.[=0x000A=][=0x000A=]Understand [=0x0022=]examine [any adjacent room][=0x0022=] as examining.[=0x000A=][=0x000A=]Instead of examining a room:[=0x000A=][=0x0009=]say [=0x0022=]Over in [the noun], you can see [a list of visible things in the noun].[=0x0022=][=0x000A=][=0x000A=]After deciding the scope of the player:[=0x000A=][=0x0009=]if the player is in the Street, place the Shop in scope;[=0x000A=][=0x0009=]if the player is in the Shop, place the Street in scope.[=0x000A=][=0x000A=]Test me with [=0x0022=]examine shop / open refrigerator / open window / examine shop / open refrigerator / get beer / in / examine street / out / get gyro / close window / put gyro in refrigerator / open window / put gyro in refrigerator[=0x0022=].[=0x000A=]\n', 'Example - Dinner is Served')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Dinner is Served&quot;
+        <div class="egpanel" id="example94" style="display: none;">
+            <!--START CODE "c3633_94"-->
+            <blockquote class="code"><p class="quoted"><a id="c3633_94"></a><a href="javascript:pasteCode('[=0x0022=]Dinner is Served[=0x0022=][=0x000A=][=0x000A=]Street in Kolonaki is a room. [=0x0022=]There is a single round table out on the street here, and a window more or less at knee level looks down into the Olive Tree Gyro Shop, which is partly basement.[=0x0022=][=0x000A=][=0x000A=]The Street contains a round table. The table is scenery. On the round table is a plate. On the plate are a gyro and a mound of fresh potates. The plate is portable. The potates and the gyro are edible. The description of potates is [=0x0022=]They[=0x0027=]d be called french fries, at home, but these are steak-cut and fried in olive oil.[=0x0022=] The description of the gyro is [=0x0022=]Dripping garlic-yogurt sauce.[=0x0022=][=0x000A=][=0x000A=]Olive Tree Gyro Shop is inside from Street in Kolonaki. Kostis is a man in the Gyro Shop. In the Shop is a stand. On the stand is a rotating column of cooking lamb flesh. In the shop is a closed, openable container called a drinks refrigerator. The refrigerator contains a can of Mythos beer and a can of Coke Light.[=0x000A=][=0x000A=][Here[=0x0027=]s the part that allows reaching through the window.][=0x000A=][=0x000A=][We replace the usual rule that says the player can never reach into a room with one that more specifically checks whether we are trying to reach through the window. If we aren[=0x0027=]t, we return the usual refusal. If we are, we return a custom refusal if the window is closed ([=0x0022=]You can[=0x0027=]t reach through the closed window[=0x0022=]), but allow access if the window is open.][=0x000A=][=0x000A=]The can[=0x0027=]t reach through closed window rule is listed instead of the can[=0x0027=]t reach inside rooms rule in the reaching inside rules.[=0x000A=][=0x000A=]This is the can[=0x0027=]t reach through closed window rule:[=0x000A=][=0x0009=]let reaching through the window be false;[=0x000A=][=0x0009=]if the container in question is a room and the container in question is not the location:[=0x000A=][=0x0009=][=0x0009=]if the container in question is the Street and the location is the Olive Tree Gyro Shop:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now reaching through the window is true;[=0x000A=][=0x0009=][=0x0009=]if the container in question is the Gyro Shop and the location is the Street:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now reaching through the window is true;[=0x000A=][=0x0009=][=0x0009=]if reaching through the window is true:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the window is closed:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You can[=0x0027=]t reach through the closed window.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]deny access;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]allow access;[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You can[=0x0027=]t reach into [the container in question] from here.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]deny access.[=0x000A=][=0x000A=][And the rest is window-dressing.][=0x000A=][=0x000A=]After looking when a room (called the next room) is adjacent:[=0x000A=][=0x0009=]try examining the next room.[=0x000A=][=0x000A=]Instead of examining a supporter, say [=0x0022=]On [the noun] [is-are a list of things on the noun].[=0x0022=] Instead of examining an open container, say [=0x0022=]In [the noun] [is-are a list of things in the noun].[=0x0022=][=0x000A=][=0x000A=]The window is a backdrop. It is in the Street and the Shop. The window can be openable. The window can be open. The window is openable and closed. Instead of searching the window in the Street: try examining the shop. Instead of searching the window in the Shop: try examining the street.[=0x000A=][=0x000A=]Understand [=0x0022=]examine [any adjacent room][=0x0022=] as examining.[=0x000A=][=0x000A=]Instead of examining a room:[=0x000A=][=0x0009=]say [=0x0022=]Over in [the noun], you can see [a list of visible things in the noun].[=0x0022=][=0x000A=][=0x000A=]After deciding the scope of the player:[=0x000A=][=0x0009=]if the player is in the Street, place the Shop in scope;[=0x000A=][=0x0009=]if the player is in the Shop, place the Street in scope.[=0x000A=][=0x000A=]Test me with [=0x0022=]examine shop / open refrigerator / open window / examine shop / open refrigerator / get beer / in / examine street / out / get gyro / close window / put gyro in refrigerator / open window / put gyro in refrigerator[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Dinner is Served[=0x0022=][=0x000A=][=0x000A=]Street in Kolonaki is a room. [=0x0022=]There is a single round table out on the street here, and a window more or less at knee level looks down into the Olive Tree Gyro Shop, which is partly basement.[=0x0022=][=0x000A=][=0x000A=]The Street contains a round table. The table is scenery. On the round table is a plate. On the plate are a gyro and a mound of fresh potates. The plate is portable. The potates and the gyro are edible. The description of potates is [=0x0022=]They[=0x0027=]d be called french fries, at home, but these are steak-cut and fried in olive oil.[=0x0022=] The description of the gyro is [=0x0022=]Dripping garlic-yogurt sauce.[=0x0022=][=0x000A=][=0x000A=]Olive Tree Gyro Shop is inside from Street in Kolonaki. Kostis is a man in the Gyro Shop. In the Shop is a stand. On the stand is a rotating column of cooking lamb flesh. In the shop is a closed, openable container called a drinks refrigerator. The refrigerator contains a can of Mythos beer and a can of Coke Light.[=0x000A=][=0x000A=][Here[=0x0027=]s the part that allows reaching through the window.][=0x000A=][=0x000A=][We replace the usual rule that says the player can never reach into a room with one that more specifically checks whether we are trying to reach through the window. If we aren[=0x0027=]t, we return the usual refusal. If we are, we return a custom refusal if the window is closed ([=0x0022=]You can[=0x0027=]t reach through the closed window[=0x0022=]), but allow access if the window is open.][=0x000A=][=0x000A=]The can[=0x0027=]t reach through closed window rule is listed instead of the can[=0x0027=]t reach inside rooms rule in the reaching inside rules.[=0x000A=][=0x000A=]This is the can[=0x0027=]t reach through closed window rule:[=0x000A=][=0x0009=]let reaching through the window be false;[=0x000A=][=0x0009=]if the container in question is a room and the container in question is not the location:[=0x000A=][=0x0009=][=0x0009=]if the container in question is the Street and the location is the Olive Tree Gyro Shop:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now reaching through the window is true;[=0x000A=][=0x0009=][=0x0009=]if the container in question is the Gyro Shop and the location is the Street:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now reaching through the window is true;[=0x000A=][=0x0009=][=0x0009=]if reaching through the window is true:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the window is closed:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You can[=0x0027=]t reach through the closed window.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]deny access;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]allow access;[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You can[=0x0027=]t reach into [the container in question] from here.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]deny access.[=0x000A=][=0x000A=][And the rest is window-dressing.][=0x000A=][=0x000A=]After looking when a room (called the next room) is adjacent:[=0x000A=][=0x0009=]try examining the next room.[=0x000A=][=0x000A=]Instead of examining a supporter, say [=0x0022=]On [the noun] [is-are a list of things on the noun].[=0x0022=] Instead of examining an open container, say [=0x0022=]In [the noun] [is-are a list of things in the noun].[=0x0022=][=0x000A=][=0x000A=]The window is a backdrop. It is in the Street and the Shop. The window can be openable. The window can be open. The window is openable and closed. Instead of searching the window in the Street: try examining the shop. Instead of searching the window in the Shop: try examining the street.[=0x000A=][=0x000A=]Understand [=0x0022=]examine [any adjacent room][=0x0022=] as examining.[=0x000A=][=0x000A=]Instead of examining a room:[=0x000A=][=0x0009=]say [=0x0022=]Over in [the noun], you can see [a list of visible things in the noun].[=0x0022=][=0x000A=][=0x000A=]After deciding the scope of the player:[=0x000A=][=0x0009=]if the player is in the Street, place the Shop in scope;[=0x000A=][=0x0009=]if the player is in the Shop, place the Street in scope.[=0x000A=][=0x000A=]Test me with [=0x0022=]examine shop / open refrigerator / open window / examine shop / open refrigerator / get beer / in / examine street / out / get gyro / close window / put gyro in refrigerator / open window / put gyro in refrigerator[=0x0022=].[=0x000A=]\n', 'Example - Dinner is Served')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Dinner is Served&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3626_438"-->
-            <blockquote class="code"><p class="quoted"><a id="c3626_438"></a>Street in Kolonaki is a room. &quot;There is a single round table out on the street here, and a window more or less at knee level looks down into the Olive Tree Gyro Shop, which is partly basement.&quot;
+            <!--START CODE "c3634_94"-->
+            <blockquote class="code"><p class="quoted"><a id="c3634_94"></a>Street in Kolonaki is a room. &quot;There is a single round table out on the street here, and a window more or less at knee level looks down into the Olive Tree Gyro Shop, which is partly basement.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3627_438"-->
-            <blockquote class="code"><p class="quoted"><a id="c3627_438"></a>The Street contains a round table. The table is scenery. On the round table is a plate. On the plate are a gyro and a mound of fresh potates. The plate is portable. The potates and the gyro are edible. The description of potates is &quot;They'd be called french fries, at home, but these are steak-cut and fried in olive oil.&quot; The description of the gyro is &quot;Dripping garlic-yogurt sauce.&quot;
+            <!--START CODE "c3635_94"-->
+            <blockquote class="code"><p class="quoted"><a id="c3635_94"></a>The Street contains a round table. The table is scenery. On the round table is a plate. On the plate are a gyro and a mound of fresh potates. The plate is portable. The potates and the gyro are edible. The description of potates is &quot;They'd be called french fries, at home, but these are steak-cut and fried in olive oil.&quot; The description of the gyro is &quot;Dripping garlic-yogurt sauce.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3628_438"-->
-            <blockquote class="code"><p class="quoted"><a id="c3628_438"></a>Olive Tree Gyro Shop is inside from Street in Kolonaki. Kostis is a man in the Gyro Shop. In the Shop is a stand. On the stand is a rotating column of cooking lamb flesh. In the shop is a closed, openable container called a drinks refrigerator. The refrigerator contains a can of Mythos beer and a can of Coke Light.
+            <!--START CODE "c3636_94"-->
+            <blockquote class="code"><p class="quoted"><a id="c3636_94"></a>Olive Tree Gyro Shop is inside from Street in Kolonaki. Kostis is a man in the Gyro Shop. In the Shop is a stand. On the stand is a rotating column of cooking lamb flesh. In the shop is a closed, openable container called a drinks refrigerator. The refrigerator contains a can of Mythos beer and a can of Coke Light.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Here's the part that allows reaching through the window.</p>
             <p>We replace the usual rule that says the player can never reach into a room with one that more specifically checks whether we are trying to reach through the window. If we aren't, we return the usual refusal. If we are, we return a custom refusal if the window is closed (&quot;You can't reach through the closed window&quot;), but allow access if the window is open.</p>
-            <!--START CODE "c3629_438"-->
-            <blockquote class="code"><p class="quoted"><a id="c3629_438"></a>The can't reach through closed window rule is listed instead of the can't reach inside rooms rule in the reaching inside rules.
+            <!--START CODE "c3637_94"-->
+            <blockquote class="code"><p class="quoted"><a id="c3637_94"></a>The can't reach through closed window rule is listed instead of the can't reach inside rooms rule in the reaching inside rules.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3630_438"-->
-            <blockquote class="code"><p class="quoted"><a id="c3630_438"></a>This is the can't reach through closed window rule:
+            <!--START CODE "c3638_94"-->
+            <blockquote class="code"><p class="quoted"><a id="c3638_94"></a>This is the can't reach through closed window rule:
             <br>
             &#160;&#160;&#160;&#160;let reaching through the window be false;
             <br>
@@ -445,37 +445,37 @@
             </blockquote>
             <!--END CODE-->
             <p>And the rest is window-dressing.</p>
-            <!--START CODE "c3631_438"-->
-            <blockquote class="code"><p class="quoted"><a id="c3631_438"></a>After looking when a room (called the next room) is adjacent:
+            <!--START CODE "c3639_94"-->
+            <blockquote class="code"><p class="quoted"><a id="c3639_94"></a>After looking when a room (called the next room) is adjacent:
             <br>
             &#160;&#160;&#160;&#160;try examining the next room.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3632_438"-->
-            <blockquote class="code"><p class="quoted"><a id="c3632_438"></a>Instead of examining a supporter, say &quot;On [the noun] [is-are a list of things on the noun].&quot; Instead of examining an open container, say &quot;In [the noun] [is-are a list of things in the noun].&quot;
+            <!--START CODE "c3640_94"-->
+            <blockquote class="code"><p class="quoted"><a id="c3640_94"></a>Instead of examining a supporter, say &quot;On [the noun] [is-are a list of things on the noun].&quot; Instead of examining an open container, say &quot;In [the noun] [is-are a list of things in the noun].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3633_438"-->
-            <blockquote class="code"><p class="quoted"><a id="c3633_438"></a>The window is a backdrop. It is in the Street and the Shop. The window can be openable. The window can be open. The window is openable and closed. Instead of searching the window in the Street: try examining the shop. Instead of searching the window in the Shop: try examining the street.
+            <!--START CODE "c3641_94"-->
+            <blockquote class="code"><p class="quoted"><a id="c3641_94"></a>The window is a backdrop. It is in the Street and the Shop. The window can be openable. The window can be open. The window is openable and closed. Instead of searching the window in the Street: try examining the shop. Instead of searching the window in the Shop: try examining the street.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3634_438"-->
-            <blockquote class="code"><p class="quoted"><a id="c3634_438"></a>Understand &quot;examine [any adjacent room]&quot; as examining.
+            <!--START CODE "c3642_94"-->
+            <blockquote class="code"><p class="quoted"><a id="c3642_94"></a>Understand &quot;examine [any adjacent room]&quot; as examining.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3635_438"-->
-            <blockquote class="code"><p class="quoted"><a id="c3635_438"></a>Instead of examining a room:
+            <!--START CODE "c3643_94"-->
+            <blockquote class="code"><p class="quoted"><a id="c3643_94"></a>Instead of examining a room:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Over in [the noun], you can see [a list of visible things in the noun].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3636_438"-->
-            <blockquote class="code"><p class="quoted"><a id="c3636_438"></a>After deciding the scope of the player:
+            <!--START CODE "c3644_94"-->
+            <blockquote class="code"><p class="quoted"><a id="c3644_94"></a>After deciding the scope of the player:
             <br>
             &#160;&#160;&#160;&#160;if the player is in the Street, place the Shop in scope;
             <br>
@@ -483,8 +483,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3637_438"-->
-            <blockquote class="code"><p class="quoted"><a id="c3637_438"></a>Test me with &quot;examine shop / open refrigerator / open window / examine shop / open refrigerator / get beer / in / examine street / out / get gyro / close window / put gyro in refrigerator / open window / put gyro in refrigerator&quot;.
+            <!--START CODE "c3645_94"-->
+            <blockquote class="code"><p class="quoted"><a id="c3645_94"></a>Test me with &quot;examine shop / open refrigerator / open window / examine shop / open refrigerator / get beer / in / examine street / out / get gyro / close window / put gyro in refrigerator / open window / put gyro in refrigerator&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

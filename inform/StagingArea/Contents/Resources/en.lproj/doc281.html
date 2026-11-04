@@ -83,34 +83,34 @@
     <!--END IGNORE-->
     <p class="sectionheading">§17.19. Does the player mean...</p>
     <p>When the player types an ambiguous reference, we need to work out what is meant. Consider the following source text:</p>
-    <!--START CODE "c6097"-->
-    <blockquote class="code"><p class="quoted"><a id="c6097"></a>The Champs du Mars is a room. The great Eiffel Tower is here. &quot;The great Tower stands high over you.&quot; The souvenir model Eiffel Tower is here. &quot;Comparatively tiny is the souvenir version.&quot;
+    <!--START CODE "c6113"-->
+    <blockquote class="code"><p class="quoted"><a id="c6113"></a>The Champs du Mars is a room. The great Eiffel Tower is here. &quot;The great Tower stands high over you.&quot; The souvenir model Eiffel Tower is here. &quot;Comparatively tiny is the souvenir version.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Now suppose the player types GET TOWER. The response will be:</p>
-    <!--START CODE "c6098"-->
-    <blockquote class="code"><p class="quoted"><a id="c6098"></a>Which do you mean, the great Eiffel Tower or the souvenir model Eiffel Tower?
+    <!--START CODE "c6114"-->
+    <blockquote class="code"><p class="quoted"><a id="c6114"></a>Which do you mean, the great Eiffel Tower or the souvenir model Eiffel Tower?
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Which is a silly question, exposing our work of IF as something artificial. It's obvious to the author of the source text, and to the player, that the souvenir must be what is meant: but this is not obvious to the computer program running the story. Works of IF gain a subtle feeling of quality from being able to understand ambiguous references of the kind above, and Inform provides us with a way to do this by giving the parser clues in the form of &quot;Does the player mean...&quot; rules. For instance, if we add:</p>
-    <!--START CODE "c6099"-->
-    <blockquote class="code"><p class="quoted"><a id="c6099"></a>Does the player mean taking the great Eiffel Tower: it is very unlikely.
+    <!--START CODE "c6115"-->
+    <blockquote class="code"><p class="quoted"><a id="c6115"></a>Does the player mean taking the great Eiffel Tower: it is very unlikely.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>then the response to GET TOWER will now be:</p>
-    <!--START CODE "c6100"-->
-    <blockquote class="code"><p class="quoted"><a id="c6100"></a>(the souvenir model Eiffel Tower)
+    <!--START CODE "c6116"-->
+    <blockquote class="code"><p class="quoted"><a id="c6116"></a>(the souvenir model Eiffel Tower)
     <br>
     Taken.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>&quot;Does the player mean...&quot; rules look at the actions which are possible interpretations of what the player typed, and grade them according to how likely they seem. (Note that these rules are only ever used to handle ambiguities: if the player unambiguously types GET GREAT EIFFEL TOWER, that will be the action. And the rules are only used where they are able to make a decision: if there are still multiple equally plausible meanings, the parser will ask about all possibilities, not just the most likely ones.) Rules in this rulebook can either decide nothing, or come up with one of the following verdicts:</p>
-    <!--START CODE "c6101"-->
-    <blockquote class="code"><p class="quoted"><a id="c6101"></a>it is very likely
+    <!--START CODE "c6117"-->
+    <blockquote class="code"><p class="quoted"><a id="c6117"></a>it is very likely
     <br>
     it is likely
     <br>
@@ -124,8 +124,8 @@
     <!--END CODE-->
     <p>If there are no &quot;does the player mean&quot; rules, or the rules make no decision on a given possible action, it will be ranked as &quot;it is possible&quot;.</p>
     <p>We may use these rules to affect all sorts of interaction with a specific object or kind of object, as in</p>
-    <!--START CODE "c6102"-->
-    <blockquote class="code"><p class="quoted"><a id="c6102"></a>Does the player mean doing something with the cursed dagger of Thog: it is very unlikely.
+    <!--START CODE "c6118"-->
+    <blockquote class="code"><p class="quoted"><a id="c6118"></a>Does the player mean doing something with the cursed dagger of Thog: it is very unlikely.
     <br>
     Does the player mean doing something with the cursed dagger of Thog when the player is hypnotized: it is likely.
     </p>
@@ -133,28 +133,28 @@
     <!--END CODE-->
     <p>...and so on.</p>
     <p>Notice that we can also make rules about actions that apply to two objects, so for instance:</p>
-    <!--START CODE "c6103"-->
-    <blockquote class="code"><p class="quoted"><a id="c6103"></a>Does the player mean throwing the can of shoe polish at the shoe polish vending machine: it is likely.
+    <!--START CODE "c6119"-->
+    <blockquote class="code"><p class="quoted"><a id="c6119"></a>Does the player mean throwing the can of shoe polish at the shoe polish vending machine: it is likely.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>which nicely clarifies THROW POLISH AT POLISH, but does not comment on the likelihood of throwing the can at other things or of throwing other things at the vending machine. Moreover, the (suspected) identity of the first item will be known when the rule is consulted; thus</p>
-    <!--START CODE "c6104"-->
-    <blockquote class="code"><p class="quoted"><a id="c6104"></a>Does the player mean tying the noun to the noun: it is very unlikely.
+    <!--START CODE "c6120"-->
+    <blockquote class="code"><p class="quoted"><a id="c6120"></a>Does the player mean tying the noun to the noun: it is very unlikely.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>will tell Inform to prefer not to tie something to itself if other interpretations are available.</p>
     <p>But there is a caveat. There are some cases where this mechanism will not in fact help Inform to choose its way out of an ambiguous command, because of the way it parses one noun at a time. It usually needs to understand the first noun before it will even try to make sense of the second. So a rule like:</p>
-    <!--START CODE "c6105"-->
-    <blockquote class="code"><p class="quoted"><a id="c6105"></a>Does the player mean throwing the can of shoe polish at the tree: it is likely.
+    <!--START CODE "c6121"-->
+    <blockquote class="code"><p class="quoted"><a id="c6121"></a>Does the player mean throwing the can of shoe polish at the tree: it is likely.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>may not work if the player types THROW POLISH AT TREE and POLISH is ambiguous, because when the parser is trying to understand POLISH, it hasn't yet seen to the end of the command and realised that the second noun will be the tree; so the second noun is unset and the rule won't match.</p>
     <p>As a caveat to the caveat, the &quot;inserting it into&quot;, &quot;removing it from&quot; and &quot;putting it on&quot; actions have this slightly back to front. These are parsed using the (little-used) &quot;[other things]&quot; or &quot;[things inside]&quot; tokens, and the Inform parser tries to detect the second noun before the first one, since the identity of the first has to depend on the second. So for instance if the situation contains &quot;an oak tree&quot; and also &quot;an oak chest&quot;, we could write:</p>
-    <!--START CODE "c6106"-->
-    <blockquote class="code"><p class="quoted"><a id="c6106"></a>Does the player mean inserting into the oak chest:
+    <!--START CODE "c6122"-->
+    <blockquote class="code"><p class="quoted"><a id="c6122"></a>Does the player mean inserting into the oak chest:
     <br>
     &#160;&#160;&#160;&#160;it is very likely.
     </p>
@@ -164,86 +164,86 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "326: Masochism Deli" "e296"-->
-        <a id="e296"></a><table class="egcue">
+        <!--START EXAMPLE "327: Masochism Deli" "e218"-->
+        <a id="e218"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example296'); return false;"><b>326</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example218'); return false;"><b>327</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example296'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Masochism Deli</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example218'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Masochism Deli</span></b></a><br>
                     Multiple potatoes, with rules to make the player drop the hot potato first and pick it up last.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc88.html#e296"><i>RB</i></a></div>
+                        <a href="Rdoc88.html#e218"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example296" style="display: none;">
-            <p>Here the player has several potatoes; we would like to make him more likely to drop the hot one, and more likely to pick up the cold one, all else being equal. At the same time, we want to phrase our rules so that they don't make the player try to take something he's already holding, or drop something he isn't.</p>
+        <div class="egpanel" id="example218" style="display: none;">
+            <p>Here the player has several potatoes; we would like to make them more likely to drop the hot one, and more likely to pick up the cold one, all else being equal. At the same time, we want to phrase our rules so that they don't make the player try to take something they're already holding, or drop something they're not.</p>
             <p>So:</p>
-            <!--START CODE "c6107_296"-->
-            <blockquote class="code"><p class="quoted"><a id="c6107_296"></a><a href="javascript:pasteCode('[=0x0022=]Masochism Deli[=0x0022=][=0x000A=][=0x000A=]The Masochism Deli is a room. [=0x0022=]Recent restructurings of corporate policy restrict the [=0x0027=]lunch hour[=0x0027=] to exactly thirty-two minutes, which means that no one has time to go out. Instead, you and your coworkers eat here, in the company[=0x0027=]s very own themed lunch room.[=0x0022=][=0x000A=][=0x000A=]The plural of potato is potatoes. A potato is a kind of thing. A potato is edible.[=0x000A=][=0x000A=]Temperature is a kind of value. The temperatures are hot and cold. A potato has a temperature. A potato is usually cold.[=0x000A=][=0x000A=]Understand the temperature property as describing a potato. Before printing the name of a potato (called subject): say [=0x0022=][temperature of subject] [=0x0022=]. Before printing the plural name of a potato (called subject): say [=0x0022=][temperature of subject] [=0x0022=].[=0x000A=][=0x000A=]Does the player mean dropping a hot potato which is carried by the player: it is very likely.[=0x000A=][=0x000A=]Does the player mean taking a cold potato which is not carried by the player: it is very likely.[=0x000A=][=0x000A=]The player carries three potatoes.[=0x000A=][=0x000A=]After dropping a hot potato:[=0x000A=][=0x0009=]say [=0x0022=]The guy from Cube B sneers at your lack of potato-holding stamina.[=0x0022=][=0x000A=][=0x000A=]When play begins: now a random potato is hot.[=0x000A=][=0x000A=]Test me with [=0x0022=]inventory / drop potato / g / g / get potato / g / i / get potato[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Masochism Deli[=0x0022=][=0x000A=][=0x000A=]The Masochism Deli is a room. [=0x0022=]Recent restructurings of corporate policy restrict the [=0x0027=]lunch hour[=0x0027=] to exactly thirty-two minutes, which means that no one has time to go out. Instead, you and your coworkers eat here, in the company[=0x0027=]s very own themed lunch room.[=0x0022=][=0x000A=][=0x000A=]The plural of potato is potatoes. A potato is a kind of thing. A potato is edible.[=0x000A=][=0x000A=]Temperature is a kind of value. The temperatures are hot and cold. A potato has a temperature. A potato is usually cold.[=0x000A=][=0x000A=]Understand the temperature property as describing a potato. Before printing the name of a potato (called subject): say [=0x0022=][temperature of subject] [=0x0022=]. Before printing the plural name of a potato (called subject): say [=0x0022=][temperature of subject] [=0x0022=].[=0x000A=][=0x000A=]Does the player mean dropping a hot potato which is carried by the player: it is very likely.[=0x000A=][=0x000A=]Does the player mean taking a cold potato which is not carried by the player: it is very likely.[=0x000A=][=0x000A=]The player carries three potatoes.[=0x000A=][=0x000A=]After dropping a hot potato:[=0x000A=][=0x0009=]say [=0x0022=]The guy from Cube B sneers at your lack of potato-holding stamina.[=0x0022=][=0x000A=][=0x000A=]When play begins: now a random potato is hot.[=0x000A=][=0x000A=]Test me with [=0x0022=]inventory / drop potato / g / g / get potato / g / i / get potato[=0x0022=].[=0x000A=]\n', 'Example - Masochism Deli')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Masochism Deli&quot;
+            <!--START CODE "c6123_218"-->
+            <blockquote class="code"><p class="quoted"><a id="c6123_218"></a><a href="javascript:pasteCode('[=0x0022=]Masochism Deli[=0x0022=][=0x000A=][=0x000A=]The Masochism Deli is a room. [=0x0022=]Recent restructurings of corporate policy restrict the [=0x0027=]lunch hour[=0x0027=] to exactly thirty-two minutes, which means that no one has time to go out. Instead, you and your coworkers eat here, in the company[=0x0027=]s very own themed lunch room.[=0x0022=][=0x000A=][=0x000A=]The plural of potato is potatoes. A potato is a kind of thing. A potato is edible.[=0x000A=][=0x000A=]Temperature is a kind of value. The temperatures are hot and cold. A potato has a temperature. A potato is usually cold.[=0x000A=][=0x000A=]Understand the temperature property as describing a potato. Before printing the name of a potato (called subject): say [=0x0022=][temperature of subject] [=0x0022=]. Before printing the plural name of a potato (called subject): say [=0x0022=][temperature of subject] [=0x0022=].[=0x000A=][=0x000A=]Does the player mean dropping a hot potato which is carried by the player: it is very likely.[=0x000A=][=0x000A=]Does the player mean taking a cold potato which is not carried by the player: it is very likely.[=0x000A=][=0x000A=]The player carries three potatoes.[=0x000A=][=0x000A=]After dropping a hot potato:[=0x000A=][=0x0009=]say [=0x0022=]The guy from Cube B sneers at your lack of potato-holding stamina.[=0x0022=][=0x000A=][=0x000A=]When play begins: now a random potato is hot.[=0x000A=][=0x000A=]Test me with [=0x0022=]inventory / drop potato / g / g / get potato / g / i / get potato[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Masochism Deli[=0x0022=][=0x000A=][=0x000A=]The Masochism Deli is a room. [=0x0022=]Recent restructurings of corporate policy restrict the [=0x0027=]lunch hour[=0x0027=] to exactly thirty-two minutes, which means that no one has time to go out. Instead, you and your coworkers eat here, in the company[=0x0027=]s very own themed lunch room.[=0x0022=][=0x000A=][=0x000A=]The plural of potato is potatoes. A potato is a kind of thing. A potato is edible.[=0x000A=][=0x000A=]Temperature is a kind of value. The temperatures are hot and cold. A potato has a temperature. A potato is usually cold.[=0x000A=][=0x000A=]Understand the temperature property as describing a potato. Before printing the name of a potato (called subject): say [=0x0022=][temperature of subject] [=0x0022=]. Before printing the plural name of a potato (called subject): say [=0x0022=][temperature of subject] [=0x0022=].[=0x000A=][=0x000A=]Does the player mean dropping a hot potato which is carried by the player: it is very likely.[=0x000A=][=0x000A=]Does the player mean taking a cold potato which is not carried by the player: it is very likely.[=0x000A=][=0x000A=]The player carries three potatoes.[=0x000A=][=0x000A=]After dropping a hot potato:[=0x000A=][=0x0009=]say [=0x0022=]The guy from Cube B sneers at your lack of potato-holding stamina.[=0x0022=][=0x000A=][=0x000A=]When play begins: now a random potato is hot.[=0x000A=][=0x000A=]Test me with [=0x0022=]inventory / drop potato / g / g / get potato / g / i / get potato[=0x0022=].[=0x000A=]\n', 'Example - Masochism Deli')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Masochism Deli&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6108_296"-->
-            <blockquote class="code"><p class="quoted"><a id="c6108_296"></a>The Masochism Deli is a room. &quot;Recent restructurings of corporate policy restrict the 'lunch hour' to exactly thirty-two minutes, which means that no one has time to go out. Instead, you and your coworkers eat here, in the company's very own themed lunch room.&quot;
+            <!--START CODE "c6124_218"-->
+            <blockquote class="code"><p class="quoted"><a id="c6124_218"></a>The Masochism Deli is a room. &quot;Recent restructurings of corporate policy restrict the 'lunch hour' to exactly thirty-two minutes, which means that no one has time to go out. Instead, you and your coworkers eat here, in the company's very own themed lunch room.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6109_296"-->
-            <blockquote class="code"><p class="quoted"><a id="c6109_296"></a>The plural of potato is potatoes. A potato is a kind of thing. A potato is edible.
+            <!--START CODE "c6125_218"-->
+            <blockquote class="code"><p class="quoted"><a id="c6125_218"></a>The plural of potato is potatoes. A potato is a kind of thing. A potato is edible.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6110_296"-->
-            <blockquote class="code"><p class="quoted"><a id="c6110_296"></a>Temperature is a kind of value. The temperatures are hot and cold. A potato has a temperature. A potato is usually cold.
+            <!--START CODE "c6126_218"-->
+            <blockquote class="code"><p class="quoted"><a id="c6126_218"></a>Temperature is a kind of value. The temperatures are hot and cold. A potato has a temperature. A potato is usually cold.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6111_296"-->
-            <blockquote class="code"><p class="quoted"><a id="c6111_296"></a>Understand the temperature property as describing a potato. Before printing the name of a potato (called subject): say &quot;[temperature of subject] &quot;. Before printing the plural name of a potato (called subject): say &quot;[temperature of subject] &quot;.
+            <!--START CODE "c6127_218"-->
+            <blockquote class="code"><p class="quoted"><a id="c6127_218"></a>Understand the temperature property as describing a potato. Before printing the name of a potato (called subject): say &quot;[temperature of subject] &quot;. Before printing the plural name of a potato (called subject): say &quot;[temperature of subject] &quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6112_296"-->
-            <blockquote class="code"><p class="quoted"><a id="c6112_296"></a>Does the player mean dropping a hot potato which is carried by the player: it is very likely.
+            <!--START CODE "c6128_218"-->
+            <blockquote class="code"><p class="quoted"><a id="c6128_218"></a>Does the player mean dropping a hot potato which is carried by the player: it is very likely.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6113_296"-->
-            <blockquote class="code"><p class="quoted"><a id="c6113_296"></a>Does the player mean taking a cold potato which is not carried by the player: it is very likely.
+            <!--START CODE "c6129_218"-->
+            <blockquote class="code"><p class="quoted"><a id="c6129_218"></a>Does the player mean taking a cold potato which is not carried by the player: it is very likely.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6114_296"-->
-            <blockquote class="code"><p class="quoted"><a id="c6114_296"></a>The player carries three potatoes.
+            <!--START CODE "c6130_218"-->
+            <blockquote class="code"><p class="quoted"><a id="c6130_218"></a>The player carries three potatoes.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6115_296"-->
-            <blockquote class="code"><p class="quoted"><a id="c6115_296"></a>After dropping a hot potato:
+            <!--START CODE "c6131_218"-->
+            <blockquote class="code"><p class="quoted"><a id="c6131_218"></a>After dropping a hot potato:
             <br>
             &#160;&#160;&#160;&#160;say &quot;The guy from Cube B sneers at your lack of potato-holding stamina.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6116_296"-->
-            <blockquote class="code"><p class="quoted"><a id="c6116_296"></a>When play begins: now a random potato is hot.
+            <!--START CODE "c6132_218"-->
+            <blockquote class="code"><p class="quoted"><a id="c6132_218"></a>When play begins: now a random potato is hot.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6117_296"-->
-            <blockquote class="code"><p class="quoted"><a id="c6117_296"></a>Test me with &quot;inventory / drop potato / g / g / get potato / g / i / get potato&quot;.
+            <!--START CODE "c6133_218"-->
+            <blockquote class="code"><p class="quoted"><a id="c6133_218"></a>Test me with &quot;inventory / drop potato / g / g / get potato / g / i / get potato&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

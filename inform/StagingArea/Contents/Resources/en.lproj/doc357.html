@@ -83,16 +83,16 @@
     <!--END IGNORE-->
     <p class="sectionheading">§21.8. Sorting, reversing and rotating lists</p>
     <p>Any list L can be reversed:</p>
-        <!--START PHRASE "defn339"-->
+        <!--START PHRASE "defn346"-->
         <div class="definition">
-            <a id="defn339"></a><p class='defnprototype'><b>reverse </b>(list of values)<b></b></p>
+            <a id="defn346"></a><p class='defnprototype'><b>reverse </b>(list of values)<b></b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_reverselist-->
 
     <p>    This phrase puts the list in reverse order. The old entry 1 becomes the new last entry, and so on: reversing an empty list or a list containing only one entry leaves it unchanged. Example:</p>
-    <!--START CODE "c8424"-->
-    <blockquote class="code"><p class="quoted"><a id="c8424"></a>let L be {11, 12, 14, 15, 16, 17};
+    <!--START CODE "c8448"-->
+    <blockquote class="code"><p class="quoted"><a id="c8448"></a>let L be {11, 12, 14, 15, 16, 17};
     <br>
     reverse L;
     </p>
@@ -104,16 +104,16 @@
     </div>
 
     <p>And any list can similarly be sorted:</p>
-        <!--START PHRASE "defn340"-->
+        <!--START PHRASE "defn347"-->
         <div class="definition">
-            <a id="defn340"></a><p class='defnprototype'><b>sort </b>(list of values)<b></b></p>
+            <a id="defn347"></a><p class='defnprototype'><b>sort </b>(list of values)<b></b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_sortlist-->
 
     <p>    This phrase puts the list into ascending order. Example:</p>
-    <!--START CODE "c8425"-->
-    <blockquote class="code"><p class="quoted"><a id="c8425"></a>let L be {6 PM, 11:13 AM, 4:21 PM, 9:01 AM};
+    <!--START CODE "c8449"-->
+    <blockquote class="code"><p class="quoted"><a id="c8449"></a>let L be {6 PM, 11:13 AM, 4:21 PM, 9:01 AM};
     <br>
     sort L;
     </p>
@@ -124,16 +124,16 @@
         <!--end definition-->
     </div>
 
-        <!--START PHRASE "defn341"-->
+        <!--START PHRASE "defn348"-->
         <div class="definition">
-            <a id="defn341"></a><p class='defnprototype'><b>sort </b>(list of values)<b> in reverse order</b></p>
+            <a id="defn348"></a><p class='defnprototype'><b>sort </b>(list of values)<b> in reverse order</b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_sortlistreverse-->
 
     <p>    This phrase puts the list into descending order. Example:</p>
-    <!--START CODE "c8426"-->
-    <blockquote class="code"><p class="quoted"><a id="c8426"></a>let L be {6 PM, 11:13 AM, 4:21 PM, 9:01 AM};
+    <!--START CODE "c8450"-->
+    <blockquote class="code"><p class="quoted"><a id="c8450"></a>let L be {6 PM, 11:13 AM, 4:21 PM, 9:01 AM};
     <br>
     sort L in reverse order;
     </p>
@@ -144,16 +144,44 @@
         <!--end definition-->
     </div>
 
-        <!--START PHRASE "defn342"-->
+        <!--START PHRASE "defn349"-->
         <div class="definition">
-            <a id="defn342"></a><p class='defnprototype'><b>sort </b>(list of values)<b> in random order</b></p>
+            <a id="defn349"></a><p class='defnprototype'><b>sort </b>(list of values)<b> with </b>(phrase (value, value) -&gt; number)<b></b></p>
+
+            <!--END PHRASE-->
+            <!--definition of ph_sortlistphrase-->
+
+    <p>This phrase sorts the list with a custom comparison phrase. A comparison phrase must accept two list elements, and then return a number which indicates the relative order of the two list elements: negative if the left value should come before the right, zero if they are equal, a d positive if the left value should come after the right. For example to sort numbers you would use this phrase:</p>
+    <!--START CODE "c8451"-->
+    <blockquote class="code"><p class="quoted"><a id="c8451"></a>To decide which number is the comparison of (X - a number) and (Y - a number) (this is numerical comparison):
+    <br>
+    &#160;&#160;&#160;&#160;decide on X - Y;
+    </p>
+    </blockquote>
+    <!--END CODE-->
+    <p>You could then sort a list of numbers using the numerical comparison phrase:</p>
+    <!--START CODE "c8452"-->
+    <blockquote class="code"><p class="quoted"><a id="c8452"></a>let L be {5, 1, 7, 2, 3};
+    <br>
+    sort L with numerical comparison;
+    </p>
+    </blockquote>
+    <!--END CODE-->
+    <p>Which results in L being {1, 2, 3, 5, 7}.</p>
+
+        <!--end definition-->
+    </div>
+
+        <!--START PHRASE "defn350"-->
+        <div class="definition">
+            <a id="defn350"></a><p class='defnprototype'><b>sort </b>(list of values)<b> in random order</b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_sortlistrandom-->
 
     <p>    This phrase puts the list into a uniformly random order, shuffling it as if it were a pack of cards. Example:</p>
-    <!--START CODE "c8427"-->
-    <blockquote class="code"><p class="quoted"><a id="c8427"></a>let L be {1, 2, 3, 4, 5, 6};
+    <!--START CODE "c8453"-->
+    <blockquote class="code"><p class="quoted"><a id="c8453"></a>let L be {1, 2, 3, 4, 5, 6};
     <br>
     sort L in random order;
     </p>
@@ -165,16 +193,16 @@
     </div>
 
     <p>Lists of objects can also be sorted in property value order. For instance,</p>
-        <!--START PHRASE "defn343"-->
+        <!--START PHRASE "defn351"-->
         <div class="definition">
-            <a id="defn343"></a><p class='defnprototype'><b>sort </b>(list of objects)<b> in </b>(property)<b> order</b></p>
+            <a id="defn351"></a><p class='defnprototype'><b>sort </b>(list of objects)<b> in </b>(property)<b> order</b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_sortlistproperty-->
 
     <p>    This phrase puts the list into ascending order of the values of the given property for the items in the list; this is only allowed if all of those values do have the property in question. Example:</p>
-    <!--START CODE "c8428"-->
-    <blockquote class="code"><p class="quoted"><a id="c8428"></a>let L be the list of people;
+    <!--START CODE "c8454"-->
+    <blockquote class="code"><p class="quoted"><a id="c8454"></a>let L be the list of people;
     <br>
     sort L in carrying capacity order;
     </p>
@@ -185,16 +213,16 @@
         <!--end definition-->
     </div>
 
-        <!--START PHRASE "defn344"-->
+        <!--START PHRASE "defn352"-->
         <div class="definition">
-            <a id="defn344"></a><p class='defnprototype'><b>sort </b>(list of objects)<b> in reverse </b>(property)<b> order</b></p>
+            <a id="defn352"></a><p class='defnprototype'><b>sort </b>(list of objects)<b> in reverse </b>(property)<b> order</b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_sortlistpropertyreverse-->
 
     <p>    This phrase puts the list into descending order of the values of the given property for the items in the list; this is only allowed if all of those values do have the property in question. Example:</p>
-    <!--START CODE "c8429"-->
-    <blockquote class="code"><p class="quoted"><a id="c8429"></a>let L be the list of people;
+    <!--START CODE "c8455"-->
+    <blockquote class="code"><p class="quoted"><a id="c8455"></a>let L be the list of people;
     <br>
     sort L in reverse carrying capacity order;
     </p>
@@ -206,16 +234,16 @@
     </div>
 
     <p>Rotating a list means moving all of its entries along by one place, and then moving the one on the end back to the start. For instance, if L is {1, 2, 3, 4}, then</p>
-        <!--START PHRASE "defn345"-->
+        <!--START PHRASE "defn353"-->
         <div class="definition">
-            <a id="defn345"></a><p class='defnprototype'><b>rotate </b>(list of values)<b></b></p>
+            <a id="defn353"></a><p class='defnprototype'><b>rotate </b>(list of values)<b></b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_rotatelist-->
 
     <p>    This phrase shuffles the entries of the list forwards (to the right) by one place, so that the 1st becomes 2nd, the 2nd becomes 3rd, and so on until the last, which becomes the new first entry. Example:</p>
-    <!--START CODE "c8430"-->
-    <blockquote class="code"><p class="quoted"><a id="c8430"></a>let L be { &quot;cow&quot;, &quot;heifer&quot;, &quot;bullock&quot; };
+    <!--START CODE "c8456"-->
+    <blockquote class="code"><p class="quoted"><a id="c8456"></a>let L be { &quot;cow&quot;, &quot;heifer&quot;, &quot;bullock&quot; };
     <br>
     rotate L;
     </p>
@@ -226,16 +254,16 @@
         <!--end definition-->
     </div>
 
-        <!--START PHRASE "defn346"-->
+        <!--START PHRASE "defn354"-->
         <div class="definition">
-            <a id="defn346"></a><p class='defnprototype'><b>rotate </b>(list of values)<b> backwards</b></p>
+            <a id="defn354"></a><p class='defnprototype'><b>rotate </b>(list of values)<b> backwards</b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_rotatelistback-->
 
     <p>    This phrase shuffles the entries of the list backwards (to the left) by one place, so that the 3rd becomes 2nd, the 2nd becomes 1st, and so on; the previous 1st entry becomes the new last entry. Example:</p>
-    <!--START CODE "c8431"-->
-    <blockquote class="code"><p class="quoted"><a id="c8431"></a>let L be { &quot;cow&quot;, &quot;heifer&quot;, &quot;bullock&quot; };
+    <!--START CODE "c8457"-->
+    <blockquote class="code"><p class="quoted"><a id="c8457"></a>let L be { &quot;cow&quot;, &quot;heifer&quot;, &quot;bullock&quot; };
     <br>
     rotate L backwards;
     </p>

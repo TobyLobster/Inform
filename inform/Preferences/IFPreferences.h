@@ -97,8 +97,7 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
 @property (atomic) CGFloat tabWidth;
 
 -(IFColourTheme*) getCurrentTheme;
--(NSString*) getCurrentThemeName;
--(void) setCurrentThemeName: (NSString*) value;
+@property (NS_NONATOMIC_IOSONLY, getter=getCurrentThemeName, copy) NSString *currentThemeName;
 
 -(IFFontStyle) sourceFontStyleForOptionType:(IFSyntaxHighlightingOptionType) optionType;
 -(void) setSourceFontStyle: (IFFontStyle) style
@@ -113,20 +112,21 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
              forOptionType: (IFSyntaxHighlightingOptionType) optionType;
 
 -(bool) setCurrentTheme: (NSString*) name;
--(NSArray*) getThemeNames;
+@property (NS_NONATOMIC_IOSONLY, getter=getThemeNames, readonly, copy) NSArray *themeNames;
 -(bool) addTheme: (IFColourTheme*) theme;
 -(bool) removeTheme: (NSString*) themeName;
 
 -(void) setDarkMode: (bool) isDarkMode;
 
--(void) setSourcePaper: (IFSyntaxColouringOption*) option;
--(void) setExtensionPaper: (IFSyntaxColouringOption*) option;
--(IFSyntaxColouringOption*) getSourcePaper;
--(IFSyntaxColouringOption*) getExtensionPaper;
+@property (NS_NONATOMIC_IOSONLY, getter=getSourcePaper, copy) IFSyntaxColouringOption *sourcePaper;
+@property (NS_NONATOMIC_IOSONLY, getter=getExtensionPaper, copy) IFSyntaxColouringOption *extensionPaper;
 
 -(IFSyntaxColouringOption*) sourcePaperForOptionType:(IFSyntaxHighlightingOptionType) optionType;
 -(void) setSourceColour: (NSColor*) colour
           forOptionType: (IFSyntaxHighlightingOptionType) optionType;
+
+@property (NS_NONATOMIC_IOSONLY) BOOL useExternalInformCoreDirectory;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *externalInformCoreDirectory;
 
 /// Regenerate the array of attribute dictionaries that make up the styles
 - (void) recalculateStyles;

@@ -19,7 +19,7 @@
     self = [super init];
     if( self ) {
         self.options = [[NSMutableArray alloc] init];
-        self.flags = [[NSNumber alloc] initWithInt:0];
+        self.flags = @0;
 
         [self.options insertObject: [[IFSyntaxColouringOption alloc] init] atIndex: IFSHOptionHeadings];
         [self.options insertObject: [[IFSyntaxColouringOption alloc] init] atIndex: IFSHOptionMainText];
@@ -96,7 +96,7 @@
     result.flags = [self.flags copy];
 
     [result.options removeAllObjects];
-    for (int i = 0; i < [self.options count]; i++) {
+    for (int i = 0; i < (self.options).count; i++) {
         [result.options addObject: [((IFSyntaxColouringOption *) self.options[i]) copy]];
     }
     return result;
@@ -106,9 +106,9 @@
 -(void) updateAppPreferencesFromSetWithEnable:(BOOL) enable {
 	IFPreferences* prefs = [IFPreferences sharedPreferences];
 
-    [prefs setSourcePaper:    self.sourcePaper];
-    [prefs setExtensionPaper: self.extensionPaper];
-    [prefs setEnableSyntaxColouring: enable];
+    prefs.sourcePaper = self.sourcePaper;
+    prefs.extensionPaper = self.extensionPaper;
+    prefs.enableSyntaxColouring = enable;
 
     for( int optionIndex = IFSHOptionHeadings; optionIndex < IFSHOptionCount; optionIndex++ ) {
         IFSyntaxColouringOption* option = (self.options)[optionIndex];
@@ -119,8 +119,8 @@
 -(void) updateSetFromAppPreferences {
 	IFPreferences* prefs = [IFPreferences sharedPreferences];
     
-    self.sourcePaper    = [[prefs getSourcePaper] copy];
-    self.extensionPaper = [[prefs getExtensionPaper] copy];
+    self.sourcePaper    = [prefs.sourcePaper copy];
+    self.extensionPaper = [prefs.extensionPaper copy];
     self.flags          = [[prefs getCurrentTheme].flags copy];
 
     for( int optionIndex = IFSHOptionHeadings; optionIndex < IFSHOptionCount; optionIndex++ ) {

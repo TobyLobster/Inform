@@ -15,7 +15,7 @@
 -(void) replace:(NSString *) lpFind
            with:(NSString *) lpReplace
 {
-    NSRange lWholeRange = NSMakeRange(0, [self length]);
+    NSRange lWholeRange = NSMakeRange(0, self.length);
     if(lpReplace == nil ) lpReplace = @"";
     [self replaceOccurrencesOfString: lpFind
                           withString: lpReplace

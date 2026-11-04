@@ -1,0 +1,122 @@
+Startup Template.
+
+How programs for this architecture start up the virtual machine.
+
+@ |VM_Check_Functionality| checks that we are running in a Glk interpreter,
+as well as that it supports the minimum requirements, which are currently
+that Glk supports unicode, and Glulx supports real numbers. If one of those
+requirements is not met an error message will be shown before quitting.
+
+=
+[ VM_Check_Functionality res;
+	@gestalt 4 2 res; ! Test if this interpreter has Glk...
+	if (res == 0) quit; ! ...without which there would be nothing we could do
+
+	! Set the VM's I/O system to be Glk.
+	@setiosys 2 0;
+
+	if (~~glk_gestalt(gestalt_Unicode, 0)) {
+		Fatal_Error("This storyfile can only be run in an unicode interpreter.");
+	}
+
+	@gestalt 11 0 res; ! Test if this interpreter supports real numbers...
+	if (res == 0) {
+		Fatal_Error("This storyfile can only be run in a Glulx interpreter that supports floating-point arithmetic.");
+	}
+];
+
+[ Fatal_Error msg;
+	gg_mainwin = glk_window_open(0, 0, 0, wintype_TextBuffer, GG_MAINWIN_ROCK);
+	glk_set_window(gg_mainwin);
+	print "Fatal Error: ", (string) msg, "^";
+	quit;
+];
+
+@h Capture startup text.
+It is a semi-common problem for authors to do something which results in text
+being printed before any Glk windows have been opened, which results in a fatal
+interpreter error. (Or even worse, an extension is the cause, which the author
+should not be expected to know the internal details of.) This is very frustrating,
+as the author often will not know what is the cause of the error as any error
+messages can't be shown until a Glk window is created; indeed it's often an error
+message that is trying to be printed, which the author will never see. To help
+authors, while we wait for the virtual machine to be set up (including a Glk
+window) we can instead send any text to a memory stream. Then once the VM is ready
+we can check if any text was sent to the memory stream, and then finally display
+it in the window. We only capture 256 bytes, which may not be all that is attempted
+to be printed, but hopefully it gives authors enough to identify the problem.
+
+=
+Constant PRE_STARTUP_TEXT_CAPTURE_MAX_LEN = 256;
+Array Pre_Startup_Text_Capture_Buffer -> PRE_STARTUP_TEXT_CAPTURE_MAX_LEN;
+Array Pre_Startup_Text_Capture_Results --> 2;
+Global Pre_Startup_Text_Capture_Stream;
+
+[ CAPTURE_STARTUP_TEXT_R;
+	Pre_Startup_Text_Capture_Stream = glk_stream_open_memory(Pre_Startup_Text_Capture_Buffer, PRE_STARTUP_TEXT_CAPTURE_MAX_LEN, filemode_Write, 0);
+	glk_stream_set_current(Pre_Startup_Text_Capture_Stream);
+	rfalse;
+];
+
+[ END_CAPTURE_STARTUP_TEXT_R len;
+	glk_stream_close(Pre_Startup_Text_Capture_Stream, Pre_Startup_Text_Capture_Results);
+	len = Pre_Startup_Text_Capture_Results-->1;
+	if (len) {
+		if (len > PRE_STARTUP_TEXT_CAPTURE_MAX_LEN) {
+			len = PRE_STARTUP_TEXT_CAPTURE_MAX_LEN;
+		}
+		glk_put_buffer(Pre_Startup_Text_Capture_Buffer, len);
+	}
+	rfalse;
+];
+
+@h Set up the Glk objects.
+
+=
+[ SOUND_CHANNEL_INIT_R;
+	if (glk_gestalt(gestalt_Sound, 0)) {
+		if (gg_foregroundchan == 0) {
+			gg_foregroundchan = glk_schannel_create(GG_FOREGROUNDCHAN_ROCK);
+		}
+		if (gg_backgroundchan == 0) {
+			gg_backgroundchan = glk_schannel_create(GG_BACKGROUNDCHAN_ROCK);
+		}
+	}
+	rfalse;
+];
+
+[ OPEN_BUILT_IN_WINDOWS_R res sty;
+	! gg_mainwin and gg_storywin might already be set. If not, create them.
+
+	if (gg_mainwin == 0) {
+		! Open the story window.
+		! Left-justify the header style
+		glk_stylehint_set(wintype_TextBuffer, style_Header, stylehint_Justification, 0);
+		! Try to make emphasized type in italics and not boldface
+		glk_stylehint_set(wintype_TextBuffer, style_Emphasized, stylehint_Weight, 0);
+		glk_stylehint_set(wintype_TextBuffer, style_Emphasized, stylehint_Oblique, 1);
+		gg_mainwin = glk_window_open(0, 0, 0, wintype_TextBuffer, GG_MAINWIN_ROCK);
+		if (gg_mainwin == 0) {
+			! If we can't even open one window, give in
+			quit;
+		}
+	} else {
+		! There was already a story window. We should erase it.
+		glk_window_clear(gg_mainwin);
+	}
+
+	if (gg_statuswin == 0) {
+		statuswin_cursize = statuswin_size;
+		for (sty=0: sty < style_NUMSTYLES: sty++) {
+			glk_stylehint_set(wintype_TextGrid, sty, stylehint_ReverseColor, 1);
+		}
+		gg_statuswin =
+			glk_window_open(gg_mainwin, winmethod_Fixed + winmethod_Above,
+				statuswin_cursize, wintype_TextGrid, GG_STATUSWIN_ROCK);
+	}
+	! It's possible that the status window couldn't be opened, in which case
+	! gg_statuswin is now zero. We must allow for that later on.
+
+	glk_set_window(gg_mainwin);
+	rfalse;
+];

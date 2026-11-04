@@ -53,7 +53,7 @@
 }
 
 - (NSData *)dataOfType: (NSString*) type error:(NSError *__autoreleasing  _Nullable * _Nullable)outError {
-    return [[fileStorage string] dataUsingEncoding: fileEncoding];
+    return [fileStorage.string dataUsingEncoding: fileEncoding];
 }
 
 - (BOOL)readFromData: (NSData*) data
@@ -121,7 +121,7 @@
                                     name: @"single file"
                                     type: highlightType
                             intelligence: intel
-                             undoManager: [self undoManager]];
+                             undoManager: self.undoManager];
     return YES;
 }
 
@@ -134,12 +134,12 @@
 - (BOOL) isReadOnly {
 	if (self.fileURL == nil) return NO;
 
-	NSString* filename = [self.fileURL.path stringByStandardizingPath];
+	NSString* filename = (self.fileURL.path).stringByStandardizingPath;
 
 	// Files in the extensions directory in the application should be treated as read-only
     NSString* appDir = [IFUtility pathForInformInternalExtensions:@""];
 
-	if ([[filename lowercaseString] hasPrefix: [appDir lowercaseString]]) {
+	if ([filename.lowercaseString hasPrefix: appDir.lowercaseString]) {
 		return YES;
 	}
 
@@ -148,8 +148,8 @@
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem*) menuItem {
-	if ([menuItem action] == @selector(saveDocument:)) {
-		return ![self isReadOnly];
+	if (menuItem.action == @selector(saveDocument:)) {
+		return !self.readOnly;
 	}
 	
 	return YES;

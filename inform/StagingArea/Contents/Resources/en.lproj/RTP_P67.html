@@ -1,7 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html><head>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Run-time problem UsedAbstractRelation</title></head>
 <style type="text/css">
-    <!--
+<!--
 :root {
     color-scheme: light dark;
     --element-banner-background-colour: #eeeeee;
@@ -29,6 +32,26 @@
     --safe-button-background-colour: rgb(31, 136, 61);
     --dangerous-button-background-colour: rgb(136, 31, 61);
 	--button-text-background-colour: #ffffff;
+	
+	--syntaxdefinition-colour: #000040;
+	--syntaxfunction-colour: #000040;
+	--syntaxreserved-colour: #000040;
+	--syntaxelement-colour: #000040;
+	--syntaxidentifier-colour: #000040;
+	--syntaxcharacter-colour: #000040;
+	--syntaxconstant-colour: #000040;
+	--syntaxstring-colour: #0000ff;
+	--syntaxplain-colour: #000040;
+	--syntaxextract-colour: #FF00e0;
+	--syntaxcomment-colour: #004000;
+
+    --paste-active-colour: #803030;
+    --paste-passive-colour: #303030;
+    --paste-background-colour: #f3f6fa;
+
+    --md-background-colour: #e3e6ea;
+    --example-label-colour: #E0FFFF;
+    --light-border-colour: #d0d7de;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -47,7 +70,7 @@
     --index-dull-blue-colour: #4040c0;
     --periodic-table-sidebar-colour: #555;
     --periodic-table-sidebar-hover-colour: #222;
-    --leaders-background-colour: black;
+    --leaders-background-colour: #121212;
     --library-card-title-colour: #a05050;
     --library-card-other-colour: #505050;
     --index-more-box-background-colour: #444444;
@@ -58,7 +81,27 @@
     --safe-button-background-colour: rgb(31, 136, 61);
     --dangerous-button-background-colour: rgb(136, 31, 61);
 	--button-text-background-colour: #ffffff;
-    }
+ 	
+	--syntaxdefinition-colour: #e0e0ff;
+	--syntaxfunction-colour: #e0e0ff;
+	--syntaxreserved-colour: #e0e0ff;
+	--syntaxelement-colour: #e0e0ff;
+	--syntaxidentifier-colour: #e0e0ff;
+	--syntaxcharacter-colour: #e0e0ff;
+	--syntaxconstant-colour: #e0e0ff;
+	--syntaxstring-colour: #c0c0ef;
+	--syntaxplain-colour: #e0e0ff;
+	--syntaxextract-colour: #ff8000;
+	--syntaxcomment-colour: #e0e0ff;
+
+    --paste-active-colour: #a05050;
+    --paste-passive-colour: #505050;
+    --paste-background-colour: #090b0d;
+
+    --md-background-colour: #090b0d;
+    --example-label-colour: #FF2020;
+    --light-border-colour: #30373e;
+   }
 }
 
 /* The default font (family) and size */
@@ -177,19 +220,6 @@ span.extensionindexentry {
 
 span.extensionindexerror {
     color: #ff8080;
-}
-
-/* This is used in extension documentation, where an example is presented
-in a slightly tinted box: */
-
-table.extensionexample {
-	background-color: #f0f0f0;
-}
-
-span.extensionexampleletter {
-	color: #202020;
-	font-size: 14px;
-	font-weight: bold;
 }
 
 /* Seen in problem messages: */
@@ -521,50 +551,688 @@ button.dangerousbutton {
 	cursor: pointer;
 }
 
+/* Used in rendering Markdown in extension documentation */
 
-    -->
-</style>
-<style type="text/css">
-    <!--
-	.headingpanellayout {
-		position: relative;
-		height: 56px;
-		padding: 0px;
-		white-space:nowrap;
-	}
-	.headingtext {
-		position: absolute;
-		top: -4px;
-		left: -1px;
-		width: 100%;
-		padding: 14px 10px 0px 10px;
-	}
-	.headingrubric {
-		position: absolute;
-		top: 36px;
-		width: 100%;
-		padding: 0px 10px 0px 10px;
-	}
-    -->
-</style>
-<title>Run-time problem</title></head>
-<body><font face='lucida grande,geneva,arial,tahoma,verdana,helvetica,helv' size=2>
-<table cellspacing="3" border="0" width="100%">
-<tr id="surround0"><td style="width:100%">
-<div class="headingpanellayout headingpanelfailed">
-	<div class="headingtext"><span class="headingpaneltext">Run-Time Problem</span></div>
-	<div class="headingrubric"><span class="headingpanelrubric">This operation can't be done with the relation (P67)</span></div>
-</div></td>
-</tr></table>
+.markdowncontent em { font-style: italic; }
+.markdowncontent strong { font-weight: bold; }
+.markdowncontent pre {
+	line-height: 16px;
+}
+.markdowncontent code.inlinesourcetext {
+	font-size: 90%;
+	background-color: var(--md-background-colour);
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	box-sizing: border-box;
+	padding-bottom: 2.38px;
+	padding-left: 4.76px;
+	padding-right: 4.76px;
+	padding-top: 2.38px;
+	white-space: break-spaces;
+	width: auto;
+}
+.markdowncontent code.inlinetranscript {
+	background-color: #f9e9e9;
+	text-transform: uppercase;
+	font-size: 90%;
+	color: var(--syntaxextract-colour);
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	box-sizing: border-box;
+	padding-bottom: 2.38px;
+	padding-left: 4.76px;
+	padding-right: 4.76px;
+	padding-top: 2.38px;
+	white-space: break-spaces;
+	width: auto;
+}
+.markdowncontent code.inlinecode {
+	font-size: 90%;
+	font-family: SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace; 
+	background-color: var(--md-background-colour);
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	box-sizing: border-box;
+	padding-bottom: 2.38px;
+	padding-left: 4.76px;
+	padding-right: 4.76px;
+	padding-top: 2.38px;
+	white-space: break-spaces;
+	width: auto;
+}
 
-<table border="0" cellspacing="4" cellpadding="0" width=100%><tr><td align="left" valign="top" width="110">
-<font face='lucida grande,geneva,arial,tahoma,verdana,helvetica,helv' size=2>
-<img src='inform:/outcome_images/RTE@2x.png' border=1 width=100 height=100>&nbsp;&nbsp;&nbsp;&nbsp;</font></td><td align="left" valign="top">
-<font face='lucida grande,geneva,arial,tahoma,verdana,helvetica,helv' size=2><p style="margin-top:0;">
-<p><i>Most problems are detected when Inform translates the source text, but this is one of the exceptions, a "run-time problem" which emerges only during play.</i></p>
-<hr>
+.markdowncontent div.extract-transcript {
+	margin: 0.75em;
+	padding: 0.75em;
+	border: 1px dotted #2f6fab;
+	background-color: #f9e9e9;
+}
+
+.markdowncontent code.language-transcript {
+    font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+}
+
+.markdowncontent div.definition {
+	margin: 0.75em;
+	padding: 0.75em;
+	border: 1px dashed #2f6fab;
+	background-color: #e9e9e9;
+}
+
+.markdowncontent div.definition p.defnprototype {
+	margin: 0;
+	padding: 0;
+	text-indent: 0;
+}
+
+.markdowncontent table {
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+
+.markdowncontent table th, .markdowncontent table td {
+	padding: 4px 10px;
+	border: 1px solid var(--light-border-colour);
+}
+
+/* Used in syntax-colouring for extension documentation */
+
+span.syntaxdefinition { color: var(--syntaxdefinition-colour); }
+span.syntaxfunction { color: var(--syntaxfunction-colour); }
+span.syntaxplain { color: var(--syntaxplain-colour); }
+span.syntaxelement { color: var(--syntaxelement-colour); }
+span.syntaxidentifier { color: var(--syntaxidentifier-colour); }
+span.syntaxcharacter { color: var(--syntaxcharacter-colour); }
+span.syntaxconstant { color: var(--syntaxconstant-colour); }
+span.syntaxstring { color: var(--syntaxstring-colour); }
+span.syntaxplain { color: var(--syntaxplain-colour); }
+span.syntaxextract { color: var(--syntaxextract-colour); }
+span.syntaxcomment { color: var(--syntaxcomment-colour); }
+
+p.documentationerrorbox {
+	padding: 6px;
+}
+span.documentationerror {
+	background-color: var(--dangerous-button-background-colour);
+	color: var(--button-text-background-colour);
+	padding: 15px 32px;
+	margin: 4px 2px;
+}
+
+/* For example box cues */
+
+div.examplebox div.exampleleft {
+	float: left;
+	box-sizing: border-box;
+	width: 52px;
+	height: 30px;
+	padding: 8px 0;
+}
+div.examplebox div.exampleright {
+	margin-left: 60px;
+	box-sizing: border-box;
+}
+
+span.extensionexampleletter {
+	color: var(--heading-panel-text-colour);
+	font-size: 14px;
+	font-weight: bold;
+	background-color: var(--example-label-colour);
+	border-bottom-left-radius: 12px;
+	border-bottom-right-radius: 12px;
+	border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
+	box-sizing: border-box;
+	padding-bottom: 4px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 4px;
+	width: auto;
+}
+
+/* For outcome pages */
+
+.outcomeheadingpanellayout {
+	position: relative;
+	height: 56px;
+	padding: 0px;
+	white-space:nowrap;
+}
+.outcomeheadingtext {
+	position: absolute;
+	top: -4px;
+	left: -1px;
+	width: 100%;
+	padding: 14px 10px 0px 10px;
+}
+.outcomeheadingrubric {
+	position: absolute;
+	top: 36px;
+	width: 100%;
+	padding: 0px 10px 0px 10px;
+}
+
+div.outcomebox div.outcomeleft {
+	float: left;
+	box-sizing: border-box;
+	width: 100px;
+	height: 100px;
+	padding-left: 8px;
+	padding-right: 8px;
+}
+div.outcomebox div.outcomeright {
+	margin-left: 120px;
+	box-sizing: border-box;
+}
+
+/* New-style paste button */
+
+a.pastelink {
+	background-color: var(--paste-background-colour);
+	text-decoration: none;
+	font-size: 14px;
+	padding: 2px;
+	padding-left: 6px;
+	padding-right: 6px;
+	border: solid 1px;
+}
+a.pastelink:link {
+	text-decoration: none;
+	color: var(--paste-passive-colour);
+	border-color: var(--paste-passive-colour);
+}
+a.pastelink:visited {
+	text-decoration: none;
+	color: var(--paste-passive-colour);
+	border-color: var(--paste-passive-colour);
+}
+a.pastelink:hover {
+	text-decoration: none;
+	color: var(--paste-active-colour);
+	border-color: var(--paste-active-colour);
+}
+a.pastelink:active {
+	text-decoration: none;
+	color: var(--paste-active-colour);
+	border-color: var(--paste-active-colour);
+}
+
+/* (1) General layout material */
+
+*, *:before, *:after {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.headingpanellayout {
+	position: relative;
+	height: 56px;
+	padding: 0px;
+	white-space:nowrap;
+}
+.headingpanellayoutdeeper {
+	position: relative;
+	height: 117px;
+	padding: 0px;
+	white-space:nowrap;
+}
+.headingtext {
+	position: absolute;
+	top: -4px;
+	left: -1px;
+	width: 100%;
+	padding: 14px 10px 0px 10px;
+}
+.headingrubric {
+	position: absolute;
+	top: 36px;
+	width: 100%;
+	padding: 0px 10px 0px 10px;
+}
+h3.tighter {
+	margin-top: 0px;
+}
+p.hang {
+	padding-left: 25px;
+	text-indent: -25px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+p.in1 {
+	padding-left: 0px;
+}
+p.tightin1 {
+	padding-left: 0px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+p.halftightin1 {
+	padding-left: 0px;
+	margin-bottom: 2px;
+}
+p.hangingin1 {
+	padding-left: 50px;
+	text-indent: -50px;
+	margin-top: 0px;
+	margin-bottom: 1px;
+}
+p.in2 {
+	padding-left: 25px;
+}
+p.tightin2 {
+	padding-left: 25px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+p.halftightin2 {
+	padding-left: 25px;
+	margin-bottom: 2px;
+}
+p.hangingin2 {
+	padding-left: 75px;
+	text-indent: -50px;
+	margin-top: 0px;
+	margin-bottom: 1px;
+}
+p.in3 {
+	padding-left: 50px;
+}
+p.tightin3 {
+	padding-left: 50px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+p.halftightin3 {
+	padding-left: 50px;
+	margin-bottom: 2px;
+}
+p.hangingin3 {
+	padding-left: 100px;
+	text-indent: -50px;
+	margin-top: 0px;
+	margin-bottom: 1px;
+}
+p.in4 {
+	padding-left: 75px;
+}
+p.tightin4 {
+	padding-left: 75px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+p.halftightin4 {
+	padding-left: 75px;
+	margin-bottom: 2px;
+}
+p.hangingin4 {
+	padding-left: 125px;
+	text-indent: -50px;
+	margin-top: 0px;
+	margin-bottom: 1px;
+}
+p.in5 {
+	padding-left: 100px;
+}
+p.tightin5 {
+	padding-left: 100px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+p.halftightin5 {
+	padding-left: 100px;
+	margin-bottom: 2px;
+}
+p.hangingin5 {
+	padding-left: 150px;
+	text-indent: -50px;
+	margin-top: 0px;
+	margin-bottom: 1px;
+}
+p.in6 {
+	padding-left: 125px;
+}
+p.tightin6 {
+	padding-left: 125px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+p.halftightin6 {
+	padding-left: 125px;
+	margin-bottom: 2px;
+}
+p.hangingin6 {
+	padding-left: 175px;
+	text-indent: -50px;
+	margin-top: 0px;
+	margin-bottom: 1px;
+}
+p.in7 {
+	padding-left: 150px;
+}
+p.tightin7 {
+	padding-left: 150px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+p.halftightin7 {
+	padding-left: 150px;
+	margin-bottom: 2px;
+}
+p.hangingin7 {
+	padding-left: 200px;
+	text-indent: -50px;
+	margin-top: 0px;
+	margin-bottom: 1px;
+}
+p.in8 {
+	padding-left: 175px;
+}
+p.tightin8 {
+	padding-left: 175px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+p.halftightin8 {
+	padding-left: 175px;
+	margin-bottom: 2px;
+}
+p.hangingin8 {
+	padding-left: 225px;
+	text-indent: -50px;
+	margin-top: 0px;
+	margin-bottom: 1px;
+}
+p.in9 {
+	padding-left: 200px;
+}
+p.tightin9 {
+	padding-left: 200px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+p.halftightin9 {
+	padding-left: 200px;
+	margin-bottom: 2px;
+}
+p.hangingin9 {
+	padding-left: 250px;
+	text-indent: -50px;
+	margin-top: 0px;
+	margin-bottom: 1px;
+}
+
+/* (2) Index page layout material */
+
+/* The periodic table display has "sidebars", usually grey and taller than they
+are wide; they contain no text. */
+
+div.periodictablesidebar {
+	height: 56px;
+	width: 16px;
+}
+.periodictablesidebar a:link { text-decoration: none; }
+.periodictablesidebar a:visited { text-decoration: none; }
+.periodictablesidebar a:active { text-decoration: none; }
+
+/* The "element boxes" are the cells appearing in the periodic-table display
+on the welcome page of the index: */
+
+.elementbox {
+	position: relative;
+	height: 56px;
+	width: 56px;
+	padding: 0px;
+}
+
+.elementbox a:link { text-decoration: none; }
+.elementbox a:visited { text-decoration: none; }
+.elementbox a:active { text-decoration: none; }
+.elementbox a:hover { text-decoration: none; }
+.elementbox:hover {
+	opacity: 0.6;
+}
+
+/* The "small element boxes" look like those, but are smaller, and used on
+the headings of the content which those original boxes link to: */
+
+.smallelementbox {
+	position: relative;
+	height: 40px;
+	width: 40px;
+	padding: 0px;
+}
+
+.smallelementbox a:link { text-decoration: none; }
+.smallelementbox a:visited { text-decoration: none; }
+.smallelementbox a:active { text-decoration: none; }
+.smallelementbox a:hover { text-decoration: none; }
+.smallelementbox:hover {
+	opacity: 0.6;
+}
+
+/* This is a class for the links formed by the element boxes: */
+
+a.elementlink {
+	position: absolute;
+	top: -4px;
+	left: -1px;
+	width: 100%;
+	padding: 14px 0px 14px 1px;
+	text-align: center;
+}
+
+/* Similarly for the "atomic number" - a single digit - in the top left corner
+of these boxes: */
+
+div.elementnumber {
+	position: absolute;
+	top: 1px;
+	left: 3px;
+	text-align: left;
+}
+
+/* For the text of the element title, to the right of the element box: */
+
+div.elementtitle {
+	position: absolute;
+	top: 35px;
+	width: 100%;
+	text-align: center;
+}
+
+/* Used for the book-contents-page style leaders on the Contents element of
+   the index: */
+
+ul.leaders {
+	padding: 0;
+	margin-top: 1px;
+	margin-bottom: 0;
+	overflow-x: hidden;
+	list-style: none}
+ul.leaders li.leaded:before {
+	float: left;
+	width: 0;
+	white-space: nowrap;
+	content:
+	".  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  "
+	".  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  "
+	".  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  "
+	".  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  "
+	".  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  "
+	".  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  "
+	".  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  "
+	".  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  "
+	".  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  "
+	".  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  "}
+ul.leaders li.leaded span:first-child {
+	padding-right: 0.33em;
+}
+ul.leaders li.leaded span + span {
+	float: right;
+	padding-left: 0.33em;
+}
+li.indent1 span:first-child {
+	padding-left: 25px;
+}
+li.indent2 span:first-child {
+	padding-left: 50px;
+}
+li.indent3 span:first-child {
+	padding-left: 75px;
+}
+li.indent4 span:first-child {
+	padding-left: 100px;
+}
+li.indent5 span:first-child {
+	padding-left: 125px;
+}
+li.indent6 span:first-child {
+	padding-left: 150px;
+}
+li.indent7 span:first-child {
+	padding-left: 175px;
+}
+li.indent8 span:first-child {
+	padding-left: 200px;
+}
+li.indent9 span:first-child {
+	padding-left: 225px;
+}
+
+li.unleaded:before {
+	content: "";
+}
+
+/* Used for the contents pages in extensions indexes: */
+
+ul.extensioncontents {
+	padding: 0;
+	margin-top: 4px;
+	overflow-x: hidden;
+	list-style: none
+}
+
+li.exco1 {
+	margin-top: 4px;
+	padding-left: 0px;
+	margin-bottom: 6px;
+}
+
+li.exco2 {
+	padding-left: 20px;
+	margin-bottom: 6px;
+}
+
+li.exco3 {
+	padding-left: 40px;
+	margin-bottom: 6px;
+}
+
+p.extensionsubheading {
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	margin-top: 12px;
+	margin-bottom: 4px;
+}
+
+/* Miscellaneous extension documentation styles: */
+
+div.documentation p {
+	font-size: 13px;
+	line-height: 18px;
+}
+
+div.documentation blockquote {
+	font-size: 12px;
+	line-height: 17px;
+}
+
+div.documentation div.definition {
+	margin: 0.75em;
+	padding: 0.75em;
+	border: 1px dashed #2f6fab;
+	background-color: #e9e9e9;
+}
+
+div.definition p.defnprototype {
+	margin: 0;
+	padding: 0;
+	text-indent: 0;
+}
+
+/* On Registry index pages (such as the Public Library), these are used for
+download buttons and the like: */
+
+span.registrybuttons {
+	height: 20px;
+	padding: 2px 8px 2px 8px;
+	margin: 2px;
+	border:1px solid;
+	border-radius: 5px;
+}
+
+span.registryminibuttons {
+	height: 14px;
+	padding: 2px 5px 2px 5px;
+	margin: 2px;
+	border:1px solid;
+	border-radius: 4px;
+}
+
+/* Used to hide or display sections in the Registry pages: */
+
+div.registrysectionitemsopen {
+	display: block;
+}
+
+div.registrysectionitemsclosed {
+	display: none;
+}
+
+/* Hanging indentation for Registry item paragraphs: */
+
+p.registryitem {
+	padding-left: 80px;
+	text-indent: -40px;
+}
+
+p.registryaddition {
+	padding-left: 40px;
+	text-indent: -40px;
+}
+
+
+-->
+</style>
+<body>
+<div class="outcomeheadingpanellayout headingpanelfailed">
+	<div class="outcomeheadingtext"><span class="headingpaneltext">Run-Time Problem</span></div>
+	<div class="outcomeheadingrubric"><span class="headingpanelrubric"> (UsedAbstractRelation)</span></div>
+</div>
+
+<div class="outcomebox">
+	<div class="outcomeleft">
+		<img src='inform:/outcome_images/RTE@2x.png' border=1 width=100 height=100>
+	</div>
+	<div class="outcomeright">
+		<p><em>Most problems are detected when Inform translates the source text,
+		but this is one of the exceptions, a "run-time problem" which emerges
+		only during play.</em></p>
+		<hr>
+		<div class="markdowncontent">
+		<h1>This operation can't be done with the relation</h1>
 <p>Some of the built-in relations are so general in their scope that it's not practical to use techniques like searching through possible relationships, or changing relationships, with them. This is one such relation.</p>
-</font></td></tr></table>
+
+		</div>
+	</div>
+</div>
+
 </body>
 </html>
 

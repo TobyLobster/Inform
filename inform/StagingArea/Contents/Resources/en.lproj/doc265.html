@@ -83,28 +83,28 @@
     <!--END IGNORE-->
     <p class="sectionheading">§17.3. Overriding existing commands</p>
     <p>Suppose we are devising specialist commands for a game of whist, and we want &quot;discard&quot; as one of them. Looking at the table of commands in the Action index, we find that, inconveniently enough, &quot;discard&quot; already has a meaning: it is synonymous with &quot;drop&quot;, and while that might be sensible most of the time, it is perfectly wrong now. We need a way to free up &quot;discard&quot; for our own use. We can do that by:</p>
-    <!--START CODE "c5572"-->
-    <blockquote class="code"><p class="quoted"><a id="c5572"></a>Understand the command &quot;discard&quot; as something new.
+    <!--START CODE "c5587"-->
+    <blockquote class="code"><p class="quoted"><a id="c5587"></a>Understand the command &quot;discard&quot; as something new.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>This cuts it loose, so to speak, and ready to be given new meanings. If we check the Actions index again, we find no mention of &quot;discard&quot; - it is now a blank slate - but &quot;drop&quot; is still exactly as it was. We could now say something like:</p>
-    <!--START CODE "c5573"-->
-    <blockquote class="code"><p class="quoted"><a id="c5573"></a>Understand &quot;discard [something]&quot; as discarding.
+    <!--START CODE "c5588"-->
+    <blockquote class="code"><p class="quoted"><a id="c5588"></a>Understand &quot;discard [something]&quot; as discarding.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>(If we had declared that &quot;drop&quot; was something new, the whole thing would have happened in reverse, with &quot;discard&quot; retaining all of the original grammar. Inform does not distinguish between a command and its synonym.)</p>
     <p>The &quot;... as something new&quot; sentence works even for a command which did not exist anyway, for instance with:</p>
-    <!--START CODE "c5574"-->
-    <blockquote class="code"><p class="quoted"><a id="c5574"></a>Understand the command &quot;zylqix&quot; as something new.
+    <!--START CODE "c5589"-->
+    <blockquote class="code"><p class="quoted"><a id="c5589"></a>Understand the command &quot;zylqix&quot; as something new.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Of course this does nothing - but it is intentional that it generates no problem messages: it means that the sentence can be used to force a command to be fresh and untouched by previous definitions, which might be useful when working with extensions by other people.</p>
     <p>It is also possible to clear out all the commands leading to a given action:</p>
-    <!--START CODE "c5575"-->
-    <blockquote class="code"><p class="quoted"><a id="c5575"></a>Understand nothing as taking.
+    <!--START CODE "c5590"-->
+    <blockquote class="code"><p class="quoted"><a id="c5590"></a>Understand nothing as taking.
     </p>
     </blockquote>
     <!--END CODE-->
@@ -112,57 +112,57 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "292: The Trouble with Printing" "e315"-->
-        <a id="e315"></a><table class="egcue">
+        <!--START EXAMPLE "293: The Trouble with Printing" "e383"-->
+        <a id="e383"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example315'); return false;"><b>292</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example383'); return false;"><b>293</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example315'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">The Trouble with Printing</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example383'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">The Trouble with Printing</span></b></a><br>
                     Making a READ command, distinct from EXAMINE, for legible objects.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc73.html#e315"><i>RB</i></a></div>
+                        <a href="Rdoc73.html#e383"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example315" style="display: none;">
-            <!--START CODE "c5576_315"-->
-            <blockquote class="code"><p class="quoted"><a id="c5576_315"></a><a href="javascript:pasteCode('[=0x0022=]The Trouble with Printing[=0x0022=][=0x000A=][=0x000A=]A thing has some text called printing. The printing of a thing is usually [=0x0022=]blank[=0x0022=].[=0x000A=][=0x000A=]Understand the command [=0x0022=]read[=0x0022=] as something new. Understand [=0x0022=]read [something][=0x0022=] as reading. Reading is an action applying to one thing, requiring light. Check reading: if the printing of the noun is [=0x0022=]blank[=0x0022=], say [=0x0022=]Nothing is written on [the noun].[=0x0022=] instead. Carry out reading: say [=0x0022=]You read: [printing of the noun][line break][=0x0022=]. Report reading: do nothing.[=0x000A=][=0x000A=]The Archive is a room.[=0x000A=][=0x000A=]Berkeley[=0x0027=]s report is a thing in the Archive. The description is [=0x0022=]A report from Governor Sir William Berkeley of Virginia, in 1671, in answer to the queries sent by the Commissioners of Plantations the year previous. Of this report the better part is burned and only a tail fragment remains.[=0x0022=] The printing of Berkeley[=0x0027=]s report is [=0x0022=]I thank God, [italic type]there are no free schools[roman type] nor [italic type]printing[roman type], and I hope we shall not have these hundred years; for [italic type]learning[roman type] has brought disobedience, and heresy, and sects into the world, and [italic type]printing[roman type] has divulged them...[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]examine report / read report[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Trouble with Printing[=0x0022=][=0x000A=][=0x000A=]A thing has some text called printing. The printing of a thing is usually [=0x0022=]blank[=0x0022=].[=0x000A=][=0x000A=]Understand the command [=0x0022=]read[=0x0022=] as something new. Understand [=0x0022=]read [something][=0x0022=] as reading. Reading is an action applying to one thing, requiring light. Check reading: if the printing of the noun is [=0x0022=]blank[=0x0022=], say [=0x0022=]Nothing is written on [the noun].[=0x0022=] instead. Carry out reading: say [=0x0022=]You read: [printing of the noun][line break][=0x0022=]. Report reading: do nothing.[=0x000A=][=0x000A=]The Archive is a room.[=0x000A=][=0x000A=]Berkeley[=0x0027=]s report is a thing in the Archive. The description is [=0x0022=]A report from Governor Sir William Berkeley of Virginia, in 1671, in answer to the queries sent by the Commissioners of Plantations the year previous. Of this report the better part is burned and only a tail fragment remains.[=0x0022=] The printing of Berkeley[=0x0027=]s report is [=0x0022=]I thank God, [italic type]there are no free schools[roman type] nor [italic type]printing[roman type], and I hope we shall not have these hundred years; for [italic type]learning[roman type] has brought disobedience, and heresy, and sects into the world, and [italic type]printing[roman type] has divulged them...[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]examine report / read report[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - The Trouble with Printing')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Trouble with Printing&quot;
+        <div class="egpanel" id="example383" style="display: none;">
+            <!--START CODE "c5591_383"-->
+            <blockquote class="code"><p class="quoted"><a id="c5591_383"></a><a href="javascript:pasteCode('[=0x0022=]The Trouble with Printing[=0x0022=][=0x000A=][=0x000A=]A thing has some text called printing. The printing of a thing is usually [=0x0022=]blank[=0x0022=].[=0x000A=][=0x000A=]Understand the command [=0x0022=]read[=0x0022=] as something new. Understand [=0x0022=]read [something][=0x0022=] as reading. Reading is an action applying to one thing, requiring light. Check reading: if the printing of the noun is [=0x0022=]blank[=0x0022=], say [=0x0022=]Nothing is written on [the noun].[=0x0022=] instead. Carry out reading: say [=0x0022=]You read: [printing of the noun][line break][=0x0022=]. Report reading: do nothing.[=0x000A=][=0x000A=]The Archive is a room.[=0x000A=][=0x000A=]Berkeley[=0x0027=]s report is a thing in the Archive. The description is [=0x0022=]A report from Governor Sir William Berkeley of Virginia, in 1671, in answer to the queries sent by the Commissioners of Plantations the year previous. Of this report the better part is burned and only a tail fragment remains.[=0x0022=] The printing of Berkeley[=0x0027=]s report is [=0x0022=]I thank God, [italic type]there are no free schools[roman type] nor [italic type]printing[roman type], and I hope we shall not have these hundred years; for [italic type]learning[roman type] has brought disobedience, and heresy, and sects into the world, and [italic type]printing[roman type] has divulged them...[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]examine report / read report[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Trouble with Printing[=0x0022=][=0x000A=][=0x000A=]A thing has some text called printing. The printing of a thing is usually [=0x0022=]blank[=0x0022=].[=0x000A=][=0x000A=]Understand the command [=0x0022=]read[=0x0022=] as something new. Understand [=0x0022=]read [something][=0x0022=] as reading. Reading is an action applying to one thing, requiring light. Check reading: if the printing of the noun is [=0x0022=]blank[=0x0022=], say [=0x0022=]Nothing is written on [the noun].[=0x0022=] instead. Carry out reading: say [=0x0022=]You read: [printing of the noun][line break][=0x0022=]. Report reading: do nothing.[=0x000A=][=0x000A=]The Archive is a room.[=0x000A=][=0x000A=]Berkeley[=0x0027=]s report is a thing in the Archive. The description is [=0x0022=]A report from Governor Sir William Berkeley of Virginia, in 1671, in answer to the queries sent by the Commissioners of Plantations the year previous. Of this report the better part is burned and only a tail fragment remains.[=0x0022=] The printing of Berkeley[=0x0027=]s report is [=0x0022=]I thank God, [italic type]there are no free schools[roman type] nor [italic type]printing[roman type], and I hope we shall not have these hundred years; for [italic type]learning[roman type] has brought disobedience, and heresy, and sects into the world, and [italic type]printing[roman type] has divulged them...[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]examine report / read report[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - The Trouble with Printing')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Trouble with Printing&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5577_315"-->
-            <blockquote class="code"><p class="quoted"><a id="c5577_315"></a>A thing has some text called printing. The printing of a thing is usually &quot;blank&quot;.
+            <!--START CODE "c5592_383"-->
+            <blockquote class="code"><p class="quoted"><a id="c5592_383"></a>A thing has some text called printing. The printing of a thing is usually &quot;blank&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5578_315"-->
-            <blockquote class="code"><p class="quoted"><a id="c5578_315"></a>Understand the command &quot;read&quot; as something new. Understand &quot;read [something]&quot; as reading. Reading is an action applying to one thing, requiring light. Check reading: if the printing of the noun is &quot;blank&quot;, say &quot;Nothing is written on [the noun].&quot; instead. Carry out reading: say &quot;You read: [printing of the noun][line break]&quot;. Report reading: do nothing.
+            <!--START CODE "c5593_383"-->
+            <blockquote class="code"><p class="quoted"><a id="c5593_383"></a>Understand the command &quot;read&quot; as something new. Understand &quot;read [something]&quot; as reading. Reading is an action applying to one thing, requiring light. Check reading: if the printing of the noun is &quot;blank&quot;, say &quot;Nothing is written on [the noun].&quot; instead. Carry out reading: say &quot;You read: [printing of the noun][line break]&quot;. Report reading: do nothing.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5579_315"-->
-            <blockquote class="code"><p class="quoted"><a id="c5579_315"></a>The Archive is a room.
+            <!--START CODE "c5594_383"-->
+            <blockquote class="code"><p class="quoted"><a id="c5594_383"></a>The Archive is a room.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5580_315"-->
-            <blockquote class="code"><p class="quoted"><a id="c5580_315"></a>Berkeley's report is a thing in the Archive. The description is &quot;A report from Governor Sir William Berkeley of Virginia, in 1671, in answer to the queries sent by the Commissioners of Plantations the year previous. Of this report the better part is burned and only a tail fragment remains.&quot; The printing of Berkeley's report is &quot;I thank God, [italic type]there are no free schools[roman type] nor [italic type]printing[roman type], and I hope we shall not have these hundred years; for [italic type]learning[roman type] has brought disobedience, and heresy, and sects into the world, and [italic type]printing[roman type] has divulged them...&quot;
+            <!--START CODE "c5595_383"-->
+            <blockquote class="code"><p class="quoted"><a id="c5595_383"></a>Berkeley's report is a thing in the Archive. The description is &quot;A report from Governor Sir William Berkeley of Virginia, in 1671, in answer to the queries sent by the Commissioners of Plantations the year previous. Of this report the better part is burned and only a tail fragment remains.&quot; The printing of Berkeley's report is &quot;I thank God, [italic type]there are no free schools[roman type] nor [italic type]printing[roman type], and I hope we shall not have these hundred years; for [italic type]learning[roman type] has brought disobedience, and heresy, and sects into the world, and [italic type]printing[roman type] has divulged them...&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5581_315"-->
-            <blockquote class="code"><p class="quoted"><a id="c5581_315"></a>Test me with &quot;examine report / read report&quot;.
+            <!--START CODE "c5596_383"-->
+            <blockquote class="code"><p class="quoted"><a id="c5596_383"></a>Test me with &quot;examine report / read report&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -170,60 +170,60 @@
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "293: Lanista 2" "e213"-->
-        <a id="e213"></a><table class="egcue">
+        <!--START EXAMPLE "294: Lanista 2" "e202"-->
+        <a id="e202"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example213'); return false;"><b>293</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example202'); return false;"><b>294</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example213'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Lanista 2</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example202'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Lanista 2</span></b></a><br>
                     Randomized combat in which the damage done depends on what weapons the characters are wielding, and in which an ATTACK IT WITH action is created to replace regular attacking. Also folds a new DIAGNOSE command into the system.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc51.html#e213"><i>RB</i></a></div>
+                        <a href="Rdoc51.html#e202"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example213" style="display: none;">
+        <div class="egpanel" id="example202" style="display: none;">
             <p>Back in the chapter on randomization, we explored a way to create a randomized combat system. That system didn't allow for multiple weapons, though. Here we explore how to create an ATTACK IT WITH action that will let the player choose between weapons with different maximum powers.</p>
             <p>We're also going to rewrite that original &quot;instead of attacking:&quot; rule into an attacking it with action that can be performed equally by the player or by any of the player's enemies.</p>
-            <!--START CODE "c5582_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5582_213"></a><a href="javascript:pasteCode('[=0x0022=]Lanista, Part Two[=0x0022=][=0x000A=][=0x000A=]The Arena is a room. [=0x0022=]Sand, blood, iron. These festivals are normally held on hot days, but the sun has gone behind a cloud and fat drops of rain now and then spatter the arena floor.[=0x0022=] The gladiator is a man in the Arena. [=0x0022=]A bare-chested Scythian gladiator faces you, wielding [a list of weapons carried by the gladiator].[=0x0022=][=0x000A=][=0x000A=]Section 1 - Hit Points[=0x000A=][=0x000A=]A person has a number called maximum hit points. A person has a number called current hit points.[=0x000A=][=0x000A=]The maximum hit points of the player is 35. The maximum hit points of the gladiator is 25.[=0x000A=][=0x000A=][In our simpler version of this example we set the current hit points by hand, but in a game with many characters this would get dull and repetitive, so here we[=0x0027=]ll use a [=0x0022=]when play begins[=0x0022=] to set all current hit point values automatically to maximum:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]repeat with victim running through people:[=0x000A=][=0x0009=][=0x0009=]now the current hit points of the victim is the maximum hit points of the victim.[=0x000A=][=0x000A=]Definition: a person is dead if his current hit points are less than 0.[=0x000A=][=0x000A=]Section 2 - Diagnosis[=0x000A=][=0x000A=]Diagnosing is an action applying to one visible thing. Understand [=0x0022=]diagnose [something][=0x0022=] as diagnosing.[=0x000A=][=0x000A=]Check diagnosing:[=0x000A=][=0x0009=]if the noun is not a person, say [=0x0022=]Only people can have diagnoses.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out diagnosing:[=0x000A=][=0x0009=]say [=0x0022=][if the noun is the player]You have[otherwise][The noun] has[end if] [current hit points of the noun] out of a possible [maximum hit points of the noun] hit points remaining.[=0x0022=][=0x000A=][=0x000A=]Section 3 - Weapons[=0x000A=][=0x000A=]A weapon is a kind of thing. A weapon has a number called the maximum damage. The maximum damage of a weapon is usually 4.[=0x000A=][=0x000A=]The gladiator carries a weapon called a trident. The maximum damage of the trident is 5. The gladiator carries a weapon called a net. The maximum damage of the net is 1.[=0x000A=][=0x000A=]The player carries a weapon called a mace. The maximum damage of the mace is 3.[=0x000A=][=0x000A=]Section 4 - Attacking it with[=0x000A=][=0x000A=][In our new system, we want to specify what is being used for an attack. This means that we need to create a new [=0x0022=]attacking it with[=0x0022=] action, and also that we should disable the existing [=0x0022=]attacking...[=0x0022=] command.][=0x000A=][=0x000A=][Here[=0x0027=]s why: If we leave the default attack command in place, Inform will continue to accept commands like [=0x003E=]ATTACK GLADIATOR, but reply foolishly with the default [=0x0022=]Violence is not the answer...[=0x0022=] response.][=0x000A=][=0x000A=][A somewhat better approach would be to change the reply of [=0x003E=]ATTACK GLADIATOR to say something like [=0x0022=]You must specify a weapon to attack with.[=0x0022=] But this is still less than ideal, because it means that the player has to then rewrite his entire command. If, on the other hand, we take out [=0x0022=]ATTACK GLADIATOR[=0x0022=] entirely, the game will always prompt [=0x0022=]What do you want to attack the gladiator with?[=0x0022=] -- which teaches the player the correct command structure for this particular game, and avoids pretending to understand any command that is not meaningful within this game.][=0x000A=][=0x000A=][This is a little bit of work because ATTACK has a lot of synonyms in the default library, but if we look through the actions index we can find them all:][=0x000A=][=0x000A=]Understand the commands [=0x0022=]attack[=0x0022=] and [=0x0022=]punch[=0x0022=] and [=0x0022=]destroy[=0x0022=] and [=0x0022=]kill[=0x0022=] and [=0x0022=]murder[=0x0022=] and [=0x0022=]hit[=0x0022=] and [=0x0022=]thump[=0x0022=] and [=0x0022=]break[=0x0022=] and [=0x0022=]smash[=0x0022=] and [=0x0022=]torture[=0x0022=] and [=0x0022=]wreck[=0x0022=] as something new.[=0x000A=][=0x000A=][Now we make our new command:][=0x000A=][=0x000A=]Attacking it with is an action applying to one visible thing and one carried thing. Understand [=0x0022=]attack [someone] with [something preferably held][=0x0022=] as attacking it with.[=0x000A=][=0x000A=][Note that we[=0x0027=]ve specified [=0x0022=]one carried thing[=0x0022=], because we want the player to pick up a weapon to use if necessary. And now we assign all the old attack vocabulary to apply to the new command:][=0x000A=][=0x000A=]Understand the commands [=0x0022=]punch[=0x0022=] and [=0x0022=]destroy[=0x0022=] and [=0x0022=]kill[=0x0022=] and [=0x0022=]murder[=0x0022=] and [=0x0022=]hit[=0x0022=] and [=0x0022=]thump[=0x0022=] and [=0x0022=]break[=0x0022=] and [=0x0022=]smash[=0x0022=] and [=0x0022=]torture[=0x0022=] and [=0x0022=]wreck[=0x0022=] as [=0x0022=]attack[=0x0022=].[=0x000A=][=0x000A=][This may seem counter-intuitive, but order of source code matters here: we first get rid of the old, default vocabulary, then define our new action, then make the vocabulary apply to that new action. Inform will now understand [=0x003E=]HIT GLADIATOR WITH TRIDENT, [=0x003E=]BREAK GLADIATOR WITH TRIDENT, and so on.][=0x000A=][=0x000A=][Our new action is also a perfect place to use an action variable: we[=0x0027=]re going to need to choose an amount of damage done and refer to that several times in our action rules. So let[=0x0027=]s set that up first:][=0x000A=][=0x000A=]The attacking it with action has a number called the damage inflicted.[=0x000A=][=0x000A=]Setting action variables for attacking something with something:[=0x000A=][=0x0009=]if the second noun is a weapon:[=0x000A=][=0x0009=][=0x0009=]let the maximum attack be the maximum damage of the second noun;[=0x000A=][=0x0009=][=0x0009=]now the damage inflicted is a random number between 1 and the maximum attack.[=0x000A=][=0x000A=]Check an actor attacking something with something (this is the can[=0x0027=]t attack with something that isn[=0x0027=]t a weapon rule):[=0x000A=][=0x0009=]if the second noun is not a weapon:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player, say [=0x0022=][The second noun] does not qualify as a weapon.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Check an actor attacking something with something (this is the can[=0x0027=]t attack a non-person rule):[=0x000A=][=0x0009=]if the noun is not a person:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player, say [=0x0022=][The noun] has no life to lose.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Carry out an actor attacking something with something (this is the standard attacking it with a weapon rule):[=0x000A=][=0x0009=]decrease the current hit points of the noun by the damage inflicted;[=0x000A=][=0x0009=]if the noun is dead and the noun is not the player:[=0x000A=][=0x0009=][=0x0009=]now the noun is nowhere.[=0x000A=][=0x000A=][Though our checks and carry-out rules are similar regardless of who is acting, we[=0x0027=]re going to want actions to be described differently for different actors, so we[=0x0027=]ll use separate [=0x0022=]report attacking[=0x0022=] and [=0x0022=]report someone attacking[=0x0022=] rules. We[=0x0027=]ll also make some special cases for when the character has died as a result of the attack:][=0x000A=][=0x000A=]Report attacking a dead person with something (this is the death-report priority rule):[=0x000A=][=0x0009=]say [=0x0022=]You attack with [the second noun], killing [the noun]![=0x0022=] instead.[=0x000A=][=0x000A=]Report attacking someone with something (this is the normal attacking report rule):[=0x000A=][=0x0009=]say [=0x0022=]You attack [the noun] with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]Report someone attacking the player with something when the player is dead (this is the player[=0x0027=]s-death priority rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks you with [the second noun], finishing you off![=0x0022=];[=0x000A=][=0x0009=]end the story;[=0x000A=][=0x0009=]stop the action[=0x000A=][=0x000A=]Report someone attacking the player with something (this is the standard report someone attacking the player with rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks you with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]Report someone attacking something with something (this is the standard report attacking it with rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks [the noun] with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]You: [current hit points of player][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=]Gladiator: [current hit points of gladiator][=0x0022=].[=0x000A=][=0x000A=]Every turn (this is the gladiator-attack rule):[=0x000A=][=0x0009=]if the gladiator is not dead, try the gladiator attacking the player with a random weapon which is carried by the gladiator.[=0x000A=][=0x000A=]Test me with [=0x0022=]hit gladiator with mace / kill gladiator / drop mace / attack gladiator / attack gladiator with mace / g / g[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Lanista, Part Two[=0x0022=][=0x000A=][=0x000A=]The Arena is a room. [=0x0022=]Sand, blood, iron. These festivals are normally held on hot days, but the sun has gone behind a cloud and fat drops of rain now and then spatter the arena floor.[=0x0022=] The gladiator is a man in the Arena. [=0x0022=]A bare-chested Scythian gladiator faces you, wielding [a list of weapons carried by the gladiator].[=0x0022=][=0x000A=][=0x000A=]Section 1 - Hit Points[=0x000A=][=0x000A=]A person has a number called maximum hit points. A person has a number called current hit points.[=0x000A=][=0x000A=]The maximum hit points of the player is 35. The maximum hit points of the gladiator is 25.[=0x000A=][=0x000A=][In our simpler version of this example we set the current hit points by hand, but in a game with many characters this would get dull and repetitive, so here we[=0x0027=]ll use a [=0x0022=]when play begins[=0x0022=] to set all current hit point values automatically to maximum:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]repeat with victim running through people:[=0x000A=][=0x0009=][=0x0009=]now the current hit points of the victim is the maximum hit points of the victim.[=0x000A=][=0x000A=]Definition: a person is dead if his current hit points are less than 0.[=0x000A=][=0x000A=]Section 2 - Diagnosis[=0x000A=][=0x000A=]Diagnosing is an action applying to one visible thing. Understand [=0x0022=]diagnose [something][=0x0022=] as diagnosing.[=0x000A=][=0x000A=]Check diagnosing:[=0x000A=][=0x0009=]if the noun is not a person, say [=0x0022=]Only people can have diagnoses.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out diagnosing:[=0x000A=][=0x0009=]say [=0x0022=][if the noun is the player]You have[otherwise][The noun] has[end if] [current hit points of the noun] out of a possible [maximum hit points of the noun] hit points remaining.[=0x0022=][=0x000A=][=0x000A=]Section 3 - Weapons[=0x000A=][=0x000A=]A weapon is a kind of thing. A weapon has a number called the maximum damage. The maximum damage of a weapon is usually 4.[=0x000A=][=0x000A=]The gladiator carries a weapon called a trident. The maximum damage of the trident is 5. The gladiator carries a weapon called a net. The maximum damage of the net is 1.[=0x000A=][=0x000A=]The player carries a weapon called a mace. The maximum damage of the mace is 3.[=0x000A=][=0x000A=]Section 4 - Attacking it with[=0x000A=][=0x000A=][In our new system, we want to specify what is being used for an attack. This means that we need to create a new [=0x0022=]attacking it with[=0x0022=] action, and also that we should disable the existing [=0x0022=]attacking...[=0x0022=] command.][=0x000A=][=0x000A=][Here[=0x0027=]s why: If we leave the default attack command in place, Inform will continue to accept commands like [=0x003E=]ATTACK GLADIATOR, but reply foolishly with the default [=0x0022=]Violence is not the answer...[=0x0022=] response.][=0x000A=][=0x000A=][A somewhat better approach would be to change the reply of [=0x003E=]ATTACK GLADIATOR to say something like [=0x0022=]You must specify a weapon to attack with.[=0x0022=] But this is still less than ideal, because it means that the player has to then rewrite his entire command. If, on the other hand, we take out [=0x0022=]ATTACK GLADIATOR[=0x0022=] entirely, the game will always prompt [=0x0022=]What do you want to attack the gladiator with?[=0x0022=] -- which teaches the player the correct command structure for this particular game, and avoids pretending to understand any command that is not meaningful within this game.][=0x000A=][=0x000A=][This is a little bit of work because ATTACK has a lot of synonyms in the default library, but if we look through the actions index we can find them all:][=0x000A=][=0x000A=]Understand the commands [=0x0022=]attack[=0x0022=] and [=0x0022=]punch[=0x0022=] and [=0x0022=]destroy[=0x0022=] and [=0x0022=]kill[=0x0022=] and [=0x0022=]murder[=0x0022=] and [=0x0022=]hit[=0x0022=] and [=0x0022=]thump[=0x0022=] and [=0x0022=]break[=0x0022=] and [=0x0022=]smash[=0x0022=] and [=0x0022=]torture[=0x0022=] and [=0x0022=]wreck[=0x0022=] as something new.[=0x000A=][=0x000A=][Now we make our new command:][=0x000A=][=0x000A=]Attacking it with is an action applying to one visible thing and one carried thing. Understand [=0x0022=]attack [someone] with [something preferably held][=0x0022=] as attacking it with.[=0x000A=][=0x000A=][Note that we[=0x0027=]ve specified [=0x0022=]one carried thing[=0x0022=], because we want the player to pick up a weapon to use if necessary. And now we assign all the old attack vocabulary to apply to the new command:][=0x000A=][=0x000A=]Understand the commands [=0x0022=]punch[=0x0022=] and [=0x0022=]destroy[=0x0022=] and [=0x0022=]kill[=0x0022=] and [=0x0022=]murder[=0x0022=] and [=0x0022=]hit[=0x0022=] and [=0x0022=]thump[=0x0022=] and [=0x0022=]break[=0x0022=] and [=0x0022=]smash[=0x0022=] and [=0x0022=]torture[=0x0022=] and [=0x0022=]wreck[=0x0022=] as [=0x0022=]attack[=0x0022=].[=0x000A=][=0x000A=][This may seem counter-intuitive, but order of source code matters here: we first get rid of the old, default vocabulary, then define our new action, then make the vocabulary apply to that new action. Inform will now understand [=0x003E=]HIT GLADIATOR WITH TRIDENT, [=0x003E=]BREAK GLADIATOR WITH TRIDENT, and so on.][=0x000A=][=0x000A=][Our new action is also a perfect place to use an action variable: we[=0x0027=]re going to need to choose an amount of damage done and refer to that several times in our action rules. So let[=0x0027=]s set that up first:][=0x000A=][=0x000A=]The attacking it with action has a number called the damage inflicted.[=0x000A=][=0x000A=]Setting action variables for attacking something with something:[=0x000A=][=0x0009=]if the second noun is a weapon:[=0x000A=][=0x0009=][=0x0009=]let the maximum attack be the maximum damage of the second noun;[=0x000A=][=0x0009=][=0x0009=]now the damage inflicted is a random number between 1 and the maximum attack.[=0x000A=][=0x000A=]Check an actor attacking something with something (this is the can[=0x0027=]t attack with something that isn[=0x0027=]t a weapon rule):[=0x000A=][=0x0009=]if the second noun is not a weapon:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player, say [=0x0022=][The second noun] does not qualify as a weapon.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Check an actor attacking something with something (this is the can[=0x0027=]t attack a non-person rule):[=0x000A=][=0x0009=]if the noun is not a person:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player, say [=0x0022=][The noun] has no life to lose.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Carry out an actor attacking something with something (this is the standard attacking it with a weapon rule):[=0x000A=][=0x0009=]decrease the current hit points of the noun by the damage inflicted;[=0x000A=][=0x0009=]if the noun is dead and the noun is not the player:[=0x000A=][=0x0009=][=0x0009=]now the noun is nowhere.[=0x000A=][=0x000A=][Though our checks and carry-out rules are similar regardless of who is acting, we[=0x0027=]re going to want actions to be described differently for different actors, so we[=0x0027=]ll use separate [=0x0022=]report attacking[=0x0022=] and [=0x0022=]report someone attacking[=0x0022=] rules. We[=0x0027=]ll also make some special cases for when the character has died as a result of the attack:][=0x000A=][=0x000A=]Report attacking a dead person with something (this is the death-report priority rule):[=0x000A=][=0x0009=]say [=0x0022=]You attack with [the second noun], killing [the noun]![=0x0022=] instead.[=0x000A=][=0x000A=]Report attacking someone with something (this is the normal attacking report rule):[=0x000A=][=0x0009=]say [=0x0022=]You attack [the noun] with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]Report someone attacking the player with something when the player is dead (this is the player[=0x0027=]s-death priority rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks you with [the second noun], finishing you off![=0x0022=];[=0x000A=][=0x0009=]end the story;[=0x000A=][=0x0009=]stop the action[=0x000A=][=0x000A=]Report someone attacking the player with something (this is the standard report someone attacking the player with rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks you with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]Report someone attacking something with something (this is the standard report attacking it with rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks [the noun] with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]You: [current hit points of player][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=]Gladiator: [current hit points of gladiator][=0x0022=].[=0x000A=][=0x000A=]Every turn (this is the gladiator-attack rule):[=0x000A=][=0x0009=]if the gladiator is not dead, try the gladiator attacking the player with a random weapon which is carried by the gladiator.[=0x000A=][=0x000A=]Test me with [=0x0022=]hit gladiator with mace / kill gladiator / drop mace / attack gladiator / attack gladiator with mace / g / g[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Lanista 2')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Lanista, Part Two&quot;
+            <!--START CODE "c5597_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5597_202"></a><a href="javascript:pasteCode('[=0x0022=]Lanista, Part Two[=0x0022=][=0x000A=][=0x000A=]The Arena is a room. [=0x0022=]Sand, blood, iron. These festivals are normally held on hot days, but the sun has gone behind a cloud and fat drops of rain now and then spatter the arena floor.[=0x0022=] The gladiator is a man in the Arena. [=0x0022=]A bare-chested Scythian gladiator faces you, wielding [a list of weapons carried by the gladiator].[=0x0022=][=0x000A=][=0x000A=]Section 1 - Hit Points[=0x000A=][=0x000A=]A person has a number called maximum hit points. A person has a number called current hit points.[=0x000A=][=0x000A=]The maximum hit points of the player is 35. The maximum hit points of the gladiator is 25.[=0x000A=][=0x000A=][In our simpler version of this example we set the current hit points by hand, but in a game with many characters this would get dull and repetitive, so here we[=0x0027=]ll use a [=0x0022=]when play begins[=0x0022=] to set all current hit point values automatically to maximum:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]repeat with victim running through people:[=0x000A=][=0x0009=][=0x0009=]now the current hit points of the victim is the maximum hit points of the victim.[=0x000A=][=0x000A=]Definition: a person is dead if their current hit points are less than 0.[=0x000A=][=0x000A=]Section 2 - Diagnosis[=0x000A=][=0x000A=]Diagnosing is an action applying to one visible thing. Understand [=0x0022=]diagnose [something][=0x0022=] as diagnosing.[=0x000A=][=0x000A=]Check diagnosing:[=0x000A=][=0x0009=]if the noun is not a person, say [=0x0022=]Only people can have diagnoses.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out diagnosing:[=0x000A=][=0x0009=]say [=0x0022=][if the noun is the player]You have[otherwise][The noun] has[end if] [current hit points of the noun] out of a possible [maximum hit points of the noun] hit points remaining.[=0x0022=][=0x000A=][=0x000A=]Section 3 - Weapons[=0x000A=][=0x000A=]A weapon is a kind of thing. A weapon has a number called the maximum damage. The maximum damage of a weapon is usually 4.[=0x000A=][=0x000A=]The gladiator carries a weapon called a trident. The maximum damage of the trident is 5. The gladiator carries a weapon called a net. The maximum damage of the net is 1.[=0x000A=][=0x000A=]The player carries a weapon called a mace. The maximum damage of the mace is 3.[=0x000A=][=0x000A=]Section 4 - Attacking it with[=0x000A=][=0x000A=][In our new system, we want to specify what is being used for an attack. This means that we need to create a new [=0x0022=]attacking it with[=0x0022=] action, and also that we should disable the existing [=0x0022=]attacking...[=0x0022=] command.][=0x000A=][=0x000A=][Here[=0x0027=]s why: If we leave the default attack command in place, Inform will continue to accept commands like [=0x003E=]ATTACK GLADIATOR, but reply foolishly with the default [=0x0022=]Violence is not the answer...[=0x0022=] response.][=0x000A=][=0x000A=][A somewhat better approach would be to change the reply of [=0x003E=]ATTACK GLADIATOR to say something like [=0x0022=]You must specify a weapon to attack with.[=0x0022=] But this is still less than ideal, because it means that the player has to then rewrite the entire command. If, on the other hand, we take out [=0x0022=]ATTACK GLADIATOR[=0x0022=] entirely, the game will always prompt [=0x0022=]What do you want to attack the gladiator with?[=0x0022=] -- which teaches the player the correct command structure for this particular game, and avoids pretending to understand any command that is not meaningful within this game.][=0x000A=][=0x000A=][This is a little bit of work because ATTACK has a lot of synonyms in the default library, but if we look through the actions index we can find them all:][=0x000A=][=0x000A=]Understand the commands [=0x0022=]attack[=0x0022=] and [=0x0022=]punch[=0x0022=] and [=0x0022=]destroy[=0x0022=] and [=0x0022=]kill[=0x0022=] and [=0x0022=]murder[=0x0022=] and [=0x0022=]hit[=0x0022=] and [=0x0022=]thump[=0x0022=] and [=0x0022=]break[=0x0022=] and [=0x0022=]smash[=0x0022=] and [=0x0022=]torture[=0x0022=] and [=0x0022=]wreck[=0x0022=] as something new.[=0x000A=][=0x000A=][Now we make our new command:][=0x000A=][=0x000A=]Attacking it with is an action applying to one visible thing and one carried thing. Understand [=0x0022=]attack [someone] with [something preferably held][=0x0022=] as attacking it with.[=0x000A=][=0x000A=][Note that we[=0x0027=]ve specified [=0x0022=]one carried thing[=0x0022=], because we want the player to pick up a weapon to use if necessary. And now we assign all the old attack vocabulary to apply to the new command:][=0x000A=][=0x000A=]Understand the commands [=0x0022=]punch[=0x0022=] and [=0x0022=]destroy[=0x0022=] and [=0x0022=]kill[=0x0022=] and [=0x0022=]murder[=0x0022=] and [=0x0022=]hit[=0x0022=] and [=0x0022=]thump[=0x0022=] and [=0x0022=]break[=0x0022=] and [=0x0022=]smash[=0x0022=] and [=0x0022=]torture[=0x0022=] and [=0x0022=]wreck[=0x0022=] as [=0x0022=]attack[=0x0022=].[=0x000A=][=0x000A=][This may seem counter-intuitive, but order of source code matters here: we first get rid of the old, default vocabulary, then define our new action, then make the vocabulary apply to that new action. Inform will now understand [=0x003E=]HIT GLADIATOR WITH TRIDENT, [=0x003E=]BREAK GLADIATOR WITH TRIDENT, and so on.][=0x000A=][=0x000A=][Our new action is also a perfect place to use an action variable: we[=0x0027=]re going to need to choose an amount of damage done and refer to that several times in our action rules. So let[=0x0027=]s set that up first:][=0x000A=][=0x000A=]The attacking it with action has a number called the damage inflicted.[=0x000A=][=0x000A=]Setting action variables for attacking something with something:[=0x000A=][=0x0009=]if the second noun is a weapon:[=0x000A=][=0x0009=][=0x0009=]let the maximum attack be the maximum damage of the second noun;[=0x000A=][=0x0009=][=0x0009=]now the damage inflicted is a random number between 1 and the maximum attack.[=0x000A=][=0x000A=]Check an actor attacking something with something (this is the can[=0x0027=]t attack with something that isn[=0x0027=]t a weapon rule):[=0x000A=][=0x0009=]if the second noun is not a weapon:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player, say [=0x0022=][The second noun] does not qualify as a weapon.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Check an actor attacking something with something (this is the can[=0x0027=]t attack a non-person rule):[=0x000A=][=0x0009=]if the noun is not a person:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player, say [=0x0022=][The noun] has no life to lose.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Carry out an actor attacking something with something (this is the standard attacking it with a weapon rule):[=0x000A=][=0x0009=]decrease the current hit points of the noun by the damage inflicted;[=0x000A=][=0x0009=]if the noun is dead and the noun is not the player:[=0x000A=][=0x0009=][=0x0009=]now the noun is nowhere.[=0x000A=][=0x000A=][Though our checks and carry-out rules are similar regardless of who is acting, we[=0x0027=]re going to want actions to be described differently for different actors, so we[=0x0027=]ll use separate [=0x0022=]report attacking[=0x0022=] and [=0x0022=]report someone attacking[=0x0022=] rules. We[=0x0027=]ll also make some special cases for when the character has died as a result of the attack:][=0x000A=][=0x000A=]Report attacking a dead person with something (this is the death-report priority rule):[=0x000A=][=0x0009=]say [=0x0022=]You attack with [the second noun], killing [the noun]![=0x0022=] instead.[=0x000A=][=0x000A=]Report attacking someone with something (this is the normal attacking report rule):[=0x000A=][=0x0009=]say [=0x0022=]You attack [the noun] with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]Report someone attacking the player with something when the player is dead (this is the player[=0x0027=]s-death priority rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks you with [the second noun], finishing you off![=0x0022=];[=0x000A=][=0x0009=]end the story;[=0x000A=][=0x0009=]stop the action[=0x000A=][=0x000A=]Report someone attacking the player with something (this is the standard report someone attacking the player with rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks you with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]Report someone attacking something with something (this is the standard report attacking it with rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks [the noun] with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]You: [current hit points of player][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=]Gladiator: [current hit points of gladiator][=0x0022=].[=0x000A=][=0x000A=]Every turn (this is the gladiator-attack rule):[=0x000A=][=0x0009=]if the gladiator is not dead, try the gladiator attacking the player with a random weapon which is carried by the gladiator.[=0x000A=][=0x000A=]Test me with [=0x0022=]hit gladiator with mace / kill gladiator / drop mace / attack gladiator / attack gladiator with mace / g / g[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Lanista, Part Two[=0x0022=][=0x000A=][=0x000A=]The Arena is a room. [=0x0022=]Sand, blood, iron. These festivals are normally held on hot days, but the sun has gone behind a cloud and fat drops of rain now and then spatter the arena floor.[=0x0022=] The gladiator is a man in the Arena. [=0x0022=]A bare-chested Scythian gladiator faces you, wielding [a list of weapons carried by the gladiator].[=0x0022=][=0x000A=][=0x000A=]Section 1 - Hit Points[=0x000A=][=0x000A=]A person has a number called maximum hit points. A person has a number called current hit points.[=0x000A=][=0x000A=]The maximum hit points of the player is 35. The maximum hit points of the gladiator is 25.[=0x000A=][=0x000A=][In our simpler version of this example we set the current hit points by hand, but in a game with many characters this would get dull and repetitive, so here we[=0x0027=]ll use a [=0x0022=]when play begins[=0x0022=] to set all current hit point values automatically to maximum:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]repeat with victim running through people:[=0x000A=][=0x0009=][=0x0009=]now the current hit points of the victim is the maximum hit points of the victim.[=0x000A=][=0x000A=]Definition: a person is dead if their current hit points are less than 0.[=0x000A=][=0x000A=]Section 2 - Diagnosis[=0x000A=][=0x000A=]Diagnosing is an action applying to one visible thing. Understand [=0x0022=]diagnose [something][=0x0022=] as diagnosing.[=0x000A=][=0x000A=]Check diagnosing:[=0x000A=][=0x0009=]if the noun is not a person, say [=0x0022=]Only people can have diagnoses.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out diagnosing:[=0x000A=][=0x0009=]say [=0x0022=][if the noun is the player]You have[otherwise][The noun] has[end if] [current hit points of the noun] out of a possible [maximum hit points of the noun] hit points remaining.[=0x0022=][=0x000A=][=0x000A=]Section 3 - Weapons[=0x000A=][=0x000A=]A weapon is a kind of thing. A weapon has a number called the maximum damage. The maximum damage of a weapon is usually 4.[=0x000A=][=0x000A=]The gladiator carries a weapon called a trident. The maximum damage of the trident is 5. The gladiator carries a weapon called a net. The maximum damage of the net is 1.[=0x000A=][=0x000A=]The player carries a weapon called a mace. The maximum damage of the mace is 3.[=0x000A=][=0x000A=]Section 4 - Attacking it with[=0x000A=][=0x000A=][In our new system, we want to specify what is being used for an attack. This means that we need to create a new [=0x0022=]attacking it with[=0x0022=] action, and also that we should disable the existing [=0x0022=]attacking...[=0x0022=] command.][=0x000A=][=0x000A=][Here[=0x0027=]s why: If we leave the default attack command in place, Inform will continue to accept commands like [=0x003E=]ATTACK GLADIATOR, but reply foolishly with the default [=0x0022=]Violence is not the answer...[=0x0022=] response.][=0x000A=][=0x000A=][A somewhat better approach would be to change the reply of [=0x003E=]ATTACK GLADIATOR to say something like [=0x0022=]You must specify a weapon to attack with.[=0x0022=] But this is still less than ideal, because it means that the player has to then rewrite the entire command. If, on the other hand, we take out [=0x0022=]ATTACK GLADIATOR[=0x0022=] entirely, the game will always prompt [=0x0022=]What do you want to attack the gladiator with?[=0x0022=] -- which teaches the player the correct command structure for this particular game, and avoids pretending to understand any command that is not meaningful within this game.][=0x000A=][=0x000A=][This is a little bit of work because ATTACK has a lot of synonyms in the default library, but if we look through the actions index we can find them all:][=0x000A=][=0x000A=]Understand the commands [=0x0022=]attack[=0x0022=] and [=0x0022=]punch[=0x0022=] and [=0x0022=]destroy[=0x0022=] and [=0x0022=]kill[=0x0022=] and [=0x0022=]murder[=0x0022=] and [=0x0022=]hit[=0x0022=] and [=0x0022=]thump[=0x0022=] and [=0x0022=]break[=0x0022=] and [=0x0022=]smash[=0x0022=] and [=0x0022=]torture[=0x0022=] and [=0x0022=]wreck[=0x0022=] as something new.[=0x000A=][=0x000A=][Now we make our new command:][=0x000A=][=0x000A=]Attacking it with is an action applying to one visible thing and one carried thing. Understand [=0x0022=]attack [someone] with [something preferably held][=0x0022=] as attacking it with.[=0x000A=][=0x000A=][Note that we[=0x0027=]ve specified [=0x0022=]one carried thing[=0x0022=], because we want the player to pick up a weapon to use if necessary. And now we assign all the old attack vocabulary to apply to the new command:][=0x000A=][=0x000A=]Understand the commands [=0x0022=]punch[=0x0022=] and [=0x0022=]destroy[=0x0022=] and [=0x0022=]kill[=0x0022=] and [=0x0022=]murder[=0x0022=] and [=0x0022=]hit[=0x0022=] and [=0x0022=]thump[=0x0022=] and [=0x0022=]break[=0x0022=] and [=0x0022=]smash[=0x0022=] and [=0x0022=]torture[=0x0022=] and [=0x0022=]wreck[=0x0022=] as [=0x0022=]attack[=0x0022=].[=0x000A=][=0x000A=][This may seem counter-intuitive, but order of source code matters here: we first get rid of the old, default vocabulary, then define our new action, then make the vocabulary apply to that new action. Inform will now understand [=0x003E=]HIT GLADIATOR WITH TRIDENT, [=0x003E=]BREAK GLADIATOR WITH TRIDENT, and so on.][=0x000A=][=0x000A=][Our new action is also a perfect place to use an action variable: we[=0x0027=]re going to need to choose an amount of damage done and refer to that several times in our action rules. So let[=0x0027=]s set that up first:][=0x000A=][=0x000A=]The attacking it with action has a number called the damage inflicted.[=0x000A=][=0x000A=]Setting action variables for attacking something with something:[=0x000A=][=0x0009=]if the second noun is a weapon:[=0x000A=][=0x0009=][=0x0009=]let the maximum attack be the maximum damage of the second noun;[=0x000A=][=0x0009=][=0x0009=]now the damage inflicted is a random number between 1 and the maximum attack.[=0x000A=][=0x000A=]Check an actor attacking something with something (this is the can[=0x0027=]t attack with something that isn[=0x0027=]t a weapon rule):[=0x000A=][=0x0009=]if the second noun is not a weapon:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player, say [=0x0022=][The second noun] does not qualify as a weapon.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Check an actor attacking something with something (this is the can[=0x0027=]t attack a non-person rule):[=0x000A=][=0x0009=]if the noun is not a person:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player, say [=0x0022=][The noun] has no life to lose.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Carry out an actor attacking something with something (this is the standard attacking it with a weapon rule):[=0x000A=][=0x0009=]decrease the current hit points of the noun by the damage inflicted;[=0x000A=][=0x0009=]if the noun is dead and the noun is not the player:[=0x000A=][=0x0009=][=0x0009=]now the noun is nowhere.[=0x000A=][=0x000A=][Though our checks and carry-out rules are similar regardless of who is acting, we[=0x0027=]re going to want actions to be described differently for different actors, so we[=0x0027=]ll use separate [=0x0022=]report attacking[=0x0022=] and [=0x0022=]report someone attacking[=0x0022=] rules. We[=0x0027=]ll also make some special cases for when the character has died as a result of the attack:][=0x000A=][=0x000A=]Report attacking a dead person with something (this is the death-report priority rule):[=0x000A=][=0x0009=]say [=0x0022=]You attack with [the second noun], killing [the noun]![=0x0022=] instead.[=0x000A=][=0x000A=]Report attacking someone with something (this is the normal attacking report rule):[=0x000A=][=0x0009=]say [=0x0022=]You attack [the noun] with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]Report someone attacking the player with something when the player is dead (this is the player[=0x0027=]s-death priority rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks you with [the second noun], finishing you off![=0x0022=];[=0x000A=][=0x0009=]end the story;[=0x000A=][=0x0009=]stop the action[=0x000A=][=0x000A=]Report someone attacking the player with something (this is the standard report someone attacking the player with rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks you with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]Report someone attacking something with something (this is the standard report attacking it with rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks [the noun] with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]You: [current hit points of player][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=]Gladiator: [current hit points of gladiator][=0x0022=].[=0x000A=][=0x000A=]Every turn (this is the gladiator-attack rule):[=0x000A=][=0x0009=]if the gladiator is not dead, try the gladiator attacking the player with a random weapon which is carried by the gladiator.[=0x000A=][=0x000A=]Test me with [=0x0022=]hit gladiator with mace / kill gladiator / drop mace / attack gladiator / attack gladiator with mace / g / g[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Lanista 2')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Lanista, Part Two&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5583_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5583_213"></a>The Arena is a room. &quot;Sand, blood, iron. These festivals are normally held on hot days, but the sun has gone behind a cloud and fat drops of rain now and then spatter the arena floor.&quot; The gladiator is a man in the Arena. &quot;A bare-chested Scythian gladiator faces you, wielding [a list of weapons carried by the gladiator].&quot;
+            <!--START CODE "c5598_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5598_202"></a>The Arena is a room. &quot;Sand, blood, iron. These festivals are normally held on hot days, but the sun has gone behind a cloud and fat drops of rain now and then spatter the arena floor.&quot; The gladiator is a man in the Arena. &quot;A bare-chested Scythian gladiator faces you, wielding [a list of weapons carried by the gladiator].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5584_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5584_213"></a>Section 1 - Hit Points
+            <!--START CODE "c5599_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5599_202"></a>Section 1 - Hit Points
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5585_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5585_213"></a>A person has a number called maximum hit points. A person has a number called current hit points.
+            <!--START CODE "c5600_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5600_202"></a>A person has a number called maximum hit points. A person has a number called current hit points.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5586_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5586_213"></a>The maximum hit points of the player is 35. The maximum hit points of the gladiator is 25.
+            <!--START CODE "c5601_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5601_202"></a>The maximum hit points of the player is 35. The maximum hit points of the gladiator is 25.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>In our simpler version of this example we set the current hit points by hand, but in a game with many characters this would get dull and repetitive, so here we'll use a &quot;when play begins&quot; to set all current hit point values automatically to maximum:</p>
-            <!--START CODE "c5587_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5587_213"></a>When play begins:
+            <!--START CODE "c5602_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5602_202"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;repeat with victim running through people:
             <br>
@@ -231,90 +231,90 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5588_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5588_213"></a>Definition: a person is dead if his current hit points are less than 0.
+            <!--START CODE "c5603_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5603_202"></a>Definition: a person is dead if their current hit points are less than 0.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5589_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5589_213"></a>Section 2 - Diagnosis
+            <!--START CODE "c5604_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5604_202"></a>Section 2 - Diagnosis
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5590_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5590_213"></a>Diagnosing is an action applying to one visible thing. Understand &quot;diagnose [something]&quot; as diagnosing.
+            <!--START CODE "c5605_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5605_202"></a>Diagnosing is an action applying to one visible thing. Understand &quot;diagnose [something]&quot; as diagnosing.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5591_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5591_213"></a>Check diagnosing:
+            <!--START CODE "c5606_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5606_202"></a>Check diagnosing:
             <br>
             &#160;&#160;&#160;&#160;if the noun is not a person, say &quot;Only people can have diagnoses.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5592_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5592_213"></a>Carry out diagnosing:
+            <!--START CODE "c5607_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5607_202"></a>Carry out diagnosing:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[if the noun is the player]You have[otherwise][The noun] has[end if] [current hit points of the noun] out of a possible [maximum hit points of the noun] hit points remaining.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5593_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5593_213"></a>Section 3 - Weapons
+            <!--START CODE "c5608_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5608_202"></a>Section 3 - Weapons
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5594_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5594_213"></a>A weapon is a kind of thing. A weapon has a number called the maximum damage. The maximum damage of a weapon is usually 4.
+            <!--START CODE "c5609_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5609_202"></a>A weapon is a kind of thing. A weapon has a number called the maximum damage. The maximum damage of a weapon is usually 4.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5595_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5595_213"></a>The gladiator carries a weapon called a trident. The maximum damage of the trident is 5. The gladiator carries a weapon called a net. The maximum damage of the net is 1.
+            <!--START CODE "c5610_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5610_202"></a>The gladiator carries a weapon called a trident. The maximum damage of the trident is 5. The gladiator carries a weapon called a net. The maximum damage of the net is 1.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5596_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5596_213"></a>The player carries a weapon called a mace. The maximum damage of the mace is 3.
+            <!--START CODE "c5611_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5611_202"></a>The player carries a weapon called a mace. The maximum damage of the mace is 3.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5597_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5597_213"></a>Section 4 - Attacking it with
+            <!--START CODE "c5612_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5612_202"></a>Section 4 - Attacking it with
             </p>
             </blockquote>
             <!--END CODE-->
             <p>In our new system, we want to specify what is being used for an attack. This means that we need to create a new &quot;attacking it with&quot; action, and also that we should disable the existing &quot;attacking...&quot; command.</p>
             <p>Here's why: If we leave the default attack command in place, Inform will continue to accept commands like &gt;ATTACK GLADIATOR, but reply foolishly with the default &quot;Violence is not the answer...&quot; response.</p>
-            <p>A somewhat better approach would be to change the reply of &gt;ATTACK GLADIATOR to say something like &quot;You must specify a weapon to attack with.&quot; But this is still less than ideal, because it means that the player has to then rewrite his entire command. If, on the other hand, we take out &quot;ATTACK GLADIATOR&quot; entirely, the game will always prompt &quot;What do you want to attack the gladiator with?&quot; -- which teaches the player the correct command structure for this particular game, and avoids pretending to understand any command that is not meaningful within this game.</p>
+            <p>A somewhat better approach would be to change the reply of &gt;ATTACK GLADIATOR to say something like &quot;You must specify a weapon to attack with.&quot; But this is still less than ideal, because it means that the player has to then rewrite the entire command. If, on the other hand, we take out &quot;ATTACK GLADIATOR&quot; entirely, the game will always prompt &quot;What do you want to attack the gladiator with?&quot; -- which teaches the player the correct command structure for this particular game, and avoids pretending to understand any command that is not meaningful within this game.</p>
             <p>This is a little bit of work because ATTACK has a lot of synonyms in the default library, but if we look through the actions index we can find them all:</p>
-            <!--START CODE "c5598_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5598_213"></a>Understand the commands &quot;attack&quot; and &quot;punch&quot; and &quot;destroy&quot; and &quot;kill&quot; and &quot;murder&quot; and &quot;hit&quot; and &quot;thump&quot; and &quot;break&quot; and &quot;smash&quot; and &quot;torture&quot; and &quot;wreck&quot; as something new.
+            <!--START CODE "c5613_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5613_202"></a>Understand the commands &quot;attack&quot; and &quot;punch&quot; and &quot;destroy&quot; and &quot;kill&quot; and &quot;murder&quot; and &quot;hit&quot; and &quot;thump&quot; and &quot;break&quot; and &quot;smash&quot; and &quot;torture&quot; and &quot;wreck&quot; as something new.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now we make our new command:</p>
-            <!--START CODE "c5599_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5599_213"></a>Attacking it with is an action applying to one visible thing and one carried thing. Understand &quot;attack [someone] with [something preferably held]&quot; as attacking it with.
+            <!--START CODE "c5614_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5614_202"></a>Attacking it with is an action applying to one visible thing and one carried thing. Understand &quot;attack [someone] with [something preferably held]&quot; as attacking it with.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Note that we've specified &quot;one carried thing&quot;, because we want the player to pick up a weapon to use if necessary. And now we assign all the old attack vocabulary to apply to the new command:</p>
-            <!--START CODE "c5600_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5600_213"></a>Understand the commands &quot;punch&quot; and &quot;destroy&quot; and &quot;kill&quot; and &quot;murder&quot; and &quot;hit&quot; and &quot;thump&quot; and &quot;break&quot; and &quot;smash&quot; and &quot;torture&quot; and &quot;wreck&quot; as &quot;attack&quot;.
+            <!--START CODE "c5615_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5615_202"></a>Understand the commands &quot;punch&quot; and &quot;destroy&quot; and &quot;kill&quot; and &quot;murder&quot; and &quot;hit&quot; and &quot;thump&quot; and &quot;break&quot; and &quot;smash&quot; and &quot;torture&quot; and &quot;wreck&quot; as &quot;attack&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>This may seem counter-intuitive, but order of source code matters here: we first get rid of the old, default vocabulary, then define our new action, then make the vocabulary apply to that new action. Inform will now understand &gt;HIT GLADIATOR WITH TRIDENT, &gt;BREAK GLADIATOR WITH TRIDENT, and so on.</p>
             <p>Our new action is also a perfect place to use an action variable: we're going to need to choose an amount of damage done and refer to that several times in our action rules. So let's set that up first:</p>
-            <!--START CODE "c5601_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5601_213"></a>The attacking it with action has a number called the damage inflicted.
+            <!--START CODE "c5616_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5616_202"></a>The attacking it with action has a number called the damage inflicted.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5602_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5602_213"></a>Setting action variables for attacking something with something:
+            <!--START CODE "c5617_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5617_202"></a>Setting action variables for attacking something with something:
             <br>
             &#160;&#160;&#160;&#160;if the second noun is a weapon:
             <br>
@@ -324,8 +324,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5603_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5603_213"></a>Check an actor attacking something with something (this is the can't attack with something that isn't a weapon rule):
+            <!--START CODE "c5618_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5618_202"></a>Check an actor attacking something with something (this is the can't attack with something that isn't a weapon rule):
             <br>
             &#160;&#160;&#160;&#160;if the second noun is not a weapon:
             <br>
@@ -335,8 +335,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5604_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5604_213"></a>Check an actor attacking something with something (this is the can't attack a non-person rule):
+            <!--START CODE "c5619_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5619_202"></a>Check an actor attacking something with something (this is the can't attack a non-person rule):
             <br>
             &#160;&#160;&#160;&#160;if the noun is not a person:
             <br>
@@ -346,8 +346,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5605_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5605_213"></a>Carry out an actor attacking something with something (this is the standard attacking it with a weapon rule):
+            <!--START CODE "c5620_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5620_202"></a>Carry out an actor attacking something with something (this is the standard attacking it with a weapon rule):
             <br>
             &#160;&#160;&#160;&#160;decrease the current hit points of the noun by the damage inflicted;
             <br>
@@ -358,22 +358,22 @@
             </blockquote>
             <!--END CODE-->
             <p>Though our checks and carry-out rules are similar regardless of who is acting, we're going to want actions to be described differently for different actors, so we'll use separate &quot;report attacking&quot; and &quot;report someone attacking&quot; rules. We'll also make some special cases for when the character has died as a result of the attack:</p>
-            <!--START CODE "c5606_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5606_213"></a>Report attacking a dead person with something (this is the death-report priority rule):
+            <!--START CODE "c5621_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5621_202"></a>Report attacking a dead person with something (this is the death-report priority rule):
             <br>
             &#160;&#160;&#160;&#160;say &quot;You attack with [the second noun], killing [the noun]!&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5607_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5607_213"></a>Report attacking someone with something (this is the normal attacking report rule):
+            <!--START CODE "c5622_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5622_202"></a>Report attacking someone with something (this is the normal attacking report rule):
             <br>
             &#160;&#160;&#160;&#160;say &quot;You attack [the noun] with [the second noun], causing [damage inflicted] point[s] of damage!&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5608_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5608_213"></a>Report someone attacking the player with something when the player is dead (this is the player's-death priority rule):
+            <!--START CODE "c5623_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5623_202"></a>Report someone attacking the player with something when the player is dead (this is the player's-death priority rule):
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The actor] attacks you with [the second noun], finishing you off!&quot;;
             <br>
@@ -383,22 +383,22 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5609_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5609_213"></a>Report someone attacking the player with something (this is the standard report someone attacking the player with rule):
+            <!--START CODE "c5624_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5624_202"></a>Report someone attacking the player with something (this is the standard report someone attacking the player with rule):
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The actor] attacks you with [the second noun], causing [damage inflicted] point[s] of damage!&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5610_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5610_213"></a>Report someone attacking something with something (this is the standard report attacking it with rule):
+            <!--START CODE "c5625_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5625_202"></a>Report someone attacking something with something (this is the standard report attacking it with rule):
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The actor] attacks [the noun] with [the second noun], causing [damage inflicted] point[s] of damage!&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5611_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5611_213"></a>When play begins:
+            <!--START CODE "c5626_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5626_202"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;now the left hand status line is &quot;You: [current hit points of player]&quot;;
             <br>
@@ -406,15 +406,15 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5612_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5612_213"></a>Every turn (this is the gladiator-attack rule):
+            <!--START CODE "c5627_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5627_202"></a>Every turn (this is the gladiator-attack rule):
             <br>
             &#160;&#160;&#160;&#160;if the gladiator is not dead, try the gladiator attacking the player with a random weapon which is carried by the gladiator.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5613_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c5613_213"></a>Test me with &quot;hit gladiator with mace / kill gladiator / drop mace / attack gladiator / attack gladiator with mace / g / g&quot;.
+            <!--START CODE "c5628_202"-->
+            <blockquote class="code"><p class="quoted"><a id="c5628_202"></a>Test me with &quot;hit gladiator with mace / kill gladiator / drop mace / attack gladiator / attack gladiator with mace / g / g&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

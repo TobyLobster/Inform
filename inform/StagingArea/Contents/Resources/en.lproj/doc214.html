@@ -83,33 +83,33 @@
     <!--END IGNORE-->
     <p class="sectionheading">§14.3. More on adapting verbs</p>
     <p>If we need an adaptive message with a verb which doesn't belong to Inform's built-in set, all we need do is define it. In the previous chapter we defined verbs by giving them meanings, but in fact that's optional. For example:</p>
-    <!--START CODE "c4318"-->
-    <blockquote class="code"><p class="quoted"><a id="c4318"></a>To retrofit is a verb.
+    <!--START CODE "c4326"-->
+    <blockquote class="code"><p class="quoted"><a id="c4326"></a>To retrofit is a verb.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>defines a verb without telling Inform what it means. Inform will throw a Problem message if we try to write text like:</p>
-    <!--START CODE "c4319"-->
-    <blockquote class="code"><p class="quoted"><a id="c4319"></a>Flash retrofits the meteor beam.
+    <!--START CODE "c4327"-->
+    <blockquote class="code"><p class="quoted"><a id="c4327"></a>Flash retrofits the meteor beam.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>because, after all, it doesn't know what &quot;retrofit&quot; means. But it does still know how to print it, so this works:</p>
-    <!--START CODE "c4320"-->
-    <blockquote class="code"><p class="quoted"><a id="c4320"></a>&quot;[The actor] [retrofit] the Mecha-Mole.&quot;
+    <!--START CODE "c4328"-->
+    <blockquote class="code"><p class="quoted"><a id="c4328"></a>&quot;[The actor] [retrofit] the Mecha-Mole.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>which might come out as &quot;Dale retrofits the Mecha-Mole&quot;, or &quot;Barin's archers retrofitted the Mecha-Mole&quot;, and so on.</p>
     <p>This is especially neat for writing a single response to an action which works regardless of who the actor was. For example, the Standard Rules include:</p>
-    <!--START CODE "c4321"-->
-    <blockquote class="code"><p class="quoted"><a id="c4321"></a>say &quot;[The actor] [put] [the noun] on [the second noun].&quot;
+    <!--START CODE "c4329"-->
+    <blockquote class="code"><p class="quoted"><a id="c4329"></a>say &quot;[The actor] [put] [the noun] on [the second noun].&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>And this can make either:</p>
-    <!--START CODE "c4322"-->
-    <blockquote class="code"><p class="quoted"><a id="c4322"></a>You put the revolver on the table.
+    <!--START CODE "c4330"-->
+    <blockquote class="code"><p class="quoted"><a id="c4330"></a>You put the revolver on the table.
     <br>
     General Lee puts the revolver on the table.
     </p>
@@ -118,78 +118,78 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "245: Fun with Participles" "e158"-->
-        <a id="e158"></a><table class="egcue">
+        <!--START EXAMPLE "245: Fun with Participles" "e155"-->
+        <a id="e155"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example158'); return false;"><b>245</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example155'); return false;"><b>245</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example158'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Fun with Participles</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example155'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Fun with Participles</span></b></a><br>
                     Creating dynamic room descriptions that contain sentences such as "Clark is here, wasting time" or "Clark is here, looking around" depending on Clark's idle activity.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc5.html#e158"><i>RB</i></a></div>
+                        <a href="Rdoc5.html#e155"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example158" style="display: none;">
-            <p>Mostly the Standard Rules use verbs adapted to finite forms (&quot;he jumped&quot;, &quot;we take the hammer&quot;, and so on). But Inform can also produce participles to describe actions that are ongoing: &quot;he is carrying the fedora&quot; or &quot;taking the hammer...&quot;</p>
+        <div class="egpanel" id="example155" style="display: none;">
+            <p>Mostly the Standard Rules use verbs adapted to finite forms (&quot;she jumped&quot;, &quot;we take the hammer&quot;, and so on). But Inform can also produce participles to describe actions that are ongoing: &quot;he is carrying the fedora&quot; or &quot;taking the hammer...&quot;</p>
             <p>In this example, we give non-player characters actions to perform and then have Inform dynamically describe what they're doing when the player chooses to look.</p>
             <p>We start by establishing the idea that a verb can describe a particular action:</p>
-            <!--START CODE "c4323_158"-->
-            <blockquote class="code"><p class="quoted"><a id="c4323_158"></a><a href="javascript:pasteCode('[=0x0022=]Fun with Participles[=0x0022=][=0x000A=][=0x000A=]Section 1 - Descriptive Functionality[=0x000A=][=0x000A=]Describing relates various verbs to various action names. The verb to describe means the describing relation.[=0x000A=][=0x000A=]To look around is a verb. The verb look around describes the looking action.[=0x000A=][=0x000A=]To stand about is a verb. The verb stand about describes the waiting action. To look bored is a verb. The verb look bored describes the waiting action. To waste time is a verb. The verb waste time describes the waiting action.[=0x000A=][=0x000A=]To jump is a verb. To leap is a verb. To pirouette is a verb. The verb jump describes the jumping action. The verb leap describes the jumping action. The verb pirouette describes the jumping action.[=0x000A=][=0x000A=][Now we need to give every character some sort of idle activity. By default, we[=0x0027=]ll have people just be waiting, but allow for that idle activity to change into something more interesting if the player has told them to do something else.][=0x000A=][=0x000A=]A person has an action name called the current idle. The current idle of a person is usually the waiting action.[=0x000A=][=0x000A=]Rule for writing a paragraph about someone  (called chosen person) when a verb describes the current idle of the chosen person:[=0x000A=][=0x0009=]say [=0x0022=][The chosen person] [are] here, [present participle of a random verb that describes (the current idle of the chosen person)].[=0x0022=][=0x000A=][=0x000A=]Instead of someone doing something:[=0x000A=][=0x0009=]now the current idle of the person asked is (the action name part of the current action);[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]A persuasion rule:[=0x000A=][=0x0009=]persuasion succeeds.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]Lab is a room. The fedora is a wearable thing in the Lab. Clark is a man in the Lab.[=0x000A=][=0x000A=][And just to give past participles a test-drive as well, let[=0x0027=]s make Clark a bit of a drama king:][=0x000A=][=0x000A=]After Clark doing something when a verb describes (the action name part of the current action):[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Fine, have it your way![=0x0027=] Clark exclaims. [=0x0027=]But I have [past participle of a random verb that describes (the action name part of the current action)] for the last time![=0x0027=][=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]Test me with [=0x0022=]look / Clark, jump / look / Clark, look / look / Clark, wait[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Fun with Participles[=0x0022=][=0x000A=][=0x000A=]Section 1 - Descriptive Functionality[=0x000A=][=0x000A=]Describing relates various verbs to various action names. The verb to describe means the describing relation.[=0x000A=][=0x000A=]To look around is a verb. The verb look around describes the looking action.[=0x000A=][=0x000A=]To stand about is a verb. The verb stand about describes the waiting action. To look bored is a verb. The verb look bored describes the waiting action. To waste time is a verb. The verb waste time describes the waiting action.[=0x000A=][=0x000A=]To jump is a verb. To leap is a verb. To pirouette is a verb. The verb jump describes the jumping action. The verb leap describes the jumping action. The verb pirouette describes the jumping action.[=0x000A=][=0x000A=][Now we need to give every character some sort of idle activity. By default, we[=0x0027=]ll have people just be waiting, but allow for that idle activity to change into something more interesting if the player has told them to do something else.][=0x000A=][=0x000A=]A person has an action name called the current idle. The current idle of a person is usually the waiting action.[=0x000A=][=0x000A=]Rule for writing a paragraph about someone  (called chosen person) when a verb describes the current idle of the chosen person:[=0x000A=][=0x0009=]say [=0x0022=][The chosen person] [are] here, [present participle of a random verb that describes (the current idle of the chosen person)].[=0x0022=][=0x000A=][=0x000A=]Instead of someone doing something:[=0x000A=][=0x0009=]now the current idle of the person asked is (the action name part of the current action);[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]A persuasion rule:[=0x000A=][=0x0009=]persuasion succeeds.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]Lab is a room. The fedora is a wearable thing in the Lab. Clark is a man in the Lab.[=0x000A=][=0x000A=][And just to give past participles a test-drive as well, let[=0x0027=]s make Clark a bit of a drama king:][=0x000A=][=0x000A=]After Clark doing something when a verb describes (the action name part of the current action):[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Fine, have it your way![=0x0027=] Clark exclaims. [=0x0027=]But I have [past participle of a random verb that describes (the action name part of the current action)] for the last time![=0x0027=][=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]Test me with [=0x0022=]look / Clark, jump / look / Clark, look / look / Clark, wait[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Fun with Participles')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Fun with Participles&quot;
+            <!--START CODE "c4331_155"-->
+            <blockquote class="code"><p class="quoted"><a id="c4331_155"></a><a href="javascript:pasteCode('[=0x0022=]Fun with Participles[=0x0022=][=0x000A=][=0x000A=]Section 1 - Descriptive Functionality[=0x000A=][=0x000A=]Describing relates various verbs to various action names. The verb to describe means the describing relation.[=0x000A=][=0x000A=]To look around is a verb. The verb look around describes the looking action.[=0x000A=][=0x000A=]To stand about is a verb. The verb stand about describes the waiting action. To look bored is a verb. The verb look bored describes the waiting action. To waste time is a verb. The verb waste time describes the waiting action.[=0x000A=][=0x000A=]To jump is a verb. To leap is a verb. To pirouette is a verb. The verb jump describes the jumping action. The verb leap describes the jumping action. The verb pirouette describes the jumping action.[=0x000A=][=0x000A=][Now we need to give every character some sort of idle activity. By default, we[=0x0027=]ll have people just be waiting, but allow for that idle activity to change into something more interesting if the player has told them to do something else.][=0x000A=][=0x000A=]A person has an action name called the current idle. The current idle of a person is usually the waiting action.[=0x000A=][=0x000A=]Rule for writing a paragraph about someone  (called chosen person) when a verb describes the current idle of the chosen person:[=0x000A=][=0x0009=]say [=0x0022=][The chosen person] [are] here, [present participle of a random verb that describes (the current idle of the chosen person)].[=0x0022=][=0x000A=][=0x000A=]Instead of someone doing something:[=0x000A=][=0x0009=]now the current idle of the person asked is (the action name part of the current action);[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]A persuasion rule:[=0x000A=][=0x0009=]persuasion succeeds.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]Lab is a room. The fedora is a wearable thing in the Lab. Clark is a man in the Lab.[=0x000A=][=0x000A=][And just to give past participles a test-drive as well, let[=0x0027=]s make Clark a bit of a drama king:][=0x000A=][=0x000A=]After Clark doing something when a verb describes (the action name part of the current action):[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Fine, have it your way![=0x0027=] Clark exclaims. [=0x0027=]But I have [past participle of a random verb that describes (the action name part of the current action)] for the last time![=0x0027=][=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]Test me with [=0x0022=]look / Clark, jump / look / Clark, look / look / Clark, wait[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Fun with Participles[=0x0022=][=0x000A=][=0x000A=]Section 1 - Descriptive Functionality[=0x000A=][=0x000A=]Describing relates various verbs to various action names. The verb to describe means the describing relation.[=0x000A=][=0x000A=]To look around is a verb. The verb look around describes the looking action.[=0x000A=][=0x000A=]To stand about is a verb. The verb stand about describes the waiting action. To look bored is a verb. The verb look bored describes the waiting action. To waste time is a verb. The verb waste time describes the waiting action.[=0x000A=][=0x000A=]To jump is a verb. To leap is a verb. To pirouette is a verb. The verb jump describes the jumping action. The verb leap describes the jumping action. The verb pirouette describes the jumping action.[=0x000A=][=0x000A=][Now we need to give every character some sort of idle activity. By default, we[=0x0027=]ll have people just be waiting, but allow for that idle activity to change into something more interesting if the player has told them to do something else.][=0x000A=][=0x000A=]A person has an action name called the current idle. The current idle of a person is usually the waiting action.[=0x000A=][=0x000A=]Rule for writing a paragraph about someone  (called chosen person) when a verb describes the current idle of the chosen person:[=0x000A=][=0x0009=]say [=0x0022=][The chosen person] [are] here, [present participle of a random verb that describes (the current idle of the chosen person)].[=0x0022=][=0x000A=][=0x000A=]Instead of someone doing something:[=0x000A=][=0x0009=]now the current idle of the person asked is (the action name part of the current action);[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]A persuasion rule:[=0x000A=][=0x0009=]persuasion succeeds.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]Lab is a room. The fedora is a wearable thing in the Lab. Clark is a man in the Lab.[=0x000A=][=0x000A=][And just to give past participles a test-drive as well, let[=0x0027=]s make Clark a bit of a drama king:][=0x000A=][=0x000A=]After Clark doing something when a verb describes (the action name part of the current action):[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Fine, have it your way![=0x0027=] Clark exclaims. [=0x0027=]But I have [past participle of a random verb that describes (the action name part of the current action)] for the last time![=0x0027=][=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]Test me with [=0x0022=]look / Clark, jump / look / Clark, look / look / Clark, wait[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Fun with Participles')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Fun with Participles&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4324_158"-->
-            <blockquote class="code"><p class="quoted"><a id="c4324_158"></a>Section 1 - Descriptive Functionality
+            <!--START CODE "c4332_155"-->
+            <blockquote class="code"><p class="quoted"><a id="c4332_155"></a>Section 1 - Descriptive Functionality
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4325_158"-->
-            <blockquote class="code"><p class="quoted"><a id="c4325_158"></a>Describing relates various verbs to various action names. The verb to describe means the describing relation.
+            <!--START CODE "c4333_155"-->
+            <blockquote class="code"><p class="quoted"><a id="c4333_155"></a>Describing relates various verbs to various action names. The verb to describe means the describing relation.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4326_158"-->
-            <blockquote class="code"><p class="quoted"><a id="c4326_158"></a>To look around is a verb. The verb look around describes the looking action.
+            <!--START CODE "c4334_155"-->
+            <blockquote class="code"><p class="quoted"><a id="c4334_155"></a>To look around is a verb. The verb look around describes the looking action.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4327_158"-->
-            <blockquote class="code"><p class="quoted"><a id="c4327_158"></a>To stand about is a verb. The verb stand about describes the waiting action. To look bored is a verb. The verb look bored describes the waiting action. To waste time is a verb. The verb waste time describes the waiting action.
+            <!--START CODE "c4335_155"-->
+            <blockquote class="code"><p class="quoted"><a id="c4335_155"></a>To stand about is a verb. The verb stand about describes the waiting action. To look bored is a verb. The verb look bored describes the waiting action. To waste time is a verb. The verb waste time describes the waiting action.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4328_158"-->
-            <blockquote class="code"><p class="quoted"><a id="c4328_158"></a>To jump is a verb. To leap is a verb. To pirouette is a verb. The verb jump describes the jumping action. The verb leap describes the jumping action. The verb pirouette describes the jumping action.
+            <!--START CODE "c4336_155"-->
+            <blockquote class="code"><p class="quoted"><a id="c4336_155"></a>To jump is a verb. To leap is a verb. To pirouette is a verb. The verb jump describes the jumping action. The verb leap describes the jumping action. The verb pirouette describes the jumping action.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now we need to give every character some sort of idle activity. By default, we'll have people just be waiting, but allow for that idle activity to change into something more interesting if the player has told them to do something else.</p>
-            <!--START CODE "c4329_158"-->
-            <blockquote class="code"><p class="quoted"><a id="c4329_158"></a>A person has an action name called the current idle. The current idle of a person is usually the waiting action.
+            <!--START CODE "c4337_155"-->
+            <blockquote class="code"><p class="quoted"><a id="c4337_155"></a>A person has an action name called the current idle. The current idle of a person is usually the waiting action.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4330_158"-->
-            <blockquote class="code"><p class="quoted"><a id="c4330_158"></a>Rule for writing a paragraph about someone  (called chosen person) when a verb describes the current idle of the chosen person:
+            <!--START CODE "c4338_155"-->
+            <blockquote class="code"><p class="quoted"><a id="c4338_155"></a>Rule for writing a paragraph about someone  (called chosen person) when a verb describes the current idle of the chosen person:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The chosen person] [are] here, [present participle of a random verb that describes (the current idle of the chosen person)].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4331_158"-->
-            <blockquote class="code"><p class="quoted"><a id="c4331_158"></a>Instead of someone doing something:
+            <!--START CODE "c4339_155"-->
+            <blockquote class="code"><p class="quoted"><a id="c4339_155"></a>Instead of someone doing something:
             <br>
             &#160;&#160;&#160;&#160;now the current idle of the person asked is (the action name part of the current action);
             <br>
@@ -197,26 +197,26 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4332_158"-->
-            <blockquote class="code"><p class="quoted"><a id="c4332_158"></a>A persuasion rule:
+            <!--START CODE "c4340_155"-->
+            <blockquote class="code"><p class="quoted"><a id="c4340_155"></a>A persuasion rule:
             <br>
             &#160;&#160;&#160;&#160;persuasion succeeds.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4333_158"-->
-            <blockquote class="code"><p class="quoted"><a id="c4333_158"></a>Section 2 - Scenario
+            <!--START CODE "c4341_155"-->
+            <blockquote class="code"><p class="quoted"><a id="c4341_155"></a>Section 2 - Scenario
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4334_158"-->
-            <blockquote class="code"><p class="quoted"><a id="c4334_158"></a>Lab is a room. The fedora is a wearable thing in the Lab. Clark is a man in the Lab.
+            <!--START CODE "c4342_155"-->
+            <blockquote class="code"><p class="quoted"><a id="c4342_155"></a>Lab is a room. The fedora is a wearable thing in the Lab. Clark is a man in the Lab.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>And just to give past participles a test-drive as well, let's make Clark a bit of a drama king:</p>
-            <!--START CODE "c4335_158"-->
-            <blockquote class="code"><p class="quoted"><a id="c4335_158"></a>After Clark doing something when a verb describes (the action name part of the current action):
+            <!--START CODE "c4343_155"-->
+            <blockquote class="code"><p class="quoted"><a id="c4343_155"></a>After Clark doing something when a verb describes (the action name part of the current action):
             <br>
             &#160;&#160;&#160;&#160;say &quot;'Fine, have it your way!' Clark exclaims. 'But I have [past participle of a random verb that describes (the action name part of the current action)] for the last time!'&quot;;
             <br>
@@ -224,81 +224,81 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4336_158"-->
-            <blockquote class="code"><p class="quoted"><a id="c4336_158"></a>Test me with &quot;look / Clark, jump / look / Clark, look / look / Clark, wait&quot;.
+            <!--START CODE "c4344_155"-->
+            <blockquote class="code"><p class="quoted"><a id="c4344_155"></a>Test me with &quot;look / Clark, jump / look / Clark, look / look / Clark, wait&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "246: Variety" "e408"-->
-        <a id="e408"></a><table class="egcue">
+        <!--START EXAMPLE "246: Variety" "e414"-->
+        <a id="e414"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example408'); return false;"><b>246</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example414'); return false;"><b>246</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example408'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Variety</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example414'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Variety</span></b></a><br>
                     Suppose we want all of our action responses to display some randomized variety. We could do this by laboriously rewriting all of the response texts, but this example demonstrates an alternative.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc5.html#e408"><i>RB</i></a></div>
+                        <a href="Rdoc5.html#e414"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example408" style="display: none;">
+        <div class="egpanel" id="example414" style="display: none;">
             <p>Verbs can be related to other things by relations. We've seen that it's possible for a verb to &quot;mean&quot; a relationship. But we can also create a relation between verbs and actions. For instance, we can tell Inform that &quot;take&quot;, &quot;get&quot;, and &quot;acquire&quot; are all valid ways to describe the action of taking, and then allow it to pick a verb randomly to describe whatever action just occurred.</p>
-            <!--START CODE "c4337_408"-->
-            <blockquote class="code"><p class="quoted"><a id="c4337_408"></a><a href="javascript:pasteCode('[=0x0022=]Variety[=0x0022=][=0x000A=][=0x000A=]Section 1 - Descriptive Functionality[=0x000A=][=0x000A=]Describing relates various verbs to various action names. The verb to describe means the describing relation.[=0x000A=][=0x000A=]To take is a verb. To acquire is a verb. To get is a verb.[=0x000A=][=0x000A=]The verb take describes the taking action. The verb acquire describes the taking action. The verb get describes the taking action.[=0x000A=][=0x000A=]To drop is a verb. To put down is a verb. To discard is a verb. The verb drop describes the dropping action. The verb put down describes the dropping action. The verb discard describes the dropping action.[=0x000A=][=0x000A=]To sniff is a verb. To smell is a verb. The verb sniff describes the smelling action. The verb smell describes the smelling action.[=0x000A=][=0x000A=]To jump is a verb. To leap is a verb. To pirouette is a verb. The verb jump describes the jumping action. The verb leap describes the jumping action. The verb pirouette describes the jumping action.[=0x000A=][=0x000A=]After an actor doing something when the noun is nothing and a verb describes (the action name part of the current action) (this is the apply random verbs to describing nounless actions rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to a random verb that describes (the action name part of the current action)].[=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]After an actor doing something to something when a verb describes (the action name part of the current action) (this is the apply random verbs to describing actions rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to a random verb that describes (the action name part of the current action)] [the noun].[=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]To decide which text is the rendering of (V - verb) (this is verb rendering):[=0x000A=][=0x0009=]decide on [=0x0022=][adapt V][=0x0022=].[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]Lab is a room. The table is here. The bat and the ball are on the table.[=0x000A=][=0x000A=]Test me with [=0x0022=]get ball / drop ball / get bat / drop bat / smell ball[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Variety[=0x0022=][=0x000A=][=0x000A=]Section 1 - Descriptive Functionality[=0x000A=][=0x000A=]Describing relates various verbs to various action names. The verb to describe means the describing relation.[=0x000A=][=0x000A=]To take is a verb. To acquire is a verb. To get is a verb.[=0x000A=][=0x000A=]The verb take describes the taking action. The verb acquire describes the taking action. The verb get describes the taking action.[=0x000A=][=0x000A=]To drop is a verb. To put down is a verb. To discard is a verb. The verb drop describes the dropping action. The verb put down describes the dropping action. The verb discard describes the dropping action.[=0x000A=][=0x000A=]To sniff is a verb. To smell is a verb. The verb sniff describes the smelling action. The verb smell describes the smelling action.[=0x000A=][=0x000A=]To jump is a verb. To leap is a verb. To pirouette is a verb. The verb jump describes the jumping action. The verb leap describes the jumping action. The verb pirouette describes the jumping action.[=0x000A=][=0x000A=]After an actor doing something when the noun is nothing and a verb describes (the action name part of the current action) (this is the apply random verbs to describing nounless actions rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to a random verb that describes (the action name part of the current action)].[=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]After an actor doing something to something when a verb describes (the action name part of the current action) (this is the apply random verbs to describing actions rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to a random verb that describes (the action name part of the current action)] [the noun].[=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]To decide which text is the rendering of (V - verb) (this is verb rendering):[=0x000A=][=0x0009=]decide on [=0x0022=][adapt V][=0x0022=].[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]Lab is a room. The table is here. The bat and the ball are on the table.[=0x000A=][=0x000A=]Test me with [=0x0022=]get ball / drop ball / get bat / drop bat / smell ball[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Variety')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Variety&quot;
+            <!--START CODE "c4345_414"-->
+            <blockquote class="code"><p class="quoted"><a id="c4345_414"></a><a href="javascript:pasteCode('[=0x0022=]Variety[=0x0022=][=0x000A=][=0x000A=]Section 1 - Descriptive Functionality[=0x000A=][=0x000A=]Describing relates various verbs to various action names. The verb to describe means the describing relation.[=0x000A=][=0x000A=]To take is a verb. To acquire is a verb. To get is a verb.[=0x000A=][=0x000A=]The verb take describes the taking action. The verb acquire describes the taking action. The verb get describes the taking action.[=0x000A=][=0x000A=]To drop is a verb. To put down is a verb. To discard is a verb. The verb drop describes the dropping action. The verb put down describes the dropping action. The verb discard describes the dropping action.[=0x000A=][=0x000A=]To sniff is a verb. To smell is a verb. The verb sniff describes the smelling action. The verb smell describes the smelling action.[=0x000A=][=0x000A=]To jump is a verb. To leap is a verb. To pirouette is a verb. The verb jump describes the jumping action. The verb leap describes the jumping action. The verb pirouette describes the jumping action.[=0x000A=][=0x000A=]After an actor doing something when the noun is nothing and a verb describes (the action name part of the current action) (this is the apply random verbs to describing nounless actions rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to a random verb that describes (the action name part of the current action)].[=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]After an actor doing something to something when a verb describes (the action name part of the current action) (this is the apply random verbs to describing actions rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to a random verb that describes (the action name part of the current action)] [the noun].[=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]To decide which text is the rendering of (V - verb) (this is verb rendering):[=0x000A=][=0x0009=]decide on [=0x0022=][adapt V][=0x0022=].[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]Lab is a room. The table is here. The bat and the ball are on the table.[=0x000A=][=0x000A=]Test me with [=0x0022=]get ball / drop ball / get bat / drop bat / smell ball[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Variety[=0x0022=][=0x000A=][=0x000A=]Section 1 - Descriptive Functionality[=0x000A=][=0x000A=]Describing relates various verbs to various action names. The verb to describe means the describing relation.[=0x000A=][=0x000A=]To take is a verb. To acquire is a verb. To get is a verb.[=0x000A=][=0x000A=]The verb take describes the taking action. The verb acquire describes the taking action. The verb get describes the taking action.[=0x000A=][=0x000A=]To drop is a verb. To put down is a verb. To discard is a verb. The verb drop describes the dropping action. The verb put down describes the dropping action. The verb discard describes the dropping action.[=0x000A=][=0x000A=]To sniff is a verb. To smell is a verb. The verb sniff describes the smelling action. The verb smell describes the smelling action.[=0x000A=][=0x000A=]To jump is a verb. To leap is a verb. To pirouette is a verb. The verb jump describes the jumping action. The verb leap describes the jumping action. The verb pirouette describes the jumping action.[=0x000A=][=0x000A=]After an actor doing something when the noun is nothing and a verb describes (the action name part of the current action) (this is the apply random verbs to describing nounless actions rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to a random verb that describes (the action name part of the current action)].[=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]After an actor doing something to something when a verb describes (the action name part of the current action) (this is the apply random verbs to describing actions rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to a random verb that describes (the action name part of the current action)] [the noun].[=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]To decide which text is the rendering of (V - verb) (this is verb rendering):[=0x000A=][=0x0009=]decide on [=0x0022=][adapt V][=0x0022=].[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]Lab is a room. The table is here. The bat and the ball are on the table.[=0x000A=][=0x000A=]Test me with [=0x0022=]get ball / drop ball / get bat / drop bat / smell ball[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Variety')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Variety&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4338_408"-->
-            <blockquote class="code"><p class="quoted"><a id="c4338_408"></a>Section 1 - Descriptive Functionality
+            <!--START CODE "c4346_414"-->
+            <blockquote class="code"><p class="quoted"><a id="c4346_414"></a>Section 1 - Descriptive Functionality
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4339_408"-->
-            <blockquote class="code"><p class="quoted"><a id="c4339_408"></a>Describing relates various verbs to various action names. The verb to describe means the describing relation.
+            <!--START CODE "c4347_414"-->
+            <blockquote class="code"><p class="quoted"><a id="c4347_414"></a>Describing relates various verbs to various action names. The verb to describe means the describing relation.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4340_408"-->
-            <blockquote class="code"><p class="quoted"><a id="c4340_408"></a>To take is a verb. To acquire is a verb. To get is a verb.
+            <!--START CODE "c4348_414"-->
+            <blockquote class="code"><p class="quoted"><a id="c4348_414"></a>To take is a verb. To acquire is a verb. To get is a verb.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4341_408"-->
-            <blockquote class="code"><p class="quoted"><a id="c4341_408"></a>The verb take describes the taking action. The verb acquire describes the taking action. The verb get describes the taking action.
+            <!--START CODE "c4349_414"-->
+            <blockquote class="code"><p class="quoted"><a id="c4349_414"></a>The verb take describes the taking action. The verb acquire describes the taking action. The verb get describes the taking action.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4342_408"-->
-            <blockquote class="code"><p class="quoted"><a id="c4342_408"></a>To drop is a verb. To put down is a verb. To discard is a verb. The verb drop describes the dropping action. The verb put down describes the dropping action. The verb discard describes the dropping action.
+            <!--START CODE "c4350_414"-->
+            <blockquote class="code"><p class="quoted"><a id="c4350_414"></a>To drop is a verb. To put down is a verb. To discard is a verb. The verb drop describes the dropping action. The verb put down describes the dropping action. The verb discard describes the dropping action.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4343_408"-->
-            <blockquote class="code"><p class="quoted"><a id="c4343_408"></a>To sniff is a verb. To smell is a verb. The verb sniff describes the smelling action. The verb smell describes the smelling action.
+            <!--START CODE "c4351_414"-->
+            <blockquote class="code"><p class="quoted"><a id="c4351_414"></a>To sniff is a verb. To smell is a verb. The verb sniff describes the smelling action. The verb smell describes the smelling action.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4344_408"-->
-            <blockquote class="code"><p class="quoted"><a id="c4344_408"></a>To jump is a verb. To leap is a verb. To pirouette is a verb. The verb jump describes the jumping action. The verb leap describes the jumping action. The verb pirouette describes the jumping action.
+            <!--START CODE "c4352_414"-->
+            <blockquote class="code"><p class="quoted"><a id="c4352_414"></a>To jump is a verb. To leap is a verb. To pirouette is a verb. The verb jump describes the jumping action. The verb leap describes the jumping action. The verb pirouette describes the jumping action.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4345_408"-->
-            <blockquote class="code"><p class="quoted"><a id="c4345_408"></a>After an actor doing something when the noun is nothing and a verb describes (the action name part of the current action) (this is the apply random verbs to describing nounless actions rule):
+            <!--START CODE "c4353_414"-->
+            <blockquote class="code"><p class="quoted"><a id="c4353_414"></a>After an actor doing something when the noun is nothing and a verb describes (the action name part of the current action) (this is the apply random verbs to describing nounless actions rule):
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The actor] [verb rendering applied to a random verb that describes (the action name part of the current action)].&quot;;
             <br>
@@ -306,8 +306,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4346_408"-->
-            <blockquote class="code"><p class="quoted"><a id="c4346_408"></a>After an actor doing something to something when a verb describes (the action name part of the current action) (this is the apply random verbs to describing actions rule):
+            <!--START CODE "c4354_414"-->
+            <blockquote class="code"><p class="quoted"><a id="c4354_414"></a>After an actor doing something to something when a verb describes (the action name part of the current action) (this is the apply random verbs to describing actions rule):
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The actor] [verb rendering applied to a random verb that describes (the action name part of the current action)] [the noun].&quot;;
             <br>
@@ -315,74 +315,74 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4347_408"-->
-            <blockquote class="code"><p class="quoted"><a id="c4347_408"></a>To decide which text is the rendering of (V - verb) (this is verb rendering):
+            <!--START CODE "c4355_414"-->
+            <blockquote class="code"><p class="quoted"><a id="c4355_414"></a>To decide which text is the rendering of (V - verb) (this is verb rendering):
             <br>
             &#160;&#160;&#160;&#160;decide on &quot;[adapt V]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4348_408"-->
-            <blockquote class="code"><p class="quoted"><a id="c4348_408"></a>Section 2 - Scenario
+            <!--START CODE "c4356_414"-->
+            <blockquote class="code"><p class="quoted"><a id="c4356_414"></a>Section 2 - Scenario
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4349_408"-->
-            <blockquote class="code"><p class="quoted"><a id="c4349_408"></a>Lab is a room. The table is here. The bat and the ball are on the table.
+            <!--START CODE "c4357_414"-->
+            <blockquote class="code"><p class="quoted"><a id="c4357_414"></a>Lab is a room. The table is here. The bat and the ball are on the table.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4350_408"-->
-            <blockquote class="code"><p class="quoted"><a id="c4350_408"></a>Test me with &quot;get ball / drop ball / get bat / drop bat / smell ball&quot;.
+            <!--START CODE "c4358_414"-->
+            <blockquote class="code"><p class="quoted"><a id="c4358_414"></a>Test me with &quot;get ball / drop ball / get bat / drop bat / smell ball&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "247: Variety 2" "e409"-->
-        <a id="e409"></a><table class="egcue">
+        <!--START EXAMPLE "247: Variety 2" "e415"-->
+        <a id="e415"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example409'); return false;"><b>247</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example415'); return false;"><b>247</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example409'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Variety 2</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example415'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Variety 2</span></b></a><br>
                     This builds on the Variety example to add responses such as "You are now carrying the fedora" that describe relations that result from a given verb, as alternate responses.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc5.html#e409"><i>RB</i></a></div>
+                        <a href="Rdoc5.html#e415"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example409" style="display: none;">
+        <div class="egpanel" id="example415" style="display: none;">
             <p>Some of our default actions establish relations between items in the world, and reporting on the relation (&quot;You are now carrying the fedora&quot;) can be a valid response alongside reporting on the action itself (&quot;You take the fedora&quot;).</p>
             <p>To do this, we need to teach Inform explicitly which relations are the results of actions, then check this when reporting on actions:</p>
-            <!--START CODE "c4351_409"-->
-            <blockquote class="code"><p class="quoted"><a id="c4351_409"></a><a href="javascript:pasteCode('[=0x0022=]Variety 2[=0x0022=][=0x000A=][=0x000A=]Section 1 - Descriptive Functionality[=0x000A=][=0x000A=]Describing relates various verbs to various action names. The verb to describe means the describing relation.[=0x000A=][=0x000A=]Table of Action Results[=0x000A=]related action[=0x0009=]relation[=0x000A=]the taking action[=0x0009=]the carrying relation[=0x000A=]the wearing action[=0x0009=]the wearing relation[=0x000A=]the taking off action[=0x0009=]the carrying relation[=0x000A=][=0x000A=][=0x000A=]To take is a verb. To acquire is a verb. To get is a verb.[=0x000A=][=0x000A=]The verb take describes the taking action. The verb acquire describes the taking action. The verb get describes the taking action.[=0x000A=][=0x000A=]To drop is a verb. To put down is a verb. To discard is a verb. The verb drop describes the dropping action. The verb put down describes the dropping action. The verb discard describes the dropping action.[=0x000A=][=0x000A=]To sniff is a verb. To smell is a verb. The verb sniff describes the smelling action. The verb smell describes the smelling action.[=0x000A=][=0x000A=]To jump is a verb. To leap is a verb. To pirouette is a verb. The verb jump describes the jumping action. The verb leap describes the jumping action. The verb pirouette describes the jumping action.[=0x000A=][=0x000A=]To don is a verb. The verb don describes the wearing action.[=0x000A=][=0x000A=]To doff is a verb. The verb doff describes the taking off action.[=0x000A=][=0x000A=][=0x000A=]After an actor doing something when the noun is nothing and a verb describes (the action name part of the current action) (this is the apply random verbs to describing nounless actions rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to a random verb that describes (the action name part of the current action)].[=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]After an actor doing something to something when a verb describes (the action name part of the current action) (this is the apply random verbs to describing actions rule):[=0x000A=][=0x0009=]let current action name be the action name part of the current action;[=0x000A=][=0x0009=]if a random chance of 1 in 2 succeeds and the current action name is a related action listed in the Table of Action Results:[=0x000A=][=0x0009=][=0x0009=]choose a row with the related action of current action name in the Table of Action Results;[=0x000A=][=0x0009=][=0x0009=]let R be the relation entry;[=0x000A=][=0x0009=][=0x0009=]let subject be the actor;[=0x000A=][=0x0009=][=0x0009=]let chosen object be the noun;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The subject] [are] now [present participle of a random verb that means R] [the chosen object].[=0x0022=];[=0x000A=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to a random verb that describes (the action name part of the current action)] [the noun].[=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]To decide which text is the rendering of (V - verb) (this is verb rendering):[=0x000A=][=0x0009=]decide on [=0x0022=][adapt V][=0x0022=].[=0x000A=][=0x000A=]To say infinitive of (V - a verb): (- {V}(1); -).[=0x000A=][=0x000A=]To say past participle of (V - a verb): (- {V}(2); -).[=0x000A=][=0x000A=]To say present participle of (V - a verb): (- {V}(3); -).[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]Lab is a room. The fedora is a wearable thing in the Lab.[=0x000A=][=0x000A=]Test me with [=0x0022=]wear the fedora / take off the fedora / wear fedora / take off fedora[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Variety 2[=0x0022=][=0x000A=][=0x000A=]Section 1 - Descriptive Functionality[=0x000A=][=0x000A=]Describing relates various verbs to various action names. The verb to describe means the describing relation.[=0x000A=][=0x000A=]Table of Action Results[=0x000A=]related action[=0x0009=]relation[=0x000A=]the taking action[=0x0009=]the carrying relation[=0x000A=]the wearing action[=0x0009=]the wearing relation[=0x000A=]the taking off action[=0x0009=]the carrying relation[=0x000A=][=0x000A=][=0x000A=]To take is a verb. To acquire is a verb. To get is a verb.[=0x000A=][=0x000A=]The verb take describes the taking action. The verb acquire describes the taking action. The verb get describes the taking action.[=0x000A=][=0x000A=]To drop is a verb. To put down is a verb. To discard is a verb. The verb drop describes the dropping action. The verb put down describes the dropping action. The verb discard describes the dropping action.[=0x000A=][=0x000A=]To sniff is a verb. To smell is a verb. The verb sniff describes the smelling action. The verb smell describes the smelling action.[=0x000A=][=0x000A=]To jump is a verb. To leap is a verb. To pirouette is a verb. The verb jump describes the jumping action. The verb leap describes the jumping action. The verb pirouette describes the jumping action.[=0x000A=][=0x000A=]To don is a verb. The verb don describes the wearing action.[=0x000A=][=0x000A=]To doff is a verb. The verb doff describes the taking off action.[=0x000A=][=0x000A=][=0x000A=]After an actor doing something when the noun is nothing and a verb describes (the action name part of the current action) (this is the apply random verbs to describing nounless actions rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to a random verb that describes (the action name part of the current action)].[=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]After an actor doing something to something when a verb describes (the action name part of the current action) (this is the apply random verbs to describing actions rule):[=0x000A=][=0x0009=]let current action name be the action name part of the current action;[=0x000A=][=0x0009=]if a random chance of 1 in 2 succeeds and the current action name is a related action listed in the Table of Action Results:[=0x000A=][=0x0009=][=0x0009=]choose a row with the related action of current action name in the Table of Action Results;[=0x000A=][=0x0009=][=0x0009=]let R be the relation entry;[=0x000A=][=0x0009=][=0x0009=]let subject be the actor;[=0x000A=][=0x0009=][=0x0009=]let chosen object be the noun;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The subject] [are] now [present participle of a random verb that means R] [the chosen object].[=0x0022=];[=0x000A=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to a random verb that describes (the action name part of the current action)] [the noun].[=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]To decide which text is the rendering of (V - verb) (this is verb rendering):[=0x000A=][=0x0009=]decide on [=0x0022=][adapt V][=0x0022=].[=0x000A=][=0x000A=]To say infinitive of (V - a verb): (- {V}(1); -).[=0x000A=][=0x000A=]To say past participle of (V - a verb): (- {V}(2); -).[=0x000A=][=0x000A=]To say present participle of (V - a verb): (- {V}(3); -).[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]Lab is a room. The fedora is a wearable thing in the Lab.[=0x000A=][=0x000A=]Test me with [=0x0022=]wear the fedora / take off the fedora / wear fedora / take off fedora[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Variety 2')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Variety 2&quot;
+            <!--START CODE "c4359_415"-->
+            <blockquote class="code"><p class="quoted"><a id="c4359_415"></a><a href="javascript:pasteCode('[=0x0022=]Variety 2[=0x0022=][=0x000A=][=0x000A=]Section 1 - Descriptive Functionality[=0x000A=][=0x000A=]Describing relates various verbs to various action names. The verb to describe means the describing relation.[=0x000A=][=0x000A=]Table of Action Results[=0x000A=]related action[=0x0009=]relation[=0x000A=]the taking action[=0x0009=]the carrying relation[=0x000A=]the wearing action[=0x0009=]the wearing relation[=0x000A=]the taking off action[=0x0009=]the carrying relation[=0x000A=][=0x000A=][=0x000A=]To take is a verb. To acquire is a verb. To get is a verb.[=0x000A=][=0x000A=]The verb take describes the taking action. The verb acquire describes the taking action. The verb get describes the taking action.[=0x000A=][=0x000A=]To drop is a verb. To put down is a verb. To discard is a verb. The verb drop describes the dropping action. The verb put down describes the dropping action. The verb discard describes the dropping action.[=0x000A=][=0x000A=]To sniff is a verb. To smell is a verb. The verb sniff describes the smelling action. The verb smell describes the smelling action.[=0x000A=][=0x000A=]To jump is a verb. To leap is a verb. To pirouette is a verb. The verb jump describes the jumping action. The verb leap describes the jumping action. The verb pirouette describes the jumping action.[=0x000A=][=0x000A=]To don is a verb. The verb don describes the wearing action.[=0x000A=][=0x000A=]To doff is a verb. The verb doff describes the taking off action.[=0x000A=][=0x000A=][=0x000A=]After an actor doing something when the noun is nothing and a verb describes (the action name part of the current action) (this is the apply random verbs to describing nounless actions rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to a random verb that describes (the action name part of the current action)].[=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]After an actor doing something to something when a verb describes (the action name part of the current action) (this is the apply random verbs to describing actions rule):[=0x000A=][=0x0009=]let current action name be the action name part of the current action;[=0x000A=][=0x0009=]if a random chance of 1 in 2 succeeds and the current action name is a related action listed in the Table of Action Results:[=0x000A=][=0x0009=][=0x0009=]choose a row with the related action of current action name in the Table of Action Results;[=0x000A=][=0x0009=][=0x0009=]let R be the relation entry;[=0x000A=][=0x0009=][=0x0009=]let subject be the actor;[=0x000A=][=0x0009=][=0x0009=]let chosen object be the noun;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The subject] [are] now [present participle of a random verb that means R] [the chosen object].[=0x0022=];[=0x000A=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to a random verb that describes (the action name part of the current action)] [the noun].[=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]To decide which text is the rendering of (V - verb) (this is verb rendering):[=0x000A=][=0x0009=]decide on [=0x0022=][adapt V][=0x0022=].[=0x000A=][=0x000A=]To say infinitive of (V - a verb): (- {V}(1); -).[=0x000A=][=0x000A=]To say past participle of (V - a verb): (- {V}(2); -).[=0x000A=][=0x000A=]To say present participle of (V - a verb): (- {V}(3); -).[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]Lab is a room. The fedora is a wearable thing in the Lab.[=0x000A=][=0x000A=]Test me with [=0x0022=]wear the fedora / take off the fedora / wear fedora / take off fedora[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Variety 2[=0x0022=][=0x000A=][=0x000A=]Section 1 - Descriptive Functionality[=0x000A=][=0x000A=]Describing relates various verbs to various action names. The verb to describe means the describing relation.[=0x000A=][=0x000A=]Table of Action Results[=0x000A=]related action[=0x0009=]relation[=0x000A=]the taking action[=0x0009=]the carrying relation[=0x000A=]the wearing action[=0x0009=]the wearing relation[=0x000A=]the taking off action[=0x0009=]the carrying relation[=0x000A=][=0x000A=][=0x000A=]To take is a verb. To acquire is a verb. To get is a verb.[=0x000A=][=0x000A=]The verb take describes the taking action. The verb acquire describes the taking action. The verb get describes the taking action.[=0x000A=][=0x000A=]To drop is a verb. To put down is a verb. To discard is a verb. The verb drop describes the dropping action. The verb put down describes the dropping action. The verb discard describes the dropping action.[=0x000A=][=0x000A=]To sniff is a verb. To smell is a verb. The verb sniff describes the smelling action. The verb smell describes the smelling action.[=0x000A=][=0x000A=]To jump is a verb. To leap is a verb. To pirouette is a verb. The verb jump describes the jumping action. The verb leap describes the jumping action. The verb pirouette describes the jumping action.[=0x000A=][=0x000A=]To don is a verb. The verb don describes the wearing action.[=0x000A=][=0x000A=]To doff is a verb. The verb doff describes the taking off action.[=0x000A=][=0x000A=][=0x000A=]After an actor doing something when the noun is nothing and a verb describes (the action name part of the current action) (this is the apply random verbs to describing nounless actions rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to a random verb that describes (the action name part of the current action)].[=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]After an actor doing something to something when a verb describes (the action name part of the current action) (this is the apply random verbs to describing actions rule):[=0x000A=][=0x0009=]let current action name be the action name part of the current action;[=0x000A=][=0x0009=]if a random chance of 1 in 2 succeeds and the current action name is a related action listed in the Table of Action Results:[=0x000A=][=0x0009=][=0x0009=]choose a row with the related action of current action name in the Table of Action Results;[=0x000A=][=0x0009=][=0x0009=]let R be the relation entry;[=0x000A=][=0x0009=][=0x0009=]let subject be the actor;[=0x000A=][=0x0009=][=0x0009=]let chosen object be the noun;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The subject] [are] now [present participle of a random verb that means R] [the chosen object].[=0x0022=];[=0x000A=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to a random verb that describes (the action name part of the current action)] [the noun].[=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]To decide which text is the rendering of (V - verb) (this is verb rendering):[=0x000A=][=0x0009=]decide on [=0x0022=][adapt V][=0x0022=].[=0x000A=][=0x000A=]To say infinitive of (V - a verb): (- {V}(1); -).[=0x000A=][=0x000A=]To say past participle of (V - a verb): (- {V}(2); -).[=0x000A=][=0x000A=]To say present participle of (V - a verb): (- {V}(3); -).[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]Lab is a room. The fedora is a wearable thing in the Lab.[=0x000A=][=0x000A=]Test me with [=0x0022=]wear the fedora / take off the fedora / wear fedora / take off fedora[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Variety 2')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Variety 2&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4352_409"-->
-            <blockquote class="code"><p class="quoted"><a id="c4352_409"></a>Section 1 - Descriptive Functionality
+            <!--START CODE "c4360_415"-->
+            <blockquote class="code"><p class="quoted"><a id="c4360_415"></a>Section 1 - Descriptive Functionality
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4353_409"-->
-            <blockquote class="code"><p class="quoted"><a id="c4353_409"></a>Describing relates various verbs to various action names. The verb to describe means the describing relation.
+            <!--START CODE "c4361_415"-->
+            <blockquote class="code"><p class="quoted"><a id="c4361_415"></a>Describing relates various verbs to various action names. The verb to describe means the describing relation.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4354_409"-->
-            <blockquote class="code"><p class="quoted"><a id="c4354_409"></a>Table of Action Results
+            <!--START CODE "c4362_415"-->
+            <blockquote class="code"><p class="quoted"><a id="c4362_415"></a>Table of Action Results
             <br>
             </p>
             </blockquote>
@@ -431,43 +431,43 @@
             <blockquote><p></p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4355_409"-->
-            <blockquote class="code"><p class="quoted"><a id="c4355_409"></a>To take is a verb. To acquire is a verb. To get is a verb.
+            <!--START CODE "c4363_415"-->
+            <blockquote class="code"><p class="quoted"><a id="c4363_415"></a>To take is a verb. To acquire is a verb. To get is a verb.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4356_409"-->
-            <blockquote class="code"><p class="quoted"><a id="c4356_409"></a>The verb take describes the taking action. The verb acquire describes the taking action. The verb get describes the taking action.
+            <!--START CODE "c4364_415"-->
+            <blockquote class="code"><p class="quoted"><a id="c4364_415"></a>The verb take describes the taking action. The verb acquire describes the taking action. The verb get describes the taking action.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4357_409"-->
-            <blockquote class="code"><p class="quoted"><a id="c4357_409"></a>To drop is a verb. To put down is a verb. To discard is a verb. The verb drop describes the dropping action. The verb put down describes the dropping action. The verb discard describes the dropping action.
+            <!--START CODE "c4365_415"-->
+            <blockquote class="code"><p class="quoted"><a id="c4365_415"></a>To drop is a verb. To put down is a verb. To discard is a verb. The verb drop describes the dropping action. The verb put down describes the dropping action. The verb discard describes the dropping action.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4358_409"-->
-            <blockquote class="code"><p class="quoted"><a id="c4358_409"></a>To sniff is a verb. To smell is a verb. The verb sniff describes the smelling action. The verb smell describes the smelling action.
+            <!--START CODE "c4366_415"-->
+            <blockquote class="code"><p class="quoted"><a id="c4366_415"></a>To sniff is a verb. To smell is a verb. The verb sniff describes the smelling action. The verb smell describes the smelling action.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4359_409"-->
-            <blockquote class="code"><p class="quoted"><a id="c4359_409"></a>To jump is a verb. To leap is a verb. To pirouette is a verb. The verb jump describes the jumping action. The verb leap describes the jumping action. The verb pirouette describes the jumping action.
+            <!--START CODE "c4367_415"-->
+            <blockquote class="code"><p class="quoted"><a id="c4367_415"></a>To jump is a verb. To leap is a verb. To pirouette is a verb. The verb jump describes the jumping action. The verb leap describes the jumping action. The verb pirouette describes the jumping action.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4360_409"-->
-            <blockquote class="code"><p class="quoted"><a id="c4360_409"></a>To don is a verb. The verb don describes the wearing action.
+            <!--START CODE "c4368_415"-->
+            <blockquote class="code"><p class="quoted"><a id="c4368_415"></a>To don is a verb. The verb don describes the wearing action.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4361_409"-->
-            <blockquote class="code"><p class="quoted"><a id="c4361_409"></a>To doff is a verb. The verb doff describes the taking off action.
+            <!--START CODE "c4369_415"-->
+            <blockquote class="code"><p class="quoted"><a id="c4369_415"></a>To doff is a verb. The verb doff describes the taking off action.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4362_409"-->
-            <blockquote class="code"><p class="quoted"><a id="c4362_409"></a>After an actor doing something when the noun is nothing and a verb describes (the action name part of the current action) (this is the apply random verbs to describing nounless actions rule):
+            <!--START CODE "c4370_415"-->
+            <blockquote class="code"><p class="quoted"><a id="c4370_415"></a>After an actor doing something when the noun is nothing and a verb describes (the action name part of the current action) (this is the apply random verbs to describing nounless actions rule):
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The actor] [verb rendering applied to a random verb that describes (the action name part of the current action)].&quot;;
             <br>
@@ -475,8 +475,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4363_409"-->
-            <blockquote class="code"><p class="quoted"><a id="c4363_409"></a>After an actor doing something to something when a verb describes (the action name part of the current action) (this is the apply random verbs to describing actions rule):
+            <!--START CODE "c4371_415"-->
+            <blockquote class="code"><p class="quoted"><a id="c4371_415"></a>After an actor doing something to something when a verb describes (the action name part of the current action) (this is the apply random verbs to describing actions rule):
             <br>
             &#160;&#160;&#160;&#160;let current action name be the action name part of the current action;
             <br>
@@ -500,100 +500,100 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4364_409"-->
-            <blockquote class="code"><p class="quoted"><a id="c4364_409"></a>To decide which text is the rendering of (V - verb) (this is verb rendering):
+            <!--START CODE "c4372_415"-->
+            <blockquote class="code"><p class="quoted"><a id="c4372_415"></a>To decide which text is the rendering of (V - verb) (this is verb rendering):
             <br>
             &#160;&#160;&#160;&#160;decide on &quot;[adapt V]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4365_409"-->
-            <blockquote class="code"><p class="quoted"><a id="c4365_409"></a>To say infinitive of (V - a verb): (- {V}(1); -).
+            <!--START CODE "c4373_415"-->
+            <blockquote class="code"><p class="quoted"><a id="c4373_415"></a>To say infinitive of (V - a verb): (- {V}(1); -).
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4366_409"-->
-            <blockquote class="code"><p class="quoted"><a id="c4366_409"></a>To say past participle of (V - a verb): (- {V}(2); -).
+            <!--START CODE "c4374_415"-->
+            <blockquote class="code"><p class="quoted"><a id="c4374_415"></a>To say past participle of (V - a verb): (- {V}(2); -).
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4367_409"-->
-            <blockquote class="code"><p class="quoted"><a id="c4367_409"></a>To say present participle of (V - a verb): (- {V}(3); -).
+            <!--START CODE "c4375_415"-->
+            <blockquote class="code"><p class="quoted"><a id="c4375_415"></a>To say present participle of (V - a verb): (- {V}(3); -).
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4368_409"-->
-            <blockquote class="code"><p class="quoted"><a id="c4368_409"></a>Section 2 - Scenario
+            <!--START CODE "c4376_415"-->
+            <blockquote class="code"><p class="quoted"><a id="c4376_415"></a>Section 2 - Scenario
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4369_409"-->
-            <blockquote class="code"><p class="quoted"><a id="c4369_409"></a>Lab is a room. The fedora is a wearable thing in the Lab.
+            <!--START CODE "c4377_415"-->
+            <blockquote class="code"><p class="quoted"><a id="c4377_415"></a>Lab is a room. The fedora is a wearable thing in the Lab.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4370_409"-->
-            <blockquote class="code"><p class="quoted"><a id="c4370_409"></a>Test me with &quot;wear the fedora / take off the fedora / wear fedora / take off fedora&quot;.
+            <!--START CODE "c4378_415"-->
+            <blockquote class="code"><p class="quoted"><a id="c4378_415"></a>Test me with &quot;wear the fedora / take off the fedora / wear fedora / take off fedora&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "248: Narrative Register" "e260"-->
-        <a id="e260"></a><table class="egcue">
+        <!--START EXAMPLE "248: Narrative Register" "e242"-->
+        <a id="e242"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example260'); return false;"><b>248</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example242'); return false;"><b>248</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example260'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Narrative Register</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example242'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Narrative Register</span></b></a><br>
                     Suppose we want all of our action responses to vary depending on some alterable quality of the narrator, so that sometimes they're slangy, sometimes pompous or archaic.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc5.html#e260"><i>RB</i></a></div>
+                        <a href="Rdoc5.html#e242"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example260" style="display: none;">
+        <div class="egpanel" id="example242" style="display: none;">
             <p>As we saw in &quot;Variety&quot;, we can associate verbs with particular actions and call them up as needed. If we do that, though, we can also store additional information about those verbs and use that information to select the ideal verb to use in a particular situation.</p>
             <p>In this example, we create a table of verbs and their meanings, together with some connotative information. Each time we report an action, we then score all the available verbs to decide which is the most suitable to use at the moment.  This allows us to change the narrator's diction change mid-game and have the action descriptions change as well.</p>
             <p>Moreover, because we're using adaptive verbs, these responses will automatically inflect properly even if we change the story tense and viewpoint.</p>
-            <!--START CODE "c4371_260"-->
-            <blockquote class="code"><p class="quoted"><a id="c4371_260"></a><a href="javascript:pasteCode('[=0x0022=]Narrative Register[=0x0022=][=0x000A=][=0x000A=]Section 1 - Descriptive Functionality[=0x000A=][=0x000A=]Describing relates various verbs to various action names. The verb to describe means the describing relation.[=0x000A=][=0x000A=]To take is a verb. To acquire is a verb. To get is a verb. To gain is a verb. To obtain is a verb. To pick up is a verb. To bag is a verb. To procure is a verb. To score is a verb. To grab is a verb. To snag is a verb. To snatch is a verb. To collect is a verb.[=0x000A=][=0x000A=]To drop is a verb. To put down is a verb. To discard is a verb. To throw away is a verb. To dispose of is a verb. To set down is a verb. To toss aside is a verb. To ditch is a verb. To abandon is a verb. To dump is a verb. To jettison is a verb. To abjure is a verb. To foresake is a verb. To dispense with is a verb.[=0x000A=][=0x000A=]After an actor doing something to something when a verb describes (the action name part of the current action) (this is the apply random verbs to describing actions rule):[=0x000A=][=0x0009=]score the relevant verbs;[=0x000A=][=0x0009=]sort the Table of Verb Meanings in reverse relevance order;[=0x000A=][=0x0009=]choose row 1 in the Table of Verb Meanings;[=0x000A=][=0x0009=]let top score be the relevance entry;[=0x000A=][=0x0009=]sort Table of Verb Meanings in random order;[=0x000A=][=0x0009=]repeat through the Table of Verb Meanings:[=0x000A=][=0x0009=][=0x0009=]if relevance entry is top score:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to (word entry)] [the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]erase relevance;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]To decide which text is the rendering of (V - verb) (this is verb rendering):[=0x000A=][=0x0009=]decide on [=0x0022=][adapt V][=0x0022=].[=0x000A=][=0x000A=]To score the relevant verbs:[=0x000A=][=0x0009=]repeat through the Table of Verb Meanings:[=0x000A=][=0x0009=][=0x0009=]if the meaning entry is (the action name part of the current action):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increase relevance entry by 1;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]repeat with chosen connotation running through connotations entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]if the chosen connotation is listed in the current register:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]increase relevance entry by 1;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]decrease relevance entry by 1.[=0x000A=][=0x000A=]To erase relevance:[=0x000A=][=0x0009=]repeat through Table of Verb Meanings:[=0x000A=][=0x0009=][=0x0009=]now relevance entry is 0.[=0x000A=][=0x000A=][=0x000A=]A tonality is a kind of value. The tonalities are pompous, archaic, slangy, upbeat, downbeat.[=0x000A=][=0x000A=]Connoting relates various verbs to various tonalities. The verb to connote means the connoting relation.[=0x000A=][=0x000A=]The current register is a list of tonalities that varies. The current register is { }.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]repeat through the Table of Verb Meanings:[=0x000A=][=0x0009=][=0x0009=]now the word entry describes the meaning entry;[=0x000A=][=0x0009=][=0x0009=]now relevance entry is 0;[=0x000A=][=0x0009=][=0x0009=]repeat with chosen tone running through the connotations entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now the word entry connotes the chosen tone.[=0x000A=][=0x000A=]Table of Verb Meanings[=0x000A=]word[=0x0009=]meaning[=0x0009=]connotations[=0x0009=]relevance ( a number )[=0x000A=]the verb take[=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb acquire[=0x0009=]the taking action[=0x0009=]{ pompous }[=0x000A=]the verb get[=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb gain[=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb obtain[=0x0009=]the taking action[=0x0009=]{ pompous }[=0x000A=]the verb pick up [=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb bag[=0x0009=]the taking action[=0x0009=]{ slangy }[=0x000A=]the verb score[=0x0009=]the taking action[=0x0009=]{ slangy, upbeat }[=0x000A=]the verb procure[=0x0009=]the taking action[=0x0009=]{ archaic }[=0x000A=]the verb grab[=0x0009=]the taking action[=0x0009=]{ slangy }[=0x000A=]the verb snag[=0x0009=]the taking action[=0x0009=]{ slangy }[=0x000A=]the verb snatch[=0x0009=]the taking action[=0x0009=]{ slangy }[=0x000A=]the verb collect[=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb discard[=0x0009=]the dropping action[=0x0009=]{ pompous }[=0x000A=]the verb drop[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb put down[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb toss aside[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb ditch[=0x0009=]the dropping action[=0x0009=]{ slangy }[=0x000A=]the verb throw away[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb dispose of[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb set down[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb abandon[=0x0009=]the dropping action[=0x0009=]{ downbeat }[=0x000A=]the verb dump[=0x0009=]the dropping action[=0x0009=]{ downbeat }[=0x000A=]the verb abjure[=0x0009=]the dropping action[=0x0009=]{ archaic }[=0x000A=]the verb foresake[=0x0009=]the dropping action[=0x0009=]{ archaic }[=0x000A=]the verb jettison[=0x0009=]the dropping action[=0x0009=]{ pompous }[=0x000A=]the verb dispense with[=0x0009=]the dropping action[=0x0009=]{ pompous }[=0x000A=][=0x000A=]Section 2 - Changing Tone Mid-Game[=0x000A=][=0x000A=]Understand [=0x0022=]new tone[=0x0022=] as changing the tone. Changing the tone is an action out of world.[=0x000A=][=0x000A=]Carry out changing the tone:[=0x000A=][=0x0009=]now the current register is { };[=0x000A=][=0x0009=]if a random chance of 1 in 4 succeeds:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Your narrator will now adopt an ordinary tone.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]let rando be a random tonality;[=0x000A=][=0x0009=]add rando to the current register, if absent;[=0x000A=][=0x0009=]say [=0x0022=]Your narrator will now be [rando].[=0x0022=][=0x000A=][=0x000A=][=0x000A=]Section 3 - Scenario[=0x000A=][=0x000A=]Lab is a room. The table is here. The bat and the ball are on the table.[=0x000A=][=0x000A=]Test me with [=0x0022=]get ball / drop ball / get bat / drop bat / new tone / get all / drop all / new tone / get all / drop all[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Narrative Register[=0x0022=][=0x000A=][=0x000A=]Section 1 - Descriptive Functionality[=0x000A=][=0x000A=]Describing relates various verbs to various action names. The verb to describe means the describing relation.[=0x000A=][=0x000A=]To take is a verb. To acquire is a verb. To get is a verb. To gain is a verb. To obtain is a verb. To pick up is a verb. To bag is a verb. To procure is a verb. To score is a verb. To grab is a verb. To snag is a verb. To snatch is a verb. To collect is a verb.[=0x000A=][=0x000A=]To drop is a verb. To put down is a verb. To discard is a verb. To throw away is a verb. To dispose of is a verb. To set down is a verb. To toss aside is a verb. To ditch is a verb. To abandon is a verb. To dump is a verb. To jettison is a verb. To abjure is a verb. To foresake is a verb. To dispense with is a verb.[=0x000A=][=0x000A=]After an actor doing something to something when a verb describes (the action name part of the current action) (this is the apply random verbs to describing actions rule):[=0x000A=][=0x0009=]score the relevant verbs;[=0x000A=][=0x0009=]sort the Table of Verb Meanings in reverse relevance order;[=0x000A=][=0x0009=]choose row 1 in the Table of Verb Meanings;[=0x000A=][=0x0009=]let top score be the relevance entry;[=0x000A=][=0x0009=]sort Table of Verb Meanings in random order;[=0x000A=][=0x0009=]repeat through the Table of Verb Meanings:[=0x000A=][=0x0009=][=0x0009=]if relevance entry is top score:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to (word entry)] [the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]erase relevance;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]To decide which text is the rendering of (V - verb) (this is verb rendering):[=0x000A=][=0x0009=]decide on [=0x0022=][adapt V][=0x0022=].[=0x000A=][=0x000A=]To score the relevant verbs:[=0x000A=][=0x0009=]repeat through the Table of Verb Meanings:[=0x000A=][=0x0009=][=0x0009=]if the meaning entry is (the action name part of the current action):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increase relevance entry by 1;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]repeat with chosen connotation running through connotations entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]if the chosen connotation is listed in the current register:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]increase relevance entry by 1;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]decrease relevance entry by 1.[=0x000A=][=0x000A=]To erase relevance:[=0x000A=][=0x0009=]repeat through Table of Verb Meanings:[=0x000A=][=0x0009=][=0x0009=]now relevance entry is 0.[=0x000A=][=0x000A=][=0x000A=]A tonality is a kind of value. The tonalities are pompous, archaic, slangy, upbeat, downbeat.[=0x000A=][=0x000A=]Connoting relates various verbs to various tonalities. The verb to connote means the connoting relation.[=0x000A=][=0x000A=]The current register is a list of tonalities that varies. The current register is { }.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]repeat through the Table of Verb Meanings:[=0x000A=][=0x0009=][=0x0009=]now the word entry describes the meaning entry;[=0x000A=][=0x0009=][=0x0009=]now relevance entry is 0;[=0x000A=][=0x0009=][=0x0009=]repeat with chosen tone running through the connotations entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now the word entry connotes the chosen tone.[=0x000A=][=0x000A=]Table of Verb Meanings[=0x000A=]word[=0x0009=]meaning[=0x0009=]connotations[=0x0009=]relevance ( a number )[=0x000A=]the verb take[=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb acquire[=0x0009=]the taking action[=0x0009=]{ pompous }[=0x000A=]the verb get[=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb gain[=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb obtain[=0x0009=]the taking action[=0x0009=]{ pompous }[=0x000A=]the verb pick up [=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb bag[=0x0009=]the taking action[=0x0009=]{ slangy }[=0x000A=]the verb score[=0x0009=]the taking action[=0x0009=]{ slangy, upbeat }[=0x000A=]the verb procure[=0x0009=]the taking action[=0x0009=]{ archaic }[=0x000A=]the verb grab[=0x0009=]the taking action[=0x0009=]{ slangy }[=0x000A=]the verb snag[=0x0009=]the taking action[=0x0009=]{ slangy }[=0x000A=]the verb snatch[=0x0009=]the taking action[=0x0009=]{ slangy }[=0x000A=]the verb collect[=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb discard[=0x0009=]the dropping action[=0x0009=]{ pompous }[=0x000A=]the verb drop[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb put down[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb toss aside[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb ditch[=0x0009=]the dropping action[=0x0009=]{ slangy }[=0x000A=]the verb throw away[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb dispose of[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb set down[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb abandon[=0x0009=]the dropping action[=0x0009=]{ downbeat }[=0x000A=]the verb dump[=0x0009=]the dropping action[=0x0009=]{ downbeat }[=0x000A=]the verb abjure[=0x0009=]the dropping action[=0x0009=]{ archaic }[=0x000A=]the verb foresake[=0x0009=]the dropping action[=0x0009=]{ archaic }[=0x000A=]the verb jettison[=0x0009=]the dropping action[=0x0009=]{ pompous }[=0x000A=]the verb dispense with[=0x0009=]the dropping action[=0x0009=]{ pompous }[=0x000A=][=0x000A=]Section 2 - Changing Tone Mid-Game[=0x000A=][=0x000A=]Understand [=0x0022=]new tone[=0x0022=] as changing the tone. Changing the tone is an action out of world.[=0x000A=][=0x000A=]Carry out changing the tone:[=0x000A=][=0x0009=]now the current register is { };[=0x000A=][=0x0009=]if a random chance of 1 in 4 succeeds:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Your narrator will now adopt an ordinary tone.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]let rando be a random tonality;[=0x000A=][=0x0009=]add rando to the current register, if absent;[=0x000A=][=0x0009=]say [=0x0022=]Your narrator will now be [rando].[=0x0022=][=0x000A=][=0x000A=][=0x000A=]Section 3 - Scenario[=0x000A=][=0x000A=]Lab is a room. The table is here. The bat and the ball are on the table.[=0x000A=][=0x000A=]Test me with [=0x0022=]get ball / drop ball / get bat / drop bat / new tone / get all / drop all / new tone / get all / drop all[=0x0022=].[=0x000A=]\n', 'Example - Narrative Register')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Narrative Register&quot;
+            <!--START CODE "c4379_242"-->
+            <blockquote class="code"><p class="quoted"><a id="c4379_242"></a><a href="javascript:pasteCode('[=0x0022=]Narrative Register[=0x0022=][=0x000A=][=0x000A=]Section 1 - Descriptive Functionality[=0x000A=][=0x000A=]Describing relates various verbs to various action names. The verb to describe means the describing relation.[=0x000A=][=0x000A=]To take is a verb. To acquire is a verb. To get is a verb. To gain is a verb. To obtain is a verb. To pick up is a verb. To bag is a verb. To procure is a verb. To score is a verb. To grab is a verb. To snag is a verb. To snatch is a verb. To collect is a verb.[=0x000A=][=0x000A=]To drop is a verb. To put down is a verb. To discard is a verb. To throw away is a verb. To dispose of is a verb. To set down is a verb. To toss aside is a verb. To ditch is a verb. To abandon is a verb. To dump is a verb. To jettison is a verb. To abjure is a verb. To foresake is a verb. To dispense with is a verb.[=0x000A=][=0x000A=]After an actor doing something to something when a verb describes (the action name part of the current action) (this is the apply random verbs to describing actions rule):[=0x000A=][=0x0009=]score the relevant verbs;[=0x000A=][=0x0009=]sort the Table of Verb Meanings in reverse relevance order;[=0x000A=][=0x0009=]choose row 1 in the Table of Verb Meanings;[=0x000A=][=0x0009=]let top score be the relevance entry;[=0x000A=][=0x0009=]sort Table of Verb Meanings in random order;[=0x000A=][=0x0009=]repeat through the Table of Verb Meanings:[=0x000A=][=0x0009=][=0x0009=]if relevance entry is top score:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to (word entry)] [the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]erase relevance;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]To decide which text is the rendering of (V - verb) (this is verb rendering):[=0x000A=][=0x0009=]decide on [=0x0022=][adapt V][=0x0022=].[=0x000A=][=0x000A=]To score the relevant verbs:[=0x000A=][=0x0009=]repeat through the Table of Verb Meanings:[=0x000A=][=0x0009=][=0x0009=]if the meaning entry is (the action name part of the current action):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increase relevance entry by 1;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]repeat with chosen connotation running through connotations entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]if the chosen connotation is listed in the current register:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]increase relevance entry by 1;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]decrease relevance entry by 1.[=0x000A=][=0x000A=]To erase relevance:[=0x000A=][=0x0009=]repeat through Table of Verb Meanings:[=0x000A=][=0x0009=][=0x0009=]now relevance entry is 0.[=0x000A=][=0x000A=][=0x000A=]A tonality is a kind of value. The tonalities are pompous, archaic, slangy, upbeat, downbeat.[=0x000A=][=0x000A=]Connoting relates various verbs to various tonalities. The verb to connote means the connoting relation.[=0x000A=][=0x000A=]The current register is a list of tonalities that varies. The current register is { }.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]repeat through the Table of Verb Meanings:[=0x000A=][=0x0009=][=0x0009=]now the word entry describes the meaning entry;[=0x000A=][=0x0009=][=0x0009=]now relevance entry is 0;[=0x000A=][=0x0009=][=0x0009=]repeat with chosen tone running through the connotations entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now the word entry connotes the chosen tone.[=0x000A=][=0x000A=]Table of Verb Meanings[=0x000A=]word[=0x0009=]meaning[=0x0009=]connotations[=0x0009=]relevance ( a number )[=0x000A=]the verb take[=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb acquire[=0x0009=]the taking action[=0x0009=]{ pompous }[=0x000A=]the verb get[=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb gain[=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb obtain[=0x0009=]the taking action[=0x0009=]{ pompous }[=0x000A=]the verb pick up [=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb bag[=0x0009=]the taking action[=0x0009=]{ slangy }[=0x000A=]the verb score[=0x0009=]the taking action[=0x0009=]{ slangy, upbeat }[=0x000A=]the verb procure[=0x0009=]the taking action[=0x0009=]{ archaic }[=0x000A=]the verb grab[=0x0009=]the taking action[=0x0009=]{ slangy }[=0x000A=]the verb snag[=0x0009=]the taking action[=0x0009=]{ slangy }[=0x000A=]the verb snatch[=0x0009=]the taking action[=0x0009=]{ slangy }[=0x000A=]the verb collect[=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb discard[=0x0009=]the dropping action[=0x0009=]{ pompous }[=0x000A=]the verb drop[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb put down[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb toss aside[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb ditch[=0x0009=]the dropping action[=0x0009=]{ slangy }[=0x000A=]the verb throw away[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb dispose of[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb set down[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb abandon[=0x0009=]the dropping action[=0x0009=]{ downbeat }[=0x000A=]the verb dump[=0x0009=]the dropping action[=0x0009=]{ downbeat }[=0x000A=]the verb abjure[=0x0009=]the dropping action[=0x0009=]{ archaic }[=0x000A=]the verb foresake[=0x0009=]the dropping action[=0x0009=]{ archaic }[=0x000A=]the verb jettison[=0x0009=]the dropping action[=0x0009=]{ pompous }[=0x000A=]the verb dispense with[=0x0009=]the dropping action[=0x0009=]{ pompous }[=0x000A=][=0x000A=]Section 2 - Changing Tone Mid-Game[=0x000A=][=0x000A=]Understand [=0x0022=]new tone[=0x0022=] as changing the tone. Changing the tone is an action out of world.[=0x000A=][=0x000A=]Carry out changing the tone:[=0x000A=][=0x0009=]now the current register is { };[=0x000A=][=0x0009=]if a random chance of 1 in 4 succeeds:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Your narrator will now adopt an ordinary tone.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]let rando be a random tonality;[=0x000A=][=0x0009=]add rando to the current register, if absent;[=0x000A=][=0x0009=]say [=0x0022=]Your narrator will now be [rando].[=0x0022=][=0x000A=][=0x000A=][=0x000A=]Section 3 - Scenario[=0x000A=][=0x000A=]Lab is a room. The table is here. The bat and the ball are on the table.[=0x000A=][=0x000A=]Test me with [=0x0022=]get ball / drop ball / get bat / drop bat / new tone / get all / drop all / new tone / get all / drop all[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Narrative Register[=0x0022=][=0x000A=][=0x000A=]Section 1 - Descriptive Functionality[=0x000A=][=0x000A=]Describing relates various verbs to various action names. The verb to describe means the describing relation.[=0x000A=][=0x000A=]To take is a verb. To acquire is a verb. To get is a verb. To gain is a verb. To obtain is a verb. To pick up is a verb. To bag is a verb. To procure is a verb. To score is a verb. To grab is a verb. To snag is a verb. To snatch is a verb. To collect is a verb.[=0x000A=][=0x000A=]To drop is a verb. To put down is a verb. To discard is a verb. To throw away is a verb. To dispose of is a verb. To set down is a verb. To toss aside is a verb. To ditch is a verb. To abandon is a verb. To dump is a verb. To jettison is a verb. To abjure is a verb. To foresake is a verb. To dispense with is a verb.[=0x000A=][=0x000A=]After an actor doing something to something when a verb describes (the action name part of the current action) (this is the apply random verbs to describing actions rule):[=0x000A=][=0x0009=]score the relevant verbs;[=0x000A=][=0x0009=]sort the Table of Verb Meanings in reverse relevance order;[=0x000A=][=0x0009=]choose row 1 in the Table of Verb Meanings;[=0x000A=][=0x0009=]let top score be the relevance entry;[=0x000A=][=0x0009=]sort Table of Verb Meanings in random order;[=0x000A=][=0x0009=]repeat through the Table of Verb Meanings:[=0x000A=][=0x0009=][=0x0009=]if relevance entry is top score:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to (word entry)] [the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]erase relevance;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]To decide which text is the rendering of (V - verb) (this is verb rendering):[=0x000A=][=0x0009=]decide on [=0x0022=][adapt V][=0x0022=].[=0x000A=][=0x000A=]To score the relevant verbs:[=0x000A=][=0x0009=]repeat through the Table of Verb Meanings:[=0x000A=][=0x0009=][=0x0009=]if the meaning entry is (the action name part of the current action):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increase relevance entry by 1;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]repeat with chosen connotation running through connotations entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]if the chosen connotation is listed in the current register:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]increase relevance entry by 1;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]decrease relevance entry by 1.[=0x000A=][=0x000A=]To erase relevance:[=0x000A=][=0x0009=]repeat through Table of Verb Meanings:[=0x000A=][=0x0009=][=0x0009=]now relevance entry is 0.[=0x000A=][=0x000A=][=0x000A=]A tonality is a kind of value. The tonalities are pompous, archaic, slangy, upbeat, downbeat.[=0x000A=][=0x000A=]Connoting relates various verbs to various tonalities. The verb to connote means the connoting relation.[=0x000A=][=0x000A=]The current register is a list of tonalities that varies. The current register is { }.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]repeat through the Table of Verb Meanings:[=0x000A=][=0x0009=][=0x0009=]now the word entry describes the meaning entry;[=0x000A=][=0x0009=][=0x0009=]now relevance entry is 0;[=0x000A=][=0x0009=][=0x0009=]repeat with chosen tone running through the connotations entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now the word entry connotes the chosen tone.[=0x000A=][=0x000A=]Table of Verb Meanings[=0x000A=]word[=0x0009=]meaning[=0x0009=]connotations[=0x0009=]relevance ( a number )[=0x000A=]the verb take[=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb acquire[=0x0009=]the taking action[=0x0009=]{ pompous }[=0x000A=]the verb get[=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb gain[=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb obtain[=0x0009=]the taking action[=0x0009=]{ pompous }[=0x000A=]the verb pick up [=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb bag[=0x0009=]the taking action[=0x0009=]{ slangy }[=0x000A=]the verb score[=0x0009=]the taking action[=0x0009=]{ slangy, upbeat }[=0x000A=]the verb procure[=0x0009=]the taking action[=0x0009=]{ archaic }[=0x000A=]the verb grab[=0x0009=]the taking action[=0x0009=]{ slangy }[=0x000A=]the verb snag[=0x0009=]the taking action[=0x0009=]{ slangy }[=0x000A=]the verb snatch[=0x0009=]the taking action[=0x0009=]{ slangy }[=0x000A=]the verb collect[=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb discard[=0x0009=]the dropping action[=0x0009=]{ pompous }[=0x000A=]the verb drop[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb put down[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb toss aside[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb ditch[=0x0009=]the dropping action[=0x0009=]{ slangy }[=0x000A=]the verb throw away[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb dispose of[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb set down[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb abandon[=0x0009=]the dropping action[=0x0009=]{ downbeat }[=0x000A=]the verb dump[=0x0009=]the dropping action[=0x0009=]{ downbeat }[=0x000A=]the verb abjure[=0x0009=]the dropping action[=0x0009=]{ archaic }[=0x000A=]the verb foresake[=0x0009=]the dropping action[=0x0009=]{ archaic }[=0x000A=]the verb jettison[=0x0009=]the dropping action[=0x0009=]{ pompous }[=0x000A=]the verb dispense with[=0x0009=]the dropping action[=0x0009=]{ pompous }[=0x000A=][=0x000A=]Section 2 - Changing Tone Mid-Game[=0x000A=][=0x000A=]Understand [=0x0022=]new tone[=0x0022=] as changing the tone. Changing the tone is an action out of world.[=0x000A=][=0x000A=]Carry out changing the tone:[=0x000A=][=0x0009=]now the current register is { };[=0x000A=][=0x0009=]if a random chance of 1 in 4 succeeds:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Your narrator will now adopt an ordinary tone.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]let rando be a random tonality;[=0x000A=][=0x0009=]add rando to the current register, if absent;[=0x000A=][=0x0009=]say [=0x0022=]Your narrator will now be [rando].[=0x0022=][=0x000A=][=0x000A=][=0x000A=]Section 3 - Scenario[=0x000A=][=0x000A=]Lab is a room. The table is here. The bat and the ball are on the table.[=0x000A=][=0x000A=]Test me with [=0x0022=]get ball / drop ball / get bat / drop bat / new tone / get all / drop all / new tone / get all / drop all[=0x0022=].[=0x000A=]\n', 'Example - Narrative Register')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Narrative Register&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4372_260"-->
-            <blockquote class="code"><p class="quoted"><a id="c4372_260"></a>Section 1 - Descriptive Functionality
+            <!--START CODE "c4380_242"-->
+            <blockquote class="code"><p class="quoted"><a id="c4380_242"></a>Section 1 - Descriptive Functionality
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4373_260"-->
-            <blockquote class="code"><p class="quoted"><a id="c4373_260"></a>Describing relates various verbs to various action names. The verb to describe means the describing relation.
+            <!--START CODE "c4381_242"-->
+            <blockquote class="code"><p class="quoted"><a id="c4381_242"></a>Describing relates various verbs to various action names. The verb to describe means the describing relation.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4374_260"-->
-            <blockquote class="code"><p class="quoted"><a id="c4374_260"></a>To take is a verb. To acquire is a verb. To get is a verb. To gain is a verb. To obtain is a verb. To pick up is a verb. To bag is a verb. To procure is a verb. To score is a verb. To grab is a verb. To snag is a verb. To snatch is a verb. To collect is a verb.
+            <!--START CODE "c4382_242"-->
+            <blockquote class="code"><p class="quoted"><a id="c4382_242"></a>To take is a verb. To acquire is a verb. To get is a verb. To gain is a verb. To obtain is a verb. To pick up is a verb. To bag is a verb. To procure is a verb. To score is a verb. To grab is a verb. To snag is a verb. To snatch is a verb. To collect is a verb.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4375_260"-->
-            <blockquote class="code"><p class="quoted"><a id="c4375_260"></a>To drop is a verb. To put down is a verb. To discard is a verb. To throw away is a verb. To dispose of is a verb. To set down is a verb. To toss aside is a verb. To ditch is a verb. To abandon is a verb. To dump is a verb. To jettison is a verb. To abjure is a verb. To foresake is a verb. To dispense with is a verb.
+            <!--START CODE "c4383_242"-->
+            <blockquote class="code"><p class="quoted"><a id="c4383_242"></a>To drop is a verb. To put down is a verb. To discard is a verb. To throw away is a verb. To dispose of is a verb. To set down is a verb. To toss aside is a verb. To ditch is a verb. To abandon is a verb. To dump is a verb. To jettison is a verb. To abjure is a verb. To foresake is a verb. To dispense with is a verb.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4376_260"-->
-            <blockquote class="code"><p class="quoted"><a id="c4376_260"></a>After an actor doing something to something when a verb describes (the action name part of the current action) (this is the apply random verbs to describing actions rule):
+            <!--START CODE "c4384_242"-->
+            <blockquote class="code"><p class="quoted"><a id="c4384_242"></a>After an actor doing something to something when a verb describes (the action name part of the current action) (this is the apply random verbs to describing actions rule):
             <br>
             &#160;&#160;&#160;&#160;score the relevant verbs;
             <br>
@@ -617,15 +617,15 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4377_260"-->
-            <blockquote class="code"><p class="quoted"><a id="c4377_260"></a>To decide which text is the rendering of (V - verb) (this is verb rendering):
+            <!--START CODE "c4385_242"-->
+            <blockquote class="code"><p class="quoted"><a id="c4385_242"></a>To decide which text is the rendering of (V - verb) (this is verb rendering):
             <br>
             &#160;&#160;&#160;&#160;decide on &quot;[adapt V]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4378_260"-->
-            <blockquote class="code"><p class="quoted"><a id="c4378_260"></a>To score the relevant verbs:
+            <!--START CODE "c4386_242"-->
+            <blockquote class="code"><p class="quoted"><a id="c4386_242"></a>To score the relevant verbs:
             <br>
             &#160;&#160;&#160;&#160;repeat through the Table of Verb Meanings:
             <br>
@@ -645,8 +645,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4379_260"-->
-            <blockquote class="code"><p class="quoted"><a id="c4379_260"></a>To erase relevance:
+            <!--START CODE "c4387_242"-->
+            <blockquote class="code"><p class="quoted"><a id="c4387_242"></a>To erase relevance:
             <br>
             &#160;&#160;&#160;&#160;repeat through Table of Verb Meanings:
             <br>
@@ -654,23 +654,23 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4380_260"-->
-            <blockquote class="code"><p class="quoted"><a id="c4380_260"></a>A tonality is a kind of value. The tonalities are pompous, archaic, slangy, upbeat, downbeat.
+            <!--START CODE "c4388_242"-->
+            <blockquote class="code"><p class="quoted"><a id="c4388_242"></a>A tonality is a kind of value. The tonalities are pompous, archaic, slangy, upbeat, downbeat.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4381_260"-->
-            <blockquote class="code"><p class="quoted"><a id="c4381_260"></a>Connoting relates various verbs to various tonalities. The verb to connote means the connoting relation.
+            <!--START CODE "c4389_242"-->
+            <blockquote class="code"><p class="quoted"><a id="c4389_242"></a>Connoting relates various verbs to various tonalities. The verb to connote means the connoting relation.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4382_260"-->
-            <blockquote class="code"><p class="quoted"><a id="c4382_260"></a>The current register is a list of tonalities that varies. The current register is { }.
+            <!--START CODE "c4390_242"-->
+            <blockquote class="code"><p class="quoted"><a id="c4390_242"></a>The current register is a list of tonalities that varies. The current register is { }.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4383_260"-->
-            <blockquote class="code"><p class="quoted"><a id="c4383_260"></a>When play begins:
+            <!--START CODE "c4391_242"-->
+            <blockquote class="code"><p class="quoted"><a id="c4391_242"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;repeat through the Table of Verb Meanings:
             <br>
@@ -684,8 +684,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4384_260"-->
-            <blockquote class="code"><p class="quoted"><a id="c4384_260"></a>Table of Verb Meanings
+            <!--START CODE "c4392_242"-->
+            <blockquote class="code"><p class="quoted"><a id="c4392_242"></a>Table of Verb Meanings
             <br>
             </p>
             </blockquote>
@@ -1090,18 +1090,18 @@
             <blockquote><p></p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4385_260"-->
-            <blockquote class="code"><p class="quoted"><a id="c4385_260"></a>Section 2 - Changing Tone Mid-Game
+            <!--START CODE "c4393_242"-->
+            <blockquote class="code"><p class="quoted"><a id="c4393_242"></a>Section 2 - Changing Tone Mid-Game
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4386_260"-->
-            <blockquote class="code"><p class="quoted"><a id="c4386_260"></a>Understand &quot;new tone&quot; as changing the tone. Changing the tone is an action out of world.
+            <!--START CODE "c4394_242"-->
+            <blockquote class="code"><p class="quoted"><a id="c4394_242"></a>Understand &quot;new tone&quot; as changing the tone. Changing the tone is an action out of world.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4387_260"-->
-            <blockquote class="code"><p class="quoted"><a id="c4387_260"></a>Carry out changing the tone:
+            <!--START CODE "c4395_242"-->
+            <blockquote class="code"><p class="quoted"><a id="c4395_242"></a>Carry out changing the tone:
             <br>
             &#160;&#160;&#160;&#160;now the current register is { };
             <br>
@@ -1119,18 +1119,18 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4388_260"-->
-            <blockquote class="code"><p class="quoted"><a id="c4388_260"></a>Section 3 - Scenario
+            <!--START CODE "c4396_242"-->
+            <blockquote class="code"><p class="quoted"><a id="c4396_242"></a>Section 3 - Scenario
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4389_260"-->
-            <blockquote class="code"><p class="quoted"><a id="c4389_260"></a>Lab is a room. The table is here. The bat and the ball are on the table.
+            <!--START CODE "c4397_242"-->
+            <blockquote class="code"><p class="quoted"><a id="c4397_242"></a>Lab is a room. The table is here. The bat and the ball are on the table.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4390_260"-->
-            <blockquote class="code"><p class="quoted"><a id="c4390_260"></a>Test me with &quot;get ball / drop ball / get bat / drop bat / new tone / get all / drop all / new tone / get all / drop all&quot;.
+            <!--START CODE "c4398_242"-->
+            <blockquote class="code"><p class="quoted"><a id="c4398_242"></a>Test me with &quot;get ball / drop ball / get bat / drop bat / new tone / get all / drop all / new tone / get all / drop all&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

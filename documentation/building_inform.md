@@ -3,7 +3,7 @@
 ## 0. Prerequisites
 
 - A recent version of macOS and XCode.
-	- At time of writing I'm using XCode 13.4.1 on macOS 12.4 (Monterey).
+	- At time of writing I'm using XCode 15. on macOS 14.4.1 (Sonoma).
 - *Apple Developer Program* membership, probably. You will need a valid *Code Signing Identity* and *Developer Team*. That means having valid *Provisioning Profiles*, *Certificates* etc configured directly from Apple.
 - Python 3.
 - Experience of XCode and git.

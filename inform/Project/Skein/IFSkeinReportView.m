@@ -52,7 +52,7 @@ static NSDictionary* deleteAttr = nil;
 }
 
 +(void) adjustAttributesToFontSize {
-    CGFloat fontSize = kSkeinDefaultReportFontSize * [[IFPreferences sharedPreferences] appFontSizeMultiplier];
+    CGFloat fontSize = kSkeinDefaultReportFontSize * [IFPreferences sharedPreferences].appFontSizeMultiplier;
     commandAttr = [IFUtility adjustAttributesFontSize: commandAttr size: fontSize];
     normalAttr  = [IFUtility adjustAttributesFontSize: normalAttr  size: fontSize];
     insertAttr  = [IFUtility adjustAttributesFontSize: insertAttr  size: fontSize];
@@ -76,10 +76,10 @@ static NSDictionary* deleteAttr = nil;
 }
 
 -(NSAttributedString*) reportForItem:(IFSkeinItem*) item {
-    IFDiffer* diffResult = [item differences];
+    IFDiffer* diffResult = item.differences;
 
     NSMutableAttributedString* output = nil;
-    if( [diffResult.differences count] == 0 ) {
+    if( (diffResult.differences).count == 0 ) {
         output = [[NSMutableAttributedString alloc] initWithString: diffResult.ideal attributes: normalAttr];
     }
     else {
@@ -151,7 +151,7 @@ static NSDictionary* deleteAttr = nil;
 
 -(void) updateReportDetails {
     // Find leaf node of the selected line
-    IFSkeinLayoutItem* leafItem = [rootTree leafSelectedLineItem];
+    IFSkeinLayoutItem* leafItem = rootTree.leafSelectedLineItem;
 
     unsigned long newTreeHash = [self treeHashFromLeaf: leafItem.item];
 
@@ -179,7 +179,7 @@ static NSDictionary* deleteAttr = nil;
         while(layoutItem && layoutItem.onSelectedLine) {
             NSAttributedString* report = [self reportForItem: layoutItem.item];
 
-            IFSkeinReportItemView* reportItemView = [itemViews objectAtIndex: maxLevel-itemViewsIndex ];
+            IFSkeinReportItemView* reportItemView = itemViews[maxLevel-itemViewsIndex];
             reportItemView.uniqueId = layoutItem.item.uniqueId;
 
             if (reportItemView.superview == nil ) {
@@ -217,7 +217,7 @@ static NSDictionary* deleteAttr = nil;
 
             // Resize the view height based on our calculated stride height
             viewHeight       = fullStrideHeight - kDottedSeparatorLineThickness;
-            [reportItemView setFrame: NSMakeRect(0, totalHeight, reportItemView.frame.size.width, viewHeight)];
+            reportItemView.frame = NSMakeRect(0, totalHeight, reportItemView.frame.size.width, viewHeight);
 
             // Move to next item
             totalHeight += fullStrideHeight;
@@ -240,7 +240,7 @@ static NSDictionary* deleteAttr = nil;
 
         // remove any extra views at the end
         while (itemViews.count > itemViewsIndex ) {
-            [[itemViews lastObject] removeFromSuperview];
+            [itemViews.lastObject removeFromSuperview];
             [itemViews removeLastObject];
         }
 
@@ -266,12 +266,12 @@ static NSDictionary* deleteAttr = nil;
                                 blue: 0.0f
                                alpha: 0.25f] set];
     NSBezierPath * path = [NSBezierPath bezierPath];
-    [path setLineWidth: kDottedSeparatorLineThickness];
+    path.lineWidth = kDottedSeparatorLineThickness;
     CGFloat dashArray[] = { 8.0f, 6.0f };
     [path setLineDash: dashArray count: 2 phase: 0.0f];
 
     CGFloat totalHeight = 0;
-    for( int index = (int) [reportDetails count] - 1; index > 0; index-- ) {
+    for( int index = (int) reportDetails.count - 1; index > 0; index-- ) {
         CGFloat height = [reportDetails[index] doubleValue];
         totalHeight += height;
 
@@ -319,9 +319,9 @@ static NSDictionary* deleteAttr = nil;
         viewTrackingArea = nil;
     }
 
-    NSPoint currentMousePos = [[self window] mouseLocationOutsideOfEventStream];
+    NSPoint currentMousePos = self.window.mouseLocationOutsideOfEventStream;
     currentMousePos = [self convertPoint: currentMousePos fromView: nil];
-    NSRect visibleRect = [self visibleRect];
+    NSRect visibleRect = self.visibleRect;
 
     if( !NSIsEmptyRect( visibleRect )) {
         // Do we start inside the rectangle?
@@ -347,7 +347,7 @@ static NSDictionary* deleteAttr = nil;
         [button toggleBlessState];
         unsigned long uniqueId = (unsigned long) button.tag;
 
-        IFSkeinLayoutItem* layoutItem = [rootTree leafSelectedLineItem];
+        IFSkeinLayoutItem* layoutItem = rootTree.leafSelectedLineItem;
         while( layoutItem ) {
             if( layoutItem.item.uniqueId == uniqueId ) {
                 if( [delegate respondsToSelector: @selector(setItemBlessed:bless:)] ) {

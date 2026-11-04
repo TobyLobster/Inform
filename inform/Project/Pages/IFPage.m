@@ -16,8 +16,6 @@ NSString* const IFSwitchToPageNotification = @"IFSwitchToPageNotification";
 NSString* const IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotification";
 
 @implementation IFPage {
-    /// The pane that contains this page (or nil, not retained)
-    __weak IFProjectPane* thisPane;
     /// Object used for recording any history events for this object
     __weak id<IFHistoryRecorder> recorder;
 
@@ -39,18 +37,14 @@ NSString* const IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotific
 	
 	if (self) {
 		// Load the nib file
-		[NSBundle oldLoadNibNamed: nib
-                            owner: self];
+		[NSBundle customLoadNib: nib
+                          owner: self];
 		
 		// Set the parent
 		_parent = controller;
 	}
 	
 	return self;
-}
-
-- (void) setThisPane: (IFProjectPane*) newThisPane {
-	thisPane = newThisPane;
 }
 
 - (void) finished {
@@ -86,7 +80,7 @@ NSString* const IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotific
 #pragma mark - Page actions
 
 - (void) switchToPage {
-	[self switchToPageWithIdentifier: [self identifier]
+	[self switchToPageWithIdentifier: self.identifier
 							fromPage: nil];
 }
 
@@ -127,12 +121,12 @@ NSString* const IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotific
 	IFHistoryEvent* event = nil;
 	
 	if (recorder) {
-		event = [recorder historyEvent];
+		event = recorder.historyEvent;
 	}
 	
 	if (event) {
-		[event setTarget: self];
-		return [event proxy];
+		event.target = self;
+		return event.proxy;
 	}
 	
 	return nil;

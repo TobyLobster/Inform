@@ -15,12 +15,13 @@
 ///
 /// The 'skein' page
 ///
-@interface IFSkeinPage : IFPage<NSSplitViewDelegate, WebFrameLoadDelegate>
+@interface IFSkeinPage : IFPage<NSSplitViewDelegate, WKNavigationDelegate>
 
 /// The skein view
 @property (atomic, readonly, strong) IFSkeinView *skeinView;
 
-- (instancetype) initWithProjectController: (IFProjectController*) controller;
+- (instancetype) initWithProjectController: (IFProjectController*) controller
+                                  withPane: (IFProjectPane*) pane NS_DESIGNATED_INITIALIZER;
 
 - (void) selectActiveSkeinItem;
 -(BOOL) selectSkeinItemWithNodeId:(unsigned long) skeinItemNodeId;

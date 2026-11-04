@@ -57,6 +57,37 @@ class CBlorbProblem: NSObject, IFCompilerProblemHandler {
 	}
 }
 
+
+/// Class that deals with problems with intest.
+class IntestProblem: NSObject, IFCompilerProblemHandler {
+	/// `nil`, or the build directory that should be inspected for problem files.
+	private let buildDir: URL?
+
+	@objc(initWithBuildDirectoryURL:)
+	init(buildDirectory: URL?) {
+		buildDir = buildDirectory
+	}
+
+	@objc(initWithBuildDir:)
+	convenience init(buildDir: String?) {
+		let anURL: URL?
+		if let buildDir = buildDir {
+			anURL = URL(fileURLWithPath: buildDir)
+		} else {
+			anURL = nil
+		}
+		self.init(buildDirectory: anURL)
+	}
+
+	func urlForProblem(errorCode: Int32) -> URL? {
+		return IFUtility.temporaryDirectoryURL().appendingPathComponent("intest_results.html", isDirectory: false)
+	}
+
+	var urlForSuccess: URL? {
+		return IFUtility.temporaryDirectoryURL().appendingPathComponent("intest_results.html", isDirectory: false)
+	}
+}
+
 /// Class that deals with problems with the Inform 6 stage of a Natural Inform build process
 class Inform6Problem: NSObject, IFCompilerProblemHandler {
 	func urlForProblem(errorCode: Int32) -> URL? {

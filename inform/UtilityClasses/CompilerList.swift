@@ -32,7 +32,7 @@ import Foundation
 			return Entry(identifier: identifier, displayName: displayName, description: description)
 		}
 	}
-	
+
 	private override init() {}
 	
 	@objcMembers @objc(IFCompilerListEntry) class Entry: NSObject {

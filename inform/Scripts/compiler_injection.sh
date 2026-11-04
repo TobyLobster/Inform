@@ -62,6 +62,7 @@ if [ -d "${INFORM_CORE}" ]; then
     mkdir -p "${TEMP_STAGING_AREA}/Resources/Internal/Languages/Swedish"
     mkdir -p "${TEMP_STAGING_AREA}/Resources/Internal/Miscellany"
     mkdir -p "${TEMP_STAGING_AREA}/Resources/English.lproj"
+    mkdir -p "${TEMP_STAGING_AREA}/Resources/en.lproj"
     mkdir -p "${TEMP_STAGING_AREA}/Resources/map_icons"
 
     # Build Inform Core
@@ -97,6 +98,8 @@ if [ -d "${INFORM_CORE}" ]; then
     #
     set -x
 
+    cp -fr "${INFORM_CORE}/resources/App HTML/"                                 "${TEMP_STAGING_AREA}/Resources/"
+
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/blurbfile.icns"          "${STAGING_AREA}/Resources/App/Icons/blurbfile.icns"
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/i6file.icns"             "${STAGING_AREA}/Resources/App/Icons/i6file.icns"
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/i7file.icns"             "${STAGING_AREA}/Resources/App/Icons/i7file.icns"
@@ -130,12 +133,16 @@ if [ -d "${INFORM_CORE}" ]; then
     cp -rf "${INFORM_CORE}/retrospective/6M62/Internal/"                        "${STAGING_AREA}/Resources/retrospective/6M62"
 
     # Copy epubs here too...
-    cp -f "${INFORM_CORE}/resources/Documentation/Inform - A Design System for Interactive Fiction.epub" "${STAGING_AREA}/Resources/en.lproj/Inform - A Design System for Interactive Fiction.epub"
-    cp -f "${INFORM_CORE}/resources/Changes/Changes to Inform.epub"             "${STAGING_AREA}/Resources/en.lproj/Changes to Inform.epub"
+    #cp -f "${INFORM_CORE}/resources/Documentation/Inform - A Design System for Interactive Fiction.epub" "${STAGING_AREA}/Resources/en.lproj/Inform - A Design System for Interactive Fiction.epub"
+    #cp -f "${INFORM_CORE}/resources/Changes/Changes to Inform.epub"             "${STAGING_AREA}/Resources/en.lproj/Changes to Inform.epub"
+
+    # Copy interpreter executables (for testing extensions) here...
+    cp -f "${INFORM_CORE}/inform6/Tests/Assistants/dumb-glulx/glulxe/glulxe"    "${TEMP_STAGING_AREA}/MacOS/"
+    cp -f "${INFORM_CORE}/inform6/Tests/Assistants/dumb-frotz/dumb-frotz"       "${TEMP_STAGING_AREA}/MacOS/"
 
     # Replace the documentation in StagingArea with the latest from TempStagingArea
     rm -f "${STAGING_AREA}/Resources/en.lproj/"*
-    mv -f "${TEMP_STAGING_AREA}/Resources/English.lproj/"*                      "${STAGING_AREA}/Resources/en.lproj/"
+    mv -f "${TEMP_STAGING_AREA}/Resources/en.lproj/"*                           "${STAGING_AREA}/Resources/en.lproj/"
 
     rm -f "${STAGING_AREA}/Resources/map_icons/"*
     mv -f "${TEMP_STAGING_AREA}/Resources/map_icons/"*                          "${STAGING_AREA}/Resources/map_icons/"

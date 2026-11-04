@@ -83,8 +83,8 @@
     <!--END IGNORE-->
     <p class="sectionheading">§24.2. Debugging features to use in source</p>
     <p>The TEST command is an extremely useful way of managing a story and continuing to verify that it does everything we want. We can create new test commands of the form</p>
-    <!--START CODE "c8853"-->
-    <blockquote class="code"><p class="quoted"><a id="c8853"></a>Test me with &quot;up / kill captain eo&quot;.
+    <!--START CODE "c8879"-->
+    <blockquote class="code"><p class="quoted"><a id="c8879"></a>Test me with &quot;up / kill captain eo&quot;.
     <br>
     Test eo with &quot;zap eo&quot; holding the ray gun.
     <br>
@@ -93,8 +93,8 @@
     </blockquote>
     <!--END CODE-->
     <p>and we are free to have as many of these tests as we would like. Test commands can call other tests, as well, so we might have a test command such as</p>
-    <!--START CODE "c8854"-->
-    <blockquote class="code"><p class="quoted"><a id="c8854"></a>Test megatest with &quot;test me / test eo&quot;.
+    <!--START CODE "c8880"-->
+    <blockquote class="code"><p class="quoted"><a id="c8880"></a>Test megatest with &quot;test me / test eo&quot;.
     </p>
     </blockquote>
     <!--END CODE-->
@@ -102,8 +102,8 @@
     <p>For complicated objects and commands, sometimes it's a good idea to develop the test commands at the same time that we're writing the source code itself. Each time we add a new rule or piece of behavior, we also add to that object's special test command something that will put that new feature to the test. This means that we can keep running the test command as we work and verify that everything is behaving as expected.</p>
     <p>Sometimes we need to get a look at what is happening within the source itself. Many of the most annoying bugs come about because we're making some assumptions about what's true in the story world that differ from Inform's assumptions. When that happens, we may need to add something to the source to check that the variables are set to what we think, that certain parts of the source are being reached, and so on.</p>
     <p>For instance, suppose we have a phrase like this:</p>
-    <!--START CODE "c8855"-->
-    <blockquote class="code"><p class="quoted"><a id="c8855"></a>To say key score:
+    <!--START CODE "c8881"-->
+    <blockquote class="code"><p class="quoted"><a id="c8881"></a>To say key score:
     <br>
     &#160;&#160;&#160;&#160;let count be the number of keys which are not carried by the player;
     <br>
@@ -114,8 +114,8 @@
     </blockquote>
     <!--END CODE-->
     <p>Now, we expect this to print something, but perhaps it's not doing so when we had anticipated that it would. At some point when we think the count is greater than 2 and the player is timid, at least one of those things is not true. An easy way to check up on this is to add a showme line to the source, like so:</p>
-    <!--START CODE "c8856"-->
-    <blockquote class="code"><p class="quoted"><a id="c8856"></a>To say key score:
+    <!--START CODE "c8882"-->
+    <blockquote class="code"><p class="quoted"><a id="c8882"></a>To say key score:
     <br>
     &#160;&#160;&#160;&#160;let count be the number of keys which are not carried by the player;
     <br>
@@ -128,8 +128,8 @@
     </blockquote>
     <!--END CODE-->
     <p>and this will then check the relevant number and print it to screen when this phrase is called, like so</p>
-    <!--START CODE "c8857"-->
-    <blockquote class="code"><p class="quoted"><a id="c8857"></a>&quot;count&quot; = number: 1
+    <!--START CODE "c8883"-->
+    <blockquote class="code"><p class="quoted"><a id="c8883"></a>&quot;count&quot; = number: 1
     </p>
     </blockquote>
     <!--END CODE-->

@@ -62,32 +62,32 @@
 
     // Headings
     IFSyntaxHighlightingOption* option = self.options[IFSHOptionHeadings];
-    [option setFontStyle:           IFFontStyleRegular];
-    [option setRelativeFontSize:    IFFontSizePlus10];
+    option.fontStyle = IFFontStyleRegular;
+    option.relativeFontSize = IFFontSizePlus10;
     [option setUnderline:           true];
 
     // Main text
     option = self.options[IFSHOptionMainText];
-    [option setFontStyle:           IFFontStyleRegular];
-    [option setRelativeFontSize:    IFFontSizeNormal];
+    option.fontStyle = IFFontStyleRegular;
+    option.relativeFontSize = IFFontSizeNormal;
     [option setUnderline:           false];
 
     // Comments
     option = self.options[IFSHOptionComments];
-    [option setFontStyle:           IFFontStyleRegular];
-    [option setRelativeFontSize:    IFFontSizeNormal];
+    option.fontStyle = IFFontStyleRegular;
+    option.relativeFontSize = IFFontSizeNormal;
     [option setUnderline:           false];
 
     // Quoted text
     option = self.options[IFSHOptionQuotedText];
-    [option setFontStyle:           IFFontStyleRegular];
-    [option setRelativeFontSize:    IFFontSizeNormal];
+    option.fontStyle = IFFontStyleRegular;
+    option.relativeFontSize = IFFontSizeNormal;
     [option setUnderline:           false];
 
     // Text substitutions
     option = self.options[IFSHOptionTextSubstitutions];
-    [option setFontStyle:           IFFontStyleRegular];
-    [option setRelativeFontSize:    IFFontSizeNormal];
+    option.fontStyle = IFFontStyleRegular;
+    option.relativeFontSize = IFFontSizeNormal;
     [option setUnderline:           false];
 }
 
@@ -96,11 +96,11 @@
 	IFPreferences* prefs = [IFPreferences sharedPreferences];
 
     // Text section
-    [prefs setSourceFontFamily:     self.fontFamily];
-    [prefs setSourceFontSize:       self.fontSize];
+    prefs.sourceFontFamily = self.fontFamily;
+    prefs.sourceFontSize = self.fontSize;
 
     // Syntax highlighting section
-    [prefs setEnableSyntaxHighlighting: self.enableSyntaxHighlighting];
+    prefs.enableSyntaxHighlighting = self.enableSyntaxHighlighting;
     
     for( int optionIndex = IFSHOptionHeadings; optionIndex < IFSHOptionCount; optionIndex++ ) {
         IFSyntaxHighlightingOption* option = (self.options)[optionIndex];
@@ -110,25 +110,25 @@
     }
 
     // Tab width section
-    [prefs setTabWidth: self.tabWidth];
+    prefs.tabWidth = self.tabWidth;
     
     // Indenting section
-    [prefs setIndentAfterNewline: self.autoIndentAfterNewline];
-    [prefs setElasticTabs:        self.autoSpaceTableColumns];
+    prefs.indentAfterNewline = self.autoIndentAfterNewline;
+    prefs.elasticTabs = self.autoSpaceTableColumns;
 
     // Numbering section
-    [prefs setAutoNumberSections: self.autoNumberSections];
+    prefs.autoNumberSections = self.autoNumberSections;
 }
 
 -(void) updateSetFromAppPreferences {
 	IFPreferences* prefs = [IFPreferences sharedPreferences];
     
     // Text section
-    self.fontFamily          = [prefs sourceFontFamily];
-    self.fontSize            = [prefs sourceFontSize];
+    self.fontFamily          = prefs.sourceFontFamily;
+    self.fontSize            = prefs.sourceFontSize;
 
     // Syntax highlighting section
-    self.enableSyntaxHighlighting = [prefs enableSyntaxHighlighting];
+    self.enableSyntaxHighlighting = prefs.enableSyntaxHighlighting;
     for( int optionIndex = IFSHOptionHeadings; optionIndex < IFSHOptionCount; optionIndex++ ) {
         IFSyntaxHighlightingOption * option = (self.options)[optionIndex];
         option.fontStyle        = [prefs sourceFontStyleForOptionType:        optionIndex];
@@ -137,14 +137,14 @@
     }
 
     // Tab width section
-    self.tabWidth = [prefs tabWidth];
+    self.tabWidth = prefs.tabWidth;
 
     // Indenting section
-    self.autoIndentAfterNewline = [prefs indentAfterNewline];
-    self.autoSpaceTableColumns = [prefs elasticTabs];
+    self.autoIndentAfterNewline = prefs.indentAfterNewline;
+    self.autoSpaceTableColumns = prefs.elasticTabs;
     
     // Numbering section
-    self.autoNumberSections = [prefs autoNumberSections];
+    self.autoNumberSections = prefs.autoNumberSections;
 }
 
 - (IFSyntaxHighlightingOption*) optionOfType:(IFSyntaxHighlightingOptionType) type {

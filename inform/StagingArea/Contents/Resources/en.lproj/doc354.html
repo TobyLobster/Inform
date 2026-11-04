@@ -83,24 +83,24 @@
     <!--END IGNORE-->
     <p class="sectionheading">§21.5. Building lists</p>
     <p>We have already seen &quot;add... to...&quot;. This in fact comes in two forms:</p>
-        <!--START PHRASE "defn330"-->
+        <!--START PHRASE "defn337"-->
         <div class="definition">
-            <a id="defn330"></a><p class='defnprototype'><b>add </b>(value)<b> to </b>(list of values)<b></b></p>
+            <a id="defn337"></a><p class='defnprototype'><b>add </b>(value)<b> to </b>(list of values)<b></b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_addtolist-->
 
     <p>    This phrase adds the given value to the end of the list. Example:</p>
-    <!--START CODE "c8363"-->
-    <blockquote class="code"><p class="quoted"><a id="c8363"></a>let L be {60, 168};
+    <!--START CODE "c8387"-->
+    <blockquote class="code"><p class="quoted"><a id="c8387"></a>let L be {60, 168};
     <br>
     add 360 to L;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>results in L being {60, 168, 360}. Note that the value is added even if it already occurs somewhere in L; this can be avoided with &quot;if absent&quot;. So:</p>
-    <!--START CODE "c8364"-->
-    <blockquote class="code"><p class="quoted"><a id="c8364"></a>add 168 to L, if absent;
+    <!--START CODE "c8388"-->
+    <blockquote class="code"><p class="quoted"><a id="c8388"></a>add 168 to L, if absent;
     </p>
     </blockquote>
     <!--END CODE-->
@@ -109,16 +109,16 @@
         <!--end definition-->
     </div>
 
-        <!--START PHRASE "defn331"-->
+        <!--START PHRASE "defn338"-->
         <div class="definition">
-            <a id="defn331"></a><p class='defnprototype'><b>add </b>(list of values)<b> to </b>(list of values)<b></b></p>
+            <a id="defn338"></a><p class='defnprototype'><b>add </b>(list of values)<b> to </b>(list of values)<b></b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_addlisttolist-->
 
     <p>    This phrase adds the first list to the end of the second. Example:</p>
-    <!--START CODE "c8365"-->
-    <blockquote class="code"><p class="quoted"><a id="c8365"></a>let L be {2, 3, 5, 7};
+    <!--START CODE "c8389"-->
+    <blockquote class="code"><p class="quoted"><a id="c8389"></a>let L be {2, 3, 5, 7};
     <br>
     add {11, 13, 17, 19} to L;
     </p>
@@ -130,16 +130,16 @@
     </div>
 
     <p>If we don't want to add new entries at the end, we can instead say where they should go:</p>
-        <!--START PHRASE "defn332"-->
+        <!--START PHRASE "defn339"-->
         <div class="definition">
-            <a id="defn332"></a><p class='defnprototype'><b>add </b>(value)<b> at entry </b>(number)<b> in</b>/from<b> </b>(list of values)<b></b></p>
+            <a id="defn339"></a><p class='defnprototype'><b>add </b>(value)<b> at entry </b>(number)<b> in</b>/from<b> </b>(list of values)<b></b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_addatentry-->
 
     <p>    This phrase adds the given value so that it becomes the entry with that index number in the list. Example:</p>
-    <!--START CODE "c8366"-->
-    <blockquote class="code"><p class="quoted"><a id="c8366"></a>let L be {1, 2, 3, 4, 8, 24};
+    <!--START CODE "c8390"-->
+    <blockquote class="code"><p class="quoted"><a id="c8390"></a>let L be {1, 2, 3, 4, 8, 24};
     <br>
     add 12 at entry 6 in L;
     </p>
@@ -150,16 +150,16 @@
         <!--end definition-->
     </div>
 
-        <!--START PHRASE "defn333"-->
+        <!--START PHRASE "defn340"-->
         <div class="definition">
-            <a id="defn333"></a><p class='defnprototype'><b>add </b>(list of values)<b> at entry </b>(number)<b> in</b>/from<b> </b>(list of values)<b></b></p>
+            <a id="defn340"></a><p class='defnprototype'><b>add </b>(list of values)<b> at entry </b>(number)<b> in</b>/from<b> </b>(list of values)<b></b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_addlistatentry-->
 
     <p>    This phrase adds the first list to the second so that it begins at the given position. Example:</p>
-    <!--START CODE "c8367"-->
-    <blockquote class="code"><p class="quoted"><a id="c8367"></a>let L be {1, 2, 3, 4};
+    <!--START CODE "c8391"-->
+    <blockquote class="code"><p class="quoted"><a id="c8391"></a>let L be {1, 2, 3, 4};
     <br>
     add {4, 8, 12} at entry 3 in L;
     </p>
@@ -171,29 +171,29 @@
     </div>
 
     <p>A list is allowed to contain duplicates, and the order matters. For instance:</p>
-    <!--START CODE "c8368"-->
-    <blockquote class="code"><p class="quoted"><a id="c8368"></a>let L be {2, 2, 3};
+    <!--START CODE "c8392"-->
+    <blockquote class="code"><p class="quoted"><a id="c8392"></a>let L be {2, 2, 3};
     </p>
     </blockquote>
     <!--END CODE-->
     <p>makes L into &quot;2, 2 and 3&quot;. This is a different list to the one made by:</p>
-    <!--START CODE "c8369"-->
-    <blockquote class="code"><p class="quoted"><a id="c8369"></a>let M be {2, 3, 2};
+    <!--START CODE "c8393"-->
+    <blockquote class="code"><p class="quoted"><a id="c8393"></a>let M be {2, 3, 2};
     </p>
     </blockquote>
     <!--END CODE-->
     <p>even though L and M have the same values, repeated the same number of times - for two lists to be equal, they must have the same kind of entry, the same number of entries, and the same entries in each position.</p>
     <p>We can also strike out values:</p>
-        <!--START PHRASE "defn334"-->
+        <!--START PHRASE "defn341"-->
         <div class="definition">
-            <a id="defn334"></a><p class='defnprototype'><b>remove </b>(value)<b> in</b>/from<b> </b>(list of values)<b></b></p>
+            <a id="defn341"></a><p class='defnprototype'><b>remove </b>(value)<b> in</b>/from<b> </b>(list of values)<b></b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_remfromlist-->
 
     <p>    This phrase removes every instance of the given value from the list. Example:</p>
-    <!--START CODE "c8370"-->
-    <blockquote class="code"><p class="quoted"><a id="c8370"></a>let L be {3, 1, 4, 1, 5, 9, 2, 6, 5, 3};
+    <!--START CODE "c8394"-->
+    <blockquote class="code"><p class="quoted"><a id="c8394"></a>let L be {3, 1, 4, 1, 5, 9, 2, 6, 5, 3};
     <br>
     remove 1 from L;
     </p>
@@ -204,16 +204,16 @@
         <!--end definition-->
     </div>
 
-        <!--START PHRASE "defn335"-->
+        <!--START PHRASE "defn342"-->
         <div class="definition">
-            <a id="defn335"></a><p class='defnprototype'><b>remove </b>(list of values)<b> in</b>/from<b> </b>(list of values)<b></b></p>
+            <a id="defn342"></a><p class='defnprototype'><b>remove </b>(list of values)<b> in</b>/from<b> </b>(list of values)<b></b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_remlistfromlist-->
 
     <p>    This phrase removes every instance of any value in the first list from the second. Example:</p>
-    <!--START CODE "c8371"-->
-    <blockquote class="code"><p class="quoted"><a id="c8371"></a>let L be {3, 1, 4, 1, 5, 9, 2, 6, 5, 3};
+    <!--START CODE "c8395"-->
+    <blockquote class="code"><p class="quoted"><a id="c8395"></a>let L be {3, 1, 4, 1, 5, 9, 2, 6, 5, 3};
     <br>
     remove {0, 2, 4, 6, 8} from L;
     </p>
@@ -225,16 +225,16 @@
     </div>
 
     <p>Again, we can also remove from specific positions:</p>
-        <!--START PHRASE "defn336"-->
+        <!--START PHRASE "defn343"-->
         <div class="definition">
-            <a id="defn336"></a><p class='defnprototype'><b>remove entry </b>(number)<b> in</b>/from<b> </b>(list of values)<b></b></p>
+            <a id="defn343"></a><p class='defnprototype'><b>remove entry </b>(number)<b> in</b>/from<b> </b>(list of values)<b></b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_rementry-->
 
     <p>    This phrase removes the entry at the given position, counting from 1 as the first entry. (Once it is removed, the other entries shuffle down.) Example:</p>
-    <!--START CODE "c8372"-->
-    <blockquote class="code"><p class="quoted"><a id="c8372"></a>let L be {3, 1, 4, 1, 5, 9, 2, 6, 5, 3};
+    <!--START CODE "c8396"-->
+    <blockquote class="code"><p class="quoted"><a id="c8396"></a>let L be {3, 1, 4, 1, 5, 9, 2, 6, 5, 3};
     <br>
     remove entry 3 from L;
     </p>
@@ -245,16 +245,16 @@
         <!--end definition-->
     </div>
 
-        <!--START PHRASE "defn337"-->
+        <!--START PHRASE "defn344"-->
         <div class="definition">
-            <a id="defn337"></a><p class='defnprototype'><b>remove entries </b>(number)<b> to </b>(number)<b> in</b>/from<b> </b>(list of values)<b></b></p>
+            <a id="defn344"></a><p class='defnprototype'><b>remove entries </b>(number)<b> to </b>(number)<b> in</b>/from<b> </b>(list of values)<b></b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_rementries-->
 
     <p>    This phrase removes the entries at the given range of positions, counting from 1 as the first entry. (Once they are removed, the other entries shuffle down.) Example:</p>
-    <!--START CODE "c8373"-->
-    <blockquote class="code"><p class="quoted"><a id="c8373"></a>let L be {3, 1, 4, 1, 5, 9, 2, 6, 5, 3};
+    <!--START CODE "c8397"-->
+    <blockquote class="code"><p class="quoted"><a id="c8397"></a>let L be {3, 1, 4, 1, 5, 9, 2, 6, 5, 3};
     <br>
     remove entries 3 to 6 from L;
     </p>
@@ -268,71 +268,71 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "425: Robo 1" "e325"-->
-        <a id="e325"></a><table class="egcue">
+        <!--START EXAMPLE "426: Robo 1" "e313"-->
+        <a id="e313"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example325'); return false;"><b>425</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example313'); return false;"><b>426</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example325'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Robo 1</span></b></a><br>
-                    A robot which watches and records the player's actions, then tries to repeat them back in the same order when he is switched into play-back mode.</p>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example313'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Robo 1</span></b></a><br>
+                    A robot which watches and records the player's actions, then tries to repeat them back in the same order when it is switched into play-back mode.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc58.html#e325"><i>RB</i></a></div>
+                        <a href="Rdoc58.html#e313"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example325" style="display: none;">
-            <!--START CODE "c8374_325"-->
-            <blockquote class="code"><p class="quoted"><a id="c8374_325"></a><a href="javascript:pasteCode('[=0x0022=]Robo[=0x0022=][=0x000A=][=0x000A=]The Experimentation Chamber is a room. Robo is a man in the Experimentation Chamber. [=0x0022=]Robo, your prototype tin companion, stands awkwardly beside you. In the middle of his chest is a red enamel button[if the red button is switched on], currently depressed[otherwise], currently un-depressed[end if].[=0x0022=][=0x000A=][=0x000A=]The red button is a device. It is part of Robo. Instead of pushing the red button: if the red button is switched off, try switching on the red button; otherwise try switching off the red button.[=0x000A=][=0x000A=]After switching on the red button:[=0x000A=][=0x0009=]say [=0x0022=]CLICK! Robo is now in play-back mode.[=0x0022=][=0x000A=][=0x000A=]After switching off the red button:[=0x000A=][=0x0009=]say [=0x0022=]CLACK! Robo is now in observation mode.[=0x0022=][=0x000A=][=0x000A=]Definition: Robo is watching if the red button is switched off.[=0x000A=][=0x000A=]The current instruction set is a list of stored actions that varies.[=0x000A=][=0x000A=]After doing something when Robo is watching and Robo can see the player:[=0x000A=][=0x0009=]now the actor is Robo;[=0x000A=][=0x0009=]add the current action to the current instruction set;[=0x000A=][=0x0009=]now the actor is the player;[=0x000A=][=0x0009=]say [=0x0022=]Robo watches you [the current action][one of], his yellow eyes lamp-like and observant[or]. In his metal head, gears whirr[or], his brushed-copper handlebar moustaches twitching[or] impassively[at random].[=0x0022=];[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]Every turn when Robo is not watching:[=0x000A=][=0x0009=]if the number of entries in the current instruction set is 0:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Robo has run out of behavior and grinds to an (expectant) halt.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the red button is switched off;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]let the next task be entry 1 of the current instruction set;[=0x000A=][=0x0009=][=0x0009=]try the next task;[=0x000A=][=0x0009=][=0x0009=]remove entry 1 from the current instruction set.[=0x000A=][=0x000A=]The red block and the blue cylinder are things in the Experimentation Chamber. The counter is a supporter in the Experimentation Chamber. The counter is scenery.[=0x000A=][=0x000A=]Report Robo examining Robo:[=0x000A=][=0x0009=]say [=0x0022=]Robo examines each of his hands in turn, then each of his legs (bending over mostly double in the middle to do this).[=0x0022=] instead.[=0x000A=][=0x000A=]Report Robo examining the player:[=0x000A=][=0x0009=]say [=0x0022=]Robo stares at you, unblinkingly, for several seconds together[if a random chance of 1 in 7 succeeds]. His left moustache-bar twitches infinitesimally upward[end if].[=0x0022=] instead.[=0x000A=][=0x000A=]Report Robo taking the cylinder:[=0x000A=][=0x0009=]say [=0x0022=][one of][Robo] needs several attempts to get his metal fingers around [the cylinder] -- they are not designed for grasping small objects elegantly. But at last he succeeds[or]Once again, Robo struggles a bit before picking up [the cylinder][stopping].[=0x0022=] instead.[=0x000A=][=0x000A=]Test me with [=0x0022=]z / take cylinder / take block / put cylinder on counter / put block on counter / x robo / x me / get block / drop block / press red button / z / z / z / z / z / z / z / z / z / z[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Robo[=0x0022=][=0x000A=][=0x000A=]The Experimentation Chamber is a room. Robo is a man in the Experimentation Chamber. [=0x0022=]Robo, your prototype tin companion, stands awkwardly beside you. In the middle of his chest is a red enamel button[if the red button is switched on], currently depressed[otherwise], currently un-depressed[end if].[=0x0022=][=0x000A=][=0x000A=]The red button is a device. It is part of Robo. Instead of pushing the red button: if the red button is switched off, try switching on the red button; otherwise try switching off the red button.[=0x000A=][=0x000A=]After switching on the red button:[=0x000A=][=0x0009=]say [=0x0022=]CLICK! Robo is now in play-back mode.[=0x0022=][=0x000A=][=0x000A=]After switching off the red button:[=0x000A=][=0x0009=]say [=0x0022=]CLACK! Robo is now in observation mode.[=0x0022=][=0x000A=][=0x000A=]Definition: Robo is watching if the red button is switched off.[=0x000A=][=0x000A=]The current instruction set is a list of stored actions that varies.[=0x000A=][=0x000A=]After doing something when Robo is watching and Robo can see the player:[=0x000A=][=0x0009=]now the actor is Robo;[=0x000A=][=0x0009=]add the current action to the current instruction set;[=0x000A=][=0x0009=]now the actor is the player;[=0x000A=][=0x0009=]say [=0x0022=]Robo watches you [the current action][one of], his yellow eyes lamp-like and observant[or]. In his metal head, gears whirr[or], his brushed-copper handlebar moustaches twitching[or] impassively[at random].[=0x0022=];[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]Every turn when Robo is not watching:[=0x000A=][=0x0009=]if the number of entries in the current instruction set is 0:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Robo has run out of behavior and grinds to an (expectant) halt.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the red button is switched off;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]let the next task be entry 1 of the current instruction set;[=0x000A=][=0x0009=][=0x0009=]try the next task;[=0x000A=][=0x0009=][=0x0009=]remove entry 1 from the current instruction set.[=0x000A=][=0x000A=]The red block and the blue cylinder are things in the Experimentation Chamber. The counter is a supporter in the Experimentation Chamber. The counter is scenery.[=0x000A=][=0x000A=]Report Robo examining Robo:[=0x000A=][=0x0009=]say [=0x0022=]Robo examines each of his hands in turn, then each of his legs (bending over mostly double in the middle to do this).[=0x0022=] instead.[=0x000A=][=0x000A=]Report Robo examining the player:[=0x000A=][=0x0009=]say [=0x0022=]Robo stares at you, unblinkingly, for several seconds together[if a random chance of 1 in 7 succeeds]. His left moustache-bar twitches infinitesimally upward[end if].[=0x0022=] instead.[=0x000A=][=0x000A=]Report Robo taking the cylinder:[=0x000A=][=0x0009=]say [=0x0022=][one of][Robo] needs several attempts to get his metal fingers around [the cylinder] -- they are not designed for grasping small objects elegantly. But at last he succeeds[or]Once again, Robo struggles a bit before picking up [the cylinder][stopping].[=0x0022=] instead.[=0x000A=][=0x000A=]Test me with [=0x0022=]z / take cylinder / take block / put cylinder on counter / put block on counter / x robo / x me / get block / drop block / press red button / z / z / z / z / z / z / z / z / z / z[=0x0022=].[=0x000A=]\n', 'Example - Robo 1')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Robo&quot;
+        <div class="egpanel" id="example313" style="display: none;">
+            <!--START CODE "c8398_313"-->
+            <blockquote class="code"><p class="quoted"><a id="c8398_313"></a><a href="javascript:pasteCode('[=0x0022=]Robo[=0x0022=][=0x000A=][=0x000A=]The Experimentation Chamber is a room. Robo is a person in the Experimentation Chamber. [=0x0022=]Robo, your prototype tin companion, stands awkwardly beside you. In the middle of its chest is a red enamel button[if the red button is switched on], currently depressed[otherwise], currently un-depressed[end if].[=0x0022=][=0x000A=][=0x000A=]The red button is a device. It is part of Robo. Instead of pushing the red button: if the red button is switched off, try switching on the red button; otherwise try switching off the red button.[=0x000A=][=0x000A=]After switching on the red button:[=0x000A=][=0x0009=]say [=0x0022=]CLICK! Robo is now in play-back mode.[=0x0022=][=0x000A=][=0x000A=]After switching off the red button:[=0x000A=][=0x0009=]say [=0x0022=]CLACK! Robo is now in observation mode.[=0x0022=][=0x000A=][=0x000A=]Definition: Robo is watching if the red button is switched off.[=0x000A=][=0x000A=]The current instruction set is a list of stored actions that varies.[=0x000A=][=0x000A=]After doing something when Robo is watching and Robo can see the player:[=0x000A=][=0x0009=]now the actor is Robo;[=0x000A=][=0x0009=]add the current action to the current instruction set;[=0x000A=][=0x0009=]now the actor is the player;[=0x000A=][=0x0009=]say [=0x0022=]Robo watches you [the current action][one of], its yellow eyes lamp-like and observant[or]. In its metal head, gears whirr[or], its brushed-copper handlebar moustaches twitching[or] impassively[at random].[=0x0022=];[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]Every turn when Robo is not watching:[=0x000A=][=0x0009=]if the number of entries in the current instruction set is 0:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Robo has run out of behavior and grinds to an (expectant) halt.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the red button is switched off;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]let the next task be entry 1 of the current instruction set;[=0x000A=][=0x0009=][=0x0009=]try the next task;[=0x000A=][=0x0009=][=0x0009=]remove entry 1 from the current instruction set.[=0x000A=][=0x000A=]The red block and the blue cylinder are things in the Experimentation Chamber. The counter is a supporter in the Experimentation Chamber. The counter is scenery.[=0x000A=][=0x000A=]Report Robo examining Robo:[=0x000A=][=0x0009=]say [=0x0022=]Robo examines each of its hands in turn, then each of his legs (bending over mostly double in the middle to do this).[=0x0022=] instead.[=0x000A=][=0x000A=]Report Robo examining the player:[=0x000A=][=0x0009=]say [=0x0022=]Robo stares at you, unblinkingly, for several seconds together[if a random chance of 1 in 7 succeeds]. Its left moustache-bar twitches infinitesimally upward[end if].[=0x0022=] instead.[=0x000A=][=0x000A=]Report Robo taking the cylinder:[=0x000A=][=0x0009=]say [=0x0022=][one of][Robo] needs several attempts to get its metal fingers around [the cylinder] -- they are not designed for grasping small objects elegantly. But at last it succeeds[or]Once again, Robo struggles a bit before picking up [the cylinder][stopping].[=0x0022=] instead.[=0x000A=][=0x000A=]Test me with [=0x0022=]z / take cylinder / take block / put cylinder on counter / put block on counter / x robo / x me / get block / drop block / press red button / z / z / z / z / z / z / z / z / z / z[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Robo[=0x0022=][=0x000A=][=0x000A=]The Experimentation Chamber is a room. Robo is a person in the Experimentation Chamber. [=0x0022=]Robo, your prototype tin companion, stands awkwardly beside you. In the middle of its chest is a red enamel button[if the red button is switched on], currently depressed[otherwise], currently un-depressed[end if].[=0x0022=][=0x000A=][=0x000A=]The red button is a device. It is part of Robo. Instead of pushing the red button: if the red button is switched off, try switching on the red button; otherwise try switching off the red button.[=0x000A=][=0x000A=]After switching on the red button:[=0x000A=][=0x0009=]say [=0x0022=]CLICK! Robo is now in play-back mode.[=0x0022=][=0x000A=][=0x000A=]After switching off the red button:[=0x000A=][=0x0009=]say [=0x0022=]CLACK! Robo is now in observation mode.[=0x0022=][=0x000A=][=0x000A=]Definition: Robo is watching if the red button is switched off.[=0x000A=][=0x000A=]The current instruction set is a list of stored actions that varies.[=0x000A=][=0x000A=]After doing something when Robo is watching and Robo can see the player:[=0x000A=][=0x0009=]now the actor is Robo;[=0x000A=][=0x0009=]add the current action to the current instruction set;[=0x000A=][=0x0009=]now the actor is the player;[=0x000A=][=0x0009=]say [=0x0022=]Robo watches you [the current action][one of], its yellow eyes lamp-like and observant[or]. In its metal head, gears whirr[or], its brushed-copper handlebar moustaches twitching[or] impassively[at random].[=0x0022=];[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]Every turn when Robo is not watching:[=0x000A=][=0x0009=]if the number of entries in the current instruction set is 0:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Robo has run out of behavior and grinds to an (expectant) halt.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the red button is switched off;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]let the next task be entry 1 of the current instruction set;[=0x000A=][=0x0009=][=0x0009=]try the next task;[=0x000A=][=0x0009=][=0x0009=]remove entry 1 from the current instruction set.[=0x000A=][=0x000A=]The red block and the blue cylinder are things in the Experimentation Chamber. The counter is a supporter in the Experimentation Chamber. The counter is scenery.[=0x000A=][=0x000A=]Report Robo examining Robo:[=0x000A=][=0x0009=]say [=0x0022=]Robo examines each of its hands in turn, then each of his legs (bending over mostly double in the middle to do this).[=0x0022=] instead.[=0x000A=][=0x000A=]Report Robo examining the player:[=0x000A=][=0x0009=]say [=0x0022=]Robo stares at you, unblinkingly, for several seconds together[if a random chance of 1 in 7 succeeds]. Its left moustache-bar twitches infinitesimally upward[end if].[=0x0022=] instead.[=0x000A=][=0x000A=]Report Robo taking the cylinder:[=0x000A=][=0x0009=]say [=0x0022=][one of][Robo] needs several attempts to get its metal fingers around [the cylinder] -- they are not designed for grasping small objects elegantly. But at last it succeeds[or]Once again, Robo struggles a bit before picking up [the cylinder][stopping].[=0x0022=] instead.[=0x000A=][=0x000A=]Test me with [=0x0022=]z / take cylinder / take block / put cylinder on counter / put block on counter / x robo / x me / get block / drop block / press red button / z / z / z / z / z / z / z / z / z / z[=0x0022=].[=0x000A=]\n', 'Example - Robo 1')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Robo&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8375_325"-->
-            <blockquote class="code"><p class="quoted"><a id="c8375_325"></a>The Experimentation Chamber is a room. Robo is a man in the Experimentation Chamber. &quot;Robo, your prototype tin companion, stands awkwardly beside you. In the middle of his chest is a red enamel button[if the red button is switched on], currently depressed[otherwise], currently un-depressed[end if].&quot;
+            <!--START CODE "c8399_313"-->
+            <blockquote class="code"><p class="quoted"><a id="c8399_313"></a>The Experimentation Chamber is a room. Robo is a person in the Experimentation Chamber. &quot;Robo, your prototype tin companion, stands awkwardly beside you. In the middle of its chest is a red enamel button[if the red button is switched on], currently depressed[otherwise], currently un-depressed[end if].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8376_325"-->
-            <blockquote class="code"><p class="quoted"><a id="c8376_325"></a>The red button is a device. It is part of Robo. Instead of pushing the red button: if the red button is switched off, try switching on the red button; otherwise try switching off the red button.
+            <!--START CODE "c8400_313"-->
+            <blockquote class="code"><p class="quoted"><a id="c8400_313"></a>The red button is a device. It is part of Robo. Instead of pushing the red button: if the red button is switched off, try switching on the red button; otherwise try switching off the red button.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8377_325"-->
-            <blockquote class="code"><p class="quoted"><a id="c8377_325"></a>After switching on the red button:
+            <!--START CODE "c8401_313"-->
+            <blockquote class="code"><p class="quoted"><a id="c8401_313"></a>After switching on the red button:
             <br>
             &#160;&#160;&#160;&#160;say &quot;CLICK! Robo is now in play-back mode.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8378_325"-->
-            <blockquote class="code"><p class="quoted"><a id="c8378_325"></a>After switching off the red button:
+            <!--START CODE "c8402_313"-->
+            <blockquote class="code"><p class="quoted"><a id="c8402_313"></a>After switching off the red button:
             <br>
             &#160;&#160;&#160;&#160;say &quot;CLACK! Robo is now in observation mode.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8379_325"-->
-            <blockquote class="code"><p class="quoted"><a id="c8379_325"></a>Definition: Robo is watching if the red button is switched off.
+            <!--START CODE "c8403_313"-->
+            <blockquote class="code"><p class="quoted"><a id="c8403_313"></a>Definition: Robo is watching if the red button is switched off.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8380_325"-->
-            <blockquote class="code"><p class="quoted"><a id="c8380_325"></a>The current instruction set is a list of stored actions that varies.
+            <!--START CODE "c8404_313"-->
+            <blockquote class="code"><p class="quoted"><a id="c8404_313"></a>The current instruction set is a list of stored actions that varies.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8381_325"-->
-            <blockquote class="code"><p class="quoted"><a id="c8381_325"></a>After doing something when Robo is watching and Robo can see the player:
+            <!--START CODE "c8405_313"-->
+            <blockquote class="code"><p class="quoted"><a id="c8405_313"></a>After doing something when Robo is watching and Robo can see the player:
             <br>
             &#160;&#160;&#160;&#160;now the actor is Robo;
             <br>
@@ -340,14 +340,14 @@
             <br>
             &#160;&#160;&#160;&#160;now the actor is the player;
             <br>
-            &#160;&#160;&#160;&#160;say &quot;Robo watches you [the current action][one of], his yellow eyes lamp-like and observant[or]. In his metal head, gears whirr[or], his brushed-copper handlebar moustaches twitching[or] impassively[at random].&quot;;
+            &#160;&#160;&#160;&#160;say &quot;Robo watches you [the current action][one of], its yellow eyes lamp-like and observant[or]. In its metal head, gears whirr[or], its brushed-copper handlebar moustaches twitching[or] impassively[at random].&quot;;
             <br>
             &#160;&#160;&#160;&#160;continue the action.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8382_325"-->
-            <blockquote class="code"><p class="quoted"><a id="c8382_325"></a>Every turn when Robo is not watching:
+            <!--START CODE "c8406_313"-->
+            <blockquote class="code"><p class="quoted"><a id="c8406_313"></a>Every turn when Robo is not watching:
             <br>
             &#160;&#160;&#160;&#160;if the number of entries in the current instruction set is 0:
             <br>
@@ -365,34 +365,34 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8383_325"-->
-            <blockquote class="code"><p class="quoted"><a id="c8383_325"></a>The red block and the blue cylinder are things in the Experimentation Chamber. The counter is a supporter in the Experimentation Chamber. The counter is scenery.
+            <!--START CODE "c8407_313"-->
+            <blockquote class="code"><p class="quoted"><a id="c8407_313"></a>The red block and the blue cylinder are things in the Experimentation Chamber. The counter is a supporter in the Experimentation Chamber. The counter is scenery.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8384_325"-->
-            <blockquote class="code"><p class="quoted"><a id="c8384_325"></a>Report Robo examining Robo:
+            <!--START CODE "c8408_313"-->
+            <blockquote class="code"><p class="quoted"><a id="c8408_313"></a>Report Robo examining Robo:
             <br>
-            &#160;&#160;&#160;&#160;say &quot;Robo examines each of his hands in turn, then each of his legs (bending over mostly double in the middle to do this).&quot; instead.
+            &#160;&#160;&#160;&#160;say &quot;Robo examines each of its hands in turn, then each of his legs (bending over mostly double in the middle to do this).&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8385_325"-->
-            <blockquote class="code"><p class="quoted"><a id="c8385_325"></a>Report Robo examining the player:
+            <!--START CODE "c8409_313"-->
+            <blockquote class="code"><p class="quoted"><a id="c8409_313"></a>Report Robo examining the player:
             <br>
-            &#160;&#160;&#160;&#160;say &quot;Robo stares at you, unblinkingly, for several seconds together[if a random chance of 1 in 7 succeeds]. His left moustache-bar twitches infinitesimally upward[end if].&quot; instead.
+            &#160;&#160;&#160;&#160;say &quot;Robo stares at you, unblinkingly, for several seconds together[if a random chance of 1 in 7 succeeds]. Its left moustache-bar twitches infinitesimally upward[end if].&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8386_325"-->
-            <blockquote class="code"><p class="quoted"><a id="c8386_325"></a>Report Robo taking the cylinder:
+            <!--START CODE "c8410_313"-->
+            <blockquote class="code"><p class="quoted"><a id="c8410_313"></a>Report Robo taking the cylinder:
             <br>
-            &#160;&#160;&#160;&#160;say &quot;[one of][Robo] needs several attempts to get his metal fingers around [the cylinder] -- they are not designed for grasping small objects elegantly. But at last he succeeds[or]Once again, Robo struggles a bit before picking up [the cylinder][stopping].&quot; instead.
+            &#160;&#160;&#160;&#160;say &quot;[one of][Robo] needs several attempts to get its metal fingers around [the cylinder] -- they are not designed for grasping small objects elegantly. But at last it succeeds[or]Once again, Robo struggles a bit before picking up [the cylinder][stopping].&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8387_325"-->
-            <blockquote class="code"><p class="quoted"><a id="c8387_325"></a>Test me with &quot;z / take cylinder / take block / put cylinder on counter / put block on counter / x robo / x me / get block / drop block / press red button / z / z / z / z / z / z / z / z / z / z&quot;.
+            <!--START CODE "c8411_313"-->
+            <blockquote class="code"><p class="quoted"><a id="c8411_313"></a>Test me with &quot;z / take cylinder / take block / put cylinder on counter / put block on counter / x robo / x me / get block / drop block / press red button / z / z / z / z / z / z / z / z / z / z&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

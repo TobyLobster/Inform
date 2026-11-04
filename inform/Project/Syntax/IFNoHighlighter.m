@@ -59,7 +59,7 @@
 }
 
 - (CGFloat) tabStopWidth {
-	return [[IFPreferences sharedPreferences] tabWidth];
+	return [IFPreferences sharedPreferences].tabWidth;
 }
 
 @end

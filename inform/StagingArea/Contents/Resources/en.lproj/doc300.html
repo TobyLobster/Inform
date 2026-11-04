@@ -84,72 +84,72 @@
     <p class="sectionheading">§18.16. Printing room description details of something</p>
     <p><span class="boldface">1. When it happens.</span> When an item is listed in the miscellaneous collection of items present in a room (the ones which do not deserve their own paragraphs): this is normally the last paragraph of a room description.</p>
     <p><span class="boldface">2. The default behaviour.</span> A bracketed piece of extra information is added for certain items such as containers:</p>
-    <!--START CODE "c6547"-->
-    <blockquote class="code"><p class="quoted"><a id="c6547"></a>You can also see Po and a cage (empty) here.
+    <!--START CODE "c6563"-->
+    <blockquote class="code"><p class="quoted"><a id="c6563"></a>You can also see Po and a cage (empty) here.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>The &quot; (empty)&quot; (note initial space) was added by this activity. (Note that this activity is not responsible for describing further items visible because of the item in question: that is, it does not print the text such as &quot;(in which is a notepad)&quot; which would appear if there were contents. If we want to remove such text, we should use &quot;omit contents in listing&quot;: see the activity &quot;for printing the name of something&quot;.)</p>
     <p><span class="boldface">3. Examples.</span> (a) To get rid of such addenda entirely, try:</p>
-    <!--START CODE "c6548"-->
-    <blockquote class="code"><p class="quoted"><a id="c6548"></a>Rule for printing room description details: stop.
+    <!--START CODE "c6564"-->
+    <blockquote class="code"><p class="quoted"><a id="c6564"></a>Rule for printing room description details: stop.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>(b) To add a new form of addendum:</p>
-    <!--START CODE "c6549"-->
-    <blockquote class="code"><p class="quoted"><a id="c6549"></a>Rule for printing room description details of a person:
+    <!--START CODE "c6565"-->
+    <blockquote class="code"><p class="quoted"><a id="c6565"></a>Rule for printing room description details of a person:
     <br>
     &#160;&#160;&#160;&#160;say &quot; (at last, someone to talk to)&quot; instead.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>If both examples (a) and (b) are in place at once, we might now read:</p>
-    <!--START CODE "c6550"-->
-    <blockquote class="code"><p class="quoted"><a id="c6550"></a>You can also see Po (at last, someone to talk to) and a cage here.
+    <!--START CODE "c6566"-->
+    <blockquote class="code"><p class="quoted"><a id="c6566"></a>You can also see Po (at last, someone to talk to) and a cage here.
     </p>
     </blockquote>
     <!--END CODE-->
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "346: Rules of Attraction" "e234"-->
-        <a id="e234"></a><table class="egcue">
+        <!--START EXAMPLE "347: Rules of Attraction" "e318"-->
+        <a id="e318"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example234'); return false;"><b>346</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example318'); return false;"><b>347</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example234'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Rules of Attraction</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example318'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Rules of Attraction</span></b></a><br>
                     A magnet which picks up nearby metal objects, and describes itself appropriately in room descriptions and inventory listings, but otherwise goes by its ordinary name.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc86.html#e234"><i>RB</i></a></div>
+                        <a href="Rdoc86.html#e318"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example234" style="display: none;">
+        <div class="egpanel" id="example318" style="display: none;">
             <p>Often we have some salient features of an object that we want to make sure the player notices whenever looking at the item in a room or in inventory. At other times, we may prefer to allow the name of the item to be printed bare. So for instance:</p>
-            <!--START CODE "c6551_234"-->
-            <blockquote class="code"><p class="quoted"><a id="c6551_234"></a><a href="javascript:pasteCode('[=0x0022=]Rules of Attraction[=0x0022=][=0x000A=][=0x000A=]A metal form is a kind of thing. A magnet is a kind of metal form.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]repeat with item running through nonmagnetic metal forms which are not part of something:[=0x000A=][=0x0009=][=0x0009=]if item is in a container which contains a magnet (called attractor):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][The item] sticks to [the attractor].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now the item is part of the attractor.[=0x000A=][=0x000A=]The horseshoe magnet is a magnet carried by the player. The nail is a metal form carried by the player. The Barn is a room. In the Barn is a bucket. In the bucket is a metal form called the iron hook.[=0x000A=][=0x000A=]Definition: a thing is nonmagnetic if it is not a magnet.[=0x000A=][=0x000A=]Rule for printing room description details of a magnet (called attractor): if something is part of the attractor, say [=0x0022=] (stuck to which [is-are the list of things which are part of the attractor])[=0x0022=].[=0x000A=][=0x000A=]After printing the name of a magnet (called attractor) while taking inventory:[=0x000A=][=0x0009=]if something is part of the attractor, say [=0x0022=] (stuck to which [is-are the list of things which are part of the attractor])[=0x0022=].[=0x000A=][=0x000A=]Before taking a touchable thing which is part of a magnet (called attractor):[=0x000A=][=0x0009=]move the noun to the holder of the attractor.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / put horseshoe in bucket / look / get horseshoe / i / drop horseshoe / i / look / get all / put all in bucket / i / x magnet / get nail / i[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Rules of Attraction[=0x0022=][=0x000A=][=0x000A=]A metal form is a kind of thing. A magnet is a kind of metal form.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]repeat with item running through nonmagnetic metal forms which are not part of something:[=0x000A=][=0x0009=][=0x0009=]if item is in a container which contains a magnet (called attractor):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][The item] sticks to [the attractor].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now the item is part of the attractor.[=0x000A=][=0x000A=]The horseshoe magnet is a magnet carried by the player. The nail is a metal form carried by the player. The Barn is a room. In the Barn is a bucket. In the bucket is a metal form called the iron hook.[=0x000A=][=0x000A=]Definition: a thing is nonmagnetic if it is not a magnet.[=0x000A=][=0x000A=]Rule for printing room description details of a magnet (called attractor): if something is part of the attractor, say [=0x0022=] (stuck to which [is-are the list of things which are part of the attractor])[=0x0022=].[=0x000A=][=0x000A=]After printing the name of a magnet (called attractor) while taking inventory:[=0x000A=][=0x0009=]if something is part of the attractor, say [=0x0022=] (stuck to which [is-are the list of things which are part of the attractor])[=0x0022=].[=0x000A=][=0x000A=]Before taking a touchable thing which is part of a magnet (called attractor):[=0x000A=][=0x0009=]move the noun to the holder of the attractor.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / put horseshoe in bucket / look / get horseshoe / i / drop horseshoe / i / look / get all / put all in bucket / i / x magnet / get nail / i[=0x0022=].[=0x000A=]\n', 'Example - Rules of Attraction')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Rules of Attraction&quot;
+            <!--START CODE "c6567_318"-->
+            <blockquote class="code"><p class="quoted"><a id="c6567_318"></a><a href="javascript:pasteCode('[=0x0022=]Rules of Attraction[=0x0022=][=0x000A=][=0x000A=]A metal form is a kind of thing. A magnet is a kind of metal form.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]repeat with item running through nonmagnetic metal forms which are not part of something:[=0x000A=][=0x0009=][=0x0009=]if item is in a container which contains a magnet (called attractor):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][The item] sticks to [the attractor].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now the item is part of the attractor.[=0x000A=][=0x000A=]The horseshoe magnet is a magnet carried by the player. The nail is a metal form carried by the player. The Barn is a room. In the Barn is a bucket. In the bucket is a metal form called the iron hook.[=0x000A=][=0x000A=]Definition: a thing is nonmagnetic if it is not a magnet.[=0x000A=][=0x000A=]Rule for printing room description details of a magnet (called attractor): if something is part of the attractor, say [=0x0022=] (stuck to which [is-are the list of things which are part of the attractor])[=0x0022=].[=0x000A=][=0x000A=]After printing the name of a magnet (called attractor) while taking inventory:[=0x000A=][=0x0009=]if something is part of the attractor, say [=0x0022=] (stuck to which [is-are the list of things which are part of the attractor])[=0x0022=].[=0x000A=][=0x000A=]Before taking a touchable thing which is part of a magnet (called attractor):[=0x000A=][=0x0009=]move the noun to the holder of the attractor.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / put horseshoe in bucket / look / get horseshoe / i / drop horseshoe / i / look / get all / put all in bucket / i / x magnet / get nail / i[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Rules of Attraction[=0x0022=][=0x000A=][=0x000A=]A metal form is a kind of thing. A magnet is a kind of metal form.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]repeat with item running through nonmagnetic metal forms which are not part of something:[=0x000A=][=0x0009=][=0x0009=]if item is in a container which contains a magnet (called attractor):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][The item] sticks to [the attractor].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now the item is part of the attractor.[=0x000A=][=0x000A=]The horseshoe magnet is a magnet carried by the player. The nail is a metal form carried by the player. The Barn is a room. In the Barn is a bucket. In the bucket is a metal form called the iron hook.[=0x000A=][=0x000A=]Definition: a thing is nonmagnetic if it is not a magnet.[=0x000A=][=0x000A=]Rule for printing room description details of a magnet (called attractor): if something is part of the attractor, say [=0x0022=] (stuck to which [is-are the list of things which are part of the attractor])[=0x0022=].[=0x000A=][=0x000A=]After printing the name of a magnet (called attractor) while taking inventory:[=0x000A=][=0x0009=]if something is part of the attractor, say [=0x0022=] (stuck to which [is-are the list of things which are part of the attractor])[=0x0022=].[=0x000A=][=0x000A=]Before taking a touchable thing which is part of a magnet (called attractor):[=0x000A=][=0x0009=]move the noun to the holder of the attractor.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / put horseshoe in bucket / look / get horseshoe / i / drop horseshoe / i / look / get all / put all in bucket / i / x magnet / get nail / i[=0x0022=].[=0x000A=]\n', 'Example - Rules of Attraction')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Rules of Attraction&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6552_234"-->
-            <blockquote class="code"><p class="quoted"><a id="c6552_234"></a>A metal form is a kind of thing. A magnet is a kind of metal form.
+            <!--START CODE "c6568_318"-->
+            <blockquote class="code"><p class="quoted"><a id="c6568_318"></a>A metal form is a kind of thing. A magnet is a kind of metal form.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6553_234"-->
-            <blockquote class="code"><p class="quoted"><a id="c6553_234"></a>Every turn:
+            <!--START CODE "c6569_318"-->
+            <blockquote class="code"><p class="quoted"><a id="c6569_318"></a>Every turn:
             <br>
             &#160;&#160;&#160;&#160;repeat with item running through nonmagnetic metal forms which are not part of something:
             <br>
@@ -161,37 +161,37 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6554_234"-->
-            <blockquote class="code"><p class="quoted"><a id="c6554_234"></a>The horseshoe magnet is a magnet carried by the player. The nail is a metal form carried by the player. The Barn is a room. In the Barn is a bucket. In the bucket is a metal form called the iron hook.
+            <!--START CODE "c6570_318"-->
+            <blockquote class="code"><p class="quoted"><a id="c6570_318"></a>The horseshoe magnet is a magnet carried by the player. The nail is a metal form carried by the player. The Barn is a room. In the Barn is a bucket. In the bucket is a metal form called the iron hook.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6555_234"-->
-            <blockquote class="code"><p class="quoted"><a id="c6555_234"></a>Definition: a thing is nonmagnetic if it is not a magnet.
+            <!--START CODE "c6571_318"-->
+            <blockquote class="code"><p class="quoted"><a id="c6571_318"></a>Definition: a thing is nonmagnetic if it is not a magnet.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6556_234"-->
-            <blockquote class="code"><p class="quoted"><a id="c6556_234"></a>Rule for printing room description details of a magnet (called attractor): if something is part of the attractor, say &quot; (stuck to which [is-are the list of things which are part of the attractor])&quot;.
+            <!--START CODE "c6572_318"-->
+            <blockquote class="code"><p class="quoted"><a id="c6572_318"></a>Rule for printing room description details of a magnet (called attractor): if something is part of the attractor, say &quot; (stuck to which [is-are the list of things which are part of the attractor])&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6557_234"-->
-            <blockquote class="code"><p class="quoted"><a id="c6557_234"></a>After printing the name of a magnet (called attractor) while taking inventory:
+            <!--START CODE "c6573_318"-->
+            <blockquote class="code"><p class="quoted"><a id="c6573_318"></a>After printing the name of a magnet (called attractor) while taking inventory:
             <br>
             &#160;&#160;&#160;&#160;if something is part of the attractor, say &quot; (stuck to which [is-are the list of things which are part of the attractor])&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6558_234"-->
-            <blockquote class="code"><p class="quoted"><a id="c6558_234"></a>Before taking a touchable thing which is part of a magnet (called attractor):
+            <!--START CODE "c6574_318"-->
+            <blockquote class="code"><p class="quoted"><a id="c6574_318"></a>Before taking a touchable thing which is part of a magnet (called attractor):
             <br>
             &#160;&#160;&#160;&#160;move the noun to the holder of the attractor.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6559_234"-->
-            <blockquote class="code"><p class="quoted"><a id="c6559_234"></a>Test me with &quot;i / put horseshoe in bucket / look / get horseshoe / i / drop horseshoe / i / look / get all / put all in bucket / i / x magnet / get nail / i&quot;.
+            <!--START CODE "c6575_318"-->
+            <blockquote class="code"><p class="quoted"><a id="c6575_318"></a>Test me with &quot;i / put horseshoe in bucket / look / get horseshoe / i / drop horseshoe / i / look / get all / put all in bucket / i / x magnet / get nail / i&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

@@ -37,10 +37,10 @@
 	
 	if (self) {
 		// Load the nib file
-		[NSBundle oldLoadNibNamed: @"Headers"
-                            owner: self];
+		[NSBundle customLoadNib: @"Headers"
+                          owner: self];
 		
-		[headerView setDelegate: self];
+		headerView.delegate = self;
 		
         // Notification
         [[NSNotificationCenter defaultCenter] addObserver: self
@@ -51,8 +51,8 @@
         [self setColours];
 
 		// Set the view depth
-        if( [depthButton numberOfItems] > 0 ) {
-            [depthButton selectItemAtIndex:[depthButton numberOfItems] - 1];
+        if( depthButton.numberOfItems > 0 ) {
+            [depthButton selectItemAtIndex:depthButton.numberOfItems - 1];
         }
 		[self updateDepthPopup: self];
 	}
@@ -68,9 +68,9 @@
 }
 
 - (void) setColours {
-    [scrollView setBackgroundColor: [[IFPreferences sharedPreferences] getExtensionPaper].colour];
+    scrollView.backgroundColor = [IFPreferences sharedPreferences].extensionPaper.colour;
     [scrollView setNeedsDisplay:YES];
-    [headerView setColours: [[IFPreferences sharedPreferences] getExtensionPaper].colour];
+    [headerView setColours: [IFPreferences sharedPreferences].extensionPaper.colour];
     [headerView setNeedsDisplay:YES];
 }
 
@@ -126,17 +126,17 @@
 	highlightLines.location = NSNotFound;
 	if (node == selectedNode) return;
 	
-	[selectedNode setSelectionStyle: IFHeaderNodeUnselected];
+	selectedNode.selectionStyle = IFHeaderNodeUnselected;
 
     selectedNode = node;
-	[selectedNode setSelectionStyle: IFHeaderNodeSelected];
+	selectedNode.selectionStyle = IFHeaderNodeSelected;
 	[headerView setNeedsDisplay: YES];
 }
 
 - (void) highlightNodeWithLines: (NSRange) lines {
-	IFHeaderNode* lineNode = [[headerView rootHeaderNode] nodeWithLines: lines
-															  intelFile: [controller intelFile]];
-	if (lineNode == [headerView rootHeaderNode]) lineNode = nil;
+	IFHeaderNode* lineNode = [headerView.rootHeaderNode nodeWithLines: lines
+															  intelFile: controller.intelFile];
+	if (lineNode == headerView.rootHeaderNode) lineNode = nil;
 	
 	[self selectNode: lineNode];
 	highlightLines = lines;
@@ -145,8 +145,8 @@
 #pragma mark - User actions =
 
 - (IBAction) updateDepthPopup: (id) sender {
-    int depth = 1 + (int) [depthButton indexOfSelectedItem];
-	[headerView setDisplayDepth: depth];
+    int depth = 1 + (int) depthButton.indexOfSelectedItem;
+	headerView.displayDepth = depth;
 	
 	if (highlightLines.location != NSNotFound) {
 		[self highlightNodeWithLines: highlightLines];
@@ -159,7 +159,7 @@
 	  clickedOnNode: (IFHeaderNode*) node {
 	if ([delegate respondsToSelector: @selector(headerPage:limitToHeader:)]) {
 		[delegate headerPage: self
-			   limitToHeader: [node header]];
+			   limitToHeader: node.header];
 	}
 }
 

@@ -53,7 +53,8 @@ Constant AVAILABILITY_DBMETADATA = 0;
 Constant RELEVANCE_DBMETADATA = 1;
 Constant PROGRAM_DBMETADATA = 2;
 Constant TIED_SCENE_DBMETADATA = 3;
-Constant REQUIRING_DBMETADATA = 4;
+Constant FIRST_SPEAKER_DBMETADATA = 4;
+Constant REQUIRING_DBMETADATA = 5;
 
 @h Extracting beat data.
 
@@ -72,7 +73,7 @@ Constant REQUIRING_DBMETADATA = 4;
 
 [ DirectorBeatRequiredList list db len i beatdata speaker;
 	if ((db <= 0) || (db > NO_DIALOGUE_BEATS)) return list;
-	if ((list==0) || (BlkValueWeakKind(list) ~= LIST_OF_TY)) return 0;
+	if (WeakKindOfPV(list) ~= LIST_OF_TY) return 0;
 	len = 0;
 	beatdata = TableOfDialogueBeats-->db;
 	i = REQUIRING_DBMETADATA;
@@ -93,7 +94,7 @@ Constant REQUIRING_DBMETADATA = 4;
 
 [ DirectorBeatFirstSpeaker db speaker;
 	if ((db <= 0) || (db > NO_DIALOGUE_BEATS)) return nothing;
-	speaker = (TableOfDialogueBeats-->db)-->REQUIRING_DBMETADATA;
+	speaker = (TableOfDialogueBeats-->db)-->FIRST_SPEAKER_DBMETADATA;
 	if (speaker == PLAYER_CONVERSATIONALIST) return player;
 	return speaker;
 ];
@@ -147,9 +148,12 @@ to test relevance to a single subject.
 [ DirectorBeatRelevant db;
 	return DirectorBeatRelevantTo(db, DialogueTopicPool);
 ];
-[ DirectorBeatRelevantTo db pool fn beatdata;
+[ DirectorBeatRelevantTo db pool fn beatdata i;
 	if ((db <= 0) || (db > NO_DIALOGUE_BEATS)) rfalse;
 	beatdata = TableOfDialogueBeats-->db;
+	! print "Is beat ", db, " relevant to any of ... ";
+	! for (i=0: pool-->i: i++) print (the) pool-->i, " ";
+	! print " ...?^";
 	fn = beatdata-->RELEVANCE_DBMETADATA;
 	if (fn) return (fn)(pool);
 	rfalse;
@@ -188,6 +192,7 @@ and so on.
 	if (debug_dialogue) {
 		print "-- Performance of ", (PrintDialogueBeatName) db, " ended^";
 	}
+	rfalse;
 ];
 
 [ DirectorBeatBeingPerformed db x;
@@ -209,5 +214,6 @@ and so on.
 [ PERFORM_OPENING_BEAT_R db;
 	db = InitialSituation-->START_BEAT_INIS;
 	if (db) DirectorPerformBeat(db);
+	line_performance_count = 0;
 	rfalse;
 ];

@@ -27,13 +27,13 @@
 #pragma mark - Setting up
 
 - (void) updateFromCompilerSettings {
-    [strictMode setState: [self strict]?NSControlStateValueOn:NSControlStateValueOff];
-    [infixMode setState: [self infix]?NSControlStateValueOn:NSControlStateValueOff];
-    [debugMode setState: [self debug]?NSControlStateValueOn:NSControlStateValueOff];
+    strictMode.state = self.strict?NSControlStateValueOn:NSControlStateValueOff;
+    infixMode.state = self.infix?NSControlStateValueOn:NSControlStateValueOff;
+    debugMode.state = self.debug?NSControlStateValueOn:NSControlStateValueOff;
 	
-	if ([[self compilerSettings] usingNaturalInform]) {
+	if (self.compilerSettings.usingNaturalInform) {
 		[infixMode setEnabled: NO];
-		[infixMode setState: NSControlStateValueOff];
+		infixMode.state = NSControlStateValueOff;
 		[self dictionary][IFSettingInfix] = @NO;
 	} else {
 		[infixMode setEnabled: YES];
@@ -41,9 +41,9 @@
 }
 
 - (void) setSettings {
-	[self setStrict: [strictMode state]==NSControlStateValueOn];
-	[self setInfix: [infixMode state]==NSControlStateValueOn];
-	[self setDebug: [debugMode state]==NSControlStateValueOn];
+	self.strict = strictMode.state==NSControlStateValueOn;
+	self.infix = infixMode.state==NSControlStateValueOn;
+	self.debug = debugMode.state==NSControlStateValueOn;
 }
 
 #pragma mark - The settings
@@ -57,7 +57,7 @@
     NSNumber* setting = [self dictionary][IFSettingStrict];
 	
     if (setting) {
-        return [setting boolValue];
+        return setting.boolValue;
     } else {
         return YES;
     }
@@ -72,7 +72,7 @@
     NSNumber* setting = [self dictionary][IFSettingInfix];
 	
     if (setting) {
-        return [setting boolValue];
+        return setting.boolValue;
     } else {
         return NO;
     }
@@ -87,7 +87,7 @@
     NSNumber* setting = [self dictionary][IFSettingDEBUG];
 	
     if (setting) {
-        return [setting boolValue];
+        return setting.boolValue;
     } else {
         return YES;
     }

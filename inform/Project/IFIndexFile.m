@@ -90,7 +90,7 @@
 		index = [plist copy];
 		
 		// Need the keys sorted by numeric value to make any sense of them
-		NSMutableArray* orderedKeys = [[index allKeys] mutableCopy];
+		NSMutableArray* orderedKeys = [index.allKeys mutableCopy];
         [orderedKeys sortUsingComparator:^NSComparisonResult(id  _Nonnull a, id  _Nonnull b) {
             int aV = [a intValue];
             int bV = [b intValue];
@@ -119,7 +119,7 @@
 				NSString* title = item[@"Title"];
 				
 				// HACK: only include the source files
-				if (![[filename stringByDeletingLastPathComponent].lastPathComponent isEqualToString: @"Source"]) continue;
+				if (![filename.stringByDeletingLastPathComponent.lastPathComponent isEqualToString: @"Source"]) continue;
 				
 				// Get the initial index for this file
 				NSMutableArray* indexForFilename = filenamesToIndexes[filename];
@@ -145,16 +145,16 @@
 				NSMutableArray* indexToAdd = indexForFilename;
 				int x;
 				for (x=0; x<indent; x++) {
-					NSMutableArray* newIndex = [indexToAdd lastObject][@"Contents"];
+					NSMutableArray* newIndex = indexToAdd.lastObject[@"Contents"];
 					if (newIndex == nil) {
-						if ([indexToAdd lastObject] == nil) {
+						if (indexToAdd.lastObject == nil) {
 							NSLog(@"IFIndexFile BUG: found an empty index");
 							break;
 						}
 						
 						// Need to add a new level
 						newIndex = [[NSMutableArray alloc] init];
-						[indexToAdd lastObject][@"Contents"] = newIndex;
+						indexToAdd.lastObject[@"Contents"] = newIndex;
 						indexToAdd = newIndex;
 						break;
 					}
@@ -180,16 +180,16 @@
 		   ofItem: (id)item {
 	if (item == nil) {
 		// Root item
-		NSArray* allKeys = [filenamesToIndexes allKeys];
+		NSArray* allKeys = filenamesToIndexes.allKeys;
 		
-		if (childIndex >= [allKeys count]) return @"";
+		if (childIndex >= allKeys.count) return @"";
 		
 		return allKeys[childIndex];
 	} else if ([item isKindOfClass: [NSString class]]) {
 		// Happens with the filename indexes only...
 		NSArray* filenameIndex = filenamesToIndexes[item];
 		
-		if (childIndex >= [filenameIndex count]) return @"";
+		if (childIndex >= filenameIndex.count) return @"";
 		
 		return filenameIndex[childIndex];
 	} else {
@@ -197,7 +197,7 @@
 		NSDictionary* itemDictionary = item;
 		NSMutableArray* contents = itemDictionary[@"Contents"];
 		
-		if (childIndex >= [contents count]) return @"";
+		if (childIndex >= contents.count) return @"";
 		
 		return contents[childIndex];
 	}
@@ -212,7 +212,7 @@
 		// Happens with the filename indexes only...
 		NSArray* filenameIndex = filenamesToIndexes[item];
 
-		if ([filenameIndex count] <= 0)
+		if (filenameIndex.count <= 0)
 			return NO;
 		else
 			return YES;
@@ -221,7 +221,7 @@
 		NSDictionary* itemDictionary = item;
 		NSMutableArray* contents = itemDictionary[@"Contents"];
 		
-		if (contents == nil || [contents count] <= 0) 
+		if (contents == nil || contents.count <= 0) 
 			return NO;
 		else
 			return YES;
@@ -232,23 +232,23 @@
 	 numberOfChildrenOfItem:(id)item {
 	if (item == nil) {
 		// Root item
-		NSArray* allKeys = [filenamesToIndexes allKeys];
+		NSArray* allKeys = filenamesToIndexes.allKeys;
 		
-		return [allKeys count];
+		return allKeys.count;
 	} else if ([item isKindOfClass: [NSString class]]) {
 		// Happens with the filename indexes only...
 		NSArray* filenameIndex = filenamesToIndexes[item];
 		
-		return [filenameIndex count];
+		return filenameIndex.count;
 	} else {
 		// Is an item dictionary
 		NSDictionary* itemDictionary = item;
 		NSMutableArray* contents = itemDictionary[@"Contents"];
 		
-		if (contents == nil || [contents count] <= 0) 
+		if (contents == nil || contents.count <= 0) 
 			return 0;
 		else
-			return (int) [contents count];
+			return (int) contents.count;
 	}
 }
 
@@ -256,7 +256,7 @@
 	  objectValueForTableColumn:(NSTableColumn *)tableColumn
 						 byItem:(id)item {
 	// Valid column identifiers are 'title' and 'line'
-	NSString* identifier = [tableColumn identifier];
+	NSString* identifier = tableColumn.identifier;
 	
 	if (item == nil) {
 		// Root item

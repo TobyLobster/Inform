@@ -45,7 +45,7 @@
 
 	if (tabStops == 0) return NSMakeRange(0,0);
 	
-	NSMutableString* string = [storage mutableString];
+	NSMutableString* string = storage.mutableString;
 	
 	// Find the start of the line preceeding range
 	while (range.location > 0 &&
@@ -76,7 +76,7 @@
 			
 			// Work out how many tabs to delete
 			int nTabs = 0;
-			while (range.location+x+nTabs < [string length] &&
+			while (range.location+x+nTabs < string.length &&
 				   nTabs < -tabStops &&
 				   [string characterAtIndex: range.location+x+nTabs] == '\t')
 				nTabs++;
@@ -90,11 +90,11 @@
 		// Find the next line
 		x++;
 		while (x < range.length &&
-			   range.location+x < [string length] &&
+			   range.location+x < string.length &&
 			   [string characterAtIndex: range.location+x-1] != '\n')
 			x++;
 		
-		if (range.location+x >= [string length]) break;
+		if (range.location+x >= string.length) break;
 	}
 	
 	return range;
@@ -108,7 +108,7 @@
 	
 	// This works because the undo manager for the text view will always be the same as the undo manager for this controller
 	// If this ever changes, you will need to rewrite this somehow
-	NSUndoManager* undo = [document undoManager];
+	NSUndoManager* undo = document.undoManager;
 	[undo setActionName: [IFUtility localizedString: @"Shift Left"]];
 	NSRange newRange = [self shiftRange: range
 							  inStorage: textStorage
@@ -130,7 +130,7 @@
 	
 	// This works because the undo manager for the text view will always be the same as the undo manager for this controller
 	// If this ever changes, you will need to rewrite this somehow
-	NSUndoManager* undo = [document undoManager];
+	NSUndoManager* undo = document.undoManager;
 	[undo setActionName: [IFUtility localizedString: @"Shift Right"]];
 	NSRange newRange = [self shiftRange: range
 							  inStorage: textStorage
@@ -146,7 +146,7 @@
 
 - (void) shiftLeftTextViewInDocument: (NSDocument*) document
                             textView: (NSTextView*) textView {
-	NSTextStorage* storage = [textView textStorage];
+	NSTextStorage* storage = textView.textStorage;
 	NSRange       selRange = [textView selectedRange];
 	
 	if (!storage) {
@@ -162,7 +162,7 @@
 
 - (void) shiftRightTextViewInDocument: (NSDocument*) document
                              textView: (NSTextView*) textView {
-	NSTextStorage* storage = [textView textStorage];
+	NSTextStorage* storage = textView.textStorage;
 	NSRange       selRange = [textView selectedRange];
 	
 	if (!storage) {
@@ -179,17 +179,17 @@
 - (void) renumberSectionsInDocument: (NSDocument*) document
                            textView: (NSTextView*) textView {
 
-	NSTextStorage* storage = (NSTextStorage*)[textView textStorage];
+	NSTextStorage* storage = (NSTextStorage*)textView.textStorage;
 	
 	if ([IFSyntaxManager intelligenceDataForStorage: storage] == nil) {
         return;		// Also can't do this if we haven't actually gathered any data
     }
 
-	NSUndoManager* undo = [document undoManager];
+	NSUndoManager* undo = document.undoManager;
 	
 	// Renumber each section stored in the intelligence data
 	IFIntelFile*   intel   = [IFSyntaxManager intelligenceDataForStorage: storage];
-	IFIntelSymbol* section = [intel firstSymbol];
+	IFIntelSymbol* section = intel.firstSymbol;
 
 	[undo beginUndoGrouping];
 	[storage beginEditing];
@@ -198,16 +198,16 @@
 	NSMutableArray* linesToRenumber = [[NSMutableArray alloc] init];
 	
 	while (section != nil) {
-		if ([section level] > 0) {
+		if (section.level > 0) {
 			NSUInteger lineNumber = [intel lineForSymbol: section];
 			
-			IFIntelSymbol* lastSection = [section previousSibling];
+			IFIntelSymbol* lastSection = section.previousSibling;
 			NSUInteger lastLineNumber = [intel lineForSymbol: lastSection];
 
 			[linesToRenumber addObject: @[@(lineNumber), @(lastLineNumber)]];
 		}
 		
-		section = [section nextSymbol];
+		section = section.nextSymbol;
 	}
 
 	// Renumber these lines
@@ -218,20 +218,20 @@
 		NSString* sectionLine = [IFSyntaxManager textForLineWithStorage: storage lineNumber: lineNumber];
 		NSArray*  words = [sectionLine componentsSeparatedByString: @" "];
 		
-		int sectionNumber = [words count]>1 ? [words[1] intValue] : 0;
+		int sectionNumber = words.count>1 ? [words[1] intValue] : 0;
 		
 		if (sectionNumber > 0) {
 			// This looks like something we can renumber... Get the preceding number
 			int lastLineNumber = [lineInfo[1] intValue];
 			NSArray* lastWords = [[IFSyntaxManager textForLineWithStorage: storage lineNumber: lastLineNumber] componentsSeparatedByString: @" "];
 
-			int lastSectionNumber = [lastWords count]>1?[lastWords[1] intValue]:0;
+			int lastSectionNumber = lastWords.count>1?[lastWords[1] intValue]:0;
 			
 			if (lastSectionNumber >= 0 && lastSectionNumber+1 != sectionNumber) {
 				// This section needs renumbering
 				NSMutableArray* newWords = [words mutableCopy];
 
-				if ([newWords count] == 2) {
+				if (newWords.count == 2) {
 					// Must be followed by a newline
 					newWords[1] = [NSString stringWithFormat: @"%i\n", lastSectionNumber+1];
 				} else {
@@ -258,35 +258,35 @@
                    originalString: (NSString*) original
                         inStorage: (NSTextStorage*) storage {
 	// Fetch the string that now occupies the specified range
-	NSString* replacing = [[storage string] substringWithRange: range];
+	NSString* replacing = [storage.string substringWithRange: range];
 	
 	// Replace the range with the original string
-	[[storage mutableString] replaceCharactersInRange: range
+	[storage.mutableString replaceCharactersInRange: range
 										   withString: original];
 	
 	// Generate a new undo action
-	NSUndoManager* undo = [document undoManager];
+	NSUndoManager* undo = document.undoManager;
 	[[undo prepareWithInvocationTarget: self] undoCommentOutInDocument: document
-                                                                 range: NSMakeRange(range.location, [original length])
+                                                                 range: NSMakeRange(range.location, original.length)
                                                         originalString: replacing
                                                              inStorage: storage];
 }
 
 - (void) commentOutSelectionInDocument: (NSDocument*) document
                               textView: (NSTextView*) textView {
-	NSTextStorage*	storage			= [textView textStorage];
+	NSTextStorage*	storage			= textView.textStorage;
 	NSRange			commentRange	= [textView selectedRange];
-	NSString*		original		= [[storage string] substringWithRange: commentRange];
+	NSString*		original		= [storage.string substringWithRange: commentRange];
 	
 	// Comment out the region
-	bool changed = [[storage mutableString] commentOutInform7: &commentRange];
+	bool changed = [storage.mutableString commentOutInform7: &commentRange];
 	
     if( changed ) {
         // Select the newly commented region
         [textView setSelectedRange: commentRange];
         
         // Generate an undo action
-        NSUndoManager* undo = [document undoManager];
+        NSUndoManager* undo = document.undoManager;
         [[undo prepareWithInvocationTarget: self] undoCommentOutInDocument: document
                                                                      range: commentRange
                                                             originalString: original
@@ -296,19 +296,19 @@
 
 - (void) uncommentSelectionInDocument: (NSDocument*) document
                              textView: (NSTextView*) textView {
-	NSTextStorage*	storage			= [textView textStorage];
+	NSTextStorage*	storage			= textView.textStorage;
 	NSRange			commentRange	= [textView selectedRange];
-	NSString*		original		= [[storage string] substringWithRange: commentRange];
+	NSString*		original		= [storage.string substringWithRange: commentRange];
 
 	// Uncomment the region
-	bool changed = [[storage mutableString] removeCommentsInform7: &commentRange];
+	bool changed = [storage.mutableString removeCommentsInform7: &commentRange];
 
     if( changed ) {
         // Select the newly uncommented region
         [textView setSelectedRange: commentRange];
 
         // Generate an undo action
-        NSUndoManager* undo = [document undoManager];
+        NSUndoManager* undo = document.undoManager;
         [[undo prepareWithInvocationTarget: self] undoCommentOutInDocument: document
                                                                      range: commentRange
                                                             originalString: original

@@ -84,8 +84,8 @@
     <p class="sectionheading">§15.19. Arithmetic with units</p>
     <p>The example equations in the previous section carried out quite a lot of arithmetic, but they may have given the impression that Inform always allows arithmetic - which is not true.</p>
     <p>This is actually a good thing, because it keeps us from error. For instance, Inform will not allow:</p>
-    <!--START CODE "c4843"-->
-    <blockquote class="code"><p class="quoted"><a id="c4843"></a>Equation - Newton's Totally Bogus Law
+    <!--START CODE "c4851"-->
+    <blockquote class="code"><p class="quoted"><a id="c4851"></a>Equation - Newton's Totally Bogus Law
     <br>
     &#160;&#160;&#160;&#160;F = m^2
     <br>
@@ -96,20 +96,20 @@
     <p>because whatever you get when you square a mass, you don't get a force - in the same way that a length times another length makes an area, not another length. Physicists call this &quot;dimensional analysis&quot;, and it often provides clues about which equations are right. Just after the Second World War, someone correctly worked out the explosive power of an atomic bomb without any classified information simply by guessing what values would appear in the formula, and then finding the simplest equation they could appear in.</p>
     <p>In general, Inform will not allow numerical kinds of value to be multiplied or divided by each other (or square or cube rooted) unless we give it instructions that this would make sense.</p>
     <p>Of course, there's plenty we can still do without any need for such instructions. For instance, going back to weight,</p>
-    <!--START CODE "c4844"-->
-    <blockquote class="code"><p class="quoted"><a id="c4844"></a><a href="javascript:pasteCode('The Weighbridge is a room. [=0x0022=]A sign declares that the maximum load is [100kg multiplied by 3].[=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> The Weighbridge is a room. &quot;A sign declares that the maximum load is [100kg multiplied by 3].&quot;
+    <!--START CODE "c4852"-->
+    <blockquote class="code"><p class="quoted"><a id="c4852"></a><a href="javascript:pasteCode('The Weighbridge is a room. [=0x0022=]A sign declares that the maximum load is [100kg multiplied by 3].[=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> The Weighbridge is a room. &quot;A sign declares that the maximum load is [100kg multiplied by 3].&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>...will produce the text &quot;A sign declares that the maximum load is 300kg.&quot; Here Inform knows that it makes sense to multiply a weight by 3, and that the result will be a weight. Similarly, Inform allows us to add and subtract weights, and several different forms of division are allowed:</p>
-    <!--START CODE "c4845"-->
-    <blockquote class="code"><p class="quoted"><a id="c4845"></a><a href="javascript:pasteCode('The blackboard is in the Weighbridge. [=0x0022=]A blackboard propped against one wall reads: [=0x0027=]122 / 10 is [122 divided by 10] remainder [remainder after dividing 122 by 10]; but 122kg / 10kg is [122kg divided by 10kg] remainder [remainder after dividing 122kg by 10kg]; and 122kg / 10 is [122kg divided by 10] remainder [remainder after dividing 122kg by 10].[=0x0027=][=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> The blackboard is in the Weighbridge. &quot;A blackboard propped against one wall reads: '122 / 10 is [122 divided by 10] remainder [remainder after dividing 122 by 10]; but 122kg / 10kg is [122kg divided by 10kg] remainder [remainder after dividing 122kg by 10kg]; and 122kg / 10 is [122kg divided by 10] remainder [remainder after dividing 122kg by 10].'&quot;
+    <!--START CODE "c4853"-->
+    <blockquote class="code"><p class="quoted"><a id="c4853"></a><a href="javascript:pasteCode('The blackboard is in the Weighbridge. [=0x0022=]A blackboard propped against one wall reads: [=0x0027=]122 / 10 is [122 divided by 10] remainder [remainder after dividing 122 by 10]; but 122kg / 10kg is [122kg divided by 10kg] remainder [remainder after dividing 122kg by 10kg]; and 122kg / 10 is [122kg divided by 10] remainder [remainder after dividing 122kg by 10].[=0x0027=][=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> The blackboard is in the Weighbridge. &quot;A blackboard propped against one wall reads: '122 / 10 is [122 divided by 10] remainder [remainder after dividing 122 by 10]; but 122kg / 10kg is [122kg divided by 10kg] remainder [remainder after dividing 122kg by 10kg]; and 122kg / 10 is [122kg divided by 10] remainder [remainder after dividing 122kg by 10].'&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>When we visit the Weighbridge, we find:</p>
-    <!--START CODE "c4846"-->
-    <blockquote class="code"><p class="quoted"><a id="c4846"></a>A blackboard propped against one wall reads: &quot;122 / 10 is 12 remainder 2; but 122kg / 10kg is 12 remainder 2kg; and 122kg / 10 is 12kg remainder 2kg.&quot;
+    <!--START CODE "c4854"-->
+    <blockquote class="code"><p class="quoted"><a id="c4854"></a>A blackboard propped against one wall reads: &quot;122 / 10 is 12 remainder 2; but 122kg / 10kg is 12 remainder 2kg; and 122kg / 10 is 12kg remainder 2kg.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
@@ -117,79 +117,79 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "264: Frozen Assets" "e66"-->
-        <a id="e66"></a><table class="egcue">
+        <!--START EXAMPLE "264: Frozen Assets" "e153"-->
+        <a id="e153"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example66'); return false;"><b>264</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example153'); return false;"><b>264</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example66'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Frozen Assets</span></b></a><br>
-                    A treatment of money which keeps track of how much the player has on him, and a BUY command which lets him go shopping.</p>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example153'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Frozen Assets</span></b></a><br>
+                    A treatment of money which keeps track of how much the player has on them, and a BUY command which lets him go shopping.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc71.html#e66"><i>RB</i></a></div>
+                        <a href="Rdoc71.html#e153"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example66" style="display: none;">
+        <div class="egpanel" id="example153" style="display: none;">
             <p>In our brave new world, everything will have a price, so we had better spell this out.</p>
-            <!--START CODE "c4847_66"-->
-            <blockquote class="code"><p class="quoted"><a id="c4847_66"></a><a href="javascript:pasteCode('[=0x0022=]Frozen Assets[=0x0022=][=0x000A=][=0x000A=]Price is a kind of value. $10.99 specifies a price. A thing has a price. The price of a thing is usually $0.00. After examining something for sale, say [=0x0022=]It can be yours for [the price of the noun].[=0x0022=][=0x000A=][=0x000A=][Now we assume a simple shopping model in which the player can[=0x0027=]t take anything without paying for it.][=0x000A=][=0x000A=]Definition: a thing is free if the price of it is $0.00.[=0x000A=]Definition: a thing is for sale if it is not free.[=0x000A=][=0x000A=]Instead of taking something for sale:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]ll have to pay for that.[=0x0022=][=0x000A=][=0x000A=]Before buying something for sale when the money is not in the wallet:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]re broke.[=0x0022=] instead.[=0x000A=][=0x000A=]Before buying something for sale when the money is free:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]re broke.[=0x0022=] instead.[=0x000A=][=0x000A=]Before buying something for sale when the price of the money is less than the price of the noun:[=0x000A=][=0x0009=]say [=0x0022=]Your funds do not run to the price of [the noun].[=0x0022=] instead.[=0x000A=][=0x000A=]Instead of buying something:[=0x000A=][=0x0009=]decrease the price of the money by the price of the noun;[=0x000A=][=0x0009=]say [=0x0022=]You fork over [the price of the noun] for [the noun], leaving yourself with [the price of the money].[=0x0022=];[=0x000A=][=0x0009=]if the money is free:[=0x000A=][=0x0009=][=0x0009=]now the money is nowhere;[=0x000A=][=0x0009=]now the price of the noun is $0.00;[=0x000A=][=0x0009=]now the player is carrying the noun.[=0x000A=][=0x000A=][The player[=0x0027=]s money object is going to be a bit unusual, because it has value but cannot itself be bought.][=0x000A=][=0x000A=]The player carries a wallet. The wallet contains money. The price of the money is $4.50. The printed name of the money is [=0x0022=][price of the money] in cash[=0x0022=]. Understand [=0x0022=]cash[=0x0022=] as the money.[=0x000A=][=0x000A=]Instead of taking the money:[=0x000A=][=0x0009=]say [=0x0022=]Best to leave it alone until you need to buy something.[=0x0022=][=0x000A=][=0x000A=]Instead of buying something free:[=0x000A=][=0x0009=]say [=0x0022=][The noun] is yours already.[=0x0022=][=0x000A=][=0x000A=]Instead of buying the money:[=0x000A=][=0x0009=]say [=0x0022=]The money belongs to you; you buy things with it.[=0x0022=][=0x000A=][=0x000A=][Now we just need something to buy.][=0x000A=][=0x000A=]The Dessert Parlor is a room. [=0x0022=]An underlit, over-crowded room campily furnished with a lot of gilt-frame mirrors and twinkle lights: it is essentially a brothel of food. The service is slow at best, and on Saturday nights glacial. However. The wares on display more than make up for these trivial inconveniences.[=0x0022=][=0x000A=][=0x000A=]The vanilla ice cream is an edible thing in the Parlor. The price of the ice cream is $2.45. The description is [=0x0022=]In the scale of ice creams, you recognize this as a very inferior vanilla because it has no adjectives in the title.[=0x0022=][=0x000A=][=0x000A=]The raspberry tart is an edible thing in the Parlor. The price of the tart is $4.50. The description is [=0x0022=]An almond-laced shell packed with raspberries-under-glaze.[=0x0022=][=0x000A=][=0x000A=]The syllabub is an edible thing in the Parlor. The price of the syllabub is $4.25. The description is [=0x0022=]Whipped cream, alcohol, and lime juice, a substance without any redeeming food value whatever.[=0x0022=][=0x000A=][=0x000A=]The espresso cake is an edible thing in the Parlor. The price of the espresso cake is $5.50. The description is [=0x0022=]A lethal wedge of purest blackness.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]inventory / examine syllabub / get syllabub / buy syllabub / drop it / get it / buy raspberry tart[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Frozen Assets[=0x0022=][=0x000A=][=0x000A=]Price is a kind of value. $10.99 specifies a price. A thing has a price. The price of a thing is usually $0.00. After examining something for sale, say [=0x0022=]It can be yours for [the price of the noun].[=0x0022=][=0x000A=][=0x000A=][Now we assume a simple shopping model in which the player can[=0x0027=]t take anything without paying for it.][=0x000A=][=0x000A=]Definition: a thing is free if the price of it is $0.00.[=0x000A=]Definition: a thing is for sale if it is not free.[=0x000A=][=0x000A=]Instead of taking something for sale:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]ll have to pay for that.[=0x0022=][=0x000A=][=0x000A=]Before buying something for sale when the money is not in the wallet:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]re broke.[=0x0022=] instead.[=0x000A=][=0x000A=]Before buying something for sale when the money is free:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]re broke.[=0x0022=] instead.[=0x000A=][=0x000A=]Before buying something for sale when the price of the money is less than the price of the noun:[=0x000A=][=0x0009=]say [=0x0022=]Your funds do not run to the price of [the noun].[=0x0022=] instead.[=0x000A=][=0x000A=]Instead of buying something:[=0x000A=][=0x0009=]decrease the price of the money by the price of the noun;[=0x000A=][=0x0009=]say [=0x0022=]You fork over [the price of the noun] for [the noun], leaving yourself with [the price of the money].[=0x0022=];[=0x000A=][=0x0009=]if the money is free:[=0x000A=][=0x0009=][=0x0009=]now the money is nowhere;[=0x000A=][=0x0009=]now the price of the noun is $0.00;[=0x000A=][=0x0009=]now the player is carrying the noun.[=0x000A=][=0x000A=][The player[=0x0027=]s money object is going to be a bit unusual, because it has value but cannot itself be bought.][=0x000A=][=0x000A=]The player carries a wallet. The wallet contains money. The price of the money is $4.50. The printed name of the money is [=0x0022=][price of the money] in cash[=0x0022=]. Understand [=0x0022=]cash[=0x0022=] as the money.[=0x000A=][=0x000A=]Instead of taking the money:[=0x000A=][=0x0009=]say [=0x0022=]Best to leave it alone until you need to buy something.[=0x0022=][=0x000A=][=0x000A=]Instead of buying something free:[=0x000A=][=0x0009=]say [=0x0022=][The noun] is yours already.[=0x0022=][=0x000A=][=0x000A=]Instead of buying the money:[=0x000A=][=0x0009=]say [=0x0022=]The money belongs to you; you buy things with it.[=0x0022=][=0x000A=][=0x000A=][Now we just need something to buy.][=0x000A=][=0x000A=]The Dessert Parlor is a room. [=0x0022=]An underlit, over-crowded room campily furnished with a lot of gilt-frame mirrors and twinkle lights: it is essentially a brothel of food. The service is slow at best, and on Saturday nights glacial. However. The wares on display more than make up for these trivial inconveniences.[=0x0022=][=0x000A=][=0x000A=]The vanilla ice cream is an edible thing in the Parlor. The price of the ice cream is $2.45. The description is [=0x0022=]In the scale of ice creams, you recognize this as a very inferior vanilla because it has no adjectives in the title.[=0x0022=][=0x000A=][=0x000A=]The raspberry tart is an edible thing in the Parlor. The price of the tart is $4.50. The description is [=0x0022=]An almond-laced shell packed with raspberries-under-glaze.[=0x0022=][=0x000A=][=0x000A=]The syllabub is an edible thing in the Parlor. The price of the syllabub is $4.25. The description is [=0x0022=]Whipped cream, alcohol, and lime juice, a substance without any redeeming food value whatever.[=0x0022=][=0x000A=][=0x000A=]The espresso cake is an edible thing in the Parlor. The price of the espresso cake is $5.50. The description is [=0x0022=]A lethal wedge of purest blackness.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]inventory / examine syllabub / get syllabub / buy syllabub / drop it / get it / buy raspberry tart[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Frozen Assets')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Frozen Assets&quot;
+            <!--START CODE "c4855_153"-->
+            <blockquote class="code"><p class="quoted"><a id="c4855_153"></a><a href="javascript:pasteCode('[=0x0022=]Frozen Assets[=0x0022=][=0x000A=][=0x000A=]Price is a kind of value. $10.99 specifies a price. A thing has a price. The price of a thing is usually $0.00. After examining something for sale, say [=0x0022=]It can be yours for [the price of the noun].[=0x0022=][=0x000A=][=0x000A=][Now we assume a simple shopping model in which the player can[=0x0027=]t take anything without paying for it.][=0x000A=][=0x000A=]Definition: a thing is free if the price of it is $0.00.[=0x000A=]Definition: a thing is for sale if it is not free.[=0x000A=][=0x000A=]Instead of taking something for sale:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]ll have to pay for that.[=0x0022=][=0x000A=][=0x000A=]Before buying something for sale when the money is not in the wallet:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]re broke.[=0x0022=] instead.[=0x000A=][=0x000A=]Before buying something for sale when the money is free:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]re broke.[=0x0022=] instead.[=0x000A=][=0x000A=]Before buying something for sale when the price of the money is less than the price of the noun:[=0x000A=][=0x0009=]say [=0x0022=]Your funds do not run to the price of [the noun].[=0x0022=] instead.[=0x000A=][=0x000A=]Instead of buying something:[=0x000A=][=0x0009=]decrease the price of the money by the price of the noun;[=0x000A=][=0x0009=]say [=0x0022=]You fork over [the price of the noun] for [the noun], leaving yourself with [the price of the money].[=0x0022=];[=0x000A=][=0x0009=]if the money is free:[=0x000A=][=0x0009=][=0x0009=]now the money is nowhere;[=0x000A=][=0x0009=]now the price of the noun is $0.00;[=0x000A=][=0x0009=]now the player is carrying the noun.[=0x000A=][=0x000A=][The player[=0x0027=]s money object is going to be a bit unusual, because it has value but cannot itself be bought.][=0x000A=][=0x000A=]The player carries a wallet. The wallet contains money. The price of the money is $4.50. The printed name of the money is [=0x0022=][price of the money] in cash[=0x0022=]. Understand [=0x0022=]cash[=0x0022=] as the money.[=0x000A=][=0x000A=]Instead of taking the money:[=0x000A=][=0x0009=]say [=0x0022=]Best to leave it alone until you need to buy something.[=0x0022=][=0x000A=][=0x000A=]Instead of buying something free:[=0x000A=][=0x0009=]say [=0x0022=][The noun] is yours already.[=0x0022=][=0x000A=][=0x000A=]Instead of buying the money:[=0x000A=][=0x0009=]say [=0x0022=]The money belongs to you; you buy things with it.[=0x0022=][=0x000A=][=0x000A=][Now we just need something to buy.][=0x000A=][=0x000A=]The Dessert Parlor is a room. [=0x0022=]An underlit, over-crowded room campily furnished with a lot of gilt-frame mirrors and twinkle lights: it is essentially a brothel of food. The service is slow at best, and on Saturday nights glacial. However. The wares on display more than make up for these trivial inconveniences.[=0x0022=][=0x000A=][=0x000A=]The vanilla ice cream is an edible thing in the Parlor. The price of the ice cream is $2.45. The description is [=0x0022=]In the scale of ice creams, you recognize this as a very inferior vanilla because it has no adjectives in the title.[=0x0022=][=0x000A=][=0x000A=]The raspberry tart is an edible thing in the Parlor. The price of the tart is $4.50. The description is [=0x0022=]An almond-laced shell packed with raspberries-under-glaze.[=0x0022=][=0x000A=][=0x000A=]The syllabub is an edible thing in the Parlor. The price of the syllabub is $4.25. The description is [=0x0022=]Whipped cream, alcohol, and lime juice, a substance without any redeeming food value whatever.[=0x0022=][=0x000A=][=0x000A=]The espresso cake is an edible thing in the Parlor. The price of the espresso cake is $5.50. The description is [=0x0022=]A lethal wedge of purest blackness.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]inventory / examine syllabub / get syllabub / buy syllabub / drop it / get it / buy raspberry tart[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Frozen Assets[=0x0022=][=0x000A=][=0x000A=]Price is a kind of value. $10.99 specifies a price. A thing has a price. The price of a thing is usually $0.00. After examining something for sale, say [=0x0022=]It can be yours for [the price of the noun].[=0x0022=][=0x000A=][=0x000A=][Now we assume a simple shopping model in which the player can[=0x0027=]t take anything without paying for it.][=0x000A=][=0x000A=]Definition: a thing is free if the price of it is $0.00.[=0x000A=]Definition: a thing is for sale if it is not free.[=0x000A=][=0x000A=]Instead of taking something for sale:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]ll have to pay for that.[=0x0022=][=0x000A=][=0x000A=]Before buying something for sale when the money is not in the wallet:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]re broke.[=0x0022=] instead.[=0x000A=][=0x000A=]Before buying something for sale when the money is free:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]re broke.[=0x0022=] instead.[=0x000A=][=0x000A=]Before buying something for sale when the price of the money is less than the price of the noun:[=0x000A=][=0x0009=]say [=0x0022=]Your funds do not run to the price of [the noun].[=0x0022=] instead.[=0x000A=][=0x000A=]Instead of buying something:[=0x000A=][=0x0009=]decrease the price of the money by the price of the noun;[=0x000A=][=0x0009=]say [=0x0022=]You fork over [the price of the noun] for [the noun], leaving yourself with [the price of the money].[=0x0022=];[=0x000A=][=0x0009=]if the money is free:[=0x000A=][=0x0009=][=0x0009=]now the money is nowhere;[=0x000A=][=0x0009=]now the price of the noun is $0.00;[=0x000A=][=0x0009=]now the player is carrying the noun.[=0x000A=][=0x000A=][The player[=0x0027=]s money object is going to be a bit unusual, because it has value but cannot itself be bought.][=0x000A=][=0x000A=]The player carries a wallet. The wallet contains money. The price of the money is $4.50. The printed name of the money is [=0x0022=][price of the money] in cash[=0x0022=]. Understand [=0x0022=]cash[=0x0022=] as the money.[=0x000A=][=0x000A=]Instead of taking the money:[=0x000A=][=0x0009=]say [=0x0022=]Best to leave it alone until you need to buy something.[=0x0022=][=0x000A=][=0x000A=]Instead of buying something free:[=0x000A=][=0x0009=]say [=0x0022=][The noun] is yours already.[=0x0022=][=0x000A=][=0x000A=]Instead of buying the money:[=0x000A=][=0x0009=]say [=0x0022=]The money belongs to you; you buy things with it.[=0x0022=][=0x000A=][=0x000A=][Now we just need something to buy.][=0x000A=][=0x000A=]The Dessert Parlor is a room. [=0x0022=]An underlit, over-crowded room campily furnished with a lot of gilt-frame mirrors and twinkle lights: it is essentially a brothel of food. The service is slow at best, and on Saturday nights glacial. However. The wares on display more than make up for these trivial inconveniences.[=0x0022=][=0x000A=][=0x000A=]The vanilla ice cream is an edible thing in the Parlor. The price of the ice cream is $2.45. The description is [=0x0022=]In the scale of ice creams, you recognize this as a very inferior vanilla because it has no adjectives in the title.[=0x0022=][=0x000A=][=0x000A=]The raspberry tart is an edible thing in the Parlor. The price of the tart is $4.50. The description is [=0x0022=]An almond-laced shell packed with raspberries-under-glaze.[=0x0022=][=0x000A=][=0x000A=]The syllabub is an edible thing in the Parlor. The price of the syllabub is $4.25. The description is [=0x0022=]Whipped cream, alcohol, and lime juice, a substance without any redeeming food value whatever.[=0x0022=][=0x000A=][=0x000A=]The espresso cake is an edible thing in the Parlor. The price of the espresso cake is $5.50. The description is [=0x0022=]A lethal wedge of purest blackness.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]inventory / examine syllabub / get syllabub / buy syllabub / drop it / get it / buy raspberry tart[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Frozen Assets')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Frozen Assets&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4848_66"-->
-            <blockquote class="code"><p class="quoted"><a id="c4848_66"></a>Price is a kind of value. $10.99 specifies a price. A thing has a price. The price of a thing is usually $0.00. After examining something for sale, say &quot;It can be yours for [the price of the noun].&quot;
+            <!--START CODE "c4856_153"-->
+            <blockquote class="code"><p class="quoted"><a id="c4856_153"></a>Price is a kind of value. $10.99 specifies a price. A thing has a price. The price of a thing is usually $0.00. After examining something for sale, say &quot;It can be yours for [the price of the noun].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now we assume a simple shopping model in which the player can't take anything without paying for it.</p>
-            <!--START CODE "c4849_66"-->
-            <blockquote class="code"><p class="quoted"><a id="c4849_66"></a>Definition: a thing is free if the price of it is $0.00.
+            <!--START CODE "c4857_153"-->
+            <blockquote class="code"><p class="quoted"><a id="c4857_153"></a>Definition: a thing is free if the price of it is $0.00.
             <br>
             Definition: a thing is for sale if it is not free.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4850_66"-->
-            <blockquote class="code"><p class="quoted"><a id="c4850_66"></a>Instead of taking something for sale:
+            <!--START CODE "c4858_153"-->
+            <blockquote class="code"><p class="quoted"><a id="c4858_153"></a>Instead of taking something for sale:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You'll have to pay for that.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4851_66"-->
-            <blockquote class="code"><p class="quoted"><a id="c4851_66"></a>Before buying something for sale when the money is not in the wallet:
+            <!--START CODE "c4859_153"-->
+            <blockquote class="code"><p class="quoted"><a id="c4859_153"></a>Before buying something for sale when the money is not in the wallet:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You're broke.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4852_66"-->
-            <blockquote class="code"><p class="quoted"><a id="c4852_66"></a>Before buying something for sale when the money is free:
+            <!--START CODE "c4860_153"-->
+            <blockquote class="code"><p class="quoted"><a id="c4860_153"></a>Before buying something for sale when the money is free:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You're broke.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4853_66"-->
-            <blockquote class="code"><p class="quoted"><a id="c4853_66"></a>Before buying something for sale when the price of the money is less than the price of the noun:
+            <!--START CODE "c4861_153"-->
+            <blockquote class="code"><p class="quoted"><a id="c4861_153"></a>Before buying something for sale when the price of the money is less than the price of the noun:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Your funds do not run to the price of [the noun].&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4854_66"-->
-            <blockquote class="code"><p class="quoted"><a id="c4854_66"></a>Instead of buying something:
+            <!--START CODE "c4862_153"-->
+            <blockquote class="code"><p class="quoted"><a id="c4862_153"></a>Instead of buying something:
             <br>
             &#160;&#160;&#160;&#160;decrease the price of the money by the price of the noun;
             <br>
@@ -206,60 +206,60 @@
             </blockquote>
             <!--END CODE-->
             <p>The player's money object is going to be a bit unusual, because it has value but cannot itself be bought.</p>
-            <!--START CODE "c4855_66"-->
-            <blockquote class="code"><p class="quoted"><a id="c4855_66"></a>The player carries a wallet. The wallet contains money. The price of the money is $4.50. The printed name of the money is &quot;[price of the money] in cash&quot;. Understand &quot;cash&quot; as the money.
+            <!--START CODE "c4863_153"-->
+            <blockquote class="code"><p class="quoted"><a id="c4863_153"></a>The player carries a wallet. The wallet contains money. The price of the money is $4.50. The printed name of the money is &quot;[price of the money] in cash&quot;. Understand &quot;cash&quot; as the money.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4856_66"-->
-            <blockquote class="code"><p class="quoted"><a id="c4856_66"></a>Instead of taking the money:
+            <!--START CODE "c4864_153"-->
+            <blockquote class="code"><p class="quoted"><a id="c4864_153"></a>Instead of taking the money:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Best to leave it alone until you need to buy something.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4857_66"-->
-            <blockquote class="code"><p class="quoted"><a id="c4857_66"></a>Instead of buying something free:
+            <!--START CODE "c4865_153"-->
+            <blockquote class="code"><p class="quoted"><a id="c4865_153"></a>Instead of buying something free:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The noun] is yours already.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4858_66"-->
-            <blockquote class="code"><p class="quoted"><a id="c4858_66"></a>Instead of buying the money:
+            <!--START CODE "c4866_153"-->
+            <blockquote class="code"><p class="quoted"><a id="c4866_153"></a>Instead of buying the money:
             <br>
             &#160;&#160;&#160;&#160;say &quot;The money belongs to you; you buy things with it.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now we just need something to buy.</p>
-            <!--START CODE "c4859_66"-->
-            <blockquote class="code"><p class="quoted"><a id="c4859_66"></a>The Dessert Parlor is a room. &quot;An underlit, over-crowded room campily furnished with a lot of gilt-frame mirrors and twinkle lights: it is essentially a brothel of food. The service is slow at best, and on Saturday nights glacial. However. The wares on display more than make up for these trivial inconveniences.&quot;
+            <!--START CODE "c4867_153"-->
+            <blockquote class="code"><p class="quoted"><a id="c4867_153"></a>The Dessert Parlor is a room. &quot;An underlit, over-crowded room campily furnished with a lot of gilt-frame mirrors and twinkle lights: it is essentially a brothel of food. The service is slow at best, and on Saturday nights glacial. However. The wares on display more than make up for these trivial inconveniences.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4860_66"-->
-            <blockquote class="code"><p class="quoted"><a id="c4860_66"></a>The vanilla ice cream is an edible thing in the Parlor. The price of the ice cream is $2.45. The description is &quot;In the scale of ice creams, you recognize this as a very inferior vanilla because it has no adjectives in the title.&quot;
+            <!--START CODE "c4868_153"-->
+            <blockquote class="code"><p class="quoted"><a id="c4868_153"></a>The vanilla ice cream is an edible thing in the Parlor. The price of the ice cream is $2.45. The description is &quot;In the scale of ice creams, you recognize this as a very inferior vanilla because it has no adjectives in the title.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4861_66"-->
-            <blockquote class="code"><p class="quoted"><a id="c4861_66"></a>The raspberry tart is an edible thing in the Parlor. The price of the tart is $4.50. The description is &quot;An almond-laced shell packed with raspberries-under-glaze.&quot;
+            <!--START CODE "c4869_153"-->
+            <blockquote class="code"><p class="quoted"><a id="c4869_153"></a>The raspberry tart is an edible thing in the Parlor. The price of the tart is $4.50. The description is &quot;An almond-laced shell packed with raspberries-under-glaze.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4862_66"-->
-            <blockquote class="code"><p class="quoted"><a id="c4862_66"></a>The syllabub is an edible thing in the Parlor. The price of the syllabub is $4.25. The description is &quot;Whipped cream, alcohol, and lime juice, a substance without any redeeming food value whatever.&quot;
+            <!--START CODE "c4870_153"-->
+            <blockquote class="code"><p class="quoted"><a id="c4870_153"></a>The syllabub is an edible thing in the Parlor. The price of the syllabub is $4.25. The description is &quot;Whipped cream, alcohol, and lime juice, a substance without any redeeming food value whatever.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4863_66"-->
-            <blockquote class="code"><p class="quoted"><a id="c4863_66"></a>The espresso cake is an edible thing in the Parlor. The price of the espresso cake is $5.50. The description is &quot;A lethal wedge of purest blackness.&quot;
+            <!--START CODE "c4871_153"-->
+            <blockquote class="code"><p class="quoted"><a id="c4871_153"></a>The espresso cake is an edible thing in the Parlor. The price of the espresso cake is $5.50. The description is &quot;A lethal wedge of purest blackness.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4864_66"-->
-            <blockquote class="code"><p class="quoted"><a id="c4864_66"></a>Test me with &quot;inventory / examine syllabub / get syllabub / buy syllabub / drop it / get it / buy raspberry tart&quot;.
+            <!--START CODE "c4872_153"-->
+            <blockquote class="code"><p class="quoted"><a id="c4872_153"></a>Test me with &quot;inventory / examine syllabub / get syllabub / buy syllabub / drop it / get it / buy raspberry tart&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -267,77 +267,77 @@
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "265: Money for Nothing" "e20"-->
-        <a id="e20"></a><table class="egcue">
+        <!--START EXAMPLE "265: Money for Nothing" "e235"-->
+        <a id="e235"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example20'); return false;"><b>265</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example235'); return false;"><b>265</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example20'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Money for Nothing</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example235'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Money for Nothing</span></b></a><br>
                     An OFFER price FOR command, allowing the player to bargain with a flexible seller.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc71.html#e20"><i>RB</i></a></div>
+                        <a href="Rdoc71.html#e235"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example20" style="display: none;">
-            <!--START CODE "c4865_20"-->
-            <blockquote class="code"><p class="quoted"><a id="c4865_20"></a><a href="javascript:pasteCode('[=0x0022=]Money for Nothing[=0x0022=][=0x000A=][=0x000A=]Section 1 - Prices and Bargaining[=0x000A=][=0x000A=]Price is a kind of value. $10.99 specifies a price with parts dollars and cents (optional, preamble optional).[=0x000A=][=0x000A=]A person has a price called wealth. The wealth of the player is $15.[=0x000A=][=0x000A=]A thing has a price called minimum value. The minimum value of a thing is usually $0.50.[=0x000A=][=0x000A=]A thing has a price called desired value. The desired value of a thing is usually $5.00.[=0x000A=][=0x000A=]Offering it for is an action applying to one price and one visible thing.[=0x000A=][=0x000A=]Understand [=0x0022=]offer [price] for [something][=0x0022=] as offering it for.[=0x000A=][=0x000A=]After taking inventory, say [=0x0022=]You have [the wealth of the player].[=0x0022=][=0x000A=][=0x000A=]Check offering it for:[=0x000A=][=0x0009=]if the price understood is greater than the wealth of the player, say [=0x0022=]You don[=0x0027=]t have that kind of cash.[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is not carried by someone, say [=0x0022=]There[=0x0027=]s no one in a position to sell you [the second noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is carried by the player, say [=0x0022=][The second noun] is already yours.[=0x0022=] instead;[=0x000A=][=0x0009=]if the minimum value of the second noun is greater than the price understood, say [=0x0022=][The holder of the second noun] cackles disdainfully. [=0x0027=]If yer just here to insult me you can take your business elsewhere![=0x0027=] he says.[=0x0022=] instead;[=0x000A=][=0x0009=]if the desired value of the second noun is greater than the price understood:[=0x000A=][=0x0009=][=0x0009=]let difference be the desired value of the second noun minus the price understood;[=0x000A=][=0x0009=][=0x0009=]let difference be difference divided by two;[=0x000A=][=0x0009=][=0x0009=]decrease the desired value of the second noun by difference;[=0x000A=][=0x0009=][=0x0009=]now the last object offered is the second noun;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][=0x0027=]How about [desired value of the second noun]?[=0x0027=] suggests [the holder of the second noun].[=0x0022=] instead;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]unless the desired value of the second noun is the price understood:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]From the avaricious gleam in the eye of [the holder of the second noun], you guess you could[=0x0027=]ve gotten this purchase for less...[=0x0022=][=0x000A=][=0x000A=]Carry out offering it for:[=0x000A=][=0x0009=]increase the wealth of the holder of the second noun by the price understood;[=0x000A=][=0x0009=]decrease the wealth of the player by the price understood;[=0x000A=][=0x0009=]move the second noun to the player.[=0x000A=][=0x000A=]Report offering it for:[=0x000A=][=0x0009=]say [=0x0022=]You spend [the price understood], and now you possess [the second noun].[=0x0022=][=0x000A=][=0x000A=]When play begins: now right hand status line is [=0x0022=]Your funds: [wealth of the player][=0x0022=].[=0x000A=][=0x000A=][Now, since the man does make counter-offers, it would be reasonable to let the player accept or reject those, as well:][=0x000A=][=0x000A=]The last object offered is a thing that varies.[=0x000A=][=0x000A=]Instead of saying yes when the last object offered is carried by a person (called seller) who is not the player:[=0x000A=][=0x0009=]if the seller is not visible:[=0x000A=][=0x0009=][=0x0009=]continue the action;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]now the price understood is the desired value of the last object offered;[=0x000A=][=0x0009=][=0x0009=]try offering the desired value of the last object offered for the last object offered.[=0x000A=][=0x000A=]Instead of saying no when the last object offered is carried by a person (called seller) who is not the player:[=0x000A=][=0x0009=]if the seller is not visible:[=0x000A=][=0x0009=][=0x0009=]continue the action;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]now the last object offered is the player;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You reject the offer firmly.[=0x0022=][=0x000A=][=0x000A=][And we borrow just a line or two from a later chapter to take care of some alternate syntax the player might try:][=0x000A=][=0x000A=]Understand [=0x0022=]offer [price] to [someone][=0x0022=] as a mistake ([=0x0022=]You[=0x0027=]ll need to specify what you want to buy -- try OFFER $1000.00 FOR BROOKLYN BRIDGE.[=0x0022=]). Understand [=0x0022=]offer [someone] [price][=0x0022=] as a mistake ([=0x0022=]You[=0x0027=]ll need to specify what you want to buy -- try OFFER $1000.00 FOR BROOKLYN BRIDGE.[=0x0022=]).[=0x000A=][=0x000A=]Understand [=0x0022=]buy [something][=0x0022=] as a mistake ([=0x0022=]You[=0x0027=]ll have to name your price: try OFFER $1000.00 FOR BROOKLYN BRIDGE.[=0x0022=]).[=0x000A=][=0x000A=]Section 2 - The Scenario[=0x000A=][=0x000A=]The Flea Market is a room. The crotchety man is a man in the Market. [=0x0022=]A crotchety man here is selling [the list of things carried by the crotchety man].[=0x0022=] The crotchety man carries a broken television set, a Victorian rhinestone brooch, and a cracked shaving mug.[=0x000A=][=0x000A=]The minimum value of the brooch is $2.50.[=0x000A=][=0x000A=]Test me with [=0x0022=]offer $0.50 for mug / offer $0.50 to man / offer $6.00 for mug / offer $50.00 for brooch / offer $1.50 for brooch / offer $4.50 for brooch / no / offer $4.50 for brooch / yes[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Money for Nothing[=0x0022=][=0x000A=][=0x000A=]Section 1 - Prices and Bargaining[=0x000A=][=0x000A=]Price is a kind of value. $10.99 specifies a price with parts dollars and cents (optional, preamble optional).[=0x000A=][=0x000A=]A person has a price called wealth. The wealth of the player is $15.[=0x000A=][=0x000A=]A thing has a price called minimum value. The minimum value of a thing is usually $0.50.[=0x000A=][=0x000A=]A thing has a price called desired value. The desired value of a thing is usually $5.00.[=0x000A=][=0x000A=]Offering it for is an action applying to one price and one visible thing.[=0x000A=][=0x000A=]Understand [=0x0022=]offer [price] for [something][=0x0022=] as offering it for.[=0x000A=][=0x000A=]After taking inventory, say [=0x0022=]You have [the wealth of the player].[=0x0022=][=0x000A=][=0x000A=]Check offering it for:[=0x000A=][=0x0009=]if the price understood is greater than the wealth of the player, say [=0x0022=]You don[=0x0027=]t have that kind of cash.[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is not carried by someone, say [=0x0022=]There[=0x0027=]s no one in a position to sell you [the second noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is carried by the player, say [=0x0022=][The second noun] is already yours.[=0x0022=] instead;[=0x000A=][=0x0009=]if the minimum value of the second noun is greater than the price understood, say [=0x0022=][The holder of the second noun] cackles disdainfully. [=0x0027=]If yer just here to insult me you can take your business elsewhere![=0x0027=] he says.[=0x0022=] instead;[=0x000A=][=0x0009=]if the desired value of the second noun is greater than the price understood:[=0x000A=][=0x0009=][=0x0009=]let difference be the desired value of the second noun minus the price understood;[=0x000A=][=0x0009=][=0x0009=]let difference be difference divided by two;[=0x000A=][=0x0009=][=0x0009=]decrease the desired value of the second noun by difference;[=0x000A=][=0x0009=][=0x0009=]now the last object offered is the second noun;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][=0x0027=]How about [desired value of the second noun]?[=0x0027=] suggests [the holder of the second noun].[=0x0022=] instead;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]unless the desired value of the second noun is the price understood:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]From the avaricious gleam in the eye of [the holder of the second noun], you guess you could[=0x0027=]ve gotten this purchase for less...[=0x0022=][=0x000A=][=0x000A=]Carry out offering it for:[=0x000A=][=0x0009=]increase the wealth of the holder of the second noun by the price understood;[=0x000A=][=0x0009=]decrease the wealth of the player by the price understood;[=0x000A=][=0x0009=]move the second noun to the player.[=0x000A=][=0x000A=]Report offering it for:[=0x000A=][=0x0009=]say [=0x0022=]You spend [the price understood], and now you possess [the second noun].[=0x0022=][=0x000A=][=0x000A=]When play begins: now right hand status line is [=0x0022=]Your funds: [wealth of the player][=0x0022=].[=0x000A=][=0x000A=][Now, since the man does make counter-offers, it would be reasonable to let the player accept or reject those, as well:][=0x000A=][=0x000A=]The last object offered is a thing that varies.[=0x000A=][=0x000A=]Instead of saying yes when the last object offered is carried by a person (called seller) who is not the player:[=0x000A=][=0x0009=]if the seller is not visible:[=0x000A=][=0x0009=][=0x0009=]continue the action;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]now the price understood is the desired value of the last object offered;[=0x000A=][=0x0009=][=0x0009=]try offering the desired value of the last object offered for the last object offered.[=0x000A=][=0x000A=]Instead of saying no when the last object offered is carried by a person (called seller) who is not the player:[=0x000A=][=0x0009=]if the seller is not visible:[=0x000A=][=0x0009=][=0x0009=]continue the action;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]now the last object offered is the player;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You reject the offer firmly.[=0x0022=][=0x000A=][=0x000A=][And we borrow just a line or two from a later chapter to take care of some alternate syntax the player might try:][=0x000A=][=0x000A=]Understand [=0x0022=]offer [price] to [someone][=0x0022=] as a mistake ([=0x0022=]You[=0x0027=]ll need to specify what you want to buy -- try OFFER $1000.00 FOR BROOKLYN BRIDGE.[=0x0022=]). Understand [=0x0022=]offer [someone] [price][=0x0022=] as a mistake ([=0x0022=]You[=0x0027=]ll need to specify what you want to buy -- try OFFER $1000.00 FOR BROOKLYN BRIDGE.[=0x0022=]).[=0x000A=][=0x000A=]Understand [=0x0022=]buy [something][=0x0022=] as a mistake ([=0x0022=]You[=0x0027=]ll have to name your price: try OFFER $1000.00 FOR BROOKLYN BRIDGE.[=0x0022=]).[=0x000A=][=0x000A=]Section 2 - The Scenario[=0x000A=][=0x000A=]The Flea Market is a room. The crotchety man is a man in the Market. [=0x0022=]A crotchety man here is selling [the list of things carried by the crotchety man].[=0x0022=] The crotchety man carries a broken television set, a Victorian rhinestone brooch, and a cracked shaving mug.[=0x000A=][=0x000A=]The minimum value of the brooch is $2.50.[=0x000A=][=0x000A=]Test me with [=0x0022=]offer $0.50 for mug / offer $0.50 to man / offer $6.00 for mug / offer $50.00 for brooch / offer $1.50 for brooch / offer $4.50 for brooch / no / offer $4.50 for brooch / yes[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Money for Nothing')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Money for Nothing&quot;
+        <div class="egpanel" id="example235" style="display: none;">
+            <!--START CODE "c4873_235"-->
+            <blockquote class="code"><p class="quoted"><a id="c4873_235"></a><a href="javascript:pasteCode('[=0x0022=]Money for Nothing[=0x0022=][=0x000A=][=0x000A=]Section 1 - Prices and Bargaining[=0x000A=][=0x000A=]Price is a kind of value. $10.99 specifies a price with parts dollars and cents (optional, preamble optional).[=0x000A=][=0x000A=]A person has a price called wealth. The wealth of the player is $15.[=0x000A=][=0x000A=]A thing has a price called minimum value. The minimum value of a thing is usually $0.50.[=0x000A=][=0x000A=]A thing has a price called desired value. The desired value of a thing is usually $5.00.[=0x000A=][=0x000A=]Offering it for is an action applying to one price and one visible thing.[=0x000A=][=0x000A=]Understand [=0x0022=]offer [price] for [something][=0x0022=] as offering it for.[=0x000A=][=0x000A=]After taking inventory, say [=0x0022=]You have [the wealth of the player].[=0x0022=][=0x000A=][=0x000A=]Check offering it for:[=0x000A=][=0x0009=]if the price understood is greater than the wealth of the player, say [=0x0022=]You don[=0x0027=]t have that kind of cash.[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is not carried by someone, say [=0x0022=]There[=0x0027=]s no one in a position to sell you [the second noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is carried by the player, say [=0x0022=][The second noun] is already yours.[=0x0022=] instead;[=0x000A=][=0x0009=]if the minimum value of the second noun is greater than the price understood, say [=0x0022=][The holder of the second noun] cackles disdainfully. [=0x0027=]If yer just here to insult me you can take your business elsewhere![=0x0027=] he says.[=0x0022=] instead;[=0x000A=][=0x0009=]if the desired value of the second noun is greater than the price understood:[=0x000A=][=0x0009=][=0x0009=]let difference be the desired value of the second noun minus the price understood;[=0x000A=][=0x0009=][=0x0009=]let difference be difference divided by two;[=0x000A=][=0x0009=][=0x0009=]decrease the desired value of the second noun by difference;[=0x000A=][=0x0009=][=0x0009=]now the last object offered is the second noun;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][=0x0027=]How about [desired value of the second noun]?[=0x0027=] suggests [the holder of the second noun].[=0x0022=] instead;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]unless the desired value of the second noun is the price understood:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]From the avaricious gleam in the eye of [the holder of the second noun], you guess you could[=0x0027=]ve gotten this purchase for less...[=0x0022=][=0x000A=][=0x000A=]Carry out offering it for:[=0x000A=][=0x0009=]increase the wealth of the holder of the second noun by the price understood;[=0x000A=][=0x0009=]decrease the wealth of the player by the price understood;[=0x000A=][=0x0009=]move the second noun to the player.[=0x000A=][=0x000A=]Report offering it for:[=0x000A=][=0x0009=]say [=0x0022=]You spend [the price understood], and now you possess [the second noun].[=0x0022=][=0x000A=][=0x000A=]When play begins: now right hand status line is [=0x0022=]Your funds: [wealth of the player][=0x0022=].[=0x000A=][=0x000A=][Now, since the man does make counter-offers, it would be reasonable to let the player accept or reject those, as well:][=0x000A=][=0x000A=]The last object offered is a thing that varies.[=0x000A=][=0x000A=]Instead of saying yes when the last object offered is carried by a person (called seller) who is not the player:[=0x000A=][=0x0009=]if the seller is not visible:[=0x000A=][=0x0009=][=0x0009=]continue the action;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]now the price understood is the desired value of the last object offered;[=0x000A=][=0x0009=][=0x0009=]try offering the desired value of the last object offered for the last object offered.[=0x000A=][=0x000A=]Instead of saying no when the last object offered is carried by a person (called seller) who is not the player:[=0x000A=][=0x0009=]if the seller is not visible:[=0x000A=][=0x0009=][=0x0009=]continue the action;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]now the last object offered is the player;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You reject the offer firmly.[=0x0022=][=0x000A=][=0x000A=][And we borrow just a line or two from a later chapter to take care of some alternate syntax the player might try:][=0x000A=][=0x000A=]Understand [=0x0022=]offer [price] to [someone][=0x0022=] as a mistake ([=0x0022=]You[=0x0027=]ll need to specify what you want to buy -- try OFFER $1000.00 FOR BROOKLYN BRIDGE.[=0x0022=]). Understand [=0x0022=]offer [someone] [price][=0x0022=] as a mistake ([=0x0022=]You[=0x0027=]ll need to specify what you want to buy -- try OFFER $1000.00 FOR BROOKLYN BRIDGE.[=0x0022=]).[=0x000A=][=0x000A=]Understand [=0x0022=]buy [something][=0x0022=] as a mistake ([=0x0022=]You[=0x0027=]ll have to name your price: try OFFER $1000.00 FOR BROOKLYN BRIDGE.[=0x0022=]).[=0x000A=][=0x000A=]Section 2 - The Scenario[=0x000A=][=0x000A=]The Flea Market is a room. The crotchety man is a man in the Market. [=0x0022=]A crotchety man here is selling [the list of things carried by the crotchety man].[=0x0022=] The crotchety man carries a broken television set, a Victorian rhinestone brooch, and a cracked shaving mug.[=0x000A=][=0x000A=]The minimum value of the brooch is $2.50.[=0x000A=][=0x000A=]Test me with [=0x0022=]offer $0.50 for mug / offer $0.50 to man / offer $6.00 for mug / offer $50.00 for brooch / offer $1.50 for brooch / offer $4.50 for brooch / no / offer $4.50 for brooch / yes[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Money for Nothing[=0x0022=][=0x000A=][=0x000A=]Section 1 - Prices and Bargaining[=0x000A=][=0x000A=]Price is a kind of value. $10.99 specifies a price with parts dollars and cents (optional, preamble optional).[=0x000A=][=0x000A=]A person has a price called wealth. The wealth of the player is $15.[=0x000A=][=0x000A=]A thing has a price called minimum value. The minimum value of a thing is usually $0.50.[=0x000A=][=0x000A=]A thing has a price called desired value. The desired value of a thing is usually $5.00.[=0x000A=][=0x000A=]Offering it for is an action applying to one price and one visible thing.[=0x000A=][=0x000A=]Understand [=0x0022=]offer [price] for [something][=0x0022=] as offering it for.[=0x000A=][=0x000A=]After taking inventory, say [=0x0022=]You have [the wealth of the player].[=0x0022=][=0x000A=][=0x000A=]Check offering it for:[=0x000A=][=0x0009=]if the price understood is greater than the wealth of the player, say [=0x0022=]You don[=0x0027=]t have that kind of cash.[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is not carried by someone, say [=0x0022=]There[=0x0027=]s no one in a position to sell you [the second noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is carried by the player, say [=0x0022=][The second noun] is already yours.[=0x0022=] instead;[=0x000A=][=0x0009=]if the minimum value of the second noun is greater than the price understood, say [=0x0022=][The holder of the second noun] cackles disdainfully. [=0x0027=]If yer just here to insult me you can take your business elsewhere![=0x0027=] he says.[=0x0022=] instead;[=0x000A=][=0x0009=]if the desired value of the second noun is greater than the price understood:[=0x000A=][=0x0009=][=0x0009=]let difference be the desired value of the second noun minus the price understood;[=0x000A=][=0x0009=][=0x0009=]let difference be difference divided by two;[=0x000A=][=0x0009=][=0x0009=]decrease the desired value of the second noun by difference;[=0x000A=][=0x0009=][=0x0009=]now the last object offered is the second noun;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][=0x0027=]How about [desired value of the second noun]?[=0x0027=] suggests [the holder of the second noun].[=0x0022=] instead;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]unless the desired value of the second noun is the price understood:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]From the avaricious gleam in the eye of [the holder of the second noun], you guess you could[=0x0027=]ve gotten this purchase for less...[=0x0022=][=0x000A=][=0x000A=]Carry out offering it for:[=0x000A=][=0x0009=]increase the wealth of the holder of the second noun by the price understood;[=0x000A=][=0x0009=]decrease the wealth of the player by the price understood;[=0x000A=][=0x0009=]move the second noun to the player.[=0x000A=][=0x000A=]Report offering it for:[=0x000A=][=0x0009=]say [=0x0022=]You spend [the price understood], and now you possess [the second noun].[=0x0022=][=0x000A=][=0x000A=]When play begins: now right hand status line is [=0x0022=]Your funds: [wealth of the player][=0x0022=].[=0x000A=][=0x000A=][Now, since the man does make counter-offers, it would be reasonable to let the player accept or reject those, as well:][=0x000A=][=0x000A=]The last object offered is a thing that varies.[=0x000A=][=0x000A=]Instead of saying yes when the last object offered is carried by a person (called seller) who is not the player:[=0x000A=][=0x0009=]if the seller is not visible:[=0x000A=][=0x0009=][=0x0009=]continue the action;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]now the price understood is the desired value of the last object offered;[=0x000A=][=0x0009=][=0x0009=]try offering the desired value of the last object offered for the last object offered.[=0x000A=][=0x000A=]Instead of saying no when the last object offered is carried by a person (called seller) who is not the player:[=0x000A=][=0x0009=]if the seller is not visible:[=0x000A=][=0x0009=][=0x0009=]continue the action;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]now the last object offered is the player;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You reject the offer firmly.[=0x0022=][=0x000A=][=0x000A=][And we borrow just a line or two from a later chapter to take care of some alternate syntax the player might try:][=0x000A=][=0x000A=]Understand [=0x0022=]offer [price] to [someone][=0x0022=] as a mistake ([=0x0022=]You[=0x0027=]ll need to specify what you want to buy -- try OFFER $1000.00 FOR BROOKLYN BRIDGE.[=0x0022=]). Understand [=0x0022=]offer [someone] [price][=0x0022=] as a mistake ([=0x0022=]You[=0x0027=]ll need to specify what you want to buy -- try OFFER $1000.00 FOR BROOKLYN BRIDGE.[=0x0022=]).[=0x000A=][=0x000A=]Understand [=0x0022=]buy [something][=0x0022=] as a mistake ([=0x0022=]You[=0x0027=]ll have to name your price: try OFFER $1000.00 FOR BROOKLYN BRIDGE.[=0x0022=]).[=0x000A=][=0x000A=]Section 2 - The Scenario[=0x000A=][=0x000A=]The Flea Market is a room. The crotchety man is a man in the Market. [=0x0022=]A crotchety man here is selling [the list of things carried by the crotchety man].[=0x0022=] The crotchety man carries a broken television set, a Victorian rhinestone brooch, and a cracked shaving mug.[=0x000A=][=0x000A=]The minimum value of the brooch is $2.50.[=0x000A=][=0x000A=]Test me with [=0x0022=]offer $0.50 for mug / offer $0.50 to man / offer $6.00 for mug / offer $50.00 for brooch / offer $1.50 for brooch / offer $4.50 for brooch / no / offer $4.50 for brooch / yes[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Money for Nothing')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Money for Nothing&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4866_20"-->
-            <blockquote class="code"><p class="quoted"><a id="c4866_20"></a>Section 1 - Prices and Bargaining
+            <!--START CODE "c4874_235"-->
+            <blockquote class="code"><p class="quoted"><a id="c4874_235"></a>Section 1 - Prices and Bargaining
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4867_20"-->
-            <blockquote class="code"><p class="quoted"><a id="c4867_20"></a>Price is a kind of value. $10.99 specifies a price with parts dollars and cents (optional, preamble optional).
+            <!--START CODE "c4875_235"-->
+            <blockquote class="code"><p class="quoted"><a id="c4875_235"></a>Price is a kind of value. $10.99 specifies a price with parts dollars and cents (optional, preamble optional).
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4868_20"-->
-            <blockquote class="code"><p class="quoted"><a id="c4868_20"></a>A person has a price called wealth. The wealth of the player is $15.
+            <!--START CODE "c4876_235"-->
+            <blockquote class="code"><p class="quoted"><a id="c4876_235"></a>A person has a price called wealth. The wealth of the player is $15.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4869_20"-->
-            <blockquote class="code"><p class="quoted"><a id="c4869_20"></a>A thing has a price called minimum value. The minimum value of a thing is usually $0.50.
+            <!--START CODE "c4877_235"-->
+            <blockquote class="code"><p class="quoted"><a id="c4877_235"></a>A thing has a price called minimum value. The minimum value of a thing is usually $0.50.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4870_20"-->
-            <blockquote class="code"><p class="quoted"><a id="c4870_20"></a>A thing has a price called desired value. The desired value of a thing is usually $5.00.
+            <!--START CODE "c4878_235"-->
+            <blockquote class="code"><p class="quoted"><a id="c4878_235"></a>A thing has a price called desired value. The desired value of a thing is usually $5.00.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4871_20"-->
-            <blockquote class="code"><p class="quoted"><a id="c4871_20"></a>Offering it for is an action applying to one price and one visible thing.
+            <!--START CODE "c4879_235"-->
+            <blockquote class="code"><p class="quoted"><a id="c4879_235"></a>Offering it for is an action applying to one price and one visible thing.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4872_20"-->
-            <blockquote class="code"><p class="quoted"><a id="c4872_20"></a>Understand &quot;offer [price] for [something]&quot; as offering it for.
+            <!--START CODE "c4880_235"-->
+            <blockquote class="code"><p class="quoted"><a id="c4880_235"></a>Understand &quot;offer [price] for [something]&quot; as offering it for.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4873_20"-->
-            <blockquote class="code"><p class="quoted"><a id="c4873_20"></a>After taking inventory, say &quot;You have [the wealth of the player].&quot;
+            <!--START CODE "c4881_235"-->
+            <blockquote class="code"><p class="quoted"><a id="c4881_235"></a>After taking inventory, say &quot;You have [the wealth of the player].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4874_20"-->
-            <blockquote class="code"><p class="quoted"><a id="c4874_20"></a>Check offering it for:
+            <!--START CODE "c4882_235"-->
+            <blockquote class="code"><p class="quoted"><a id="c4882_235"></a>Check offering it for:
             <br>
             &#160;&#160;&#160;&#160;if the price understood is greater than the wealth of the player, say &quot;You don't have that kind of cash.&quot; instead;
             <br>
@@ -367,8 +367,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4875_20"-->
-            <blockquote class="code"><p class="quoted"><a id="c4875_20"></a>Carry out offering it for:
+            <!--START CODE "c4883_235"-->
+            <blockquote class="code"><p class="quoted"><a id="c4883_235"></a>Carry out offering it for:
             <br>
             &#160;&#160;&#160;&#160;increase the wealth of the holder of the second noun by the price understood;
             <br>
@@ -378,26 +378,26 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4876_20"-->
-            <blockquote class="code"><p class="quoted"><a id="c4876_20"></a>Report offering it for:
+            <!--START CODE "c4884_235"-->
+            <blockquote class="code"><p class="quoted"><a id="c4884_235"></a>Report offering it for:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You spend [the price understood], and now you possess [the second noun].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4877_20"-->
-            <blockquote class="code"><p class="quoted"><a id="c4877_20"></a>When play begins: now right hand status line is &quot;Your funds: [wealth of the player]&quot;.
+            <!--START CODE "c4885_235"-->
+            <blockquote class="code"><p class="quoted"><a id="c4885_235"></a>When play begins: now right hand status line is &quot;Your funds: [wealth of the player]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now, since the man does make counter-offers, it would be reasonable to let the player accept or reject those, as well:</p>
-            <!--START CODE "c4878_20"-->
-            <blockquote class="code"><p class="quoted"><a id="c4878_20"></a>The last object offered is a thing that varies.
+            <!--START CODE "c4886_235"-->
+            <blockquote class="code"><p class="quoted"><a id="c4886_235"></a>The last object offered is a thing that varies.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4879_20"-->
-            <blockquote class="code"><p class="quoted"><a id="c4879_20"></a>Instead of saying yes when the last object offered is carried by a person (called seller) who is not the player:
+            <!--START CODE "c4887_235"-->
+            <blockquote class="code"><p class="quoted"><a id="c4887_235"></a>Instead of saying yes when the last object offered is carried by a person (called seller) who is not the player:
             <br>
             &#160;&#160;&#160;&#160;if the seller is not visible:
             <br>
@@ -411,8 +411,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4880_20"-->
-            <blockquote class="code"><p class="quoted"><a id="c4880_20"></a>Instead of saying no when the last object offered is carried by a person (called seller) who is not the player:
+            <!--START CODE "c4888_235"-->
+            <blockquote class="code"><p class="quoted"><a id="c4888_235"></a>Instead of saying no when the last object offered is carried by a person (called seller) who is not the player:
             <br>
             &#160;&#160;&#160;&#160;if the seller is not visible:
             <br>
@@ -427,93 +427,93 @@
             </blockquote>
             <!--END CODE-->
             <p>And we borrow just a line or two from a later chapter to take care of some alternate syntax the player might try:</p>
-            <!--START CODE "c4881_20"-->
-            <blockquote class="code"><p class="quoted"><a id="c4881_20"></a>Understand &quot;offer [price] to [someone]&quot; as a mistake (&quot;You'll need to specify what you want to buy -- try OFFER $1000.00 FOR BROOKLYN BRIDGE.&quot;). Understand &quot;offer [someone] [price]&quot; as a mistake (&quot;You'll need to specify what you want to buy -- try OFFER $1000.00 FOR BROOKLYN BRIDGE.&quot;).
+            <!--START CODE "c4889_235"-->
+            <blockquote class="code"><p class="quoted"><a id="c4889_235"></a>Understand &quot;offer [price] to [someone]&quot; as a mistake (&quot;You'll need to specify what you want to buy -- try OFFER $1000.00 FOR BROOKLYN BRIDGE.&quot;). Understand &quot;offer [someone] [price]&quot; as a mistake (&quot;You'll need to specify what you want to buy -- try OFFER $1000.00 FOR BROOKLYN BRIDGE.&quot;).
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4882_20"-->
-            <blockquote class="code"><p class="quoted"><a id="c4882_20"></a>Understand &quot;buy [something]&quot; as a mistake (&quot;You'll have to name your price: try OFFER $1000.00 FOR BROOKLYN BRIDGE.&quot;).
+            <!--START CODE "c4890_235"-->
+            <blockquote class="code"><p class="quoted"><a id="c4890_235"></a>Understand &quot;buy [something]&quot; as a mistake (&quot;You'll have to name your price: try OFFER $1000.00 FOR BROOKLYN BRIDGE.&quot;).
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4883_20"-->
-            <blockquote class="code"><p class="quoted"><a id="c4883_20"></a>Section 2 - The Scenario
+            <!--START CODE "c4891_235"-->
+            <blockquote class="code"><p class="quoted"><a id="c4891_235"></a>Section 2 - The Scenario
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4884_20"-->
-            <blockquote class="code"><p class="quoted"><a id="c4884_20"></a>The Flea Market is a room. The crotchety man is a man in the Market. &quot;A crotchety man here is selling [the list of things carried by the crotchety man].&quot; The crotchety man carries a broken television set, a Victorian rhinestone brooch, and a cracked shaving mug.
+            <!--START CODE "c4892_235"-->
+            <blockquote class="code"><p class="quoted"><a id="c4892_235"></a>The Flea Market is a room. The crotchety man is a man in the Market. &quot;A crotchety man here is selling [the list of things carried by the crotchety man].&quot; The crotchety man carries a broken television set, a Victorian rhinestone brooch, and a cracked shaving mug.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4885_20"-->
-            <blockquote class="code"><p class="quoted"><a id="c4885_20"></a>The minimum value of the brooch is $2.50.
+            <!--START CODE "c4893_235"-->
+            <blockquote class="code"><p class="quoted"><a id="c4893_235"></a>The minimum value of the brooch is $2.50.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4886_20"-->
-            <blockquote class="code"><p class="quoted"><a id="c4886_20"></a>Test me with &quot;offer $0.50 for mug / offer $0.50 to man / offer $6.00 for mug / offer $50.00 for brooch / offer $1.50 for brooch / offer $4.50 for brooch / no / offer $4.50 for brooch / yes&quot;.
+            <!--START CODE "c4894_235"-->
+            <blockquote class="code"><p class="quoted"><a id="c4894_235"></a>Test me with &quot;offer $0.50 for mug / offer $0.50 to man / offer $6.00 for mug / offer $50.00 for brooch / offer $1.50 for brooch / offer $4.50 for brooch / no / offer $4.50 for brooch / yes&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "266: Lemonade" "e222"-->
-        <a id="e222"></a><table class="egcue">
+        <!--START EXAMPLE "266: Lemonade" "e208"-->
+        <a id="e208"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example222'); return false;"><b>266</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example208'); return false;"><b>266</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example222'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Lemonade</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example208'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Lemonade</span></b></a><br>
                     Containers for liquid which keep track of how much liquid they are holding and of what kind, and allow quantities to be moved from one container to another.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc81.html#e222"><i>RB</i></a></div>
+                        <a href="Rdoc81.html#e208"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example222" style="display: none;">
+        <div class="egpanel" id="example208" style="display: none;">
             <p>Liquids, and all substances that can be mixed or broken off in partial amounts, pose a challenge to model in interactive fiction. The following example is a simple one, but adequate for many scenarios.</p>
             <p>We start by assuming that all liquids in the game will always appear in containers. The player can pour liquids from one container to another, and the containers keep track of how full they are and describe themselves appropriately. The player can also refer to containers by content.</p>
             <p>Mixture, however, is not allowed, nor is it possible to put liquids on other objects, pour them out on the ground, etc. These ideas would require a more complicated set-up.</p>
-            <!--START CODE "c4887_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4887_222"></a><a href="javascript:pasteCode('[=0x0022=]Lemonade[=0x0022=][=0x000A=][=0x000A=]A volume is a kind of value. 15.9 fl oz specifies a volume with parts ounces and tenths (optional, preamble optional).[=0x000A=][=0x000A=]A fluid container is a kind of container. A fluid container has a volume called a fluid capacity. A fluid container has a volume called current volume.[=0x000A=][=0x000A=]The fluid capacity of a fluid container is usually 12.0 fl oz. The current volume of a fluid container is usually 0.0 fl oz.[=0x000A=][=0x000A=]Liquid is a kind of value. The liquids are water, milk, lemonade, and iced tea. A fluid container has a liquid.[=0x000A=][=0x000A=]Instead of examining a fluid container:[=0x000A=][=0x0009=]if the noun is empty,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You catch just a hint of [the liquid of the noun] at the bottom.[=0x0022=];[=0x000A=][=0x0009=]otherwise[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The noun] contains [current volume of the noun in rough terms] of [liquid of the noun].[=0x0022=][=0x000A=][=0x000A=]To say (amount - a volume) in rough terms:[=0x000A=][=0x0009=]if the amount is less than 0.5 fl oz:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]a swallow or two[=0x0022=];[=0x000A=][=0x0009=]otherwise if tenths part of amount is greater than 3 and tenths part of amount is less than 7:[=0x000A=][=0x0009=][=0x0009=]let estimate be ounces part of amount;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][estimate in words] or [estimate plus 1 in words] fluid ounces[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if tenths part of amount is greater than 6, increase amount by 1.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]about [ounces part of amount in words] fluid ounce[s][=0x0022=].[=0x000A=][=0x000A=]Before printing the name of a fluid container (called the target) while not drinking:[=0x000A=][=0x0009=]if the target is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]empty [=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]do nothing.[=0x000A=][=0x000A=]After printing the name of a fluid container (called the target) while not examining:[=0x000A=][=0x0009=]unless the target is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] of [liquid of the target][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]omit contents in listing.[=0x000A=][=0x000A=]Instead of inserting something into a fluid container:[=0x000A=][=0x0009=]say [=0x0022=][The second noun] has too narrow a mouth to accept anything but liquids.[=0x0022=][=0x000A=][=0x000A=]Definition: a fluid container is empty if the current volume of it is 0.0 fl oz. Definition: a fluid container is full if the current volume of it is the fluid capacity of it.[=0x000A=][=0x000A=]Understand [=0x0022=]drink from [fluid container][=0x0022=] as drinking.[=0x000A=][=0x000A=]Instead of drinking a fluid container:[=0x000A=][=0x0009=]if the noun is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]There is no more [liquid of the noun] within.[=0x0022=] instead;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]decrease the current volume of the noun by 0.2 fl oz;[=0x000A=][=0x0009=][=0x0009=]if the current volume of the noun is less than 0.0 fl oz, now the current volume of the noun is 0.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You take a sip of [the liquid of the noun][if the noun is empty], leaving [the noun] empty[end if].[=0x0022=][=0x000A=][=0x000A=][We have allowed all liquids to be drunk, but it would be possible also to add checking, if we had a game where some liquids were beverages and others were, say, motor oil.][=0x000A=][=0x000A=]Understand the command [=0x0022=]fill[=0x0022=] as something new.[=0x000A=][=0x000A=]Understand [=0x0022=]pour [fluid container] in/into/on/onto [fluid container][=0x0022=] as pouring it into. Understand [=0x0022=]empty [fluid container] into [fluid container][=0x0022=] as pouring it into. Understand [=0x0022=]fill [fluid container] with/from [fluid container][=0x0022=] as pouring it into (with nouns reversed).[=0x000A=][=0x000A=]Understand [=0x0022=]pour [something] in/into/on/onto [something][=0x0022=] as pouring it into. Understand [=0x0022=]empty [something] into [something][=0x0022=] as pouring it into. Understand [=0x0022=]fill [something] with/from [something][=0x0022=] as pouring it into (with nouns reversed).[=0x000A=][=0x000A=]Pouring it into is an action applying to two things.[=0x000A=][=0x000A=]Check pouring it into:[=0x000A=][=0x0009=]if the noun is not a fluid container, say [=0x0022=]You can[=0x0027=]t pour [the noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is not a fluid container, say [=0x0022=]You can[=0x0027=]t pour liquids into [the second noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is the second noun, say [=0x0022=]You can hardly pour [the noun] into itself.[=0x0022=] instead;[=0x000A=][=0x0009=]if the liquid of the noun is not the liquid of the second noun:[=0x000A=][=0x0009=][=0x0009=]if the second noun is empty, now the liquid of the second noun is the liquid of the noun;[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Mixing [the liquid of the noun] with [the liquid of the second noun] would give unsavory results.[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is empty, say [=0x0022=]No more [liquid of the noun] remains in [the noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is full, say [=0x0022=][The second noun] cannot contain any more than it already holds.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out pouring it into:[=0x000A=][=0x0009=]let available capacity be the fluid capacity of the second noun minus the current volume of the second noun;[=0x000A=][=0x0009=]if the available capacity is greater than the current volume of the noun, now the available capacity is the current volume of the noun;[=0x000A=][=0x0009=]increase the current volume of the second noun by available capacity;[=0x000A=][=0x0009=]decrease the current volume of the noun by available capacity.[=0x000A=][=0x000A=]Report pouring it into:[=0x000A=][=0x0009=]say [=0x0022=][if the noun is empty][The noun] is now empty;[otherwise][The noun] now contains [current volume of the noun in rough terms] of [liquid of the noun]; [end if][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][the second noun] contains [current volume of the second noun in rough terms] of [liquid of the second noun][if the second noun is full], and is now full[end if].[=0x0022=][=0x000A=][=0x000A=][This is probably a drier description than we would actually want in our story, but it does allow us to see that the mechanics of the system are working, so we[=0x0027=]ll stick with this for the example.][=0x000A=][=0x000A=][Now we need a trick from a later chapter, which allows something to be described in terms of a property it has. This way, the story will understand not only [=0x0022=]pitcher[=0x0022=] and [=0x0022=]glass[=0x0022=] but also [=0x0022=]pitcher of lemonade[=0x0022=] and [=0x0022=]glass of milk[=0x0022=] -- and, indeed, [=0x0022=]glass of lemonade[=0x0022=], if we empty the glass and refill it with another substance:][=0x000A=][=0x000A=]Understand the liquid property as describing a fluid container. Understand [=0x0022=]of[=0x0022=] as a fluid container.[=0x000A=][=0x000A=][And now the scenario itself:][=0x000A=][=0x000A=]The Porch is a room. The porch swing is an enterable supporter in the Porch. [=0x0022=]An inviting swing hangs here at the end of the porch, allowing you to enjoy the summer with a cool beverage, and watch your neighbor Ted mowing his lawn with the very last manual powerless lawnmower on the block.[=0x0022=][=0x000A=][=0x000A=]The glass is a fluid container carried by the player. The liquid of the glass is milk. The current volume of the glass is 0.8 fl oz.[=0x000A=][=0x000A=]The pitcher is a fluid container in the Porch. The fluid capacity of the pitcher is 32.0 fl oz. The current volume of the pitcher is 20.0 fl oz. The liquid of the pitcher is lemonade.[=0x000A=][=0x000A=]Ted[=0x0027=]s Lawn is outside from the Porch. Ted is a man in Ted[=0x0027=]s Lawn. [=0x0022=]Ted has taken off his shirt, but still seems a bit oppressed by the sun.[=0x0022=] The description of Ted is [=0x0022=]He looks hot. In all senses.[=0x0022=][=0x000A=][=0x000A=]After deciding the scope of the player: place Ted in scope.[=0x000A=][=0x000A=]Instead of doing something to Ted when the player is in the Porch: say [=0x0022=]You can[=0x0027=]t really interact with Ted from this distance, except in the sense of eyeing him surreptitiously.[=0x0022=][=0x000A=][=0x000A=]Instead of giving an empty fluid container to Ted: say [=0x0022=]Yes, taunt the poor man, why don[=0x0027=]t you?[=0x0022=][=0x000A=][=0x000A=]Instead of giving a fluid container to Ted when the liquid of the noun is milk: say [=0x0022=]Ted looks ruefully at the milk. [=0x0027=]Thanks, but I[=0x0027=]m lactose-intolerant,[=0x0027=] he says.[=0x0022=][=0x000A=][=0x000A=]The block giving rule is not listed in the check giving it to rules.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if Ted is in the location:[=0x000A=][=0x0009=][=0x0009=]if Ted carries a fluid container (called refreshment):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]try Ted drinking the refreshment;[=0x000A=][=0x0009=][=0x0009=]otherwise if a random chance of 1 in 3 succeeds:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Ted pushes the ineffective mower over some dandelions.[=0x0022=][=0x000A=][=0x000A=]Instead of someone drinking a fluid container:[=0x000A=][=0x0009=]if the noun is empty:[=0x000A=][=0x0009=][=0x0009=]try the person asked giving the noun to the player;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]decrease the current volume of the noun by 2.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]if the current volume of the noun is less than 0.0 fl oz, now the current volume of the noun is 0.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The person asked] gulps down some [liquid of the noun].[=0x0022=][=0x000A=][=0x000A=]After someone giving something to the player:[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Here,[=0x0027=] says [the person asked], handing [the noun] back to you. [=0x0027=]Thanks, I owe you one.[=0x0027=][=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Test me with [=0x0022=]x milk / x lemonade / drink lemonade / drink milk / pour lemonade into glass / drink milk / x milk / drink milk / g / i / fill glass with lemonade / drink lemonade / drop glass / drink lemonade / pitcher[=0x0022=].[=0x000A=][=0x000A=]Test Ted with [=0x0022=]out / give milk to ted / drink milk / g / g / g / give glass to ted / in / fill glass with lemonade / out / give lemonade to ted / wait / z / z / z [=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Lemonade[=0x0022=][=0x000A=][=0x000A=]A volume is a kind of value. 15.9 fl oz specifies a volume with parts ounces and tenths (optional, preamble optional).[=0x000A=][=0x000A=]A fluid container is a kind of container. A fluid container has a volume called a fluid capacity. A fluid container has a volume called current volume.[=0x000A=][=0x000A=]The fluid capacity of a fluid container is usually 12.0 fl oz. The current volume of a fluid container is usually 0.0 fl oz.[=0x000A=][=0x000A=]Liquid is a kind of value. The liquids are water, milk, lemonade, and iced tea. A fluid container has a liquid.[=0x000A=][=0x000A=]Instead of examining a fluid container:[=0x000A=][=0x0009=]if the noun is empty,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You catch just a hint of [the liquid of the noun] at the bottom.[=0x0022=];[=0x000A=][=0x0009=]otherwise[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The noun] contains [current volume of the noun in rough terms] of [liquid of the noun].[=0x0022=][=0x000A=][=0x000A=]To say (amount - a volume) in rough terms:[=0x000A=][=0x0009=]if the amount is less than 0.5 fl oz:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]a swallow or two[=0x0022=];[=0x000A=][=0x0009=]otherwise if tenths part of amount is greater than 3 and tenths part of amount is less than 7:[=0x000A=][=0x0009=][=0x0009=]let estimate be ounces part of amount;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][estimate in words] or [estimate plus 1 in words] fluid ounces[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if tenths part of amount is greater than 6, increase amount by 1.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]about [ounces part of amount in words] fluid ounce[s][=0x0022=].[=0x000A=][=0x000A=]Before printing the name of a fluid container (called the target) while not drinking:[=0x000A=][=0x0009=]if the target is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]empty [=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]do nothing.[=0x000A=][=0x000A=]After printing the name of a fluid container (called the target) while not examining:[=0x000A=][=0x0009=]unless the target is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] of [liquid of the target][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]omit contents in listing.[=0x000A=][=0x000A=]Instead of inserting something into a fluid container:[=0x000A=][=0x0009=]say [=0x0022=][The second noun] has too narrow a mouth to accept anything but liquids.[=0x0022=][=0x000A=][=0x000A=]Definition: a fluid container is empty if the current volume of it is 0.0 fl oz. Definition: a fluid container is full if the current volume of it is the fluid capacity of it.[=0x000A=][=0x000A=]Understand [=0x0022=]drink from [fluid container][=0x0022=] as drinking.[=0x000A=][=0x000A=]Instead of drinking a fluid container:[=0x000A=][=0x0009=]if the noun is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]There is no more [liquid of the noun] within.[=0x0022=] instead;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]decrease the current volume of the noun by 0.2 fl oz;[=0x000A=][=0x0009=][=0x0009=]if the current volume of the noun is less than 0.0 fl oz, now the current volume of the noun is 0.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You take a sip of [the liquid of the noun][if the noun is empty], leaving [the noun] empty[end if].[=0x0022=][=0x000A=][=0x000A=][We have allowed all liquids to be drunk, but it would be possible also to add checking, if we had a game where some liquids were beverages and others were, say, motor oil.][=0x000A=][=0x000A=]Understand the command [=0x0022=]fill[=0x0022=] as something new.[=0x000A=][=0x000A=]Understand [=0x0022=]pour [fluid container] in/into/on/onto [fluid container][=0x0022=] as pouring it into. Understand [=0x0022=]empty [fluid container] into [fluid container][=0x0022=] as pouring it into. Understand [=0x0022=]fill [fluid container] with/from [fluid container][=0x0022=] as pouring it into (with nouns reversed).[=0x000A=][=0x000A=]Understand [=0x0022=]pour [something] in/into/on/onto [something][=0x0022=] as pouring it into. Understand [=0x0022=]empty [something] into [something][=0x0022=] as pouring it into. Understand [=0x0022=]fill [something] with/from [something][=0x0022=] as pouring it into (with nouns reversed).[=0x000A=][=0x000A=]Pouring it into is an action applying to two things.[=0x000A=][=0x000A=]Check pouring it into:[=0x000A=][=0x0009=]if the noun is not a fluid container, say [=0x0022=]You can[=0x0027=]t pour [the noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is not a fluid container, say [=0x0022=]You can[=0x0027=]t pour liquids into [the second noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is the second noun, say [=0x0022=]You can hardly pour [the noun] into itself.[=0x0022=] instead;[=0x000A=][=0x0009=]if the liquid of the noun is not the liquid of the second noun:[=0x000A=][=0x0009=][=0x0009=]if the second noun is empty, now the liquid of the second noun is the liquid of the noun;[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Mixing [the liquid of the noun] with [the liquid of the second noun] would give unsavory results.[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is empty, say [=0x0022=]No more [liquid of the noun] remains in [the noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is full, say [=0x0022=][The second noun] cannot contain any more than it already holds.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out pouring it into:[=0x000A=][=0x0009=]let available capacity be the fluid capacity of the second noun minus the current volume of the second noun;[=0x000A=][=0x0009=]if the available capacity is greater than the current volume of the noun, now the available capacity is the current volume of the noun;[=0x000A=][=0x0009=]increase the current volume of the second noun by available capacity;[=0x000A=][=0x0009=]decrease the current volume of the noun by available capacity.[=0x000A=][=0x000A=]Report pouring it into:[=0x000A=][=0x0009=]say [=0x0022=][if the noun is empty][The noun] is now empty;[otherwise][The noun] now contains [current volume of the noun in rough terms] of [liquid of the noun]; [end if][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][the second noun] contains [current volume of the second noun in rough terms] of [liquid of the second noun][if the second noun is full], and is now full[end if].[=0x0022=][=0x000A=][=0x000A=][This is probably a drier description than we would actually want in our story, but it does allow us to see that the mechanics of the system are working, so we[=0x0027=]ll stick with this for the example.][=0x000A=][=0x000A=][Now we need a trick from a later chapter, which allows something to be described in terms of a property it has. This way, the story will understand not only [=0x0022=]pitcher[=0x0022=] and [=0x0022=]glass[=0x0022=] but also [=0x0022=]pitcher of lemonade[=0x0022=] and [=0x0022=]glass of milk[=0x0022=] -- and, indeed, [=0x0022=]glass of lemonade[=0x0022=], if we empty the glass and refill it with another substance:][=0x000A=][=0x000A=]Understand the liquid property as describing a fluid container. Understand [=0x0022=]of[=0x0022=] as a fluid container.[=0x000A=][=0x000A=][And now the scenario itself:][=0x000A=][=0x000A=]The Porch is a room. The porch swing is an enterable supporter in the Porch. [=0x0022=]An inviting swing hangs here at the end of the porch, allowing you to enjoy the summer with a cool beverage, and watch your neighbor Ted mowing his lawn with the very last manual powerless lawnmower on the block.[=0x0022=][=0x000A=][=0x000A=]The glass is a fluid container carried by the player. The liquid of the glass is milk. The current volume of the glass is 0.8 fl oz.[=0x000A=][=0x000A=]The pitcher is a fluid container in the Porch. The fluid capacity of the pitcher is 32.0 fl oz. The current volume of the pitcher is 20.0 fl oz. The liquid of the pitcher is lemonade.[=0x000A=][=0x000A=]Ted[=0x0027=]s Lawn is outside from the Porch. Ted is a man in Ted[=0x0027=]s Lawn. [=0x0022=]Ted has taken off his shirt, but still seems a bit oppressed by the sun.[=0x0022=] The description of Ted is [=0x0022=]He looks hot. In all senses.[=0x0022=][=0x000A=][=0x000A=]After deciding the scope of the player: place Ted in scope.[=0x000A=][=0x000A=]Instead of doing something to Ted when the player is in the Porch: say [=0x0022=]You can[=0x0027=]t really interact with Ted from this distance, except in the sense of eyeing him surreptitiously.[=0x0022=][=0x000A=][=0x000A=]Instead of giving an empty fluid container to Ted: say [=0x0022=]Yes, taunt the poor man, why don[=0x0027=]t you?[=0x0022=][=0x000A=][=0x000A=]Instead of giving a fluid container to Ted when the liquid of the noun is milk: say [=0x0022=]Ted looks ruefully at the milk. [=0x0027=]Thanks, but I[=0x0027=]m lactose-intolerant,[=0x0027=] he says.[=0x0022=][=0x000A=][=0x000A=]The block giving rule is not listed in the check giving it to rules.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if Ted is in the location:[=0x000A=][=0x0009=][=0x0009=]if Ted carries a fluid container (called refreshment):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]try Ted drinking the refreshment;[=0x000A=][=0x0009=][=0x0009=]otherwise if a random chance of 1 in 3 succeeds:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Ted pushes the ineffective mower over some dandelions.[=0x0022=][=0x000A=][=0x000A=]Instead of someone drinking a fluid container:[=0x000A=][=0x0009=]if the noun is empty:[=0x000A=][=0x0009=][=0x0009=]try the person asked giving the noun to the player;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]decrease the current volume of the noun by 2.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]if the current volume of the noun is less than 0.0 fl oz, now the current volume of the noun is 0.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The person asked] gulps down some [liquid of the noun].[=0x0022=][=0x000A=][=0x000A=]After someone giving something to the player:[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Here,[=0x0027=] says [the person asked], handing [the noun] back to you. [=0x0027=]Thanks, I owe you one.[=0x0027=][=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Test me with [=0x0022=]x milk / x lemonade / drink lemonade / drink milk / pour lemonade into glass / drink milk / x milk / drink milk / g / i / fill glass with lemonade / drink lemonade / drop glass / drink lemonade / pitcher[=0x0022=].[=0x000A=][=0x000A=]Test Ted with [=0x0022=]out / give milk to ted / drink milk / g / g / g / give glass to ted / in / fill glass with lemonade / out / give lemonade to ted / wait / z / z / z [=0x0022=].[=0x000A=]\n', 'Example - Lemonade')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Lemonade&quot;
+            <!--START CODE "c4895_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4895_208"></a><a href="javascript:pasteCode('[=0x0022=]Lemonade[=0x0022=][=0x000A=][=0x000A=]A volume is a kind of value. 15.9 fl oz specifies a volume with parts ounces and tenths (optional, preamble optional).[=0x000A=][=0x000A=]A fluid container is a kind of container. A fluid container has a volume called a fluid capacity. A fluid container has a volume called current volume.[=0x000A=][=0x000A=]The fluid capacity of a fluid container is usually 12.0 fl oz. The current volume of a fluid container is usually 0.0 fl oz.[=0x000A=][=0x000A=]Liquid is a kind of value. The liquids are water, milk, lemonade, and iced tea. A fluid container has a liquid.[=0x000A=][=0x000A=]Instead of examining a fluid container:[=0x000A=][=0x0009=]if the noun is empty,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You catch just a hint of [the liquid of the noun] at the bottom.[=0x0022=];[=0x000A=][=0x0009=]otherwise[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The noun] contains [current volume of the noun in rough terms] of [liquid of the noun].[=0x0022=][=0x000A=][=0x000A=]To say (amount - a volume) in rough terms:[=0x000A=][=0x0009=]if the amount is less than 0.5 fl oz:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]a swallow or two[=0x0022=];[=0x000A=][=0x0009=]otherwise if tenths part of amount is greater than 3 and tenths part of amount is less than 7:[=0x000A=][=0x0009=][=0x0009=]let estimate be ounces part of amount;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][estimate in words] or [estimate plus 1 in words] fluid ounces[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if tenths part of amount is greater than 6, increase amount by 1.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]about [ounces part of amount in words] fluid ounce[s][=0x0022=].[=0x000A=][=0x000A=]Before printing the name of a fluid container (called the target) while not drinking:[=0x000A=][=0x0009=]if the target is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]empty [=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]do nothing.[=0x000A=][=0x000A=]After printing the name of a fluid container (called the target) while not examining:[=0x000A=][=0x0009=]unless the target is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] of [liquid of the target][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]omit contents in listing.[=0x000A=][=0x000A=]Instead of inserting something into a fluid container:[=0x000A=][=0x0009=]say [=0x0022=][The second noun] has too narrow a mouth to accept anything but liquids.[=0x0022=][=0x000A=][=0x000A=]Definition: a fluid container is empty if the current volume of it is 0.0 fl oz. Definition: a fluid container is full if the current volume of it is the fluid capacity of it.[=0x000A=][=0x000A=]Understand [=0x0022=]drink from [fluid container][=0x0022=] as drinking.[=0x000A=][=0x000A=]Instead of drinking a fluid container:[=0x000A=][=0x0009=]if the noun is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]There is no more [liquid of the noun] within.[=0x0022=] instead;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]decrease the current volume of the noun by 0.2 fl oz;[=0x000A=][=0x0009=][=0x0009=]if the current volume of the noun is less than 0.0 fl oz, now the current volume of the noun is 0.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You take a sip of [the liquid of the noun][if the noun is empty], leaving [the noun] empty[end if].[=0x0022=][=0x000A=][=0x000A=][We have allowed all liquids to be drunk, but it would be possible also to add checking, if we had a game where some liquids were beverages and others were, say, motor oil.][=0x000A=][=0x000A=]Understand the command [=0x0022=]fill[=0x0022=] as something new.[=0x000A=][=0x000A=]Understand [=0x0022=]pour [fluid container] in/into/on/onto [fluid container][=0x0022=] as pouring it into. Understand [=0x0022=]empty [fluid container] into [fluid container][=0x0022=] as pouring it into. Understand [=0x0022=]fill [fluid container] with/from [fluid container][=0x0022=] as pouring it into (with nouns reversed).[=0x000A=][=0x000A=]Understand [=0x0022=]pour [something] in/into/on/onto [something][=0x0022=] as pouring it into. Understand [=0x0022=]empty [something] into [something][=0x0022=] as pouring it into. Understand [=0x0022=]fill [something] with/from [something][=0x0022=] as pouring it into (with nouns reversed).[=0x000A=][=0x000A=]Pouring it into is an action applying to two things.[=0x000A=][=0x000A=]Check pouring it into:[=0x000A=][=0x0009=]if the noun is not a fluid container, say [=0x0022=]You can[=0x0027=]t pour [the noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is not a fluid container, say [=0x0022=]You can[=0x0027=]t pour liquids into [the second noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is the second noun, say [=0x0022=]You can hardly pour [the noun] into itself.[=0x0022=] instead;[=0x000A=][=0x0009=]if the liquid of the noun is not the liquid of the second noun:[=0x000A=][=0x0009=][=0x0009=]if the second noun is empty, now the liquid of the second noun is the liquid of the noun;[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Mixing [the liquid of the noun] with [the liquid of the second noun] would give unsavory results.[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is empty, say [=0x0022=]No more [liquid of the noun] remains in [the noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is full, say [=0x0022=][The second noun] cannot contain any more than it already holds.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out pouring it into:[=0x000A=][=0x0009=]let available capacity be the fluid capacity of the second noun minus the current volume of the second noun;[=0x000A=][=0x0009=]if the available capacity is greater than the current volume of the noun, now the available capacity is the current volume of the noun;[=0x000A=][=0x0009=]increase the current volume of the second noun by available capacity;[=0x000A=][=0x0009=]decrease the current volume of the noun by available capacity.[=0x000A=][=0x000A=]Report pouring it into:[=0x000A=][=0x0009=]say [=0x0022=][if the noun is empty][The noun] is now empty;[otherwise][The noun] now contains [current volume of the noun in rough terms] of [liquid of the noun]; [end if][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][the second noun] contains [current volume of the second noun in rough terms] of [liquid of the second noun][if the second noun is full], and is now full[end if].[=0x0022=][=0x000A=][=0x000A=][This is probably a drier description than we would actually want in our story, but it does allow us to see that the mechanics of the system are working, so we[=0x0027=]ll stick with this for the example.][=0x000A=][=0x000A=][Now we need a trick from a later chapter, which allows something to be described in terms of a property it has. This way, the story will understand not only [=0x0022=]pitcher[=0x0022=] and [=0x0022=]glass[=0x0022=] but also [=0x0022=]pitcher of lemonade[=0x0022=] and [=0x0022=]glass of milk[=0x0022=] -- and, indeed, [=0x0022=]glass of lemonade[=0x0022=], if we empty the glass and refill it with another substance:][=0x000A=][=0x000A=]Understand the liquid property as describing a fluid container. Understand [=0x0022=]of[=0x0022=] as a fluid container.[=0x000A=][=0x000A=][And now the scenario itself:][=0x000A=][=0x000A=]The Porch is a room. The porch swing is an enterable supporter in the Porch. [=0x0022=]An inviting swing hangs here at the end of the porch, allowing you to enjoy the summer with a cool beverage, and watch your neighbor Ted mowing his lawn with the very last manual powerless lawnmower on the block.[=0x0022=][=0x000A=][=0x000A=]The glass is a fluid container carried by the player. The liquid of the glass is milk. The current volume of the glass is 0.8 fl oz.[=0x000A=][=0x000A=]The pitcher is a fluid container in the Porch. The fluid capacity of the pitcher is 32.0 fl oz. The current volume of the pitcher is 20.0 fl oz. The liquid of the pitcher is lemonade.[=0x000A=][=0x000A=]Ted[=0x0027=]s Lawn is outside from the Porch. Ted is a man in Ted[=0x0027=]s Lawn. [=0x0022=]Ted has taken off his shirt, but still seems a bit oppressed by the sun.[=0x0022=] The description of Ted is [=0x0022=]He looks hot. In all senses.[=0x0022=][=0x000A=][=0x000A=]After deciding the scope of the player: place Ted in scope.[=0x000A=][=0x000A=]Instead of doing something to Ted when the player is in the Porch: say [=0x0022=]You can[=0x0027=]t really interact with Ted from this distance, except in the sense of eyeing him surreptitiously.[=0x0022=][=0x000A=][=0x000A=]Instead of giving an empty fluid container to Ted: say [=0x0022=]Yes, taunt the poor man, why don[=0x0027=]t you?[=0x0022=][=0x000A=][=0x000A=]Instead of giving a fluid container to Ted when the liquid of the noun is milk: say [=0x0022=]Ted looks ruefully at the milk. [=0x0027=]Thanks, but I[=0x0027=]m lactose-intolerant,[=0x0027=] he says.[=0x0022=][=0x000A=][=0x000A=]The block giving rule is not listed in the check giving it to rules.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if Ted is in the location:[=0x000A=][=0x0009=][=0x0009=]if Ted carries a fluid container (called refreshment):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]try Ted drinking the refreshment;[=0x000A=][=0x0009=][=0x0009=]otherwise if a random chance of 1 in 3 succeeds:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Ted pushes the ineffective mower over some dandelions.[=0x0022=][=0x000A=][=0x000A=]Instead of someone drinking a fluid container:[=0x000A=][=0x0009=]if the noun is empty:[=0x000A=][=0x0009=][=0x0009=]try the person asked giving the noun to the player;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]decrease the current volume of the noun by 2.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]if the current volume of the noun is less than 0.0 fl oz, now the current volume of the noun is 0.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The person asked] gulps down some [liquid of the noun].[=0x0022=][=0x000A=][=0x000A=]After someone giving something to the player:[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Here,[=0x0027=] says [the person asked], handing [the noun] back to you. [=0x0027=]Thanks, I owe you one.[=0x0027=][=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Test me with [=0x0022=]x milk / x lemonade / drink lemonade / drink milk / pour lemonade into glass / drink milk / x milk / drink milk / g / i / fill glass with lemonade / drink lemonade / drop glass / drink lemonade / pitcher[=0x0022=].[=0x000A=][=0x000A=]Test Ted with [=0x0022=]out / give milk to ted / drink milk / g / g / g / give glass to ted / in / fill glass with lemonade / out / give lemonade to ted / wait / z / z / z [=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Lemonade[=0x0022=][=0x000A=][=0x000A=]A volume is a kind of value. 15.9 fl oz specifies a volume with parts ounces and tenths (optional, preamble optional).[=0x000A=][=0x000A=]A fluid container is a kind of container. A fluid container has a volume called a fluid capacity. A fluid container has a volume called current volume.[=0x000A=][=0x000A=]The fluid capacity of a fluid container is usually 12.0 fl oz. The current volume of a fluid container is usually 0.0 fl oz.[=0x000A=][=0x000A=]Liquid is a kind of value. The liquids are water, milk, lemonade, and iced tea. A fluid container has a liquid.[=0x000A=][=0x000A=]Instead of examining a fluid container:[=0x000A=][=0x0009=]if the noun is empty,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You catch just a hint of [the liquid of the noun] at the bottom.[=0x0022=];[=0x000A=][=0x0009=]otherwise[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The noun] contains [current volume of the noun in rough terms] of [liquid of the noun].[=0x0022=][=0x000A=][=0x000A=]To say (amount - a volume) in rough terms:[=0x000A=][=0x0009=]if the amount is less than 0.5 fl oz:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]a swallow or two[=0x0022=];[=0x000A=][=0x0009=]otherwise if tenths part of amount is greater than 3 and tenths part of amount is less than 7:[=0x000A=][=0x0009=][=0x0009=]let estimate be ounces part of amount;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][estimate in words] or [estimate plus 1 in words] fluid ounces[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if tenths part of amount is greater than 6, increase amount by 1.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]about [ounces part of amount in words] fluid ounce[s][=0x0022=].[=0x000A=][=0x000A=]Before printing the name of a fluid container (called the target) while not drinking:[=0x000A=][=0x0009=]if the target is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]empty [=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]do nothing.[=0x000A=][=0x000A=]After printing the name of a fluid container (called the target) while not examining:[=0x000A=][=0x0009=]unless the target is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] of [liquid of the target][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]omit contents in listing.[=0x000A=][=0x000A=]Instead of inserting something into a fluid container:[=0x000A=][=0x0009=]say [=0x0022=][The second noun] has too narrow a mouth to accept anything but liquids.[=0x0022=][=0x000A=][=0x000A=]Definition: a fluid container is empty if the current volume of it is 0.0 fl oz. Definition: a fluid container is full if the current volume of it is the fluid capacity of it.[=0x000A=][=0x000A=]Understand [=0x0022=]drink from [fluid container][=0x0022=] as drinking.[=0x000A=][=0x000A=]Instead of drinking a fluid container:[=0x000A=][=0x0009=]if the noun is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]There is no more [liquid of the noun] within.[=0x0022=] instead;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]decrease the current volume of the noun by 0.2 fl oz;[=0x000A=][=0x0009=][=0x0009=]if the current volume of the noun is less than 0.0 fl oz, now the current volume of the noun is 0.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You take a sip of [the liquid of the noun][if the noun is empty], leaving [the noun] empty[end if].[=0x0022=][=0x000A=][=0x000A=][We have allowed all liquids to be drunk, but it would be possible also to add checking, if we had a game where some liquids were beverages and others were, say, motor oil.][=0x000A=][=0x000A=]Understand the command [=0x0022=]fill[=0x0022=] as something new.[=0x000A=][=0x000A=]Understand [=0x0022=]pour [fluid container] in/into/on/onto [fluid container][=0x0022=] as pouring it into. Understand [=0x0022=]empty [fluid container] into [fluid container][=0x0022=] as pouring it into. Understand [=0x0022=]fill [fluid container] with/from [fluid container][=0x0022=] as pouring it into (with nouns reversed).[=0x000A=][=0x000A=]Understand [=0x0022=]pour [something] in/into/on/onto [something][=0x0022=] as pouring it into. Understand [=0x0022=]empty [something] into [something][=0x0022=] as pouring it into. Understand [=0x0022=]fill [something] with/from [something][=0x0022=] as pouring it into (with nouns reversed).[=0x000A=][=0x000A=]Pouring it into is an action applying to two things.[=0x000A=][=0x000A=]Check pouring it into:[=0x000A=][=0x0009=]if the noun is not a fluid container, say [=0x0022=]You can[=0x0027=]t pour [the noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is not a fluid container, say [=0x0022=]You can[=0x0027=]t pour liquids into [the second noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is the second noun, say [=0x0022=]You can hardly pour [the noun] into itself.[=0x0022=] instead;[=0x000A=][=0x0009=]if the liquid of the noun is not the liquid of the second noun:[=0x000A=][=0x0009=][=0x0009=]if the second noun is empty, now the liquid of the second noun is the liquid of the noun;[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Mixing [the liquid of the noun] with [the liquid of the second noun] would give unsavory results.[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is empty, say [=0x0022=]No more [liquid of the noun] remains in [the noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is full, say [=0x0022=][The second noun] cannot contain any more than it already holds.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out pouring it into:[=0x000A=][=0x0009=]let available capacity be the fluid capacity of the second noun minus the current volume of the second noun;[=0x000A=][=0x0009=]if the available capacity is greater than the current volume of the noun, now the available capacity is the current volume of the noun;[=0x000A=][=0x0009=]increase the current volume of the second noun by available capacity;[=0x000A=][=0x0009=]decrease the current volume of the noun by available capacity.[=0x000A=][=0x000A=]Report pouring it into:[=0x000A=][=0x0009=]say [=0x0022=][if the noun is empty][The noun] is now empty;[otherwise][The noun] now contains [current volume of the noun in rough terms] of [liquid of the noun]; [end if][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][the second noun] contains [current volume of the second noun in rough terms] of [liquid of the second noun][if the second noun is full], and is now full[end if].[=0x0022=][=0x000A=][=0x000A=][This is probably a drier description than we would actually want in our story, but it does allow us to see that the mechanics of the system are working, so we[=0x0027=]ll stick with this for the example.][=0x000A=][=0x000A=][Now we need a trick from a later chapter, which allows something to be described in terms of a property it has. This way, the story will understand not only [=0x0022=]pitcher[=0x0022=] and [=0x0022=]glass[=0x0022=] but also [=0x0022=]pitcher of lemonade[=0x0022=] and [=0x0022=]glass of milk[=0x0022=] -- and, indeed, [=0x0022=]glass of lemonade[=0x0022=], if we empty the glass and refill it with another substance:][=0x000A=][=0x000A=]Understand the liquid property as describing a fluid container. Understand [=0x0022=]of[=0x0022=] as a fluid container.[=0x000A=][=0x000A=][And now the scenario itself:][=0x000A=][=0x000A=]The Porch is a room. The porch swing is an enterable supporter in the Porch. [=0x0022=]An inviting swing hangs here at the end of the porch, allowing you to enjoy the summer with a cool beverage, and watch your neighbor Ted mowing his lawn with the very last manual powerless lawnmower on the block.[=0x0022=][=0x000A=][=0x000A=]The glass is a fluid container carried by the player. The liquid of the glass is milk. The current volume of the glass is 0.8 fl oz.[=0x000A=][=0x000A=]The pitcher is a fluid container in the Porch. The fluid capacity of the pitcher is 32.0 fl oz. The current volume of the pitcher is 20.0 fl oz. The liquid of the pitcher is lemonade.[=0x000A=][=0x000A=]Ted[=0x0027=]s Lawn is outside from the Porch. Ted is a man in Ted[=0x0027=]s Lawn. [=0x0022=]Ted has taken off his shirt, but still seems a bit oppressed by the sun.[=0x0022=] The description of Ted is [=0x0022=]He looks hot. In all senses.[=0x0022=][=0x000A=][=0x000A=]After deciding the scope of the player: place Ted in scope.[=0x000A=][=0x000A=]Instead of doing something to Ted when the player is in the Porch: say [=0x0022=]You can[=0x0027=]t really interact with Ted from this distance, except in the sense of eyeing him surreptitiously.[=0x0022=][=0x000A=][=0x000A=]Instead of giving an empty fluid container to Ted: say [=0x0022=]Yes, taunt the poor man, why don[=0x0027=]t you?[=0x0022=][=0x000A=][=0x000A=]Instead of giving a fluid container to Ted when the liquid of the noun is milk: say [=0x0022=]Ted looks ruefully at the milk. [=0x0027=]Thanks, but I[=0x0027=]m lactose-intolerant,[=0x0027=] he says.[=0x0022=][=0x000A=][=0x000A=]The block giving rule is not listed in the check giving it to rules.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if Ted is in the location:[=0x000A=][=0x0009=][=0x0009=]if Ted carries a fluid container (called refreshment):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]try Ted drinking the refreshment;[=0x000A=][=0x0009=][=0x0009=]otherwise if a random chance of 1 in 3 succeeds:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Ted pushes the ineffective mower over some dandelions.[=0x0022=][=0x000A=][=0x000A=]Instead of someone drinking a fluid container:[=0x000A=][=0x0009=]if the noun is empty:[=0x000A=][=0x0009=][=0x0009=]try the person asked giving the noun to the player;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]decrease the current volume of the noun by 2.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]if the current volume of the noun is less than 0.0 fl oz, now the current volume of the noun is 0.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The person asked] gulps down some [liquid of the noun].[=0x0022=][=0x000A=][=0x000A=]After someone giving something to the player:[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Here,[=0x0027=] says [the person asked], handing [the noun] back to you. [=0x0027=]Thanks, I owe you one.[=0x0027=][=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Test me with [=0x0022=]x milk / x lemonade / drink lemonade / drink milk / pour lemonade into glass / drink milk / x milk / drink milk / g / i / fill glass with lemonade / drink lemonade / drop glass / drink lemonade / pitcher[=0x0022=].[=0x000A=][=0x000A=]Test Ted with [=0x0022=]out / give milk to ted / drink milk / g / g / g / give glass to ted / in / fill glass with lemonade / out / give lemonade to ted / wait / z / z / z [=0x0022=].[=0x000A=]\n', 'Example - Lemonade')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Lemonade&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4888_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4888_222"></a>A volume is a kind of value. 15.9 fl oz specifies a volume with parts ounces and tenths (optional, preamble optional).
+            <!--START CODE "c4896_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4896_208"></a>A volume is a kind of value. 15.9 fl oz specifies a volume with parts ounces and tenths (optional, preamble optional).
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4889_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4889_222"></a>A fluid container is a kind of container. A fluid container has a volume called a fluid capacity. A fluid container has a volume called current volume.
+            <!--START CODE "c4897_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4897_208"></a>A fluid container is a kind of container. A fluid container has a volume called a fluid capacity. A fluid container has a volume called current volume.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4890_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4890_222"></a>The fluid capacity of a fluid container is usually 12.0 fl oz. The current volume of a fluid container is usually 0.0 fl oz.
+            <!--START CODE "c4898_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4898_208"></a>The fluid capacity of a fluid container is usually 12.0 fl oz. The current volume of a fluid container is usually 0.0 fl oz.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4891_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4891_222"></a>Liquid is a kind of value. The liquids are water, milk, lemonade, and iced tea. A fluid container has a liquid.
+            <!--START CODE "c4899_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4899_208"></a>Liquid is a kind of value. The liquids are water, milk, lemonade, and iced tea. A fluid container has a liquid.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4892_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4892_222"></a>Instead of examining a fluid container:
+            <!--START CODE "c4900_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4900_208"></a>Instead of examining a fluid container:
             <br>
             &#160;&#160;&#160;&#160;if the noun is empty,
             <br>
@@ -525,8 +525,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4893_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4893_222"></a>To say (amount - a volume) in rough terms:
+            <!--START CODE "c4901_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4901_208"></a>To say (amount - a volume) in rough terms:
             <br>
             &#160;&#160;&#160;&#160;if the amount is less than 0.5 fl oz:
             <br>
@@ -546,8 +546,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4894_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4894_222"></a>Before printing the name of a fluid container (called the target) while not drinking:
+            <!--START CODE "c4902_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4902_208"></a>Before printing the name of a fluid container (called the target) while not drinking:
             <br>
             &#160;&#160;&#160;&#160;if the target is empty:
             <br>
@@ -559,8 +559,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4895_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4895_222"></a>After printing the name of a fluid container (called the target) while not examining:
+            <!--START CODE "c4903_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4903_208"></a>After printing the name of a fluid container (called the target) while not examining:
             <br>
             &#160;&#160;&#160;&#160;unless the target is empty:
             <br>
@@ -570,25 +570,25 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4896_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4896_222"></a>Instead of inserting something into a fluid container:
+            <!--START CODE "c4904_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4904_208"></a>Instead of inserting something into a fluid container:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The second noun] has too narrow a mouth to accept anything but liquids.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4897_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4897_222"></a>Definition: a fluid container is empty if the current volume of it is 0.0 fl oz. Definition: a fluid container is full if the current volume of it is the fluid capacity of it.
+            <!--START CODE "c4905_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4905_208"></a>Definition: a fluid container is empty if the current volume of it is 0.0 fl oz. Definition: a fluid container is full if the current volume of it is the fluid capacity of it.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4898_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4898_222"></a>Understand &quot;drink from [fluid container]&quot; as drinking.
+            <!--START CODE "c4906_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4906_208"></a>Understand &quot;drink from [fluid container]&quot; as drinking.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4899_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4899_222"></a>Instead of drinking a fluid container:
+            <!--START CODE "c4907_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4907_208"></a>Instead of drinking a fluid container:
             <br>
             &#160;&#160;&#160;&#160;if the noun is empty:
             <br>
@@ -605,28 +605,28 @@
             </blockquote>
             <!--END CODE-->
             <p>We have allowed all liquids to be drunk, but it would be possible also to add checking, if we had a game where some liquids were beverages and others were, say, motor oil.</p>
-            <!--START CODE "c4900_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4900_222"></a>Understand the command &quot;fill&quot; as something new.
+            <!--START CODE "c4908_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4908_208"></a>Understand the command &quot;fill&quot; as something new.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4901_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4901_222"></a>Understand &quot;pour [fluid container] in/into/on/onto [fluid container]&quot; as pouring it into. Understand &quot;empty [fluid container] into [fluid container]&quot; as pouring it into. Understand &quot;fill [fluid container] with/from [fluid container]&quot; as pouring it into (with nouns reversed).
+            <!--START CODE "c4909_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4909_208"></a>Understand &quot;pour [fluid container] in/into/on/onto [fluid container]&quot; as pouring it into. Understand &quot;empty [fluid container] into [fluid container]&quot; as pouring it into. Understand &quot;fill [fluid container] with/from [fluid container]&quot; as pouring it into (with nouns reversed).
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4902_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4902_222"></a>Understand &quot;pour [something] in/into/on/onto [something]&quot; as pouring it into. Understand &quot;empty [something] into [something]&quot; as pouring it into. Understand &quot;fill [something] with/from [something]&quot; as pouring it into (with nouns reversed).
+            <!--START CODE "c4910_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4910_208"></a>Understand &quot;pour [something] in/into/on/onto [something]&quot; as pouring it into. Understand &quot;empty [something] into [something]&quot; as pouring it into. Understand &quot;fill [something] with/from [something]&quot; as pouring it into (with nouns reversed).
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4903_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4903_222"></a>Pouring it into is an action applying to two things.
+            <!--START CODE "c4911_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4911_208"></a>Pouring it into is an action applying to two things.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4904_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4904_222"></a>Check pouring it into:
+            <!--START CODE "c4912_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4912_208"></a>Check pouring it into:
             <br>
             &#160;&#160;&#160;&#160;if the noun is not a fluid container, say &quot;You can't pour [the noun].&quot; instead;
             <br>
@@ -646,8 +646,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4905_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4905_222"></a>Carry out pouring it into:
+            <!--START CODE "c4913_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4913_208"></a>Carry out pouring it into:
             <br>
             &#160;&#160;&#160;&#160;let available capacity be the fluid capacity of the second noun minus the current volume of the second noun;
             <br>
@@ -659,8 +659,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4906_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4906_222"></a>Report pouring it into:
+            <!--START CODE "c4914_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4914_208"></a>Report pouring it into:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[if the noun is empty][The noun] is now empty;[otherwise][The noun] now contains [current volume of the noun in rough terms] of [liquid of the noun]; [end if]&quot;;
             <br>
@@ -670,59 +670,59 @@
             <!--END CODE-->
             <p>This is probably a drier description than we would actually want in our story, but it does allow us to see that the mechanics of the system are working, so we'll stick with this for the example.</p>
             <p>Now we need a trick from a later chapter, which allows something to be described in terms of a property it has. This way, the story will understand not only &quot;pitcher&quot; and &quot;glass&quot; but also &quot;pitcher of lemonade&quot; and &quot;glass of milk&quot; -- and, indeed, &quot;glass of lemonade&quot;, if we empty the glass and refill it with another substance:</p>
-            <!--START CODE "c4907_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4907_222"></a>Understand the liquid property as describing a fluid container. Understand &quot;of&quot; as a fluid container.
+            <!--START CODE "c4915_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4915_208"></a>Understand the liquid property as describing a fluid container. Understand &quot;of&quot; as a fluid container.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>And now the scenario itself:</p>
-            <!--START CODE "c4908_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4908_222"></a>The Porch is a room. The porch swing is an enterable supporter in the Porch. &quot;An inviting swing hangs here at the end of the porch, allowing you to enjoy the summer with a cool beverage, and watch your neighbor Ted mowing his lawn with the very last manual powerless lawnmower on the block.&quot;
+            <!--START CODE "c4916_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4916_208"></a>The Porch is a room. The porch swing is an enterable supporter in the Porch. &quot;An inviting swing hangs here at the end of the porch, allowing you to enjoy the summer with a cool beverage, and watch your neighbor Ted mowing his lawn with the very last manual powerless lawnmower on the block.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4909_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4909_222"></a>The glass is a fluid container carried by the player. The liquid of the glass is milk. The current volume of the glass is 0.8 fl oz.
+            <!--START CODE "c4917_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4917_208"></a>The glass is a fluid container carried by the player. The liquid of the glass is milk. The current volume of the glass is 0.8 fl oz.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4910_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4910_222"></a>The pitcher is a fluid container in the Porch. The fluid capacity of the pitcher is 32.0 fl oz. The current volume of the pitcher is 20.0 fl oz. The liquid of the pitcher is lemonade.
+            <!--START CODE "c4918_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4918_208"></a>The pitcher is a fluid container in the Porch. The fluid capacity of the pitcher is 32.0 fl oz. The current volume of the pitcher is 20.0 fl oz. The liquid of the pitcher is lemonade.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4911_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4911_222"></a>Ted's Lawn is outside from the Porch. Ted is a man in Ted's Lawn. &quot;Ted has taken off his shirt, but still seems a bit oppressed by the sun.&quot; The description of Ted is &quot;He looks hot. In all senses.&quot;
+            <!--START CODE "c4919_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4919_208"></a>Ted's Lawn is outside from the Porch. Ted is a man in Ted's Lawn. &quot;Ted has taken off his shirt, but still seems a bit oppressed by the sun.&quot; The description of Ted is &quot;He looks hot. In all senses.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4912_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4912_222"></a>After deciding the scope of the player: place Ted in scope.
+            <!--START CODE "c4920_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4920_208"></a>After deciding the scope of the player: place Ted in scope.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4913_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4913_222"></a>Instead of doing something to Ted when the player is in the Porch: say &quot;You can't really interact with Ted from this distance, except in the sense of eyeing him surreptitiously.&quot;
+            <!--START CODE "c4921_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4921_208"></a>Instead of doing something to Ted when the player is in the Porch: say &quot;You can't really interact with Ted from this distance, except in the sense of eyeing him surreptitiously.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4914_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4914_222"></a>Instead of giving an empty fluid container to Ted: say &quot;Yes, taunt the poor man, why don't you?&quot;
+            <!--START CODE "c4922_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4922_208"></a>Instead of giving an empty fluid container to Ted: say &quot;Yes, taunt the poor man, why don't you?&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4915_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4915_222"></a>Instead of giving a fluid container to Ted when the liquid of the noun is milk: say &quot;Ted looks ruefully at the milk. 'Thanks, but I'm lactose-intolerant,' he says.&quot;
+            <!--START CODE "c4923_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4923_208"></a>Instead of giving a fluid container to Ted when the liquid of the noun is milk: say &quot;Ted looks ruefully at the milk. 'Thanks, but I'm lactose-intolerant,' he says.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4916_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4916_222"></a>The block giving rule is not listed in the check giving it to rules.
+            <!--START CODE "c4924_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4924_208"></a>The block giving rule is not listed in the check giving it to rules.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4917_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4917_222"></a>Every turn:
+            <!--START CODE "c4925_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4925_208"></a>Every turn:
             <br>
             &#160;&#160;&#160;&#160;if Ted is in the location:
             <br>
@@ -736,8 +736,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4918_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4918_222"></a>Instead of someone drinking a fluid container:
+            <!--START CODE "c4926_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4926_208"></a>Instead of someone drinking a fluid container:
             <br>
             &#160;&#160;&#160;&#160;if the noun is empty:
             <br>
@@ -753,8 +753,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4919_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4919_222"></a>After someone giving something to the player:
+            <!--START CODE "c4927_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4927_208"></a>After someone giving something to the player:
             <br>
             &#160;&#160;&#160;&#160;say &quot;'Here,' says [the person asked], handing [the noun] back to you. 'Thanks, I owe you one.'&quot;;
             <br>
@@ -762,77 +762,77 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4920_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4920_222"></a>Test me with &quot;x milk / x lemonade / drink lemonade / drink milk / pour lemonade into glass / drink milk / x milk / drink milk / g / i / fill glass with lemonade / drink lemonade / drop glass / drink lemonade / pitcher&quot;.
+            <!--START CODE "c4928_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4928_208"></a>Test me with &quot;x milk / x lemonade / drink lemonade / drink milk / pour lemonade into glass / drink milk / x milk / drink milk / g / i / fill glass with lemonade / drink lemonade / drop glass / drink lemonade / pitcher&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4921_222"-->
-            <blockquote class="code"><p class="quoted"><a id="c4921_222"></a>Test Ted with &quot;out / give milk to ted / drink milk / g / g / g / give glass to ted / in / fill glass with lemonade / out / give lemonade to ted / wait / z / z / z &quot;.
+            <!--START CODE "c4929_208"-->
+            <blockquote class="code"><p class="quoted"><a id="c4929_208"></a>Test Ted with &quot;out / give milk to ted / drink milk / g / g / g / give glass to ted / in / fill glass with lemonade / out / give lemonade to ted / wait / z / z / z &quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "267: Savannah" "e338"-->
-        <a id="e338"></a><table class="egcue">
+        <!--START EXAMPLE "267: Savannah" "e323"-->
+        <a id="e323"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example338'); return false;"><b>267</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example323'); return false;"><b>267</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example338'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Savannah</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example323'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Savannah</span></b></a><br>
                     Using the liquid implementation demonstrated in Lemonade for putting out fires.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc81.html#e338"><i>RB</i></a></div>
+                        <a href="Rdoc81.html#e323"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example338" style="display: none;">
+        <div class="egpanel" id="example323" style="display: none;">
             <p>Here we build very slightly on the existing liquid implementation to add a puzzle where the player puts out a fire with a bucket of water. Most of the liquid implementation remains the same as before, but now we understand the names of containers according to the liquids they contain.</p>
             <p>The new material, pertaining to extinguishing fires, is at the bottom in section 2.</p>
-            <!--START CODE "c4922_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4922_338"></a><a href="javascript:pasteCode('[=0x0022=]Savannah[=0x0022=][=0x000A=][=0x000A=]Section 1 - Essentials of Liquid[=0x000A=][=0x000A=]A volume is a kind of value. 15.9 fl oz specifies a volume with parts ounces and tenths (optional, preamble optional).[=0x000A=][=0x000A=]A fluid container is a kind of container. A fluid container has a volume called a fluid capacity. A fluid container has a volume called current volume.[=0x000A=][=0x000A=]The fluid capacity of a fluid container is usually 12.0 fl oz. The current volume of a fluid container is usually 0.0 fl oz.[=0x000A=][=0x000A=]Liquid is a kind of value. A fluid container has a liquid.[=0x000A=][=0x000A=]Instead of examining a fluid container:[=0x000A=][=0x0009=]if the noun is empty,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You catch just a hint of [the liquid of the noun] at the bottom.[=0x0022=];[=0x000A=][=0x0009=]otherwise[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The noun] contains [current volume of the noun in rough terms] of [liquid of the noun].[=0x0022=][=0x000A=][=0x000A=]To say (amount - a volume) in rough terms:[=0x000A=][=0x0009=]if the amount is less than 0.5 fl oz:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]a swallow or two[=0x0022=];[=0x000A=][=0x0009=]otherwise if tenths part of amount is greater than 3 and tenths part of amount is less than 7:[=0x000A=][=0x0009=][=0x0009=]let estimate be ounces part of amount;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][estimate in words] or [estimate plus 1 in words] fluid ounces[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if tenths part of amount is greater than 6, increase amount by 1.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]about [ounces part of amount in words] fluid ounce[s][=0x0022=].[=0x000A=][=0x000A=]Before printing the name of a fluid container (called the target) while not drinking:[=0x000A=][=0x0009=]if the target is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]empty [=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]do nothing.[=0x000A=][=0x000A=]After printing the name of a fluid container (called the target) while not examining:[=0x000A=][=0x0009=]unless the target is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] of [liquid of the target][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]omit contents in listing.[=0x000A=][=0x000A=]Instead of inserting something into a fluid container:[=0x000A=][=0x0009=]say [=0x0022=][The second noun] has too narrow a mouth to accept anything but liquids.[=0x0022=][=0x000A=][=0x000A=]Definition: a fluid container is empty if the current volume of it is 0.0 fl oz. Definition: a fluid container is full if the current volume of it is the fluid capacity of it.[=0x000A=][=0x000A=]Understand [=0x0022=]drink from [fluid container][=0x0022=] as drinking.[=0x000A=][=0x000A=]Instead of drinking a fluid container:[=0x000A=][=0x0009=]if the noun is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]There is no more [liquid of the noun] within.[=0x0022=] instead;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]decrease the current volume of the noun by 0.2 fl oz;[=0x000A=][=0x0009=][=0x0009=]if the current volume of the noun is less than 0.0 fl oz, now the current volume of the noun is 0.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You take a sip of [the liquid of the noun][if the noun is empty], leaving [the noun] empty[end if].[=0x0022=][=0x000A=][=0x000A=]Understand the command [=0x0022=]fill[=0x0022=] as something new.[=0x000A=][=0x000A=]Understand [=0x0022=]pour [fluid container] in/into/on/onto [fluid container][=0x0022=] as pouring it into. Understand [=0x0022=]empty [fluid container] into [fluid container][=0x0022=] as pouring it into. Understand [=0x0022=]fill [fluid container] with/from [fluid container][=0x0022=] as pouring it into (with nouns reversed).[=0x000A=][=0x000A=]Understand [=0x0022=]pour [something] in/into/on/onto [something][=0x0022=] as pouring it into. Understand [=0x0022=]empty [something] into [something][=0x0022=] as pouring it into. Understand [=0x0022=]fill [something] with/from [something][=0x0022=] as pouring it into (with nouns reversed).[=0x000A=][=0x000A=]Pouring it into is an action applying to two things.[=0x000A=][=0x000A=]Check pouring it into:[=0x000A=][=0x0009=]if the noun is not a fluid container, say [=0x0022=]You can[=0x0027=]t pour [the noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is not a fluid container, say [=0x0022=]You can[=0x0027=]t pour liquids into [the second noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is the second noun, say [=0x0022=]You can hardly pour [the noun] into itself.[=0x0022=] instead;[=0x000A=][=0x0009=]if the liquid of the noun is not the liquid of the second noun:[=0x000A=][=0x0009=][=0x0009=]if the second noun is empty, now the liquid of the second noun is the liquid of the noun;[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Mixing [the liquid of the noun] with [the liquid of the second noun] would give unsavory results.[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is empty, say [=0x0022=]No more [liquid of the noun] remains in [the noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is full, say [=0x0022=][The second noun] cannot contain any more than it already holds.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out pouring it into:[=0x000A=][=0x0009=]let available capacity be the fluid capacity of the second noun minus the current volume of the second noun;[=0x000A=][=0x0009=]if the available capacity is greater than the current volume of the noun, now the available capacity is the current volume of the noun;[=0x000A=][=0x0009=]increase the current volume of the second noun by available capacity;[=0x000A=][=0x0009=]decrease the current volume of the noun by available capacity.[=0x000A=][=0x000A=]Report pouring it into:[=0x000A=][=0x0009=]say [=0x0022=][if the noun is empty][The noun] is now empty;[otherwise][The noun] now contains [current volume of the noun in rough terms] of [liquid of the noun]; [end if][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][the second noun] contains [current volume of the second noun in rough terms] of [liquid of the second noun][if the second noun is full], and is now full[end if].[=0x0022=][=0x000A=][=0x000A=]Understand the liquid property as describing a fluid container. Understand [=0x0022=]of[=0x0022=] as a fluid container.[=0x000A=][=0x000A=]Section 2 - Putting Out Fires[=0x000A=][=0x000A=]The Beach is a room. [=0x0022=]The Atlantic stretches east to the horizon, though it is at low tide at the moment. It is dawn: time to pack up and go home.[=0x0022=][=0x000A=][=0x000A=][We will skip implementing the Pacific ocean itself, though the example Lakeside Living shows how to incorporate large bodies of water into our liquid simulation.][=0x000A=][=0x000A=]The liquids are seawater. [We could include others, but for the moment...][=0x000A=][=0x000A=]Instead of drinking a fluid container when the liquid of the noun is seawater:[=0x000A=][=0x0009=]say [=0x0022=]Blech![=0x0022=][=0x000A=][=0x000A=]The bucket is a fluid container carried by the player. The liquid of the bucket is seawater. The current volume of the bucket is 64.0 fl oz.[=0x000A=][=0x000A=]The fire is a fixed in place thing in the beach. [=0x0022=]A low fire crackles here, left over from an attempt at s[=0x0027=]mores much earlier in the evening.[=0x0022=][=0x000A=][=0x000A=]Instead of touching or rubbing or taking the fire, say [=0x0022=]You[=0x0027=]re not such a glutton for punishment.[=0x0022=][=0x000A=][=0x000A=]Instead of pouring something into the fire:[=0x000A=][=0x0009=]now the fire is nowhere;[=0x000A=][=0x0009=]now the current volume of the noun is 0.0 fl oz;[=0x000A=][=0x0009=]say [=0x0022=][The second noun] goes out in a great hiss.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]drink seawater / pour seawater on fire / x bucket / i[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Savannah[=0x0022=][=0x000A=][=0x000A=]Section 1 - Essentials of Liquid[=0x000A=][=0x000A=]A volume is a kind of value. 15.9 fl oz specifies a volume with parts ounces and tenths (optional, preamble optional).[=0x000A=][=0x000A=]A fluid container is a kind of container. A fluid container has a volume called a fluid capacity. A fluid container has a volume called current volume.[=0x000A=][=0x000A=]The fluid capacity of a fluid container is usually 12.0 fl oz. The current volume of a fluid container is usually 0.0 fl oz.[=0x000A=][=0x000A=]Liquid is a kind of value. A fluid container has a liquid.[=0x000A=][=0x000A=]Instead of examining a fluid container:[=0x000A=][=0x0009=]if the noun is empty,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You catch just a hint of [the liquid of the noun] at the bottom.[=0x0022=];[=0x000A=][=0x0009=]otherwise[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The noun] contains [current volume of the noun in rough terms] of [liquid of the noun].[=0x0022=][=0x000A=][=0x000A=]To say (amount - a volume) in rough terms:[=0x000A=][=0x0009=]if the amount is less than 0.5 fl oz:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]a swallow or two[=0x0022=];[=0x000A=][=0x0009=]otherwise if tenths part of amount is greater than 3 and tenths part of amount is less than 7:[=0x000A=][=0x0009=][=0x0009=]let estimate be ounces part of amount;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][estimate in words] or [estimate plus 1 in words] fluid ounces[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if tenths part of amount is greater than 6, increase amount by 1.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]about [ounces part of amount in words] fluid ounce[s][=0x0022=].[=0x000A=][=0x000A=]Before printing the name of a fluid container (called the target) while not drinking:[=0x000A=][=0x0009=]if the target is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]empty [=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]do nothing.[=0x000A=][=0x000A=]After printing the name of a fluid container (called the target) while not examining:[=0x000A=][=0x0009=]unless the target is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] of [liquid of the target][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]omit contents in listing.[=0x000A=][=0x000A=]Instead of inserting something into a fluid container:[=0x000A=][=0x0009=]say [=0x0022=][The second noun] has too narrow a mouth to accept anything but liquids.[=0x0022=][=0x000A=][=0x000A=]Definition: a fluid container is empty if the current volume of it is 0.0 fl oz. Definition: a fluid container is full if the current volume of it is the fluid capacity of it.[=0x000A=][=0x000A=]Understand [=0x0022=]drink from [fluid container][=0x0022=] as drinking.[=0x000A=][=0x000A=]Instead of drinking a fluid container:[=0x000A=][=0x0009=]if the noun is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]There is no more [liquid of the noun] within.[=0x0022=] instead;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]decrease the current volume of the noun by 0.2 fl oz;[=0x000A=][=0x0009=][=0x0009=]if the current volume of the noun is less than 0.0 fl oz, now the current volume of the noun is 0.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You take a sip of [the liquid of the noun][if the noun is empty], leaving [the noun] empty[end if].[=0x0022=][=0x000A=][=0x000A=]Understand the command [=0x0022=]fill[=0x0022=] as something new.[=0x000A=][=0x000A=]Understand [=0x0022=]pour [fluid container] in/into/on/onto [fluid container][=0x0022=] as pouring it into. Understand [=0x0022=]empty [fluid container] into [fluid container][=0x0022=] as pouring it into. Understand [=0x0022=]fill [fluid container] with/from [fluid container][=0x0022=] as pouring it into (with nouns reversed).[=0x000A=][=0x000A=]Understand [=0x0022=]pour [something] in/into/on/onto [something][=0x0022=] as pouring it into. Understand [=0x0022=]empty [something] into [something][=0x0022=] as pouring it into. Understand [=0x0022=]fill [something] with/from [something][=0x0022=] as pouring it into (with nouns reversed).[=0x000A=][=0x000A=]Pouring it into is an action applying to two things.[=0x000A=][=0x000A=]Check pouring it into:[=0x000A=][=0x0009=]if the noun is not a fluid container, say [=0x0022=]You can[=0x0027=]t pour [the noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is not a fluid container, say [=0x0022=]You can[=0x0027=]t pour liquids into [the second noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is the second noun, say [=0x0022=]You can hardly pour [the noun] into itself.[=0x0022=] instead;[=0x000A=][=0x0009=]if the liquid of the noun is not the liquid of the second noun:[=0x000A=][=0x0009=][=0x0009=]if the second noun is empty, now the liquid of the second noun is the liquid of the noun;[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Mixing [the liquid of the noun] with [the liquid of the second noun] would give unsavory results.[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is empty, say [=0x0022=]No more [liquid of the noun] remains in [the noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is full, say [=0x0022=][The second noun] cannot contain any more than it already holds.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out pouring it into:[=0x000A=][=0x0009=]let available capacity be the fluid capacity of the second noun minus the current volume of the second noun;[=0x000A=][=0x0009=]if the available capacity is greater than the current volume of the noun, now the available capacity is the current volume of the noun;[=0x000A=][=0x0009=]increase the current volume of the second noun by available capacity;[=0x000A=][=0x0009=]decrease the current volume of the noun by available capacity.[=0x000A=][=0x000A=]Report pouring it into:[=0x000A=][=0x0009=]say [=0x0022=][if the noun is empty][The noun] is now empty;[otherwise][The noun] now contains [current volume of the noun in rough terms] of [liquid of the noun]; [end if][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][the second noun] contains [current volume of the second noun in rough terms] of [liquid of the second noun][if the second noun is full], and is now full[end if].[=0x0022=][=0x000A=][=0x000A=]Understand the liquid property as describing a fluid container. Understand [=0x0022=]of[=0x0022=] as a fluid container.[=0x000A=][=0x000A=]Section 2 - Putting Out Fires[=0x000A=][=0x000A=]The Beach is a room. [=0x0022=]The Atlantic stretches east to the horizon, though it is at low tide at the moment. It is dawn: time to pack up and go home.[=0x0022=][=0x000A=][=0x000A=][We will skip implementing the Pacific ocean itself, though the example Lakeside Living shows how to incorporate large bodies of water into our liquid simulation.][=0x000A=][=0x000A=]The liquids are seawater. [We could include others, but for the moment...][=0x000A=][=0x000A=]Instead of drinking a fluid container when the liquid of the noun is seawater:[=0x000A=][=0x0009=]say [=0x0022=]Blech![=0x0022=][=0x000A=][=0x000A=]The bucket is a fluid container carried by the player. The liquid of the bucket is seawater. The current volume of the bucket is 64.0 fl oz.[=0x000A=][=0x000A=]The fire is a fixed in place thing in the beach. [=0x0022=]A low fire crackles here, left over from an attempt at s[=0x0027=]mores much earlier in the evening.[=0x0022=][=0x000A=][=0x000A=]Instead of touching or rubbing or taking the fire, say [=0x0022=]You[=0x0027=]re not such a glutton for punishment.[=0x0022=][=0x000A=][=0x000A=]Instead of pouring something into the fire:[=0x000A=][=0x0009=]now the fire is nowhere;[=0x000A=][=0x0009=]now the current volume of the noun is 0.0 fl oz;[=0x000A=][=0x0009=]say [=0x0022=][The second noun] goes out in a great hiss.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]drink seawater / pour seawater on fire / x bucket / i[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Savannah')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Savannah&quot;
+            <!--START CODE "c4930_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4930_323"></a><a href="javascript:pasteCode('[=0x0022=]Savannah[=0x0022=][=0x000A=][=0x000A=]Section 1 - Essentials of Liquid[=0x000A=][=0x000A=]A volume is a kind of value. 15.9 fl oz specifies a volume with parts ounces and tenths (optional, preamble optional).[=0x000A=][=0x000A=]A fluid container is a kind of container. A fluid container has a volume called a fluid capacity. A fluid container has a volume called current volume.[=0x000A=][=0x000A=]The fluid capacity of a fluid container is usually 12.0 fl oz. The current volume of a fluid container is usually 0.0 fl oz.[=0x000A=][=0x000A=]Liquid is a kind of value. A fluid container has a liquid.[=0x000A=][=0x000A=]Instead of examining a fluid container:[=0x000A=][=0x0009=]if the noun is empty,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You catch just a hint of [the liquid of the noun] at the bottom.[=0x0022=];[=0x000A=][=0x0009=]otherwise[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The noun] contains [current volume of the noun in rough terms] of [liquid of the noun].[=0x0022=][=0x000A=][=0x000A=]To say (amount - a volume) in rough terms:[=0x000A=][=0x0009=]if the amount is less than 0.5 fl oz:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]a swallow or two[=0x0022=];[=0x000A=][=0x0009=]otherwise if tenths part of amount is greater than 3 and tenths part of amount is less than 7:[=0x000A=][=0x0009=][=0x0009=]let estimate be ounces part of amount;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][estimate in words] or [estimate plus 1 in words] fluid ounces[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if tenths part of amount is greater than 6, increase amount by 1.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]about [ounces part of amount in words] fluid ounce[s][=0x0022=].[=0x000A=][=0x000A=]Before printing the name of a fluid container (called the target) while not drinking:[=0x000A=][=0x0009=]if the target is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]empty [=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]do nothing.[=0x000A=][=0x000A=]After printing the name of a fluid container (called the target) while not examining:[=0x000A=][=0x0009=]unless the target is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] of [liquid of the target][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]omit contents in listing.[=0x000A=][=0x000A=]Instead of inserting something into a fluid container:[=0x000A=][=0x0009=]say [=0x0022=][The second noun] has too narrow a mouth to accept anything but liquids.[=0x0022=][=0x000A=][=0x000A=]Definition: a fluid container is empty if the current volume of it is 0.0 fl oz. Definition: a fluid container is full if the current volume of it is the fluid capacity of it.[=0x000A=][=0x000A=]Understand [=0x0022=]drink from [fluid container][=0x0022=] as drinking.[=0x000A=][=0x000A=]Instead of drinking a fluid container:[=0x000A=][=0x0009=]if the noun is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]There is no more [liquid of the noun] within.[=0x0022=] instead;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]decrease the current volume of the noun by 0.2 fl oz;[=0x000A=][=0x0009=][=0x0009=]if the current volume of the noun is less than 0.0 fl oz, now the current volume of the noun is 0.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You take a sip of [the liquid of the noun][if the noun is empty], leaving [the noun] empty[end if].[=0x0022=][=0x000A=][=0x000A=]Understand the command [=0x0022=]fill[=0x0022=] as something new.[=0x000A=][=0x000A=]Understand [=0x0022=]pour [fluid container] in/into/on/onto [fluid container][=0x0022=] as pouring it into. Understand [=0x0022=]empty [fluid container] into [fluid container][=0x0022=] as pouring it into. Understand [=0x0022=]fill [fluid container] with/from [fluid container][=0x0022=] as pouring it into (with nouns reversed).[=0x000A=][=0x000A=]Understand [=0x0022=]pour [something] in/into/on/onto [something][=0x0022=] as pouring it into. Understand [=0x0022=]empty [something] into [something][=0x0022=] as pouring it into. Understand [=0x0022=]fill [something] with/from [something][=0x0022=] as pouring it into (with nouns reversed).[=0x000A=][=0x000A=]Pouring it into is an action applying to two things.[=0x000A=][=0x000A=]Check pouring it into:[=0x000A=][=0x0009=]if the noun is not a fluid container, say [=0x0022=]You can[=0x0027=]t pour [the noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is not a fluid container, say [=0x0022=]You can[=0x0027=]t pour liquids into [the second noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is the second noun, say [=0x0022=]You can hardly pour [the noun] into itself.[=0x0022=] instead;[=0x000A=][=0x0009=]if the liquid of the noun is not the liquid of the second noun:[=0x000A=][=0x0009=][=0x0009=]if the second noun is empty, now the liquid of the second noun is the liquid of the noun;[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Mixing [the liquid of the noun] with [the liquid of the second noun] would give unsavory results.[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is empty, say [=0x0022=]No more [liquid of the noun] remains in [the noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is full, say [=0x0022=][The second noun] cannot contain any more than it already holds.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out pouring it into:[=0x000A=][=0x0009=]let available capacity be the fluid capacity of the second noun minus the current volume of the second noun;[=0x000A=][=0x0009=]if the available capacity is greater than the current volume of the noun, now the available capacity is the current volume of the noun;[=0x000A=][=0x0009=]increase the current volume of the second noun by available capacity;[=0x000A=][=0x0009=]decrease the current volume of the noun by available capacity.[=0x000A=][=0x000A=]Report pouring it into:[=0x000A=][=0x0009=]say [=0x0022=][if the noun is empty][The noun] is now empty;[otherwise][The noun] now contains [current volume of the noun in rough terms] of [liquid of the noun]; [end if][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][the second noun] contains [current volume of the second noun in rough terms] of [liquid of the second noun][if the second noun is full], and is now full[end if].[=0x0022=][=0x000A=][=0x000A=]Understand the liquid property as describing a fluid container. Understand [=0x0022=]of[=0x0022=] as a fluid container.[=0x000A=][=0x000A=]Section 2 - Putting Out Fires[=0x000A=][=0x000A=]The Beach is a room. [=0x0022=]The Atlantic stretches east to the horizon, though it is at low tide at the moment. It is dawn: time to pack up and go home.[=0x0022=][=0x000A=][=0x000A=][We will skip implementing the Pacific ocean itself, though the example Lakeside Living shows how to incorporate large bodies of water into our liquid simulation.][=0x000A=][=0x000A=]The liquids are seawater. [We could include others, but for the moment...][=0x000A=][=0x000A=]Instead of drinking a fluid container when the liquid of the noun is seawater:[=0x000A=][=0x0009=]say [=0x0022=]Blech![=0x0022=][=0x000A=][=0x000A=]The bucket is a fluid container carried by the player. The liquid of the bucket is seawater. The current volume of the bucket is 64.0 fl oz.[=0x000A=][=0x000A=]The fire is a fixed in place thing in the beach. [=0x0022=]A low fire crackles here, left over from an attempt at s[=0x0027=]mores much earlier in the evening.[=0x0022=][=0x000A=][=0x000A=]Instead of touching or rubbing or taking the fire, say [=0x0022=]You[=0x0027=]re not such a glutton for punishment.[=0x0022=][=0x000A=][=0x000A=]Instead of pouring something into the fire:[=0x000A=][=0x0009=]now the fire is nowhere;[=0x000A=][=0x0009=]now the current volume of the noun is 0.0 fl oz;[=0x000A=][=0x0009=]say [=0x0022=][The second noun] goes out in a great hiss.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]drink seawater / pour seawater on fire / x bucket / i[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Savannah[=0x0022=][=0x000A=][=0x000A=]Section 1 - Essentials of Liquid[=0x000A=][=0x000A=]A volume is a kind of value. 15.9 fl oz specifies a volume with parts ounces and tenths (optional, preamble optional).[=0x000A=][=0x000A=]A fluid container is a kind of container. A fluid container has a volume called a fluid capacity. A fluid container has a volume called current volume.[=0x000A=][=0x000A=]The fluid capacity of a fluid container is usually 12.0 fl oz. The current volume of a fluid container is usually 0.0 fl oz.[=0x000A=][=0x000A=]Liquid is a kind of value. A fluid container has a liquid.[=0x000A=][=0x000A=]Instead of examining a fluid container:[=0x000A=][=0x0009=]if the noun is empty,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You catch just a hint of [the liquid of the noun] at the bottom.[=0x0022=];[=0x000A=][=0x0009=]otherwise[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The noun] contains [current volume of the noun in rough terms] of [liquid of the noun].[=0x0022=][=0x000A=][=0x000A=]To say (amount - a volume) in rough terms:[=0x000A=][=0x0009=]if the amount is less than 0.5 fl oz:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]a swallow or two[=0x0022=];[=0x000A=][=0x0009=]otherwise if tenths part of amount is greater than 3 and tenths part of amount is less than 7:[=0x000A=][=0x0009=][=0x0009=]let estimate be ounces part of amount;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][estimate in words] or [estimate plus 1 in words] fluid ounces[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if tenths part of amount is greater than 6, increase amount by 1.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]about [ounces part of amount in words] fluid ounce[s][=0x0022=].[=0x000A=][=0x000A=]Before printing the name of a fluid container (called the target) while not drinking:[=0x000A=][=0x0009=]if the target is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]empty [=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]do nothing.[=0x000A=][=0x000A=]After printing the name of a fluid container (called the target) while not examining:[=0x000A=][=0x0009=]unless the target is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] of [liquid of the target][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]omit contents in listing.[=0x000A=][=0x000A=]Instead of inserting something into a fluid container:[=0x000A=][=0x0009=]say [=0x0022=][The second noun] has too narrow a mouth to accept anything but liquids.[=0x0022=][=0x000A=][=0x000A=]Definition: a fluid container is empty if the current volume of it is 0.0 fl oz. Definition: a fluid container is full if the current volume of it is the fluid capacity of it.[=0x000A=][=0x000A=]Understand [=0x0022=]drink from [fluid container][=0x0022=] as drinking.[=0x000A=][=0x000A=]Instead of drinking a fluid container:[=0x000A=][=0x0009=]if the noun is empty:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]There is no more [liquid of the noun] within.[=0x0022=] instead;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]decrease the current volume of the noun by 0.2 fl oz;[=0x000A=][=0x0009=][=0x0009=]if the current volume of the noun is less than 0.0 fl oz, now the current volume of the noun is 0.0 fl oz;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You take a sip of [the liquid of the noun][if the noun is empty], leaving [the noun] empty[end if].[=0x0022=][=0x000A=][=0x000A=]Understand the command [=0x0022=]fill[=0x0022=] as something new.[=0x000A=][=0x000A=]Understand [=0x0022=]pour [fluid container] in/into/on/onto [fluid container][=0x0022=] as pouring it into. Understand [=0x0022=]empty [fluid container] into [fluid container][=0x0022=] as pouring it into. Understand [=0x0022=]fill [fluid container] with/from [fluid container][=0x0022=] as pouring it into (with nouns reversed).[=0x000A=][=0x000A=]Understand [=0x0022=]pour [something] in/into/on/onto [something][=0x0022=] as pouring it into. Understand [=0x0022=]empty [something] into [something][=0x0022=] as pouring it into. Understand [=0x0022=]fill [something] with/from [something][=0x0022=] as pouring it into (with nouns reversed).[=0x000A=][=0x000A=]Pouring it into is an action applying to two things.[=0x000A=][=0x000A=]Check pouring it into:[=0x000A=][=0x0009=]if the noun is not a fluid container, say [=0x0022=]You can[=0x0027=]t pour [the noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is not a fluid container, say [=0x0022=]You can[=0x0027=]t pour liquids into [the second noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is the second noun, say [=0x0022=]You can hardly pour [the noun] into itself.[=0x0022=] instead;[=0x000A=][=0x0009=]if the liquid of the noun is not the liquid of the second noun:[=0x000A=][=0x0009=][=0x0009=]if the second noun is empty, now the liquid of the second noun is the liquid of the noun;[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Mixing [the liquid of the noun] with [the liquid of the second noun] would give unsavory results.[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is empty, say [=0x0022=]No more [liquid of the noun] remains in [the noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is full, say [=0x0022=][The second noun] cannot contain any more than it already holds.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out pouring it into:[=0x000A=][=0x0009=]let available capacity be the fluid capacity of the second noun minus the current volume of the second noun;[=0x000A=][=0x0009=]if the available capacity is greater than the current volume of the noun, now the available capacity is the current volume of the noun;[=0x000A=][=0x0009=]increase the current volume of the second noun by available capacity;[=0x000A=][=0x0009=]decrease the current volume of the noun by available capacity.[=0x000A=][=0x000A=]Report pouring it into:[=0x000A=][=0x0009=]say [=0x0022=][if the noun is empty][The noun] is now empty;[otherwise][The noun] now contains [current volume of the noun in rough terms] of [liquid of the noun]; [end if][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][the second noun] contains [current volume of the second noun in rough terms] of [liquid of the second noun][if the second noun is full], and is now full[end if].[=0x0022=][=0x000A=][=0x000A=]Understand the liquid property as describing a fluid container. Understand [=0x0022=]of[=0x0022=] as a fluid container.[=0x000A=][=0x000A=]Section 2 - Putting Out Fires[=0x000A=][=0x000A=]The Beach is a room. [=0x0022=]The Atlantic stretches east to the horizon, though it is at low tide at the moment. It is dawn: time to pack up and go home.[=0x0022=][=0x000A=][=0x000A=][We will skip implementing the Pacific ocean itself, though the example Lakeside Living shows how to incorporate large bodies of water into our liquid simulation.][=0x000A=][=0x000A=]The liquids are seawater. [We could include others, but for the moment...][=0x000A=][=0x000A=]Instead of drinking a fluid container when the liquid of the noun is seawater:[=0x000A=][=0x0009=]say [=0x0022=]Blech![=0x0022=][=0x000A=][=0x000A=]The bucket is a fluid container carried by the player. The liquid of the bucket is seawater. The current volume of the bucket is 64.0 fl oz.[=0x000A=][=0x000A=]The fire is a fixed in place thing in the beach. [=0x0022=]A low fire crackles here, left over from an attempt at s[=0x0027=]mores much earlier in the evening.[=0x0022=][=0x000A=][=0x000A=]Instead of touching or rubbing or taking the fire, say [=0x0022=]You[=0x0027=]re not such a glutton for punishment.[=0x0022=][=0x000A=][=0x000A=]Instead of pouring something into the fire:[=0x000A=][=0x0009=]now the fire is nowhere;[=0x000A=][=0x0009=]now the current volume of the noun is 0.0 fl oz;[=0x000A=][=0x0009=]say [=0x0022=][The second noun] goes out in a great hiss.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]drink seawater / pour seawater on fire / x bucket / i[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Savannah')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Savannah&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4923_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4923_338"></a>Section 1 - Essentials of Liquid
+            <!--START CODE "c4931_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4931_323"></a>Section 1 - Essentials of Liquid
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4924_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4924_338"></a>A volume is a kind of value. 15.9 fl oz specifies a volume with parts ounces and tenths (optional, preamble optional).
+            <!--START CODE "c4932_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4932_323"></a>A volume is a kind of value. 15.9 fl oz specifies a volume with parts ounces and tenths (optional, preamble optional).
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4925_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4925_338"></a>A fluid container is a kind of container. A fluid container has a volume called a fluid capacity. A fluid container has a volume called current volume.
+            <!--START CODE "c4933_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4933_323"></a>A fluid container is a kind of container. A fluid container has a volume called a fluid capacity. A fluid container has a volume called current volume.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4926_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4926_338"></a>The fluid capacity of a fluid container is usually 12.0 fl oz. The current volume of a fluid container is usually 0.0 fl oz.
+            <!--START CODE "c4934_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4934_323"></a>The fluid capacity of a fluid container is usually 12.0 fl oz. The current volume of a fluid container is usually 0.0 fl oz.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4927_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4927_338"></a>Liquid is a kind of value. A fluid container has a liquid.
+            <!--START CODE "c4935_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4935_323"></a>Liquid is a kind of value. A fluid container has a liquid.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4928_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4928_338"></a>Instead of examining a fluid container:
+            <!--START CODE "c4936_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4936_323"></a>Instead of examining a fluid container:
             <br>
             &#160;&#160;&#160;&#160;if the noun is empty,
             <br>
@@ -844,8 +844,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4929_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4929_338"></a>To say (amount - a volume) in rough terms:
+            <!--START CODE "c4937_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4937_323"></a>To say (amount - a volume) in rough terms:
             <br>
             &#160;&#160;&#160;&#160;if the amount is less than 0.5 fl oz:
             <br>
@@ -865,8 +865,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4930_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4930_338"></a>Before printing the name of a fluid container (called the target) while not drinking:
+            <!--START CODE "c4938_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4938_323"></a>Before printing the name of a fluid container (called the target) while not drinking:
             <br>
             &#160;&#160;&#160;&#160;if the target is empty:
             <br>
@@ -878,8 +878,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4931_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4931_338"></a>After printing the name of a fluid container (called the target) while not examining:
+            <!--START CODE "c4939_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4939_323"></a>After printing the name of a fluid container (called the target) while not examining:
             <br>
             &#160;&#160;&#160;&#160;unless the target is empty:
             <br>
@@ -889,25 +889,25 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4932_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4932_338"></a>Instead of inserting something into a fluid container:
+            <!--START CODE "c4940_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4940_323"></a>Instead of inserting something into a fluid container:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The second noun] has too narrow a mouth to accept anything but liquids.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4933_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4933_338"></a>Definition: a fluid container is empty if the current volume of it is 0.0 fl oz. Definition: a fluid container is full if the current volume of it is the fluid capacity of it.
+            <!--START CODE "c4941_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4941_323"></a>Definition: a fluid container is empty if the current volume of it is 0.0 fl oz. Definition: a fluid container is full if the current volume of it is the fluid capacity of it.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4934_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4934_338"></a>Understand &quot;drink from [fluid container]&quot; as drinking.
+            <!--START CODE "c4942_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4942_323"></a>Understand &quot;drink from [fluid container]&quot; as drinking.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4935_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4935_338"></a>Instead of drinking a fluid container:
+            <!--START CODE "c4943_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4943_323"></a>Instead of drinking a fluid container:
             <br>
             &#160;&#160;&#160;&#160;if the noun is empty:
             <br>
@@ -923,28 +923,28 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4936_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4936_338"></a>Understand the command &quot;fill&quot; as something new.
+            <!--START CODE "c4944_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4944_323"></a>Understand the command &quot;fill&quot; as something new.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4937_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4937_338"></a>Understand &quot;pour [fluid container] in/into/on/onto [fluid container]&quot; as pouring it into. Understand &quot;empty [fluid container] into [fluid container]&quot; as pouring it into. Understand &quot;fill [fluid container] with/from [fluid container]&quot; as pouring it into (with nouns reversed).
+            <!--START CODE "c4945_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4945_323"></a>Understand &quot;pour [fluid container] in/into/on/onto [fluid container]&quot; as pouring it into. Understand &quot;empty [fluid container] into [fluid container]&quot; as pouring it into. Understand &quot;fill [fluid container] with/from [fluid container]&quot; as pouring it into (with nouns reversed).
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4938_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4938_338"></a>Understand &quot;pour [something] in/into/on/onto [something]&quot; as pouring it into. Understand &quot;empty [something] into [something]&quot; as pouring it into. Understand &quot;fill [something] with/from [something]&quot; as pouring it into (with nouns reversed).
+            <!--START CODE "c4946_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4946_323"></a>Understand &quot;pour [something] in/into/on/onto [something]&quot; as pouring it into. Understand &quot;empty [something] into [something]&quot; as pouring it into. Understand &quot;fill [something] with/from [something]&quot; as pouring it into (with nouns reversed).
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4939_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4939_338"></a>Pouring it into is an action applying to two things.
+            <!--START CODE "c4947_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4947_323"></a>Pouring it into is an action applying to two things.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4940_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4940_338"></a>Check pouring it into:
+            <!--START CODE "c4948_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4948_323"></a>Check pouring it into:
             <br>
             &#160;&#160;&#160;&#160;if the noun is not a fluid container, say &quot;You can't pour [the noun].&quot; instead;
             <br>
@@ -964,8 +964,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4941_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4941_338"></a>Carry out pouring it into:
+            <!--START CODE "c4949_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4949_323"></a>Carry out pouring it into:
             <br>
             &#160;&#160;&#160;&#160;let available capacity be the fluid capacity of the second noun minus the current volume of the second noun;
             <br>
@@ -977,8 +977,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4942_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4942_338"></a>Report pouring it into:
+            <!--START CODE "c4950_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4950_323"></a>Report pouring it into:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[if the noun is empty][The noun] is now empty;[otherwise][The noun] now contains [current volume of the noun in rough terms] of [liquid of the noun]; [end if]&quot;;
             <br>
@@ -986,51 +986,51 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4943_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4943_338"></a>Understand the liquid property as describing a fluid container. Understand &quot;of&quot; as a fluid container.
+            <!--START CODE "c4951_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4951_323"></a>Understand the liquid property as describing a fluid container. Understand &quot;of&quot; as a fluid container.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4944_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4944_338"></a>Section 2 - Putting Out Fires
+            <!--START CODE "c4952_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4952_323"></a>Section 2 - Putting Out Fires
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4945_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4945_338"></a>The Beach is a room. &quot;The Atlantic stretches east to the horizon, though it is at low tide at the moment. It is dawn: time to pack up and go home.&quot;
+            <!--START CODE "c4953_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4953_323"></a>The Beach is a room. &quot;The Atlantic stretches east to the horizon, though it is at low tide at the moment. It is dawn: time to pack up and go home.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>We will skip implementing the Pacific ocean itself, though the example Lakeside Living shows how to incorporate large bodies of water into our liquid simulation.</p>
-            <!--START CODE "c4946_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4946_338"></a>The liquids are seawater. [We could include others, but for the moment...]
+            <!--START CODE "c4954_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4954_323"></a>The liquids are seawater. [We could include others, but for the moment...]
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4947_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4947_338"></a>Instead of drinking a fluid container when the liquid of the noun is seawater:
+            <!--START CODE "c4955_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4955_323"></a>Instead of drinking a fluid container when the liquid of the noun is seawater:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Blech!&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4948_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4948_338"></a>The bucket is a fluid container carried by the player. The liquid of the bucket is seawater. The current volume of the bucket is 64.0 fl oz.
+            <!--START CODE "c4956_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4956_323"></a>The bucket is a fluid container carried by the player. The liquid of the bucket is seawater. The current volume of the bucket is 64.0 fl oz.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4949_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4949_338"></a>The fire is a fixed in place thing in the beach. &quot;A low fire crackles here, left over from an attempt at s'mores much earlier in the evening.&quot;
+            <!--START CODE "c4957_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4957_323"></a>The fire is a fixed in place thing in the beach. &quot;A low fire crackles here, left over from an attempt at s'mores much earlier in the evening.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4950_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4950_338"></a>Instead of touching or rubbing or taking the fire, say &quot;You're not such a glutton for punishment.&quot;
+            <!--START CODE "c4958_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4958_323"></a>Instead of touching or rubbing or taking the fire, say &quot;You're not such a glutton for punishment.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4951_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4951_338"></a>Instead of pouring something into the fire:
+            <!--START CODE "c4959_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4959_323"></a>Instead of pouring something into the fire:
             <br>
             &#160;&#160;&#160;&#160;now the fire is nowhere;
             <br>
@@ -1040,14 +1040,14 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4952_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4952_338"></a>Test me with &quot;drink seawater / pour seawater on fire / x bucket / i&quot;.
+            <!--START CODE "c4960_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4960_323"></a>Test me with &quot;drink seawater / pour seawater on fire / x bucket / i&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>This is still a specific implementation: if we wanted to weave liquids together with a full-scale burning model (as in &quot;In Fire or in Flood&quot;), where pretty much any object in the game can be flaming (currently on fire) or damp (extinguished), we might generalize our rule to</p>
-            <!--START CODE "c4953_338"-->
-            <blockquote class="code"><p class="quoted"><a id="c4953_338"></a>Instead of pouring something into a flaming thing:
+            <!--START CODE "c4961_323"-->
+            <blockquote class="code"><p class="quoted"><a id="c4961_323"></a>Instead of pouring something into a flaming thing:
             <br>
             &#160;&#160;&#160;&#160;now the second noun is damp;
             <br>

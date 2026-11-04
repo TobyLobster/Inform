@@ -84,55 +84,55 @@
     <p class="sectionheading">§5.2. Traits Determined By the Player</p>
     <p>Some IF tries to make the viewpoint character more congenial to the player by allowing some customization.</p>
     <p><span class="boldface">Identity Theft</span> demonstrates asking the player to supply the viewpoint character's name.</p>
-    <p><span class="boldface">Pink or Blue</span> demonstrates a way to let the player choose a gender at the start of play: this will mostly be interesting if the rest of the story makes some use of the player's choice. Since that example is written expressly to demonstrate included Inform 6 code, however, we may find it more congenial to generalize from the more flexible <span class="boldface">Baritone, Bass</span>.</p>
+    <p><span class="boldface">Good or Evil</span> demonstrates a way to let the player choose a moral position at the start of play: this will mostly be interesting if the rest of the story makes some use of the player's choice. Since that example is written expressly to demonstrate included Inform 6 code, however, we may find it more congenial to generalize from the more flexible <span class="boldface">Baritone, Bass</span>.</p>
     <p>This is not the only way to go - as we'll see in the next section, there's also something to be said for making the viewpoint character a strongly distinct creature with well-defined preferences and attitudes.</p>
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "415: Identity Theft" "e196"-->
-        <a id="e196"></a><table class="egcue">
+        <!--START EXAMPLE "416: Identity Theft" "e183"-->
+        <a id="e183"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example196'); return false;"><b>415</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example183'); return false;"><b>416</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example196'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Identity Theft</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example183'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Identity Theft</span></b></a><br>
                     Allowing the player to enter a name to be used for the player character during the game.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc347.html#e196"><i>WI</i></a></div>
+                        <a href="doc347.html#e183"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example196" style="display: none;">
-            <p>Let's say we want to allow the player to enter any name he likes for his character. Moreover, we want to reject very long names (which are likely to be mistakes anyway), and we want to extract the player's chosen first name from the rest.</p>
-            <!--START CODE "c11134_196"-->
-            <blockquote class="code"><p class="quoted"><a id="c11134_196"></a><a href="javascript:pasteCode(' [=0x0022=]Identity Theft[=0x0022=][=0x000A=][=0x000A=]The player[=0x0027=]s forename is a text that varies. The player[=0x0027=]s full name is a text that varies.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]What is your name? [=0x003E=] [=0x0022=].[=0x000A=][=0x000A=]To decide whether collecting names:[=0x000A=][=0x0009=]if the command prompt is [=0x0022=]What is your name? [=0x003E=] [=0x0022=], yes;[=0x000A=][=0x0009=]no.[=0x000A=][=0x000A=]After reading a command when collecting names:[=0x000A=][=0x0009=]if the number of words in the player[=0x0027=]s command is greater than 5:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][paragraph break]Who are you, a member of the British royal family? No one has that many names. Let[=0x0027=]s try this again.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the player[=0x0027=]s full name is the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the player[=0x0027=]s forename is word number 1 in the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the command prompt is [=0x0022=][=0x003E=][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]Hi, [player[=0x0027=]s forename]![paragraph break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][banner text][=0x0022=];[=0x000A=][=0x0009=]move the player to the location;[=0x000A=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=][We also want to postpone the proper beginning of the game until we[=0x0027=]ve gotten the name:][=0x000A=][=0x000A=]Instead of looking when collecting names: do nothing.[=0x000A=][=0x000A=]Rule for printing the banner text when collecting names: do nothing.[=0x000A=][=0x000A=]Rule for constructing the status line when collecting names: do nothing.[=0x000A=][=0x000A=]Your Bedroom is a room. The printed name of Your Bedroom is [=0x0022=][player[=0x0027=]s forename][=0x0027=]s Bedroom[=0x0022=].[=0x000A=][=0x000A=]The player carries a letter. The description of the letter is [=0x0022=]Dear [player[=0x0027=]s full name], [paragraph break]You have won the Norwegian Daily Lottery! ...[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject(' [=0x0022=]Identity Theft[=0x0022=][=0x000A=][=0x000A=]The player[=0x0027=]s forename is a text that varies. The player[=0x0027=]s full name is a text that varies.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]What is your name? [=0x003E=] [=0x0022=].[=0x000A=][=0x000A=]To decide whether collecting names:[=0x000A=][=0x0009=]if the command prompt is [=0x0022=]What is your name? [=0x003E=] [=0x0022=], yes;[=0x000A=][=0x0009=]no.[=0x000A=][=0x000A=]After reading a command when collecting names:[=0x000A=][=0x0009=]if the number of words in the player[=0x0027=]s command is greater than 5:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][paragraph break]Who are you, a member of the British royal family? No one has that many names. Let[=0x0027=]s try this again.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the player[=0x0027=]s full name is the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the player[=0x0027=]s forename is word number 1 in the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the command prompt is [=0x0022=][=0x003E=][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]Hi, [player[=0x0027=]s forename]![paragraph break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][banner text][=0x0022=];[=0x000A=][=0x0009=]move the player to the location;[=0x000A=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=][We also want to postpone the proper beginning of the game until we[=0x0027=]ve gotten the name:][=0x000A=][=0x000A=]Instead of looking when collecting names: do nothing.[=0x000A=][=0x000A=]Rule for printing the banner text when collecting names: do nothing.[=0x000A=][=0x000A=]Rule for constructing the status line when collecting names: do nothing.[=0x000A=][=0x000A=]Your Bedroom is a room. The printed name of Your Bedroom is [=0x0022=][player[=0x0027=]s forename][=0x0027=]s Bedroom[=0x0022=].[=0x000A=][=0x000A=]The player carries a letter. The description of the letter is [=0x0022=]Dear [player[=0x0027=]s full name], [paragraph break]You have won the Norwegian Daily Lottery! ...[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Identity Theft')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp;  &quot;Identity Theft&quot;
+        <div class="egpanel" id="example183" style="display: none;">
+            <p>Let's say we want to allow the player to enter any name they like for their character. Moreover, we want to reject very long names (which are likely to be mistakes anyway), and we want to extract the player's chosen first name from the rest.</p>
+            <!--START CODE "c11161_183"-->
+            <blockquote class="code"><p class="quoted"><a id="c11161_183"></a><a href="javascript:pasteCode('[=0x0022=]Identity Theft[=0x0022=][=0x000A=][=0x000A=]The player[=0x0027=]s forename is a text that varies. The player[=0x0027=]s full name is a text that varies.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]What is your name? [=0x003E=] [=0x0022=].[=0x000A=][=0x000A=]To decide whether collecting names:[=0x000A=][=0x0009=]if the command prompt is [=0x0022=]What is your name? [=0x003E=] [=0x0022=], yes;[=0x000A=][=0x0009=]no.[=0x000A=][=0x000A=]After reading a command when collecting names:[=0x000A=][=0x0009=]if the number of words in the player[=0x0027=]s command is greater than 5:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][paragraph break]Who are you, a member of the British royal family? No one has that many names. Let[=0x0027=]s try this again.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the player[=0x0027=]s full name is the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the player[=0x0027=]s forename is word number 1 in the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the command prompt is [=0x0022=][=0x003E=][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]Hi, [player[=0x0027=]s forename]![paragraph break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][banner text][=0x0022=];[=0x000A=][=0x0009=]move the player to the location;[=0x000A=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=][We also want to postpone the proper beginning of the game until we[=0x0027=]ve gotten the name:][=0x000A=][=0x000A=]Instead of looking when collecting names: do nothing.[=0x000A=][=0x000A=]Rule for printing the banner text when collecting names: do nothing.[=0x000A=][=0x000A=]Rule for constructing the status line when collecting names: do nothing.[=0x000A=][=0x000A=]Your Bedroom is a room. The printed name of Your Bedroom is [=0x0022=][player[=0x0027=]s forename][=0x0027=]s Bedroom[=0x0022=].[=0x000A=][=0x000A=]The player carries a letter. The description of the letter is [=0x0022=]Dear [player[=0x0027=]s full name], [paragraph break]You have won the Norwegian Daily Lottery! ...[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Identity Theft[=0x0022=][=0x000A=][=0x000A=]The player[=0x0027=]s forename is a text that varies. The player[=0x0027=]s full name is a text that varies.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]What is your name? [=0x003E=] [=0x0022=].[=0x000A=][=0x000A=]To decide whether collecting names:[=0x000A=][=0x0009=]if the command prompt is [=0x0022=]What is your name? [=0x003E=] [=0x0022=], yes;[=0x000A=][=0x0009=]no.[=0x000A=][=0x000A=]After reading a command when collecting names:[=0x000A=][=0x0009=]if the number of words in the player[=0x0027=]s command is greater than 5:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][paragraph break]Who are you, a member of the British royal family? No one has that many names. Let[=0x0027=]s try this again.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the player[=0x0027=]s full name is the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the player[=0x0027=]s forename is word number 1 in the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the command prompt is [=0x0022=][=0x003E=][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]Hi, [player[=0x0027=]s forename]![paragraph break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][banner text][=0x0022=];[=0x000A=][=0x0009=]move the player to the location;[=0x000A=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=][We also want to postpone the proper beginning of the game until we[=0x0027=]ve gotten the name:][=0x000A=][=0x000A=]Instead of looking when collecting names: do nothing.[=0x000A=][=0x000A=]Rule for printing the banner text when collecting names: do nothing.[=0x000A=][=0x000A=]Rule for constructing the status line when collecting names: do nothing.[=0x000A=][=0x000A=]Your Bedroom is a room. The printed name of Your Bedroom is [=0x0022=][player[=0x0027=]s forename][=0x0027=]s Bedroom[=0x0022=].[=0x000A=][=0x000A=]The player carries a letter. The description of the letter is [=0x0022=]Dear [player[=0x0027=]s full name], [paragraph break]You have won the Norwegian Daily Lottery! ...[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Identity Theft')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Identity Theft&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11135_196"-->
-            <blockquote class="code"><p class="quoted"><a id="c11135_196"></a>The player's forename is a text that varies. The player's full name is a text that varies.
+            <!--START CODE "c11162_183"-->
+            <blockquote class="code"><p class="quoted"><a id="c11162_183"></a>The player's forename is a text that varies. The player's full name is a text that varies.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11136_196"-->
-            <blockquote class="code"><p class="quoted"><a id="c11136_196"></a>When play begins:
+            <!--START CODE "c11163_183"-->
+            <blockquote class="code"><p class="quoted"><a id="c11163_183"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;now the command prompt is &quot;What is your name? &gt; &quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11137_196"-->
-            <blockquote class="code"><p class="quoted"><a id="c11137_196"></a>To decide whether collecting names:
+            <!--START CODE "c11164_183"-->
+            <blockquote class="code"><p class="quoted"><a id="c11164_183"></a>To decide whether collecting names:
             <br>
             &#160;&#160;&#160;&#160;if the command prompt is &quot;What is your name? &gt; &quot;, yes;
             <br>
@@ -140,8 +140,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11138_196"-->
-            <blockquote class="code"><p class="quoted"><a id="c11138_196"></a>After reading a command when collecting names:
+            <!--START CODE "c11165_183"-->
+            <blockquote class="code"><p class="quoted"><a id="c11165_183"></a>After reading a command when collecting names:
             <br>
             &#160;&#160;&#160;&#160;if the number of words in the player's command is greater than 5:
             <br>
@@ -166,35 +166,35 @@
             </blockquote>
             <!--END CODE-->
             <p>We also want to postpone the proper beginning of the game until we've gotten the name:</p>
-            <!--START CODE "c11139_196"-->
-            <blockquote class="code"><p class="quoted"><a id="c11139_196"></a>Instead of looking when collecting names: do nothing.
+            <!--START CODE "c11166_183"-->
+            <blockquote class="code"><p class="quoted"><a id="c11166_183"></a>Instead of looking when collecting names: do nothing.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11140_196"-->
-            <blockquote class="code"><p class="quoted"><a id="c11140_196"></a>Rule for printing the banner text when collecting names: do nothing.
+            <!--START CODE "c11167_183"-->
+            <blockquote class="code"><p class="quoted"><a id="c11167_183"></a>Rule for printing the banner text when collecting names: do nothing.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11141_196"-->
-            <blockquote class="code"><p class="quoted"><a id="c11141_196"></a>Rule for constructing the status line when collecting names: do nothing.
+            <!--START CODE "c11168_183"-->
+            <blockquote class="code"><p class="quoted"><a id="c11168_183"></a>Rule for constructing the status line when collecting names: do nothing.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11142_196"-->
-            <blockquote class="code"><p class="quoted"><a id="c11142_196"></a>Your Bedroom is a room. The printed name of Your Bedroom is &quot;[player's forename]'s Bedroom&quot;.
+            <!--START CODE "c11169_183"-->
+            <blockquote class="code"><p class="quoted"><a id="c11169_183"></a>Your Bedroom is a room. The printed name of Your Bedroom is &quot;[player's forename]'s Bedroom&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11143_196"-->
-            <blockquote class="code"><p class="quoted"><a id="c11143_196"></a>The player carries a letter. The description of the letter is &quot;Dear [player's full name], [paragraph break]You have won the Norwegian Daily Lottery! ...&quot;.
+            <!--START CODE "c11170_183"-->
+            <blockquote class="code"><p class="quoted"><a id="c11170_183"></a>The player carries a letter. The description of the letter is &quot;Dear [player's full name], [paragraph break]You have won the Norwegian Daily Lottery! ...&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <p>If we are compiling for Glulx, this is enough to capture not only the player's name but also the capitalization he uses.</p>
+            <p>If we are compiling for Glulx, this is enough to capture not only the player's name but also the capitalization used.</p>
             <p>If we are compiling for the Z-machine, the player's input will unfortunately be reduced to lower case before we can inspect it. If we would like by default to capitalize the first letter of each word of the name, we might substitute the following after reading a command rule:</p>
-            <!--START CODE "c11144_196"-->
-            <blockquote class="code"><p class="quoted"><a id="c11144_196"></a><a href="javascript:pasteCode('After reading a command when collecting names:[=0x000A=][=0x0009=]if the number of words in the player[=0x0027=]s command is greater than 5:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][paragraph break]Who are you, a member of the British royal family? No one has that many names. Let[=0x0027=]s try this again.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the player[=0x0027=]s full name is the substituted form of [=0x0022=][the player[=0x0027=]s command in title case][=0x0022=];[=0x000A=][=0x0009=]now the player[=0x0027=]s forename is word number 1 in the player[=0x0027=]s full name;[=0x000A=][=0x0009=]now the command prompt is [=0x0022=][=0x003E=][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]Hi, [player[=0x0027=]s forename]![paragraph break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][banner text][=0x0022=];[=0x000A=][=0x0009=]move the player to the location;[=0x000A=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('After reading a command when collecting names:[=0x000A=][=0x0009=]if the number of words in the player[=0x0027=]s command is greater than 5:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][paragraph break]Who are you, a member of the British royal family? No one has that many names. Let[=0x0027=]s try this again.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the player[=0x0027=]s full name is the substituted form of [=0x0022=][the player[=0x0027=]s command in title case][=0x0022=];[=0x000A=][=0x0009=]now the player[=0x0027=]s forename is word number 1 in the player[=0x0027=]s full name;[=0x000A=][=0x0009=]now the command prompt is [=0x0022=][=0x003E=][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]Hi, [player[=0x0027=]s forename]![paragraph break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][banner text][=0x0022=];[=0x000A=][=0x0009=]move the player to the location;[=0x000A=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=]\n', 'Example - Identity Theft')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; After reading a command when collecting names:
+            <!--START CODE "c11171_183"-->
+            <blockquote class="code"><p class="quoted"><a id="c11171_183"></a><a href="javascript:pasteCode('After reading a command when collecting names:[=0x000A=][=0x0009=]if the number of words in the player[=0x0027=]s command is greater than 5:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][paragraph break]Who are you, a member of the British royal family? No one has that many names. Let[=0x0027=]s try this again.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the player[=0x0027=]s full name is the substituted form of [=0x0022=][the player[=0x0027=]s command in title case][=0x0022=];[=0x000A=][=0x0009=]now the player[=0x0027=]s forename is word number 1 in the player[=0x0027=]s full name;[=0x000A=][=0x0009=]now the command prompt is [=0x0022=][=0x003E=][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]Hi, [player[=0x0027=]s forename]![paragraph break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][banner text][=0x0022=];[=0x000A=][=0x0009=]move the player to the location;[=0x000A=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('After reading a command when collecting names:[=0x000A=][=0x0009=]if the number of words in the player[=0x0027=]s command is greater than 5:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][paragraph break]Who are you, a member of the British royal family? No one has that many names. Let[=0x0027=]s try this again.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the player[=0x0027=]s full name is the substituted form of [=0x0022=][the player[=0x0027=]s command in title case][=0x0022=];[=0x000A=][=0x0009=]now the player[=0x0027=]s forename is word number 1 in the player[=0x0027=]s full name;[=0x000A=][=0x0009=]now the command prompt is [=0x0022=][=0x003E=][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]Hi, [player[=0x0027=]s forename]![paragraph break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][banner text][=0x0022=];[=0x000A=][=0x0009=]move the player to the location;[=0x000A=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=]\n', 'Example - Identity Theft')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; After reading a command when collecting names:
             <br>
             &#160;&#160;&#160;&#160;if the number of words in the player's command is greater than 5:
             <br>
@@ -221,61 +221,61 @@
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "309: Baritone, Bass" "e21"-->
-        <a id="e21"></a><table class="egcue">
+        <!--START EXAMPLE "310: Baritone, Bass" "e31"-->
+        <a id="e31"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example21'); return false;"><b>309</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example31'); return false;"><b>310</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example21'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Baritone, Bass</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example31'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Baritone, Bass</span></b></a><br>
                     Letting the player pick a gender (or perhaps other characteristics) before starting play.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc273.html#e21"><i>WI</i></a></div>
+                        <a href="doc273.html#e31"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example21" style="display: none;">
+        <div class="egpanel" id="example31" style="display: none;">
             <p>The &quot;reading a command&quot; activity is rather advanced; for the moment, what we need to understand is that we're intervening in commands at the start of play and insisting that the player's first instruction to the game consist of a choice of gender. After that point, the gender will be set and play will proceed as normal.</p>
             <p>In order to do the parsing, we define gender as a kind of value, and give several alternate names to each gender.</p>
-            <!--START CODE "c11145_21"-->
-            <blockquote class="code"><p class="quoted"><a id="c11145_21"></a><a href="javascript:pasteCode('[=0x0022=]Baritone, Bass[=0x0022=][=0x000A=][=0x000A=]Getting Started is a room.[=0x000A=][=0x000A=]Gender is a kind of value. The genders are masculine, feminine, and unknown. Understand [=0x0022=]male[=0x0022=] or [=0x0022=]man[=0x0022=] or [=0x0022=]M[=0x0022=] as masculine. Understand [=0x0022=]female[=0x0022=] or [=0x0022=]woman[=0x0022=] or [=0x0022=]F[=0x0022=] as feminine.[=0x000A=][=0x000A=]A person has a gender. The gender of the player is unknown.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]Please choose a gender for your character. [=0x003E=][=0x0022=].[=0x000A=][=0x000A=]After reading a command when the gender of the player is unknown:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=][gender][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]now the gender of the player is the gender understood;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is unknown:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]This story requires a selection of male or female. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is masculine, now the player is male;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is feminine, now the player is female;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][line break]Thank you. We now begin...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the command prompt is [=0x0022=][=0x003E=][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]move the player to Sandy Beach;[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Sorry, we[=0x0027=]re not ready to go on yet. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]Sandy Beach is a room.[=0x000A=][=0x000A=]Instead of examining the player when the player is female:[=0x000A=][=0x0009=]say [=0x0022=]Congratulations, you are a girl![=0x0022=][=0x000A=][=0x000A=]Instead of examining the player when the player is male:[=0x000A=][=0x0009=]say [=0x0022=]Congratulations, you are a boy![=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Baritone, Bass[=0x0022=][=0x000A=][=0x000A=]Getting Started is a room.[=0x000A=][=0x000A=]Gender is a kind of value. The genders are masculine, feminine, and unknown. Understand [=0x0022=]male[=0x0022=] or [=0x0022=]man[=0x0022=] or [=0x0022=]M[=0x0022=] as masculine. Understand [=0x0022=]female[=0x0022=] or [=0x0022=]woman[=0x0022=] or [=0x0022=]F[=0x0022=] as feminine.[=0x000A=][=0x000A=]A person has a gender. The gender of the player is unknown.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]Please choose a gender for your character. [=0x003E=][=0x0022=].[=0x000A=][=0x000A=]After reading a command when the gender of the player is unknown:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=][gender][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]now the gender of the player is the gender understood;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is unknown:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]This story requires a selection of male or female. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is masculine, now the player is male;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is feminine, now the player is female;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][line break]Thank you. We now begin...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the command prompt is [=0x0022=][=0x003E=][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]move the player to Sandy Beach;[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Sorry, we[=0x0027=]re not ready to go on yet. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]Sandy Beach is a room.[=0x000A=][=0x000A=]Instead of examining the player when the player is female:[=0x000A=][=0x0009=]say [=0x0022=]Congratulations, you are a girl![=0x0022=][=0x000A=][=0x000A=]Instead of examining the player when the player is male:[=0x000A=][=0x0009=]say [=0x0022=]Congratulations, you are a boy![=0x0022=][=0x000A=][=0x000A=]\n', 'Example - Baritone, Bass')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Baritone, Bass&quot;
+            <!--START CODE "c11172_31"-->
+            <blockquote class="code"><p class="quoted"><a id="c11172_31"></a><a href="javascript:pasteCode('[=0x0022=]Baritone, Bass[=0x0022=][=0x000A=][=0x000A=]Getting Started is a room.[=0x000A=][=0x000A=]Gender is a kind of value. The genders are masculine, feminine, and unknown. Understand [=0x0022=]male[=0x0022=] or [=0x0022=]man[=0x0022=] or [=0x0022=]M[=0x0022=] as masculine. Understand [=0x0022=]female[=0x0022=] or [=0x0022=]woman[=0x0022=] or [=0x0022=]F[=0x0022=] as feminine.[=0x000A=][=0x000A=]A person has a gender. The gender of the player is unknown.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]Please choose a gender for your character. [=0x003E=][=0x0022=].[=0x000A=][=0x000A=]After reading a command when the gender of the player is unknown:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=][gender][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]now the gender of the player is the gender understood;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is unknown:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]This story requires a selection of male or female. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is masculine, now the player is male;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is feminine, now the player is female;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][line break]Thank you. We now begin...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the command prompt is [=0x0022=][=0x003E=][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]move the player to Sandy Beach;[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Sorry, we[=0x0027=]re not ready to go on yet. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]Sandy Beach is a room.[=0x000A=][=0x000A=]Instead of examining the player when the player is female:[=0x000A=][=0x0009=]say [=0x0022=]Congratulations, you are a girl![=0x0022=][=0x000A=][=0x000A=]Instead of examining the player when the player is male:[=0x000A=][=0x0009=]say [=0x0022=]Congratulations, you are a boy![=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Baritone, Bass[=0x0022=][=0x000A=][=0x000A=]Getting Started is a room.[=0x000A=][=0x000A=]Gender is a kind of value. The genders are masculine, feminine, and unknown. Understand [=0x0022=]male[=0x0022=] or [=0x0022=]man[=0x0022=] or [=0x0022=]M[=0x0022=] as masculine. Understand [=0x0022=]female[=0x0022=] or [=0x0022=]woman[=0x0022=] or [=0x0022=]F[=0x0022=] as feminine.[=0x000A=][=0x000A=]A person has a gender. The gender of the player is unknown.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]Please choose a gender for your character. [=0x003E=][=0x0022=].[=0x000A=][=0x000A=]After reading a command when the gender of the player is unknown:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=][gender][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]now the gender of the player is the gender understood;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is unknown:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]This story requires a selection of male or female. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is masculine, now the player is male;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is feminine, now the player is female;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][line break]Thank you. We now begin...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the command prompt is [=0x0022=][=0x003E=][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]move the player to Sandy Beach;[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Sorry, we[=0x0027=]re not ready to go on yet. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]Sandy Beach is a room.[=0x000A=][=0x000A=]Instead of examining the player when the player is female:[=0x000A=][=0x0009=]say [=0x0022=]Congratulations, you are a girl![=0x0022=][=0x000A=][=0x000A=]Instead of examining the player when the player is male:[=0x000A=][=0x0009=]say [=0x0022=]Congratulations, you are a boy![=0x0022=][=0x000A=][=0x000A=]\n', 'Example - Baritone, Bass')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Baritone, Bass&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11146_21"-->
-            <blockquote class="code"><p class="quoted"><a id="c11146_21"></a>Getting Started is a room.
+            <!--START CODE "c11173_31"-->
+            <blockquote class="code"><p class="quoted"><a id="c11173_31"></a>Getting Started is a room.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11147_21"-->
-            <blockquote class="code"><p class="quoted"><a id="c11147_21"></a>Gender is a kind of value. The genders are masculine, feminine, and unknown. Understand &quot;male&quot; or &quot;man&quot; or &quot;M&quot; as masculine. Understand &quot;female&quot; or &quot;woman&quot; or &quot;F&quot; as feminine.
+            <!--START CODE "c11174_31"-->
+            <blockquote class="code"><p class="quoted"><a id="c11174_31"></a>Gender is a kind of value. The genders are masculine, feminine, and unknown. Understand &quot;male&quot; or &quot;man&quot; or &quot;M&quot; as masculine. Understand &quot;female&quot; or &quot;woman&quot; or &quot;F&quot; as feminine.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11148_21"-->
-            <blockquote class="code"><p class="quoted"><a id="c11148_21"></a>A person has a gender. The gender of the player is unknown.
+            <!--START CODE "c11175_31"-->
+            <blockquote class="code"><p class="quoted"><a id="c11175_31"></a>A person has a gender. The gender of the player is unknown.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11149_21"-->
-            <blockquote class="code"><p class="quoted"><a id="c11149_21"></a>When play begins:
+            <!--START CODE "c11176_31"-->
+            <blockquote class="code"><p class="quoted"><a id="c11176_31"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;now the command prompt is &quot;Please choose a gender for your character. &gt;&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11150_21"-->
-            <blockquote class="code"><p class="quoted"><a id="c11150_21"></a>After reading a command when the gender of the player is unknown:
+            <!--START CODE "c11177_31"-->
+            <blockquote class="code"><p class="quoted"><a id="c11177_31"></a>After reading a command when the gender of the player is unknown:
             <br>
             &#160;&#160;&#160;&#160;if the player's command includes &quot;[gender]&quot;:
             <br>
@@ -307,34 +307,34 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11151_21"-->
-            <blockquote class="code"><p class="quoted"><a id="c11151_21"></a>Sandy Beach is a room.
+            <!--START CODE "c11178_31"-->
+            <blockquote class="code"><p class="quoted"><a id="c11178_31"></a>Sandy Beach is a room.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11152_21"-->
-            <blockquote class="code"><p class="quoted"><a id="c11152_21"></a>Instead of examining the player when the player is female:
+            <!--START CODE "c11179_31"-->
+            <blockquote class="code"><p class="quoted"><a id="c11179_31"></a>Instead of examining the player when the player is female:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Congratulations, you are a girl!&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11153_21"-->
-            <blockquote class="code"><p class="quoted"><a id="c11153_21"></a>Instead of examining the player when the player is male:
+            <!--START CODE "c11180_31"-->
+            <blockquote class="code"><p class="quoted"><a id="c11180_31"></a>Instead of examining the player when the player is male:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Congratulations, you are a boy!&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>If we had a whole series of things to ask the player about, we might define a whole series of kinds of value</p>
-            <!--START CODE "c11154_21"-->
-            <blockquote class="code"><p class="quoted"><a id="c11154_21"></a>The vocal ranges are soprano, mezzosoprano, contralto...
+            <!--START CODE "c11181_31"-->
+            <blockquote class="code"><p class="quoted"><a id="c11181_31"></a>The vocal ranges are soprano, mezzosoprano, contralto...
             </p>
             </blockquote>
             <!--END CODE-->
             <p>and use a &quot;construction stage&quot; variable to keep track of the current stage of character-construction, as in</p>
-            <!--START CODE "c11155_21"-->
-            <blockquote class="code"><p class="quoted"><a id="c11155_21"></a>After reading a command when the current construction stage is choosing a vocal range:
+            <!--START CODE "c11182_31"-->
+            <blockquote class="code"><p class="quoted"><a id="c11182_31"></a>After reading a command when the current construction stage is choosing a vocal range:
             <br>
             &#160;&#160;&#160;&#160;...
             </p>
@@ -343,64 +343,69 @@
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "450: Pink or Blue" "e167"-->
-        <a id="e167"></a><table class="egcue">
+        <!--START EXAMPLE "451: Good or Evil" "e164"-->
+        <a id="e164"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example167'); return false;"><b>450</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example164'); return false;"><b>451</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example167'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Pink or Blue</span></b></a><br>
-                    Asking the player to select a gender to begin play.</p>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example164'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Good or Evil</span></b></a><br>
+                    Asking the player to select whether to be a good or evil character to begin play.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc440.html#e167"><i>WI</i></a></div>
+                        <a href="doc440.html#e164"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example167" style="display: none;">
-            <p>Suppose we would like to allow the player to choose a gender for the main character. We'd also like this to happen at the beginning of the game and outside the main parsing sequence. &quot;When play begins&quot; seems like a good place to put this.</p>
-            <!--START CODE "c11156_167"-->
-            <blockquote class="code"><p class="quoted"><a id="c11156_167"></a><a href="javascript:pasteCode('[=0x0022=]Pink or Blue[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]say [=0x0022=]Should your character be male or female? [=0x003E=][=0x0022=];[=0x000A=][=0x0009=]if men win, now the player is male;[=0x000A=][=0x0009=]otherwise now the player is female;[=0x000A=][=0x0009=]say paragraph break.[=0x000A=][=0x000A=][Now a piece of Inform 6 code handles the unusual input. It[=0x0027=]s not necessary to understand this to use it, and the code should work for any question you[=0x0027=]d like to ask the player. The first three words in quotation marks ([=0x0027=]male[=0x0027=], [=0x0027=]M[=0x0027=], [=0x0027=]man[=0x0027=]...) correspond to positive feedback; the later three words correspond to negative feedback. So [=0x0022=]to decide whether men win[=0x0022=] will be true if the player types one of the first three, and false if he types one of the last three.][=0x000A=][=0x000A=]To decide whether men win:[=0x000A=][=0x0009=](- Question([=0x0027=]male[=0x0027=],[=0x0027=]M//[=0x0027=],[=0x0027=]man[=0x0027=],[=0x0027=]female[=0x0027=],[=0x0027=]F//[=0x0027=],[=0x0027=]woman[=0x0027=]) -)[=0x000A=][=0x000A=]Include (-[=0x000A=][=0x000A=][ Question pos1 pos2 pos3 neg1 neg2 neg3 first_word_typed;[=0x000A=][=0x0009=]while (true) {[=0x000A=][=0x0009=][=0x0009=]VM_ReadKeyboard(buffer, parse);[=0x000A=][=0x0009=][=0x0009=]wn = 1; first_word_typed = NextWordStopped();[=0x000A=][=0x0009=][=0x0009=]if (first_word_typed == pos1 or pos2 or pos3) rtrue;[=0x000A=][=0x0009=][=0x0009=]if (first_word_typed == neg1 or neg2 or neg3) rfalse;[=0x000A=][=0x0009=][=0x0009=]print [=0x0022=]Please choose [=0x0022=], (address) pos1, [=0x0022=] or [=0x0022=], (address) neg1, [=0x0022=]. [=0x003E=] [=0x0022=];[=0x000A=][=0x0009=]}[=0x000A=]];[=0x000A=][=0x000A=][=0x000A=]-)[=0x000A=][=0x000A=]Instead of examining the player when the player is female:[=0x000A=][=0x0009=]say [=0x0022=]Congratulations, you are a girl![=0x0022=][=0x000A=][=0x000A=]Instead of examining the player when the player is male:[=0x000A=][=0x0009=]say [=0x0022=]Congratulations, you are a boy![=0x0022=][=0x000A=][=0x000A=]The Room of Self-Knowledge is a room. [=0x0022=]Mirrors cover every available wall-surface of this hexagonal chamber, allowing you to examine yourself from all angles.[=0x0022=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Pink or Blue[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]say [=0x0022=]Should your character be male or female? [=0x003E=][=0x0022=];[=0x000A=][=0x0009=]if men win, now the player is male;[=0x000A=][=0x0009=]otherwise now the player is female;[=0x000A=][=0x0009=]say paragraph break.[=0x000A=][=0x000A=][Now a piece of Inform 6 code handles the unusual input. It[=0x0027=]s not necessary to understand this to use it, and the code should work for any question you[=0x0027=]d like to ask the player. The first three words in quotation marks ([=0x0027=]male[=0x0027=], [=0x0027=]M[=0x0027=], [=0x0027=]man[=0x0027=]...) correspond to positive feedback; the later three words correspond to negative feedback. So [=0x0022=]to decide whether men win[=0x0022=] will be true if the player types one of the first three, and false if he types one of the last three.][=0x000A=][=0x000A=]To decide whether men win:[=0x000A=][=0x0009=](- Question([=0x0027=]male[=0x0027=],[=0x0027=]M//[=0x0027=],[=0x0027=]man[=0x0027=],[=0x0027=]female[=0x0027=],[=0x0027=]F//[=0x0027=],[=0x0027=]woman[=0x0027=]) -)[=0x000A=][=0x000A=]Include (-[=0x000A=][=0x000A=][ Question pos1 pos2 pos3 neg1 neg2 neg3 first_word_typed;[=0x000A=][=0x0009=]while (true) {[=0x000A=][=0x0009=][=0x0009=]VM_ReadKeyboard(buffer, parse);[=0x000A=][=0x0009=][=0x0009=]wn = 1; first_word_typed = NextWordStopped();[=0x000A=][=0x0009=][=0x0009=]if (first_word_typed == pos1 or pos2 or pos3) rtrue;[=0x000A=][=0x0009=][=0x0009=]if (first_word_typed == neg1 or neg2 or neg3) rfalse;[=0x000A=][=0x0009=][=0x0009=]print [=0x0022=]Please choose [=0x0022=], (address) pos1, [=0x0022=] or [=0x0022=], (address) neg1, [=0x0022=]. [=0x003E=] [=0x0022=];[=0x000A=][=0x0009=]}[=0x000A=]];[=0x000A=][=0x000A=][=0x000A=]-)[=0x000A=][=0x000A=]Instead of examining the player when the player is female:[=0x000A=][=0x0009=]say [=0x0022=]Congratulations, you are a girl![=0x0022=][=0x000A=][=0x000A=]Instead of examining the player when the player is male:[=0x000A=][=0x0009=]say [=0x0022=]Congratulations, you are a boy![=0x0022=][=0x000A=][=0x000A=]The Room of Self-Knowledge is a room. [=0x0022=]Mirrors cover every available wall-surface of this hexagonal chamber, allowing you to examine yourself from all angles.[=0x0022=][=0x000A=]\n', 'Example - Pink or Blue')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Pink or Blue&quot;
+        <div class="egpanel" id="example164" style="display: none;">
+            <p>Suppose we would like to allow the player to make a fundamental choice at the beginning of the game, and outside the main parsing sequence. &quot;When play begins&quot; seems like a good place to put this.</p>
+            <!--START CODE "c11183_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c11183_164"></a><a href="javascript:pasteCode('[=0x0022=]Good or Evil[=0x0022=][=0x000A=][=0x000A=]A person can be good or evil.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]say [=0x0022=]Should your character be good or evil? [=0x003E=][=0x0022=];[=0x000A=][=0x0009=]if good wins, now the player is good;[=0x000A=][=0x0009=]otherwise now the player is evil;[=0x000A=][=0x0009=]say paragraph break.[=0x000A=][=0x000A=][Now a piece of Inform 6 code handles the unusual input. It[=0x0027=]s not necessary to understand this to use it, and the code should work for any question you[=0x0027=]d like to ask the player. The first three words in quotation marks ([=0x0027=]good[=0x0027=], [=0x0027=]G[=0x0027=], [=0x0027=]goody[=0x0027=]...) correspond to positive feedback; the later three words correspond to negative feedback. So [=0x0022=]to decide whether good wins[=0x0022=] will be true if the player types one of the first three, and false if they type one of the last three.][=0x000A=][=0x000A=]To decide whether good wins:[=0x000A=][=0x0009=](- Question([=0x0027=]good[=0x0027=],[=0x0027=]G//[=0x0027=],[=0x0027=]goody[=0x0027=],[=0x0027=]evil[=0x0027=],[=0x0027=]E//[=0x0027=],[=0x0027=]bad[=0x0027=]) -)[=0x000A=][=0x000A=]Include (-[=0x000A=][=0x000A=][ Question pos1 pos2 pos3 neg1 neg2 neg3 first_word_typed;[=0x000A=][=0x0009=]while (true) {[=0x000A=][=0x0009=][=0x0009=]VM_ReadKeyboard(buffer, parse);[=0x000A=][=0x0009=][=0x0009=]wn = 1; first_word_typed = NextWordStopped();[=0x000A=][=0x0009=][=0x0009=]if (first_word_typed == pos1 or pos2 or pos3) rtrue;[=0x000A=][=0x0009=][=0x0009=]if (first_word_typed == neg1 or neg2 or neg3) rfalse;[=0x000A=][=0x0009=][=0x0009=]print [=0x0022=]Please choose [=0x0022=], (address) pos1, [=0x0022=] or [=0x0022=], (address) neg1, [=0x0022=]. [=0x003E=] [=0x0022=];[=0x000A=][=0x0009=]}[=0x000A=]];[=0x000A=][=0x000A=]-)[=0x000A=][=0x000A=]Instead of examining the player when the player is evil:[=0x000A=][=0x0009=]say [=0x0022=]It[=0x0027=]s clear from the look in your eye that you are evil![=0x0022=][=0x000A=][=0x000A=]Instead of examining the player when the player is good:[=0x000A=][=0x0009=]say [=0x0022=]It[=0x0027=]s clear from the look in your eye that you are good.[=0x0022=][=0x000A=][=0x000A=]The Room of Self-Knowledge is a room. [=0x0022=]Mirrors cover every available wall-surface of this hexagonal chamber, allowing you to examine yourself from all angles.[=0x0022=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Good or Evil[=0x0022=][=0x000A=][=0x000A=]A person can be good or evil.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]say [=0x0022=]Should your character be good or evil? [=0x003E=][=0x0022=];[=0x000A=][=0x0009=]if good wins, now the player is good;[=0x000A=][=0x0009=]otherwise now the player is evil;[=0x000A=][=0x0009=]say paragraph break.[=0x000A=][=0x000A=][Now a piece of Inform 6 code handles the unusual input. It[=0x0027=]s not necessary to understand this to use it, and the code should work for any question you[=0x0027=]d like to ask the player. The first three words in quotation marks ([=0x0027=]good[=0x0027=], [=0x0027=]G[=0x0027=], [=0x0027=]goody[=0x0027=]...) correspond to positive feedback; the later three words correspond to negative feedback. So [=0x0022=]to decide whether good wins[=0x0022=] will be true if the player types one of the first three, and false if they type one of the last three.][=0x000A=][=0x000A=]To decide whether good wins:[=0x000A=][=0x0009=](- Question([=0x0027=]good[=0x0027=],[=0x0027=]G//[=0x0027=],[=0x0027=]goody[=0x0027=],[=0x0027=]evil[=0x0027=],[=0x0027=]E//[=0x0027=],[=0x0027=]bad[=0x0027=]) -)[=0x000A=][=0x000A=]Include (-[=0x000A=][=0x000A=][ Question pos1 pos2 pos3 neg1 neg2 neg3 first_word_typed;[=0x000A=][=0x0009=]while (true) {[=0x000A=][=0x0009=][=0x0009=]VM_ReadKeyboard(buffer, parse);[=0x000A=][=0x0009=][=0x0009=]wn = 1; first_word_typed = NextWordStopped();[=0x000A=][=0x0009=][=0x0009=]if (first_word_typed == pos1 or pos2 or pos3) rtrue;[=0x000A=][=0x0009=][=0x0009=]if (first_word_typed == neg1 or neg2 or neg3) rfalse;[=0x000A=][=0x0009=][=0x0009=]print [=0x0022=]Please choose [=0x0022=], (address) pos1, [=0x0022=] or [=0x0022=], (address) neg1, [=0x0022=]. [=0x003E=] [=0x0022=];[=0x000A=][=0x0009=]}[=0x000A=]];[=0x000A=][=0x000A=]-)[=0x000A=][=0x000A=]Instead of examining the player when the player is evil:[=0x000A=][=0x0009=]say [=0x0022=]It[=0x0027=]s clear from the look in your eye that you are evil![=0x0022=][=0x000A=][=0x000A=]Instead of examining the player when the player is good:[=0x000A=][=0x0009=]say [=0x0022=]It[=0x0027=]s clear from the look in your eye that you are good.[=0x0022=][=0x000A=][=0x000A=]The Room of Self-Knowledge is a room. [=0x0022=]Mirrors cover every available wall-surface of this hexagonal chamber, allowing you to examine yourself from all angles.[=0x0022=][=0x000A=]\n', 'Example - Good or Evil')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Good or Evil&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11157_167"-->
-            <blockquote class="code"><p class="quoted"><a id="c11157_167"></a>When play begins:
+            <!--START CODE "c11184_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c11184_164"></a>A person can be good or evil.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11185_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c11185_164"></a>When play begins:
             <br>
-            &#160;&#160;&#160;&#160;say &quot;Should your character be male or female? &gt;&quot;;
+            &#160;&#160;&#160;&#160;say &quot;Should your character be good or evil? &gt;&quot;;
             <br>
-            &#160;&#160;&#160;&#160;if men win, now the player is male;
+            &#160;&#160;&#160;&#160;if good wins, now the player is good;
             <br>
-            &#160;&#160;&#160;&#160;otherwise now the player is female;
+            &#160;&#160;&#160;&#160;otherwise now the player is evil;
             <br>
             &#160;&#160;&#160;&#160;say paragraph break.
             </p>
             </blockquote>
             <!--END CODE-->
-            <p>Now a piece of Inform 6 code handles the unusual input. It's not necessary to understand this to use it, and the code should work for any question you'd like to ask the player. The first three words in quotation marks ('male', 'M', 'man'...) correspond to positive feedback; the later three words correspond to negative feedback. So &quot;to decide whether men win&quot; will be true if the player types one of the first three, and false if he types one of the last three.</p>
-            <!--START CODE "c11158_167"-->
-            <blockquote class="code"><p class="quoted"><a id="c11158_167"></a>To decide whether men win:
+            <p>Now a piece of Inform 6 code handles the unusual input. It's not necessary to understand this to use it, and the code should work for any question you'd like to ask the player. The first three words in quotation marks ('good', 'G', 'goody'...) correspond to positive feedback; the later three words correspond to negative feedback. So &quot;to decide whether good wins&quot; will be true if the player types one of the first three, and false if they type one of the last three.</p>
+            <!--START CODE "c11186_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c11186_164"></a>To decide whether good wins:
             <br>
-            &#160;&#160;&#160;&#160;(- Question('male','M//','man','female','F//','woman') -)
+            &#160;&#160;&#160;&#160;(- Question('good','G//','goody','evil','E//','bad') -)
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11159_167"-->
-            <blockquote class="code"><p class="quoted"><a id="c11159_167"></a>Include (-
+            <!--START CODE "c11187_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c11187_164"></a>Include (-
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11160_167"-->
-            <blockquote class="code"><p class="quoted"><a id="c11160_167"></a>[ Question pos1 pos2 pos3 neg1 neg2 neg3 first_word_typed;
+            <!--START CODE "c11188_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c11188_164"></a>[ Question pos1 pos2 pos3 neg1 neg2 neg3 first_word_typed;
             <br>
             &#160;&#160;&#160;&#160;while (true) {
             <br>
@@ -420,27 +425,27 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11161_167"-->
-            <blockquote class="code"><p class="quoted"><a id="c11161_167"></a>-)
+            <!--START CODE "c11189_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c11189_164"></a>-)
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11162_167"-->
-            <blockquote class="code"><p class="quoted"><a id="c11162_167"></a>Instead of examining the player when the player is female:
+            <!--START CODE "c11190_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c11190_164"></a>Instead of examining the player when the player is evil:
             <br>
-            &#160;&#160;&#160;&#160;say &quot;Congratulations, you are a girl!&quot;
+            &#160;&#160;&#160;&#160;say &quot;It's clear from the look in your eye that you are evil!&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11163_167"-->
-            <blockquote class="code"><p class="quoted"><a id="c11163_167"></a>Instead of examining the player when the player is male:
+            <!--START CODE "c11191_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c11191_164"></a>Instead of examining the player when the player is good:
             <br>
-            &#160;&#160;&#160;&#160;say &quot;Congratulations, you are a boy!&quot;
+            &#160;&#160;&#160;&#160;say &quot;It's clear from the look in your eye that you are good.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11164_167"-->
-            <blockquote class="code"><p class="quoted"><a id="c11164_167"></a>The Room of Self-Knowledge is a room. &quot;Mirrors cover every available wall-surface of this hexagonal chamber, allowing you to examine yourself from all angles.&quot;
+            <!--START CODE "c11192_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c11192_164"></a>The Room of Self-Knowledge is a room. &quot;Mirrors cover every available wall-surface of this hexagonal chamber, allowing you to examine yourself from all angles.&quot;
             </p>
             </blockquote>
             <!--END CODE-->

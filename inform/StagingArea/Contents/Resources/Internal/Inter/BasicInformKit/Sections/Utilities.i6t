@@ -5,10 +5,10 @@ Miscellaneous utility routines for some fundamental I6 needs.
 @h Miscellany.
 
 =
-#ifdef TARGET_ZCODE;
+#Iftrue WORDSIZE == 2;
 Constant BLOCKV_STACK_SIZE = 224;
 #ifnot;
-Constant BLOCKV_STACK_SIZE = DynamicMemoryAllocation/4;
+Constant BLOCKV_STACK_SIZE = BasicInformKit`STACK_FRAME_CAPACITY_CFGV / 4;
 #endif;
 
 Array blockv_stack --> BLOCKV_STACK_SIZE;
@@ -55,14 +55,15 @@ Default LanguageCases 1;
 @h Final Code Dependencies.
 This function definition is a little misleading. The idea is that the
 final code-generator can inject code of its own into the body here: for example,
-the final code-generation for Glulx injects code into |FINAL_CODE_STARTUP_R|
+the final code-generation for Glulx injects code into |PLATFORM_SPECIFIC_STARTUP_R|
 to use accelerated VM support for certain veneer functions.
 
 The other three are also misleading, in that final code-generation can add more
 helpful code here: the fallbacks here are basic.
 
 =
-[ FINAL_CODE_STARTUP_R addr res;
+[ PLATFORM_SPECIFIC_STARTUP_R addr res;
+	rfalse;
 ];
 
 [ DebugAction a anames str;
@@ -150,24 +151,6 @@ allows us to divide the paragraph or not accordingly.
 	else print (string) closure-->2;
 ];
 
-@h Kinds.
-
-=
-[ KindAtomic kind;
-	if ((kind >= 0) && (kind < BASE_KIND_HWM)) return kind;
-	return kind-->0;
-];
-
-[ KindBaseArity kind;
-	if ((kind >= 0) && (kind < BASE_KIND_HWM)) return 0;
-	return kind-->1;
-];
-
-[ KindBaseTerm kind n;
-	if ((kind >= 0) && (kind < BASE_KIND_HWM)) return UNKNOWN_TY;
-	return kind-->(2+n);
-];
-
 @h GenerateRandomNumber.
 The following uses the virtual machine's RNG (via the I6 built-in function
 |random|) to produce a uniformly random integer in the range $n$ to $m$
@@ -176,12 +159,31 @@ a random number between 17 and 4 is the same thing as a random number
 between 4 and 17, and there is therefore no pair of $n$ and $m$ corresponding
 to an empty range of values.
 
+The following trick, devised by Zed Lopez in 2023, is designed to work even
+when the range width (here called $s$) is larger than the maximum signed
+integer size, so that the signed comparison $s > 0$ fails. In that case, it
+appears alarmingly to go into an infinite loop, but the loop terminates with
+a probability of at least 0.5 on each iteration. Even in the worst case of the
+range, the expected number of iterations is only 2, and the probability of taking
+more than 50 iterations is less than 0.0000000000000001, which is obviously
+negligible. But we check the iteration count anyway in case a rigged random
+number generator is being used, e.g. for story testing purposes, which happens
+to be biased in a really unlucky way for us.
+
 =
-[ GenerateRandomNumber n m s;
-	if (n==m) return n;
-	if (n>m) { s = n; n = m; m = s; }
-	n--;
-	return random(m-n) + n;
+[ GenerateRandomNumber n m s it;
+    if (n==m) return n;
+    if (n>m) { s = n; n = m; m = s; }
+    n--;
+    s = m - n;
+    if (s > 0) return random(s) + n;
+    n++;
+    do {
+		s = FullyRandomWord();
+		if ((s >= n) && (s <= m)) return s;
+		it++;
+    } until (it > 50);
+    return n;
 ];
 Constant R_DecimalNumber = GenerateRandomNumber;
 Constant R_PrintTimeOfDay = GenerateRandomNumber;
@@ -235,21 +237,8 @@ following shows. (The name is from "region of the Z-machine".)
     }
 ];
 
-@h Memcpy.
-This is equivalent to C's memcpy function, in good ways and bad.
-
-=
-[ Memcpy to_addr from_addr size  n;
-#Ifdef TARGET_ZCODE;
-	for (n = size/WORDSIZE: (n--) > 0: ) to_addr-->n = from_addr-->n;
-	for (n = size: ((n--) % WORDSIZE ~= 0): ) to_addr->n = from_addr->n;
-#Ifnot; ! TARGET_GLULX
-    @mcopy size from_addr to_addr;
-#Endif; ! TARGET_
-];
-
 @h Arrcpy.
-This is not quite so efficient, but not terrible.
+This is not quite so efficient as Memcpy, but not terrible.
 
 =
 [ Arrcpy to_array to_entry_size from_array from_entry_size no_entries  n val;
@@ -273,7 +262,7 @@ This is not quite so efficient, but not terrible.
 ];
 
 [ VerbIsMeaningful vb;
-	if ((vb) && (BlkValueCompare(vb(CV_MEANING), MEANINGLESS_RR) ~= 0)) rtrue;
+	if ((vb) && (ComparePV(vb(CV_MEANING), MEANINGLESS_RR) ~= 0)) rtrue;
 	rfalse;
 ];
 
@@ -282,54 +271,10 @@ This is not quite so efficient, but not terrible.
 	rfalse;
 ];
 
-@h Seed Random Number Generator Rule.
-Unless a seed is provided by Inform, and it won't be for released story files,
-the VM's interpreter is supposed to start up with a good seed in its random
-number generator: something usually derived from, say, the milliseconds part
-of the current time of day, which is unlikely to repeat or show any pattern
-in real-world use. However, early Z-machine interpreters often did this quite
-badly, starting with poor seed values which meant that the first few random
-numbers always had something in common (being fairly small in their range,
-for instance). To obviate this we extract and throw away 100 random numbers
-to get the generator going, shaking out more obvious early patterns, but
-that cannot really help much if the VM interpreter's RNG is badly written.
-"Anyone who considers arithmetical methods of producing random digits is,
-of course, in a state of sin" (von Neumann).
+@h Regarding.
+These are used with adaptive text.
 
 =
-[ SEED_RANDOM_NUMBER_GENERATOR_R i;
-	if (RNG_SEED_AT_START_OF_PLAY) VM_Seed_RNG(RNG_SEED_AT_START_OF_PLAY);
-	for (i=1: i<=100: i++) random(i);
-	rfalse;
-];
-
-@h Extracting Verb Numbers.
-A long tale of woe lies behind the following. Infocom games stored verb numbers
-in a single byte in dictionary entries, but they did so counting downwards, so
-that verb number 0 was stored as 255, 1 as 254, and so on. Inform followed
-suit so that debugging of Inform 1 could be aided by using the then-available
-tools for dumping dictionaries from Infocom story files; by using the Infocom
-format for dictionary tables, Inform's life was easier.
-
-But there was an implicit restriction there of 255 distinct verbs (not 256
-since not all words were verbs). When Glulx raised almost all of the Z-machine
-limits, it made space for 65535 verbs instead of 255, but it appears that
-nobody remembered to implement this in I6-for-Glulx and the Glulx form of
-the I6 library. This was only put right in March 2009, and the following
-routine was added to concentrate lookups of this field in one place.
-
-=
-[ DictionaryWordToVerbNum dword verbnum i;
-#Ifdef TARGET_ZCODE;
-	verbnum = $ff-(dword->#dict_par2);
-#Ifnot; ! GLULX
-	dword = dword + #dict_par2 - 1;
-    @aloads dword 0 verbnum;
-    verbnum = $ffff-verbnum;
-#Endif;
-	return verbnum;
-];
-
 [ RegardingSingleObject obj;
 	prior_named_list = 1;
 	prior_named_list_gender = -1;

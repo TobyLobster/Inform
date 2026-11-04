@@ -96,60 +96,60 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "13: Tamed" "e374"-->
-        <a id="e374"></a><table class="egcue">
+        <!--START EXAMPLE "13: Tamed" "e351"-->
+        <a id="e351"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example374'); return false;"><b>13</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example351'); return false;"><b>13</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example374'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Tamed</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example351'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Tamed</span></b></a><br>
                     Examples of a container and a supporter that can be entered, as well as nested rooms.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc66.html#e374"><i>RB</i></a></div>
+                        <a href="Rdoc66.html#e351"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example374" style="display: none;">
+        <div class="egpanel" id="example351" style="display: none;">
             <p>Within a room, we might have containers and supporters that a player can enter. A chair, stool, table, dais, or pedestal would be an enterable supporter (anything we would describe a person as being &quot;on&quot;); a cage, hammock, or booth would be an enterable container (because we would describe the person as being &quot;inside&quot;).</p>
-            <p>When the player is in or on something, he is able to see the rest of the contents of the room, but a note such as &quot;(in the hammock)&quot; or &quot;(on the poster bed)&quot; is added to the room title when he looks around.</p>
+            <p>When the player is in or on something, they are able to see the rest of the contents of the room, but a note such as &quot;(in the hammock)&quot; or &quot;(on the poster bed)&quot; is added to the room title when they look around.</p>
             <p>Here is an example to show off the possibilities:</p>
-            <!--START CODE "c193_374"-->
-            <blockquote class="code"><p class="quoted"><a id="c193_374"></a><a href="javascript:pasteCode('[=0x0022=]Tamed[=0x0022=][=0x000A=][=0x000A=]The Center Ring is a room. The cage is in the Center Ring. A lion is an animal in the cage. The cage is enterable, openable, transparent, and closed.[=0x000A=][=0x000A=][Notice that we made the cage transparent. Strictly speaking it is not made of transparent materials, but we can see into (or out of) a closed cage due to the gaps between the bars, so that from Inform[=0x0027=]s point of view a cage behaves much like a large sturdy glass box. (If we really wanted to make a distinction between, say, an airtight container and one with perforations, we could do so, but Inform does not model such nuances by default.) If a container is not transparent, we can see into and out of it only when it is open.][=0x000A=][=0x000A=][Supporters are a bit more straightforward because there is no circumstance in which they separate the player from the rest of the world:][=0x000A=][=0x000A=]The pedestal is in the Center Ring. It is enterable.[=0x000A=][=0x000A=][And in fact we can tell Inform that the player starts on the pedestal with this line:][=0x000A=][=0x000A=]The player is on a pedestal.[=0x000A=][=0x000A=][Now the player will begin there rather than just in the Center Ring.][=0x000A=][=0x000A=][This last bit is an entirely unnecessary bit of local color, but if we[=0x0027=]re going to keep getting into and out of the lion[=0x0027=]s cage, we ought to expect him to take notice:][=0x000A=][=0x000A=]Every turn when the player is in the cage:[=0x000A=][=0x0009=]if a random chance of 1 in 2 succeeds, say [=0x0022=]The lion eyes you with obvious discontent.[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]Though the lion does not move, you are aware that it is watching you closely.[=0x0022=][=0x000A=][=0x000A=][Randomness is explained more completely in the chapter on Change, and every turn rules in the chapter on Time.][=0x000A=][=0x000A=][Finally, we might want a container whose interior is modeled as its own separate room: say, a magician[=0x0027=]s booth in which volunteers are made to disappear.][=0x000A=][=0x000A=]The magician[=0x0027=]s booth is a container in Center Ring. [=0x0022=]Off to one side is a magician[=0x0027=]s booth, used in disappearing acts. The exterior is covered with painted gilt stars.[=0x0022=] The booth is enterable, open, not openable, and fixed in place.[=0x000A=][=0x000A=][Now we create our other location:][=0x000A=][=0x000A=]Inside from the Center Ring is the Starry Vastness.[=0x000A=][=0x000A=][...which handles the case of the player typing [=0x003E=]IN. (We will not assume by default that he wants to get into the cage with the lion, this being obviously perilous.) But we also want to make sure that the player who types [=0x003E=]ENTER BOOTH winds up in the same place, so we should add:][=0x000A=][=0x000A=]Instead of entering the magician[=0x0027=]s booth: try going inside.[=0x000A=][=0x000A=]Test me with [=0x0022=]get in cage / open cage / get in cage / z / close cage / out / open cage / get on pedestal / get off / look / enter booth / out[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Tamed[=0x0022=][=0x000A=][=0x000A=]The Center Ring is a room. The cage is in the Center Ring. A lion is an animal in the cage. The cage is enterable, openable, transparent, and closed.[=0x000A=][=0x000A=][Notice that we made the cage transparent. Strictly speaking it is not made of transparent materials, but we can see into (or out of) a closed cage due to the gaps between the bars, so that from Inform[=0x0027=]s point of view a cage behaves much like a large sturdy glass box. (If we really wanted to make a distinction between, say, an airtight container and one with perforations, we could do so, but Inform does not model such nuances by default.) If a container is not transparent, we can see into and out of it only when it is open.][=0x000A=][=0x000A=][Supporters are a bit more straightforward because there is no circumstance in which they separate the player from the rest of the world:][=0x000A=][=0x000A=]The pedestal is in the Center Ring. It is enterable.[=0x000A=][=0x000A=][And in fact we can tell Inform that the player starts on the pedestal with this line:][=0x000A=][=0x000A=]The player is on a pedestal.[=0x000A=][=0x000A=][Now the player will begin there rather than just in the Center Ring.][=0x000A=][=0x000A=][This last bit is an entirely unnecessary bit of local color, but if we[=0x0027=]re going to keep getting into and out of the lion[=0x0027=]s cage, we ought to expect him to take notice:][=0x000A=][=0x000A=]Every turn when the player is in the cage:[=0x000A=][=0x0009=]if a random chance of 1 in 2 succeeds, say [=0x0022=]The lion eyes you with obvious discontent.[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]Though the lion does not move, you are aware that it is watching you closely.[=0x0022=][=0x000A=][=0x000A=][Randomness is explained more completely in the chapter on Change, and every turn rules in the chapter on Time.][=0x000A=][=0x000A=][Finally, we might want a container whose interior is modeled as its own separate room: say, a magician[=0x0027=]s booth in which volunteers are made to disappear.][=0x000A=][=0x000A=]The magician[=0x0027=]s booth is a container in Center Ring. [=0x0022=]Off to one side is a magician[=0x0027=]s booth, used in disappearing acts. The exterior is covered with painted gilt stars.[=0x0022=] The booth is enterable, open, not openable, and fixed in place.[=0x000A=][=0x000A=][Now we create our other location:][=0x000A=][=0x000A=]Inside from the Center Ring is the Starry Vastness.[=0x000A=][=0x000A=][...which handles the case of the player typing [=0x003E=]IN. (We will not assume by default that he wants to get into the cage with the lion, this being obviously perilous.) But we also want to make sure that the player who types [=0x003E=]ENTER BOOTH winds up in the same place, so we should add:][=0x000A=][=0x000A=]Instead of entering the magician[=0x0027=]s booth: try going inside.[=0x000A=][=0x000A=]Test me with [=0x0022=]get in cage / open cage / get in cage / z / close cage / out / open cage / get on pedestal / get off / look / enter booth / out[=0x0022=].[=0x000A=]\n', 'Example - Tamed')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Tamed&quot;
+            <!--START CODE "c193_351"-->
+            <blockquote class="code"><p class="quoted"><a id="c193_351"></a><a href="javascript:pasteCode('[=0x0022=]Tamed[=0x0022=][=0x000A=][=0x000A=]The Center Ring is a room. The cage is in the Center Ring. A lion is an animal in the cage. The cage is enterable, openable, transparent, and closed.[=0x000A=][=0x000A=][Notice that we made the cage transparent. Strictly speaking it is not made of transparent materials, but we can see into (or out of) a closed cage due to the gaps between the bars, so that from Inform[=0x0027=]s point of view a cage behaves much like a large sturdy glass box. (If we really wanted to make a distinction between, say, an airtight container and one with perforations, we could do so, but Inform does not model such nuances by default.) If a container is not transparent, we can see into and out of it only when it is open.][=0x000A=][=0x000A=][Supporters are a bit more straightforward because there is no circumstance in which they separate the player from the rest of the world:][=0x000A=][=0x000A=]The pedestal is in the Center Ring. It is enterable.[=0x000A=][=0x000A=][And in fact we can tell Inform that the player starts on the pedestal with this line:][=0x000A=][=0x000A=]The player is on a pedestal.[=0x000A=][=0x000A=][Now the player will begin there rather than just in the Center Ring.][=0x000A=][=0x000A=][This last bit is an entirely unnecessary bit of local color, but if we[=0x0027=]re going to keep getting into and out of the lion[=0x0027=]s cage, we ought to expect him to take notice:][=0x000A=][=0x000A=]Every turn when the player is in the cage:[=0x000A=][=0x0009=]if a random chance of 1 in 2 succeeds, say [=0x0022=]The lion eyes you with obvious discontent.[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]Though the lion does not move, you are aware that it is watching you closely.[=0x0022=][=0x000A=][=0x000A=][Randomness is explained more completely in the chapter on Change, and every turn rules in the chapter on Time.][=0x000A=][=0x000A=][Finally, we might want a container whose interior is modeled as its own separate room: say, a magician[=0x0027=]s booth in which volunteers are made to disappear.][=0x000A=][=0x000A=]The magician[=0x0027=]s booth is a container in Center Ring. [=0x0022=]Off to one side is a magician[=0x0027=]s booth, used in disappearing acts. The exterior is covered with painted gilt stars.[=0x0022=] The booth is enterable, open, not openable, and fixed in place.[=0x000A=][=0x000A=][Now we create our other location:][=0x000A=][=0x000A=]Inside from the Center Ring is the Starry Vastness.[=0x000A=][=0x000A=][...which handles the case of the player typing [=0x003E=]IN. (We will not assume by default that they want to get into the cage with the lion, this being obviously perilous.) But we also want to make sure that the player who types [=0x003E=]ENTER BOOTH winds up in the same place, so we should add:][=0x000A=][=0x000A=]Instead of entering the magician[=0x0027=]s booth: try going inside.[=0x000A=][=0x000A=]Test me with [=0x0022=]get in cage / open cage / get in cage / z / close cage / out / open cage / get on pedestal / get off / look / enter booth / out[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Tamed[=0x0022=][=0x000A=][=0x000A=]The Center Ring is a room. The cage is in the Center Ring. A lion is an animal in the cage. The cage is enterable, openable, transparent, and closed.[=0x000A=][=0x000A=][Notice that we made the cage transparent. Strictly speaking it is not made of transparent materials, but we can see into (or out of) a closed cage due to the gaps between the bars, so that from Inform[=0x0027=]s point of view a cage behaves much like a large sturdy glass box. (If we really wanted to make a distinction between, say, an airtight container and one with perforations, we could do so, but Inform does not model such nuances by default.) If a container is not transparent, we can see into and out of it only when it is open.][=0x000A=][=0x000A=][Supporters are a bit more straightforward because there is no circumstance in which they separate the player from the rest of the world:][=0x000A=][=0x000A=]The pedestal is in the Center Ring. It is enterable.[=0x000A=][=0x000A=][And in fact we can tell Inform that the player starts on the pedestal with this line:][=0x000A=][=0x000A=]The player is on a pedestal.[=0x000A=][=0x000A=][Now the player will begin there rather than just in the Center Ring.][=0x000A=][=0x000A=][This last bit is an entirely unnecessary bit of local color, but if we[=0x0027=]re going to keep getting into and out of the lion[=0x0027=]s cage, we ought to expect him to take notice:][=0x000A=][=0x000A=]Every turn when the player is in the cage:[=0x000A=][=0x0009=]if a random chance of 1 in 2 succeeds, say [=0x0022=]The lion eyes you with obvious discontent.[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]Though the lion does not move, you are aware that it is watching you closely.[=0x0022=][=0x000A=][=0x000A=][Randomness is explained more completely in the chapter on Change, and every turn rules in the chapter on Time.][=0x000A=][=0x000A=][Finally, we might want a container whose interior is modeled as its own separate room: say, a magician[=0x0027=]s booth in which volunteers are made to disappear.][=0x000A=][=0x000A=]The magician[=0x0027=]s booth is a container in Center Ring. [=0x0022=]Off to one side is a magician[=0x0027=]s booth, used in disappearing acts. The exterior is covered with painted gilt stars.[=0x0022=] The booth is enterable, open, not openable, and fixed in place.[=0x000A=][=0x000A=][Now we create our other location:][=0x000A=][=0x000A=]Inside from the Center Ring is the Starry Vastness.[=0x000A=][=0x000A=][...which handles the case of the player typing [=0x003E=]IN. (We will not assume by default that they want to get into the cage with the lion, this being obviously perilous.) But we also want to make sure that the player who types [=0x003E=]ENTER BOOTH winds up in the same place, so we should add:][=0x000A=][=0x000A=]Instead of entering the magician[=0x0027=]s booth: try going inside.[=0x000A=][=0x000A=]Test me with [=0x0022=]get in cage / open cage / get in cage / z / close cage / out / open cage / get on pedestal / get off / look / enter booth / out[=0x0022=].[=0x000A=]\n', 'Example - Tamed')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Tamed&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c194_374"-->
-            <blockquote class="code"><p class="quoted"><a id="c194_374"></a>The Center Ring is a room. The cage is in the Center Ring. A lion is an animal in the cage. The cage is enterable, openable, transparent, and closed.
+            <!--START CODE "c194_351"-->
+            <blockquote class="code"><p class="quoted"><a id="c194_351"></a>The Center Ring is a room. The cage is in the Center Ring. A lion is an animal in the cage. The cage is enterable, openable, transparent, and closed.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Notice that we made the cage transparent. Strictly speaking it is not made of transparent materials, but we can see into (or out of) a closed cage due to the gaps between the bars, so that from Inform's point of view a cage behaves much like a large sturdy glass box. (If we really wanted to make a distinction between, say, an airtight container and one with perforations, we could do so, but Inform does not model such nuances by default.) If a container is not transparent, we can see into and out of it only when it is open.</p>
             <p>Supporters are a bit more straightforward because there is no circumstance in which they separate the player from the rest of the world:</p>
-            <!--START CODE "c195_374"-->
-            <blockquote class="code"><p class="quoted"><a id="c195_374"></a>The pedestal is in the Center Ring. It is enterable.
+            <!--START CODE "c195_351"-->
+            <blockquote class="code"><p class="quoted"><a id="c195_351"></a>The pedestal is in the Center Ring. It is enterable.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>And in fact we can tell Inform that the player starts on the pedestal with this line:</p>
-            <!--START CODE "c196_374"-->
-            <blockquote class="code"><p class="quoted"><a id="c196_374"></a>The player is on a pedestal.
+            <!--START CODE "c196_351"-->
+            <blockquote class="code"><p class="quoted"><a id="c196_351"></a>The player is on a pedestal.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now the player will begin there rather than just in the Center Ring.</p>
             <p>This last bit is an entirely unnecessary bit of local color, but if we're going to keep getting into and out of the lion's cage, we ought to expect him to take notice:</p>
-            <!--START CODE "c197_374"-->
-            <blockquote class="code"><p class="quoted"><a id="c197_374"></a>Every turn when the player is in the cage:
+            <!--START CODE "c197_351"-->
+            <blockquote class="code"><p class="quoted"><a id="c197_351"></a>Every turn when the player is in the cage:
             <br>
             &#160;&#160;&#160;&#160;if a random chance of 1 in 2 succeeds, say &quot;The lion eyes you with obvious discontent.&quot;;
             <br>
@@ -159,25 +159,25 @@
             <!--END CODE-->
             <p>Randomness is explained more completely in the chapter on Change, and every turn rules in the chapter on Time.</p>
             <p>Finally, we might want a container whose interior is modeled as its own separate room: say, a magician's booth in which volunteers are made to disappear.</p>
-            <!--START CODE "c198_374"-->
-            <blockquote class="code"><p class="quoted"><a id="c198_374"></a>The magician's booth is a container in Center Ring. &quot;Off to one side is a magician's booth, used in disappearing acts. The exterior is covered with painted gilt stars.&quot; The booth is enterable, open, not openable, and fixed in place.
+            <!--START CODE "c198_351"-->
+            <blockquote class="code"><p class="quoted"><a id="c198_351"></a>The magician's booth is a container in Center Ring. &quot;Off to one side is a magician's booth, used in disappearing acts. The exterior is covered with painted gilt stars.&quot; The booth is enterable, open, not openable, and fixed in place.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now we create our other location:</p>
-            <!--START CODE "c199_374"-->
-            <blockquote class="code"><p class="quoted"><a id="c199_374"></a>Inside from the Center Ring is the Starry Vastness.
+            <!--START CODE "c199_351"-->
+            <blockquote class="code"><p class="quoted"><a id="c199_351"></a>Inside from the Center Ring is the Starry Vastness.
             </p>
             </blockquote>
             <!--END CODE-->
-            <p>...which handles the case of the player typing &gt;IN. (We will not assume by default that he wants to get into the cage with the lion, this being obviously perilous.) But we also want to make sure that the player who types &gt;ENTER BOOTH winds up in the same place, so we should add:</p>
-            <!--START CODE "c200_374"-->
-            <blockquote class="code"><p class="quoted"><a id="c200_374"></a>Instead of entering the magician's booth: try going inside.
+            <p>...which handles the case of the player typing &gt;IN. (We will not assume by default that they want to get into the cage with the lion, this being obviously perilous.) But we also want to make sure that the player who types &gt;ENTER BOOTH winds up in the same place, so we should add:</p>
+            <!--START CODE "c200_351"-->
+            <blockquote class="code"><p class="quoted"><a id="c200_351"></a>Instead of entering the magician's booth: try going inside.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c201_374"-->
-            <blockquote class="code"><p class="quoted"><a id="c201_374"></a>Test me with &quot;get in cage / open cage / get in cage / z / close cage / out / open cage / get on pedestal / get off / look / enter booth / out&quot;.
+            <!--START CODE "c201_351"-->
+            <blockquote class="code"><p class="quoted"><a id="c201_351"></a>Test me with &quot;get in cage / open cage / get in cage / z / close cage / out / open cage / get on pedestal / get off / look / enter booth / out&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

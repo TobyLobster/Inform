@@ -83,34 +83,34 @@
     <!--END IGNORE-->
     <p class="sectionheading">§22.6. Generic phrases</p>
     <p>The following looks quite innocent:</p>
-    <!--START CODE "c8691"-->
-    <blockquote class="code"><p class="quoted"><a id="c8691"></a>To say (V - value) twice: say &quot;[V]. [V], I say!&quot;
+    <!--START CODE "c8717"-->
+    <blockquote class="code"><p class="quoted"><a id="c8717"></a>To say (V - value) twice: say &quot;[V]. [V], I say!&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>It's clear at a glance what this is intended to do, but at a second glance things aren't so straightforward. &quot;Value&quot; is not itself a kind - it's too big and unspecific. For instance, if we were to allow a variable to be just &quot;a value&quot;, we could freely set it to 12 one minute and to &quot;dahlias&quot; the next, and such a variable would be dangerous since we would never know what could safely be done with its contents. A phrase like this one is called &quot;generic&quot;, because it's not so much a single, actual phrase as a recipe to make phrases. (Inform automatically works out which kinds we need the phrase for, and creates a version of the phrase for those kinds.)</p>
     <p>So &quot;value&quot; is not a kind, but a kind of kind. Inform has several of these:</p>
-    <!--START CODE "c8692"-->
-    <blockquote class="code"><p class="quoted"><a id="c8692"></a>value, arithmetic value, enumerated value, sayable value
+    <!--START CODE "c8718"-->
+    <blockquote class="code"><p class="quoted"><a id="c8718"></a>value, arithmetic value, enumerated value, sayable value
     </p>
     </blockquote>
     <!--END CODE-->
     <p>These act as ways to say &quot;a value of any kind matching this can go here&quot;. For example, &quot;value&quot; is a way to say &quot;any kind at all&quot;; &quot;arithmetic value&quot; is any kind which arithmetic can be performed on (any kind with the little calculator icon in the Arithmetic part of the Kinds index); and so on. If we write:</p>
-    <!--START CODE "c8693"-->
-    <blockquote class="code"><p class="quoted"><a id="c8693"></a>To double (V - arithmetic value): say &quot;[V times 2].&quot;
+    <!--START CODE "c8719"-->
+    <blockquote class="code"><p class="quoted"><a id="c8719"></a>To double (V - arithmetic value): say &quot;[V times 2].&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>the restriction to &quot;arithmetic value&quot; means that although &quot;double 3&quot;, &quot;double 6 kg&quot;, etc., would be matched, &quot;double the Entire Game&quot; would not - you can't perform arithmetic on scenes. Similarly, it would have been tidier to write:</p>
-    <!--START CODE "c8694"-->
-    <blockquote class="code"><p class="quoted"><a id="c8694"></a>To say (V - sayable value) twice: say &quot;[V]. [V], I say!&quot;
+    <!--START CODE "c8720"-->
+    <blockquote class="code"><p class="quoted"><a id="c8720"></a>To say (V - sayable value) twice: say &quot;[V]. [V], I say!&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>because then Inform will make it clearer why &quot;say X twice&quot; won't work if X is one of those rare values which it can't say (an activity, for instance).</p>
     <p>The Kinds index shows which kinds match against which of these &quot;kinds of kind&quot;. For instance, it shows that &quot;time&quot;</p>
-    <!--START CODE "c8695"-->
-    <blockquote class="code"><p class="quoted"><a id="c8695"></a>Matches: value, arithmetic value, sayable value
+    <!--START CODE "c8721"-->
+    <blockquote class="code"><p class="quoted"><a id="c8721"></a>Matches: value, arithmetic value, sayable value
     </p>
     </blockquote>
     <!--END CODE-->

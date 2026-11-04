@@ -84,16 +84,16 @@
     <p class="sectionheading">§19.2. Named rules and rulebooks</p>
     <p>Most of the rules built into Inform have names. For instance, a rule called &quot;the advance time rule&quot; is the one which increments the number of turns and advances the clock, values which are usually not visible, but are ticking away behind the scenes.</p>
     <p>A rulebook is a list of rules to be followed in sequence until one of them makes a decision. For instance, when actions get to the &quot;instead&quot; stage, each &quot;instead&quot; rule is tried until one of them chooses to do something. If the source text contains the rules</p>
-    <!--START CODE "c7347"-->
-    <blockquote class="code"><p class="quoted"><a id="c7347"></a>Instead of taking something: say &quot;You have no particular need just now.&quot;
+    <!--START CODE "c7364"-->
+    <blockquote class="code"><p class="quoted"><a id="c7364"></a>Instead of taking something: say &quot;You have no particular need just now.&quot;
     <br>
     Instead of taking a fish: say &quot;It's all slimy.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>and a command to TAKE something is tried, then only one of these rules will have any effect. The &quot;instead&quot; rulebook contains:</p>
-    <!--START CODE "c7348"-->
-    <blockquote class="code"><p class="quoted"><a id="c7348"></a>Rule (1) to be applied if the action matches &quot;taking a fish&quot;
+    <!--START CODE "c7365"-->
+    <blockquote class="code"><p class="quoted"><a id="c7365"></a>Rule (1) to be applied if the action matches &quot;taking a fish&quot;
     <br>
     Rule (2) to be applied if the action matches &quot;taking something&quot;
     </p>
@@ -101,13 +101,13 @@
     <!--END CODE-->
     <p>Inside their rulebook, the rules are not listed in the order of definition in the source text. Rule (1) comes before rule (2) because it applies in more specific circumstances. This is the main idea: a rulebook gathers together rules about making some decision, or taking some action, and sorts them in order to give the more specific rules first choice about whether they want to intervene.</p>
     <p>Whereas only some rules are named (the two &quot;instead&quot; rules above have no name, for instance), every rulebook has a name. For convenience, the following forms of rule and rulebook name are synonymous:</p>
-    <!--START CODE "c7349"-->
-    <blockquote class="code"><p class="quoted"><a id="c7349"></a>advance time = the advance time rule
+    <!--START CODE "c7366"-->
+    <blockquote class="code"><p class="quoted"><a id="c7366"></a>advance time = the advance time rule
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c7350"-->
-    <blockquote class="code"><p class="quoted"><a id="c7350"></a>the instead rules = instead rulebook = instead
+    <!--START CODE "c7367"-->
+    <blockquote class="code"><p class="quoted"><a id="c7367"></a>the instead rules = instead rulebook = instead
     </p>
     </blockquote>
     <!--END CODE-->
@@ -115,48 +115,48 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "388: Nine AM Appointment" "e419"-->
-        <a id="e419"></a><table class="egcue">
+        <!--START EXAMPLE "389: Nine AM Appointment" "e247"-->
+        <a id="e247"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example419'); return false;"><b>388</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example247'); return false;"><b>389</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example419'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Nine AM Appointment</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example247'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Nine AM Appointment</span></b></a><br>
                     A WAIT [number] MINUTES command which advances through an arbitrary number of turns.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc39.html#e419"><i>RB</i></a></div>
+                        <a href="Rdoc39.html#e247"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example419" style="display: none;">
+        <div class="egpanel" id="example247" style="display: none;">
             <p>If there's some reason the player needs to be at a specific place and time, we might want to allow him to wait a number of minutes at once.</p>
-            <!--START CODE "c7351_419"-->
-            <blockquote class="code"><p class="quoted"><a id="c7351_419"></a><a href="javascript:pasteCode('[=0x0022=]Nine AM Appointment[=0x0022=][=0x000A=][=0x000A=]Waiting more is an action applying to one number.[=0x000A=][=0x000A=]Understand [=0x0022=]wait [a time period][=0x0022=] or [=0x0022=]wait for [a time period][=0x0022=] or [=0x0022=]wait for a/an [a time period][=0x0022=] or [=0x0022=]wait a/an [a time period][=0x0022=] as waiting more.[=0x000A=][=0x000A=]Carry out waiting more:[=0x000A=][=0x0009=]let the target time be the time of day plus the time understood;[=0x000A=][=0x0009=]decrease the target time by one minute;[=0x000A=][=0x0009=]while the time of day is not the target time:[=0x000A=][=0x0009=][=0x0009=]follow the turn sequence rules.[=0x000A=][=0x000A=][The one nuance here is that after our wait command occurs, the turn sequence rules will occur one more time. So we need to subtract one minute from the parsed time to make the turn end on the desired number of minutes.][=0x000A=][=0x000A=]Report waiting more:[=0x000A=][=0x0009=]say [=0x0022=]It is now [time of day + 1 minute].[=0x0022=][=0x000A=][=0x000A=][And if we want to ensure that the player doesn[=0x0027=]t (accidentally or intentionally) put the interpreter through a really long loop, we could put an upper limit on his patience:][=0x000A=][=0x000A=]Check waiting more:[=0x000A=][=0x0009=]if the time understood is greater than one hour, say [=0x0022=]You really haven[=0x0027=]t got that kind of patience.[=0x0022=] instead.[=0x000A=][=0x000A=]The Specialist[=0x0027=]s Office is a room. The secretary is a woman in the Office. Instead of asking the secretary about [=0x0022=][appointment][=0x0022=], say [=0x0022=][=0x0027=]Hang on just five more minutes,[=0x0027=] she says, in a distracted manner.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]appointment[=0x0022=] or [=0x0022=]specialist[=0x0022=] or [=0x0022=]doctor[=0x0022=] as [=0x0022=][appointment][=0x0022=].[=0x000A=][=0x000A=]At 9:45 AM: say [=0x0022=]At [the time of day in words], secretary glances at you and gives a reassuring smile.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]ask secretary about appointment / wait five minutes / g / g / wait 61 minutes / wait for half an hour / wait for a quarter of an hour / wait for an hour[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Nine AM Appointment[=0x0022=][=0x000A=][=0x000A=]Waiting more is an action applying to one number.[=0x000A=][=0x000A=]Understand [=0x0022=]wait [a time period][=0x0022=] or [=0x0022=]wait for [a time period][=0x0022=] or [=0x0022=]wait for a/an [a time period][=0x0022=] or [=0x0022=]wait a/an [a time period][=0x0022=] as waiting more.[=0x000A=][=0x000A=]Carry out waiting more:[=0x000A=][=0x0009=]let the target time be the time of day plus the time understood;[=0x000A=][=0x0009=]decrease the target time by one minute;[=0x000A=][=0x0009=]while the time of day is not the target time:[=0x000A=][=0x0009=][=0x0009=]follow the turn sequence rules.[=0x000A=][=0x000A=][The one nuance here is that after our wait command occurs, the turn sequence rules will occur one more time. So we need to subtract one minute from the parsed time to make the turn end on the desired number of minutes.][=0x000A=][=0x000A=]Report waiting more:[=0x000A=][=0x0009=]say [=0x0022=]It is now [time of day + 1 minute].[=0x0022=][=0x000A=][=0x000A=][And if we want to ensure that the player doesn[=0x0027=]t (accidentally or intentionally) put the interpreter through a really long loop, we could put an upper limit on his patience:][=0x000A=][=0x000A=]Check waiting more:[=0x000A=][=0x0009=]if the time understood is greater than one hour, say [=0x0022=]You really haven[=0x0027=]t got that kind of patience.[=0x0022=] instead.[=0x000A=][=0x000A=]The Specialist[=0x0027=]s Office is a room. The secretary is a woman in the Office. Instead of asking the secretary about [=0x0022=][appointment][=0x0022=], say [=0x0022=][=0x0027=]Hang on just five more minutes,[=0x0027=] she says, in a distracted manner.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]appointment[=0x0022=] or [=0x0022=]specialist[=0x0022=] or [=0x0022=]doctor[=0x0022=] as [=0x0022=][appointment][=0x0022=].[=0x000A=][=0x000A=]At 9:45 AM: say [=0x0022=]At [the time of day in words], secretary glances at you and gives a reassuring smile.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]ask secretary about appointment / wait five minutes / g / g / wait 61 minutes / wait for half an hour / wait for a quarter of an hour / wait for an hour[=0x0022=].[=0x000A=]\n', 'Example - Nine AM Appointment')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Nine AM Appointment&quot;
+            <!--START CODE "c7368_247"-->
+            <blockquote class="code"><p class="quoted"><a id="c7368_247"></a><a href="javascript:pasteCode('[=0x0022=]Nine AM Appointment[=0x0022=][=0x000A=][=0x000A=]Waiting more is an action applying to one number.[=0x000A=][=0x000A=]Understand [=0x0022=]wait [a time period][=0x0022=] or [=0x0022=]wait for [a time period][=0x0022=] or [=0x0022=]wait for a/an [a time period][=0x0022=] or [=0x0022=]wait a/an [a time period][=0x0022=] as waiting more.[=0x000A=][=0x000A=]Carry out waiting more:[=0x000A=][=0x0009=]let the target time be the time of day plus the time understood;[=0x000A=][=0x0009=]decrease the target time by one minute;[=0x000A=][=0x0009=]while the time of day is not the target time:[=0x000A=][=0x0009=][=0x0009=]follow the turn sequence rules.[=0x000A=][=0x000A=][The one nuance here is that after our wait command occurs, the turn sequence rules will occur one more time. So we need to subtract one minute from the parsed time to make the turn end on the desired number of minutes.][=0x000A=][=0x000A=]Report waiting more:[=0x000A=][=0x0009=]say [=0x0022=]It is now [time of day + 1 minute].[=0x0022=][=0x000A=][=0x000A=][And if we want to ensure that the player doesn[=0x0027=]t (accidentally or intentionally) put the interpreter through a really long loop, we could put an upper limit on their patience:][=0x000A=][=0x000A=]Check waiting more:[=0x000A=][=0x0009=]if the time understood is greater than one hour, say [=0x0022=]You really haven[=0x0027=]t got that kind of patience.[=0x0022=] instead.[=0x000A=][=0x000A=]The Specialist[=0x0027=]s Office is a room. The secretary is a woman in the Office. Instead of asking the secretary about [=0x0022=][appointment][=0x0022=], say [=0x0022=][=0x0027=]Hang on just five more minutes,[=0x0027=] she says, in a distracted manner.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]appointment[=0x0022=] or [=0x0022=]specialist[=0x0022=] or [=0x0022=]doctor[=0x0022=] as [=0x0022=][appointment][=0x0022=].[=0x000A=][=0x000A=]At 9:45 AM: say [=0x0022=]At [the time of day in words], secretary glances at you and gives a reassuring smile.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]ask secretary about appointment / wait five minutes / g / g / wait 61 minutes / wait for half an hour / wait for a quarter of an hour / wait for an hour[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Nine AM Appointment[=0x0022=][=0x000A=][=0x000A=]Waiting more is an action applying to one number.[=0x000A=][=0x000A=]Understand [=0x0022=]wait [a time period][=0x0022=] or [=0x0022=]wait for [a time period][=0x0022=] or [=0x0022=]wait for a/an [a time period][=0x0022=] or [=0x0022=]wait a/an [a time period][=0x0022=] as waiting more.[=0x000A=][=0x000A=]Carry out waiting more:[=0x000A=][=0x0009=]let the target time be the time of day plus the time understood;[=0x000A=][=0x0009=]decrease the target time by one minute;[=0x000A=][=0x0009=]while the time of day is not the target time:[=0x000A=][=0x0009=][=0x0009=]follow the turn sequence rules.[=0x000A=][=0x000A=][The one nuance here is that after our wait command occurs, the turn sequence rules will occur one more time. So we need to subtract one minute from the parsed time to make the turn end on the desired number of minutes.][=0x000A=][=0x000A=]Report waiting more:[=0x000A=][=0x0009=]say [=0x0022=]It is now [time of day + 1 minute].[=0x0022=][=0x000A=][=0x000A=][And if we want to ensure that the player doesn[=0x0027=]t (accidentally or intentionally) put the interpreter through a really long loop, we could put an upper limit on their patience:][=0x000A=][=0x000A=]Check waiting more:[=0x000A=][=0x0009=]if the time understood is greater than one hour, say [=0x0022=]You really haven[=0x0027=]t got that kind of patience.[=0x0022=] instead.[=0x000A=][=0x000A=]The Specialist[=0x0027=]s Office is a room. The secretary is a woman in the Office. Instead of asking the secretary about [=0x0022=][appointment][=0x0022=], say [=0x0022=][=0x0027=]Hang on just five more minutes,[=0x0027=] she says, in a distracted manner.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]appointment[=0x0022=] or [=0x0022=]specialist[=0x0022=] or [=0x0022=]doctor[=0x0022=] as [=0x0022=][appointment][=0x0022=].[=0x000A=][=0x000A=]At 9:45 AM: say [=0x0022=]At [the time of day in words], secretary glances at you and gives a reassuring smile.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]ask secretary about appointment / wait five minutes / g / g / wait 61 minutes / wait for half an hour / wait for a quarter of an hour / wait for an hour[=0x0022=].[=0x000A=]\n', 'Example - Nine AM Appointment')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Nine AM Appointment&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7352_419"-->
-            <blockquote class="code"><p class="quoted"><a id="c7352_419"></a>Waiting more is an action applying to one number.
+            <!--START CODE "c7369_247"-->
+            <blockquote class="code"><p class="quoted"><a id="c7369_247"></a>Waiting more is an action applying to one number.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7353_419"-->
-            <blockquote class="code"><p class="quoted"><a id="c7353_419"></a>Understand &quot;wait [a time period]&quot; or &quot;wait for [a time period]&quot; or &quot;wait for a/an [a time period]&quot; or &quot;wait a/an [a time period]&quot; as waiting more.
+            <!--START CODE "c7370_247"-->
+            <blockquote class="code"><p class="quoted"><a id="c7370_247"></a>Understand &quot;wait [a time period]&quot; or &quot;wait for [a time period]&quot; or &quot;wait for a/an [a time period]&quot; or &quot;wait a/an [a time period]&quot; as waiting more.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7354_419"-->
-            <blockquote class="code"><p class="quoted"><a id="c7354_419"></a>Carry out waiting more:
+            <!--START CODE "c7371_247"-->
+            <blockquote class="code"><p class="quoted"><a id="c7371_247"></a>Carry out waiting more:
             <br>
             &#160;&#160;&#160;&#160;let the target time be the time of day plus the time understood;
             <br>
@@ -169,80 +169,80 @@
             </blockquote>
             <!--END CODE-->
             <p>The one nuance here is that after our wait command occurs, the turn sequence rules will occur one more time. So we need to subtract one minute from the parsed time to make the turn end on the desired number of minutes.</p>
-            <!--START CODE "c7355_419"-->
-            <blockquote class="code"><p class="quoted"><a id="c7355_419"></a>Report waiting more:
+            <!--START CODE "c7372_247"-->
+            <blockquote class="code"><p class="quoted"><a id="c7372_247"></a>Report waiting more:
             <br>
             &#160;&#160;&#160;&#160;say &quot;It is now [time of day + 1 minute].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <p>And if we want to ensure that the player doesn't (accidentally or intentionally) put the interpreter through a really long loop, we could put an upper limit on his patience:</p>
-            <!--START CODE "c7356_419"-->
-            <blockquote class="code"><p class="quoted"><a id="c7356_419"></a>Check waiting more:
+            <p>And if we want to ensure that the player doesn't (accidentally or intentionally) put the interpreter through a really long loop, we could put an upper limit on their patience:</p>
+            <!--START CODE "c7373_247"-->
+            <blockquote class="code"><p class="quoted"><a id="c7373_247"></a>Check waiting more:
             <br>
             &#160;&#160;&#160;&#160;if the time understood is greater than one hour, say &quot;You really haven't got that kind of patience.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7357_419"-->
-            <blockquote class="code"><p class="quoted"><a id="c7357_419"></a>The Specialist's Office is a room. The secretary is a woman in the Office. Instead of asking the secretary about &quot;[appointment]&quot;, say &quot;'Hang on just five more minutes,' she says, in a distracted manner.&quot;
+            <!--START CODE "c7374_247"-->
+            <blockquote class="code"><p class="quoted"><a id="c7374_247"></a>The Specialist's Office is a room. The secretary is a woman in the Office. Instead of asking the secretary about &quot;[appointment]&quot;, say &quot;'Hang on just five more minutes,' she says, in a distracted manner.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7358_419"-->
-            <blockquote class="code"><p class="quoted"><a id="c7358_419"></a>Understand &quot;appointment&quot; or &quot;specialist&quot; or &quot;doctor&quot; as &quot;[appointment]&quot;.
+            <!--START CODE "c7375_247"-->
+            <blockquote class="code"><p class="quoted"><a id="c7375_247"></a>Understand &quot;appointment&quot; or &quot;specialist&quot; or &quot;doctor&quot; as &quot;[appointment]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7359_419"-->
-            <blockquote class="code"><p class="quoted"><a id="c7359_419"></a>At 9:45 AM: say &quot;At [the time of day in words], secretary glances at you and gives a reassuring smile.&quot;
+            <!--START CODE "c7376_247"-->
+            <blockquote class="code"><p class="quoted"><a id="c7376_247"></a>At 9:45 AM: say &quot;At [the time of day in words], secretary glances at you and gives a reassuring smile.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7360_419"-->
-            <blockquote class="code"><p class="quoted"><a id="c7360_419"></a>Test me with &quot;ask secretary about appointment / wait five minutes / g / g / wait 61 minutes / wait for half an hour / wait for a quarter of an hour / wait for an hour&quot;.
+            <!--START CODE "c7377_247"-->
+            <blockquote class="code"><p class="quoted"><a id="c7377_247"></a>Test me with &quot;ask secretary about appointment / wait five minutes / g / g / wait 61 minutes / wait for half an hour / wait for a quarter of an hour / wait for an hour&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "389: Delayed Gratification" "e420"-->
-        <a id="e420"></a><table class="egcue">
+        <!--START EXAMPLE "390: Delayed Gratification" "e89"-->
+        <a id="e89"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example420'); return false;"><b>389</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example89'); return false;"><b>390</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example420'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Delayed Gratification</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example89'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Delayed Gratification</span></b></a><br>
                     A WAIT UNTIL [time] command which advances until the game clock reaches the correct hour.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc39.html#e420"><i>RB</i></a></div>
+                        <a href="Rdoc39.html#e89"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example420" style="display: none;">
-            <!--START CODE "c7361_420"-->
-            <blockquote class="code"><p class="quoted"><a id="c7361_420"></a><a href="javascript:pasteCode('[=0x0022=]Delayed Gratification[=0x0022=][=0x000A=][=0x000A=]Hanging around until is an action applying to one time.[=0x000A=][=0x000A=]Check hanging around until:[=0x000A=][=0x0009=]if the time of day is the time understood, say [=0x0022=]It is [time understood] now![=0x0022=] instead;[=0x000A=][=0x0009=]if the time of day is after the time understood, say [=0x0022=]It is too late for that now.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out hanging around until:[=0x000A=][=0x0009=]while the time of day is before the time understood:[=0x000A=][=0x0009=][=0x0009=]follow the turn sequence rules.[=0x000A=][=0x000A=]Report hanging around until:[=0x000A=][=0x0009=]say [=0x0022=]You yawn until [time understood].[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]wait until [time][=0x0022=] as hanging around until.[=0x000A=][=0x000A=]The Empty Field is a room. [=0x0022=]It[=0x0027=]s an ordinary empty field. Nothing to see here at all-- yet. Wait until 11:45 PM, though.[=0x0022=][=0x000A=][=0x000A=]At 11:45 PM:[=0x000A=][=0x0009=]say [=0x0022=]Suddenly the air is filled with light and the sounds of an approaching band. Over the crest of the hill comes a parade of singing, stomping, hooting people: and not just people, but dogs, horses, elephants, giraffes... There are banners, and candles, and a flag that glows eerie-green in the dark; there is a float shaped like an enormous turtle, its shell covered with winking green lights; there is an old man dressed as a skeleton, carried in a litter, his neck garlanded with dried chiles. There are small girls throwing rose petals from a basket, and grown women half-naked carrying the emblems of Bacchic revelry, and two little boys each with a silver basin of clear water. All these go by in procession, and you join on at the end.[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Test me with [=0x0022=]look / z / z / wait until 11:45 PM[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Delayed Gratification[=0x0022=][=0x000A=][=0x000A=]Hanging around until is an action applying to one time.[=0x000A=][=0x000A=]Check hanging around until:[=0x000A=][=0x0009=]if the time of day is the time understood, say [=0x0022=]It is [time understood] now![=0x0022=] instead;[=0x000A=][=0x0009=]if the time of day is after the time understood, say [=0x0022=]It is too late for that now.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out hanging around until:[=0x000A=][=0x0009=]while the time of day is before the time understood:[=0x000A=][=0x0009=][=0x0009=]follow the turn sequence rules.[=0x000A=][=0x000A=]Report hanging around until:[=0x000A=][=0x0009=]say [=0x0022=]You yawn until [time understood].[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]wait until [time][=0x0022=] as hanging around until.[=0x000A=][=0x000A=]The Empty Field is a room. [=0x0022=]It[=0x0027=]s an ordinary empty field. Nothing to see here at all-- yet. Wait until 11:45 PM, though.[=0x0022=][=0x000A=][=0x000A=]At 11:45 PM:[=0x000A=][=0x0009=]say [=0x0022=]Suddenly the air is filled with light and the sounds of an approaching band. Over the crest of the hill comes a parade of singing, stomping, hooting people: and not just people, but dogs, horses, elephants, giraffes... There are banners, and candles, and a flag that glows eerie-green in the dark; there is a float shaped like an enormous turtle, its shell covered with winking green lights; there is an old man dressed as a skeleton, carried in a litter, his neck garlanded with dried chiles. There are small girls throwing rose petals from a basket, and grown women half-naked carrying the emblems of Bacchic revelry, and two little boys each with a silver basin of clear water. All these go by in procession, and you join on at the end.[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Test me with [=0x0022=]look / z / z / wait until 11:45 PM[=0x0022=].[=0x000A=]\n', 'Example - Delayed Gratification')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Delayed Gratification&quot;
+        <div class="egpanel" id="example89" style="display: none;">
+            <!--START CODE "c7378_89"-->
+            <blockquote class="code"><p class="quoted"><a id="c7378_89"></a><a href="javascript:pasteCode('[=0x0022=]Delayed Gratification[=0x0022=][=0x000A=][=0x000A=]Hanging around until is an action applying to one time.[=0x000A=][=0x000A=]Check hanging around until:[=0x000A=][=0x0009=]if the time of day is the time understood, say [=0x0022=]It is [time understood] now![=0x0022=] instead;[=0x000A=][=0x0009=]if the time of day is after the time understood, say [=0x0022=]It is too late for that now.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out hanging around until:[=0x000A=][=0x0009=]while the time of day is before the time understood:[=0x000A=][=0x0009=][=0x0009=]follow the turn sequence rules.[=0x000A=][=0x000A=]Report hanging around until:[=0x000A=][=0x0009=]say [=0x0022=]You yawn until [time understood].[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]wait until [time][=0x0022=] as hanging around until.[=0x000A=][=0x000A=]The Empty Field is a room. [=0x0022=]It[=0x0027=]s an ordinary empty field. Nothing to see here at all-- yet. Wait until 11:45 PM, though.[=0x0022=][=0x000A=][=0x000A=]At 11:45 PM:[=0x000A=][=0x0009=]say [=0x0022=]Suddenly the air is filled with light and the sounds of an approaching band. Over the crest of the hill comes a parade of singing, stomping, hooting people: and not just people, but dogs, horses, elephants, giraffes... There are banners, and candles, and a flag that glows eerie-green in the dark; there is a float shaped like an enormous turtle, its shell covered with winking green lights; there is an old man dressed as a skeleton, carried in a litter, his neck garlanded with dried chiles. There are small girls throwing rose petals from a basket, and grown women half-naked carrying the emblems of Bacchic revelry, and two little boys each with a silver basin of clear water. All these go by in procession, and you join on at the end.[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Test me with [=0x0022=]look / z / z / wait until 11:45 PM[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Delayed Gratification[=0x0022=][=0x000A=][=0x000A=]Hanging around until is an action applying to one time.[=0x000A=][=0x000A=]Check hanging around until:[=0x000A=][=0x0009=]if the time of day is the time understood, say [=0x0022=]It is [time understood] now![=0x0022=] instead;[=0x000A=][=0x0009=]if the time of day is after the time understood, say [=0x0022=]It is too late for that now.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out hanging around until:[=0x000A=][=0x0009=]while the time of day is before the time understood:[=0x000A=][=0x0009=][=0x0009=]follow the turn sequence rules.[=0x000A=][=0x000A=]Report hanging around until:[=0x000A=][=0x0009=]say [=0x0022=]You yawn until [time understood].[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]wait until [time][=0x0022=] as hanging around until.[=0x000A=][=0x000A=]The Empty Field is a room. [=0x0022=]It[=0x0027=]s an ordinary empty field. Nothing to see here at all-- yet. Wait until 11:45 PM, though.[=0x0022=][=0x000A=][=0x000A=]At 11:45 PM:[=0x000A=][=0x0009=]say [=0x0022=]Suddenly the air is filled with light and the sounds of an approaching band. Over the crest of the hill comes a parade of singing, stomping, hooting people: and not just people, but dogs, horses, elephants, giraffes... There are banners, and candles, and a flag that glows eerie-green in the dark; there is a float shaped like an enormous turtle, its shell covered with winking green lights; there is an old man dressed as a skeleton, carried in a litter, his neck garlanded with dried chiles. There are small girls throwing rose petals from a basket, and grown women half-naked carrying the emblems of Bacchic revelry, and two little boys each with a silver basin of clear water. All these go by in procession, and you join on at the end.[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Test me with [=0x0022=]look / z / z / wait until 11:45 PM[=0x0022=].[=0x000A=]\n', 'Example - Delayed Gratification')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Delayed Gratification&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7362_420"-->
-            <blockquote class="code"><p class="quoted"><a id="c7362_420"></a>Hanging around until is an action applying to one time.
+            <!--START CODE "c7379_89"-->
+            <blockquote class="code"><p class="quoted"><a id="c7379_89"></a>Hanging around until is an action applying to one time.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7363_420"-->
-            <blockquote class="code"><p class="quoted"><a id="c7363_420"></a>Check hanging around until:
+            <!--START CODE "c7380_89"-->
+            <blockquote class="code"><p class="quoted"><a id="c7380_89"></a>Check hanging around until:
             <br>
             &#160;&#160;&#160;&#160;if the time of day is the time understood, say &quot;It is [time understood] now!&quot; instead;
             <br>
@@ -250,8 +250,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7364_420"-->
-            <blockquote class="code"><p class="quoted"><a id="c7364_420"></a>Carry out hanging around until:
+            <!--START CODE "c7381_89"-->
+            <blockquote class="code"><p class="quoted"><a id="c7381_89"></a>Carry out hanging around until:
             <br>
             &#160;&#160;&#160;&#160;while the time of day is before the time understood:
             <br>
@@ -259,25 +259,25 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7365_420"-->
-            <blockquote class="code"><p class="quoted"><a id="c7365_420"></a>Report hanging around until:
+            <!--START CODE "c7382_89"-->
+            <blockquote class="code"><p class="quoted"><a id="c7382_89"></a>Report hanging around until:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You yawn until [time understood].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7366_420"-->
-            <blockquote class="code"><p class="quoted"><a id="c7366_420"></a>Understand &quot;wait until [time]&quot; as hanging around until.
+            <!--START CODE "c7383_89"-->
+            <blockquote class="code"><p class="quoted"><a id="c7383_89"></a>Understand &quot;wait until [time]&quot; as hanging around until.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7367_420"-->
-            <blockquote class="code"><p class="quoted"><a id="c7367_420"></a>The Empty Field is a room. &quot;It's an ordinary empty field. Nothing to see here at all-- yet. Wait until 11:45 PM, though.&quot;
+            <!--START CODE "c7384_89"-->
+            <blockquote class="code"><p class="quoted"><a id="c7384_89"></a>The Empty Field is a room. &quot;It's an ordinary empty field. Nothing to see here at all-- yet. Wait until 11:45 PM, though.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7368_420"-->
-            <blockquote class="code"><p class="quoted"><a id="c7368_420"></a>At 11:45 PM:
+            <!--START CODE "c7385_89"-->
+            <blockquote class="code"><p class="quoted"><a id="c7385_89"></a>At 11:45 PM:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Suddenly the air is filled with light and the sounds of an approaching band. Over the crest of the hill comes a parade of singing, stomping, hooting people: and not just people, but dogs, horses, elephants, giraffes... There are banners, and candles, and a flag that glows eerie-green in the dark; there is a float shaped like an enormous turtle, its shell covered with winking green lights; there is an old man dressed as a skeleton, carried in a litter, his neck garlanded with dried chiles. There are small girls throwing rose petals from a basket, and grown women half-naked carrying the emblems of Bacchic revelry, and two little boys each with a silver basin of clear water. All these go by in procession, and you join on at the end.&quot;;
             <br>
@@ -285,8 +285,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7369_420"-->
-            <blockquote class="code"><p class="quoted"><a id="c7369_420"></a>Test me with &quot;look / z / z / wait until 11:45 PM&quot;.
+            <!--START CODE "c7386_89"-->
+            <blockquote class="code"><p class="quoted"><a id="c7386_89"></a>Test me with &quot;look / z / z / wait until 11:45 PM&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

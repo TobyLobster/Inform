@@ -47,7 +47,7 @@ NSString* const IFHeaderChangedNotification = @"IFHeaderChangedNotification";
 		}
 		
 		for(IFHeader* child in children) {
-			[child setParent: self];
+			child.parent = self;
 		}
 	}
 	
@@ -102,7 +102,7 @@ NSString* const IFHeaderChangedNotification = @"IFHeaderChangedNotification";
 	}
 	
     for(IFHeader* child in children) {
-		[child setParent: self];
+		child.parent = self;
 	}
 	
 	[self hasChanged];

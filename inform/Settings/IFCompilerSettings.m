@@ -25,7 +25,6 @@
 
 #import "IFSettingsController.h"
 
-NSString* const IFSettingLibraryToUse         = @"IFSettingLibraryToUse";
 NSString* const IFSettingZCodeVersion         = @"IFSettingZCodeVersion";
 
 NSString* const IFSettingNaturalInform        = @"IFSettingNaturalInform";
@@ -40,11 +39,7 @@ NSString* const IFSettingCompilerVersion      = @"IFSettingCompilerVersion";
 
 // Debug
 NSString* const IFSettingCompileNatOutput = @"IFSettingCompileNatOutput";
-NSString* const IFSettingRunBuildScript   = @"IFSettingRunBuildScript";
-NSString* const IFSettingMemoryDebug		= @"IFSettingMemoryDebug";
-
-// Natural Inform
-NSString* const IFSettingLoudly = @"IFSettingLoudly";
+NSString* const IFSettingAllowLegacyExtensionDirectory   = @"IFSettingAllowLegacyExtensionDirectory";
 
 // Compiler types
 NSString* const IFCompilerInform6		  = @"IFCompilerInform6";
@@ -55,12 +50,11 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 
 // The classes the settings are associated with
 // (Legacy-type stuff: ie, tentacles that are too much bother to remove)
-#include "IFDebugSettings.h"
 #include "IFOutputSettings.h"
 #include "IFI7OutputSettings.h"
 #include "IFCompilerOptions.h"
-#include "IFLibrarySettings.h"
 #include "IFMiscSettings.h"
+#include "Inform-Swift.h"
 
 @implementation IFCompilerSettings
 {
@@ -84,7 +78,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 		[res addObject: [IFUtility pathForInformExternalLibraries]];
 
 		// Internal library directories
-		NSString* bundlePath = [[NSBundle mainBundle] resourcePath];
+		NSString* bundlePath = [NSBundle mainBundle].resourcePath;
 		[res addObject: [bundlePath stringByAppendingPathComponent: @"Library"]];
 
 		libPaths = [res copy];
@@ -161,7 +155,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 		genericSettings = [IFSettingsController makeStandardSettings];
 		
 		for( IFSetting* setting in genericSettings ) {
-			[setting setCompilerSettings: self];
+			setting.compilerSettings = self;
 		}
     }
 
@@ -178,7 +172,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 #pragma mark - Getting information on what is going on
 
 - (NSString*) primaryCompilerType {
-	if ([self usingNaturalInform]) {
+	if (self.usingNaturalInform) {
 		return IFCompilerNaturalInform;
 	} else {
 		return IFCompilerInform6;
@@ -199,13 +193,13 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 	[switches appendString: @"k"];
     [switches appendString: @"E2"];
 
-    if (([self strict] && !release) || testing) {
+    if ((self.strict && !release) || testing) {
         [switches appendString: @"S"];
     } else {
         [switches appendString: @"~S"];
     }
 
-    if ([self infix] && !release) {
+    if (self.infix && !release) {
         [switches appendString: @"X"];
     } else {
         // Off by default
@@ -217,14 +211,14 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
         [switches appendString: @"~D"];
     }
 
-    if ([self usingNaturalInform]) {
+    if (self.usingNaturalInform) {
         // Disable warnings when compiling with Natural Inform
         [switches appendString: @"w"];
     }
 
 	// Select a zcode version
-	NSArray* supportedZCodeVersions = [self supportedZMachines];
-	int zcVersion = [self zcodeVersion];
+	NSArray* supportedZCodeVersions = self.supportedZMachines;
+	int zcVersion = self.zcodeVersion;
 	
 	if (supportedZCodeVersions != nil && 
 		![supportedZCodeVersions containsObject: @(zcVersion)]) {
@@ -234,7 +228,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 
 	if (zcVersion < 255) {
 		// ZCode
-		[switches appendString: [NSString stringWithFormat: @"v%i", [self zcodeVersion]]];
+		[switches appendString: [NSString stringWithFormat: @"v%i", self.zcodeVersion]];
 	} else {
 		// Glulx
 		[switches appendString: [NSString stringWithFormat: @"G"]];
@@ -247,22 +241,16 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 
     // User-defined includes
     
-    // Library
-    NSString* library = [self libraryToUse];
-	NSString* libPath = [[self class] pathForLibrary: library];
-	
+    // Library directory
+	NSString* libPath = [[self class] pathForLibrary: @"Natural"];      // TODO: Not sure this is needed
 	if (libPath == nil) libPath = [[self class] pathForLibrary: @"Standard"];
 	if (libPath == nil) libPath = [[self class] pathForLibrary: [[self class] availableLibraries][0]];
-	if (library == nil) libPath = nil;
 
-    if (library != nil) {
-        BOOL isDir;
-
-        if (![[NSFileManager defaultManager] fileExistsAtPath: libPath
-                                                  isDirectory: &isDir]) {
-            // IMPLEMENT ME: try user preferences file
-            libPath = nil;
-        }
+    BOOL isDir;
+    if (![[NSFileManager defaultManager] fileExistsAtPath: libPath
+                                              isDirectory: &isDir]) {
+        // IMPLEMENT ME: try user preferences file
+        libPath = nil;
     }
 
     if (libPath) {
@@ -289,8 +277,8 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     return result;
 }
 
-- (NSString*) compilerToUse {
-    return [[NSBundle mainBundle] pathForAuxiliaryExecutable: @"inform6"];
+- (NSString*) inform6CompilerToUse {
+    return [IFUtility pathForInformExecutable: @"inform6" version: self.compilerVersion];
 }
 
 - (NSArray*) supportedZMachines {
@@ -298,28 +286,22 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 }
 
 - (BOOL) isNaturalInformCompilerPathValid {
-    NSString* path = [self naturalInformCompilerToUse];
+    NSString* path = self.naturalInformCompilerToUse;
     return [[NSFileManager defaultManager] fileExistsAtPath: path];
 }
 
 - (NSString*) naturalInformCompilerToUse {
-    if (![self usingNaturalInform]) {
+    if (!self.usingNaturalInform) {
         return nil;
     }
 
-    return [IFUtility pathForCompiler: [self compilerVersion]];
+    return [IFUtility pathForCompiler: self.compilerVersion];
 }
 
 - (NSArray*) naturalInformCommandLineArguments {
     NSMutableArray* res = [NSMutableArray array];
     
-    BOOL isLoudly = [self loudly];
-    
-    if (isLoudly) {
-        [res addObject: @"-loudly"];
-    }
-
-    NSString* version = [self compilerVersion];
+    NSString* version = self.compilerVersion;
     NSComparisonResult result = [IFUtility compilerVersionCompare: version other:@"6L02"];
 
     if(result == NSOrderedAscending)
@@ -362,11 +344,14 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
             [res addObject: internalPath];
         }
 
-        NSString* externalPath = [IFUtility pathForInformExternalAppSupport];
-        if (externalPath != nil) {
-            [res addObject: @"-external"];
-            [res addObject: externalPath];
+        if (self.allowLegacyExtensionDirectory) {
+            NSString* externalPath = [IFUtility pathForInformExternalAppSupport];
+            if (externalPath != nil) {
+                [res addObject: @"-deprecated-external"];
+                [res addObject: externalPath];
+            }
         }
+
     }
 
     return res;
@@ -401,7 +386,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     NSNumber* setting = [self dictionaryForClass: [IFMiscSettings class]][IFSettingStrict];
 
     if (setting) {
-        return [setting boolValue];
+        return setting.boolValue;
     } else {
         return YES;
     }
@@ -416,7 +401,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     NSNumber* setting = [self dictionaryForClass: [IFMiscSettings class]][IFSettingInfix];
 
     if (setting) {
-        return [setting boolValue];
+        return setting.boolValue;
     } else {
         return NO;
     }
@@ -431,22 +416,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     NSNumber* setting = [self dictionaryForClass: [IFMiscSettings class]][IFSettingDEBUG];
 
     if (setting) {
-        return [setting boolValue];
-    } else {
-        return YES;
-    }
-}
-
-- (void) setCompileNaturalInformOutput: (BOOL) setting {
-    [self dictionaryForClass: [IFDebugSettings class]][IFSettingCompileNatOutput] = @(setting);
-    [self settingsHaveChanged];
-}
-
-- (BOOL) compileNaturalInformOutput {
-    NSNumber* setting = [self dictionaryForClass: [IFDebugSettings class]][IFSettingCompileNatOutput];
-
-    if (setting) {
-        return [setting boolValue];
+        return setting.boolValue;
     } else {
         return YES;
     }
@@ -461,7 +431,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     NSNumber* setting = [self dictionaryForClass: [IFOutputSettings class]][IFSettingNobbleRng];
 	
     if (setting) {
-        return [setting boolValue];
+        return setting.boolValue;
     } else {
         return NO;
     }
@@ -476,7 +446,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     NSNumber* setting = [self dictionaryForClass: [IFOutputSettings class]][IFSettingBasicInform];
 
     if (setting) {
-        return [setting boolValue];
+        return setting.boolValue;
     } else {
         return NO;
     }
@@ -497,38 +467,20 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     }
 }
 
-- (void) setRunBuildScript: (BOOL) setting {
-    [self dictionaryForClass: [IFDebugSettings class]][IFSettingRunBuildScript] = @(setting);
+- (void) setAllowLegacyExtensionDirectory: (BOOL) setting {
+    [self dictionaryForClass: [IFAdvancedSettings class]][IFSettingAllowLegacyExtensionDirectory] = @(setting);
     [self settingsHaveChanged];
 }
 
-- (BOOL) runBuildScript {
-    NSNumber* setting = [self dictionaryForClass: [IFDebugSettings class]][IFSettingRunBuildScript];
+- (BOOL) allowLegacyExtensionDirectory {
+    NSNumber* setting = [self dictionaryForClass: [IFAdvancedSettings class]][IFSettingAllowLegacyExtensionDirectory];
 
     if (setting) {
-        return [setting boolValue];
+        return setting.boolValue;
     } else {
-        return NO;
+        // Allow legacy extensions by default. New projects set this to NO.
+        return YES;
     }
-}
-
-- (void) setLoudly: (BOOL) setting {
-    [self dictionaryForClass: [IFDebugSettings class]][IFSettingLoudly] = @(setting);
-    [self settingsHaveChanged];
-}
-
-- (BOOL) loudly {
-    return [[self dictionaryForClass: [IFDebugSettings class]][IFSettingLoudly] boolValue];
-}
-
-
-- (void) setDebugMemory: (BOOL) memDebug {
-    [self dictionaryForClass: [IFDebugSettings class]][IFSettingMemoryDebug] = @(memDebug);
-    [self settingsHaveChanged];
-}
-
-- (BOOL) debugMemory {
-    return [[self dictionaryForClass: [IFDebugSettings class]][IFSettingMemoryDebug] boolValue];
 }
 
 - (void) setZCodeVersion: (int) version {
@@ -540,14 +492,14 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     NSNumber* setting = [self dictionaryForClass: [IFOutputSettings class]][IFSettingZCodeVersion];
 
     if (setting) {
-        return [setting intValue];
+        return setting.intValue;
     } else {
         return 256;
     }
 }
 
 - (void) setTestingTabHelpShown: (BOOL) shown {
-    if (shown != [self testingTabHelpShown]) {
+    if (shown != self.testingTabHelpShown) {
         [self dictionaryForClass: [IFMiscSettings class]][IFSettingTestingTabHelpShown] = @(shown);
         [self settingsHaveChanged];
     }
@@ -557,7 +509,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     NSNumber* setting = [self dictionaryForClass: [IFMiscSettings class]][IFSettingTestingTabHelpShown];
 
     if (setting) {
-        return [setting boolValue];
+        return setting.boolValue;
     } else {
         return YES;
     }
@@ -572,7 +524,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     NSNumber* setting = [self dictionaryForClass: [IFMiscSettings class]][IFSettingTestingTabShownCount];
 
     if (setting) {
-        return [setting intValue];
+        return setting.intValue;
     } else {
         return 0;
     }
@@ -580,23 +532,10 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 
 
 - (NSString*) fileExtension {
-    int version = [self zcodeVersion];
+    int version = self.zcodeVersion;
 	
 	if (version == 256) return @"ulx";
     return [NSString stringWithFormat: @"z%i", version];
-}
-
-- (void) setLibraryToUse: (NSString*) library {
-    [self dictionaryForClass: [IFLibrarySettings class]][IFSettingLibraryToUse] = [library copy];
-    [self settingsHaveChanged];
-}
-
-- (NSString*) libraryToUse {
-	NSString* library = [self dictionaryForClass: [IFLibrarySettings class]][IFSettingLibraryToUse];
-	
-	if (library == nil) library = @"Standard";
-	
-	return library;
 }
 
 #pragma mark - Generic settings
@@ -660,8 +599,8 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 	
 	// Get updated data from all the generic settings classes
 	for( IFSetting* setting in genericSettings ) {
-		if ([setting plistEntries]) {
-			plData[[[setting class] description]] = [setting plistEntries];
+		if (setting.plistEntries) {
+			plData[[[setting class] description]] = setting.plistEntries;
 		}
 	}
 	

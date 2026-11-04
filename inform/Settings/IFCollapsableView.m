@@ -68,20 +68,20 @@
 
     // Calculate the maximum width of all subviews
     int maxWidth = 0;
-	for (int x=0; x<[views count]; x++) {
+	for (int x=0; x<views.count; x++) {
 		NSView* thisView = views[x];
-		NSRect thisFrame = [thisView frame];
+		NSRect thisFrame = thisView.frame;
         
         maxWidth = MAX(maxWidth, (int) thisFrame.size.width);
     }
 
-	for (int x=0; x<[views count]; x++) {
+	for (int x=0; x<views.count; x++) {
 		NSView* thisView = views[x];
 		NSString* thisTitle = titles[x];
 		//BOOL visible = [[states objectAtIndex: x] boolValue];
 		
 		NSSize titleSize = [thisTitle sizeWithAttributes: titleAttributes];
-		NSRect thisFrame = [thisView frame];
+		NSRect thisFrame = thisView.frame;
 		
         CGFloat ypos = thisFrame.origin.y - (titleSize.height*1.2);
 		
@@ -124,7 +124,7 @@
 	[states addObject: @YES];
 	
     [self addSubview: subview];
-    [subview setAutoresizingMask: NSViewMaxYMargin | NSViewMaxXMargin];
+    subview.autoresizingMask = NSViewMaxYMargin | NSViewMaxXMargin;
 	[subview setNeedsDisplay: YES];
 	
 	// Rearrange the views
@@ -138,12 +138,12 @@
 	reiterate = NO;
 	
 	NSRect oldBounds;
-	NSRect newBounds = [self bounds];
+	NSRect newBounds = self.bounds;
 	
     CGFloat newHeight;
 	
 	NSFont* titleFont = [NSFont boldSystemFontOfSize: FONTSIZE];
-    CGFloat titleHeight = [titleFont ascender] - [titleFont descender];
+    CGFloat titleHeight = titleFont.ascender - titleFont.descender;
 	
 	oldBounds = newBounds;
 	
@@ -153,7 +153,7 @@
 	newHeight = BORDER;
 	
 	for( NSView* subview in views ) {
-		NSRect viewFrame = [subview frame];
+		NSRect viewFrame = subview.frame;
 		
 		newHeight += titleHeight * 1.2;
 		newHeight += viewFrame.size.height;
@@ -169,12 +169,12 @@
     CGFloat ypos = BORDER;
 	
 	for( NSView* subview in views ) {
-		NSRect viewFrame = [subview frame];
+		NSRect viewFrame = subview.frame;
 
 		ypos += titleHeight * 1.2;
 
-		if ([subview superview] != self) {
-			if ([subview superview] != nil) [subview removeFromSuperview];
+		if (subview.superview != self) {
+			if (subview.superview != nil) [subview removeFromSuperview];
 			[self addSubview: subview];
 		}		
 		

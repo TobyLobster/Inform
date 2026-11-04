@@ -11,6 +11,8 @@
 
 #define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 #define DEGREES_TO_RADIANS(degrees) ((degrees) * (M_PI / 180.0))
+extern NSTimeInterval const defaultTimeoutInterval;
+extern NSErrorDomain        INFORM_ERROR_DOMAIN;
 
 CGFloat lerp(CGFloat progress, CGFloat from, CGFloat to);
 CGFloat smoothstep(CGFloat t);
@@ -31,6 +33,7 @@ CGFloat easeOutCubic(CGFloat t);
 + (NSString*) localizedString: (NSString*) key
                       default: (NSString*) value
                         table: (NSString*) table NS_FORMAT_ARGUMENT(2);
++ (NSString*) unescapeString: (NSString*) string;
 
 // Convenience methods for alerts
 + (void) runAlertInformationWindow: (NSWindow*) window
@@ -72,8 +75,12 @@ CGFloat easeOutCubic(CGFloat t);
 /// Save transcript (handles save dialog)
 +(void) saveTranscriptPanelWithString: (NSString*) string
                                window: (NSWindow*) window;
+
 +(BOOL) isLatestMajorMinorCompilerVersion: (NSString*) compilerVersion;
++(BOOL) compilerVersion: (NSString*) compilerVersion isAfter: (NSString*) afterVersion;
++(BOOL) compilerVersion: (NSString*) compilerVersion isNoLaterThan: (NSString*) otherVersion;
 +(NSString*) majorMinor: (NSString*) version;
++(bool) unzip: (NSURL*) zipFilepath toDirectory:(NSURL*) targetDirectory;
 
 /// Sandboxing
 + (BOOL) isSandboxed;
@@ -99,6 +106,8 @@ CGFloat easeOutCubic(CGFloat t);
 + (NSString*) pathForInformInternalLibraries: (NSString *)version;
 /// Path to the internal Inform 7 documentation
 + (NSString*) pathForInformInternalDocumentation: (NSString *)version;
+/// Path to the inform executables (ni, inbuild, intest etc)
++ (NSString*) pathForInformExecutable: (NSString*) executableName version: (NSString*) compilerVersion;
 
 /// Path to the compiler
 + (NSString*) pathForCompiler: (NSString *)version;
@@ -136,5 +145,8 @@ CGFloat easeOutCubic(CGFloat t);
 // Core build version
 + (NSString*) coreBuildVersion;
 @property (class, readonly, copy, nonatomic) NSString *coreBuildVersion;
+
+// RegEx
++(NSTextCheckingResult*) findMatch: (NSString*) pattern inText:(NSString*) text;
 
 @end

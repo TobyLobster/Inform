@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -15,7 +15,7 @@
         <customObject id="197" userLabel="IFAppDelegate" customClass="IFAppDelegate">
             <connections>
                 <outlet property="newExtensionProjectMenu" destination="82" id="h5V-tN-Ifz"/>
-                <outlet property="openExtensionMenu" destination="280" id="5sT-h7-qzv"/>
+                <outlet property="openExtensionMenu" destination="lBP-kI-Ym1" id="0eI-9U-rdV"/>
             </connections>
         </customObject>
         <menu title="MainMenu" systemMenu="main" id="29" userLabel="MainMenu">
@@ -100,8 +100,8 @@
                             <menuItem isSeparatorItem="YES" id="350">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="New Extension Project..." id="82">
-                                <menu key="submenu" title="New Extension Project..." id="Xq5-Tq-40n">
+                            <menuItem title="New Extension Project" id="82">
+                                <menu key="submenu" title="New Extension Project" id="Xq5-Tq-40n">
                                     <items>
                                         <menuItem title="New Extension" id="MMJ-yY-srn">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -109,36 +109,67 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="vuF-Zb-oQ7">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
-                            <menuItem title="New Extension..." id="KfX-E9-SrD">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="newExtension:" target="-1" id="hel-e2-wIx"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Install Extension..." id="351">
-                                <connections>
-                                    <action selector="installExtension:" target="-1" id="352"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Open Installed Extension" id="280">
-                                <menu key="submenu" title="Open Installed Extension" id="282">
-                                    <items>
-                                        <menuItem title="New Extension" id="281"/>
-                                    </items>
-                                </menu>
-                            </menuItem>
-                            <menuItem title="Show Installed Extensions Folder" id="4Q4-4W-TUF">
-                                <connections>
-                                    <action selector="showExtensionsFolder:" target="-1" id="FS1-S0-XjK"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Export Extension..." id="JlR-5G-Td1">
+                            <menuItem title="Export from Extension Project..." id="JlR-5G-Td1">
                                 <connections>
                                     <action selector="exportExtension:" target="-1" id="LJo-fF-EvA"/>
                                 </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="Mgl-sV-qe4">
+                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                            </menuItem>
+                            <menuItem title="Add Extension to Project" id="280">
+                                <menu key="submenu" title="Add Extension to Project" id="282">
+                                    <items>
+                                        <menuItem title="Create a New Extension..." id="KfX-E9-SrD">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="newExtension:" target="-1" id="hel-e2-wIx"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="From the Public Library..." id="281">
+                                            <connections>
+                                                <action selector="gotoPublicLibrary:" target="-1" id="oYj-mg-9yx"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="From a File..." id="erp-YG-Ftg">
+                                            <connections>
+                                                <action selector="addExtensionFromFile:" target="-1" id="6ag-aU-dPa"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="From the Legacy Installed Extensions Folder...." id="0qd-KU-Upk">
+                                            <connections>
+                                                <action selector="addExtensionFromLegacyInstalledFolder:" target="-1" id="M6V-61-O60"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="OJf-TH-VHS">
+                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                            </menuItem>
+                            <menuItem title="Legacy Extensions" id="xjh-dq-Xl5" userLabel="Legacy Extensions">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Legacy Extensions" id="0I1-Et-a9o">
+                                    <items>
+                                        <menuItem title="Open Legacy Installed Extension" id="lBP-kI-Ym1">
+                                            <menu key="submenu" title="Open Legacy Installed Extension" id="hTP-TB-6AQ">
+                                                <items>
+                                                    <menuItem title="&lt;List of Extensions&gt;" id="GFs-gZ-fiI"/>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem title="Show Legacy Installed Extensions Folder" id="4Q4-4W-TUF">
+                                            <connections>
+                                                <action selector="showExtensionsFolder:" target="-1" id="FS1-S0-XjK"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Install Legacy Extension..." id="sVP-vC-XgO">
+                                            <connections>
+                                                <action selector="installLegacyExtension:" target="-1" id="dV2-Dj-a4e"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="79">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>

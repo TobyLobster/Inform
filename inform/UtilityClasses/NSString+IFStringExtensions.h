@@ -26,11 +26,11 @@
 -(NSString*) substringFrom: (NSInteger)from
                         to: (NSInteger)to;
 
--(NSString*) stringByTrimmingWhitespace;
--(NSString*) trailingWhitespace;
--(NSString*) leadingWhitespace;
--(NSString*) stringByRemovingLeadingWhitespace;
--(NSString*) stringByRemovingTrailingWhitespace;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *stringByTrimmingWhitespace;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *trailingWhitespace;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *leadingWhitespace;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *stringByRemovingLeadingWhitespace;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *stringByRemovingTrailingWhitespace;
 
 -(NSString*) stringByTrimmingCharactersInString: (NSString*) charactersToTrim;
 
@@ -39,5 +39,6 @@
 
 - (NSInteger) indexOf: (NSString *) text;
 - (NSInteger) lastIndexOf: (NSString *) text;
+- (NSString *) stringByAppendingPathComponents: (NSString *)strComponents;
 
 @end

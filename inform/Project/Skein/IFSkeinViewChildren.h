@@ -22,7 +22,7 @@
 // Update and return report details
 
 - (void)     updateReportDetails;
-- (NSArray*) reportDetails;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *reportDetails;
 
 - (NSRect)   rectForItem:(IFSkeinItem*) item;
 - (IFSkeinLayoutItem*) layoutItemForItem: (IFSkeinItem*) item;

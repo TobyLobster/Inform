@@ -8,7 +8,7 @@
 
 #import "IFSettingsController.h"
 #import "IFCompilerSettings.h"
-#import "IFSettingsView.h"
+#import "Inform-Swift.h"
 
 @implementation IFSettingsController {
     // UI + model
@@ -79,12 +79,12 @@ static NSMutableArray* standardSettingsClasses = nil;
 #pragma mark - User interface
 
 - (void) settingChangedNotification: (NSNotification*) not {
-	[self settingsHaveChanged: [not object]];
+	[self settingsHaveChanged: not.object];
 }
 
 - (void) repopulateSettings {
 	// Re-add all the settings views
-	NSString* compilerType = [compilerSettings primaryCompilerType];
+	NSString* compilerType = compilerSettings.primaryCompilerType;
 		
 	[settingsView startRearranging];
 	[settingsView removeAllSubviews];
@@ -97,8 +97,8 @@ static NSMutableArray* standardSettingsClasses = nil;
             continue;
         }
 		
-		[settingsView addSubview: [setting settingView]
-					   withTitle: [setting title]];
+		[settingsView addSubview: setting.settingView
+					   withTitle: setting.title];
 		
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(settingChangedNotification:) 
@@ -110,14 +110,14 @@ static NSMutableArray* standardSettingsClasses = nil;
 	[[NSNotificationCenter defaultCenter] addObserver: self
 											 selector: @selector(updateAllSettings)
 												 name: IFSettingNotification
-											   object: [self compilerSettings]];
+											   object: self.compilerSettings];
 	
 	[settingsView finishRearranging];
 	
 	[compilerSettings setGenericSettings: settings];
 
 	[settings makeObjectsPerformSelector: @selector(setCompilerSettings:)
-							  withObject: [self compilerSettings]];
+							  withObject: self.compilerSettings];
 }
 
 @synthesize settingsView;
@@ -171,7 +171,7 @@ static NSMutableArray* standardSettingsClasses = nil;
 	if (compilerSettings) {
 		[[NSNotificationCenter defaultCenter] removeObserver: self
 														name: IFSettingNotification
-													  object: [self compilerSettings]];
+													  object: self.compilerSettings];
 	}
 	
 	// Store the new compiler settings object
@@ -187,7 +187,7 @@ static NSMutableArray* standardSettingsClasses = nil;
 	[[NSNotificationCenter defaultCenter] addObserver: self
 											 selector: @selector(updateAllSettings)
 												 name: IFSettingNotification
-											   object: [self compilerSettings]];
+											   object: self.compilerSettings];
 }
 
 - (void) updateAllSettings {
@@ -204,7 +204,7 @@ static NSMutableArray* standardSettingsClasses = nil;
 
 - (void) addSettingsObject: (IFSetting*) setting {
 	[settings addObject: setting];
-	[setting setCompilerSettings: [self compilerSettings]];
+	setting.compilerSettings = self.compilerSettings;
 	[compilerSettings reloadSettingsForClass: [[setting class] description]];
 }
 

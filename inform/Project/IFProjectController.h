@@ -17,7 +17,6 @@
 
 @class ZoomView;
 @class IFSkeinItem;
-@class IFProjectPolicy;
 @class IFProgress;
 @class IFIntelFile;
 @class IFHeaderController;
@@ -28,8 +27,7 @@
                                                     NSOpenSavePanelDelegate,
                                                     NSSplitViewDelegate,
                                                     IFSkeinViewDelegate,
-                                                    IFRuntimeErrorParserDelegate,
-                                                    WebUIDelegate>
+                                                    IFRuntimeErrorParserDelegate>
 
 - (void) layoutPanes;
 
@@ -49,14 +47,14 @@
 @property (atomic, readonly, copy) NSString *selectedSourceFile;
 
 - (void) highlightSourceFileLine: (NSInteger) line
-						  inFile: (NSString*) file;
+                          inFile: (NSString*) file;
 - (void) highlightSourceFileLine: (NSInteger) line
-						  inFile: (NSString*) file
+                          inFile: (NSString*) file
                            style: (IFLineStyle) style;
 - (NSArray*) highlightsForFile: (NSString*) file;
 
 - (void) removeHighlightsInFile: (NSString*) file
-						ofStyle: (IFLineStyle) style;
+                        ofStyle: (IFLineStyle) style;
 - (void) removeHighlightsOfStyle: (IFLineStyle) style;
 - (void) removeAllTemporaryHighlights;
 
@@ -65,19 +63,14 @@
 
 @property (atomic, readonly, strong) IFIntelFile *currentIntelligence;
 
-- (IBAction) addNewFile: (id) sender;
-
 @property (atomic, readonly) BOOL safeToSwitchTabs;
+@property (atomic) NSOpenPanel* openExtensionPanel;
+@property (atomic) NSOpenPanel* openLegacyExtensionPanel;
 
 - (void) zoomViewIsWaitingForInput;
 
 // Documentation
 - (void) openDocUrl: (NSURL*) url;
-
-// Policy delegates
-@property (atomic, readonly, strong) IFProjectPolicy *generalPolicy;
-@property (atomic, readonly, strong) IFProjectPolicy *docPolicy;
-@property (atomic, readonly, strong) IFProjectPolicy *extensionsPolicy;
 
 // Displaying progress
 - (void) addProgressIndicator:      (IFProgress*) indicator;
@@ -122,7 +115,7 @@
 - (IBAction) searchDocs:        (id) sender;
 - (IBAction) searchProject:     (id) sender;
 - (IBAction) testSelector:      (id) sender;
-- (IBAction) installExtension:  (id) sender;
+- (IBAction) installLegacyExtension:  (id) sender;
 - (IBAction) exportExtension:   (id) sender;
 - (IBAction) testMe:            (id) sender;
 
@@ -152,4 +145,18 @@
 @property (atomic, getter=isCompiling, readonly) BOOL compiling;
 
 - (void) inputSourceHasFinished: (id) source;
+- (void) showPublicLibrary;
+
+- (IBAction) addExtensionFromFile: (id) sender;
+- (IBAction) addExtensionFromLegacyInstalledFolder: (id) sender;
+
+-(void) confirmInbuildAction;
+-(void) installExtension: (NSString*) extension;
+-(void) uninstallExtension: (NSString*) extension;
+-(void) moderniseExtension: (NSString*) extension;
+-(void) testExtension: (NSString*) extension
+              command: (NSString*) command
+             testcase: (NSString*) testcase;
+-(void) installExtensionURL: (NSURL*) extension;
+
 @end

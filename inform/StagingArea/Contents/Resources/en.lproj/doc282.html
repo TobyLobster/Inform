@@ -83,8 +83,8 @@
     <!--END IGNORE-->
     <p class="sectionheading">§17.20. Multiple action processing</p>
     <p>When the player types a command like DROP ALL, this is (usually) a request to carry out more than one action. After the command parser has decided what constitutes &quot;ALL&quot; (a process which can be influenced using the &quot;deciding whether all includes&quot; activity), it forms up a list and then runs through it, starting an action for each in turn. The result usually looks something like this:</p>
-    <!--START CODE "c6118"-->
-    <blockquote class="code"><p class="quoted"><a id="c6118"></a>&gt;GET ALL
+    <!--START CODE "c6134"-->
+    <blockquote class="code"><p class="quoted"><a id="c6134"></a>&gt;GET ALL
     <br>
     foxglove: Taken.
     <br>
@@ -93,15 +93,15 @@
     </blockquote>
     <!--END CODE-->
     <p>However, by adding rules to the rulebook:</p>
-    <!--START CODE "c6119"-->
-    <blockquote class="code"><p class="quoted"><a id="c6119"></a>multiple action processing rules
+    <!--START CODE "c6135"-->
+    <blockquote class="code"><p class="quoted"><a id="c6135"></a>multiple action processing rules
     </p>
     </blockquote>
     <!--END CODE-->
     <p>we can take a look at the actions intended, and rearrange or indeed change them before they take effect. To do that, we have to deal with a special list of objects. For two technical reasons this isn't stored as a &quot;list of objects that varies&quot; - first because it needs to exist even in low-memory situations where we can't afford full list-processing, and second because there are times when changing it might be hazardous. Instead, two phrases are provided to read the list and to write it back:</p>
-        <!--START PHRASE "defn245"-->
+        <!--START PHRASE "defn246"-->
         <div class="definition">
-            <a id="defn245"></a><p class='defnprototype'><b>multiple object list ... list of objects</b></p>
+            <a id="defn246"></a><p class='defnprototype'><b>multiple object list ... list of objects</b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_multipleobjectlist-->
@@ -111,9 +111,9 @@
         <!--end definition-->
     </div>
 
-        <!--START PHRASE "defn246"-->
+        <!--START PHRASE "defn247"-->
         <div class="definition">
-            <a id="defn246"></a><p class='defnprototype'><b>alter the multiple object list to </b>(list of objects)<b></b></p>
+            <a id="defn247"></a><p class='defnprototype'><b>alter the multiple object list to </b>(list of objects)<b></b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_altermultipleobjectlist-->
@@ -126,78 +126,78 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "327: The Best Till Last" "e30"-->
-        <a id="e30"></a><table class="egcue">
+        <!--START EXAMPLE "328: The Best Till Last" "e360"-->
+        <a id="e360"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example30'); return false;"><b>327</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example360'); return false;"><b>328</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example30'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">The Best Till Last</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example360'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">The Best Till Last</span></b></a><br>
                     Reordering multiple objects for dramatic effect.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc43.html#e30"><i>RB</i></a></div>
+                        <a href="Rdoc43.html#e360"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example30" style="display: none;">
+        <div class="egpanel" id="example360" style="display: none;">
             <p>If a single command asks to do many things, some dull and some exciting, we may want to save the good ones for the end.</p>
-            <!--START CODE "c6120_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c6120_30"></a><a href="javascript:pasteCode('[=0x0022=]The Best Till Last[=0x0022=][=0x000A=][=0x000A=]The Funky Ignition Lounge is a room. [=0x0022=]This is where all evenings end.[=0x0022=] The stick of gelignite, the solid magnesium footstool, the vetiver candle, and the vodka bottle are here.[=0x000A=][=0x000A=]The burn description of the vetiver candle is [=0x0022=]It burns right down, expensively but gothically.[=0x0022=][=0x000A=][=0x000A=]The player carries an inexpensive firework. The description of the firework is [=0x0022=]It is a cardboard tube with red and green stripes along the outside, and a fuse sticking out of the end.[=0x0022=] The burn description of the firework is [=0x0022=]It ignites gloriously! You take a few hasty steps back in order to avoid burning yourself, and not a moment too soon. Red and green sparks fly out of the tube, and there[=0x0027=]s a whistling noise punctuated by several loud cracks.[=0x0022=][=0x000A=][=0x000A=]The player carries a lighter. The description of the lighter is [=0x0022=]You don[=0x0027=]t smoke, but you like to have access to flame now and then anyway.[=0x0022=][=0x000A=][=0x000A=]Burning it with is an action applying to one thing and one carried thing.[=0x000A=][=0x000A=]Understand [=0x0022=]burn [things] with [something preferably held][=0x0022=] as burning it with.[=0x000A=][=0x000A=]The block burning rule is not listed in any rulebook.[=0x000A=][=0x000A=]A thing has some text called the burn description.[=0x000A=][=0x000A=]Check burning something:[=0x000A=][=0x0009=]if the player carries the lighter:[=0x000A=][=0x0009=][=0x0009=]try burning the noun with the lighter;[=0x000A=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=]try burning the noun with the noun.[=0x000A=][=0x000A=]Check burning something with something when the second noun is not the lighter:[=0x000A=][=0x0009=]say [=0x0022=]Your trusty lighter is the best flame source available to you.[=0x0022=] instead.[=0x000A=][=0x000A=]Check burning something with something:[=0x000A=][=0x0009=]if the burn description of the noun is [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Best not.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out burning something with something:[=0x000A=][=0x0009=]now the noun is nowhere.[=0x000A=][=0x000A=]Report burning something with something:[=0x000A=][=0x0009=]say [=0x0022=][burn description of the noun][line break][=0x0022=].[=0x000A=][=0x000A=]A multiple action processing rule when the action name part of the current action is the burning it with action (this is the orderly burn rule):[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]let dull list be a list of objects;[=0x000A=][=0x0009=]let fun list be a list of objects;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]if the burn description of the item is [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]add item to dull list;[=0x000A=][=0x0009=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]add item to fun list;[=0x000A=][=0x0009=]let F be the dull list;[=0x000A=][=0x0009=]add fun list to F;[=0x000A=][=0x0009=]alter the multiple object list to F.[=0x000A=][=0x000A=]Test me with [=0x0022=]burn all with lighter[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Best Till Last[=0x0022=][=0x000A=][=0x000A=]The Funky Ignition Lounge is a room. [=0x0022=]This is where all evenings end.[=0x0022=] The stick of gelignite, the solid magnesium footstool, the vetiver candle, and the vodka bottle are here.[=0x000A=][=0x000A=]The burn description of the vetiver candle is [=0x0022=]It burns right down, expensively but gothically.[=0x0022=][=0x000A=][=0x000A=]The player carries an inexpensive firework. The description of the firework is [=0x0022=]It is a cardboard tube with red and green stripes along the outside, and a fuse sticking out of the end.[=0x0022=] The burn description of the firework is [=0x0022=]It ignites gloriously! You take a few hasty steps back in order to avoid burning yourself, and not a moment too soon. Red and green sparks fly out of the tube, and there[=0x0027=]s a whistling noise punctuated by several loud cracks.[=0x0022=][=0x000A=][=0x000A=]The player carries a lighter. The description of the lighter is [=0x0022=]You don[=0x0027=]t smoke, but you like to have access to flame now and then anyway.[=0x0022=][=0x000A=][=0x000A=]Burning it with is an action applying to one thing and one carried thing.[=0x000A=][=0x000A=]Understand [=0x0022=]burn [things] with [something preferably held][=0x0022=] as burning it with.[=0x000A=][=0x000A=]The block burning rule is not listed in any rulebook.[=0x000A=][=0x000A=]A thing has some text called the burn description.[=0x000A=][=0x000A=]Check burning something:[=0x000A=][=0x0009=]if the player carries the lighter:[=0x000A=][=0x0009=][=0x0009=]try burning the noun with the lighter;[=0x000A=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=]try burning the noun with the noun.[=0x000A=][=0x000A=]Check burning something with something when the second noun is not the lighter:[=0x000A=][=0x0009=]say [=0x0022=]Your trusty lighter is the best flame source available to you.[=0x0022=] instead.[=0x000A=][=0x000A=]Check burning something with something:[=0x000A=][=0x0009=]if the burn description of the noun is [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Best not.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out burning something with something:[=0x000A=][=0x0009=]now the noun is nowhere.[=0x000A=][=0x000A=]Report burning something with something:[=0x000A=][=0x0009=]say [=0x0022=][burn description of the noun][line break][=0x0022=].[=0x000A=][=0x000A=]A multiple action processing rule when the action name part of the current action is the burning it with action (this is the orderly burn rule):[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]let dull list be a list of objects;[=0x000A=][=0x0009=]let fun list be a list of objects;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]if the burn description of the item is [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]add item to dull list;[=0x000A=][=0x0009=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]add item to fun list;[=0x000A=][=0x0009=]let F be the dull list;[=0x000A=][=0x0009=]add fun list to F;[=0x000A=][=0x0009=]alter the multiple object list to F.[=0x000A=][=0x000A=]Test me with [=0x0022=]burn all with lighter[=0x0022=].[=0x000A=]\n', 'Example - The Best Till Last')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Best Till Last&quot;
+            <!--START CODE "c6136_360"-->
+            <blockquote class="code"><p class="quoted"><a id="c6136_360"></a><a href="javascript:pasteCode('[=0x0022=]The Best Till Last[=0x0022=][=0x000A=][=0x000A=]The Funky Ignition Lounge is a room. [=0x0022=]This is where all evenings end.[=0x0022=] The stick of gelignite, the solid magnesium footstool, the vetiver candle, and the vodka bottle are here.[=0x000A=][=0x000A=]The burn description of the vetiver candle is [=0x0022=]It burns right down, expensively but gothically.[=0x0022=][=0x000A=][=0x000A=]The player carries an inexpensive firework. The description of the firework is [=0x0022=]It is a cardboard tube with red and green stripes along the outside, and a fuse sticking out of the end.[=0x0022=] The burn description of the firework is [=0x0022=]It ignites gloriously! You take a few hasty steps back in order to avoid burning yourself, and not a moment too soon. Red and green sparks fly out of the tube, and there[=0x0027=]s a whistling noise punctuated by several loud cracks.[=0x0022=][=0x000A=][=0x000A=]The player carries a lighter. The description of the lighter is [=0x0022=]You don[=0x0027=]t smoke, but you like to have access to flame now and then anyway.[=0x0022=][=0x000A=][=0x000A=]Burning it with is an action applying to one thing and one carried thing.[=0x000A=][=0x000A=]Understand [=0x0022=]burn [things] with [something preferably held][=0x0022=] as burning it with.[=0x000A=][=0x000A=]The block burning rule is not listed in any rulebook.[=0x000A=][=0x000A=]A thing has some text called the burn description.[=0x000A=][=0x000A=]Check burning something:[=0x000A=][=0x0009=]if the player carries the lighter:[=0x000A=][=0x0009=][=0x0009=]try burning the noun with the lighter;[=0x000A=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=]try burning the noun with the noun.[=0x000A=][=0x000A=]Check burning something with something when the second noun is not the lighter:[=0x000A=][=0x0009=]say [=0x0022=]Your trusty lighter is the best flame source available to you.[=0x0022=] instead.[=0x000A=][=0x000A=]Check burning something with something:[=0x000A=][=0x0009=]if the burn description of the noun is [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Best not.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out burning something with something:[=0x000A=][=0x0009=]now the noun is nowhere.[=0x000A=][=0x000A=]Report burning something with something:[=0x000A=][=0x0009=]say [=0x0022=][burn description of the noun][line break][=0x0022=].[=0x000A=][=0x000A=]A multiple action processing rule when the action name part of the current action is the burning it with action (this is the orderly burn rule):[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]let dull list be a list of objects;[=0x000A=][=0x0009=]let fun list be a list of objects;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]if the burn description of the item is [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]add item to dull list;[=0x000A=][=0x0009=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]add item to fun list;[=0x000A=][=0x0009=]let F be the dull list;[=0x000A=][=0x0009=]add fun list to F;[=0x000A=][=0x0009=]alter the multiple object list to F.[=0x000A=][=0x000A=]Test me with [=0x0022=]burn all with lighter[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Best Till Last[=0x0022=][=0x000A=][=0x000A=]The Funky Ignition Lounge is a room. [=0x0022=]This is where all evenings end.[=0x0022=] The stick of gelignite, the solid magnesium footstool, the vetiver candle, and the vodka bottle are here.[=0x000A=][=0x000A=]The burn description of the vetiver candle is [=0x0022=]It burns right down, expensively but gothically.[=0x0022=][=0x000A=][=0x000A=]The player carries an inexpensive firework. The description of the firework is [=0x0022=]It is a cardboard tube with red and green stripes along the outside, and a fuse sticking out of the end.[=0x0022=] The burn description of the firework is [=0x0022=]It ignites gloriously! You take a few hasty steps back in order to avoid burning yourself, and not a moment too soon. Red and green sparks fly out of the tube, and there[=0x0027=]s a whistling noise punctuated by several loud cracks.[=0x0022=][=0x000A=][=0x000A=]The player carries a lighter. The description of the lighter is [=0x0022=]You don[=0x0027=]t smoke, but you like to have access to flame now and then anyway.[=0x0022=][=0x000A=][=0x000A=]Burning it with is an action applying to one thing and one carried thing.[=0x000A=][=0x000A=]Understand [=0x0022=]burn [things] with [something preferably held][=0x0022=] as burning it with.[=0x000A=][=0x000A=]The block burning rule is not listed in any rulebook.[=0x000A=][=0x000A=]A thing has some text called the burn description.[=0x000A=][=0x000A=]Check burning something:[=0x000A=][=0x0009=]if the player carries the lighter:[=0x000A=][=0x0009=][=0x0009=]try burning the noun with the lighter;[=0x000A=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=]try burning the noun with the noun.[=0x000A=][=0x000A=]Check burning something with something when the second noun is not the lighter:[=0x000A=][=0x0009=]say [=0x0022=]Your trusty lighter is the best flame source available to you.[=0x0022=] instead.[=0x000A=][=0x000A=]Check burning something with something:[=0x000A=][=0x0009=]if the burn description of the noun is [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Best not.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out burning something with something:[=0x000A=][=0x0009=]now the noun is nowhere.[=0x000A=][=0x000A=]Report burning something with something:[=0x000A=][=0x0009=]say [=0x0022=][burn description of the noun][line break][=0x0022=].[=0x000A=][=0x000A=]A multiple action processing rule when the action name part of the current action is the burning it with action (this is the orderly burn rule):[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]let dull list be a list of objects;[=0x000A=][=0x0009=]let fun list be a list of objects;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]if the burn description of the item is [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]add item to dull list;[=0x000A=][=0x0009=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]add item to fun list;[=0x000A=][=0x0009=]let F be the dull list;[=0x000A=][=0x0009=]add fun list to F;[=0x000A=][=0x0009=]alter the multiple object list to F.[=0x000A=][=0x000A=]Test me with [=0x0022=]burn all with lighter[=0x0022=].[=0x000A=]\n', 'Example - The Best Till Last')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Best Till Last&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6121_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c6121_30"></a>The Funky Ignition Lounge is a room. &quot;This is where all evenings end.&quot; The stick of gelignite, the solid magnesium footstool, the vetiver candle, and the vodka bottle are here.
+            <!--START CODE "c6137_360"-->
+            <blockquote class="code"><p class="quoted"><a id="c6137_360"></a>The Funky Ignition Lounge is a room. &quot;This is where all evenings end.&quot; The stick of gelignite, the solid magnesium footstool, the vetiver candle, and the vodka bottle are here.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6122_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c6122_30"></a>The burn description of the vetiver candle is &quot;It burns right down, expensively but gothically.&quot;
+            <!--START CODE "c6138_360"-->
+            <blockquote class="code"><p class="quoted"><a id="c6138_360"></a>The burn description of the vetiver candle is &quot;It burns right down, expensively but gothically.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6123_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c6123_30"></a>The player carries an inexpensive firework. The description of the firework is &quot;It is a cardboard tube with red and green stripes along the outside, and a fuse sticking out of the end.&quot; The burn description of the firework is &quot;It ignites gloriously! You take a few hasty steps back in order to avoid burning yourself, and not a moment too soon. Red and green sparks fly out of the tube, and there's a whistling noise punctuated by several loud cracks.&quot;
+            <!--START CODE "c6139_360"-->
+            <blockquote class="code"><p class="quoted"><a id="c6139_360"></a>The player carries an inexpensive firework. The description of the firework is &quot;It is a cardboard tube with red and green stripes along the outside, and a fuse sticking out of the end.&quot; The burn description of the firework is &quot;It ignites gloriously! You take a few hasty steps back in order to avoid burning yourself, and not a moment too soon. Red and green sparks fly out of the tube, and there's a whistling noise punctuated by several loud cracks.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6124_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c6124_30"></a>The player carries a lighter. The description of the lighter is &quot;You don't smoke, but you like to have access to flame now and then anyway.&quot;
+            <!--START CODE "c6140_360"-->
+            <blockquote class="code"><p class="quoted"><a id="c6140_360"></a>The player carries a lighter. The description of the lighter is &quot;You don't smoke, but you like to have access to flame now and then anyway.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6125_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c6125_30"></a>Burning it with is an action applying to one thing and one carried thing.
+            <!--START CODE "c6141_360"-->
+            <blockquote class="code"><p class="quoted"><a id="c6141_360"></a>Burning it with is an action applying to one thing and one carried thing.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6126_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c6126_30"></a>Understand &quot;burn [things] with [something preferably held]&quot; as burning it with.
+            <!--START CODE "c6142_360"-->
+            <blockquote class="code"><p class="quoted"><a id="c6142_360"></a>Understand &quot;burn [things] with [something preferably held]&quot; as burning it with.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6127_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c6127_30"></a>The block burning rule is not listed in any rulebook.
+            <!--START CODE "c6143_360"-->
+            <blockquote class="code"><p class="quoted"><a id="c6143_360"></a>The block burning rule is not listed in any rulebook.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6128_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c6128_30"></a>A thing has some text called the burn description.
+            <!--START CODE "c6144_360"-->
+            <blockquote class="code"><p class="quoted"><a id="c6144_360"></a>A thing has some text called the burn description.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6129_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c6129_30"></a>Check burning something:
+            <!--START CODE "c6145_360"-->
+            <blockquote class="code"><p class="quoted"><a id="c6145_360"></a>Check burning something:
             <br>
             &#160;&#160;&#160;&#160;if the player carries the lighter:
             <br>
@@ -209,15 +209,15 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6130_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c6130_30"></a>Check burning something with something when the second noun is not the lighter:
+            <!--START CODE "c6146_360"-->
+            <blockquote class="code"><p class="quoted"><a id="c6146_360"></a>Check burning something with something when the second noun is not the lighter:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Your trusty lighter is the best flame source available to you.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6131_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c6131_30"></a>Check burning something with something:
+            <!--START CODE "c6147_360"-->
+            <blockquote class="code"><p class="quoted"><a id="c6147_360"></a>Check burning something with something:
             <br>
             &#160;&#160;&#160;&#160;if the burn description of the noun is &quot;&quot;:
             <br>
@@ -225,22 +225,22 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6132_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c6132_30"></a>Carry out burning something with something:
+            <!--START CODE "c6148_360"-->
+            <blockquote class="code"><p class="quoted"><a id="c6148_360"></a>Carry out burning something with something:
             <br>
             &#160;&#160;&#160;&#160;now the noun is nowhere.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6133_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c6133_30"></a>Report burning something with something:
+            <!--START CODE "c6149_360"-->
+            <blockquote class="code"><p class="quoted"><a id="c6149_360"></a>Report burning something with something:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[burn description of the noun][line break]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6134_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c6134_30"></a>A multiple action processing rule when the action name part of the current action is the burning it with action (this is the orderly burn rule):
+            <!--START CODE "c6150_360"-->
+            <blockquote class="code"><p class="quoted"><a id="c6150_360"></a>A multiple action processing rule when the action name part of the current action is the burning it with action (this is the orderly burn rule):
             <br>
             &#160;&#160;&#160;&#160;let L be the multiple object list;
             <br>
@@ -266,64 +266,64 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6135_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c6135_30"></a>Test me with &quot;burn all with lighter&quot;.
+            <!--START CODE "c6151_360"-->
+            <blockquote class="code"><p class="quoted"><a id="c6151_360"></a>Test me with &quot;burn all with lighter&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "328: Western Art History 305" "e161"-->
-        <a id="e161"></a><table class="egcue">
+        <!--START EXAMPLE "329: Western Art History 305" "e429"-->
+        <a id="e429"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example161'); return false;"><b>328</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example429'); return false;"><b>329</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example161'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Western Art History 305</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example429'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Western Art History 305</span></b></a><br>
                     Allowing EXAMINE to see multiple objects with a single command.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc43.html#e161"><i>RB</i></a></div>
+                        <a href="Rdoc43.html#e429"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example161" style="display: none;">
+        <div class="egpanel" id="example429" style="display: none;">
             <p>In a gallery, there are many individual things to look at, but you can also get a general impression by just examining them as a collection.</p>
             <p>First, we'll make a kind for the paintings exhibited in the gallery, and then we'll also make a special object to represent all of them as a mass:</p>
-            <!--START CODE "c6136_161"-->
-            <blockquote class="code"><p class="quoted"><a id="c6136_161"></a><a href="javascript:pasteCode('[=0x0022=]Western Art History 305[=0x0022=][=0x000A=][=0x000A=]A painting is a kind of thing. A painting is usually fixed in place. Understand [=0x0022=]painting[=0x0022=] as a painting. Understand [=0x0022=]paintings[=0x0022=] as the plural of painting.[=0x000A=][=0x000A=]The painting-collective is a thing. The printed name of the painting-collective is [=0x0022=]paintings[=0x0022=]. The description of the painting-collective is [=0x0022=]There[=0x0027=]s [a list of visible paintings].[=0x0022=][=0x000A=][=0x000A=][We could if we wanted tweak the description to be different in style in different rooms of the gallery, but this will do for now. Next we need to make it possible to type something like EXAMINE PAINTINGS, which normally wouldn[=0x0027=]t work because the Standard Rules don[=0x0027=]t tell Inform to recognise multiple objects with the EXAMINE command (unlike, say, DROP or TAKE). This is easy:][=0x000A=][=0x000A=]Understand [=0x0022=]examine [things][=0x0022=] as examining.[=0x000A=][=0x000A=][Now to make use of the special object. If the player types EXAMINE PAINTINGS, the multiple object list will become a list of the visible paintings. The following rule looks at this list: if it contains more than one painting, it replaces them with the painting-collective instead. Now there[=0x0027=]s only one examining action, so we get a reply like [=0x0022=]There[=0x0027=]s an abstract painting, a pointilist painting and a French academic painting.[=0x0022=] instead of a list of descriptions of each in turn.][=0x000A=][=0x000A=]A multiple action processing rule when the current action is examining (this is the examine kinds rule):[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]let F be L;[=0x000A=][=0x0009=]let the painting count be 0;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]if the item is a painting:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the painting count;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]remove the item from F;[=0x000A=][=0x0009=]if the painting count is greater than one:[=0x000A=][=0x0009=][=0x0009=]add the painting-collective to F;[=0x000A=][=0x0009=][=0x0009=]alter the multiple object list to F.[=0x000A=][=0x000A=][And now some art to try this out on:][=0x000A=][=0x000A=]Gallery is a room. [=0x0022=]Various paintings hang on the walls of this gallery, awaiting critical attention. A side chamber to the north contains smaller works.[=0x0022=][=0x000A=][=0x000A=]The abstract painting, the pointilist painting, and the French academic painting are paintings in the Gallery.[=0x000A=][=0x000A=]North of the Gallery is the Side Chamber. A handsome miniature is a painting in the Side Chamber. The description of the handsome miniature is [=0x0022=]The miniature depicts a uniformed soldier of the late 18th century, with braid on his shoulders and a curl in his beard.[=0x0022=][=0x000A=][=0x000A=]The player carries a small notebook. The description of the notebook is [=0x0022=]It contains the notes you[=0x0027=]ve taken so far towards a paper for Western Art History 305. So far you[=0x0027=]re still feeling a bit uninspired.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x paintings / x all / n / x paintings / x all[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Western Art History 305[=0x0022=][=0x000A=][=0x000A=]A painting is a kind of thing. A painting is usually fixed in place. Understand [=0x0022=]painting[=0x0022=] as a painting. Understand [=0x0022=]paintings[=0x0022=] as the plural of painting.[=0x000A=][=0x000A=]The painting-collective is a thing. The printed name of the painting-collective is [=0x0022=]paintings[=0x0022=]. The description of the painting-collective is [=0x0022=]There[=0x0027=]s [a list of visible paintings].[=0x0022=][=0x000A=][=0x000A=][We could if we wanted tweak the description to be different in style in different rooms of the gallery, but this will do for now. Next we need to make it possible to type something like EXAMINE PAINTINGS, which normally wouldn[=0x0027=]t work because the Standard Rules don[=0x0027=]t tell Inform to recognise multiple objects with the EXAMINE command (unlike, say, DROP or TAKE). This is easy:][=0x000A=][=0x000A=]Understand [=0x0022=]examine [things][=0x0022=] as examining.[=0x000A=][=0x000A=][Now to make use of the special object. If the player types EXAMINE PAINTINGS, the multiple object list will become a list of the visible paintings. The following rule looks at this list: if it contains more than one painting, it replaces them with the painting-collective instead. Now there[=0x0027=]s only one examining action, so we get a reply like [=0x0022=]There[=0x0027=]s an abstract painting, a pointilist painting and a French academic painting.[=0x0022=] instead of a list of descriptions of each in turn.][=0x000A=][=0x000A=]A multiple action processing rule when the current action is examining (this is the examine kinds rule):[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]let F be L;[=0x000A=][=0x0009=]let the painting count be 0;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]if the item is a painting:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the painting count;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]remove the item from F;[=0x000A=][=0x0009=]if the painting count is greater than one:[=0x000A=][=0x0009=][=0x0009=]add the painting-collective to F;[=0x000A=][=0x0009=][=0x0009=]alter the multiple object list to F.[=0x000A=][=0x000A=][And now some art to try this out on:][=0x000A=][=0x000A=]Gallery is a room. [=0x0022=]Various paintings hang on the walls of this gallery, awaiting critical attention. A side chamber to the north contains smaller works.[=0x0022=][=0x000A=][=0x000A=]The abstract painting, the pointilist painting, and the French academic painting are paintings in the Gallery.[=0x000A=][=0x000A=]North of the Gallery is the Side Chamber. A handsome miniature is a painting in the Side Chamber. The description of the handsome miniature is [=0x0022=]The miniature depicts a uniformed soldier of the late 18th century, with braid on his shoulders and a curl in his beard.[=0x0022=][=0x000A=][=0x000A=]The player carries a small notebook. The description of the notebook is [=0x0022=]It contains the notes you[=0x0027=]ve taken so far towards a paper for Western Art History 305. So far you[=0x0027=]re still feeling a bit uninspired.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x paintings / x all / n / x paintings / x all[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Western Art History 305')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Western Art History 305&quot;
+            <!--START CODE "c6152_429"-->
+            <blockquote class="code"><p class="quoted"><a id="c6152_429"></a><a href="javascript:pasteCode('[=0x0022=]Western Art History 305[=0x0022=][=0x000A=][=0x000A=]A painting is a kind of thing. A painting is usually fixed in place. Understand [=0x0022=]painting[=0x0022=] as a painting. Understand [=0x0022=]paintings[=0x0022=] as the plural of painting.[=0x000A=][=0x000A=]The painting-collective is a thing. The printed name of the painting-collective is [=0x0022=]paintings[=0x0022=]. The description of the painting-collective is [=0x0022=]There[=0x0027=]s [a list of visible paintings].[=0x0022=][=0x000A=][=0x000A=][We could if we wanted tweak the description to be different in style in different rooms of the gallery, but this will do for now. Next we need to make it possible to type something like EXAMINE PAINTINGS, which normally wouldn[=0x0027=]t work because the Standard Rules don[=0x0027=]t tell Inform to recognise multiple objects with the EXAMINE command (unlike, say, DROP or TAKE). This is easy:][=0x000A=][=0x000A=]Understand [=0x0022=]examine [things][=0x0022=] as examining.[=0x000A=][=0x000A=][Now to make use of the special object. If the player types EXAMINE PAINTINGS, the multiple object list will become a list of the visible paintings. The following rule looks at this list: if it contains more than one painting, it replaces them with the painting-collective instead. Now there[=0x0027=]s only one examining action, so we get a reply like [=0x0022=]There[=0x0027=]s an abstract painting, a pointilist painting and a French academic painting.[=0x0022=] instead of a list of descriptions of each in turn.][=0x000A=][=0x000A=]A multiple action processing rule when the current action is examining (this is the examine kinds rule):[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]let F be L;[=0x000A=][=0x0009=]let the painting count be 0;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]if the item is a painting:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the painting count;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]remove the item from F;[=0x000A=][=0x0009=]if the painting count is greater than one:[=0x000A=][=0x0009=][=0x0009=]add the painting-collective to F;[=0x000A=][=0x0009=][=0x0009=]alter the multiple object list to F.[=0x000A=][=0x000A=][And now some art to try this out on:][=0x000A=][=0x000A=]Gallery is a room. [=0x0022=]Various paintings hang on the walls of this gallery, awaiting critical attention. A side chamber to the north contains smaller works.[=0x0022=][=0x000A=][=0x000A=]The abstract painting, the pointilist painting, and the French academic painting are paintings in the Gallery.[=0x000A=][=0x000A=]North of the Gallery is the Side Chamber. A handsome miniature is a painting in the Side Chamber. The description of the handsome miniature is [=0x0022=]The miniature depicts a uniformed soldier of the late 18th century, with braid on his shoulders and a curl in his beard.[=0x0022=][=0x000A=][=0x000A=]The player carries a small notebook. The description of the notebook is [=0x0022=]It contains the notes you[=0x0027=]ve taken so far towards a paper for Western Art History 305. So far you[=0x0027=]re still feeling a bit uninspired.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x paintings / x all / n / x paintings / x all[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Western Art History 305[=0x0022=][=0x000A=][=0x000A=]A painting is a kind of thing. A painting is usually fixed in place. Understand [=0x0022=]painting[=0x0022=] as a painting. Understand [=0x0022=]paintings[=0x0022=] as the plural of painting.[=0x000A=][=0x000A=]The painting-collective is a thing. The printed name of the painting-collective is [=0x0022=]paintings[=0x0022=]. The description of the painting-collective is [=0x0022=]There[=0x0027=]s [a list of visible paintings].[=0x0022=][=0x000A=][=0x000A=][We could if we wanted tweak the description to be different in style in different rooms of the gallery, but this will do for now. Next we need to make it possible to type something like EXAMINE PAINTINGS, which normally wouldn[=0x0027=]t work because the Standard Rules don[=0x0027=]t tell Inform to recognise multiple objects with the EXAMINE command (unlike, say, DROP or TAKE). This is easy:][=0x000A=][=0x000A=]Understand [=0x0022=]examine [things][=0x0022=] as examining.[=0x000A=][=0x000A=][Now to make use of the special object. If the player types EXAMINE PAINTINGS, the multiple object list will become a list of the visible paintings. The following rule looks at this list: if it contains more than one painting, it replaces them with the painting-collective instead. Now there[=0x0027=]s only one examining action, so we get a reply like [=0x0022=]There[=0x0027=]s an abstract painting, a pointilist painting and a French academic painting.[=0x0022=] instead of a list of descriptions of each in turn.][=0x000A=][=0x000A=]A multiple action processing rule when the current action is examining (this is the examine kinds rule):[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]let F be L;[=0x000A=][=0x0009=]let the painting count be 0;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]if the item is a painting:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the painting count;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]remove the item from F;[=0x000A=][=0x0009=]if the painting count is greater than one:[=0x000A=][=0x0009=][=0x0009=]add the painting-collective to F;[=0x000A=][=0x0009=][=0x0009=]alter the multiple object list to F.[=0x000A=][=0x000A=][And now some art to try this out on:][=0x000A=][=0x000A=]Gallery is a room. [=0x0022=]Various paintings hang on the walls of this gallery, awaiting critical attention. A side chamber to the north contains smaller works.[=0x0022=][=0x000A=][=0x000A=]The abstract painting, the pointilist painting, and the French academic painting are paintings in the Gallery.[=0x000A=][=0x000A=]North of the Gallery is the Side Chamber. A handsome miniature is a painting in the Side Chamber. The description of the handsome miniature is [=0x0022=]The miniature depicts a uniformed soldier of the late 18th century, with braid on his shoulders and a curl in his beard.[=0x0022=][=0x000A=][=0x000A=]The player carries a small notebook. The description of the notebook is [=0x0022=]It contains the notes you[=0x0027=]ve taken so far towards a paper for Western Art History 305. So far you[=0x0027=]re still feeling a bit uninspired.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x paintings / x all / n / x paintings / x all[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Western Art History 305')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Western Art History 305&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6137_161"-->
-            <blockquote class="code"><p class="quoted"><a id="c6137_161"></a>A painting is a kind of thing. A painting is usually fixed in place. Understand &quot;painting&quot; as a painting. Understand &quot;paintings&quot; as the plural of painting.
+            <!--START CODE "c6153_429"-->
+            <blockquote class="code"><p class="quoted"><a id="c6153_429"></a>A painting is a kind of thing. A painting is usually fixed in place. Understand &quot;painting&quot; as a painting. Understand &quot;paintings&quot; as the plural of painting.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6138_161"-->
-            <blockquote class="code"><p class="quoted"><a id="c6138_161"></a>The painting-collective is a thing. The printed name of the painting-collective is &quot;paintings&quot;. The description of the painting-collective is &quot;There's [a list of visible paintings].&quot;
+            <!--START CODE "c6154_429"-->
+            <blockquote class="code"><p class="quoted"><a id="c6154_429"></a>The painting-collective is a thing. The printed name of the painting-collective is &quot;paintings&quot;. The description of the painting-collective is &quot;There's [a list of visible paintings].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>We could if we wanted tweak the description to be different in style in different rooms of the gallery, but this will do for now. Next we need to make it possible to type something like EXAMINE PAINTINGS, which normally wouldn't work because the Standard Rules don't tell Inform to recognise multiple objects with the EXAMINE command (unlike, say, DROP or TAKE). This is easy:</p>
-            <!--START CODE "c6139_161"-->
-            <blockquote class="code"><p class="quoted"><a id="c6139_161"></a>Understand &quot;examine [things]&quot; as examining.
+            <!--START CODE "c6155_429"-->
+            <blockquote class="code"><p class="quoted"><a id="c6155_429"></a>Understand &quot;examine [things]&quot; as examining.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now to make use of the special object. If the player types EXAMINE PAINTINGS, the multiple object list will become a list of the visible paintings. The following rule looks at this list: if it contains more than one painting, it replaces them with the painting-collective instead. Now there's only one examining action, so we get a reply like &quot;There's an abstract painting, a pointilist painting and a French academic painting.&quot; instead of a list of descriptions of each in turn.</p>
-            <!--START CODE "c6140_161"-->
-            <blockquote class="code"><p class="quoted"><a id="c6140_161"></a>A multiple action processing rule when the current action is examining (this is the examine kinds rule):
+            <!--START CODE "c6156_429"-->
+            <blockquote class="code"><p class="quoted"><a id="c6156_429"></a>A multiple action processing rule when the current action is examining (this is the examine kinds rule):
             <br>
             &#160;&#160;&#160;&#160;let L be the multiple object list;
             <br>
@@ -348,28 +348,28 @@
             </blockquote>
             <!--END CODE-->
             <p>And now some art to try this out on:</p>
-            <!--START CODE "c6141_161"-->
-            <blockquote class="code"><p class="quoted"><a id="c6141_161"></a>Gallery is a room. &quot;Various paintings hang on the walls of this gallery, awaiting critical attention. A side chamber to the north contains smaller works.&quot;
+            <!--START CODE "c6157_429"-->
+            <blockquote class="code"><p class="quoted"><a id="c6157_429"></a>Gallery is a room. &quot;Various paintings hang on the walls of this gallery, awaiting critical attention. A side chamber to the north contains smaller works.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6142_161"-->
-            <blockquote class="code"><p class="quoted"><a id="c6142_161"></a>The abstract painting, the pointilist painting, and the French academic painting are paintings in the Gallery.
+            <!--START CODE "c6158_429"-->
+            <blockquote class="code"><p class="quoted"><a id="c6158_429"></a>The abstract painting, the pointilist painting, and the French academic painting are paintings in the Gallery.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6143_161"-->
-            <blockquote class="code"><p class="quoted"><a id="c6143_161"></a>North of the Gallery is the Side Chamber. A handsome miniature is a painting in the Side Chamber. The description of the handsome miniature is &quot;The miniature depicts a uniformed soldier of the late 18th century, with braid on his shoulders and a curl in his beard.&quot;
+            <!--START CODE "c6159_429"-->
+            <blockquote class="code"><p class="quoted"><a id="c6159_429"></a>North of the Gallery is the Side Chamber. A handsome miniature is a painting in the Side Chamber. The description of the handsome miniature is &quot;The miniature depicts a uniformed soldier of the late 18th century, with braid on his shoulders and a curl in his beard.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6144_161"-->
-            <blockquote class="code"><p class="quoted"><a id="c6144_161"></a>The player carries a small notebook. The description of the notebook is &quot;It contains the notes you've taken so far towards a paper for Western Art History 305. So far you're still feeling a bit uninspired.&quot;
+            <!--START CODE "c6160_429"-->
+            <blockquote class="code"><p class="quoted"><a id="c6160_429"></a>The player carries a small notebook. The description of the notebook is &quot;It contains the notes you've taken so far towards a paper for Western Art History 305. So far you're still feeling a bit uninspired.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6145_161"-->
-            <blockquote class="code"><p class="quoted"><a id="c6145_161"></a>Test me with &quot;x paintings / x all / n / x paintings / x all&quot;.
+            <!--START CODE "c6161_429"-->
+            <blockquote class="code"><p class="quoted"><a id="c6161_429"></a>Test me with &quot;x paintings / x all / n / x paintings / x all&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

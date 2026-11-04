@@ -82,31 +82,31 @@
     </div>
     <!--END IGNORE-->
     <p class="sectionheading">§12.5. Unsuccessful attempts</p>
-    <p>Suppose, finally, that Will not only consents to try the action, but it also survives its passage through Before and Instead rules. What happens then? In principle, what happens to Will is exactly what would have happened to the player in his place. For instance:</p>
-    <!--START CODE "c3153"-->
-    <blockquote class="code"><p class="quoted"><a id="c3153"></a>&gt; will, go east
+    <p>Suppose, finally, that Will not only consents to try the action, but it also survives its passage through Before and Instead rules. What happens then? In principle, what happens to Will is exactly what would have happened to the player in Will's place. For instance:</p>
+    <!--START CODE "c3152"-->
+    <blockquote class="code"><p class="quoted"><a id="c3152"></a>&gt; will, go east
     <br>
     Will leaves to the east.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>If on the other hand Will's attempt is frustrated because one of the checking rules stops him, then Will's action fails. For instance, if Will tries going northeast but there is no room to northeast, one of the rules checking the &quot;going&quot; action will stop him. We will then see this:</p>
-    <!--START CODE "c3154"-->
-    <blockquote class="code"><p class="quoted"><a id="c3154"></a>&gt; will, go northeast
+    <!--START CODE "c3153"-->
+    <blockquote class="code"><p class="quoted"><a id="c3153"></a>&gt; will, go northeast
     <br>
     Will is unable to do that.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>This is rather a generic message, and we may want something more interesting. We can provide that using yet another special kind of rule:</p>
-    <!--START CODE "c3155"-->
-    <blockquote class="code"><p class="quoted"><a id="c3155"></a>Unsuccessful attempt by Will going: say &quot;Will blunders around going nowhere, as usual.&quot;
+    <!--START CODE "c3154"-->
+    <blockquote class="code"><p class="quoted"><a id="c3154"></a>Unsuccessful attempt by Will going: say &quot;Will blunders around going nowhere, as usual.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Even that is still a little generic, though, because it treats all of the various ways that &quot;going&quot; can fail as the same. If we have ACTIONS switched on, we can see what goes on behind the scenes when we ask Will to walk into a door:</p>
-    <!--START CODE "c3156"-->
-    <blockquote class="code"><p class="quoted"><a id="c3156"></a>&gt;will, go west
+    <!--START CODE "c3155"-->
+    <blockquote class="code"><p class="quoted"><a id="c3155"></a>&gt;will, go west
     <br>
     [asking Will to try going west]
     <br>
@@ -121,8 +121,8 @@
     </blockquote>
     <!--END CODE-->
     <p>(The &quot;(1)&quot; lets us know that a new action is starting during the old one, and before the old one finishes: sometimes we go up to three or four deep, though seldom more in practical cases.) We can now rewrite the &quot;unsuccessful attempt&quot; rule like so:</p>
-    <!--START CODE "c3157"-->
-    <blockquote class="code"><p class="quoted"><a id="c3157"></a>Unsuccessful attempt by Will going:
+    <!--START CODE "c3156"-->
+    <blockquote class="code"><p class="quoted"><a id="c3156"></a>Unsuccessful attempt by Will going:
     <br>
     &#160;&#160;&#160;&#160;if the reason the action failed is the can't go through closed doors rule, say &quot;Will looks doubtful and mumbles about doors.&quot;;
     <br>
@@ -135,47 +135,47 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "188: Generation X" "e203"-->
-        <a id="e203"></a><table class="egcue">
+        <!--START EXAMPLE "188: Generation X" "e159"-->
+        <a id="e159"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example203'); return false;"><b>188</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example159'); return false;"><b>188</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example203'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Generation X</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example159'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Generation X</span></b></a><br>
                     A person who goes along with the player's instructions, but reluctantly, and will get annoyed after too many repetitions of the same kind of unsuccessful command.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc60.html#e203"><i>RB</i></a></div>
+                        <a href="Rdoc60.html#e159"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example203" style="display: none;">
-            <!--START CODE "c3158_203"-->
-            <blockquote class="code"><p class="quoted"><a id="c3158_203"></a><a href="javascript:pasteCode('[=0x0022=]Generation X[=0x0022=][=0x000A=][=0x000A=]The Volunteer Center is a room. [=0x0022=]A fairly spartan office, though there are a few attractive posters from advertising campaigns of the past, and an ominous map charting the deforestation of Brazil.[=0x0022=][=0x000A=][=0x000A=]The desk is scenery in the Volunteer Center. [=0x0022=]Your standard metal desk, with a drawer for postal supplies and the like.[=0x0022=] On the desk is a pile of leaflets and a pile of business cards. The power stapler is a device on the desk. A drawer is part of the desk. It is openable and closed. In the drawer are a sponge and a roll of bulk-mail stamps.[=0x000A=][=0x000A=]Instead of doing something:[=0x000A=][=0x0009=]if examining, continue the action;[=0x000A=][=0x0009=]if searching, continue the action;[=0x000A=][=0x0009=]if looking, continue the action;[=0x000A=][=0x0009=]if asking Jenna to try doing something, continue the action;[=0x000A=][=0x0009=]say [=0x0022=]The whole point of this exercise is to train Jenna. Once you have her on the envelope-stuffing, you can go make some calls.[=0x0022=][=0x000A=][=0x000A=]Instead of answering Jenna that something:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]re going to have to break the instructions down to the simplest ones possible, given that she[=0x0027=]s in the mood to misunderstand on purpose.[=0x0022=][=0x000A=][=0x000A=]A cardboard box is in the Center. In the cardboard box is a pile of empty envelopes. The box is openable and closed. The description is [=0x0022=]A recycling symbol is prominent on the side, which makes you feel a little bit better about using a mailing campaign for this cause.[=0x0022=][=0x000A=][=0x000A=]Jenna is a woman in the Volunteer Center. [=0x0022=]Your daughter Jenna is here, barely visible through the cloud of resentment.[=0x0022=] The description is [=0x0022=]Jenna [if jenna carries something]has [the list of things carried by Jenna][otherwise]returns your stare, with added hostility[end if].[=0x0022=][=0x000A=][=0x000A=]A persuasion rule for asking Jenna to try doing something: persuasion succeeds.[=0x000A=][=0x000A=]Unsuccessful attempt by Jenna doing something:[=0x000A=][=0x0009=]repeat through Table of Retorts:[=0x000A=][=0x0009=][=0x0009=]if the reason the action failed is the cause entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][response entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]I don[=0x0027=]t see how I[=0x0027=]m supposed to do that, Mom,[=0x0027=] Jenna says.[=0x0022=][=0x000A=][=0x000A=]Table of Retorts[=0x000A=]cause[=0x0009=]response[=0x000A=]can[=0x0027=]t take yourself rule[=0x0009=][=0x0022=][=0x0027=]Is that like [=0x0027=]get a grip on yourself[=0x0027=] or something?[=0x0027=] Jenna asks, momentarily diverted.[=0x0022=][=0x000A=]can[=0x0027=]t take what[=0x0027=]s fixed in place rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t take scenery rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t take what[=0x0027=]s already taken rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t drop what[=0x0027=]s already dropped rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t wear what[=0x0027=]s already worn rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t take off what[=0x0027=]s not worn rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t close what[=0x0027=]s already closed rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t open what[=0x0027=]s already open rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t switch off what[=0x0027=]s already off rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t switch on what[=0x0027=]s already on rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t unlock what[=0x0027=]s already unlocked rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t lock what[=0x0027=]s already locked rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=][=0x000A=]To say physical impossibility:[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Maybe you should[=0x0027=]ve brought someone a little stronger,[=0x0027=] Jenna says. [=0x0027=]Like the Incredible Hulk.[=0x0027=] [=0x0022=][=0x000A=][=0x000A=]To say already done:[=0x000A=][=0x0009=]repeat through Table of Bored Remarks:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][response entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Okay, I[=0x0027=]m going to be, like, in the car,[=0x0027=] says Jenna. [=0x0027=]Outside.[=0x0027=] [=0x0022=];[=0x000A=][=0x0009=]end the story saying [=0x0022=]Jenna has gotten fed up[=0x0022=].[=0x000A=][=0x000A=]Table of Bored Remarks[=0x000A=]response[=0x000A=][=0x0022=][=0x0027=]Did that,[=0x0027=] says Jenna.[=0x0022=][=0x000A=][=0x0022=][=0x0027=]Check,[=0x0027=] says Jenna.[=0x0022=][=0x000A=][=0x0022=][=0x0027=]Yeah, Mom, I already did that, okay?[=0x0027=][=0x0022=][=0x000A=][=0x0022=][=0x0027=]Look, if I have to be here doing dumb stuff, could you at least tell me to do stuff that isn[=0x0027=]t already done?[=0x0027=] Jenna asks wearily.[=0x0022=][=0x000A=][=0x0022=]Jenna gives a great upward sigh, riffling her bangs. [=0x0027=]Once again... there is totally no point.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]e / x jenna / jenna, get stapler / jenna, get stapler / x jenna / jenna, drop stapler / jenna, drop stapler / jenna, open box / jenna, open box / jenna, switch stapler on / jenna, switch stapler on / jenna, take desk / jenna, open box / jenna, open box[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Generation X[=0x0022=][=0x000A=][=0x000A=]The Volunteer Center is a room. [=0x0022=]A fairly spartan office, though there are a few attractive posters from advertising campaigns of the past, and an ominous map charting the deforestation of Brazil.[=0x0022=][=0x000A=][=0x000A=]The desk is scenery in the Volunteer Center. [=0x0022=]Your standard metal desk, with a drawer for postal supplies and the like.[=0x0022=] On the desk is a pile of leaflets and a pile of business cards. The power stapler is a device on the desk. A drawer is part of the desk. It is openable and closed. In the drawer are a sponge and a roll of bulk-mail stamps.[=0x000A=][=0x000A=]Instead of doing something:[=0x000A=][=0x0009=]if examining, continue the action;[=0x000A=][=0x0009=]if searching, continue the action;[=0x000A=][=0x0009=]if looking, continue the action;[=0x000A=][=0x0009=]if asking Jenna to try doing something, continue the action;[=0x000A=][=0x0009=]say [=0x0022=]The whole point of this exercise is to train Jenna. Once you have her on the envelope-stuffing, you can go make some calls.[=0x0022=][=0x000A=][=0x000A=]Instead of answering Jenna that something:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]re going to have to break the instructions down to the simplest ones possible, given that she[=0x0027=]s in the mood to misunderstand on purpose.[=0x0022=][=0x000A=][=0x000A=]A cardboard box is in the Center. In the cardboard box is a pile of empty envelopes. The box is openable and closed. The description is [=0x0022=]A recycling symbol is prominent on the side, which makes you feel a little bit better about using a mailing campaign for this cause.[=0x0022=][=0x000A=][=0x000A=]Jenna is a woman in the Volunteer Center. [=0x0022=]Your daughter Jenna is here, barely visible through the cloud of resentment.[=0x0022=] The description is [=0x0022=]Jenna [if jenna carries something]has [the list of things carried by Jenna][otherwise]returns your stare, with added hostility[end if].[=0x0022=][=0x000A=][=0x000A=]A persuasion rule for asking Jenna to try doing something: persuasion succeeds.[=0x000A=][=0x000A=]Unsuccessful attempt by Jenna doing something:[=0x000A=][=0x0009=]repeat through Table of Retorts:[=0x000A=][=0x0009=][=0x0009=]if the reason the action failed is the cause entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][response entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]I don[=0x0027=]t see how I[=0x0027=]m supposed to do that, Mom,[=0x0027=] Jenna says.[=0x0022=][=0x000A=][=0x000A=]Table of Retorts[=0x000A=]cause[=0x0009=]response[=0x000A=]can[=0x0027=]t take yourself rule[=0x0009=][=0x0022=][=0x0027=]Is that like [=0x0027=]get a grip on yourself[=0x0027=] or something?[=0x0027=] Jenna asks, momentarily diverted.[=0x0022=][=0x000A=]can[=0x0027=]t take what[=0x0027=]s fixed in place rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t take scenery rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t take what[=0x0027=]s already taken rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t drop what[=0x0027=]s already dropped rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t wear what[=0x0027=]s already worn rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t take off what[=0x0027=]s not worn rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t close what[=0x0027=]s already closed rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t open what[=0x0027=]s already open rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t switch off what[=0x0027=]s already off rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t switch on what[=0x0027=]s already on rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t unlock what[=0x0027=]s already unlocked rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t lock what[=0x0027=]s already locked rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=][=0x000A=]To say physical impossibility:[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Maybe you should[=0x0027=]ve brought someone a little stronger,[=0x0027=] Jenna says. [=0x0027=]Like the Incredible Hulk.[=0x0027=] [=0x0022=][=0x000A=][=0x000A=]To say already done:[=0x000A=][=0x0009=]repeat through Table of Bored Remarks:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][response entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Okay, I[=0x0027=]m going to be, like, in the car,[=0x0027=] says Jenna. [=0x0027=]Outside.[=0x0027=] [=0x0022=];[=0x000A=][=0x0009=]end the story saying [=0x0022=]Jenna has gotten fed up[=0x0022=].[=0x000A=][=0x000A=]Table of Bored Remarks[=0x000A=]response[=0x000A=][=0x0022=][=0x0027=]Did that,[=0x0027=] says Jenna.[=0x0022=][=0x000A=][=0x0022=][=0x0027=]Check,[=0x0027=] says Jenna.[=0x0022=][=0x000A=][=0x0022=][=0x0027=]Yeah, Mom, I already did that, okay?[=0x0027=][=0x0022=][=0x000A=][=0x0022=][=0x0027=]Look, if I have to be here doing dumb stuff, could you at least tell me to do stuff that isn[=0x0027=]t already done?[=0x0027=] Jenna asks wearily.[=0x0022=][=0x000A=][=0x0022=]Jenna gives a great upward sigh, riffling her bangs. [=0x0027=]Once again... there is totally no point.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]e / x jenna / jenna, get stapler / jenna, get stapler / x jenna / jenna, drop stapler / jenna, drop stapler / jenna, open box / jenna, open box / jenna, switch stapler on / jenna, switch stapler on / jenna, take desk / jenna, open box / jenna, open box[=0x0022=].[=0x000A=]\n', 'Example - Generation X')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Generation X&quot;
+        <div class="egpanel" id="example159" style="display: none;">
+            <!--START CODE "c3157_159"-->
+            <blockquote class="code"><p class="quoted"><a id="c3157_159"></a><a href="javascript:pasteCode('[=0x0022=]Generation X[=0x0022=][=0x000A=][=0x000A=]The Volunteer Center is a room. [=0x0022=]A fairly spartan office, though there are a few attractive posters from advertising campaigns of the past, and an ominous map charting the deforestation of Brazil.[=0x0022=][=0x000A=][=0x000A=]The desk is scenery in the Volunteer Center. [=0x0022=]Your standard metal desk, with a drawer for postal supplies and the like.[=0x0022=] On the desk is a pile of leaflets and a pile of business cards. The power stapler is a device on the desk. A drawer is part of the desk. It is openable and closed. In the drawer are a sponge and a roll of bulk-mail stamps.[=0x000A=][=0x000A=]Instead of doing something:[=0x000A=][=0x0009=]if examining, continue the action;[=0x000A=][=0x0009=]if searching, continue the action;[=0x000A=][=0x0009=]if looking, continue the action;[=0x000A=][=0x0009=]if asking Jenna to try doing something, continue the action;[=0x000A=][=0x0009=]say [=0x0022=]The whole point of this exercise is to train Jenna. Once you have her on the envelope-stuffing, you can go make some calls.[=0x0022=][=0x000A=][=0x000A=]Instead of answering Jenna that something:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]re going to have to break the instructions down to the simplest ones possible, given that she[=0x0027=]s in the mood to misunderstand on purpose.[=0x0022=][=0x000A=][=0x000A=]A cardboard box is in the Center. In the cardboard box is a pile of empty envelopes. The box is openable and closed. The description is [=0x0022=]A recycling symbol is prominent on the side, which makes you feel a little bit better about using a mailing campaign for this cause.[=0x0022=][=0x000A=][=0x000A=]Jenna is a woman in the Volunteer Center. [=0x0022=]Your daughter Jenna is here, barely visible through the cloud of resentment.[=0x0022=] The description is [=0x0022=]Jenna [if jenna carries something]has [the list of things carried by Jenna][otherwise]returns your stare, with added hostility[end if].[=0x0022=][=0x000A=][=0x000A=]A persuasion rule for asking Jenna to try doing something: persuasion succeeds.[=0x000A=][=0x000A=]Unsuccessful attempt by Jenna doing something:[=0x000A=][=0x0009=]repeat through Table of Retorts:[=0x000A=][=0x0009=][=0x0009=]if the reason the action failed is the cause entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][response entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]I don[=0x0027=]t see how I[=0x0027=]m supposed to do that, Mom,[=0x0027=] Jenna says.[=0x0022=][=0x000A=][=0x000A=]Table of Retorts[=0x000A=]cause[=0x0009=]response[=0x000A=]can[=0x0027=]t take yourself rule[=0x0009=][=0x0022=][=0x0027=]Is that like [=0x0027=]get a grip on yourself[=0x0027=] or something?[=0x0027=] Jenna asks, momentarily diverted.[=0x0022=][=0x000A=]can[=0x0027=]t take what[=0x0027=]s fixed in place rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t take scenery rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t take what[=0x0027=]s already taken rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t drop what[=0x0027=]s already dropped rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t wear what[=0x0027=]s already worn rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t take off what[=0x0027=]s not worn rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t close what[=0x0027=]s already closed rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t open what[=0x0027=]s already open rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t switch off what[=0x0027=]s already off rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t switch on what[=0x0027=]s already on rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t unlock what[=0x0027=]s already unlocked rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t lock what[=0x0027=]s already locked rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=][=0x000A=]To say physical impossibility:[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Maybe you should[=0x0027=]ve brought someone a little stronger,[=0x0027=] Jenna says. [=0x0027=]Like the Incredible Hulk.[=0x0027=] [=0x0022=][=0x000A=][=0x000A=]To say already done:[=0x000A=][=0x0009=]repeat through Table of Bored Remarks:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][response entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Okay, I[=0x0027=]m going to be, like, in the car,[=0x0027=] says Jenna. [=0x0027=]Outside.[=0x0027=] [=0x0022=];[=0x000A=][=0x0009=]end the story saying [=0x0022=]Jenna has gotten fed up[=0x0022=].[=0x000A=][=0x000A=]Table of Bored Remarks[=0x000A=]response[=0x000A=][=0x0022=][=0x0027=]Did that,[=0x0027=] says Jenna.[=0x0022=][=0x000A=][=0x0022=][=0x0027=]Check,[=0x0027=] says Jenna.[=0x0022=][=0x000A=][=0x0022=][=0x0027=]Yeah, Mom, I already did that, okay?[=0x0027=][=0x0022=][=0x000A=][=0x0022=][=0x0027=]Look, if I have to be here doing dumb stuff, could you at least tell me to do stuff that isn[=0x0027=]t already done?[=0x0027=] Jenna asks wearily.[=0x0022=][=0x000A=][=0x0022=]Jenna gives a great upward sigh, riffling her bangs. [=0x0027=]Once again... there is totally no point.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]e / x jenna / jenna, get stapler / jenna, get stapler / x jenna / jenna, drop stapler / jenna, drop stapler / jenna, open box / jenna, open box / jenna, switch stapler on / jenna, switch stapler on / jenna, take desk / jenna, open box / jenna, open box[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Generation X[=0x0022=][=0x000A=][=0x000A=]The Volunteer Center is a room. [=0x0022=]A fairly spartan office, though there are a few attractive posters from advertising campaigns of the past, and an ominous map charting the deforestation of Brazil.[=0x0022=][=0x000A=][=0x000A=]The desk is scenery in the Volunteer Center. [=0x0022=]Your standard metal desk, with a drawer for postal supplies and the like.[=0x0022=] On the desk is a pile of leaflets and a pile of business cards. The power stapler is a device on the desk. A drawer is part of the desk. It is openable and closed. In the drawer are a sponge and a roll of bulk-mail stamps.[=0x000A=][=0x000A=]Instead of doing something:[=0x000A=][=0x0009=]if examining, continue the action;[=0x000A=][=0x0009=]if searching, continue the action;[=0x000A=][=0x0009=]if looking, continue the action;[=0x000A=][=0x0009=]if asking Jenna to try doing something, continue the action;[=0x000A=][=0x0009=]say [=0x0022=]The whole point of this exercise is to train Jenna. Once you have her on the envelope-stuffing, you can go make some calls.[=0x0022=][=0x000A=][=0x000A=]Instead of answering Jenna that something:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]re going to have to break the instructions down to the simplest ones possible, given that she[=0x0027=]s in the mood to misunderstand on purpose.[=0x0022=][=0x000A=][=0x000A=]A cardboard box is in the Center. In the cardboard box is a pile of empty envelopes. The box is openable and closed. The description is [=0x0022=]A recycling symbol is prominent on the side, which makes you feel a little bit better about using a mailing campaign for this cause.[=0x0022=][=0x000A=][=0x000A=]Jenna is a woman in the Volunteer Center. [=0x0022=]Your daughter Jenna is here, barely visible through the cloud of resentment.[=0x0022=] The description is [=0x0022=]Jenna [if jenna carries something]has [the list of things carried by Jenna][otherwise]returns your stare, with added hostility[end if].[=0x0022=][=0x000A=][=0x000A=]A persuasion rule for asking Jenna to try doing something: persuasion succeeds.[=0x000A=][=0x000A=]Unsuccessful attempt by Jenna doing something:[=0x000A=][=0x0009=]repeat through Table of Retorts:[=0x000A=][=0x0009=][=0x0009=]if the reason the action failed is the cause entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][response entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]I don[=0x0027=]t see how I[=0x0027=]m supposed to do that, Mom,[=0x0027=] Jenna says.[=0x0022=][=0x000A=][=0x000A=]Table of Retorts[=0x000A=]cause[=0x0009=]response[=0x000A=]can[=0x0027=]t take yourself rule[=0x0009=][=0x0022=][=0x0027=]Is that like [=0x0027=]get a grip on yourself[=0x0027=] or something?[=0x0027=] Jenna asks, momentarily diverted.[=0x0022=][=0x000A=]can[=0x0027=]t take what[=0x0027=]s fixed in place rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t take scenery rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t take what[=0x0027=]s already taken rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t drop what[=0x0027=]s already dropped rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t wear what[=0x0027=]s already worn rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t take off what[=0x0027=]s not worn rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t close what[=0x0027=]s already closed rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t open what[=0x0027=]s already open rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t switch off what[=0x0027=]s already off rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t switch on what[=0x0027=]s already on rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t unlock what[=0x0027=]s already unlocked rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t lock what[=0x0027=]s already locked rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=][=0x000A=]To say physical impossibility:[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Maybe you should[=0x0027=]ve brought someone a little stronger,[=0x0027=] Jenna says. [=0x0027=]Like the Incredible Hulk.[=0x0027=] [=0x0022=][=0x000A=][=0x000A=]To say already done:[=0x000A=][=0x0009=]repeat through Table of Bored Remarks:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][response entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Okay, I[=0x0027=]m going to be, like, in the car,[=0x0027=] says Jenna. [=0x0027=]Outside.[=0x0027=] [=0x0022=];[=0x000A=][=0x0009=]end the story saying [=0x0022=]Jenna has gotten fed up[=0x0022=].[=0x000A=][=0x000A=]Table of Bored Remarks[=0x000A=]response[=0x000A=][=0x0022=][=0x0027=]Did that,[=0x0027=] says Jenna.[=0x0022=][=0x000A=][=0x0022=][=0x0027=]Check,[=0x0027=] says Jenna.[=0x0022=][=0x000A=][=0x0022=][=0x0027=]Yeah, Mom, I already did that, okay?[=0x0027=][=0x0022=][=0x000A=][=0x0022=][=0x0027=]Look, if I have to be here doing dumb stuff, could you at least tell me to do stuff that isn[=0x0027=]t already done?[=0x0027=] Jenna asks wearily.[=0x0022=][=0x000A=][=0x0022=]Jenna gives a great upward sigh, riffling her bangs. [=0x0027=]Once again... there is totally no point.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]e / x jenna / jenna, get stapler / jenna, get stapler / x jenna / jenna, drop stapler / jenna, drop stapler / jenna, open box / jenna, open box / jenna, switch stapler on / jenna, switch stapler on / jenna, take desk / jenna, open box / jenna, open box[=0x0022=].[=0x000A=]\n', 'Example - Generation X')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Generation X&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3159_203"-->
-            <blockquote class="code"><p class="quoted"><a id="c3159_203"></a>The Volunteer Center is a room. &quot;A fairly spartan office, though there are a few attractive posters from advertising campaigns of the past, and an ominous map charting the deforestation of Brazil.&quot;
+            <!--START CODE "c3158_159"-->
+            <blockquote class="code"><p class="quoted"><a id="c3158_159"></a>The Volunteer Center is a room. &quot;A fairly spartan office, though there are a few attractive posters from advertising campaigns of the past, and an ominous map charting the deforestation of Brazil.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3160_203"-->
-            <blockquote class="code"><p class="quoted"><a id="c3160_203"></a>The desk is scenery in the Volunteer Center. &quot;Your standard metal desk, with a drawer for postal supplies and the like.&quot; On the desk is a pile of leaflets and a pile of business cards. The power stapler is a device on the desk. A drawer is part of the desk. It is openable and closed. In the drawer are a sponge and a roll of bulk-mail stamps.
+            <!--START CODE "c3159_159"-->
+            <blockquote class="code"><p class="quoted"><a id="c3159_159"></a>The desk is scenery in the Volunteer Center. &quot;Your standard metal desk, with a drawer for postal supplies and the like.&quot; On the desk is a pile of leaflets and a pile of business cards. The power stapler is a device on the desk. A drawer is part of the desk. It is openable and closed. In the drawer are a sponge and a roll of bulk-mail stamps.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3161_203"-->
-            <blockquote class="code"><p class="quoted"><a id="c3161_203"></a>Instead of doing something:
+            <!--START CODE "c3160_159"-->
+            <blockquote class="code"><p class="quoted"><a id="c3160_159"></a>Instead of doing something:
             <br>
             &#160;&#160;&#160;&#160;if examining, continue the action;
             <br>
@@ -189,30 +189,30 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3162_203"-->
-            <blockquote class="code"><p class="quoted"><a id="c3162_203"></a>Instead of answering Jenna that something:
+            <!--START CODE "c3161_159"-->
+            <blockquote class="code"><p class="quoted"><a id="c3161_159"></a>Instead of answering Jenna that something:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You're going to have to break the instructions down to the simplest ones possible, given that she's in the mood to misunderstand on purpose.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3163_203"-->
-            <blockquote class="code"><p class="quoted"><a id="c3163_203"></a>A cardboard box is in the Center. In the cardboard box is a pile of empty envelopes. The box is openable and closed. The description is &quot;A recycling symbol is prominent on the side, which makes you feel a little bit better about using a mailing campaign for this cause.&quot;
+            <!--START CODE "c3162_159"-->
+            <blockquote class="code"><p class="quoted"><a id="c3162_159"></a>A cardboard box is in the Center. In the cardboard box is a pile of empty envelopes. The box is openable and closed. The description is &quot;A recycling symbol is prominent on the side, which makes you feel a little bit better about using a mailing campaign for this cause.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3164_203"-->
-            <blockquote class="code"><p class="quoted"><a id="c3164_203"></a>Jenna is a woman in the Volunteer Center. &quot;Your daughter Jenna is here, barely visible through the cloud of resentment.&quot; The description is &quot;Jenna [if jenna carries something]has [the list of things carried by Jenna][otherwise]returns your stare, with added hostility[end if].&quot;
+            <!--START CODE "c3163_159"-->
+            <blockquote class="code"><p class="quoted"><a id="c3163_159"></a>Jenna is a woman in the Volunteer Center. &quot;Your daughter Jenna is here, barely visible through the cloud of resentment.&quot; The description is &quot;Jenna [if jenna carries something]has [the list of things carried by Jenna][otherwise]returns your stare, with added hostility[end if].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3165_203"-->
-            <blockquote class="code"><p class="quoted"><a id="c3165_203"></a>A persuasion rule for asking Jenna to try doing something: persuasion succeeds.
+            <!--START CODE "c3164_159"-->
+            <blockquote class="code"><p class="quoted"><a id="c3164_159"></a>A persuasion rule for asking Jenna to try doing something: persuasion succeeds.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3166_203"-->
-            <blockquote class="code"><p class="quoted"><a id="c3166_203"></a>Unsuccessful attempt by Jenna doing something:
+            <!--START CODE "c3165_159"-->
+            <blockquote class="code"><p class="quoted"><a id="c3165_159"></a>Unsuccessful attempt by Jenna doing something:
             <br>
             &#160;&#160;&#160;&#160;repeat through Table of Retorts:
             <br>
@@ -226,8 +226,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3167_203"-->
-            <blockquote class="code"><p class="quoted"><a id="c3167_203"></a>Table of Retorts
+            <!--START CODE "c3166_159"-->
+            <blockquote class="code"><p class="quoted"><a id="c3166_159"></a>Table of Retorts
             <br>
             </p>
             </blockquote>
@@ -376,15 +376,15 @@
             <blockquote><p></p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3168_203"-->
-            <blockquote class="code"><p class="quoted"><a id="c3168_203"></a>To say physical impossibility:
+            <!--START CODE "c3167_159"-->
+            <blockquote class="code"><p class="quoted"><a id="c3167_159"></a>To say physical impossibility:
             <br>
             &#160;&#160;&#160;&#160;say &quot;'Maybe you should've brought someone a little stronger,' Jenna says. 'Like the Incredible Hulk.' &quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3169_203"-->
-            <blockquote class="code"><p class="quoted"><a id="c3169_203"></a>To say already done:
+            <!--START CODE "c3168_159"-->
+            <blockquote class="code"><p class="quoted"><a id="c3168_159"></a>To say already done:
             <br>
             &#160;&#160;&#160;&#160;repeat through Table of Bored Remarks:
             <br>
@@ -400,8 +400,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3170_203"-->
-            <blockquote class="code"><p class="quoted"><a id="c3170_203"></a>Table of Bored Remarks
+            <!--START CODE "c3169_159"-->
+            <blockquote class="code"><p class="quoted"><a id="c3169_159"></a>Table of Bored Remarks
             <br>
             response
             <br>
@@ -417,8 +417,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3171_203"-->
-            <blockquote class="code"><p class="quoted"><a id="c3171_203"></a>Test me with &quot;e / x jenna / jenna, get stapler / jenna, get stapler / x jenna / jenna, drop stapler / jenna, drop stapler / jenna, open box / jenna, open box / jenna, switch stapler on / jenna, switch stapler on / jenna, take desk / jenna, open box / jenna, open box&quot;.
+            <!--START CODE "c3170_159"-->
+            <blockquote class="code"><p class="quoted"><a id="c3170_159"></a>Test me with &quot;e / x jenna / jenna, get stapler / jenna, get stapler / x jenna / jenna, drop stapler / jenna, drop stapler / jenna, open box / jenna, open box / jenna, switch stapler on / jenna, switch stapler on / jenna, take desk / jenna, open box / jenna, open box&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

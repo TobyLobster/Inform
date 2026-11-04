@@ -1,0 +1,149 @@
+Startup Template.
+
+How the program starts up, in a Basic Inform project.
+
+@h Summary.
+These rules perform the essential tasks required for setting up the virtual
+machine. This includes checking that we are running in a compatible interpreter,
+and setting up various built in Glk objects (when running in a Glk interpreter).
+
+These rules here are the ones which get the basic machinery working
+to the point where it is safe to run arbitrary I7 source text. They necessarily
+do very low-level things, and it is not guaranteed that I7 phrases will behave
+to specification if executed before these early rules have finished. So it
+is hazardous to obstruct or alter them.
+
+Arrangements are a little different here on the Z-machine, because some
+data is retained in the case of a restart.
+
+(Many thanks are due to Eliuk Blau, who found several tricky timing errors
+here and elsewhere in the Glulx-specific code. Frankly, I feel like hanging
+a sign on the following routines which reads "Congratulations on bringing
+light to the Dark Room.")
+
+@h The startup sequence.
+As of IE-0022 we have a simplified startup sequence. |Main| calls the |Startup|
+function, which does two things: run an Architecture16Kit/Architecture32Kit function
+|VM_Check_Functionality| which checks the VM meets the minimum requirements for Inform
+(in Glulx it would test a few Glulx/Glk gestalts; in Z-Code it would probably do
+nothing.) Then it runs the Startup Rules. And that's it - everything else in the
+startup sequence is now in Inform-accessible rules.
+
+Because the functions below are replaced by |WorldModelKit| alternatives
+if that kit is present, the following applies only to Basic Inform programs
+where |WorldModelKit| is not involved.
+
+=
+[ Main;
+	self = COL_HSIZE; ! To ensure this definition is not optimised out
+	Startup();
+	Submain();
+];
+
+[ Startup;
+	VM_Check_Functionality();
+	say__pc = say__pc | PARA_NORULEBOOKBREAKS;
+	FollowRulebook(STARTUP_RB);
+	if (say__pc & PARA_NORULEBOOKBREAKS) say__pc = say__pc - PARA_NORULEBOOKBREAKS;
+	rfalse;
+];
+
+@h Initialise Memory Rule.
+This rule amalgamates some minimal initialisations which all need to happen
+before we can risk using some of the more exotic I7 kinds:
+
+(a) The language definition might call for initialisation, although the
+default language of play (English) does not.
+
+(b) We start the machinery needed to check that property accesses are
+valid during play.
+
+(c) We initialise the memory allocation heap, and expand the literal
+constants, as hinted above: these are called "block constants" since
+they occupy blocks of memory.
+
+(d) Some architecture-specific dictionary and parse buffer related globals
+are initialised.
+
+=
+[ INITIALISE_MEMORY_R;
+	LanguageInitialise();
+
+	HeapInitialise(); ! Create a completely unused memory allocation heap
+	StackFramingInitialise(); ! Create an empty stack
+	CreateDynamicRelations(); ! Create relation structures on the heap
+
+	#Ifdef TARGET_GLULX;
+		! Empty the parse buffer (see bug 0001451)
+		buffer3-->0 = 0;
+	#Ifnot;
+		standard_interpreter = HDR_TERPSTANDARD-->0;
+
+		dict_start = HDR_DICTIONARY-->0;
+		dict_entry_size = dict_start->(dict_start->0 + 1);
+		dict_start = dict_start + dict_start->0 + 4;
+		dict_end = dict_start + ((dict_start - 2)-->0) * dict_entry_size;
+
+		buffer->0  = INPUT_BUFFER_LEN;
+		buffer2->0 = INPUT_BUFFER_LEN;
+		buffer3->0 = INPUT_BUFFER_LEN;
+		parse->0   = 15;
+		parse2->0  = 15;
+	#Endif;
+
+	rfalse;
+];
+
+@h Seed Random Number Generator Rule.
+Unless a seed is provided by Inform, and it won't be for released story files,
+the VM's interpreter is supposed to start up with a good seed in its random
+number generator: something usually derived from, say, the milliseconds part
+of the current time of day, which is unlikely to repeat or show any pattern
+in real-world use. However, early Z-machine interpreters often did this quite
+badly, starting with poor seed values which meant that the first few random
+numbers always had something in common (being fairly small in their range,
+for instance).
+
+More recently, many Glulx interpreters also had
+[a major flaw](https://intfiction.org/t/lack-of-randomness-sometimes-when-compiling-for-glulx/64533)
+in which repeatedly calling `random(N)` when `N` was a power of 2 resulted in
+there only being `N` distinct sequences. Even worse, the first number of each
+sequence might be the same! This would mean that, for example, if a mystery
+game randomly selected the murderer from five candidates the results might
+appear random, but if there were only four candidates then the same one would
+be chosen *every* playthrough.
+
+To attempt to partially mitigate these problems, we extract and throw away a
+number of random numbers to get the generator going, shaking out more obvious
+early patterns. Because of the particular nature of the flaw in those Glulx
+interpreters, we do this a random number of times.
+
+Most interpreters have been updated recently to improve their random algorithms,
+but if we're running in something really old, there's only so much we can do
+to account for it. Story files which rely on quality randomness may need to
+use an extension to use a new algorithm instead of the one provided by the
+interpreter. Extensions are also needed if you want a random algorithm that is
+consistent across interpreters (for example, to be able to share a seed that
+generates the same dungeon in an procedurally-generated RPG.)
+
+"Anyone who considers arithmetical methods of producing random digits is,
+of course, in a state of sin" (von Neumann).
+
+=
+[ SEED_RANDOM_NUMBER_GENERATOR_R i count;
+	if (BasicInformKit`FIX_RNG_CFGF) {
+		#Ifdef TARGET_GLULX;
+			@random 10000 i;
+			i = -i-2000;
+			@setrandom i;
+		#Ifnot;
+			@random 10000 -> i;
+			i = -i-2000;
+			@random i -> i;
+		#Endif;
+	}
+	if (RNG_SEED_AT_START_OF_PLAY) VM_Seed_RNG(RNG_SEED_AT_START_OF_PLAY);
+	count = random(97);
+	for (i = 1: i <= count: i++) random(i);
+	rfalse;
+];

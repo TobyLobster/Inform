@@ -85,16 +85,16 @@
     <p>When playing around with text, we tend to get into longer and trickier wrangles of matching - we find that we want to look not for simple text like &quot;gold&quot;, but for &quot;gold&quot; used only as a separate word, or for a date in YYYY-MM-DD format, or for a seemingly endless range of other possibilities. What we need is not just for Inform to provide a highly flexible matching program, but also a good notation in which to describe what we want.</p>
     <p>Fortunately, such a notation already exists. This is the &quot;regular expression&quot; notation, named for a 1950s mathematical model by the logician Stephen Kleene, applied to computing in the late 60s by Ken Thompson, borrowed almost at once by the early Unix tools of the 70s, and developed further by Henry Spencer in the 80s and Philip Hazel in the 90s. The glue holding the Internet together - the Apache web-server, the scripting languages Perl and Python, and so forth - makes indispensable use of regular expressions.</p>
     <p>As might be expected from the previous section, we simply have to describe the FIND text as &quot;regular expression&quot; rather than &quot;text&quot; and then the same facilities are available:</p>
-        <!--START PHRASE "defn308"-->
+        <!--START PHRASE "defn312"-->
         <div class="definition">
-            <a id="defn308"></a><p class='defnprototype'><b>if </b>(text)<b> matches the regular expression </b>(text)<b>:</b></p>
+            <a id="defn312"></a><p class='defnprototype'><b>if </b>(text)<b> matches the regular expression </b>(text)<b>:</b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_matchesre-->
 
     <p>    This condition is true if any contiguous part of the text can be matched against the given regular expression. Examples:</p>
-    <!--START CODE "c8107"-->
-    <blockquote class="code"><p class="quoted"><a id="c8107"></a>if &quot;taramasalata&quot; matches the regular expression &quot;a.*l&quot;, ...
+    <!--START CODE "c8128"-->
+    <blockquote class="code"><p class="quoted"><a id="c8128"></a>if &quot;taramasalata&quot; matches the regular expression &quot;a.*l&quot;, ...
     </p>
     </blockquote>
     <!--END CODE-->
@@ -103,9 +103,9 @@
         <!--end definition-->
     </div>
 
-        <!--START PHRASE "defn309"-->
+        <!--START PHRASE "defn313"-->
         <div class="definition">
-            <a id="defn309"></a><p class='defnprototype'><b>if </b>(text)<b> exactly matches the regular expression </b>(text)<b>:</b></p>
+            <a id="defn313"></a><p class='defnprototype'><b>if </b>(text)<b> exactly matches the regular expression </b>(text)<b>:</b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_exactlymatchesre-->
@@ -116,9 +116,9 @@
     </div>
 
     <p>And once again:</p>
-        <!--START PHRASE "defn310"-->
+        <!--START PHRASE "defn314"-->
         <div class="definition">
-            <a id="defn310"></a><p class='defnprototype'><b>number of times </b>(text)<b> matches the regular expression </b>(text)<b> ... number</b></p>
+            <a id="defn314"></a><p class='defnprototype'><b>number of times </b>(text)<b> matches the regular expression </b>(text)<b> ... number</b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_nummatchesre-->
@@ -129,16 +129,16 @@
     </div>
 
     <p>Since a regular expression can match quite a variety of possibilities (for instance &quot;b\w+t&quot; could match &quot;boast&quot;, &quot;boat&quot;, &quot;bonnet&quot; and so on), it's sometimes useful to find what the match actually was:</p>
-        <!--START PHRASE "defn311"-->
+        <!--START PHRASE "defn315"-->
         <div class="definition">
-            <a id="defn311"></a><p class='defnprototype'><b>text matching regular expression ... text</b></p>
+            <a id="defn315"></a><p class='defnprototype'><b>text matching regular expression ... text</b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_matchtext-->
 
     <p>    This phrase is only meaningful immediately after a successful match of a regular expression against text, and it produces the text which matched. Example:</p>
-    <!--START CODE "c8108"-->
-    <blockquote class="code"><p class="quoted"><a id="c8108"></a>if &quot;taramasalata&quot; matches the regular expression &quot;m.*l&quot;:
+    <!--START CODE "c8129"-->
+    <blockquote class="code"><p class="quoted"><a id="c8129"></a>if &quot;taramasalata&quot; matches the regular expression &quot;m.*l&quot;:
     <br>
     &#160;&#160;&#160;&#160;say &quot;[text matching regular expression].&quot;;
     </p>
@@ -150,8 +150,8 @@
     </div>
 
     <p>Perhaps fairly, perhaps not, regular expressions have a reputation for being inscrutable. The basic idea is that although alphanumeric characters (letters, numbers and spaces) mean just what they look like, punctuation characters are commands with sometimes dramatic effects. Thus:</p>
-    <!--START CODE "c8109"-->
-    <blockquote class="code"><p class="quoted"><a id="c8109"></a>if WHATEVER matches the regular expression &quot;fish&quot;, ...
+    <!--START CODE "c8130"-->
+    <blockquote class="code"><p class="quoted"><a id="c8130"></a>if WHATEVER matches the regular expression &quot;fish&quot;, ...
     <br>
     if WHATEVER matches the regular expression &quot;f.*h&quot;, ...
     </p>
@@ -159,68 +159,68 @@
     <!--END CODE-->
     <p>behave very differently. The first is just like matching the text &quot;fish&quot;, but the second matches on any sequence of characters starting with an &quot;f&quot; and ending with an &quot;h&quot;. This is not at all obvious at first sight: reading regular expressions is a skill which must be learned, like reading a musical score. A really complex regular expression can look like a soup of punctuation and even an expert will blink for a few minutes before telling you what it does - but a beginner can pick up the basics very quickly. Newcomers might like to try out and become comfortable with the features a few at a time, reading down the following list.</p>
     <p><span class="boldface">1. Golden rule</span>. Don't try to remember all the characters with weird effects. Instead, if you actually mean any symbol other than a letter, digit or space to be taken literally, place a backslash &quot;\&quot; in front of it. For instance, matching the regular expression</p>
-    <!--START CODE "c8110"-->
-    <blockquote class="code"><p class="quoted"><a id="c8110"></a>&quot;\*A\* of the Galactic Patrol&quot;
+    <!--START CODE "c8131"-->
+    <blockquote class="code"><p class="quoted"><a id="c8131"></a>&quot;\*A\* of the Galactic Patrol&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>is the same as matching the text &quot;*A* of the Galactic Patrol&quot;, because the asterisks are robbed of their normal powers. This includes backslash itself: &quot;\\&quot; means a literal backslash. (Don't backslash letters or digits - that turns out to have a meaning all its own, but anyway, there is never any need.)</p>
     <p><span class="boldface">2. Alternatives</span>. The vertical stroke &quot;|&quot; - not a letter I or L, nor the digit 1 - divides alternatives. Thus</p>
-    <!--START CODE "c8111"-->
-    <blockquote class="code"><p class="quoted"><a id="c8111"></a>&quot;the fish|fowl|crawling thing&quot;
+    <!--START CODE "c8132"-->
+    <blockquote class="code"><p class="quoted"><a id="c8132"></a>&quot;the fish|fowl|crawling thing&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>is the same as saying match &quot;the fish&quot;, or &quot;fowl&quot;, or &quot;crawling thing&quot;.</p>
     <p><span class="boldface">3. Dividing with brackets</span>. Round brackets &quot;(&quot; and &quot;)&quot; group parts of the expression together.</p>
-    <!--START CODE "c8112"-->
-    <blockquote class="code"><p class="quoted"><a id="c8112"></a>&quot;the (fish|fowl|crawling thing) in question&quot;
+    <!--START CODE "c8133"-->
+    <blockquote class="code"><p class="quoted"><a id="c8133"></a>&quot;the (fish|fowl|crawling thing) in question&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>is the same as saying match &quot;the fish in question&quot;, or &quot;the fowl in question&quot;, or &quot;the crawling thing in question&quot;. Note that the &quot;|&quot; ranges outwards only as far as the group it is in.</p>
     <p><span class="boldface">4. Any character</span>. The period &quot;.&quot; means any single character. So</p>
-    <!--START CODE "c8113"-->
-    <blockquote class="code"><p class="quoted"><a id="c8113"></a>&quot;a...z&quot;
+    <!--START CODE "c8134"-->
+    <blockquote class="code"><p class="quoted"><a id="c8134"></a>&quot;a...z&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>matches on any sequence of five characters so long as the first is &quot;a&quot; and the last is &quot;z&quot;.</p>
     <p><span class="boldface">5. Character alternatives</span>. The angle brackets &quot;&lt;&quot; and &quot;&gt;&quot; are a more concise way of specifying alternatives for a single character. Thus</p>
-    <!--START CODE "c8114"-->
-    <blockquote class="code"><p class="quoted"><a id="c8114"></a>&quot;b&lt;aeiou&gt;b&quot;
+    <!--START CODE "c8135"-->
+    <blockquote class="code"><p class="quoted"><a id="c8135"></a>&quot;b&lt;aeiou&gt;b&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>matches on &quot;bab&quot;, &quot;beb&quot;, &quot;bib&quot;, &quot;bob&quot; or &quot;bub&quot;, but not &quot;baob&quot; or &quot;beeb&quot; - any single character within the angle brackets is accepted. Beginning the range with &quot;^&quot; means &quot;any single character so long as it is not one of these&quot;: thus</p>
-    <!--START CODE "c8115"-->
-    <blockquote class="code"><p class="quoted"><a id="c8115"></a>&quot;b&lt;^aeiou&gt;b&quot;
+    <!--START CODE "c8136"-->
+    <blockquote class="code"><p class="quoted"><a id="c8136"></a>&quot;b&lt;^aeiou&gt;b&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>matches on &quot;blb&quot; but not &quot;bab&quot;, &quot;beb&quot;, etc., nor on &quot;blob&quot; or &quot;bb&quot;. Because long runs like this can be a little tiresome, we are also allowed to use &quot;-&quot; to indicate whole ranges. Thus</p>
-    <!--START CODE "c8116"-->
-    <blockquote class="code"><p class="quoted"><a id="c8116"></a>&quot;b&lt;a-z&gt;b&quot;
+    <!--START CODE "c8137"-->
+    <blockquote class="code"><p class="quoted"><a id="c8137"></a>&quot;b&lt;a-z&gt;b&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>matches a &quot;b&quot;, then any lower case English letter, then another &quot;b&quot;.</p>
     <p>In traditional regular expression language, square brackets rather than angle brackets are used for character ranges. In fact Inform does understand this notation if there are actual square brackets &quot;[&quot; and &quot;]&quot; in the pattern text, but in practice this would be tiresome to achieve, since Inform uses those to achieve text substitutions. So Inform allows &quot;b&lt;a-z&gt;b&quot; rather than making us type something like</p>
-    <!--START CODE "c8117"-->
-    <blockquote class="code"><p class="quoted"><a id="c8117"></a>&quot;b[bracket]a-z[close bracket]b&quot;
+    <!--START CODE "c8138"-->
+    <blockquote class="code"><p class="quoted"><a id="c8138"></a>&quot;b[bracket]a-z[close bracket]b&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>to create the text &quot;b[a-z]b&quot;.</p>
     <p><span class="boldface">6. Popular character ranges</span>. The range &quot;&lt;0-9&gt;&quot;, matching any decimal digit, is needed so often that it has an abbreviation: &quot;\d&quot;. Thus</p>
-    <!--START CODE "c8118"-->
-    <blockquote class="code"><p class="quoted"><a id="c8118"></a>&quot;\d\d\d\d-\d\d-\d\d&quot;
+    <!--START CODE "c8139"-->
+    <blockquote class="code"><p class="quoted"><a id="c8139"></a>&quot;\d\d\d\d-\d\d-\d\d&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>matches, say, &quot;2006-12-03&quot;. Similarly, &quot;\s&quot; means &quot;any spacing character&quot; - a space, tab or line break. &quot;\p&quot; is a punctuation character, in the same sense used for word division in the previous section: it actually matches any of</p>
-    <!--START CODE "c8119"-->
-    <blockquote class="code"><p class="quoted"><a id="c8119"></a>. , ! ? - / &quot; : ; ( ) [ ] { }
+    <!--START CODE "c8140"-->
+    <blockquote class="code"><p class="quoted"><a id="c8140"></a>. , ! ? - / &quot; : ; ( ) [ ] { }
     </p>
     </blockquote>
     <!--END CODE-->
@@ -228,35 +228,35 @@
     <p>&quot;\l&quot; and &quot;\u&quot; match lower and upper case letters, respectively. These are much stronger than &quot;&lt;a-z&gt;&quot; and &quot;&lt;A-Z&gt;&quot;, since they use the complete definition in the Unicode 4.0.0 standard, so that letter-forms from all languages are catered for: for example &quot;δ&quot; matches &quot;\l&quot; and &quot;Δ&quot; matches &quot;\u&quot;.</p>
     <p>The reverse of these is achieved by capitalising the letter. So &quot;\D&quot; means &quot;anything not a digit&quot;, &quot;\P&quot; means &quot;anything not punctuation&quot;, &quot;\W&quot; means &quot;anything not a word character&quot;, &quot;\L&quot; means &quot;anything not a lower case letter&quot; and so on.</p>
     <p><span class="boldface">7. Positional restrictions</span>. The notation &quot;^&quot; does not match anything, as such, but instead requires that we be positioned at the start of the text. Thus</p>
-    <!--START CODE "c8120"-->
-    <blockquote class="code"><p class="quoted"><a id="c8120"></a>&quot;^fish&quot;
+    <!--START CODE "c8141"-->
+    <blockquote class="code"><p class="quoted"><a id="c8141"></a>&quot;^fish&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>matches only &quot;fish&quot; at the start of the text, not occurring anywhere later on. Similarly, &quot;$&quot; requires that the position be the end of the text. So</p>
-    <!--START CODE "c8121"-->
-    <blockquote class="code"><p class="quoted"><a id="c8121"></a>&quot;fish$&quot;
+    <!--START CODE "c8142"-->
+    <blockquote class="code"><p class="quoted"><a id="c8142"></a>&quot;fish$&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>matches only if the last four characters are &quot;fish&quot;. Matching &quot;^fish$&quot; is the same thing as what Inform calls exactly matching &quot;fish&quot;.</p>
     <p>Another useful notation is &quot;\b&quot;, which matches a word boundary: that is, it matches no actual text, but requires the position to be a junction between a word character and a non-word character (a &quot;\w&quot; and a &quot;\W&quot;) or vice versa. Thus</p>
-    <!--START CODE "c8122"-->
-    <blockquote class="code"><p class="quoted"><a id="c8122"></a>&quot;\bfish\b&quot;
+    <!--START CODE "c8143"-->
+    <blockquote class="code"><p class="quoted"><a id="c8143"></a>&quot;\bfish\b&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>matches &quot;fish&quot; in &quot;some fish&quot; and also &quot;some fish, please!&quot;, but not in &quot;shellfish&quot;. (The regular expression &quot;\w*fish\b&quot; catches all words ending in &quot;fish&quot;, as we will see below.) As usual, the capitalised version &quot;\B&quot; negates this, and means &quot;not at a word boundary&quot;.</p>
     <p><span class="boldface">8. Line break and tab</span>. The notations &quot;\n&quot; and &quot;\t&quot; are used for a line break (&quot;n&quot; for &quot;new line&quot;) and tab, respectively. Tabs normally do not occur in Inform strings, but can do when reading from files. It makes no sense to reverse these, so &quot;\N&quot; and &quot;\T&quot; produce errors.</p>
     <p><span class="boldface">9. Repetition</span>. Placing a number in braces &quot;{&quot; and &quot;}&quot; after something says that it should be repeated that many times. Thus</p>
-    <!--START CODE "c8123"-->
-    <blockquote class="code"><p class="quoted"><a id="c8123"></a>&quot;ax{25}&quot;
+    <!--START CODE "c8144"-->
+    <blockquote class="code"><p class="quoted"><a id="c8144"></a>&quot;ax{25}&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>matches only on &quot;axxxxxxxxxxxxxxxxxxxxxxxxx&quot;. More usefully, perhaps, we can specify a range of the number of repetitions:</p>
-    <!--START CODE "c8124"-->
-    <blockquote class="code"><p class="quoted"><a id="c8124"></a>&quot;ax{2,6}&quot;
+    <!--START CODE "c8145"-->
+    <blockquote class="code"><p class="quoted"><a id="c8145"></a>&quot;ax{2,6}&quot;
     </p>
     </blockquote>
     <!--END CODE-->
@@ -269,30 +269,30 @@
     <p>&quot;{1,}&quot;, which means 1 or more repetitions, is written &quot;+&quot;. So &quot;\d+&quot; matches any run of digits, for instance.</p>
     <p><span class="boldface">11. Greedy vs lazy.</span> Once we allow things to repeat an unknown number of times, we run into an ambiguity. Sure, &quot;\d+&quot; matches the text &quot;16339b&quot;. But does it look only as far as the &quot;1&quot;, then reason that it now has one or more digits in a row, and stop? Or does it run onward devouring digits until it can do so no longer, so matching the &quot;16339&quot; part? These two strategies are called &quot;lazy&quot; and &quot;greedy&quot; respectively.</p>
     <p>Do we care? Well, the strategy used makes no difference to whether there is a match, but it does affect what part of the text is matched, and the number of matches there are. Unless we mark for it, all repetitions are greedy. Usually this is good, but it means that, for instance,</p>
-    <!--START CODE "c8125"-->
-    <blockquote class="code"><p class="quoted"><a id="c8125"></a>&quot;-.+-&quot;
+    <!--START CODE "c8146"-->
+    <blockquote class="code"><p class="quoted"><a id="c8146"></a>&quot;-.+-&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>applied to &quot;-alpha- -beta- -gamma-&quot; will match the whole text, because &quot;.+&quot; picks up all of &quot;alpha- -beta- -gamma&quot;. To get around this, we can mark any of the repetition operators as lazy by adding a question mark &quot;?&quot;. Thus:</p>
-    <!--START CODE "c8126"-->
-    <blockquote class="code"><p class="quoted"><a id="c8126"></a>&quot;-.+?-&quot;
+    <!--START CODE "c8147"-->
+    <blockquote class="code"><p class="quoted"><a id="c8147"></a>&quot;-.+?-&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>applied to &quot;-alpha- -beta- -gamma-&quot; matches three times, producing &quot;-alpha-&quot; then &quot;-beta-&quot; then &quot;-gamma-&quot;.</p>
     <p>A logical but sometimes confusing consequence is that a doubled question mark &quot;??&quot; means &quot;repeat 0 or 1 times, but prefer 0 matches to 1 if both are possibilities&quot;: whereas a single question mark &quot;?&quot;, being greedy, means &quot;repeat 0 or 1 times, but prefer 1 match to 0 if both are possibilities&quot;.</p>
     <p><span class="boldface">12. Numbered groups.</span> We have already seen that round brackets are useful to clump together parts of the regular expression - to choose within them, or repeat them. In fact, Inform numbers these from 1 upwards as they are used from left to right, and we can subsequently refer back to their contents with the notation &quot;\1&quot;, &quot;\2&quot;, ... After a successful match, we can find the results of these subexpressions with:</p>
-        <!--START PHRASE "defn312"-->
+        <!--START PHRASE "defn316"-->
         <div class="definition">
-            <a id="defn312"></a><p class='defnprototype'><b>text matching subexpression </b>(number)<b> ... text</b></p>
+            <a id="defn316"></a><p class='defnprototype'><b>text matching subexpression </b>(number)<b> ... text</b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_subexpressiontext-->
 
     <p>This phrase is only meaningful immediately after a successful match of a regular expression against text, and it produces the text which matched. The number must be from 1 to 9, and must correspond to one of the bracketed groups in the expression just match d. Example: after</p>
-    <!--START CODE "c8127"-->
-    <blockquote class="code"><p class="quoted"><a id="c8127"></a>if &quot;taramasalata&quot; matches the regular expression &quot;a(r.*l)a(.)&quot;:
+    <!--START CODE "c8148"-->
+    <blockquote class="code"><p class="quoted"><a id="c8148"></a>if &quot;taramasalata&quot; matches the regular expression &quot;a(r.*l)a(.)&quot;:
     </p>
     </blockquote>
     <!--END CODE-->
@@ -302,54 +302,113 @@
     </div>
 
     <p>For instance:</p>
-    <!--START CODE "c8128"-->
-    <blockquote class="code"><p class="quoted"><a id="c8128"></a>&quot;(\w)\w*\1&quot;
+    <!--START CODE "c8149"-->
+    <blockquote class="code"><p class="quoted"><a id="c8149"></a>&quot;(\w)\w*\1&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>matches any run of two or more word-characters, subject to the restriction that the last one has to be the same as the first - so it matches &quot;xerox&quot; but not &quot;alphabet&quot;. When Inform matches this against &quot;xerox&quot;, first it matches the initial &quot;x&quot; against the group &quot;(\w)&quot;. It then matches &quot;\w*&quot; (&quot;any number of word-characters&quot;) against &quot;ero&quot;, so that the &quot;*&quot; runs up to 3 repetitions. It then matches &quot;\1&quot; against the final &quot;x&quot;, because &quot;\1&quot; requires it to match against whatever last matched in sub-expression 1 - which was an &quot;x&quot;.</p>
+    <p>Similar to the situation with text matches, we can find the starting and ending character numbers of where a given subexpression occurred in the original text, as well as the length.</p>
+        <!--START PHRASE "defn317"-->
+        <div class="definition">
+            <a id="defn317"></a><p class='defnprototype'><b>first index of subexpression </b>(number)<b> ... number</b></p>
+
+            <!--END PHRASE-->
+            <!--definition of ph_refirstindex-->
+
+    <p>    Following a successful regular expression match, this produces the character number in the original text of the beginning of a given subexpression.</p>
+    <!--START CODE "c8150"-->
+    <blockquote class="code"><p class="quoted"><a id="c8150"></a>if &quot;ham sandwich&quot; matches the regular expression &quot;a(.+)\b(.+)&quot;:
+    <br>
+    &#160;&#160;&#160;&#160;let x be the start index of subexpression 2;
+    </p>
+    </blockquote>
+    <!--END CODE-->
+    <p>would set x to 5. For the first index of the match as a whole, including what is outside any groups, use &quot;subexpression 0&quot;. For the example above, the start index of subexpression 0 would be 2.</p>
+    <p>As with the text case, use or store the result promptly. And as before, results are undefined in case of failure, but with an important additional caveat: even when a match succeeds, results are not guaranteed to be meaningful <span class="italic">for a given subexpression</span> if the text that matched that subexpression was empty. For instance, adding &quot;(.*)&quot; to the end of a regular expression won't make any of the texts that currently match it fail to match, but the results for first index, last index, and length for the corresponding subexpression number might not be meaningful.</p>
+
+        <!--end definition-->
+    </div>
+
+        <!--START PHRASE "defn318"-->
+        <div class="definition">
+            <a id="defn318"></a><p class='defnprototype'><b>last index of subexpression </b>(number)<b> ... number</b></p>
+
+            <!--END PHRASE-->
+            <!--definition of ph_relastindex-->
+
+    <p>    Similarly, we can find the character number of the last character in the subexpression. For the &quot;ham sandwich&quot; example above:</p>
+    <!--START CODE "c8151"-->
+    <blockquote class="code"><p class="quoted"><a id="c8151"></a>last index of subexpression 1
+    </p>
+    </blockquote>
+    <!--END CODE-->
+    <p>would be 4 (&quot;.+&quot; matches &quot;ham&quot; <span class="italic">and</span> the following space). The same caveats noted above apply.</p>
+
+        <!--end definition-->
+    </div>
+
+        <!--START PHRASE "defn319"-->
+        <div class="definition">
+            <a id="defn319"></a><p class='defnprototype'><b>length of subexpression  </b>(number)<b> ... number</b></p>
+
+            <!--END PHRASE-->
+            <!--definition of ph_relength-->
+
+    <p>    Finally, we can get the length of the match, e.g., for the above,</p>
+    <!--START CODE "c8152"-->
+    <blockquote class="code"><p class="quoted"><a id="c8152"></a>length of subexpression 2
+    </p>
+    </blockquote>
+    <!--END CODE-->
+    <p>would be 8 (for &quot;sandwich&quot;).</p>
+
+        <!--end definition-->
+    </div>
+
+    <p>Similar to the text case, any time the empty string (&quot;&quot;) matches a regular expression, the values of all of first index, last index, and length for subexpression 0 would be 0.</p>
     <p>Numbered groups allow wicked tricks in matching, it's true, but really come into their own when it comes to replacing - as we shall see.</p>
     <p><span class="boldface">13. Switching case sensitivity on and off.</span> The special notations &quot;(?i)&quot; and &quot;(?-i)&quot; switch sensitivity to upper vs. lower case off and on, mid-expression. Thus &quot;a(?i)bcd(?-i)e&quot; matches &quot;abcde&quot;, &quot;aBcDe&quot;, etc., but not &quot;Abcde&quot; or &quot;abcdE&quot;.</p>
     <p><span class="boldface">14. Groups with special meanings.</span> This is the last of the special syntaxes: but it's a doozy. A round-bracketed group can be marked to behave in a special way by following the open bracket by a symbol with a special meaning. Groups like this have no number and are not counted as part of \1, \2, and so forth - they are intended not to gather up material but to have some effect of their own.</p>
-    <!--START CODE "c8129"-->
-    <blockquote class="code"><p class="quoted"><a id="c8129"></a>&quot;(# ...)&quot;
+    <!--START CODE "c8153"-->
+    <blockquote class="code"><p class="quoted"><a id="c8153"></a>&quot;(# ...)&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Is a comment, that is, causes the group to do nothing and match against anything.</p>
-    <!--START CODE "c8130"-->
-    <blockquote class="code"><p class="quoted"><a id="c8130"></a>&quot;(?= ...)&quot;
+    <!--START CODE "c8154"-->
+    <blockquote class="code"><p class="quoted"><a id="c8154"></a>&quot;(?= ...)&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Is a lookahead: it is a form of positional requirement, like &quot;\b&quot; or &quot;^&quot;, but one which requires that the text ahead of us matches whatever is in the brackets. (It doesn't consume that text - only checks to see that it's there.) For instance &quot;\w+(?=;)&quot; matches a word followed by a semicolon, but does not match the semicolon itself.</p>
-    <!--START CODE "c8131"-->
-    <blockquote class="code"><p class="quoted"><a id="c8131"></a>&quot;(?! ...)&quot;
+    <!--START CODE "c8155"-->
+    <blockquote class="code"><p class="quoted"><a id="c8155"></a>&quot;(?! ...)&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Is the same but negated: it requires that the text ahead of us does not match the material given. For instance, &quot;a+(?!z)&quot; matches any run of &quot;a&quot;s not followed by a &quot;z&quot;.</p>
-    <!--START CODE "c8132"-->
-    <blockquote class="code"><p class="quoted"><a id="c8132"></a>&quot;(?&lt;= ...)&quot; and &quot;(?&lt;! ...)&quot;
+    <!--START CODE "c8156"-->
+    <blockquote class="code"><p class="quoted"><a id="c8156"></a>&quot;(?&lt;= ...)&quot; and &quot;(?&lt;! ...)&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Are the same but looking behind (hence the &quot;&lt;&quot;), not forward. These are restricted to cases where Inform can determine that the material to be matched has a definite known width. For instance, &quot;(?&lt;!shell)fish&quot; matches any &quot;fish&quot; not occurring in &quot;shellfish&quot;.</p>
-    <!--START CODE "c8133"-->
-    <blockquote class="code"><p class="quoted"><a id="c8133"></a>&quot;(&gt; ...)&quot;
+    <!--START CODE "c8157"-->
+    <blockquote class="code"><p class="quoted"><a id="c8157"></a>&quot;(&gt; ...)&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Is a possessive, that is, causes the material to be matched and, once matched, never lets go. No matter what subsequently turns out to be convenient, it will never change its match. For instance, &quot;\d+8&quot; matches against &quot;768&quot; because Inform realises that &quot;\d+&quot; cannot be allowed to eat the &quot;8&quot; if there is to be a match, and stops it. But &quot;(&gt;\d+)8&quot; does not match against &quot;768&quot; because now the &quot;\d+&quot;, which initially eats &quot;768&quot;, is possessive and refuses to give up the &quot;8&quot; once taken.</p>
-    <!--START CODE "c8134"-->
-    <blockquote class="code"><p class="quoted"><a id="c8134"></a>&quot;(?(1)...)&quot; and &quot;(?(1)...|...)&quot;
+    <!--START CODE "c8158"-->
+    <blockquote class="code"><p class="quoted"><a id="c8158"></a>&quot;(?(1)...)&quot; and &quot;(?(1)...|...)&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Are conditionals. These require us to match the material given if \1 has successfully matched already; in the second version, the material after the &quot;|&quot; must be matched if \1 has not successfully matched yet. And the same for 2, 3, ..., 9, of course.</p>
     <p>Finally, conditionals can also use lookaheads or lookbehinds as their conditions. So for instance:</p>
-    <!--START CODE "c8135"-->
-    <blockquote class="code"><p class="quoted"><a id="c8135"></a>&quot;(?(?=\d)\d\d\d\d|AY-\d\d\d\d)&quot;
+    <!--START CODE "c8159"-->
+    <blockquote class="code"><p class="quoted"><a id="c8159"></a>&quot;(?(?=\d)\d\d\d\d|AY-\d\d\d\d)&quot;
     </p>
     </blockquote>
     <!--END CODE-->
@@ -357,55 +416,147 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "413: Alpha" "e8"-->
-        <a id="e8"></a><table class="egcue">
+        <!--START EXAMPLE "414: About Inform's regular expression support" "e2"-->
+        <a id="e2"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example8'); return false;"><b>413</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example2'); return false;"><b>414</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example8'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Alpha</span></b></a><br>
-                    Creating a beta-testing command that matches any line starting with punctuation.</p>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example2'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">About Inform's regular expression support</span></b></a><br>
+                    Some footnotes on Inform's regular expressions, and how they compare to those of other programming languages.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc102.html#e8"><i>RB</i></a></div>
+                        <a href="Rdoc4.html#e2"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example8" style="display: none;">
-            <p>Sometimes we want to let testers of a game insert their own comments during a transcript, without those comments wasting turns of the game or producing lengthy or inappropriate parser errors. Many testers have a habit of prefacing comments with a punctuation mark, so let's say that we'd like to catch any command that starts with any punctuation at all:</p>
-            <!--START CODE "c8136_8"-->
-            <blockquote class="code"><p class="quoted"><a id="c8136_8"></a><a href="javascript:pasteCode(' [=0x0022=]Alpha[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]say [=0x0022=]Hi, Larry! Thanks for testing my game!![=0x0022=][=0x000A=][=0x000A=]Unimplemented Room is a room. [=0x0022=]Room description goes here...[=0x0022=][=0x000A=][=0x000A=]The scary troll is a man in Unimplemented Room.[=0x000A=][=0x000A=]After reading a command (this is the ignore beta-comments rule):[=0x000A=][=0x0009=]if the player[=0x0027=]s command matches the regular expression [=0x0022=]^[=0x005C=]p[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](Noted.)[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]Test me with [=0x0022=]x me / x troll / !this game is a bit dull so far / kiss troll / ? does this troll do anything? / :yawn[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject(' [=0x0022=]Alpha[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]say [=0x0022=]Hi, Larry! Thanks for testing my game!![=0x0022=][=0x000A=][=0x000A=]Unimplemented Room is a room. [=0x0022=]Room description goes here...[=0x0022=][=0x000A=][=0x000A=]The scary troll is a man in Unimplemented Room.[=0x000A=][=0x000A=]After reading a command (this is the ignore beta-comments rule):[=0x000A=][=0x0009=]if the player[=0x0027=]s command matches the regular expression [=0x0022=]^[=0x005C=]p[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](Noted.)[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]Test me with [=0x0022=]x me / x troll / !this game is a bit dull so far / kiss troll / ? does this troll do anything? / :yawn[=0x0022=].[=0x000A=]\n', 'Example - Alpha')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp;  &quot;Alpha&quot;
+        <div class="egpanel" id="example2" style="display: none;">
+            <p>There is not really any unanimity about what regular expression language is. The unix tools sed and grep extend on Kleene's original grammar. Henry Spencer's regex library extended on this again, and was a foundation for Perl, but Perl once again went further. Philip Hazel's PCRE, despite the name Perl Compatible Regular Expressions, makes further extensions still, and so on.</p>
+            <p>Inform's regular expressions are modelled on those of Perl, as the best de facto standard we have, but a few omissions have been inevitable. Inform's regex matcher must occupy source code less than one hundredth the size of PCRE, and it has very little memory. Inform aims to behave exactly like Perl except as follows:</p>
+            <!--START CODE "c8160_2"-->
+            <blockquote class="code"><p class="quoted"><a id="c8160_2"></a>(i) Inform allows angle brackets as synonymous with square brackets, for reasons explained above. This means literal angle brackets have to be escaped as &quot;\&lt;&quot; and &quot;\&gt;&quot; in Inform regular expressions, which is unnecessary in Perl.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8137_8"-->
-            <blockquote class="code"><p class="quoted"><a id="c8137_8"></a>When play begins:
+            <!--START CODE "c8161_2"-->
+            <blockquote class="code"><p class="quoted"><a id="c8161_2"></a>(ii) Inform only has single-line mode, not multiline mode: this removes need for the mode-switches &quot;(?m)&quot; and &quot;(?s)&quot; and the positional markers &quot;\A&quot; and &quot;\Z&quot;. Multiline mode is idiosyncratic to Perl and is a messy compromise to do with holding long files of text as single strings, yet treating them as lists of lines at the same time: this would not be sensible for Inform. Similarly, because there is no ambiguity about how line breaks are represented in Inform strings (by a single &quot;\n&quot;), initial newline convention markers such as &quot;(*ANYCRLF)&quot; are unsupported.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8162_2"-->
+            <blockquote class="code"><p class="quoted"><a id="c8162_2"></a>(iii) The codes &quot;\a&quot;, &quot;\r&quot;, &quot;\f&quot;, &quot;\e&quot;, &quot;\0&quot; for alarm, carriage return, form feed, escape and the zero character are unsupported: none of these can occur in an Inform string.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8163_2"-->
+            <blockquote class="code"><p class="quoted"><a id="c8163_2"></a>(iv) Inform does not allow characters to be referred to by character code (whereas Perl allows &quot;\036&quot; for an octal character code, &quot;\x7e&quot; for a hexadecimal one, &quot;\cD&quot; for a control character). This is because we do not want the user to know whether text is internally stored as ZSCII or Unicode.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8164_2"-->
+            <blockquote class="code"><p class="quoted"><a id="c8164_2"></a>(v) Inform's character class &quot;\p&quot; (and its negation &quot;\P&quot;) have no equivalent in Perl, and Inform's understanding of &quot;\w&quot; is different. Perl defines this as an upper or lower case English letter, underscore or digit, which is good for programming-language identifiers, but bad for natural language - for instance, &quot;é&quot; is not matched by &quot;\w&quot; in Perl, but unquestionably it appears in words. Inform therefore defines &quot;\w&quot; as the negation of &quot;\s&quot; union &quot;\p&quot;.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8165_2"-->
+            <blockquote class="code"><p class="quoted"><a id="c8165_2"></a>(vi) Inform supports only single-digit grouping numbers &quot;\1&quot; to &quot;\9&quot;, whereas Perl allows &quot;\10&quot;, &quot;\11&quot;, ...
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8166_2"-->
+            <blockquote class="code"><p class="quoted"><a id="c8166_2"></a>(vii) POSIX named character ranges are not supported. These are only abbreviations in any case, and are not very useful. (Note that the POSIX range &quot;[:punct:]&quot;, which is supposedly for punctuation, includes many things we do not want to think of that way - percentage signs, for instance - and so &quot;\p&quot; has a more natural-language-based definition.)
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8167_2"-->
+            <blockquote class="code"><p class="quoted"><a id="c8167_2"></a>(viii) Character classes can be used inside ranges, so that &quot;&lt;\da-f&gt;&quot; is legal, but not as ends of contiguous runs, so that &quot;&lt;\d-X&gt;&quot; is not legal. (As reckless as this is, it is legal in Perl.)
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8168_2"-->
+            <blockquote class="code"><p class="quoted"><a id="c8168_2"></a>(ix) For obvious reasons, escapes to Perl code using the notation &quot;(?{...})&quot; are unsupported, and so is the Perl iteration operator &quot;\G&quot;.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8169_2"-->
+            <blockquote class="code"><p class="quoted"><a id="c8169_2"></a>(x) Perl's extended mode &quot;(?x)&quot;, a lexical arrangement which allows expressions to be expanded out as little computer programs with comments, is unsupported. It would look awful syntax-coloured in the Inform interface and is not a style of coding to be encouraged.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <p>Inform further does not support the Python extension of named subexpression groups, nor the Java extension of the possessive quantifier &quot;++&quot;. There was only so much functionality we could squeeze in.</p>
+            <p>As verification of Inform's matching algorithm, we took the Perl 5 source code's notorious &quot;re-test.txt&quot; set of 961 test cases, removed the 316 using features unsupported by Inform (220 tested multiline mode, for instance), and ran the remaining 645 cases through Inform. It agrees with Perl on 643 of these: the two outstanding are -</p>
+            <!--START CODE "c8170_2"-->
+            <blockquote class="code"><p class="quoted"><a id="c8170_2"></a>(i) Perl is able to match &quot;^(a\1?){4}$&quot; against &quot;aaaaaa&quot; but Inform is not - Inform's backtracking is not as good when it comes to repetitions of groupings which are recursively defined. (Note that the optional &quot;\1&quot; match refers to the value of the bracketed expression which contains it, so that the interpretation is different on each repetition. Here to match we have to interpret &quot;?&quot; as 0, 0, 1, 0 repeats respectively as we work through the &quot;{4}&quot;.)
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8171_2"-->
+            <blockquote class="code"><p class="quoted"><a id="c8171_2"></a>(ii) Perl matches &quot;((&lt;a-c&gt;)b*?\2)*&quot; against &quot;ababbbcbc&quot; finding the match &quot;ababb&quot;, whereas Inform finds the match &quot;ababbbcbc&quot;. This is really a difference of opinion about whether the outer asterisk, which is greedy, should be allowed three matches rather than two if to do so requires the inner asterisk, which is not greedy, to eat more than it needs on one of those three matches.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <p>Case (i) is a sacrifice to enable Inform's back-tracking to use less memory. Case (ii) simply seems unimportant.</p>
+        </div>
+        <p></p>
+        <!--END EXAMPLE-->
+        <!--START EXAMPLE "415: Alpha" "e19"-->
+        <a id="e19"></a><table class="egcue">
+            <tr>
+                <td class="egcellforoval">
+                    <div class="egovalfornumber overstruckimage">
+                        <a href="#" class="eglink" onclick="showExample('example19'); return false;"><b>415</b></a></div>
+
+                </td>
+                <td class="egnamecell">
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example19'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Alpha</span></b></a><br>
+                    Creating a beta-testing command that matches any line starting with punctuation.</p>
+
+                </td>
+                <td class="egcrossref">
+                    <!--START IGNORE-->
+                    <div class="egovalforxref overstruckimage">
+                        <a href="Rdoc102.html#e19"><i>RB</i></a></div>
+                    <!--END IGNORE-->
+
+                </td>
+            </tr>
+        </table>
+
+        <div class="egpanel" id="example19" style="display: none;">
+            <p>Sometimes we want to let testers of a game insert their own comments during a transcript, without those comments wasting turns of the game or producing lengthy or inappropriate parser errors. Many testers have a habit of prefacing comments with a punctuation mark, so let's say that we'd like to catch any command that starts with any punctuation at all:</p>
+            <!--START CODE "c8172_19"-->
+            <blockquote class="code"><p class="quoted"><a id="c8172_19"></a><a href="javascript:pasteCode('[=0x0022=]Alpha[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]say [=0x0022=]Hi, Larry! Thanks for testing my game!![=0x0022=][=0x000A=][=0x000A=]Unimplemented Room is a room. [=0x0022=]Room description goes here...[=0x0022=][=0x000A=][=0x000A=]The scary troll is a man in Unimplemented Room.[=0x000A=][=0x000A=]After reading a command (this is the ignore beta-comments rule):[=0x000A=][=0x0009=]if the player[=0x0027=]s command matches the regular expression [=0x0022=]^[=0x005C=]p[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](Noted.)[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]Test me with [=0x0022=]x me / x troll / !this game is a bit dull so far / kiss troll / ? does this troll do anything? / :yawn[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Alpha[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]say [=0x0022=]Hi, Larry! Thanks for testing my game!![=0x0022=][=0x000A=][=0x000A=]Unimplemented Room is a room. [=0x0022=]Room description goes here...[=0x0022=][=0x000A=][=0x000A=]The scary troll is a man in Unimplemented Room.[=0x000A=][=0x000A=]After reading a command (this is the ignore beta-comments rule):[=0x000A=][=0x0009=]if the player[=0x0027=]s command matches the regular expression [=0x0022=]^[=0x005C=]p[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](Noted.)[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]Test me with [=0x0022=]x me / x troll / !this game is a bit dull so far / kiss troll / ? does this troll do anything? / :yawn[=0x0022=].[=0x000A=]\n', 'Example - Alpha')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Alpha&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8173_19"-->
+            <blockquote class="code"><p class="quoted"><a id="c8173_19"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Hi, Larry! Thanks for testing my game!!&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8138_8"-->
-            <blockquote class="code"><p class="quoted"><a id="c8138_8"></a>Unimplemented Room is a room. &quot;Room description goes here...&quot;
+            <!--START CODE "c8174_19"-->
+            <blockquote class="code"><p class="quoted"><a id="c8174_19"></a>Unimplemented Room is a room. &quot;Room description goes here...&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8139_8"-->
-            <blockquote class="code"><p class="quoted"><a id="c8139_8"></a>The scary troll is a man in Unimplemented Room.
+            <!--START CODE "c8175_19"-->
+            <blockquote class="code"><p class="quoted"><a id="c8175_19"></a>The scary troll is a man in Unimplemented Room.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8140_8"-->
-            <blockquote class="code"><p class="quoted"><a id="c8140_8"></a>After reading a command (this is the ignore beta-comments rule):
+            <!--START CODE "c8176_19"-->
+            <blockquote class="code"><p class="quoted"><a id="c8176_19"></a>After reading a command (this is the ignore beta-comments rule):
             <br>
             &#160;&#160;&#160;&#160;if the player's command matches the regular expression &quot;^\p&quot;:
             <br>
@@ -415,103 +566,11 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8141_8"-->
-            <blockquote class="code"><p class="quoted"><a id="c8141_8"></a>Test me with &quot;x me / x troll / !this game is a bit dull so far / kiss troll / ? does this troll do anything? / :yawn&quot;.
+            <!--START CODE "c8177_19"-->
+            <blockquote class="code"><p class="quoted"><a id="c8177_19"></a>Test me with &quot;x me / x troll / !this game is a bit dull so far / kiss troll / ? does this troll do anything? / :yawn&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-        </div>
-        <p></p>
-        <!--END EXAMPLE-->
-        <!--START EXAMPLE "414: About Inform's regular expression support" "e318"-->
-        <a id="e318"></a><table class="egcue">
-            <tr>
-                <td class="egcellforoval">
-                    <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example318'); return false;"><b>414</b></a></div>
-
-                </td>
-                <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example318'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">About Inform's regular expression support</span></b></a><br>
-                    Some footnotes on Inform's regular expressions, and how they compare to those of other programming languages.</p>
-
-                </td>
-                <td class="egcrossref">
-                    <!--START IGNORE-->
-                    <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc4.html#e318"><i>RB</i></a></div>
-                    <!--END IGNORE-->
-
-                </td>
-            </tr>
-        </table>
-
-        <div class="egpanel" id="example318" style="display: none;">
-            <p>There is not really any unanimity about what regular expression language is. The unix tools sed and grep extend on Kleene's original grammar. Henry Spencer's regex library extended on this again, and was a foundation for Perl, but Perl once again went further. Philip Hazel's PCRE, despite the name Perl Compatible Regular Expressions, makes further extensions still, and so on.</p>
-            <p>Inform's regular expressions are modelled on those of Perl, as the best de facto standard we have, but a few omissions have been inevitable. Inform's regex matcher must occupy source code less than one hundredth the size of PCRE, and it has very little memory. Inform aims to behave exactly like Perl except as follows:</p>
-            <!--START CODE "c8142_318"-->
-            <blockquote class="code"><p class="quoted"><a id="c8142_318"></a>(i) Inform allows angle brackets as synonymous with square brackets, for reasons explained above. This means literal angle brackets have to be escaped as &quot;\&lt;&quot; and &quot;\&gt;&quot; in Inform regular expressions, which is unnecessary in Perl.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8143_318"-->
-            <blockquote class="code"><p class="quoted"><a id="c8143_318"></a>(ii) Inform only has single-line mode, not multiline mode: this removes need for the mode-switches &quot;(?m)&quot; and &quot;(?s)&quot; and the positional markers &quot;\A&quot; and &quot;\Z&quot;. Multiline mode is idiosyncratic to Perl and is a messy compromise to do with holding long files of text as single strings, yet treating them as lists of lines at the same time: this would not be sensible for Inform. Similarly, because there is no ambiguity about how line breaks are represented in Inform strings (by a single &quot;\n&quot;), initial newline convention markers such as &quot;(*ANYCRLF)&quot; are unsupported.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8144_318"-->
-            <blockquote class="code"><p class="quoted"><a id="c8144_318"></a>(iii) The codes &quot;\a&quot;, &quot;\r&quot;, &quot;\f&quot;, &quot;\e&quot;, &quot;\0&quot; for alarm, carriage return, form feed, escape and the zero character are unsupported: none of these can occur in an Inform string.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8145_318"-->
-            <blockquote class="code"><p class="quoted"><a id="c8145_318"></a>(iv) Inform does not allow characters to be referred to by character code (whereas Perl allows &quot;\036&quot; for an octal character code, &quot;\x7e&quot; for a hexadecimal one, &quot;\cD&quot; for a control character). This is because we do not want the user to know whether text is internally stored as ZSCII or Unicode.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8146_318"-->
-            <blockquote class="code"><p class="quoted"><a id="c8146_318"></a>(v) Inform's character class &quot;\p&quot; (and its negation &quot;\P&quot;) have no equivalent in Perl, and Inform's understanding of &quot;\w&quot; is different. Perl defines this as an upper or lower case English letter, underscore or digit, which is good for programming-language identifiers, but bad for natural language - for instance, &quot;é&quot; is not matched by &quot;\w&quot; in Perl, but unquestionably it appears in words. Inform therefore defines &quot;\w&quot; as the negation of &quot;\s&quot; union &quot;\p&quot;.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8147_318"-->
-            <blockquote class="code"><p class="quoted"><a id="c8147_318"></a>(vi) Inform supports only single-digit grouping numbers &quot;\1&quot; to &quot;\9&quot;, whereas Perl allows &quot;\10&quot;, &quot;\11&quot;, ...
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8148_318"-->
-            <blockquote class="code"><p class="quoted"><a id="c8148_318"></a>(vii) POSIX named character ranges are not supported. These are only abbreviations in any case, and are not very useful. (Note that the POSIX range &quot;[:punct:]&quot;, which is supposedly for punctuation, includes many things we do not want to think of that way - percentage signs, for instance - and so &quot;\p&quot; has a more natural-language-based definition.)
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8149_318"-->
-            <blockquote class="code"><p class="quoted"><a id="c8149_318"></a>(viii) Character classes can be used inside ranges, so that &quot;&lt;\da-f&gt;&quot; is legal, but not as ends of contiguous runs, so that &quot;&lt;\d-X&gt;&quot; is not legal. (As reckless as this is, it is legal in Perl.)
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8150_318"-->
-            <blockquote class="code"><p class="quoted"><a id="c8150_318"></a>(ix) For obvious reasons, escapes to Perl code using the notation &quot;(?{...})&quot; are unsupported, and so is the Perl iteration operator &quot;\G&quot;.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8151_318"-->
-            <blockquote class="code"><p class="quoted"><a id="c8151_318"></a>(x) Perl's extended mode &quot;(?x)&quot;, a lexical arrangement which allows expressions to be expanded out as little computer programs with comments, is unsupported. It would look awful syntax-coloured in the Inform interface and is not a style of coding to be encouraged.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <p>Inform further does not support the Python extension of named subexpression groups, nor the Java extension of the possessive quantifier &quot;++&quot;. There was only so much functionality we could squeeze in.</p>
-            <p>As verification of Inform's matching algorithm, we took the Perl 5 source code's notorious &quot;re-test.txt&quot; set of 961 test cases, removed the 316 using features unsupported by Inform (220 tested multiline mode, for instance), and ran the remaining 645 cases through Inform. It agrees with Perl on 643 of these: the two outstanding are -</p>
-            <!--START CODE "c8152_318"-->
-            <blockquote class="code"><p class="quoted"><a id="c8152_318"></a>(i) Perl is able to match &quot;^(a\1?){4}$&quot; against &quot;aaaaaa&quot; but Inform is not - Inform's backtracking is not as good when it comes to repetitions of groupings which are recursively defined. (Note that the optional &quot;\1&quot; match refers to the value of the bracketed expression which contains it, so that the interpretation is different on each repetition. Here to match we have to interpret &quot;?&quot; as 0, 0, 1, 0 repeats respectively as we work through the &quot;{4}&quot;.)
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8153_318"-->
-            <blockquote class="code"><p class="quoted"><a id="c8153_318"></a>(ii) Perl matches &quot;((&lt;a-c&gt;)b*?\2)*&quot; against &quot;ababbbcbc&quot; finding the match &quot;ababb&quot;, whereas Inform finds the match &quot;ababbbcbc&quot;. This is really a difference of opinion about whether the outer asterisk, which is greedy, should be allowed three matches rather than two if to do so requires the inner asterisk, which is not greedy, to eat more than it needs on one of those three matches.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <p>Case (i) is a sacrifice to enable Inform's back-tracking to use less memory. Case (ii) simply seems unimportant.</p>
         </div>
         <p></p>
         <!--END EXAMPLE-->

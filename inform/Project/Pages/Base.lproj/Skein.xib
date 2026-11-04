@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="21507"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -12,7 +11,7 @@
                 <outlet property="skeinView" destination="7" id="40"/>
                 <outlet property="splitView" destination="QB6-Z3-Elx" id="bZG-lF-tt2"/>
                 <outlet property="view" destination="5" id="39"/>
-                <outlet property="webView" destination="XNG-3L-6kV" id="RDK-pH-a3d"/>
+                <outlet property="webViewParent" destination="s2E-Va-MJ8" id="wY6-r5-yxP"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -21,15 +20,15 @@
             <rect key="frame" x="0.0" y="0.0" width="431" height="587"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <splitView fixedFrame="YES" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="QB6-Z3-Elx" customClass="IFSkeinSplitView">
+                <splitView fixedFrame="YES" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="QB6-Z3-Elx" customClass="IFSkeinSplitView" customModule="Inform" customModuleProvider="target">
                     <rect key="frame" x="-3" y="0.0" width="436" height="587"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="6">
-                            <rect key="frame" x="0.0" y="0.0" width="436" height="399"/>
+                            <rect key="frame" x="0.0" y="0.0" width="436" height="486"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <clipView key="contentView" id="rC8-to-Olk">
-                                <rect key="frame" x="0.0" y="0.0" width="421" height="384"/>
+                                <rect key="frame" x="0.0" y="0.0" width="421" height="471"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <customView autoresizesSubviews="NO" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7" customClass="IFSkeinView">
@@ -39,21 +38,18 @@
                                 </subviews>
                             </clipView>
                             <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="75">
-                                <rect key="frame" x="0.0" y="384" width="421" height="15"/>
+                                <rect key="frame" x="0.0" y="471" width="421" height="15"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </scroller>
                             <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="76">
-                                <rect key="frame" x="421" y="0.0" width="15" height="384"/>
+                                <rect key="frame" x="421" y="0.0" width="15" height="471"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </scroller>
                         </scrollView>
-                        <webView fixedFrame="YES" maintainsBackForwardList="NO" id="XNG-3L-6kV">
-                            <rect key="frame" x="0.0" y="400" width="436" height="187"/>
+                        <customView fixedFrame="YES" id="s2E-Va-MJ8">
+                            <rect key="frame" x="0.0" y="487" width="436" height="100"/>
                             <autoresizingMask key="autoresizingMask"/>
-                            <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12" plugInsEnabled="NO" javaEnabled="NO" javaScriptCanOpenWindowsAutomatically="NO">
-                                <nil key="identifier"/>
-                            </webPreferences>
-                        </webView>
+                        </customView>
                     </subviews>
                     <holdingPriorities>
                         <real value="250"/>

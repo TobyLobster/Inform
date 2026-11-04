@@ -119,7 +119,7 @@ typedef NS_ENUM(unsigned int, ParseState) {
         NSMutableArray*         dfInfo   = [[NSMutableArray alloc] init];
 		
 		// Parse the HTML
-		NSInteger len = [html length];
+		NSInteger len = html.length;
 		unichar* chrs = malloc(sizeof(unichar)*(len+1));
 		unichar* result = malloc(sizeof(unichar)*(len+1));
 		[html getCharacters: chrs];
@@ -213,7 +213,7 @@ typedef NS_ENUM(unsigned int, ParseState) {
 						{
 							NSString* entity = [NSString stringWithCharacters: chrs + tagStart+1
 																	   length: x - (tagStart+1)];
-							entity = [entity lowercaseString];
+							entity = entity.lowercaseString;
 							NSString* entityValue = entities[entity];
 
 							// End of this entity
@@ -273,7 +273,7 @@ typedef NS_ENUM(unsigned int, ParseState) {
 							NSUInteger spaceLoc = [tag rangeOfString: @" "].location;
 							if (spaceLoc != NSNotFound) tag = [tag substringToIndex: spaceLoc];
 								
-							tag = [tag lowercaseString];
+							tag = tag.lowercaseString;
 							
 							// If this is an ignore tag, then increase/decrease the ignore count
 							if ([ignoreTags containsObject: tag]) {
@@ -374,16 +374,16 @@ typedef NS_ENUM(unsigned int, ParseState) {
 							
 							// Strip down this comment
 							comment = [comment substringFromIndex: 4];					// Removes <!--
-							comment = [comment substringToIndex: [comment length]-2];	// Removes --
+							comment = [comment substringToIndex: comment.length-2];	// Removes --
 							
 							// Look for interesting comments
 							if ([comment hasPrefix: @"START EXAMPLE \""]) {
-								int prefixLen = (int) [@"START EXAMPLE \"" length];
+								int prefixLen = (int) (@"START EXAMPLE \"").length;
                                 // Remember the name, anchor id and location of the Example
-								NSString* postfix = [comment substringWithRange: NSMakeRange(prefixLen, [comment length]-(prefixLen+1))];
+								NSString* postfix = [comment substringWithRange: NSMakeRange(prefixLen, comment.length-(prefixLen+1))];
                                 NSArray*  array   = [postfix componentsSeparatedByString:@"\" \""];
 
-                                if( [array count] == 2 ) {
+                                if( array.count == 2 ) {
                                     exampleName = array[0];
                                     exampleAnchorTag = array[1];
                                     exampleStartLocation = resultLength;
@@ -399,12 +399,12 @@ typedef NS_ENUM(unsigned int, ParseState) {
                                     exInfo[exampleName] = info;
                                 }
 							} else if ([comment hasPrefix: @"START CODE"]) {
-								int prefixLen = (int) [@"START CODE \"" length];
+								int prefixLen = (int) (@"START CODE \"").length;
                                 // Remember the anchor id
-								NSString* postfix = [comment substringWithRange: NSMakeRange(prefixLen, [comment length]-(prefixLen+1))];
+								NSString* postfix = [comment substringWithRange: NSMakeRange(prefixLen, comment.length-(prefixLen+1))];
                                 NSArray*  array   = [postfix componentsSeparatedByString:@"\" \""];
                                 
-                                if( [array count] == 1 ) {
+                                if( array.count == 1 ) {
                                     codeAnchorTag = array[0];
                                     codeStartLocation = resultLength;
                                 }
@@ -416,12 +416,12 @@ typedef NS_ENUM(unsigned int, ParseState) {
                                                                                    range: range];
                                 [cdInfo addObject: info];
 							} else if ([comment hasPrefix: @"START PHRASE"]) {
-								int prefixLen = (int) [@"START PHRASE \"" length];
+								int prefixLen = (int) (@"START PHRASE \"").length;
                                 // Remember the anchor id
-								NSString* postfix = [comment substringWithRange: NSMakeRange(prefixLen, [comment length]-(prefixLen+1))];
+								NSString* postfix = [comment substringWithRange: NSMakeRange(prefixLen, comment.length-(prefixLen+1))];
                                 NSArray*  array   = [postfix componentsSeparatedByString:@"\" \""];
                                 
-                                if( [array count] == 1 ) {
+                                if( array.count == 1 ) {
                                     definitionAnchorTag = array[0];
                                     definitionStartLocation = resultLength;
                                 }
@@ -437,18 +437,18 @@ typedef NS_ENUM(unsigned int, ParseState) {
 							} else if ([comment hasPrefix: @"END IGNORE"]) {
                                 ignoreSection = false;
 							} else if ([comment hasPrefix: @"SEARCH TITLE \""]) {
-								int prefixLen = (int) [@"SEARCH TITLE \"" length];
-								comment = [comment substringWithRange: NSMakeRange(prefixLen, [comment length]-(prefixLen+1))];
+								int prefixLen = (int) (@"SEARCH TITLE \"").length;
+								comment = [comment substringWithRange: NSMakeRange(prefixLen, comment.length-(prefixLen+1))];
 								
 								attr[IFDocAttributeTitle] = comment;
 							} else if ([comment hasPrefix: @"SEARCH SECTION \""]) {
-								int prefixLen = (int) [@"SEARCH SECTION \"" length];
-								comment = [comment substringWithRange: NSMakeRange(prefixLen, [comment length]-(prefixLen+1))];
+								int prefixLen = (int) (@"SEARCH SECTION \"").length;
+								comment = [comment substringWithRange: NSMakeRange(prefixLen, comment.length-(prefixLen+1))];
 								
 								attr[IFDocAttributeSection] = comment;
 							} else if ([comment hasPrefix: @"SEARCH SORT \""]) {
-								int prefixLen = (int) [@"SEARCH SORT \"" length];
-								comment = [comment substringWithRange: NSMakeRange(prefixLen, [comment length]-(prefixLen+2))];
+								int prefixLen = (int) (@"SEARCH SORT \"").length;
+								comment = [comment substringWithRange: NSMakeRange(prefixLen, comment.length-(prefixLen+2))];
 								
 								attr[IFDocAttributeSort] = comment;
 							}

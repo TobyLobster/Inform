@@ -151,13 +151,13 @@ static const CGFloat leftMargin = 3.0;
 			    isRight: (BOOL) right
                 isFirst: (BOOL) isFirst {
 	// Render the specified cell using the specified layout
-	NSRect bounds = [self bounds];
+	NSRect bounds = self.bounds;
 	
 	bounds.origin.x += leftMargin;
 	bounds.size.width -= leftMargin + tabMargin + rightMargin;
 	
 	// Set this cell to be owned by this view
-	if ([cell controlView] != self) {
+	if (cell.controlView != self) {
 		//[cell setControlView: self];
 		
 		// Note that this makes it hard to move a cell from the left to the right
@@ -219,7 +219,7 @@ static const CGFloat leftMargin = 3.0;
 	NSEnumerator* layoutEnum = [layoutList objectEnumerator];
 	NSCell* cell;
 	IFPageCellLayout* layout;
-	NSRect bounds = [self bounds];
+	NSRect bounds = self.bounds;
 
 	bounds.origin.x += leftMargin;
 	bounds.size.width -= leftMargin + tabMargin + rightMargin;
@@ -259,7 +259,7 @@ static const CGFloat leftMargin = 3.0;
 		[cellImage drawInRect: NSIntegralRect(cellFrame)
                      fromRect: cellSource
                     operation: NSCompositingOperationSourceOver
-                     fraction: ([cell isEnabled]?1.0:0.5) * (isActive?1.0:0.85)];
+                     fraction: (cell.enabled?1.0:0.5) * (isActive?1.0:0.85)];
         isFirst = NO;
 	}
 }
@@ -279,7 +279,7 @@ static const CGFloat leftMargin = 3.0;
 			  isOnRight: YES];
 
     // Draw single pixel horizontal line separating from main content
-    NSRect fullRect = [self bounds];
+    NSRect fullRect = self.bounds;
     [[[NSColor controlShadowColor] colorWithAlphaComponent: 0.5f] set];
     [NSBezierPath strokeLineFromPoint: NSMakePoint(3.0f, 0.5f)
                               toPoint: NSMakePoint(fullRect.size.width - 14.0f, 0.5f)];
@@ -314,10 +314,10 @@ static const CGFloat leftMargin = 3.0;
 		IFPageCellLayout* cellLayout = [[IFPageCellLayout alloc] init];
 		
 		cellLayout->position = position;
-		cellLayout->minWidth = [cell cellSize].width;
+		cellLayout->minWidth = cell.cellSize.width;
 		cellLayout->hidden = NO;
 		
-		if (position == 0 && [cell image]) {
+		if (position == 0 && cell.image) {
 			// Prevent images from looking a bit lopsided when right on the edge
 			cellLayout->position -= 2;
 			position -= 2;
@@ -352,14 +352,14 @@ static const CGFloat leftMargin = 3.0;
 	
 	// Third pass: remove cells from the right, then from the left when there is
 	// still not enough space
-	NSRect bounds = [self bounds];
+	NSRect bounds = self.bounds;
 	
 	bounds.origin.x += leftMargin;
 	bounds.size.width -= leftMargin + tabMargin + rightMargin;
 
     CGFloat maxLeftPos = 0;
-	if ([leftCells count] > 0) {
-		IFPageCellLayout* lastLeftLayout = [leftLayout lastObject];
+	if (leftCells.count > 0) {
+		IFPageCellLayout* lastLeftLayout = leftLayout.lastObject;
 		maxLeftPos = lastLeftLayout->position + lastLeftLayout->width;
 	}
 	maxLeftPos += NSMinX(bounds);
@@ -383,16 +383,16 @@ static const CGFloat leftMargin = 3.0;
 
 - (void) setBounds: (NSRect) bounds {
 	cellsNeedLayout = YES;
-	[super setBounds: bounds];
+	super.bounds = bounds;
 }
 
 - (void) setState: (int) state
 		  forCell: (IFPageBarCell*) cell {
 	// Set the cell state (the boring bit)
-	[cell setState: state];
+	cell.state = state;
 	
 	// Get the radio group, and do nothing if this isn't a radio cell
-	int group = [cell radioGroup];
+	int group = cell.radioGroup;
 	if (group < 0) {
 		return;
 	}
@@ -409,14 +409,14 @@ static const CGFloat leftMargin = 3.0;
 		if (otherCell == cell) continue;
 		
 		// Do nothing if this cell is already turned off
-		if ([otherCell state] == NSControlStateValueOff) continue;
+		if (otherCell.state == NSControlStateValueOff) continue;
 		
 		// Get the group for this cell
 		int otherGroup = -1;
-		if ([otherCell respondsToSelector: @selector(radioGroup)]) otherGroup = [(IFPageBarCell*)otherCell radioGroup];
+		if ([otherCell respondsToSelector: @selector(radioGroup)]) otherGroup = ((IFPageBarCell*)otherCell).radioGroup;
 		
 		// If it's the same as the cell we're updating, then turn this cell off
-		if (otherGroup == group) [otherCell setState: NSControlStateValueOff];
+		if (otherGroup == group) otherCell.state = NSControlStateValueOff;
 	}
 
 	for( NSCell* otherCell in rightCells ) {
@@ -424,14 +424,14 @@ static const CGFloat leftMargin = 3.0;
 		if (otherCell == cell) continue;
 		
 		// Do nothing if this cell is already turned off
-		if ([otherCell state] == NSControlStateValueOff) continue;
+		if (otherCell.state == NSControlStateValueOff) continue;
 		
 		// Get the group for this cell
 		int otherGroup = -1;
-		if ([otherCell respondsToSelector: @selector(radioGroup)]) otherGroup = [(IFPageBarCell*)otherCell radioGroup];
+		if ([otherCell respondsToSelector: @selector(radioGroup)]) otherGroup = ((IFPageBarCell*)otherCell).radioGroup;
 		
 		// If it's the same as the cell we're updating, then turn this cell off
-		if (otherGroup == group) [otherCell setState: NSControlStateValueOff];
+		if (otherGroup == group) otherCell.state = NSControlStateValueOff;
 	}
 }
 
@@ -445,7 +445,7 @@ static const CGFloat leftMargin = 3.0;
 	if (cellsNeedLayout) [self layoutCells];
 
 	// Work out the bounds for the cells
-	NSRect bounds = [self bounds];
+	NSRect bounds = self.bounds;
 	
 	bounds.origin.x += leftMargin;
 	bounds.size.width -= leftMargin + tabMargin + rightMargin;
@@ -511,7 +511,7 @@ static const CGFloat leftMargin = 3.0;
 					  isOnRight: (BOOL) isRight {
 	// Update the cell layout
 	if (cellsNeedLayout) [self layoutCells];
-	NSRect bounds = [self bounds];
+	NSRect bounds = self.bounds;
 	
 	bounds.origin.x += leftMargin;
 	bounds.size.width -= leftMargin + tabMargin + rightMargin;
@@ -559,9 +559,9 @@ static const CGFloat leftMargin = 3.0;
 	if (cellIndex == 0) {
 		// If on the left or right, then we also need to update the end caps
 		if (isRight) {
-			bounds.size.width = NSMaxX([self bounds])-bounds.origin.x;
+			bounds.size.width = NSMaxX(self.bounds)-bounds.origin.x;
 		} else {
-			NSRect viewBounds = [self bounds];
+			NSRect viewBounds = self.bounds;
 			bounds.size.width = NSMaxX(bounds)-NSMinX(viewBounds);
 			bounds.origin.x = NSMinX(viewBounds);
 		}
@@ -583,7 +583,7 @@ static const CGFloat leftMargin = 3.0;
 	 trackingCell = nil;
 	
 	// Find which cell was clicked on
-	int index = [self indexOfCellAtPoint: [self convertPoint: [event locationInWindow]
+	int index = [self indexOfCellAtPoint: [self convertPoint: event.locationInWindow
 													fromView: nil]];
 	BOOL isOnRight;
 	if (index > 0) {
@@ -611,7 +611,7 @@ static const CGFloat leftMargin = 3.0;
 	NSEvent* trackingEvent = event;
 	
 	while (!trackResult) {
-		if (![trackingCell isEnabled]) return;
+		if (!trackingCell.enabled) return;
 		
 		trackResult = [trackingCell trackMouse: trackingEvent
 										inRect: trackingCellFrame
@@ -625,12 +625,12 @@ static const CGFloat leftMargin = 3.0;
 													  untilDate: [NSDate distantFuture]
 														 inMode: NSEventTrackingRunLoopMode
 														dequeue: YES])) {
-				if ([trackingEvent type] == NSEventTypeLeftMouseUp) {
+				if (trackingEvent.type == NSEventTypeLeftMouseUp) {
 					// All finished
 					return;
-				} else if ([trackingEvent type] == NSEventTypeLeftMouseDragged) {
+				} else if (trackingEvent.type == NSEventTypeLeftMouseDragged) {
 					// Restart tracking if the mouse has re-entered the cell
-					NSPoint location = [self convertPoint: [trackingEvent locationInWindow]
+					NSPoint location = [self convertPoint: trackingEvent.locationInWindow
 												 fromView: nil];
 					if (NSPointInRect(location, trackingCellFrame)) {
 						break;
@@ -655,9 +655,9 @@ static const CGFloat leftMargin = 3.0;
 - (BOOL) performKeyEquiv: (NSString*) equiv
 				 onCells: (NSArray*) cells {
 	for( NSCell* cell in cells ) {
-		if ([[cell keyEquivalent] isEqualToString: equiv]) {
-			[self sendAction: [cell action]
-						  to: [cell target]];
+		if ([cell.keyEquivalent isEqualToString: equiv]) {
+			[self sendAction: cell.action
+						  to: cell.target];
 			return YES;
 		}
 	}
@@ -669,7 +669,7 @@ static const CGFloat leftMargin = 3.0;
 	if (!isActive) return NO;
 	
 	// Cmd + back and Cmd + forward perform goForward and goBackwards actions in the 'current' view
-	NSString* keyEquivString = [theEvent charactersIgnoringModifiers];
+	NSString* keyEquivString = theEvent.charactersIgnoringModifiers;
 	
 	if ([self performKeyEquiv: keyEquivString
 					  onCells: leftCells])

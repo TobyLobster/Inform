@@ -83,24 +83,24 @@
     <!--END IGNORE-->
     <p class="sectionheading">§12.4. Persuasion</p>
     <p>&quot;Asking ... to try ...&quot; actions run through their Before and Instead rules like any other actions, but then (if no rule has intervened) something different happens: Inform has to decide whether the person asked consents to try the action or not. By default, the answer is always no, and text like the following will be printed:</p>
-    <!--START CODE "c3117"-->
-    <blockquote class="code"><p class="quoted"><a id="c3117"></a>&gt; will, go west
+    <!--START CODE "c3116"-->
+    <blockquote class="code"><p class="quoted"><a id="c3116"></a>&gt; will, go west
     <br>
     Will has better things to do.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>However, we can intervene to make the answer &quot;yes&quot;, using a special kind of rule which produces a yes/no answer. The following examples show how we can give broad or narrow permission, as we choose:</p>
-    <!--START CODE "c3118"-->
-    <blockquote class="code"><p class="quoted"><a id="c3118"></a>Persuasion rule for asking people to try going: persuasion succeeds.
+    <!--START CODE "c3117"-->
+    <blockquote class="code"><p class="quoted"><a id="c3117"></a>Persuasion rule for asking people to try going: persuasion succeeds.
     <br>
     Persuasion rule for asking Will to try going west: persuasion succeeds.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Such a rule can either declare that &quot;persuasion succeeds&quot;, or that &quot;persuasion fails&quot;, or make no decision and leave it to another rule to say. If it decides that persuasion fails, it is also allowed to say something, describing why: in that event, the standard message (&quot;Will has better things to do.&quot;) is suppressed. For example,</p>
-    <!--START CODE "c3119"-->
-    <blockquote class="code"><p class="quoted"><a id="c3119"></a>Persuasion rule for asking Will to try going:
+    <!--START CODE "c3118"-->
+    <blockquote class="code"><p class="quoted"><a id="c3118"></a>Persuasion rule for asking Will to try going:
     <br>
     &#160;&#160;&#160;&#160;say &quot;Will looks put out, and mutters under his breath.&quot;;
     <br>
@@ -109,42 +109,42 @@
     </blockquote>
     <!--END CODE-->
     <p>The following rule, which is really only suitable for testing, makes everybody infinitely obliging:</p>
-    <!--START CODE "c3120"-->
-    <blockquote class="code"><p class="quoted"><a id="c3120"></a><a href="javascript:pasteCode('Persuasion rule for asking people to try doing something: persuasion succeeds.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> Persuasion rule for asking people to try doing something: persuasion succeeds.
+    <!--START CODE "c3119"-->
+    <blockquote class="code"><p class="quoted"><a id="c3119"></a><a href="javascript:pasteCode('Persuasion rule for asking people to try doing something: persuasion succeeds.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> Persuasion rule for asking people to try doing something: persuasion succeeds.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Supposing that Will does decide to cooperate, a new action is generated:</p>
-    <!--START CODE "c3121"-->
-    <blockquote class="code"><p class="quoted"><a id="c3121"></a>Will going west
+    <!--START CODE "c3120"-->
+    <blockquote class="code"><p class="quoted"><a id="c3120"></a>Will going west
     </p>
     </blockquote>
     <!--END CODE-->
     <p>and this is then subject to all of the usual action machinery. For instance, we could write a rule such as:</p>
-    <!--START CODE "c3122"-->
-    <blockquote class="code"><p class="quoted"><a id="c3122"></a>Instead of Will going west, say &quot;He runs out into the waves, but soon returns, rueful.&quot;
+    <!--START CODE "c3121"-->
+    <blockquote class="code"><p class="quoted"><a id="c3121"></a>Instead of Will going west, say &quot;He runs out into the waves, but soon returns, rueful.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>So in this case the new action (&quot;Will going west&quot;) failed: but the original action, &quot;asking Will to try going west&quot;, is still deemed to have succeeded - after all, Will <span class="italic">did</span> try. To put it more formally, &quot;asking X to try A&quot; succeeds if the persuasion rules succeed, and otherwise fails.</p>
     <p>Note also that &quot;Instead of...&quot; rules written for other people will be treated by Inform as failures, even if we write something like</p>
-    <!--START CODE "c3123"-->
-    <blockquote class="code"><p class="quoted"><a id="c3123"></a>Instead of Will pulling the cord:
+    <!--START CODE "c3122"-->
+    <blockquote class="code"><p class="quoted"><a id="c3122"></a>Instead of Will pulling the cord:
     <br>
     &#160;&#160;&#160;&#160;say &quot;The bell rings.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>and thus may produce unsatisfactory results such as</p>
-    <!--START CODE "c3124"-->
-    <blockquote class="code"><p class="quoted"><a id="c3124"></a>&gt;WILL, PULL CORD
+    <!--START CODE "c3123"-->
+    <blockquote class="code"><p class="quoted"><a id="c3123"></a>&gt;WILL, PULL CORD
     <br>
     The bell rings.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c3125"-->
-    <blockquote class="code"><p class="quoted"><a id="c3125"></a>Will is unable to do that.
+    <!--START CODE "c3124"-->
+    <blockquote class="code"><p class="quoted"><a id="c3124"></a>Will is unable to do that.
     </p>
     </blockquote>
     <!--END CODE-->
@@ -153,171 +153,59 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "186: The Hypnotist of Blois" "e195"-->
-        <a id="e195"></a><table class="egcue">
+        <!--START EXAMPLE "186: Police State" "e283"-->
+        <a id="e283"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example195'); return false;"><b>186</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example283'); return false;"><b>186</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example195'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">The Hypnotist of Blois</span></b></a><br>
-                    A hypnotist who can make people obedient and then set them free again.</p>
-
-                </td>
-                <td class="egcrossref">
-                    <!--START IGNORE-->
-                    <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc60.html#e195"><i>RB</i></a></div>
-                    <!--END IGNORE-->
-
-                </td>
-            </tr>
-        </table>
-
-        <div class="egpanel" id="example195" style="display: none;">
-            <!--START CODE "c3126_195"-->
-            <blockquote class="code"><p class="quoted"><a id="c3126_195"></a><a href="javascript:pasteCode('[=0x0022=]The Hypnotist of Blois[=0x0022=][=0x000A=][=0x000A=]A person is either hypnotized or alert. A person is usually alert.[=0x000A=][=0x000A=]Persuasion rule for asking a hypnotized person to try doing something:[=0x000A=][=0x0009=]persuasion succeeds.[=0x000A=][=0x000A=]Understand [=0x0022=]hypnotize [someone][=0x0022=] as hypnotizing.[=0x000A=][=0x000A=]Hypnotizing is an action applying to one thing.[=0x000A=][=0x000A=]Check hypnotizing:[=0x000A=][=0x0009=]if the noun is hypnotized, say [=0x0022=]Already done.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out hypnotizing:[=0x000A=][=0x0009=]now the noun is hypnotized.[=0x000A=][=0x000A=]Report hypnotizing:[=0x000A=][=0x0009=]say [=0x0022=][The noun] slips under your control.[=0x0022=][=0x000A=][=0x000A=]Instead of waking someone hypnotized:[=0x000A=][=0x0009=]now the noun is alert;[=0x000A=][=0x0009=]say [=0x0022=][The noun] returns abruptly to consciousness.[=0x0022=][=0x000A=][=0x000A=][We will learn more about check rules for other characters shortly, but the following prevents the hypnosis patient from trying to hypnotize us in turn:][=0x000A=][=0x000A=]Check someone hypnotizing someone:[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Maison de la Magie is a room. [=0x0022=]In a darkened room, a few hundreds of paces from the chateau of Blois, you give to tourists three shows a day: displaying to them power they do not comprehend and spectacles they do not deserve.[=0x0022=][=0x000A=][=0x000A=]A volunteer is a woman in the Maison. [=0x0022=]A volunteer from the audience stands facing you, [if alert]skeptically awaiting hypnosis[otherwise]her face worshipful and obedient[end if].[=0x0022=] The printed name of the volunteer is [=0x0022=]volunteer from the audience[=0x0022=]. The description is [=0x0022=]A distracted, susceptible woman.[=0x0022=] The volunteer wears a t-shirt and a baseball hat.[=0x000A=][=0x000A=]The player wears a top hat and a cape.[=0x000A=][=0x000A=]Test me with [=0x0022=]volunteer, remove hat / hypnotize volunteer / look / volunteer, remove hat / wake volunteer / volunteer, wear hat[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Hypnotist of Blois[=0x0022=][=0x000A=][=0x000A=]A person is either hypnotized or alert. A person is usually alert.[=0x000A=][=0x000A=]Persuasion rule for asking a hypnotized person to try doing something:[=0x000A=][=0x0009=]persuasion succeeds.[=0x000A=][=0x000A=]Understand [=0x0022=]hypnotize [someone][=0x0022=] as hypnotizing.[=0x000A=][=0x000A=]Hypnotizing is an action applying to one thing.[=0x000A=][=0x000A=]Check hypnotizing:[=0x000A=][=0x0009=]if the noun is hypnotized, say [=0x0022=]Already done.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out hypnotizing:[=0x000A=][=0x0009=]now the noun is hypnotized.[=0x000A=][=0x000A=]Report hypnotizing:[=0x000A=][=0x0009=]say [=0x0022=][The noun] slips under your control.[=0x0022=][=0x000A=][=0x000A=]Instead of waking someone hypnotized:[=0x000A=][=0x0009=]now the noun is alert;[=0x000A=][=0x0009=]say [=0x0022=][The noun] returns abruptly to consciousness.[=0x0022=][=0x000A=][=0x000A=][We will learn more about check rules for other characters shortly, but the following prevents the hypnosis patient from trying to hypnotize us in turn:][=0x000A=][=0x000A=]Check someone hypnotizing someone:[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Maison de la Magie is a room. [=0x0022=]In a darkened room, a few hundreds of paces from the chateau of Blois, you give to tourists three shows a day: displaying to them power they do not comprehend and spectacles they do not deserve.[=0x0022=][=0x000A=][=0x000A=]A volunteer is a woman in the Maison. [=0x0022=]A volunteer from the audience stands facing you, [if alert]skeptically awaiting hypnosis[otherwise]her face worshipful and obedient[end if].[=0x0022=] The printed name of the volunteer is [=0x0022=]volunteer from the audience[=0x0022=]. The description is [=0x0022=]A distracted, susceptible woman.[=0x0022=] The volunteer wears a t-shirt and a baseball hat.[=0x000A=][=0x000A=]The player wears a top hat and a cape.[=0x000A=][=0x000A=]Test me with [=0x0022=]volunteer, remove hat / hypnotize volunteer / look / volunteer, remove hat / wake volunteer / volunteer, wear hat[=0x0022=].[=0x000A=]\n', 'Example - The Hypnotist of Blois')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Hypnotist of Blois&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c3127_195"-->
-            <blockquote class="code"><p class="quoted"><a id="c3127_195"></a>A person is either hypnotized or alert. A person is usually alert.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c3128_195"-->
-            <blockquote class="code"><p class="quoted"><a id="c3128_195"></a>Persuasion rule for asking a hypnotized person to try doing something:
-            <br>
-            &#160;&#160;&#160;&#160;persuasion succeeds.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c3129_195"-->
-            <blockquote class="code"><p class="quoted"><a id="c3129_195"></a>Understand &quot;hypnotize [someone]&quot; as hypnotizing.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c3130_195"-->
-            <blockquote class="code"><p class="quoted"><a id="c3130_195"></a>Hypnotizing is an action applying to one thing.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c3131_195"-->
-            <blockquote class="code"><p class="quoted"><a id="c3131_195"></a>Check hypnotizing:
-            <br>
-            &#160;&#160;&#160;&#160;if the noun is hypnotized, say &quot;Already done.&quot; instead.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c3132_195"-->
-            <blockquote class="code"><p class="quoted"><a id="c3132_195"></a>Carry out hypnotizing:
-            <br>
-            &#160;&#160;&#160;&#160;now the noun is hypnotized.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c3133_195"-->
-            <blockquote class="code"><p class="quoted"><a id="c3133_195"></a>Report hypnotizing:
-            <br>
-            &#160;&#160;&#160;&#160;say &quot;[The noun] slips under your control.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c3134_195"-->
-            <blockquote class="code"><p class="quoted"><a id="c3134_195"></a>Instead of waking someone hypnotized:
-            <br>
-            &#160;&#160;&#160;&#160;now the noun is alert;
-            <br>
-            &#160;&#160;&#160;&#160;say &quot;[The noun] returns abruptly to consciousness.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <p>We will learn more about check rules for other characters shortly, but the following prevents the hypnosis patient from trying to hypnotize us in turn:</p>
-            <!--START CODE "c3135_195"-->
-            <blockquote class="code"><p class="quoted"><a id="c3135_195"></a>Check someone hypnotizing someone:
-            <br>
-            &#160;&#160;&#160;&#160;stop the action.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c3136_195"-->
-            <blockquote class="code"><p class="quoted"><a id="c3136_195"></a>Maison de la Magie is a room. &quot;In a darkened room, a few hundreds of paces from the chateau of Blois, you give to tourists three shows a day: displaying to them power they do not comprehend and spectacles they do not deserve.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c3137_195"-->
-            <blockquote class="code"><p class="quoted"><a id="c3137_195"></a>A volunteer is a woman in the Maison. &quot;A volunteer from the audience stands facing you, [if alert]skeptically awaiting hypnosis[otherwise]her face worshipful and obedient[end if].&quot; The printed name of the volunteer is &quot;volunteer from the audience&quot;. The description is &quot;A distracted, susceptible woman.&quot; The volunteer wears a t-shirt and a baseball hat.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c3138_195"-->
-            <blockquote class="code"><p class="quoted"><a id="c3138_195"></a>The player wears a top hat and a cape.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c3139_195"-->
-            <blockquote class="code"><p class="quoted"><a id="c3139_195"></a>Test me with &quot;volunteer, remove hat / hypnotize volunteer / look / volunteer, remove hat / wake volunteer / volunteer, wear hat&quot;.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-        </div>
-        <p></p>
-        <!--END EXAMPLE-->
-        <!--START EXAMPLE "187: Police State" "e295"-->
-        <a id="e295"></a><table class="egcue">
-            <tr>
-                <td class="egcellforoval">
-                    <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example295'); return false;"><b>187</b></a></div>
-
-                </td>
-                <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example295'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Police State</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example283'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Police State</span></b></a><br>
                     Several friends who obey you; a policeman who doesn't (but who takes a dim view of certain kinds of antics).</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc49.html#e295"><i>RB</i></a></div>
+                        <a href="Rdoc49.html#e283"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example295" style="display: none;">
-            <!--START CODE "c3140_295"-->
-            <blockquote class="code"><p class="quoted"><a id="c3140_295"></a><a href="javascript:pasteCode('[=0x0022=]Police State[=0x0022=][=0x000A=][=0x000A=]Seventh Avenue is a room. [=0x0022=]The bars are all closed now, and there aren[=0x0027=]t any good clubs to go to, so you[=0x0027=]re on your own for open-air entertainment.[=0x0022=][=0x000A=][=0x000A=]Persuasion rule for asking the policeman to try doing something: persuasion fails.[=0x000A=][=0x000A=]Persuasion rule for asking someone to try doing something: persuasion succeeds.[=0x000A=][=0x000A=][Note that the policeman will never get to the second persuasion rule, so he will always refuse to do the player[=0x0027=]s nefarious bidding.][=0x000A=][=0x000A=]Charles, Thomas, and Larry are men in Seventh Avenue. Patricia is a woman in Seventh Avenue.[=0x000A=][=0x000A=][And here[=0x0027=]s an unnecessary aesthetic touch from a later chapter, which will round up the descriptions of your friends into a single paragraph:][=0x000A=][=0x000A=]Rule for writing a paragraph about someone who is not the policeman:[=0x000A=][=0x0009=]let X be the number of visible people who are not the policeman;[=0x000A=][=0x0009=]say [=0x0022=]It[=0x0027=]s just [X in words] of you now: [a list of visible people who are not the policeman]. But it sure has been a rip-roaring evening.[=0x0022=][=0x000A=][=0x000A=]The policeman is a man in Seventh Avenue. [=0x0022=]A policeman with a very guarded expression is watching you.[=0x0022=][=0x000A=][=0x000A=]Singing is an action applying to nothing. Understand [=0x0022=]sing[=0x0022=] as singing.[=0x000A=][=0x000A=]Report singing:[=0x000A=][=0x0009=]say [=0x0022=]A little the worse for wear, you sing.[=0x0022=][=0x000A=][=0x000A=]Smelling a person is disorderly conduct. Tasting a person is disorderly conduct. Jumping is disorderly conduct. Singing is disorderly conduct.[=0x000A=][=0x000A=]Instead of someone trying disorderly conduct in the presence of the policeman:[=0x000A=][=0x0009=]say [=0x0022=]The policeman arrests [the person asked]![=0x0022=];[=0x000A=][=0x0009=]now the person asked is nowhere;[=0x000A=][=0x0009=]the rule succeeds.[=0x000A=][=0x000A=]Instead of disorderly conduct in the presence of the policeman:[=0x000A=][=0x0009=]end the story saying [=0x0022=]The policeman arrests you![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]charles, look / charles, jump / look / policeman, sing / thomas, taste policeman / patricia, sing / look / jump[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Police State[=0x0022=][=0x000A=][=0x000A=]Seventh Avenue is a room. [=0x0022=]The bars are all closed now, and there aren[=0x0027=]t any good clubs to go to, so you[=0x0027=]re on your own for open-air entertainment.[=0x0022=][=0x000A=][=0x000A=]Persuasion rule for asking the policeman to try doing something: persuasion fails.[=0x000A=][=0x000A=]Persuasion rule for asking someone to try doing something: persuasion succeeds.[=0x000A=][=0x000A=][Note that the policeman will never get to the second persuasion rule, so he will always refuse to do the player[=0x0027=]s nefarious bidding.][=0x000A=][=0x000A=]Charles, Thomas, and Larry are men in Seventh Avenue. Patricia is a woman in Seventh Avenue.[=0x000A=][=0x000A=][And here[=0x0027=]s an unnecessary aesthetic touch from a later chapter, which will round up the descriptions of your friends into a single paragraph:][=0x000A=][=0x000A=]Rule for writing a paragraph about someone who is not the policeman:[=0x000A=][=0x0009=]let X be the number of visible people who are not the policeman;[=0x000A=][=0x0009=]say [=0x0022=]It[=0x0027=]s just [X in words] of you now: [a list of visible people who are not the policeman]. But it sure has been a rip-roaring evening.[=0x0022=][=0x000A=][=0x000A=]The policeman is a man in Seventh Avenue. [=0x0022=]A policeman with a very guarded expression is watching you.[=0x0022=][=0x000A=][=0x000A=]Singing is an action applying to nothing. Understand [=0x0022=]sing[=0x0022=] as singing.[=0x000A=][=0x000A=]Report singing:[=0x000A=][=0x0009=]say [=0x0022=]A little the worse for wear, you sing.[=0x0022=][=0x000A=][=0x000A=]Smelling a person is disorderly conduct. Tasting a person is disorderly conduct. Jumping is disorderly conduct. Singing is disorderly conduct.[=0x000A=][=0x000A=]Instead of someone trying disorderly conduct in the presence of the policeman:[=0x000A=][=0x0009=]say [=0x0022=]The policeman arrests [the person asked]![=0x0022=];[=0x000A=][=0x0009=]now the person asked is nowhere;[=0x000A=][=0x0009=]the rule succeeds.[=0x000A=][=0x000A=]Instead of disorderly conduct in the presence of the policeman:[=0x000A=][=0x0009=]end the story saying [=0x0022=]The policeman arrests you![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]charles, look / charles, jump / look / policeman, sing / thomas, taste policeman / patricia, sing / look / jump[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Police State')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Police State&quot;
+        <div class="egpanel" id="example283" style="display: none;">
+            <!--START CODE "c3125_283"-->
+            <blockquote class="code"><p class="quoted"><a id="c3125_283"></a><a href="javascript:pasteCode('[=0x0022=]Police State[=0x0022=][=0x000A=][=0x000A=]Seventh Avenue is a room. [=0x0022=]The bars are all closed now, and there aren[=0x0027=]t any good clubs to go to, so you[=0x0027=]re on your own for open-air entertainment.[=0x0022=][=0x000A=][=0x000A=]Persuasion rule for asking the policeman to try doing something: persuasion fails.[=0x000A=][=0x000A=]Persuasion rule for asking someone to try doing something: persuasion succeeds.[=0x000A=][=0x000A=][Note that the policeman will never get to the second persuasion rule, so he will always refuse to do the player[=0x0027=]s nefarious bidding.][=0x000A=][=0x000A=]Charles, Thomas, and Larry are men in Seventh Avenue. Patricia is a woman in Seventh Avenue.[=0x000A=][=0x000A=][And here[=0x0027=]s an unnecessary aesthetic touch from a later chapter, which will round up the descriptions of your friends into a single paragraph:][=0x000A=][=0x000A=]Rule for writing a paragraph about someone who is not the policeman:[=0x000A=][=0x0009=]let X be the number of visible people who are not the policeman;[=0x000A=][=0x0009=]say [=0x0022=]It[=0x0027=]s just [X in words] of you now: [a list of visible people who are not the policeman]. But it sure has been a rip-roaring evening.[=0x0022=][=0x000A=][=0x000A=]The policeman is a man in Seventh Avenue. [=0x0022=]A policeman with a very guarded expression is watching you.[=0x0022=][=0x000A=][=0x000A=]Singing is an action applying to nothing. Understand [=0x0022=]sing[=0x0022=] as singing.[=0x000A=][=0x000A=]Report singing:[=0x000A=][=0x0009=]say [=0x0022=]A little the worse for wear, you sing.[=0x0022=][=0x000A=][=0x000A=]Smelling a person is disorderly conduct. Tasting a person is disorderly conduct. Jumping is disorderly conduct. Singing is disorderly conduct.[=0x000A=][=0x000A=]Instead of someone trying disorderly conduct in the presence of the policeman:[=0x000A=][=0x0009=]say [=0x0022=]The policeman arrests [the person asked]![=0x0022=];[=0x000A=][=0x0009=]now the person asked is nowhere;[=0x000A=][=0x0009=]the rule succeeds.[=0x000A=][=0x000A=]Instead of disorderly conduct in the presence of the policeman:[=0x000A=][=0x0009=]end the story saying [=0x0022=]The policeman arrests you![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]charles, look / charles, jump / look / policeman, sing / thomas, taste policeman / patricia, sing / look / jump[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Police State[=0x0022=][=0x000A=][=0x000A=]Seventh Avenue is a room. [=0x0022=]The bars are all closed now, and there aren[=0x0027=]t any good clubs to go to, so you[=0x0027=]re on your own for open-air entertainment.[=0x0022=][=0x000A=][=0x000A=]Persuasion rule for asking the policeman to try doing something: persuasion fails.[=0x000A=][=0x000A=]Persuasion rule for asking someone to try doing something: persuasion succeeds.[=0x000A=][=0x000A=][Note that the policeman will never get to the second persuasion rule, so he will always refuse to do the player[=0x0027=]s nefarious bidding.][=0x000A=][=0x000A=]Charles, Thomas, and Larry are men in Seventh Avenue. Patricia is a woman in Seventh Avenue.[=0x000A=][=0x000A=][And here[=0x0027=]s an unnecessary aesthetic touch from a later chapter, which will round up the descriptions of your friends into a single paragraph:][=0x000A=][=0x000A=]Rule for writing a paragraph about someone who is not the policeman:[=0x000A=][=0x0009=]let X be the number of visible people who are not the policeman;[=0x000A=][=0x0009=]say [=0x0022=]It[=0x0027=]s just [X in words] of you now: [a list of visible people who are not the policeman]. But it sure has been a rip-roaring evening.[=0x0022=][=0x000A=][=0x000A=]The policeman is a man in Seventh Avenue. [=0x0022=]A policeman with a very guarded expression is watching you.[=0x0022=][=0x000A=][=0x000A=]Singing is an action applying to nothing. Understand [=0x0022=]sing[=0x0022=] as singing.[=0x000A=][=0x000A=]Report singing:[=0x000A=][=0x0009=]say [=0x0022=]A little the worse for wear, you sing.[=0x0022=][=0x000A=][=0x000A=]Smelling a person is disorderly conduct. Tasting a person is disorderly conduct. Jumping is disorderly conduct. Singing is disorderly conduct.[=0x000A=][=0x000A=]Instead of someone trying disorderly conduct in the presence of the policeman:[=0x000A=][=0x0009=]say [=0x0022=]The policeman arrests [the person asked]![=0x0022=];[=0x000A=][=0x0009=]now the person asked is nowhere;[=0x000A=][=0x0009=]the rule succeeds.[=0x000A=][=0x000A=]Instead of disorderly conduct in the presence of the policeman:[=0x000A=][=0x0009=]end the story saying [=0x0022=]The policeman arrests you![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]charles, look / charles, jump / look / policeman, sing / thomas, taste policeman / patricia, sing / look / jump[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Police State')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Police State&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3141_295"-->
-            <blockquote class="code"><p class="quoted"><a id="c3141_295"></a>Seventh Avenue is a room. &quot;The bars are all closed now, and there aren't any good clubs to go to, so you're on your own for open-air entertainment.&quot;
+            <!--START CODE "c3126_283"-->
+            <blockquote class="code"><p class="quoted"><a id="c3126_283"></a>Seventh Avenue is a room. &quot;The bars are all closed now, and there aren't any good clubs to go to, so you're on your own for open-air entertainment.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3142_295"-->
-            <blockquote class="code"><p class="quoted"><a id="c3142_295"></a>Persuasion rule for asking the policeman to try doing something: persuasion fails.
+            <!--START CODE "c3127_283"-->
+            <blockquote class="code"><p class="quoted"><a id="c3127_283"></a>Persuasion rule for asking the policeman to try doing something: persuasion fails.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3143_295"-->
-            <blockquote class="code"><p class="quoted"><a id="c3143_295"></a>Persuasion rule for asking someone to try doing something: persuasion succeeds.
+            <!--START CODE "c3128_283"-->
+            <blockquote class="code"><p class="quoted"><a id="c3128_283"></a>Persuasion rule for asking someone to try doing something: persuasion succeeds.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Note that the policeman will never get to the second persuasion rule, so he will always refuse to do the player's nefarious bidding.</p>
-            <!--START CODE "c3144_295"-->
-            <blockquote class="code"><p class="quoted"><a id="c3144_295"></a>Charles, Thomas, and Larry are men in Seventh Avenue. Patricia is a woman in Seventh Avenue.
+            <!--START CODE "c3129_283"-->
+            <blockquote class="code"><p class="quoted"><a id="c3129_283"></a>Charles, Thomas, and Larry are men in Seventh Avenue. Patricia is a woman in Seventh Avenue.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>And here's an unnecessary aesthetic touch from a later chapter, which will round up the descriptions of your friends into a single paragraph:</p>
-            <!--START CODE "c3145_295"-->
-            <blockquote class="code"><p class="quoted"><a id="c3145_295"></a>Rule for writing a paragraph about someone who is not the policeman:
+            <!--START CODE "c3130_283"-->
+            <blockquote class="code"><p class="quoted"><a id="c3130_283"></a>Rule for writing a paragraph about someone who is not the policeman:
             <br>
             &#160;&#160;&#160;&#160;let X be the number of visible people who are not the policeman;
             <br>
@@ -325,30 +213,30 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3146_295"-->
-            <blockquote class="code"><p class="quoted"><a id="c3146_295"></a>The policeman is a man in Seventh Avenue. &quot;A policeman with a very guarded expression is watching you.&quot;
+            <!--START CODE "c3131_283"-->
+            <blockquote class="code"><p class="quoted"><a id="c3131_283"></a>The policeman is a man in Seventh Avenue. &quot;A policeman with a very guarded expression is watching you.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3147_295"-->
-            <blockquote class="code"><p class="quoted"><a id="c3147_295"></a>Singing is an action applying to nothing. Understand &quot;sing&quot; as singing.
+            <!--START CODE "c3132_283"-->
+            <blockquote class="code"><p class="quoted"><a id="c3132_283"></a>Singing is an action applying to nothing. Understand &quot;sing&quot; as singing.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3148_295"-->
-            <blockquote class="code"><p class="quoted"><a id="c3148_295"></a>Report singing:
+            <!--START CODE "c3133_283"-->
+            <blockquote class="code"><p class="quoted"><a id="c3133_283"></a>Report singing:
             <br>
             &#160;&#160;&#160;&#160;say &quot;A little the worse for wear, you sing.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3149_295"-->
-            <blockquote class="code"><p class="quoted"><a id="c3149_295"></a>Smelling a person is disorderly conduct. Tasting a person is disorderly conduct. Jumping is disorderly conduct. Singing is disorderly conduct.
+            <!--START CODE "c3134_283"-->
+            <blockquote class="code"><p class="quoted"><a id="c3134_283"></a>Smelling a person is disorderly conduct. Tasting a person is disorderly conduct. Jumping is disorderly conduct. Singing is disorderly conduct.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3150_295"-->
-            <blockquote class="code"><p class="quoted"><a id="c3150_295"></a>Instead of someone trying disorderly conduct in the presence of the policeman:
+            <!--START CODE "c3135_283"-->
+            <blockquote class="code"><p class="quoted"><a id="c3135_283"></a>Instead of someone trying disorderly conduct in the presence of the policeman:
             <br>
             &#160;&#160;&#160;&#160;say &quot;The policeman arrests [the person asked]!&quot;;
             <br>
@@ -358,19 +246,131 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3151_295"-->
-            <blockquote class="code"><p class="quoted"><a id="c3151_295"></a>Instead of disorderly conduct in the presence of the policeman:
+            <!--START CODE "c3136_283"-->
+            <blockquote class="code"><p class="quoted"><a id="c3136_283"></a>Instead of disorderly conduct in the presence of the policeman:
             <br>
             &#160;&#160;&#160;&#160;end the story saying &quot;The policeman arrests you!&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3152_295"-->
-            <blockquote class="code"><p class="quoted"><a id="c3152_295"></a>Test me with &quot;charles, look / charles, jump / look / policeman, sing / thomas, taste policeman / patricia, sing / look / jump&quot;.
+            <!--START CODE "c3137_283"-->
+            <blockquote class="code"><p class="quoted"><a id="c3137_283"></a>Test me with &quot;charles, look / charles, jump / look / policeman, sing / thomas, taste policeman / patricia, sing / look / jump&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Notice the difference between the two rules about disorderly conduct: the one for other people says 'the rule succeeds' to make sure that the action is counted as a success and not (as normally happens with instead rules) a failure. Most of the time we don't care whether actions are judged successes or failures, but it matters here, because if we type CHARLES, JUMP and the result fails, then text such as 'Charles is unable to.' will be printed - which would get in the way. So we declare the action a success.</p>
+        </div>
+        <p></p>
+        <!--END EXAMPLE-->
+        <!--START EXAMPLE "187: The Hypnotist of Blois" "e373"-->
+        <a id="e373"></a><table class="egcue">
+            <tr>
+                <td class="egcellforoval">
+                    <div class="egovalfornumber overstruckimage">
+                        <a href="#" class="eglink" onclick="showExample('example373'); return false;"><b>187</b></a></div>
+
+                </td>
+                <td class="egnamecell">
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example373'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">The Hypnotist of Blois</span></b></a><br>
+                    A hypnotist who can make people obedient and then set them free again.</p>
+
+                </td>
+                <td class="egcrossref">
+                    <!--START IGNORE-->
+                    <div class="egovalforxref overstruckimage">
+                        <a href="Rdoc60.html#e373"><i>RB</i></a></div>
+                    <!--END IGNORE-->
+
+                </td>
+            </tr>
+        </table>
+
+        <div class="egpanel" id="example373" style="display: none;">
+            <!--START CODE "c3138_373"-->
+            <blockquote class="code"><p class="quoted"><a id="c3138_373"></a><a href="javascript:pasteCode('[=0x0022=]The Hypnotist of Blois[=0x0022=][=0x000A=][=0x000A=]A person is either hypnotized or alert. A person is usually alert.[=0x000A=][=0x000A=]Persuasion rule for asking a hypnotized person to try doing something:[=0x000A=][=0x0009=]persuasion succeeds.[=0x000A=][=0x000A=]Understand [=0x0022=]hypnotize [someone][=0x0022=] as hypnotizing.[=0x000A=][=0x000A=]Hypnotizing is an action applying to one thing.[=0x000A=][=0x000A=]Check hypnotizing:[=0x000A=][=0x0009=]if the noun is hypnotized, say [=0x0022=]Already done.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out hypnotizing:[=0x000A=][=0x0009=]now the noun is hypnotized.[=0x000A=][=0x000A=]Report hypnotizing:[=0x000A=][=0x0009=]say [=0x0022=][The noun] slips under your control.[=0x0022=][=0x000A=][=0x000A=]Instead of waking someone hypnotized:[=0x000A=][=0x0009=]now the noun is alert;[=0x000A=][=0x0009=]say [=0x0022=][The noun] returns abruptly to consciousness.[=0x0022=][=0x000A=][=0x000A=][We will learn more about check rules for other characters shortly, but the following prevents the hypnosis patient from trying to hypnotize us in turn:][=0x000A=][=0x000A=]Check someone hypnotizing someone:[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Maison de la Magie is a room. [=0x0022=]In a darkened room, a few hundreds of paces from the chateau of Blois, you give to tourists three shows a day: displaying to them power they do not comprehend and spectacles they do not deserve.[=0x0022=][=0x000A=][=0x000A=]A volunteer is a woman in the Maison. [=0x0022=]A volunteer from the audience stands facing you, [if alert]skeptically awaiting hypnosis[otherwise]her face worshipful and obedient[end if].[=0x0022=] The printed name of the volunteer is [=0x0022=]volunteer from the audience[=0x0022=]. The description is [=0x0022=]A distracted, susceptible woman.[=0x0022=] The volunteer wears a t-shirt and a baseball hat.[=0x000A=][=0x000A=]The player wears a top hat and a cape.[=0x000A=][=0x000A=]Test me with [=0x0022=]volunteer, remove hat / hypnotize volunteer / look / volunteer, remove hat / wake volunteer / volunteer, wear hat[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Hypnotist of Blois[=0x0022=][=0x000A=][=0x000A=]A person is either hypnotized or alert. A person is usually alert.[=0x000A=][=0x000A=]Persuasion rule for asking a hypnotized person to try doing something:[=0x000A=][=0x0009=]persuasion succeeds.[=0x000A=][=0x000A=]Understand [=0x0022=]hypnotize [someone][=0x0022=] as hypnotizing.[=0x000A=][=0x000A=]Hypnotizing is an action applying to one thing.[=0x000A=][=0x000A=]Check hypnotizing:[=0x000A=][=0x0009=]if the noun is hypnotized, say [=0x0022=]Already done.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out hypnotizing:[=0x000A=][=0x0009=]now the noun is hypnotized.[=0x000A=][=0x000A=]Report hypnotizing:[=0x000A=][=0x0009=]say [=0x0022=][The noun] slips under your control.[=0x0022=][=0x000A=][=0x000A=]Instead of waking someone hypnotized:[=0x000A=][=0x0009=]now the noun is alert;[=0x000A=][=0x0009=]say [=0x0022=][The noun] returns abruptly to consciousness.[=0x0022=][=0x000A=][=0x000A=][We will learn more about check rules for other characters shortly, but the following prevents the hypnosis patient from trying to hypnotize us in turn:][=0x000A=][=0x000A=]Check someone hypnotizing someone:[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Maison de la Magie is a room. [=0x0022=]In a darkened room, a few hundreds of paces from the chateau of Blois, you give to tourists three shows a day: displaying to them power they do not comprehend and spectacles they do not deserve.[=0x0022=][=0x000A=][=0x000A=]A volunteer is a woman in the Maison. [=0x0022=]A volunteer from the audience stands facing you, [if alert]skeptically awaiting hypnosis[otherwise]her face worshipful and obedient[end if].[=0x0022=] The printed name of the volunteer is [=0x0022=]volunteer from the audience[=0x0022=]. The description is [=0x0022=]A distracted, susceptible woman.[=0x0022=] The volunteer wears a t-shirt and a baseball hat.[=0x000A=][=0x000A=]The player wears a top hat and a cape.[=0x000A=][=0x000A=]Test me with [=0x0022=]volunteer, remove hat / hypnotize volunteer / look / volunteer, remove hat / wake volunteer / volunteer, wear hat[=0x0022=].[=0x000A=]\n', 'Example - The Hypnotist of Blois')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Hypnotist of Blois&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c3139_373"-->
+            <blockquote class="code"><p class="quoted"><a id="c3139_373"></a>A person is either hypnotized or alert. A person is usually alert.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c3140_373"-->
+            <blockquote class="code"><p class="quoted"><a id="c3140_373"></a>Persuasion rule for asking a hypnotized person to try doing something:
+            <br>
+            &#160;&#160;&#160;&#160;persuasion succeeds.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c3141_373"-->
+            <blockquote class="code"><p class="quoted"><a id="c3141_373"></a>Understand &quot;hypnotize [someone]&quot; as hypnotizing.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c3142_373"-->
+            <blockquote class="code"><p class="quoted"><a id="c3142_373"></a>Hypnotizing is an action applying to one thing.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c3143_373"-->
+            <blockquote class="code"><p class="quoted"><a id="c3143_373"></a>Check hypnotizing:
+            <br>
+            &#160;&#160;&#160;&#160;if the noun is hypnotized, say &quot;Already done.&quot; instead.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c3144_373"-->
+            <blockquote class="code"><p class="quoted"><a id="c3144_373"></a>Carry out hypnotizing:
+            <br>
+            &#160;&#160;&#160;&#160;now the noun is hypnotized.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c3145_373"-->
+            <blockquote class="code"><p class="quoted"><a id="c3145_373"></a>Report hypnotizing:
+            <br>
+            &#160;&#160;&#160;&#160;say &quot;[The noun] slips under your control.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c3146_373"-->
+            <blockquote class="code"><p class="quoted"><a id="c3146_373"></a>Instead of waking someone hypnotized:
+            <br>
+            &#160;&#160;&#160;&#160;now the noun is alert;
+            <br>
+            &#160;&#160;&#160;&#160;say &quot;[The noun] returns abruptly to consciousness.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <p>We will learn more about check rules for other characters shortly, but the following prevents the hypnosis patient from trying to hypnotize us in turn:</p>
+            <!--START CODE "c3147_373"-->
+            <blockquote class="code"><p class="quoted"><a id="c3147_373"></a>Check someone hypnotizing someone:
+            <br>
+            &#160;&#160;&#160;&#160;stop the action.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c3148_373"-->
+            <blockquote class="code"><p class="quoted"><a id="c3148_373"></a>Maison de la Magie is a room. &quot;In a darkened room, a few hundreds of paces from the chateau of Blois, you give to tourists three shows a day: displaying to them power they do not comprehend and spectacles they do not deserve.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c3149_373"-->
+            <blockquote class="code"><p class="quoted"><a id="c3149_373"></a>A volunteer is a woman in the Maison. &quot;A volunteer from the audience stands facing you, [if alert]skeptically awaiting hypnosis[otherwise]her face worshipful and obedient[end if].&quot; The printed name of the volunteer is &quot;volunteer from the audience&quot;. The description is &quot;A distracted, susceptible woman.&quot; The volunteer wears a t-shirt and a baseball hat.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c3150_373"-->
+            <blockquote class="code"><p class="quoted"><a id="c3150_373"></a>The player wears a top hat and a cape.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c3151_373"-->
+            <blockquote class="code"><p class="quoted"><a id="c3151_373"></a>Test me with &quot;volunteer, remove hat / hypnotize volunteer / look / volunteer, remove hat / wake volunteer / volunteer, wear hat&quot;.
+            </p>
+            </blockquote>
+            <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->

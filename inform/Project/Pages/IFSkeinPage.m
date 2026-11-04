@@ -15,7 +15,7 @@
 #import "IFUtility.h"
 #import "IFPageBarCell.h"
 #import "IFProjectController.h"
-#import "IFProjectPolicy.h"
+#import "IFWebViewHelper.h"
 
 static const CGFloat webViewHeight = 250.0f;
 
@@ -25,7 +25,9 @@ static const CGFloat webViewHeight = 250.0f;
     /// The skein view
     IBOutlet IFSkeinView*   skeinView;
     
-    IBOutlet WebView*       webView;
+    IBOutlet NSView*        webViewParent;
+    WKWebView*              webView;
+    IFWebViewHelper*        helper;
 
     NSUInteger cachedHash;
 
@@ -44,30 +46,36 @@ static const CGFloat webViewHeight = 250.0f;
 
 #pragma mark - Initialisation
 
-- (instancetype) initWithProjectController: (IFProjectController*) controller {
+- (instancetype) initWithProjectController: (IFProjectController*) controller
+                                  withPane: (IFProjectPane*) pane {
 	self = [super initWithNibName: @"Skein"
 				projectController: controller];
 
 	if (self) {
-		IFProject* doc = [self.parent document];
+		IFProject* doc = (self.parent).document;
 
         settingDividerProgrammatically = NO;
 
         // Split view
-        [splitView setDelegate: self];
+        splitView.delegate = self;
 
 		// Skein view
-		[skeinView setSkein: [doc currentSkein]];
-		[skeinView setDelegate: self.parent];
+		skeinView.skein = doc.currentSkein;
+		skeinView.delegate = self.parent;
 
         // Web view
-        [webView setPolicyDelegate: [self.parent generalPolicy]];
-        [webView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
-        [webView setUIDelegate: self.parent];
-        [webView setFrameLoadDelegate: self];
+        helper = [[IFWebViewHelper alloc] initWithProjectController: controller
+                                                           withPane: [controller oppositePane: pane]];
+        webView = [helper createWebViewWithFrame: webViewParent.bounds];
+
+        // Set delegates
+        webView.navigationDelegate = self;
 
         // Load template and html fragments
         [self loadHTMLTemplate];
+
+        // Add to view hieracrchy
+        [webViewParent addSubview: webView];
 
         cachedHash = 0;
         [self updateHelpHTML];
@@ -96,20 +104,20 @@ static const CGFloat webViewHeight = 250.0f;
 
 		// Create the cells for the page bar
 		playAllCell = [[IFPageBarCell alloc] initTextCell: [IFUtility localizedString: @"Play All Blessed"]];
-		[playAllCell setTarget: self];
-		[playAllCell setAction: @selector(replayEntireSkein:)];
+		playAllCell.target = self;
+		playAllCell.action = @selector(replayEntireSkein:);
 
         saveTranscript = [[IFPageBarCell alloc] initTextCell: [IFUtility localizedString: @"Save Transcript"]];
-        [saveTranscript setTarget: self];
-        [saveTranscript setAction: @selector(saveTranscript:)];
+        saveTranscript.target = self;
+        saveTranscript.action = @selector(saveTranscript:);
         [saveTranscript setEnabled: NO];
 
         toggleHelp = [[IFPageBarCell alloc] initTextCell: @""];
-        [toggleHelp setTarget: self];
-        [toggleHelp setAction: @selector(toggleHelp:)];
+        toggleHelp.target = self;
+        toggleHelp.action = @selector(toggleHelp:);
         [toggleHelp setEnabled: YES];
 
-        if( [[doc settings] testingTabHelpShown] ) {
+        if( doc.settings.testingTabHelpShown ) {
             [self setTestingTabHelpShownTitleControl: YES];
             [self setTestingTabSplitControlShowingHelp: YES];
         }
@@ -128,7 +136,7 @@ static const CGFloat webViewHeight = 250.0f;
 
 - (void) updateHelpHTML {
     NSString* html = testingTemplate;
-    NSUInteger hash = [html hash];
+    NSUInteger hash = html.hash;
     if( cachedHash != hash )
     {
         [self loadHTMLString: html];
@@ -136,39 +144,39 @@ static const CGFloat webViewHeight = 250.0f;
     }
     NSMutableArray* jsCommands = [[NSMutableArray alloc] init];
 
-    IFProject* doc = [self.parent document];
-    int count = [[doc settings] testingTabShownCount];
+    IFProject* doc = (self.parent).document;
+    int count = doc.settings.testingTabShownCount;
     BOOL showWelcome = (count < 10);
-    BOOL isGreyOrBlueVisible  = [skeinView isAnyItemGrey] || [skeinView isAnyItemBlue];
-    BOOL isTickOrCrossVisible = [skeinView isTickVisible] || [skeinView isCrossVisible];
+    BOOL isGreyOrBlueVisible  = skeinView.anyItemGrey || skeinView.anyItemBlue;
+    BOOL isTickOrCrossVisible = skeinView.tickVisible || skeinView.crossVisible;
 
     [jsCommands addObject: showWelcome                              ? @"showBlock('welcome')"   : @"hideBlock('welcome')"];
     [jsCommands addObject: (skeinView.layoutTree.rootItem != nil)   ? @"showBlock('title')"     : @"hideBlock('title')"];
-    [jsCommands addObject: [skeinView isAnyItemPurple]              ? @"showBlock('purple')"    : @"hideBlock('purple')"];
+    [jsCommands addObject: skeinView.anyItemPurple              ? @"showBlock('purple')"    : @"hideBlock('purple')"];
     [jsCommands addObject: isGreyOrBlueVisible                      ? @"showBlock('grey')"      : @"hideBlock('grey')"];
     [jsCommands addObject: isGreyOrBlueVisible                      ? @"showBlock('blue')"      : @"hideBlock('blue')"];
-    [jsCommands addObject: [skeinView isReportVisible]              ? @"showBlock('report')"    : @"hideBlock('report')"];
+    [jsCommands addObject: skeinView.reportVisible              ? @"showBlock('report')"    : @"hideBlock('report')"];
     [jsCommands addObject: isTickOrCrossVisible                     ? @"showBlock('tick')"      : @"hideBlock('tick')"];
-    [jsCommands addObject: [skeinView isCrossVisible]               ? @"showBlock('cross')"     : @"hideBlock('cross')"];
-    [jsCommands addObject: [skeinView isBadgedItemVisible]          ? @"showBlock('badge')"     : @"hideBlock('badge')"];
-    [jsCommands addObject: ([skeinView itemsVisible] >= 2)          ? @"showBlock('threads')"   : @"hideBlock('threads')"];
-    [jsCommands addObject: ([skeinView itemsVisible] == 1)          ? @"showBlock('knots')"     : @"hideBlock('knots')"];
-    [jsCommands addObject: (([skeinView itemsVisible] >= 2) && ([skeinView itemsVisible] <= 10))
+    [jsCommands addObject: skeinView.crossVisible               ? @"showBlock('cross')"     : @"hideBlock('cross')"];
+    [jsCommands addObject: skeinView.badgedItemVisible          ? @"showBlock('badge')"     : @"hideBlock('badge')"];
+    [jsCommands addObject: (skeinView.itemsVisible >= 2)          ? @"showBlock('threads')"   : @"hideBlock('threads')"];
+    [jsCommands addObject: (skeinView.itemsVisible == 1)          ? @"showBlock('knots')"     : @"hideBlock('knots')"];
+    [jsCommands addObject: ((skeinView.itemsVisible >= 2) && (skeinView.itemsVisible <= 10))
                                                                     ? @"showBlock('moreknots')" : @"hideBlock('moreknots')"];
-    [jsCommands addObject: ([skeinView itemsVisible] >= 5)          ? @"showBlock('menu')"      : @"hideBlock('menu')"];
+    [jsCommands addObject: (skeinView.itemsVisible >= 5)          ? @"showBlock('menu')"      : @"hideBlock('menu')"];
     [jsCommands addObject: !showWelcome                             ? @"showBlock('welcomead')"   : @"hideBlock('welcomead')"];
 
     for (NSString* command in jsCommands ) {
-        [webView stringByEvaluatingJavaScriptFromString: command];
+        [webView evaluateJavaScript: command completionHandler: nil];
     }
 }
 
 -(void) didSwitchToPage {
     // Remember how many times we have gone to this page, so we can show appropriate help
-    IFProject* doc = [self.parent document];
-    int count = [[doc settings] testingTabShownCount];
+    IFProject* doc = (self.parent).document;
+    int count = doc.settings.testingTabShownCount;
     count++;
-    [[doc settings] setTestingTabShownCount: count];
+    doc.settings.testingTabShownCount = count;
 
     // Make sure the skein is shown properly
     if(skeinView &&
@@ -180,20 +188,18 @@ static const CGFloat webViewHeight = 250.0f;
     [self updateHelpHTML];
 }
 
-#pragma mark WebViewLoadDelegate
-
-- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
-    if (frame == [sender mainFrame]) {
-        // After a short pause while the DOM lays itself out properly, make sure the Javascript shows and hides the correct items
-        [self performSelector: @selector(updateHelpHTML)
-                   withObject: nil
-                   afterDelay: 0.0];
-    }
+#pragma mark - WKNavigationDelegate
+- (void)                    webView:(WKWebView *)webView
+    decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+                    decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    // Allow everything for now
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 #pragma mark - Preferences
 
 - (void) fontSizePreferenceChanged: (NSNotification*) not {
+    [helper fontSizePreferenceChanged: webView];
     [self.skeinView fontSizePreferenceChanged: not];
 }
 
@@ -212,7 +218,7 @@ static const CGFloat webViewHeight = 250.0f;
 
 - (void) skeinSelectionDidChange: (NSNotification*) not {
     BOOL enableSaveTranscript = skeinView.selectedItem != nil;
-    [saveTranscript setEnabled: enableSaveTranscript];
+    saveTranscript.enabled = enableSaveTranscript;
     [self performSelector: @selector(updateHelpHTML)
                withObject: nil
                afterDelay: 0.0];
@@ -225,8 +231,8 @@ static const CGFloat webViewHeight = 250.0f;
 }
 
 - (void) skeinWasReplaced: (NSNotification*) not {
-    IFProject* doc = [self.parent document];
-    [skeinView setSkein: [doc currentSkein]];
+    IFProject* doc = (self.parent).document;
+    skeinView.skein = doc.currentSkein;
     [self performSelector: @selector(updateHelpHTML)
                withObject: nil
                afterDelay: 0.0];
@@ -263,18 +269,18 @@ static const CGFloat webViewHeight = 250.0f;
 
 - (void) setTestingTabHelpShownTitleControl:(BOOL) helpIsShown {
     if( helpIsShown ) {
-        [toggleHelp setTitle: [IFUtility localizedString: @"Hide Help"]];
+        toggleHelp.title = [IFUtility localizedString: @"Hide Help"];
     }
     else {
-        [toggleHelp setTitle: [IFUtility localizedString: @"Show Help"]];
+        toggleHelp.title = [IFUtility localizedString: @"Show Help"];
     }
-    [[toggleHelp controlView] setNeedsDisplay: YES];
+    [toggleHelp.controlView setNeedsDisplay: YES];
 }
 
 - (void) setTestingTabHelpShownSetting:(BOOL) helpIsShown {
-    IFProject* doc = [self.parent document];
+    IFProject* doc = (self.parent).document;
 
-    [[doc settings] setTestingTabHelpShown: helpIsShown];
+    doc.settings.testingTabHelpShown = helpIsShown;
     //[[doc settings] settingsHaveChanged];
 }
 
@@ -303,13 +309,13 @@ static const CGFloat webViewHeight = 250.0f;
         [splitView setPosition: webViewHeight ofDividerAtIndex:0];
     }
     else {
-        [splitView setPosition: [splitView bounds].size.height ofDividerAtIndex:0];
+        [splitView setPosition: splitView.bounds.size.height ofDividerAtIndex:0];
     }
     settingDividerProgrammatically = NO;
 }
 
 -(void) toggleHelp: (id) sender {
-    if( sender == [toggleHelp controlView] ) {
+    if( sender == toggleHelp.controlView ) {
         if( [self isTestingTabSplitControlShowingHelp] ) {
             [self setTestingTabHelpShownTitleControl: NO];
             [self setTestingTabSplitControlShowingHelp: NO];
@@ -325,12 +331,15 @@ static const CGFloat webViewHeight = 250.0f;
 
 -(void) loadHTMLString:(NSString*) htmlString
 {
-    [[webView mainFrame] loadHTMLString: htmlString baseURL: [NSURL URLWithString: @"inform:/"]];
+    [webView loadHTMLString: htmlString
+                    baseURL: [NSURL URLWithString: @"inform:/"]];
 }
 
 -(void) loadHTMLTemplate {
     NSError* error = nil;
-    testingTemplate     = [NSString stringWithContentsOfURL: [NSURL URLWithString: @"inform:/TestingTemplate.html"]       encoding: NSUTF8StringEncoding error: &error];
+    testingTemplate = [NSString stringWithContentsOfURL: [NSURL URLWithString: @"inform:/TestingTemplate.html"]
+                                               encoding: NSUTF8StringEncoding
+                                                  error: &error];
     assert(testingTemplate);
 }
 
@@ -365,11 +374,11 @@ static const CGFloat webViewHeight = 250.0f;
     }
 
     // Both views are visible
-    NSRect newFrame = [split frame];
-    CGFloat dividerThickness = [split dividerThickness];
+    NSRect newFrame = split.frame;
+    CGFloat dividerThickness = split.dividerThickness;
 
-    NSRect rect0 = [[[split subviews] objectAtIndex:0] frame];
-    NSRect rect1 = [[[split subviews] objectAtIndex:1] frame];
+    NSRect rect0 = split.subviews[0].frame;
+    NSRect rect1 = split.subviews[1].frame;
     CGFloat minSize0 = -1;
     CGFloat height0 = 0;
 
@@ -389,8 +398,8 @@ static const CGFloat webViewHeight = 250.0f;
 
     rect1.origin = NSMakePoint(0, rect0.size.height + dividerThickness);
 
-    [[[split subviews] objectAtIndex:0] setFrame:rect0];
-    [[[split subviews] objectAtIndex:1] setFrame:rect1];
+    split.subviews[0].frame = rect0;
+    split.subviews[1].frame = rect1;
 }
 
 

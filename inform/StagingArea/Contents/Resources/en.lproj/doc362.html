@@ -84,8 +84,8 @@
     <p class="sectionheading">§22.2. Descriptions as values</p>
     <p>In the chapter on Descriptions, we saw that a description can be any source text which describes one or more objects: it might be as simple as &quot;the Corn Market&quot;, or as complicated as &quot;open containers which are in dark rooms&quot;. More or less the only restriction is that it must be unambiguous as to what counts and what does not: &quot;three containers&quot; is ambiguous as a description because it does not say which three.</p>
     <p>We've now seen several interesting tricks with descriptions. In fact, if D is a description, then</p>
-    <!--START CODE "c8649"-->
-    <blockquote class="code"><p class="quoted"><a id="c8649"></a>say &quot;You gaze mournfully at [the list of D].&quot;;
+    <!--START CODE "c8675"-->
+    <blockquote class="code"><p class="quoted"><a id="c8675"></a>say &quot;You gaze mournfully at [the list of D].&quot;;
     <br>
     let the tally be the number of D;
     <br>
@@ -98,16 +98,16 @@
     </blockquote>
     <!--END CODE-->
     <p>are all standard things to do. These examples make it look as if it must be possible to define phrases which act on descriptions, and in fact it is, because a description can be a value in itself. For example,</p>
-    <!--START CODE "c8650"-->
-    <blockquote class="code"><p class="quoted"><a id="c8650"></a>even numbers
+    <!--START CODE "c8676"-->
+    <blockquote class="code"><p class="quoted"><a id="c8676"></a>even numbers
     <br>
     open containers which are in dark rooms
     </p>
     </blockquote>
     <!--END CODE-->
     <p>are values of kind &quot;description of numbers&quot; and &quot;description of objects&quot; respectively. In general, if K is any kind then &quot;description of K&quot; is also a kind. Here is how we might make use of that:</p>
-    <!--START CODE "c8651"-->
-    <blockquote class="code"><p class="quoted"><a id="c8651"></a>To enumerate (collection - a description of objects):
+    <!--START CODE "c8677"-->
+    <blockquote class="code"><p class="quoted"><a id="c8677"></a>To enumerate (collection - a description of objects):
     <br>
     &#160;&#160;&#160;&#160;repeat with the item running through the collection:
     <br>
@@ -118,22 +118,22 @@
     <p>This makes &quot;enumerate lighted rooms&quot; run off a list of lighted rooms in a textual format different from the standard one produced by &quot;say the list of lighted rooms&quot;. Inside the definition, &quot;collection&quot; can be used wherever a description might be used: here, for instance, we use it as the range for the repeat loop. (That's only possible because the range is limited in size: Inform wouldn't have allowed us to range through, say, all texts.)</p>
     <p>Purely as a convenience, we can also write &quot;member of&quot; or &quot;members of&quot; in this context. For instance, in the enumerate definition, it would have been just as good to write &quot;...running through the members of the collection...&quot; in the repeat. (Similarly, we could write &quot;number of members of the collection&quot; or &quot;a random member of the collection&quot;, which looks grammatically tidier than writing &quot;number of the collection&quot; or &quot;random of the collection&quot; - though in fact both of these do work.)</p>
     <p>Finally, it's sometimes useful in an abstract situation to test</p>
-        <!--START PHRASE "defn353"-->
+        <!--START PHRASE "defn361"-->
         <div class="definition">
-            <a id="defn353"></a><p class='defnprototype'><b>if </b>(value)<b> matches </b>(description of values)<b>:</b></p>
+            <a id="defn361"></a><p class='defnprototype'><b>if </b>(value)<b> matches </b>(description of values)<b>:</b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_valuematch-->
 
     <p>    This condition is true if the value matches the description; the kinds must be compatible, or Inform will issue a problem message. There is no point using this for cases where the description is given explicitly:</p>
-    <!--START CODE "c8652"-->
-    <blockquote class="code"><p class="quoted"><a id="c8652"></a>if 4 matches even numbers, ...
+    <!--START CODE "c8678"-->
+    <blockquote class="code"><p class="quoted"><a id="c8678"></a>if 4 matches even numbers, ...
     </p>
     </blockquote>
     <!--END CODE-->
     <p>because it is easier to write just:</p>
-    <!--START CODE "c8653"-->
-    <blockquote class="code"><p class="quoted"><a id="c8653"></a>if 4 is an even number, ...
+    <!--START CODE "c8679"-->
+    <blockquote class="code"><p class="quoted"><a id="c8679"></a>if 4 is an even number, ...
     </p>
     </blockquote>
     <!--END CODE-->
@@ -145,48 +145,48 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "438: Curare" "e99"-->
-        <a id="e99"></a><table class="egcue">
+        <!--START EXAMPLE "439: Curare" "e86"-->
+        <a id="e86"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example99'); return false;"><b>438</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example86'); return false;"><b>439</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example99'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Curare</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example86'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Curare</span></b></a><br>
                     A phrase that chooses and names the least-recently selected item from the collection given, allowing the text to cycle semi-randomly through a group of objects.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc5.html#e99"><i>RB</i></a></div>
+                        <a href="Rdoc5.html#e86"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example99" style="display: none;">
-            <!--START CODE "c8654_99"-->
-            <blockquote class="code"><p class="quoted"><a id="c8654_99"></a><a href="javascript:pasteCode('[=0x0022=]Curare[=0x0022=][=0x000A=][=0x000A=]A thing has a number called the last use. The last use of a thing is usually 0.[=0x000A=][=0x000A=]Definition: a thing is old if its last use is 12 or less.[=0x000A=][=0x000A=][The actual number chosen in this definition is pretty much irrelevant: the main thing is that we want to establish relative values. The lower the [=0x0022=]last use[=0x0022=] number of an item, the older that item should be understood to be, as we see here:][=0x000A=][=0x000A=]To decide which thing is cyclically random (collection - a description of objects):[=0x000A=][=0x0009=]let choice be the oldest member of the collection;[=0x000A=][=0x0009=]now the last use of the choice is the turn count;[=0x000A=][=0x0009=]decide on choice.[=0x000A=][=0x000A=][This phrase will select, from the collection of objects passed to it, the one that has been mentioned least recently. This means that if we consult it repeatedly about the same collection, it will begin to cycle predictably; but if new items are added to the collection, it will mention these first before returning to the previous cycle. Now we can use this:][=0x000A=][=0x000A=]After taking inventory:[=0x000A=][=0x0009=]say [=0x0022=]You stare morosely at [the cyclically random thing carried by the player], wondering what you[=0x0027=]re ever going to find to do with it.[=0x0022=][=0x000A=][=0x000A=][We could have said [=0x0022=]You stare morosely at [the oldest thing carried by the player][=0x0022=] here, but doing so would not have set the [=0x0022=]last use[=0x0022=] property correctly, so we would not get the cycling behavior that we[=0x0027=]re looking for.][=0x000A=][=0x000A=]The Evidence Room is a room. Some shelves are scenery supporters in the Evidence Room. A box is a kind of container which is open and not openable. On the shelves is a box.  It contains a deformed bullet and a driver[=0x0027=]s license.[=0x000A=][=0x000A=]The player carries a steel fish hook, a Chinese passport, a tube of synthetic curare, and an envelope full of Euros.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / i / i / i / i / i / get all from box / i / i / i[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Curare[=0x0022=][=0x000A=][=0x000A=]A thing has a number called the last use. The last use of a thing is usually 0.[=0x000A=][=0x000A=]Definition: a thing is old if its last use is 12 or less.[=0x000A=][=0x000A=][The actual number chosen in this definition is pretty much irrelevant: the main thing is that we want to establish relative values. The lower the [=0x0022=]last use[=0x0022=] number of an item, the older that item should be understood to be, as we see here:][=0x000A=][=0x000A=]To decide which thing is cyclically random (collection - a description of objects):[=0x000A=][=0x0009=]let choice be the oldest member of the collection;[=0x000A=][=0x0009=]now the last use of the choice is the turn count;[=0x000A=][=0x0009=]decide on choice.[=0x000A=][=0x000A=][This phrase will select, from the collection of objects passed to it, the one that has been mentioned least recently. This means that if we consult it repeatedly about the same collection, it will begin to cycle predictably; but if new items are added to the collection, it will mention these first before returning to the previous cycle. Now we can use this:][=0x000A=][=0x000A=]After taking inventory:[=0x000A=][=0x0009=]say [=0x0022=]You stare morosely at [the cyclically random thing carried by the player], wondering what you[=0x0027=]re ever going to find to do with it.[=0x0022=][=0x000A=][=0x000A=][We could have said [=0x0022=]You stare morosely at [the oldest thing carried by the player][=0x0022=] here, but doing so would not have set the [=0x0022=]last use[=0x0022=] property correctly, so we would not get the cycling behavior that we[=0x0027=]re looking for.][=0x000A=][=0x000A=]The Evidence Room is a room. Some shelves are scenery supporters in the Evidence Room. A box is a kind of container which is open and not openable. On the shelves is a box.  It contains a deformed bullet and a driver[=0x0027=]s license.[=0x000A=][=0x000A=]The player carries a steel fish hook, a Chinese passport, a tube of synthetic curare, and an envelope full of Euros.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / i / i / i / i / i / get all from box / i / i / i[=0x0022=].[=0x000A=]\n', 'Example - Curare')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Curare&quot;
+        <div class="egpanel" id="example86" style="display: none;">
+            <!--START CODE "c8680_86"-->
+            <blockquote class="code"><p class="quoted"><a id="c8680_86"></a><a href="javascript:pasteCode('[=0x0022=]Curare[=0x0022=][=0x000A=][=0x000A=]A thing has a number called the last use. The last use of a thing is usually 0.[=0x000A=][=0x000A=]Definition: a thing is old if its last use is 12 or less.[=0x000A=][=0x000A=][The actual number chosen in this definition is pretty much irrelevant: the main thing is that we want to establish relative values. The lower the [=0x0022=]last use[=0x0022=] number of an item, the older that item should be understood to be, as we see here:][=0x000A=][=0x000A=]To decide which thing is cyclically random (collection - a description of objects):[=0x000A=][=0x0009=]let choice be the oldest member of the collection;[=0x000A=][=0x0009=]now the last use of the choice is the turn count;[=0x000A=][=0x0009=]decide on choice.[=0x000A=][=0x000A=][This phrase will select, from the collection of objects passed to it, the one that has been mentioned least recently. This means that if we consult it repeatedly about the same collection, it will begin to cycle predictably; but if new items are added to the collection, it will mention these first before returning to the previous cycle. Now we can use this:][=0x000A=][=0x000A=]After taking inventory:[=0x000A=][=0x0009=]say [=0x0022=]You stare morosely at [the cyclically random thing carried by the player], wondering what you[=0x0027=]re ever going to find to do with it.[=0x0022=][=0x000A=][=0x000A=][We could have said [=0x0022=]You stare morosely at [the oldest thing carried by the player][=0x0022=] here, but doing so would not have set the [=0x0022=]last use[=0x0022=] property correctly, so we would not get the cycling behavior that we[=0x0027=]re looking for.][=0x000A=][=0x000A=]The Evidence Room is a room. Some shelves are scenery supporters in the Evidence Room. A box is a kind of container which is open and not openable. On the shelves is a box.  It contains a deformed bullet and a driver[=0x0027=]s license.[=0x000A=][=0x000A=]The player carries a steel fish hook, a Chinese passport, a tube of synthetic curare, and an envelope full of Euros.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / i / i / i / i / i / get all from box / i / i / i[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Curare[=0x0022=][=0x000A=][=0x000A=]A thing has a number called the last use. The last use of a thing is usually 0.[=0x000A=][=0x000A=]Definition: a thing is old if its last use is 12 or less.[=0x000A=][=0x000A=][The actual number chosen in this definition is pretty much irrelevant: the main thing is that we want to establish relative values. The lower the [=0x0022=]last use[=0x0022=] number of an item, the older that item should be understood to be, as we see here:][=0x000A=][=0x000A=]To decide which thing is cyclically random (collection - a description of objects):[=0x000A=][=0x0009=]let choice be the oldest member of the collection;[=0x000A=][=0x0009=]now the last use of the choice is the turn count;[=0x000A=][=0x0009=]decide on choice.[=0x000A=][=0x000A=][This phrase will select, from the collection of objects passed to it, the one that has been mentioned least recently. This means that if we consult it repeatedly about the same collection, it will begin to cycle predictably; but if new items are added to the collection, it will mention these first before returning to the previous cycle. Now we can use this:][=0x000A=][=0x000A=]After taking inventory:[=0x000A=][=0x0009=]say [=0x0022=]You stare morosely at [the cyclically random thing carried by the player], wondering what you[=0x0027=]re ever going to find to do with it.[=0x0022=][=0x000A=][=0x000A=][We could have said [=0x0022=]You stare morosely at [the oldest thing carried by the player][=0x0022=] here, but doing so would not have set the [=0x0022=]last use[=0x0022=] property correctly, so we would not get the cycling behavior that we[=0x0027=]re looking for.][=0x000A=][=0x000A=]The Evidence Room is a room. Some shelves are scenery supporters in the Evidence Room. A box is a kind of container which is open and not openable. On the shelves is a box.  It contains a deformed bullet and a driver[=0x0027=]s license.[=0x000A=][=0x000A=]The player carries a steel fish hook, a Chinese passport, a tube of synthetic curare, and an envelope full of Euros.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / i / i / i / i / i / get all from box / i / i / i[=0x0022=].[=0x000A=]\n', 'Example - Curare')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Curare&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8655_99"-->
-            <blockquote class="code"><p class="quoted"><a id="c8655_99"></a>A thing has a number called the last use. The last use of a thing is usually 0.
+            <!--START CODE "c8681_86"-->
+            <blockquote class="code"><p class="quoted"><a id="c8681_86"></a>A thing has a number called the last use. The last use of a thing is usually 0.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8656_99"-->
-            <blockquote class="code"><p class="quoted"><a id="c8656_99"></a>Definition: a thing is old if its last use is 12 or less.
+            <!--START CODE "c8682_86"-->
+            <blockquote class="code"><p class="quoted"><a id="c8682_86"></a>Definition: a thing is old if its last use is 12 or less.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>The actual number chosen in this definition is pretty much irrelevant: the main thing is that we want to establish relative values. The lower the &quot;last use&quot; number of an item, the older that item should be understood to be, as we see here:</p>
-            <!--START CODE "c8657_99"-->
-            <blockquote class="code"><p class="quoted"><a id="c8657_99"></a>To decide which thing is cyclically random (collection - a description of objects):
+            <!--START CODE "c8683_86"-->
+            <blockquote class="code"><p class="quoted"><a id="c8683_86"></a>To decide which thing is cyclically random (collection - a description of objects):
             <br>
             &#160;&#160;&#160;&#160;let choice be the oldest member of the collection;
             <br>
@@ -197,26 +197,26 @@
             </blockquote>
             <!--END CODE-->
             <p>This phrase will select, from the collection of objects passed to it, the one that has been mentioned least recently. This means that if we consult it repeatedly about the same collection, it will begin to cycle predictably; but if new items are added to the collection, it will mention these first before returning to the previous cycle. Now we can use this:</p>
-            <!--START CODE "c8658_99"-->
-            <blockquote class="code"><p class="quoted"><a id="c8658_99"></a>After taking inventory:
+            <!--START CODE "c8684_86"-->
+            <blockquote class="code"><p class="quoted"><a id="c8684_86"></a>After taking inventory:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You stare morosely at [the cyclically random thing carried by the player], wondering what you're ever going to find to do with it.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>We could have said &quot;You stare morosely at [the oldest thing carried by the player]&quot; here, but doing so would not have set the &quot;last use&quot; property correctly, so we would not get the cycling behavior that we're looking for.</p>
-            <!--START CODE "c8659_99"-->
-            <blockquote class="code"><p class="quoted"><a id="c8659_99"></a>The Evidence Room is a room. Some shelves are scenery supporters in the Evidence Room. A box is a kind of container which is open and not openable. On the shelves is a box.  It contains a deformed bullet and a driver's license.
+            <!--START CODE "c8685_86"-->
+            <blockquote class="code"><p class="quoted"><a id="c8685_86"></a>The Evidence Room is a room. Some shelves are scenery supporters in the Evidence Room. A box is a kind of container which is open and not openable. On the shelves is a box.  It contains a deformed bullet and a driver's license.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8660_99"-->
-            <blockquote class="code"><p class="quoted"><a id="c8660_99"></a>The player carries a steel fish hook, a Chinese passport, a tube of synthetic curare, and an envelope full of Euros.
+            <!--START CODE "c8686_86"-->
+            <blockquote class="code"><p class="quoted"><a id="c8686_86"></a>The player carries a steel fish hook, a Chinese passport, a tube of synthetic curare, and an envelope full of Euros.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8661_99"-->
-            <blockquote class="code"><p class="quoted"><a id="c8661_99"></a>Test me with &quot;i / i / i / i / i / i / get all from box / i / i / i&quot;.
+            <!--START CODE "c8687_86"-->
+            <blockquote class="code"><p class="quoted"><a id="c8687_86"></a>Test me with &quot;i / i / i / i / i / i / get all from box / i / i / i&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

@@ -155,7 +155,7 @@ i7word_t i7_read_sword(i7process_t *proc, i7word_t array_address, i7word_t array
 		i7_fatal_exit(proc);
 	}
 	return             (i7word_t) data[byte_position + 1]  +
-	            0x100*((i7word_t) data[byte_position + 0]);
+	            0x100U*((i7word_t) data[byte_position + 0]);
 }
 
 i7word_t i7_read_word(i7process_t *proc, i7word_t array_address, i7word_t array_index) {
@@ -166,9 +166,9 @@ i7word_t i7_read_word(i7process_t *proc, i7word_t array_address, i7word_t array_
 		i7_fatal_exit(proc);
 	}
 	return             (i7word_t) data[byte_position + 3]  +
-	            0x100*((i7word_t) data[byte_position + 2]) +
-		      0x10000*((i7word_t) data[byte_position + 1]) +
-		    0x1000000*((i7word_t) data[byte_position + 0]);
+	            0x100U*((i7word_t) data[byte_position + 2]) +
+		      0x10000U*((i7word_t) data[byte_position + 1]) +
+		    0x1000000U*((i7word_t) data[byte_position + 0]);
 }
 void i7_write_byte(i7process_t *proc, i7word_t address, i7byte_t new_val) {
 	proc->state.memory[address] = new_val;
@@ -808,8 +808,8 @@ char *i7_text_to_C_string(i7word_t str) {
 	return i7_texts[str - I7VAL_STRINGS_BASE];
 }
 void i7_print_dword(i7process_t *proc, i7word_t at) {
-	for (i7byte_t i=1; i<=9; i++) {
-		i7byte_t c = i7_read_byte(proc, at+i);
+	for (i7byte_t i=1; i<=i7_mgl_DICT_WORD_SIZE; i++) {
+		i7word_t c = i7_read_word(proc, at, i);
 		if (c == 0) break;
 		i7_print_char(proc, c);
 	}
@@ -1163,6 +1163,14 @@ void i7_default_glk(i7process_t *proc, i7word_t selector, i7word_t varargc, i7wo
 			rv = i7_miniglk_char_to_lower(proc, a[0]); break;
 		case i7_glk_char_to_upper:
 			rv = i7_miniglk_char_to_upper(proc, a[0]); break;
+		case i7_glk_buffer_to_lower_case_uni:
+			for (int pos=0; pos<a[2]; pos++) {
+				i7word_t c = i7_read_word(proc, a[0], pos);
+				i7_write_word(proc, a[0], pos, i7_miniglk_char_to_lower(proc, c));
+			}
+			rv = a[2]; break;
+		case i7_glk_buffer_canon_normalize_uni:
+			rv = a[2]; break; /* Ignore this one */
 
 		/* File handling */
 		case i7_glk_fileref_create_by_name:
@@ -1194,6 +1202,15 @@ void i7_default_glk(i7process_t *proc, i7word_t selector, i7word_t varargc, i7wo
 			i7_miniglk_put_char_stream(proc, a[0], a[1]); break;
 		case i7_glk_get_char_stream:
 			rv = i7_miniglk_get_char_stream(proc, a[0]); break;
+		case i7_glk_put_buffer_uni:
+			{
+				i7word_t str = i7_miniglk_stream_get_current(proc);
+				for (int pos=0; pos<a[1]; pos++) {
+					i7word_t c = i7_read_word(proc, a[0], pos);
+					i7_miniglk_put_char_stream(proc, str, c);
+				}
+			}
+			rv = 0; break;
 		/* And we ignore: */
 		case i7_glk_stream_iterate: rv = 0; break;
 
@@ -1211,6 +1228,8 @@ void i7_default_glk(i7process_t *proc, i7word_t selector, i7word_t varargc, i7wo
 		/* Event handling */
 		case i7_glk_request_line_event:
 			rv = i7_miniglk_request_line_event(proc, a[0], a[1], a[2], a[3]); break;
+		case i7_glk_request_line_event_uni:
+			rv = i7_miniglk_request_line_event_uni(proc, a[0], a[1], a[2], a[3]); break;
 		case i7_glk_select:
 			rv = i7_miniglk_select(proc, a[0]); break;
 
@@ -1542,7 +1561,14 @@ void i7_miniglk_put_char_stream(i7process_t *proc, i7word_t stream_id, i7word_t 
 		if (win_id >= 1) rock = i7_mg_get_window_rock(proc, win_id);
 		unsigned int c = (unsigned int) x;
 		if (proc->use_UTF8) {
-			if (c >= 0x800) {
+			if (c >= 0x200000) { /* invalid Unicode */
+				i7_mg_put_to_stream(proc, rock, '?');
+			} else if (c >= 0x10000) {
+				i7_mg_put_to_stream(proc, rock, 0xF0 + (c >> 18));
+				i7_mg_put_to_stream(proc, rock, 0x80 + ((c >> 12) & 0x3f));
+				i7_mg_put_to_stream(proc, rock, 0x80 + ((c >> 6) & 0x3f));
+				i7_mg_put_to_stream(proc, rock, 0x80 + (c & 0x3f));
+			} else if (c >= 0x800) {
 				i7_mg_put_to_stream(proc, rock, 0xE0 + (c >> 12));
 				i7_mg_put_to_stream(proc, rock, 0x80 + ((c >> 6) & 0x3f));
 				i7_mg_put_to_stream(proc, rock, 0x80 + (c & 0x3f));
@@ -1716,14 +1742,38 @@ i7word_t i7_miniglk_request_line_event(i7process_t *proc, i7word_t window_id,
 	return 0;
 }
 
+i7word_t i7_miniglk_request_line_event_uni(i7process_t *proc, i7word_t window_id,
+	i7word_t buffer, i7word_t max_len, i7word_t init_len) {
+	i7_mg_event_t e;
+	e.type = i7_evtype_LineInput;
+	e.win_id = window_id;
+	e.val1 = 1;
+	e.val2 = 0;
+	wchar_t c; int pos = init_len;
+	if (proc->sender == NULL) i7_benign_exit(proc);
+	char *s = (proc->sender)(proc->send_count++);
+	int i = 0;
+	while (1) {
+		c = s[i++];
+		if ((c == EOF) || (c == 0) || (c == '\n') || (c == '\r')) break;
+		if (pos < max_len) i7_write_word(proc, buffer, pos++, c);
+	}
+	if (pos < max_len) i7_write_word(proc, buffer, pos, 0);
+	else i7_write_word(proc, buffer, max_len-1, 0);
+	e.val1 = pos;
+	i7_mg_add_event_to_buffer(proc, e);
+	if (proc->miniglk->no_line_events++ == 1000) {
+		fprintf(stdout, "[Too many line events: terminating to prevent hang]\n");
+		exit(0);
+	}
+	return 0;
+}
+
 i7word_t i7_fn_TEXT_TY_CharacterLength(i7process_t *proc, i7word_t i7_mgl_local_txt,
 	i7word_t i7_mgl_local_ch, i7word_t i7_mgl_local_i, i7word_t i7_mgl_local_dsize,
 	i7word_t i7_mgl_local_p, i7word_t i7_mgl_local_cp, i7word_t i7_mgl_local_r);
 i7word_t i7_fn_BlkValueRead(i7process_t *proc, i7word_t i7_mgl_local_from,
-	i7word_t i7_mgl_local_pos, i7word_t i7_mgl_local_do_not_indirect,
-	i7word_t i7_mgl_local_long_block, i7word_t i7_mgl_local_chunk_size_in_bytes,
-	i7word_t i7_mgl_local_header_size_in_bytes, i7word_t i7_mgl_local_flags,
-	i7word_t i7_mgl_local_entry_size_in_bytes, i7word_t i7_mgl_local_seek_byte_position);
+	i7word_t i7_mgl_local_pos, i7word_t i7_mgl_local_do_not_indirect);
 void i7_default_stylist(i7process_t *proc, i7word_t which, i7word_t what) {
 	i7_mg_stream_t *S =
 		&(proc->miniglk->memory_streams[proc->state.current_output_stream_ID]);
@@ -1742,7 +1792,7 @@ void i7_default_stylist(i7process_t *proc, i7word_t which, i7word_t what) {
 					i7_fn_TEXT_TY_CharacterLength(proc, what, 0, 0, 0, 0, 0, 0);
 				if (L > 127) L = 127;
 				for (int i=0; i<L; i++) S->style[i] =
-					i7_fn_BlkValueRead(proc, what, i, 0, 0, 0, 0, 0, 0, 0);
+					i7_fn_BlkValueRead(proc, what, i, 0);
 				S->style[L] = 0;
 				#endif
 			}
@@ -1774,16 +1824,10 @@ void i7_write_variable(i7process_t *proc, i7word_t var_id, i7word_t val) {
 }
 i7word_t i7_fn_TEXT_TY_Transmute(i7process_t *proc, i7word_t i7_mgl_local_txt);
 i7word_t i7_fn_BlkValueRead(i7process_t *proc, i7word_t i7_mgl_local_from,
-	i7word_t i7_mgl_local_pos, i7word_t i7_mgl_local_do_not_indirect,
-	i7word_t i7_mgl_local_long_block, i7word_t i7_mgl_local_chunk_size_in_bytes,
-	i7word_t i7_mgl_local_header_size_in_bytes, i7word_t i7_mgl_local_flags,
-	i7word_t i7_mgl_local_entry_size_in_bytes, i7word_t i7_mgl_local_seek_byte_position);
+	i7word_t i7_mgl_local_pos, i7word_t i7_mgl_local_do_not_indirect);
 i7word_t i7_fn_BlkValueWrite(i7process_t *proc, i7word_t i7_mgl_local_to,
 	i7word_t i7_mgl_local_pos, i7word_t i7_mgl_local_val,
-	i7word_t i7_mgl_local_do_not_indirect, i7word_t i7_mgl_local_long_block,
-	i7word_t i7_mgl_local_chunk_size_in_bytes, i7word_t i7_mgl_local_header_size_in_bytes,
-	i7word_t i7_mgl_local_flags, i7word_t i7_mgl_local_entry_size_in_bytes,
-	i7word_t i7_mgl_local_seek_byte_position);
+	i7word_t i7_mgl_local_do_not_indirect);
 i7word_t i7_fn_TEXT_TY_CharacterLength(i7process_t *proc,
 	i7word_t i7_mgl_local_txt, i7word_t i7_mgl_local_ch, i7word_t i7_mgl_local_i,
 	i7word_t i7_mgl_local_dsize, i7word_t i7_mgl_local_p, i7word_t i7_mgl_local_cp,
@@ -1798,7 +1842,7 @@ char *i7_read_string(i7process_t *proc, i7word_t S) {
 		fprintf(stderr, "Out of memory\n"); i7_fatal_exit(proc);
 	}
 	for (int i=0; i<L; i++)
-		A[i] = i7_fn_BlkValueRead(proc, S, i, 0, 0, 0, 0, 0, 0, 0);
+		A[i] = i7_fn_BlkValueRead(proc, S, i, 0);
 	A[L] = 0;
 	return A;
 	#endif
@@ -1810,11 +1854,11 @@ char *i7_read_string(i7process_t *proc, i7word_t S) {
 void i7_write_string(i7process_t *proc, i7word_t S, char *A) {
 	#ifdef i7_mgl_BASICINFORMKIT
 	i7_fn_TEXT_TY_Transmute(proc, S);
-	i7_fn_BlkValueWrite(proc, S, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	i7_fn_BlkValueWrite(proc, S, 0, 0, 0);
 	if (A) {
 		int L = strlen(A);
 		for (int i=0; i<L; i++)
-			i7_fn_BlkValueWrite(proc, S, i, A[i], 0, 0, 0, 0, 0, 0, 0);
+			i7_fn_BlkValueWrite(proc, S, i, A[i], 0);
 	}
 	#endif
 }

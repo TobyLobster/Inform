@@ -50,7 +50,7 @@ typedef NS_ENUM(NSUInteger, SemVerPart) {
         int c = 0;
         unichar chr;
 
-        for (int i = 0; i < [self.prerelease_segments count]; i++) {
+        for (int i = 0; i < (self.prerelease_segments).count; i++) {
             if (c++ == 0) chr = '-'; else chr = '.';
             [result appendFormat:@"%C%@", chr, self.prerelease_segments[i]];
         }
@@ -72,7 +72,7 @@ typedef NS_ENUM(NSUInteger, SemVerPart) {
 }
 
 -(instancetype) add_prerelease_content: (NSString*__strong*) pprerelease {
-    if ([*pprerelease length] == 0) { return [self set_null]; }
+    if ((*pprerelease).length == 0) { return [self set_null]; }
 
     if (self.prerelease_segments == nil) {
         self.prerelease_segments = [[NSMutableArray alloc] init];
@@ -94,7 +94,7 @@ typedef NS_ENUM(NSUInteger, SemVerPart) {
         }
 
         // Trim any whitespace
-        str = [str stringByTrimmingWhitespace];
+        str = str.stringByTrimmingWhitespace;
 
         int component    = 0;
         int val          = -1;
@@ -104,7 +104,7 @@ typedef NS_ENUM(NSUInteger, SemVerPart) {
         int part         = MMP;
         NSMutableString* prerelease = [[NSMutableString alloc] init];
 
-        for (int pos = 0; pos < [str length]; pos++) {
+        for (int pos = 0; pos < str.length; pos++) {
             unichar c = [str characterAtIndex:pos];
             switch(part) {
                 case MMP:
@@ -144,7 +144,7 @@ typedef NS_ENUM(NSUInteger, SemVerPart) {
             }
         }
 
-        if ((part == PRE) && ([prerelease length] > 0)) [self add_prerelease_content: &prerelease];
+        if ((part == PRE) && (prerelease.length > 0)) [self add_prerelease_content: &prerelease];
 
         if ((dots_used > 0) && (slashes_used > 0)) return [self set_null];
         if (slashes_used > 0) {
@@ -170,15 +170,15 @@ typedef NS_ENUM(NSUInteger, SemVerPart) {
 
 // This returns a non-negative integer if T contains only digits, and -1 otherwise. If the value has more than about 10 digits, then the result will not be meaningful, which I think is a technical violation of the standard.
 -(int) strict_atoi: (NSString*) str {
-    for(int i =0; i < [str length]; i++) {
+    for(int i =0; i < str.length; i++) {
         unichar c = [str characterAtIndex:i];
         if (isdigit(c) == false) {
             return -1;
         }
     }
     unichar c = [str characterAtIndex:0];
-    if ((c == '0') && [str length] > 1) return -1;
-    return [str intValue];
+    if ((c == '0') && str.length > 1) return -1;
+    return str.intValue;
 }
 
 -(bool) le: (IFSemVer*) v2 {

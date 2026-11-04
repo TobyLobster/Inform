@@ -219,7 +219,7 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
     if (self) {
         layoutItem = nil;
         [self setWantsLayer: YES];
-        [self setLayerContentsRedrawPolicy: NSViewLayerContentsRedrawOnSetNeedsDisplay];
+        self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
         drawnStateHash = 0;
         insideMenuArea = NO;
         insideLozengeArea = NO;
@@ -337,7 +337,7 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
                          withWidth: commandSize.width];
 
     // Draw star if we are the winning item
-    if ([[self.skeinView skein] isTheWinningItem: layoutItem.item]) {
+    if ([(self.skeinView).skein isTheWinningItem: layoutItem.item]) {
         float height = starBadge.size.height/2;
         float width = starBadge.size.width/2;
         [starBadge drawInRect: NSMakeRect(0.0, 0.0 /*floor(self.frame.size.height) - height - 9*/,
@@ -382,7 +382,7 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
                         operation: NSCompositingOperationSourceOver
                          fraction: 1.0];
     }
-    drawnStateHash = [layoutItem drawStateHash];
+    drawnStateHash = layoutItem.drawStateHash;
 
     /*
     [[NSColor colorWithCalibratedRed:1.0f green:0.0f blue:0.0f alpha:0.5f] set];
@@ -621,7 +621,7 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
 -(NSTrackingArea*) addTrackingAreaWithRect: (NSRect) areaRect
                                   mousePos: (NSPoint) currentMousePos
                             insideSelector: (SEL) insideSelector {
-    NSRect visibleRect = [self visibleRect];
+    NSRect visibleRect = self.visibleRect;
     areaRect = NSIntersectionRect(areaRect, visibleRect);
 
     if( !NSIsEmptyRect( areaRect )) {
@@ -665,7 +665,7 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
     }
 
     // Get current mouse position
-    NSPoint currentMousePos = [[self window] mouseLocationOutsideOfEventStream];
+    NSPoint currentMousePos = self.window.mouseLocationOutsideOfEventStream;
     currentMousePos = [self convertPoint: currentMousePos
                                 fromView: nil];
 
@@ -689,7 +689,7 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
                                           insideSelector: @selector(mouseEnteredMenuArea)];
 
         // Add the lozenge area
-        NSRect localLozengeRect = [layoutItem localSpaceLozengeRect];
+        NSRect localLozengeRect = layoutItem.localSpaceLozengeRect;
 
         // Combine the two rectangles into one unified rectangle
         NSRect unifiedRect = NSUnionRect(localLozengeRect, menuAreaRect);
@@ -826,7 +826,7 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
 
 - (BOOL) isDragToSameSkein:(id <NSDraggingInfo>)sender {
     bool draggingIntoSameSkein = NO;
-    id source = [sender draggingSource];
+    id source = sender.draggingSource;
     if( [source isKindOfClass: [IFSkeinItemView class]] ) {
         IFSkeinView * sourceSkeinView       = (IFSkeinView *) [source superview];
         IFSkeinView * destinationSkeinView  = self.skeinView;
@@ -862,7 +862,7 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
 }
 
 - (NSDragOperation) updateDragCursor: (id <NSDraggingInfo>) sender {
-    NSPoint dragPoint = [self.skeinView convertPoint: [sender draggingLocation]
+    NSPoint dragPoint = [self.skeinView convertPoint: sender.draggingLocation
                                             fromView: nil];
 
     IFSkeinItem* destinationItem = [self.skeinView itemAtPoint: dragPoint];
@@ -874,7 +874,7 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
         return NSDragOperationNone;
     }
 
-    BOOL isMoveOperation = [sender draggingSourceOperationMask] & NSDragOperationMove;
+    BOOL isMoveOperation = sender.draggingSourceOperationMask & NSDragOperationMove;
     BOOL isDraggingToChild = [self.skein.draggingItem hasDescendant: destinationItem];
     if ( isMoveOperation && !isDraggingToChild) {
         [[NSCursor pointingHandCursor] set];
@@ -902,14 +902,14 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
 }
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
-    NSPoint dragPoint = [self.skeinView convertPoint: [sender draggingLocation]
+    NSPoint dragPoint = [self.skeinView convertPoint: sender.draggingLocation
                                             fromView: nil];
     IFSkeinItem* destinationItem = [self.skeinView itemAtPoint: dragPoint];
 
     if (destinationItem == nil) return NO;
 
     // Decode the IFSkeinItemPboardType data for this operation
-    NSPasteboard* pboard = [sender draggingPasteboard];
+    NSPasteboard* pboard = sender.draggingPasteboard;
     NSData*       data = [pboard dataForType: IFSkeinItemPboardType];
     if (data == nil) return NO;
 

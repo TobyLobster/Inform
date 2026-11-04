@@ -84,20 +84,20 @@
     <p class="sectionheading">§17.8. Understanding names</p>
     <p>So far in this chapter, Understand sentences have been used to give names to actions, but they can also be used to name objects - in particular, things and rooms.</p>
     <p>This normally happens automatically. For instance, writing</p>
-    <!--START CODE "c5746"-->
-    <blockquote class="code"><p class="quoted"><a id="c5746"></a>The St Bernard is an animal in the Monastery Cages.
+    <!--START CODE "c5761"-->
+    <blockquote class="code"><p class="quoted"><a id="c5761"></a>The St Bernard is an animal in the Monastery Cages.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>makes ST BERNARD refer to the dog, and MONASTERY CAGES refer to the room. But sometimes, as here, that isn't really enough. Why shouldn't the player type EXAMINE DOG? One way to allow this is to write:</p>
-    <!--START CODE "c5747"-->
-    <blockquote class="code"><p class="quoted"><a id="c5747"></a>Understand &quot;dog&quot; as the St Bernard.
+    <!--START CODE "c5762"-->
+    <blockquote class="code"><p class="quoted"><a id="c5762"></a>Understand &quot;dog&quot; as the St Bernard.
     </p>
     </blockquote>
     <!--END CODE-->
-    <p>Matters become more complicated when the player wants to refer to more than one object at once.	When a kind is created, and the source text constructs multiple duplicate items of that kind, Inform generates a plural of the kind's name in order to understand commands referring to these multiples. For instance, given...</p>
-    <!--START CODE "c5748"-->
-    <blockquote class="code"><p class="quoted"><a id="c5748"></a>The Lake is a room. A duck is a kind of animal. Four ducks are in
+    <p>When a kind is created, Inform generates a plural of the kind's name. When objects of that kind are created, it's automatically the case that commands can refer to any of those objects by that plural name. For instance, given...</p>
+    <!--START CODE "c5763"-->
+    <blockquote class="code"><p class="quoted"><a id="c5763"></a>The Lake is a room. A duck is a kind of animal. Four ducks are in
     <br>
     &#160;&#160;&#160;&#160;the Lake.
     </p>
@@ -105,18 +105,25 @@
     <!--END CODE-->
     <p>...the player can type TAKE DUCKS to try to pick up all four.</p>
     <p>Once again the automatic behaviour can be enhanced:</p>
-    <!--START CODE "c5749"-->
-    <blockquote class="code"><p class="quoted"><a id="c5749"></a>Understand &quot;birds&quot; and &quot;ruddy ducks&quot; as the plural of duck.
+    <!--START CODE "c5764"-->
+    <blockquote class="code"><p class="quoted"><a id="c5764"></a>Understand &quot;birds&quot; and &quot;ruddy ducks&quot; as the plural of duck.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Now TAKE BIRDS and TAKE DUCKS are equivalent. Plurals can even, strange as it may seem, be given for single things:</p>
-    <!--START CODE "c5750"-->
-    <blockquote class="code"><p class="quoted"><a id="c5750"></a>The magpie is in the Lake. Understand &quot;birds&quot; as the plural of the magpie.
+    <!--START CODE "c5765"-->
+    <blockquote class="code"><p class="quoted"><a id="c5765"></a>The magpie is in the Lake. Understand &quot;birds&quot; as the plural of the magpie.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>And now TAKE BIRDS tries to take all four ducks and the magpie too.</p>
+    <p>In fact, it is the norm that any given thing can be referred to by the plural of its kind name. EXAMINE ANIMALS would scrutinize the St. Bernard, even if it were alone, but would not automatically work for the ducks: things only receive the plural name of the most specific kind to which they belong.</p>
+    <p>If you don't want this behavior, it can be suppressed with a use option:</p>
+    <!--START CODE "c5766"-->
+    <blockquote class="code"><p class="quoted"><a id="c5766"></a>Use no automatic plural synonyms.
+    </p>
+    </blockquote>
+    <!--END CODE-->
     <hr>
     <!--START IGNORE-->
     <div class="bookfooter">

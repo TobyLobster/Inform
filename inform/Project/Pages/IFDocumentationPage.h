@@ -13,7 +13,7 @@
 ///
 /// The 'documentation' page
 ///
-@interface IFDocumentationPage : IFPage<WebFrameLoadDelegate, WebResourceLoadDelegate>
+@interface IFDocumentationPage : IFPage<WKNavigationDelegate>
 
 // The documentation view
 /// Tells the documentation view to open a specific URL
@@ -21,6 +21,7 @@
 /// Opens the table of contents
 - (IBAction) showToc: (id) sender;
 
-- (instancetype) initWithProjectController: (IFProjectController*) controller;
+- (instancetype) initWithProjectController: (IFProjectController*) controller
+                                  withPane: (IFProjectPane*) pane NS_DESIGNATED_INITIALIZER;
 
 @end

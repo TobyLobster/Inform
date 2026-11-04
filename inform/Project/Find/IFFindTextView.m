@@ -40,7 +40,7 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
     if( direction > 0 ) {
         // Forwards search
         result = [IFScanner findNextMatch: phrase
-                                  storage: [[self textStorage] string]
+                                  storage: self.textStorage.string
                                  position: point
                                   options: type
                          regexFoundGroups: foundGroupsOut];
@@ -50,7 +50,7 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
             if( point > 0 ) {
                 point = 0;
                 result = [IFScanner findNextMatch: phrase
-                                          storage: [[self textStorage] string]
+                                          storage: self.textStorage.string
                                          position: point
                                           options: type
                                  regexFoundGroups: foundGroupsOut];
@@ -60,17 +60,17 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
     else {
         // Backwards search
         result = [IFScanner findPreviousMatch: phrase
-                                      storage: [[self textStorage] string]
+                                      storage: self.textStorage.string
                                      position: point
                                       options: type
                              regexFoundGroups: foundGroupsOut];
         if( result.location == NSNotFound ) {
             *hasLoopedOut = true;
             // Wrap around if we didn't start at the end
-            if( point < [[[self textStorage] string] length] ) {
-                point = (int) [[[self textStorage] string] length];
+            if( point < self.textStorage.string.length ) {
+                point = (int) self.textStorage.string.length;
                 result = [IFScanner findPreviousMatch: phrase
-                                              storage: [[self textStorage] string]
+                                              storage: self.textStorage.string
                                              position: point
                                               options: type
                                      regexFoundGroups: foundGroupsOut];
@@ -83,13 +83,14 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
 
 #pragma mark - Basic interface
 
-- (BOOL) findNextMatch:	(NSString*) match
-				ofType: (IFFindType) type {
+- (void) findNextMatch:	(NSString*) match
+				ofType: (IFFindType) type
+     completionHandler: (void (^)(bool result))completionHandler {
     // Start after the current selection
 	NSUInteger matchPos = [self selectedRange].location + [self selectedRange].length;
 
     // If we have just moved beyond the end of the text, start at the beginning
-    if( matchPos >= [[[self textStorage] string] length] ) {
+    if( matchPos >= self.textStorage.string.length ) {
         matchPos = 0;
     }
     bool hasLooped;
@@ -104,15 +105,20 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
 		[self scrollRangeToVisible: matchRange];
 		[self setSelectedRange: matchRange];
         [self showFindIndicatorForRange: matchRange];
-		return YES;
+        if (completionHandler != nil) {
+            completionHandler(true);
+        }
 	} else {
 		NSBeep();
-		return NO;
+        if (completionHandler != nil) {
+            completionHandler(false);
+        }
 	}
 }
 
-- (BOOL) findPreviousMatch: (NSString*) match
-					ofType: (IFFindType) type {
+- (void) findPreviousMatch: (NSString*) match
+					ofType: (IFFindType) type
+         completionHandler: (void (^)(bool result))completionHandler {
     // Start searching at the previous character
     NSUInteger matchPos;
     
@@ -121,7 +127,7 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
     }
     else {
         // If we have just moved before the start of the text, start searching at the end
-        matchPos = [[[self textStorage] string] length] - 1;
+        matchPos = self.textStorage.string.length - 1;
     }
 
     bool hasLooped;
@@ -136,10 +142,14 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
 		[self scrollRangeToVisible: matchRange];
 		[self setSelectedRange: matchRange];
         [self showFindIndicatorForRange: matchRange];
-		return YES;
+        if (completionHandler != nil) {
+            completionHandler(true);
+        }
 	} else {
 		NSBeep();
-		return NO;
+        if (completionHandler != nil) {
+            completionHandler(false);
+        }
 	}
 }
 
@@ -147,14 +157,16 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
 	return YES;
 }
 
-- (NSString*) currentSelectionForFind {
-	return [[self string] substringWithRange: [self selectedRange]];
+- (void) currentSelectionForFindWithCompletionHandler:(void (^)(NSString*))completionHandler {
+    if (completionHandler != nil) {
+        completionHandler([self.string substringWithRange: [self selectedRange]]);
+    }
 }
 
 #pragma mark - 'Find all'
 
 - (void) highlightFindResult: (IFFindResult*) result {
-	NSRange matchRange = [result fileRange];
+	NSRange matchRange = result.fileRange;
 
 	[self scrollRangeToVisible: matchRange];
 	[self setSelectedRange: matchRange];
@@ -167,7 +179,7 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
 		   inFindController: (IFFindController*) controller
 			 withIdentifier: (id) identifier {
 	// Do nothing if no phrase is supplied
-	if ([match length] == 0) return nil;
+	if (match.length == 0) return nil;
 
 	// Prepare to match all of the results
 	NSUInteger pos = 0;
@@ -200,7 +212,7 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
             // Calculate context (text around the match to display in the search results)
             //
             NSRange contextRange;
-            NSString* context = [IFFindInFiles getContextFromText: [[self textStorage] string]
+            NSString* context = [IFFindInFiles getContextFromText: self.textStorage.string
                                                      withLocation: nextMatch.location
                                                         andLength: nextMatch.length
                                               findingContextRange: &contextRange];
@@ -243,16 +255,16 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
 
 - (void) replaceFoundWith: (NSString*) match
 					range: (NSRange) selected {
-	NSString* previousValue = [[self string] substringWithRange: selected];
+	NSString* previousValue = [self.string substringWithRange: selected];
 	
-	[[self textStorage] replaceCharactersInRange: selected
+	[self.textStorage replaceCharactersInRange: selected
 									  withString: match];
-	selected.length = [match length];
+	selected.length = match.length;
 	[self setSelectedRange: selected];
 	
 	// Create an undo action for this replacement
-	[[self undoManager] setActionName: [IFUtility localizedString: @"Replace"]];
-	[[[self undoManager] prepareWithInvocationTarget: self] replaceFoundWith: previousValue
+	[self.undoManager setActionName: [IFUtility localizedString: @"Replace"]];
+	[[self.undoManager prepareWithInvocationTarget: self] replaceFoundWith: previousValue
 																	   range: selected];
 }
 
@@ -264,27 +276,27 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
 
 - (void) beginReplaceAll: (IFFindController*) sender {
 	// Begin an undo action for this operation
-	[[self undoManager] beginUndoGrouping];
-	[[self undoManager] setActionName: [IFUtility localizedString: @"Replace All"]];
+	[self.undoManager beginUndoGrouping];
+	[self.undoManager setActionName: [IFUtility localizedString: @"Replace All"]];
 }
 
 - (void) finishedReplaceAll: (IFFindController*) sender {
 	// Finished with the replace all operation
-	[[self undoManager] endUndoGrouping];
+	[self.undoManager endUndoGrouping];
 }
 
 
 - (void) replaceFindAllResult: (NSString*) match 
 						range: (NSRange) selected {
-	NSString* previousValue = [[self string] substringWithRange: selected];
+	NSString* previousValue = [self.string substringWithRange: selected];
 	
-	[[self textStorage] replaceCharactersInRange: selected
+	[self.textStorage replaceCharactersInRange: selected
 									  withString: match];
-	selected.length = [match length];
+	selected.length = match.length;
 	[self setSelectedRange: selected];
 
 	// Create an undo action for this replacement
-	[[[self undoManager] prepareWithInvocationTarget: self] replaceFindAllResult: previousValue
+	[[self.undoManager prepareWithInvocationTarget: self] replaceFindAllResult: previousValue
 																		   range: selected];
 }
 
@@ -292,47 +304,47 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
 							withString: (NSString*) replacement 
 								offset: (int*) offset {
 	// Get the original match
-	NSRange matchRange = [result fileRange];
+	NSRange matchRange = result.fileRange;
 	matchRange.location += *offset;
-	NSString* originalMatch = [[result context] substringWithRange: [result contextRange]];
+	NSString* originalMatch = [result.context substringWithRange: result.contextRange];
 	
 	// Check that the user hasn't edited the text since the match was made
-	if (![[[[self textStorage] string] substringWithRange: matchRange] isEqualToString: originalMatch]) {
+	if (![[self.textStorage.string substringWithRange: matchRange] isEqualToString: originalMatch]) {
 		return nil;
 	}
 
 	// Update the context to create a new match
-	NSRange contextRange = [result contextRange];
-	NSString* oldContext = [result context];
+	NSRange contextRange = result.contextRange;
+	NSString* oldContext = result.context;
 	NSString* newContext = [NSString stringWithFormat: @"%@%@%@",
 							[oldContext substringToIndex: contextRange.location],
 							replacement,
 							[oldContext substringFromIndex: contextRange.location + contextRange.length]];
-	NSRange newContextRange = [result contextRange];
-	newContextRange.length = [replacement length];
+	NSRange newContextRange = result.contextRange;
+	newContextRange.length = replacement.length;
 	
 	NSRange newMatchRange = matchRange;
-	newMatchRange.length = [replacement length];
+	newMatchRange.length = replacement.length;
 
-	IFFindResult* newResult = [[IFFindResult alloc]  initWithFilepath: [result filepath]
+	IFFindResult* newResult = [[IFFindResult alloc]  initWithFilepath: result.filepath
                                                           rangeInFile: newMatchRange
-                                                  documentDisplayName: [result documentDisplayName]
-                                                     documentSortName: [result documentSortName]
-                                                         locationType: [result locationType]
+                                                  documentDisplayName: result.documentDisplayName
+                                                     documentSortName: result.documentSortName
+                                                         locationType: result.locationType
                                                               context: newContext
                                                          contextRange: newContextRange
-                                                          exampleName: [result exampleName]
-                                                     exampleAnchorTag: [result exampleAnchorTag]
-                                                        codeAnchorTag: [result codeAnchorTag]
-                                                  definitionAnchorTag: [result definitionAnchorTag]
-                                                     regexFoundGroups: [result regexFoundGroups]];
+                                                          exampleName: result.exampleName
+                                                     exampleAnchorTag: result.exampleAnchorTag
+                                                        codeAnchorTag: result.codeAnchorTag
+                                                  definitionAnchorTag: result.definitionAnchorTag
+                                                     regexFoundGroups: result.regexFoundGroups];
 
 	// Perform the replacement
 	[self replaceFindAllResult: replacement
 						 range: matchRange];
 	
 	// Update the offset so future matches are replaced correctly
-	*offset += (int)[replacement length] - (int)[originalMatch length];
+	*offset += (int)replacement.length - (int)originalMatch.length;
 
 	return newResult;
 }

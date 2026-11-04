@@ -67,7 +67,7 @@ static NSDictionary* itemTextAttributes;
         selectedItem        = nil;
 
 		layoutTree = [[IFSkeinLayout alloc] init];
-		[layoutTree setRootItem: [skein rootItem]];
+		layoutTree.rootItem = skein.rootItem;
 
         // Manager for the child views
         skeinViewChildren = [[IFSkeinViewChildren alloc] initWithSkeinView: self];
@@ -101,7 +101,7 @@ static NSDictionary* itemTextAttributes;
 	}
 
 	skein = sk;
-	[layoutTree setRootItem: [sk rootItem]];
+	layoutTree.rootItem = sk.rootItem;
 
 	if (skein) {
 		// Fixed by Collin Pieper: adding an observer for nil has somewhat unwanted side effects
@@ -155,9 +155,9 @@ static NSDictionary* itemTextAttributes;
 
 	[self finishEditing: self];
 
-    NSDictionary * userDictionary = [not userInfo];
-    BOOL animate           = [[userDictionary objectForKey: IFSkeinChangedAnimateKey] boolValue];
-    BOOL keepActiveVisible = [[userDictionary objectForKey: IFSkeinKeepActiveVisibleKey] boolValue];
+    NSDictionary * userDictionary = not.userInfo;
+    BOOL animate           = [userDictionary[IFSkeinChangedAnimateKey] boolValue];
+    BOOL keepActiveVisible = [userDictionary[IFSkeinKeepActiveVisibleKey] boolValue];
 
     [self layoutSkeinWithAnimation: animate];
 
@@ -172,7 +172,7 @@ static NSDictionary* itemTextAttributes;
 }
 
 -(void) resizeView {
-    NSSize newSize = [layoutTree size];
+    NSSize newSize = layoutTree.size;
 
     // Even if the layout is small, we make sure we fill the superview's frame
     // This ensures we can drag the layout around from anywhere in the panel.
@@ -185,7 +185,7 @@ static NSDictionary* itemTextAttributes;
 }
 
 -(NSPoint) currentMousePosition {
-    NSPoint currentMousePos = [[self window] mouseLocationOutsideOfEventStream];
+    NSPoint currentMousePos = self.window.mouseLocationOutsideOfEventStream;
     return [self convertPoint: currentMousePos fromView: nil];
 }
 
@@ -198,7 +198,7 @@ static NSDictionary* itemTextAttributes;
         viewTrackingArea = nil;
     }
 
-    NSRect visibleRect = [self visibleRect];
+    NSRect visibleRect = self.visibleRect;
     if( !NSIsEmptyRect( visibleRect )) {
         NSTrackingAreaOptions options = NSTrackingCursorUpdate | NSTrackingActiveInKeyWindow;
 
@@ -221,9 +221,9 @@ static NSDictionary* itemTextAttributes;
     [self finishEditing: self];
 
     // Re-layout this skein
-    [layoutTree setRootItem:     skein.rootItem];
-    [layoutTree setActiveItem:   skein.activeItem];
-    [layoutTree setSelectedItem: selectedItem];
+    layoutTree.rootItem = skein.rootItem;
+    layoutTree.activeItem = skein.activeItem;
+    layoutTree.selectedItem = selectedItem;
 	[layoutTree layoutSkein];
 
     // Resize the view to the size of the new layout
@@ -240,7 +240,7 @@ static NSDictionary* itemTextAttributes;
 
     // Update views based on new layout, and animate as needed
     [NSAnimationContext beginGrouping];
-    [[NSAnimationContext currentContext] setDuration: kSkeinAnimationDuration];
+    [NSAnimationContext currentContext].duration = kSkeinAnimationDuration;
 
     [skeinViewChildren updateChildrenWithLayout: layoutTree
                                         animate: animate];
@@ -266,8 +266,8 @@ static NSDictionary* itemTextAttributes;
 {
     if( [IFUtility hasScrollElasticityFeature] ) {
         // Make sure the skein view doesn't have elasticity
-        [self.enclosingScrollView setHorizontalScrollElasticity: NSScrollElasticityNone];
-        [self.enclosingScrollView setVerticalScrollElasticity:   NSScrollElasticityNone];
+        (self.enclosingScrollView).horizontalScrollElasticity = NSScrollElasticityNone;
+        (self.enclosingScrollView).verticalScrollElasticity = NSScrollElasticityNone;
     }
 }
 
@@ -280,13 +280,13 @@ static NSDictionary* itemTextAttributes;
     [[NSCursor closedHandCursor] set];
 
     dragScrolling = YES;
-    dragOrigin = [event locationInWindow];
-    dragInitialVisible = [self visibleRect];
+    dragOrigin = event.locationInWindow;
+    dragInitialVisible = self.visibleRect;
 }
 
 - (void) mouseDragged: (NSEvent*) event {
 	if (dragScrolling) {
-        NSPoint currentPos = [event locationInWindow];
+        NSPoint currentPos = event.locationInWindow;
 		NSRect newVisRect = dragInitialVisible;
 		
 		newVisRect.origin.x += dragOrigin.x - currentPos.x;
@@ -308,7 +308,7 @@ static NSDictionary* itemTextAttributes;
 
 - (void)textDidEndEditing:(NSNotification *)aNotification {
 	// Check if the user left the field before committing changes and end the edit.
-	BOOL success = [[aNotification userInfo][NSTextMovementUserInfoKey] integerValue] != NSTextMovementOther;
+	BOOL success = [aNotification.userInfo[NSTextMovementUserInfoKey] integerValue] != NSTextMovementOther;
 	
 	if (success)
 		[self finishEditing: fieldEditor];				// Store the results
@@ -318,33 +318,33 @@ static NSDictionary* itemTextAttributes;
 
 - (void) finishEditing: (id) sender {
 	if (itemToEdit != nil && fieldEditor != nil) {
-		IFSkeinItem* parent = [itemToEdit parent];
+		IFSkeinItem* parent = itemToEdit.parent;
 
         // Is there already a child with the same command?
-		BOOL siblingAlreadyHasSameCommand = ([parent childWithCommand: [fieldEditor string] isTestSubItem: NO] != itemToEdit);
+		BOOL siblingAlreadyHasSameCommand = ([parent childWithCommand: fieldEditor.string isTestSubItem: NO] != itemToEdit);
 
         if (siblingAlreadyHasSameCommand) {
             // Removing then re-adding the item back into the tree merges the itemToEdit with the existing tree
             [itemToEdit removeFromParent];
 
             // Set the new command
-            [itemToEdit setCommand: [fieldEditor string]];
+            itemToEdit.command = fieldEditor.string;
             
             IFSkeinItem* newItem = [parent addChild: itemToEdit];
 
             // Update the active/selected item if required
             if (itemToEdit == skein.activeItem) {
-                [skein setActiveItem: newItem];
+                skein.activeItem = newItem;
             }
             if (itemToEdit == selectedItem) {
-                [self setSelectedItem: newItem];
+                self.selectedItem = newItem;
             }
 
             itemToEdit = newItem;
         }
         else {
             // Set the new command
-            [itemToEdit setCommand: [fieldEditor string]];
+            itemToEdit.command = fieldEditor.string;
         }
 
         [self cancelEditing: self];
@@ -365,7 +365,7 @@ static NSDictionary* itemTextAttributes;
 	
 	// Kill off the field editor
 	[fieldEditor removeFromSuperview];
-	[[self window] makeFirstResponder: self];
+	[self.window makeFirstResponder: self];
 	
 	fieldEditor = nil;
     itemToEdit = nil;
@@ -378,9 +378,9 @@ static NSDictionary* itemTextAttributes;
 - (void) editItem: (IFSkeinItem*) skeinItem {
 	// Finish any existing editing
 	[self finishEditing: self];
-	[[self window] makeFirstResponder: self];
+	[self.window makeFirstResponder: self];
 	
-	if ([skeinItem parent] == nil) {
+	if (skeinItem.parent == nil) {
 		// Can't edit the root item
 		NSBeep();
 		return;
@@ -397,7 +397,7 @@ static NSDictionary* itemTextAttributes;
 	}
 
 	// Get the text to edit
-	NSString* itemText = [skeinItem command];
+	NSString* itemText = skeinItem.command;
 	if (itemText == nil) itemText = @"";
 
 	// Area of the text for this item
@@ -425,42 +425,42 @@ static NSDictionary* itemTextAttributes;
 		
 		[fieldScroller setHasHorizontalScroller: NO];
 		[fieldScroller setHasVerticalScroller: NO];
-		[fieldScroller setBorderType: NSGrooveBorder];
+		fieldScroller.borderType = NSGrooveBorder;
 	}
 
 	// Construct the field editor
-	fieldEditor = (NSTextView*)[[self window] fieldEditor: YES
+	fieldEditor = (NSTextView*)[self.window fieldEditor: YES
 												forObject: self];
 
 	fieldStorage = [[NSTextStorage alloc] initWithString: itemText
 											  attributes: itemTextAttributes];	
-	[[fieldEditor textStorage] setAttributedString: fieldStorage];
+	[fieldEditor.textStorage setAttributedString: fieldStorage];
 
-	[fieldEditor setDelegate: self];
-	[fieldScroller setFrame: itemFrame];
-	[fieldEditor setFrame: itemFrame];
+	fieldEditor.delegate = self;
+	fieldScroller.frame = itemFrame;
+	fieldEditor.frame = itemFrame;
 
-	[fieldEditor setAlignment: NSTextAlignmentCenter];
-	[fieldEditor setFont: itemTextAttributes[NSFontAttributeName]];
+	fieldEditor.alignment = NSTextAlignmentCenter;
+	fieldEditor.font = itemTextAttributes[NSFontAttributeName];
 
 	[fieldEditor setRichText:NO];
     if ([fieldEditor respondsToSelector: @selector(setAllowsDocumentBackgroundColorChange:)]) {
         [fieldEditor setAllowsDocumentBackgroundColorChange:NO];
     }
-	[fieldEditor setBackgroundColor:[NSColor whiteColor]];
+	fieldEditor.backgroundColor = [NSColor whiteColor];
 
-	[[fieldEditor textContainer] setContainerSize: NSMakeSize(itemFrame.size.width - 4.0f, 1e6)];
-	[[fieldEditor textContainer] setWidthTracksTextView:NO];
-	[[fieldEditor textContainer] setHeightTracksTextView:NO];
+	fieldEditor.textContainer.containerSize = NSMakeSize(itemFrame.size.width - 4.0f, 1e6);
+	[fieldEditor.textContainer setWidthTracksTextView:NO];
+	[fieldEditor.textContainer setHeightTracksTextView:NO];
 	[fieldEditor setHorizontallyResizable:NO];
 	[fieldEditor setVerticallyResizable:YES];
 	[fieldEditor setDrawsBackground: YES];
 	[fieldEditor setEditable: YES];
 
 	// Activate it
-	[fieldScroller setDocumentView: fieldEditor];
+	fieldScroller.documentView = fieldEditor;
 	[self addSubview: fieldScroller];
-	[[self window] makeFirstResponder: fieldEditor];
+	[self.window makeFirstResponder: fieldEditor];
 }
 
 
@@ -660,7 +660,7 @@ static NSDictionary* itemTextAttributes;
 
 - (NSMenu *)menuForEvent:(NSEvent *)event {
 	// Find which item that the mouse is over
-	NSPoint pointInView = [event locationInWindow];
+	NSPoint pointInView = event.locationInWindow;
 	pointInView = [self convertPoint: pointInView fromView: nil];
 	
 	IFSkeinItem* itemAtPoint = [layoutTree itemAtPoint: pointInView];
@@ -752,7 +752,7 @@ static NSDictionary* itemTextAttributes;
             // Adjust the selected item to remain valid
             if( fixSelectedItem ) {
                 if( parent.children.count <= 1) {
-                    [self setSelectedItem: parent];
+                    self.selectedItem = parent;
                 } else {
                     [self setSelectedItem: nil];
                 }
@@ -801,7 +801,7 @@ static NSDictionary* itemTextAttributes;
         // Adjust the selected item to remain valid
         if( fixSelectedItem ) {
             if( originalParent.children.count <= 1) {
-                [self setSelectedItem: originalParent];
+                self.selectedItem = originalParent;
             } else {
                 [self setSelectedItem: nil];
             }
@@ -816,12 +816,12 @@ static NSDictionary* itemTextAttributes;
 
 - (IBAction) setWinningCommandItem: (id) sender {
     if ([self canSetWinningItem: contextItem]) {
-        IFSkeinItem* oldWinningItem = [skein getWinningItem];
+        IFSkeinItem* oldWinningItem = skein.winningItem;
         if (oldWinningItem == contextItem) {
             [skein setWinningItem: nil];
-            [((NSMenuItem*) sender) setState: NSControlStateValueOff];
+            ((NSMenuItem*) sender).state = NSControlStateValueOff;
         } else {
-            [skein setWinningItem: contextItem];
+            skein.winningItem = contextItem;
         }
 
         if (oldWinningItem != nil) {
@@ -864,13 +864,13 @@ static NSDictionary* itemTextAttributes;
 }
 
 - (void) saveTranscript: (id) sender {
-	if ([self window] == nil) return;
+	if (self.window == nil) return;
     if( layoutTree.rootLayoutItem.onSelectedLine == NO ) return;
 
-    NSString* string = [self->skein transcriptToPoint: [layoutTree.rootLayoutItem leafSelectedLineItem].item ];
+    NSString* string = [self->skein transcriptToPoint: (layoutTree.rootLayoutItem).leafSelectedLineItem.item ];
 
     [IFUtility saveTranscriptPanelWithString: string
-                                      window: [self window]];
+                                      window: self.window];
 }
 
 -(IFSkeinItem*) itemAtPoint: (NSPoint) point {
@@ -879,7 +879,7 @@ static NSDictionary* itemTextAttributes;
 
 -(void) selectItem: (IFSkeinItem*) item withAnimation:(BOOL) animate {
     if( selectedItem != item ) {
-        [self setSelectedItem: item];
+        self.selectedItem = item;
         [self layoutSkeinWithAnimation:animate];
     }
     [self scrollViewToItem: item];
@@ -900,7 +900,7 @@ static NSDictionary* itemTextAttributes;
     NSRect rect = [skeinViewChildren rectForItem: skein.activeItem];
     if( !NSIsEmptyRect(rect) ) {
         // Animate the controlView
-        NSRect startingRect = [self frame];
+        NSRect startingRect = self.frame;
         NSRect endingRect = startingRect;
         endingRect.origin = rect.origin;
 
@@ -927,7 +927,7 @@ static NSDictionary* itemTextAttributes;
 }
 
 + (CGFloat) fontSize {
-    return kSkeinDefaultItemFontSize * [[IFPreferences sharedPreferences] appFontSizeMultiplier];
+    return kSkeinDefaultItemFontSize * [IFPreferences sharedPreferences].appFontSizeMultiplier;
 }
 
 - (void) fontSizePreferenceChanged: (NSNotification*) not {
@@ -954,8 +954,8 @@ typedef BOOL(^checkFunc)(IFSkeinLayoutItem* item);
     NSMutableArray* queue = [[NSMutableArray alloc] init];
 
     [queue addObject:layoutTree.rootLayoutItem];
-    while ( [queue count] > 0 ) {
-        IFSkeinLayoutItem* layoutItem = [queue lastObject];
+    while ( queue.count > 0 ) {
+        IFSkeinLayoutItem* layoutItem = queue.lastObject;
         [queue removeLastObject];
 
         if( checkFunction(layoutItem) ) {

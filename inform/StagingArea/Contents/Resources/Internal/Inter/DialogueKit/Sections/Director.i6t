@@ -8,6 +8,7 @@ active or inactive mode?
 
 =
 Global director_is_active = false;
+Global director_is_paused_for_command = false;
 Global line_performance_count = 0;
 
 [ DirectorActivate;
@@ -59,7 +60,7 @@ virtue of Inform lists, that is, their flexible size.
 
 =
 [ DirectorLiveSubjectList list len i;
-	if ((list==0) || (BlkValueWeakKind(list) ~= LIST_OF_TY)) return 0;
+	if (WeakKindOfPV(list) ~= LIST_OF_TY) return 0;
 	len = 0;
 	while (DialogueTopicPool-->len) len++;
 	LIST_OF_TY_SetLength(list, len);
@@ -69,11 +70,11 @@ virtue of Inform lists, that is, their flexible size.
 ];
 
 [ DirectorAlterLiveSubjectList list len i;
-	if ((list==0) || (BlkValueWeakKind(list) ~= LIST_OF_TY)) return 0;
-	len = BlkValueRead(list, LIST_LENGTH_F);
+	if (WeakKindOfPV(list) ~= LIST_OF_TY) return 0;
+	len = PVField(list, LIST_LENGTH_F);
 	if (len > DIALOGUE_MAX_LIVE_SUBJECTS) len = DIALOGUE_MAX_LIVE_SUBJECTS;
 	for (i=0: i<len: i++)
-		DialogueTopicPool-->i = BlkValueRead(list, LIST_ITEM_BASE+i);
+		DialogueTopicPool-->i = PVField(list, LIST_ITEM_BASE+i);
 	DialogueTopicPool-->len = 0;
 	DialogueTopicPool-->DIALOGUE_MAX_LIVE_SUBJECTS = 0;
 ];
@@ -119,29 +120,40 @@ first to speak. (Note that |speaker| will often be the player.)
 @h Active dialogue.
 In active mode only, the Director sometimes initiates conversation itself,
 and this is the rule doing that. In passive mode the rule does nothing.
-In stories with a lot of dialogue, this will be run quite slowly: on the
+In stories with a lot of dialogue, this will run quite slowly: on the
 other hand, it only has to run once in every turn, so that may not matter.
 
+Note that the rule always succeeds, even in the case when the Director
+finds nothing to perform.
+
 =
-[ DIALOGUE_DIRECTION_R db;
-	if (director_is_active) {
+[ DIALOGUE_DIRECTION_R db spontaneous_one chosen_one;
+	if ((director_is_active) && (director_is_paused_for_command == false)) {
 		if ((director_sp == 0) && (line_performance_count == 0)) {
 			for (db=1: db<=NO_DIALOGUE_BEATS: db++)
 				if ((DirectorBeatAccessible(db, player)) &&
-					(DirectorBeatAvailable(db)) &&
-					(DirectorBeatRelevant(db))) {
-					DirectorPerformBeat(db);
-					line_performance_count = 0;
-					rfalse;
+					(DirectorBeatAvailable(db))) {
+					if ((DirectorBeatRelevant(db)) &&
+						((GProperty(DIALOGUE_BEAT_TY, db, voluntary) == false) ||
+						(DirectorBeatFirstSpeaker(db) ~= player))) {
+						chosen_one = db;
+						break;
+					}
+					if ((spontaneous_one == 0) &&
+						(GProperty(DIALOGUE_BEAT_TY, db, spontaneous)))
+						spontaneous_one = db;
 				}
-			for (db=1: db<=NO_DIALOGUE_BEATS: db++)
-				if ((GProperty(DIALOGUE_BEAT_TY, db, spontaneous)) &&
-					(DirectorBeatAccessible(db, player))) {
-					DirectorEmptyLiveSubjectList();
-					DirectorPerformBeat(db);
-					line_performance_count = 0;
-					rfalse;
-				}
+			if ((chosen_one == 0) && (spontaneous_one)) {
+				if (debug_dialogue >= 2) print "-- Active director selects spontaneous beat^";
+				chosen_one = spontaneous_one;
+				DirectorEmptyLiveSubjectList();
+			} else if (chosen_one) {
+				if (debug_dialogue >= 2) print "-- Active director selects relevant beat^";
+			}
+			if (chosen_one) DirectorPerformBeat(chosen_one);
+			else if (debug_dialogue >= 2) print "-- Active director cannot find a beat^";
+		} else {
+			if (debug_dialogue >= 2) print "-- Director is active but too much else is going on^";
 		}
 	}
 	line_performance_count = 0;

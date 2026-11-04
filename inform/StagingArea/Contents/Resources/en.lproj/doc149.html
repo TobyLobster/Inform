@@ -83,22 +83,22 @@
     <!--END IGNORE-->
     <p class="sectionheading">§10.2. Creating a scene</p>
     <p>As usual, we only need to say that something is a scene to make it so:</p>
-    <!--START CODE "c2360"-->
-    <blockquote class="code"><p class="quoted"><a id="c2360"></a>Train Stop is a scene.
+    <!--START CODE "c2359"-->
+    <blockquote class="code"><p class="quoted"><a id="c2359"></a>Train Stop is a scene.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>We conventionally write scene names with capital letters, as this demonstrates.</p>
     <p>This works, and shows up in the &quot;Scenes&quot; index, but does nothing. We have given no instructions on when it begins - no cue, in stage-play terms - so it never will begin, and even if it did, nobody would notice since it does nothing. First, to give it a beginning:</p>
-    <!--START CODE "c2361"-->
-    <blockquote class="code"><p class="quoted"><a id="c2361"></a>Train Stop begins when the player is in the Station for the third turn.
+    <!--START CODE "c2360"-->
+    <blockquote class="code"><p class="quoted"><a id="c2360"></a>Train Stop begins when the player is in the Station for the third turn.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>In theory any condition can be used to cue the scene - here, it's &quot;the player is in the Station for the third turn&quot; - but it's wise to look for a state of affairs which will last at least a brief time, because scene changes only happen at the start and end of turns. (Something like &quot;...when examining the timetable&quot; may be true only for a part of the middle of a turn, and so go unnoticed.)</p>
     <p>Every scene has two rulebooks attached, one at each end, so to speak. These look very like &quot;when play begins&quot; and &quot;when play ends&quot;, and work in the same way. Thus:</p>
-    <!--START CODE "c2362"-->
-    <blockquote class="code"><p class="quoted"><a id="c2362"></a>When Train Stop begins:
+    <!--START CODE "c2361"-->
+    <blockquote class="code"><p class="quoted"><a id="c2361"></a>When Train Stop begins:
     <br>
     &#160;&#160;&#160;&#160;now the Flying Scotsman is in the Station;
     <br>
@@ -106,8 +106,8 @@
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c2363"-->
-    <blockquote class="code"><p class="quoted"><a id="c2363"></a>When Train Stop ends:
+    <!--START CODE "c2362"-->
+    <blockquote class="code"><p class="quoted"><a id="c2362"></a>When Train Stop ends:
     <br>
     &#160;&#160;&#160;&#160;now the Flying Scotsman is nowhere;
     <br>
@@ -115,27 +115,27 @@
     </p>
     </blockquote>
     <!--END CODE-->
-    <p>Thus when the scene begins, our imaginary stage-hands wheel in a steam train; when it ends, they get rid of it again. Note that we know where the player will be at the start of the scene, but by the end he may have wandered off across the fields, so we must be careful not to report something he might not be in a position to see.</p>
+    <p>Thus when the scene begins, our imaginary stage-hands wheel in a steam train; when it ends, they get rid of it again. Note that we know where the player will be at the start of the scene, but by the end they may have wandered off across the fields, so we must be careful not to report something they might not be in a position to see.</p>
     <p>When Train Stop begins, we printed some text, but we did this by hand. We didn't need to, because Inform automatically prints out the description of a scene (if it has one) when the scene begins. Scenes can have properties, just like objects, and in particular they have the &quot;description&quot; property. For example, we could write:</p>
-    <!--START CODE "c2364"-->
-    <blockquote class="code"><p class="quoted"><a id="c2364"></a>Arrival is a scene. &quot;There's a flourish of trumpets.&quot;
+    <!--START CODE "c2363"-->
+    <blockquote class="code"><p class="quoted"><a id="c2363"></a>Arrival is a scene. &quot;There's a flourish of trumpets.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>which saves us the trouble of writing the rule:</p>
-    <!--START CODE "c2365"-->
-    <blockquote class="code"><p class="quoted"><a id="c2365"></a>When Arrival begins: say &quot;There's a flourish of trumpets.&quot;
+    <!--START CODE "c2364"-->
+    <blockquote class="code"><p class="quoted"><a id="c2364"></a>When Arrival begins: say &quot;There's a flourish of trumpets.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>We can also write rules like this which apply to a whole variety of scenes at once. For instance:</p>
-    <!--START CODE "c2366"-->
-    <blockquote class="code"><p class="quoted"><a id="c2366"></a>A scene can be bright or dim. A scene is usually dim. Dawn is a bright scene.
+    <!--START CODE "c2365"-->
+    <blockquote class="code"><p class="quoted"><a id="c2365"></a>A scene can be bright or dim. A scene is usually dim. Dawn is a bright scene.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c2367"-->
-    <blockquote class="code"><p class="quoted"><a id="c2367"></a>When a scene which is bright ends: say &quot;So passes the bright [scene being changed].&quot;
+    <!--START CODE "c2366"-->
+    <blockquote class="code"><p class="quoted"><a id="c2366"></a>When a scene which is bright ends: say &quot;So passes the bright [scene being changed].&quot;
     </p>
     </blockquote>
     <!--END CODE-->
@@ -143,74 +143,74 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "154: Pine 1" "e288"-->
-        <a id="e288"></a><table class="egcue">
+        <!--START EXAMPLE "154: Pine 1" "e277"-->
+        <a id="e277"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example288'); return false;"><b>154</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example277'); return false;"><b>154</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example288'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Pine 1</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example277'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Pine 1</span></b></a><br>
                     Pine: Using a scene to watch for the solution of a puzzle, however arrived-at by the player.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc49.html#e288"><i>RB</i></a></div>
+                        <a href="Rdoc49.html#e277"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example288" style="display: none;">
-            <p>Because scene rules are checked every turn, they can be useful for designing puzzles which have multiple solutions. Instead of deciding the puzzle is &quot;solved&quot; when the player does a certain action, we set up a scene that checks to see whether the player has achieved a certain outcome -- however he accomplished it.</p>
+        <div class="egpanel" id="example277" style="display: none;">
+            <p>Because scene rules are checked every turn, they can be useful for designing puzzles which have multiple solutions. Instead of deciding the puzzle is &quot;solved&quot; when the player does a certain action, we set up a scene that checks to see whether the player has achieved a certain outcome -- however they accomplished it.</p>
             <p>For instance, in this scenario, we're waiting for Sleeping Beauty to wake up, and it doesn't much matter how...</p>
-            <!--START CODE "c2368_288"-->
-            <blockquote class="code"><p class="quoted"><a id="c2368_288"></a><a href="javascript:pasteCode('[=0x0022=]Pine[=0x0022=][=0x000A=][=0x000A=]A person can be asleep or awake. A person can be active or passive.[=0x000A=][=0x000A=]The Spinning Tower is a room. [=0x0022=]A remote corner of the old castle, reserved for spinning and weaving tasks.[=0x0022=][=0x000A=][=0x000A=]Sleeping Beauty is an asleep woman in the Spinning Tower. [=0x0022=][if asleep]Sleeping Beauty lies here, oblivious to your presence[otherwise]Sleeping Beauty stands beside you, looking a little confused[end if].[=0x0022=] The description is [=0x0022=]She is even more magnificent than the rumors suggested.[=0x0022=] Understand [=0x0022=]woman[=0x0022=] or [=0x0022=]girl[=0x0022=] or [=0x0022=]princess[=0x0022=] or [=0x0022=]lady[=0x0022=] as Sleeping Beauty.[=0x000A=][=0x000A=]Discovery is a scene. Discovery begins when play begins. Discovery ends when Sleeping Beauty is awake. Marriage Proposal is a scene. Marriage Proposal begins when Discovery ends.[=0x000A=][=0x000A=]When Discovery ends: say [=0x0022=]Throughout the palace you can hear the other sounds of stirring and movement as the spell of centuries is broken.[=0x0022=][=0x000A=][=0x000A=]Instead of waking an awake person: say [=0x0022=]Redundant.[=0x0022=][=0x000A=][=0x000A=]Instead of waking an asleep person: say [=0x0022=]Yes, but how?[=0x0022=][=0x000A=][=0x000A=]Instead of attacking an asleep person:[=0x000A=][=0x0009=]now the noun is awake;[=0x000A=][=0x0009=]say [=0x0022=][The noun] sits bolt upright. [=0x0027=]Hey! Ow![=0x0027=] So much for that true love[=0x0027=]s kiss nonsense.[=0x0022=][=0x000A=][=0x000A=]Instead of kissing an asleep person:[=0x000A=][=0x0009=]now the noun is awake;[=0x000A=][=0x0009=]say [=0x0022=][The noun] slowly stirs to wakefulness![=0x0022=][=0x000A=][=0x000A=]Instead of throwing water at an asleep person:[=0x000A=][=0x0009=]now the second noun is awake;[=0x000A=][=0x0009=]now the noun is nowhere;[=0x000A=][=0x0009=]say [=0x0022=]You pour out [the noun] on [the second noun].[=0x000A=][=0x000A=][The second noun] wakes, shuddering. [=0x0027=]Agh! I had a terrible dream about drowning and then-- Hey![=0x0027=][=0x0022=][=0x000A=][=0x000A=]The player carries a jug of water. Understand [=0x0022=]pour [something] on [something][=0x0022=] or [=0x0022=]splash [something] at/on [something][=0x0022=] as throwing it at.[=0x000A=][=0x000A=]Test me with [=0x0022=]x beauty / wake beauty / pour water on beauty[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Pine[=0x0022=][=0x000A=][=0x000A=]A person can be asleep or awake. A person can be active or passive.[=0x000A=][=0x000A=]The Spinning Tower is a room. [=0x0022=]A remote corner of the old castle, reserved for spinning and weaving tasks.[=0x0022=][=0x000A=][=0x000A=]Sleeping Beauty is an asleep woman in the Spinning Tower. [=0x0022=][if asleep]Sleeping Beauty lies here, oblivious to your presence[otherwise]Sleeping Beauty stands beside you, looking a little confused[end if].[=0x0022=] The description is [=0x0022=]She is even more magnificent than the rumors suggested.[=0x0022=] Understand [=0x0022=]woman[=0x0022=] or [=0x0022=]girl[=0x0022=] or [=0x0022=]princess[=0x0022=] or [=0x0022=]lady[=0x0022=] as Sleeping Beauty.[=0x000A=][=0x000A=]Discovery is a scene. Discovery begins when play begins. Discovery ends when Sleeping Beauty is awake. Marriage Proposal is a scene. Marriage Proposal begins when Discovery ends.[=0x000A=][=0x000A=]When Discovery ends: say [=0x0022=]Throughout the palace you can hear the other sounds of stirring and movement as the spell of centuries is broken.[=0x0022=][=0x000A=][=0x000A=]Instead of waking an awake person: say [=0x0022=]Redundant.[=0x0022=][=0x000A=][=0x000A=]Instead of waking an asleep person: say [=0x0022=]Yes, but how?[=0x0022=][=0x000A=][=0x000A=]Instead of attacking an asleep person:[=0x000A=][=0x0009=]now the noun is awake;[=0x000A=][=0x0009=]say [=0x0022=][The noun] sits bolt upright. [=0x0027=]Hey! Ow![=0x0027=] So much for that true love[=0x0027=]s kiss nonsense.[=0x0022=][=0x000A=][=0x000A=]Instead of kissing an asleep person:[=0x000A=][=0x0009=]now the noun is awake;[=0x000A=][=0x0009=]say [=0x0022=][The noun] slowly stirs to wakefulness![=0x0022=][=0x000A=][=0x000A=]Instead of throwing water at an asleep person:[=0x000A=][=0x0009=]now the second noun is awake;[=0x000A=][=0x0009=]now the noun is nowhere;[=0x000A=][=0x0009=]say [=0x0022=]You pour out [the noun] on [the second noun].[=0x000A=][=0x000A=][The second noun] wakes, shuddering. [=0x0027=]Agh! I had a terrible dream about drowning and then-- Hey![=0x0027=][=0x0022=][=0x000A=][=0x000A=]The player carries a jug of water. Understand [=0x0022=]pour [something] on [something][=0x0022=] or [=0x0022=]splash [something] at/on [something][=0x0022=] as throwing it at.[=0x000A=][=0x000A=]Test me with [=0x0022=]x beauty / wake beauty / pour water on beauty[=0x0022=].[=0x000A=]\n', 'Example - Pine 1')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Pine&quot;
+            <!--START CODE "c2367_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c2367_277"></a><a href="javascript:pasteCode('[=0x0022=]Pine[=0x0022=][=0x000A=][=0x000A=]A person can be asleep or awake. A person can be active or passive.[=0x000A=][=0x000A=]The Spinning Tower is a room. [=0x0022=]A remote corner of the old castle, reserved for spinning and weaving tasks.[=0x0022=][=0x000A=][=0x000A=]Sleeping Beauty is an asleep woman in the Spinning Tower. [=0x0022=][if asleep]Sleeping Beauty lies here, oblivious to your presence[otherwise]Sleeping Beauty stands beside you, looking a little confused[end if].[=0x0022=] The description is [=0x0022=]She is even more magnificent than the rumors suggested.[=0x0022=] Understand [=0x0022=]woman[=0x0022=] or [=0x0022=]girl[=0x0022=] or [=0x0022=]princess[=0x0022=] or [=0x0022=]lady[=0x0022=] as Sleeping Beauty.[=0x000A=][=0x000A=]Discovery is a scene. Discovery begins when play begins. Discovery ends when Sleeping Beauty is awake. Marriage Proposal is a scene. Marriage Proposal begins when Discovery ends.[=0x000A=][=0x000A=]When Discovery ends: say [=0x0022=]Throughout the palace you can hear the other sounds of stirring and movement as the spell of centuries is broken.[=0x0022=][=0x000A=][=0x000A=]Instead of waking an awake person: say [=0x0022=]Redundant.[=0x0022=][=0x000A=][=0x000A=]Instead of waking an asleep person: say [=0x0022=]Yes, but how?[=0x0022=][=0x000A=][=0x000A=]Instead of attacking an asleep person:[=0x000A=][=0x0009=]now the noun is awake;[=0x000A=][=0x0009=]say [=0x0022=][The noun] sits bolt upright. [=0x0027=]Hey! Ow![=0x0027=] So much for that true love[=0x0027=]s kiss nonsense.[=0x0022=][=0x000A=][=0x000A=]Instead of kissing an asleep person:[=0x000A=][=0x0009=]now the noun is awake;[=0x000A=][=0x0009=]say [=0x0022=][The noun] slowly stirs to wakefulness![=0x0022=][=0x000A=][=0x000A=]Instead of throwing water at an asleep person:[=0x000A=][=0x0009=]now the second noun is awake;[=0x000A=][=0x0009=]now the noun is nowhere;[=0x000A=][=0x0009=]say [=0x0022=]You pour out [the noun] on [the second noun].[=0x000A=][=0x000A=][The second noun] wakes, shuddering. [=0x0027=]Agh! I had a terrible dream about drowning and then-- Hey![=0x0027=][=0x0022=][=0x000A=][=0x000A=]The player carries a jug of water. Understand [=0x0022=]pour [something] on [something][=0x0022=] or [=0x0022=]splash [something] at/on [something][=0x0022=] as throwing it at.[=0x000A=][=0x000A=]Test me with [=0x0022=]x beauty / wake beauty / pour water on beauty[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Pine[=0x0022=][=0x000A=][=0x000A=]A person can be asleep or awake. A person can be active or passive.[=0x000A=][=0x000A=]The Spinning Tower is a room. [=0x0022=]A remote corner of the old castle, reserved for spinning and weaving tasks.[=0x0022=][=0x000A=][=0x000A=]Sleeping Beauty is an asleep woman in the Spinning Tower. [=0x0022=][if asleep]Sleeping Beauty lies here, oblivious to your presence[otherwise]Sleeping Beauty stands beside you, looking a little confused[end if].[=0x0022=] The description is [=0x0022=]She is even more magnificent than the rumors suggested.[=0x0022=] Understand [=0x0022=]woman[=0x0022=] or [=0x0022=]girl[=0x0022=] or [=0x0022=]princess[=0x0022=] or [=0x0022=]lady[=0x0022=] as Sleeping Beauty.[=0x000A=][=0x000A=]Discovery is a scene. Discovery begins when play begins. Discovery ends when Sleeping Beauty is awake. Marriage Proposal is a scene. Marriage Proposal begins when Discovery ends.[=0x000A=][=0x000A=]When Discovery ends: say [=0x0022=]Throughout the palace you can hear the other sounds of stirring and movement as the spell of centuries is broken.[=0x0022=][=0x000A=][=0x000A=]Instead of waking an awake person: say [=0x0022=]Redundant.[=0x0022=][=0x000A=][=0x000A=]Instead of waking an asleep person: say [=0x0022=]Yes, but how?[=0x0022=][=0x000A=][=0x000A=]Instead of attacking an asleep person:[=0x000A=][=0x0009=]now the noun is awake;[=0x000A=][=0x0009=]say [=0x0022=][The noun] sits bolt upright. [=0x0027=]Hey! Ow![=0x0027=] So much for that true love[=0x0027=]s kiss nonsense.[=0x0022=][=0x000A=][=0x000A=]Instead of kissing an asleep person:[=0x000A=][=0x0009=]now the noun is awake;[=0x000A=][=0x0009=]say [=0x0022=][The noun] slowly stirs to wakefulness![=0x0022=][=0x000A=][=0x000A=]Instead of throwing water at an asleep person:[=0x000A=][=0x0009=]now the second noun is awake;[=0x000A=][=0x0009=]now the noun is nowhere;[=0x000A=][=0x0009=]say [=0x0022=]You pour out [the noun] on [the second noun].[=0x000A=][=0x000A=][The second noun] wakes, shuddering. [=0x0027=]Agh! I had a terrible dream about drowning and then-- Hey![=0x0027=][=0x0022=][=0x000A=][=0x000A=]The player carries a jug of water. Understand [=0x0022=]pour [something] on [something][=0x0022=] or [=0x0022=]splash [something] at/on [something][=0x0022=] as throwing it at.[=0x000A=][=0x000A=]Test me with [=0x0022=]x beauty / wake beauty / pour water on beauty[=0x0022=].[=0x000A=]\n', 'Example - Pine 1')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Pine&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2369_288"-->
-            <blockquote class="code"><p class="quoted"><a id="c2369_288"></a>A person can be asleep or awake. A person can be active or passive.
+            <!--START CODE "c2368_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c2368_277"></a>A person can be asleep or awake. A person can be active or passive.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2370_288"-->
-            <blockquote class="code"><p class="quoted"><a id="c2370_288"></a>The Spinning Tower is a room. &quot;A remote corner of the old castle, reserved for spinning and weaving tasks.&quot;
+            <!--START CODE "c2369_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c2369_277"></a>The Spinning Tower is a room. &quot;A remote corner of the old castle, reserved for spinning and weaving tasks.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2371_288"-->
-            <blockquote class="code"><p class="quoted"><a id="c2371_288"></a>Sleeping Beauty is an asleep woman in the Spinning Tower. &quot;[if asleep]Sleeping Beauty lies here, oblivious to your presence[otherwise]Sleeping Beauty stands beside you, looking a little confused[end if].&quot; The description is &quot;She is even more magnificent than the rumors suggested.&quot; Understand &quot;woman&quot; or &quot;girl&quot; or &quot;princess&quot; or &quot;lady&quot; as Sleeping Beauty.
+            <!--START CODE "c2370_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c2370_277"></a>Sleeping Beauty is an asleep woman in the Spinning Tower. &quot;[if asleep]Sleeping Beauty lies here, oblivious to your presence[otherwise]Sleeping Beauty stands beside you, looking a little confused[end if].&quot; The description is &quot;She is even more magnificent than the rumors suggested.&quot; Understand &quot;woman&quot; or &quot;girl&quot; or &quot;princess&quot; or &quot;lady&quot; as Sleeping Beauty.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2372_288"-->
-            <blockquote class="code"><p class="quoted"><a id="c2372_288"></a>Discovery is a scene. Discovery begins when play begins. Discovery ends when Sleeping Beauty is awake. Marriage Proposal is a scene. Marriage Proposal begins when Discovery ends.
+            <!--START CODE "c2371_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c2371_277"></a>Discovery is a scene. Discovery begins when play begins. Discovery ends when Sleeping Beauty is awake. Marriage Proposal is a scene. Marriage Proposal begins when Discovery ends.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2373_288"-->
-            <blockquote class="code"><p class="quoted"><a id="c2373_288"></a>When Discovery ends: say &quot;Throughout the palace you can hear the other sounds of stirring and movement as the spell of centuries is broken.&quot;
+            <!--START CODE "c2372_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c2372_277"></a>When Discovery ends: say &quot;Throughout the palace you can hear the other sounds of stirring and movement as the spell of centuries is broken.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2374_288"-->
-            <blockquote class="code"><p class="quoted"><a id="c2374_288"></a>Instead of waking an awake person: say &quot;Redundant.&quot;
+            <!--START CODE "c2373_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c2373_277"></a>Instead of waking an awake person: say &quot;Redundant.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2375_288"-->
-            <blockquote class="code"><p class="quoted"><a id="c2375_288"></a>Instead of waking an asleep person: say &quot;Yes, but how?&quot;
+            <!--START CODE "c2374_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c2374_277"></a>Instead of waking an asleep person: say &quot;Yes, but how?&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2376_288"-->
-            <blockquote class="code"><p class="quoted"><a id="c2376_288"></a>Instead of attacking an asleep person:
+            <!--START CODE "c2375_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c2375_277"></a>Instead of attacking an asleep person:
             <br>
             &#160;&#160;&#160;&#160;now the noun is awake;
             <br>
@@ -218,8 +218,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2377_288"-->
-            <blockquote class="code"><p class="quoted"><a id="c2377_288"></a>Instead of kissing an asleep person:
+            <!--START CODE "c2376_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c2376_277"></a>Instead of kissing an asleep person:
             <br>
             &#160;&#160;&#160;&#160;now the noun is awake;
             <br>
@@ -227,8 +227,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2378_288"-->
-            <blockquote class="code"><p class="quoted"><a id="c2378_288"></a>Instead of throwing water at an asleep person:
+            <!--START CODE "c2377_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c2377_277"></a>Instead of throwing water at an asleep person:
             <br>
             &#160;&#160;&#160;&#160;now the second noun is awake;
             <br>
@@ -238,92 +238,92 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2379_288"-->
-            <blockquote class="code"><p class="quoted"><a id="c2379_288"></a>[The second noun] wakes, shuddering. 'Agh! I had a terrible dream about drowning and then-- Hey!'&quot;
+            <!--START CODE "c2378_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c2378_277"></a>[The second noun] wakes, shuddering. 'Agh! I had a terrible dream about drowning and then-- Hey!'&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2380_288"-->
-            <blockquote class="code"><p class="quoted"><a id="c2380_288"></a>The player carries a jug of water. Understand &quot;pour [something] on [something]&quot; or &quot;splash [something] at/on [something]&quot; as throwing it at.
+            <!--START CODE "c2379_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c2379_277"></a>The player carries a jug of water. Understand &quot;pour [something] on [something]&quot; or &quot;splash [something] at/on [something]&quot; as throwing it at.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2381_288"-->
-            <blockquote class="code"><p class="quoted"><a id="c2381_288"></a>Test me with &quot;x beauty / wake beauty / pour water on beauty&quot;.
+            <!--START CODE "c2380_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c2380_277"></a>Test me with &quot;x beauty / wake beauty / pour water on beauty&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "155: Entrapment" "e418"-->
-        <a id="e418"></a><table class="egcue">
+        <!--START EXAMPLE "155: Entrapment" "e119"-->
+        <a id="e119"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example418'); return false;"><b>155</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example119'); return false;"><b>155</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example418'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Entrapment</span></b></a><br>
-                    A scene in which the player is allowed to explore as much as he likes, but another character strolls in as soon as he has gotten himself into an awkward or embarrassing situation.</p>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example119'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Entrapment</span></b></a><br>
+                    A scene in which the player is allowed to explore as much as they like, but another character strolls in as soon as they have gotten into an awkward or embarrassing situation.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc18.html#e418"><i>RB</i></a></div>
+                        <a href="Rdoc18.html#e119"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example418" style="display: none;">
+        <div class="egpanel" id="example119" style="display: none;">
             <p>The power of scenes lies in their ability to watch for general conditions and move the narrative along whenever these are fulfilled. Instead of waiting for the player to do one specific thing, the game waits for the world to be in a certain condition, before moving to the next stage of the plot.</p>
-            <p>For instance, suppose we have a story in which the player has been captured for doing something inappropriate at court and is brought in to await a meeting with a palace official. We want to give the player a few minutes to stew, and we want the scene to end with him doing something mildly peculiar or embarrassing, and the official catching him in the act. So we tempt him into trying any of a number of different kooky activities, and just wait until he falls into the trap...</p>
-            <!--START CODE "c2382_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2382_418"></a><a href="javascript:pasteCode('[=0x0022=]Entrapment[=0x0022=][=0x000A=][=0x000A=]Waiting Suite is a room. [=0x0022=]You find yourself in a narrow room, more cozy than is really comfortable, with dark paneling on all the walls. Underfoot is a thick carpet the color of dried blood. The head of a dragon kit is mounted on the wall.[=0x0022=][=0x000A=][=0x000A=]The wood paneling is scenery in the Waiting Suite. The description is [=0x0022=]Just the sort of ornate panels that might conceal a carved switch. You[=0x0027=]ve heard all sorts of rumors about secret rooms and passages in the palace, some of which have not been opened in centuries because no one remembers how to get at them.[=0x0022=] Understand [=0x0022=]panels[=0x0022=] or [=0x0022=]panel[=0x0022=] or [=0x0022=]panelling[=0x0022=] as the paneling.[=0x000A=][=0x000A=]Instead of switching on the paneling, say [=0x0022=]First you[=0x0027=]ll have to locate any switches or catches with a careful search.[=0x0022=][=0x000A=][=0x000A=]The thick carpet is scenery in the Waiting Suite. Understand [=0x0022=]red[=0x0022=] or [=0x0022=]blood[=0x0022=] or [=0x0022=]rug[=0x0022=] as the carpet. The description is [=0x0022=]A dull, unwelcoming weave, only a touch redder than the wood around you. You discern that it does not lie perfectly flat.[=0x0022=][=0x000A=][=0x000A=]Instead of touching the paneling for the first time: say [=0x0022=]You run your hands over the paneling with a methodical touch, knowing exactly what you[=0x0027=]re looking for but never quite feeling anything that gives or twists; then thump lightly, looking for hollow spaces.[=0x0022=][=0x000A=][=0x000A=]Instead of touching the paneling for the second time: say [=0x0022=]With increased vigor, you run your fingers along the borders between panels, then smack each panel sharply at the center. No luck yet, but if you keep at it, you[=0x0027=]re bound to turn up anything that[=0x0027=]s there to find.[=0x0022=][=0x000A=][=0x000A=]Instead of attacking the paneling: try touching the paneling. Instead of searching the paneling: try touching the paneling. Understand [=0x0022=]knock on [something][=0x0022=] or [=0x0022=]tap [something][=0x0022=] or [=0x0022=]tap on [something][=0x0022=] as attacking.[=0x000A=][=0x000A=]After touching the paneling when the player is not confident:[=0x000A=][=0x0009=]say [=0x0022=]Having polished off all the panels within easy reach, you now have to contort yourself around furniture here and crawl along the floorboards there, hitting each panel three times quite solidly before moving on.[=0x0022=];[=0x000A=]now the player is embarrassed.[=0x000A=][=0x000A=]Instead of looking under the carpet for the first time:[=0x000A=][=0x0009=]say [=0x0022=]You take a corner of the carpet and tug. The floor is sticky, so it doesn[=0x0027=]t come up on the first try.[=0x0022=][=0x000A=][=0x000A=]A small table is an enterable supporter in the Waiting Suite. On the table is a copy of Dragon Pursuit Today. The description of Dragon Pursuit Today is [=0x0022=]Full of glossy illustrations of dragons in various stages of capture, captivity, and destruction. The back of the magazine contains small black-and-white advertisements for hunting kits and the like.[=0x0022=] Some advertisements and some illustrations are part of Dragon Pursuit Today. The description of the illustrations is [=0x0022=]You have the misfortune to look first at the photographs accompanying [=0x0027=]Cleaning Dragon Splanchna[=0x0027=], and feel quite unwell.[=0x0022=] The description of the advertisements is [=0x0022=]Mostly terse ads and phone numbers.[=0x0022=][=0x000A=][=0x000A=]After looking under the table:[=0x000A=][=0x0009=]say [=0x0022=]It[=0x0027=]s quite a low table and you have to get down on your knees and poke your head underneath in order to get a good look.[=0x0022=][=0x000A=][=0x000A=]After looking under the carpet:[=0x000A=][=0x0009=]say [=0x0022=]You pull again at the carpet. There is a tug, then a tearing, as the ancient fabric struggles against the fabric glue. Some of the carpet winds up in your hand and some of it remains in patchy threads adhering to the floor.[=0x0022=][=0x000A=][=0x000A=]After entering the table:[=0x000A=][=0x0009=]say [=0x0022=]You climb onto the small table, noticing belatedly that you are leaving muddy footprints on its polished surface. Oh well: you can wipe them away again when you get down.[=0x0022=][=0x000A=][=0x000A=]The dragon head is scenery in the Waiting Suite. Understand [=0x0022=]kit[=0x0022=] or [=0x0022=]mouth[=0x0022=] as the dragon head. The description is [=0x0022=]Its eyes are wide with bewildered surprise; its mouth gapes, its forked tongue protrudes indignantly. From down here it looks as though there[=0x0027=]s something shiny stuck in its mouth, though you can[=0x0027=]t tell for sure.[=0x0022=] The head contains a shiny thing. The description of the shiny thing is [=0x0022=]Intriguing but impossible to see clearly.[=0x0022=] Instead of taking the shiny thing, try searching the dragon head.[=0x000A=][=0x000A=]Before searching the dragon head:[=0x000A=][=0x0009=]if the player is not on the table, try entering the table;[=0x000A=][=0x0009=]if the player is not on the table, stop the action.[=0x000A=][=0x000A=]After searching the dragon head: say [=0x0022=]You have a good look inside the dragon[=0x0027=]s mouth. There[=0x0027=]s a ball of lucite inside, propping the jaw in display position.[=0x0022=][=0x000A=][=0x000A=]A person can be confident, nervous, or embarrassed. The player is confident.[=0x000A=][=0x000A=]Touching the paneling is embarrassing behavior.  Looking under the carpet is embarrassing behavior. Entering the table is embarrassing behavior. Looking under the table is embarrassing behavior.[=0x000A=][=0x000A=]Instead of embarrassing behavior:[=0x000A=][=0x0009=]if the player is nervous, now the player is embarrassed;[=0x000A=][=0x0009=]if the player is confident:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Before you can act, you hear movement from the inner office. You freeze, not quite ready to be discovered in this situation. But no one comes out, and you begin to breathe more easily.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the player is nervous;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]continue the action.[=0x000A=][=0x000A=]Causing trouble is a scene. Causing trouble begins when play begins. Causing trouble ends when the player is embarrassed. When Causing trouble ends: say [=0x0022=]Just at this inopportune moment, you hear a throat being cleared behind you. [=0x0027=]We can see you now within,[=0x0027=] says a dry voice.[=0x0022=]; end the story saying [=0x0022=]To be continued...[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]switch paneling / touch paneling / g / g / g[=0x0022=].[=0x000A=][=0x000A=]Test more with [=0x0022=]x dragon / x shiny / search head / g[=0x0022=].[=0x000A=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Entrapment[=0x0022=][=0x000A=][=0x000A=]Waiting Suite is a room. [=0x0022=]You find yourself in a narrow room, more cozy than is really comfortable, with dark paneling on all the walls. Underfoot is a thick carpet the color of dried blood. The head of a dragon kit is mounted on the wall.[=0x0022=][=0x000A=][=0x000A=]The wood paneling is scenery in the Waiting Suite. The description is [=0x0022=]Just the sort of ornate panels that might conceal a carved switch. You[=0x0027=]ve heard all sorts of rumors about secret rooms and passages in the palace, some of which have not been opened in centuries because no one remembers how to get at them.[=0x0022=] Understand [=0x0022=]panels[=0x0022=] or [=0x0022=]panel[=0x0022=] or [=0x0022=]panelling[=0x0022=] as the paneling.[=0x000A=][=0x000A=]Instead of switching on the paneling, say [=0x0022=]First you[=0x0027=]ll have to locate any switches or catches with a careful search.[=0x0022=][=0x000A=][=0x000A=]The thick carpet is scenery in the Waiting Suite. Understand [=0x0022=]red[=0x0022=] or [=0x0022=]blood[=0x0022=] or [=0x0022=]rug[=0x0022=] as the carpet. The description is [=0x0022=]A dull, unwelcoming weave, only a touch redder than the wood around you. You discern that it does not lie perfectly flat.[=0x0022=][=0x000A=][=0x000A=]Instead of touching the paneling for the first time: say [=0x0022=]You run your hands over the paneling with a methodical touch, knowing exactly what you[=0x0027=]re looking for but never quite feeling anything that gives or twists; then thump lightly, looking for hollow spaces.[=0x0022=][=0x000A=][=0x000A=]Instead of touching the paneling for the second time: say [=0x0022=]With increased vigor, you run your fingers along the borders between panels, then smack each panel sharply at the center. No luck yet, but if you keep at it, you[=0x0027=]re bound to turn up anything that[=0x0027=]s there to find.[=0x0022=][=0x000A=][=0x000A=]Instead of attacking the paneling: try touching the paneling. Instead of searching the paneling: try touching the paneling. Understand [=0x0022=]knock on [something][=0x0022=] or [=0x0022=]tap [something][=0x0022=] or [=0x0022=]tap on [something][=0x0022=] as attacking.[=0x000A=][=0x000A=]After touching the paneling when the player is not confident:[=0x000A=][=0x0009=]say [=0x0022=]Having polished off all the panels within easy reach, you now have to contort yourself around furniture here and crawl along the floorboards there, hitting each panel three times quite solidly before moving on.[=0x0022=];[=0x000A=]now the player is embarrassed.[=0x000A=][=0x000A=]Instead of looking under the carpet for the first time:[=0x000A=][=0x0009=]say [=0x0022=]You take a corner of the carpet and tug. The floor is sticky, so it doesn[=0x0027=]t come up on the first try.[=0x0022=][=0x000A=][=0x000A=]A small table is an enterable supporter in the Waiting Suite. On the table is a copy of Dragon Pursuit Today. The description of Dragon Pursuit Today is [=0x0022=]Full of glossy illustrations of dragons in various stages of capture, captivity, and destruction. The back of the magazine contains small black-and-white advertisements for hunting kits and the like.[=0x0022=] Some advertisements and some illustrations are part of Dragon Pursuit Today. The description of the illustrations is [=0x0022=]You have the misfortune to look first at the photographs accompanying [=0x0027=]Cleaning Dragon Splanchna[=0x0027=], and feel quite unwell.[=0x0022=] The description of the advertisements is [=0x0022=]Mostly terse ads and phone numbers.[=0x0022=][=0x000A=][=0x000A=]After looking under the table:[=0x000A=][=0x0009=]say [=0x0022=]It[=0x0027=]s quite a low table and you have to get down on your knees and poke your head underneath in order to get a good look.[=0x0022=][=0x000A=][=0x000A=]After looking under the carpet:[=0x000A=][=0x0009=]say [=0x0022=]You pull again at the carpet. There is a tug, then a tearing, as the ancient fabric struggles against the fabric glue. Some of the carpet winds up in your hand and some of it remains in patchy threads adhering to the floor.[=0x0022=][=0x000A=][=0x000A=]After entering the table:[=0x000A=][=0x0009=]say [=0x0022=]You climb onto the small table, noticing belatedly that you are leaving muddy footprints on its polished surface. Oh well: you can wipe them away again when you get down.[=0x0022=][=0x000A=][=0x000A=]The dragon head is scenery in the Waiting Suite. Understand [=0x0022=]kit[=0x0022=] or [=0x0022=]mouth[=0x0022=] as the dragon head. The description is [=0x0022=]Its eyes are wide with bewildered surprise; its mouth gapes, its forked tongue protrudes indignantly. From down here it looks as though there[=0x0027=]s something shiny stuck in its mouth, though you can[=0x0027=]t tell for sure.[=0x0022=] The head contains a shiny thing. The description of the shiny thing is [=0x0022=]Intriguing but impossible to see clearly.[=0x0022=] Instead of taking the shiny thing, try searching the dragon head.[=0x000A=][=0x000A=]Before searching the dragon head:[=0x000A=][=0x0009=]if the player is not on the table, try entering the table;[=0x000A=][=0x0009=]if the player is not on the table, stop the action.[=0x000A=][=0x000A=]After searching the dragon head: say [=0x0022=]You have a good look inside the dragon[=0x0027=]s mouth. There[=0x0027=]s a ball of lucite inside, propping the jaw in display position.[=0x0022=][=0x000A=][=0x000A=]A person can be confident, nervous, or embarrassed. The player is confident.[=0x000A=][=0x000A=]Touching the paneling is embarrassing behavior.  Looking under the carpet is embarrassing behavior. Entering the table is embarrassing behavior. Looking under the table is embarrassing behavior.[=0x000A=][=0x000A=]Instead of embarrassing behavior:[=0x000A=][=0x0009=]if the player is nervous, now the player is embarrassed;[=0x000A=][=0x0009=]if the player is confident:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Before you can act, you hear movement from the inner office. You freeze, not quite ready to be discovered in this situation. But no one comes out, and you begin to breathe more easily.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the player is nervous;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]continue the action.[=0x000A=][=0x000A=]Causing trouble is a scene. Causing trouble begins when play begins. Causing trouble ends when the player is embarrassed. When Causing trouble ends: say [=0x0022=]Just at this inopportune moment, you hear a throat being cleared behind you. [=0x0027=]We can see you now within,[=0x0027=] says a dry voice.[=0x0022=]; end the story saying [=0x0022=]To be continued...[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]switch paneling / touch paneling / g / g / g[=0x0022=].[=0x000A=][=0x000A=]Test more with [=0x0022=]x dragon / x shiny / search head / g[=0x0022=].[=0x000A=][=0x000A=][=0x000A=]\n', 'Example - Entrapment')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Entrapment&quot;
+            <p>For instance, suppose we have a story in which the player has been captured for doing something inappropriate at court and is brought in to await a meeting with a palace official. We want to give the player a few minutes to stew, and we want the scene to end with them doing something mildly peculiar or embarrassing, and the official catching them in the act. So we tempt them into trying any of a number of different kooky activities, and just wait until they fall into the trap...</p>
+            <!--START CODE "c2381_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2381_119"></a><a href="javascript:pasteCode('[=0x0022=]Entrapment[=0x0022=][=0x000A=][=0x000A=]Waiting Suite is a room. [=0x0022=]You find yourself in a narrow room, more cozy than is really comfortable, with dark paneling on all the walls. Underfoot is a thick carpet the color of dried blood. The head of a dragon kit is mounted on the wall.[=0x0022=][=0x000A=][=0x000A=]The wood paneling is scenery in the Waiting Suite. The description is [=0x0022=]Just the sort of ornate panels that might conceal a carved switch. You[=0x0027=]ve heard all sorts of rumors about secret rooms and passages in the palace, some of which have not been opened in centuries because no one remembers how to get at them.[=0x0022=] Understand [=0x0022=]panels[=0x0022=] or [=0x0022=]panel[=0x0022=] or [=0x0022=]panelling[=0x0022=] as the paneling.[=0x000A=][=0x000A=]Instead of switching on the paneling, say [=0x0022=]First you[=0x0027=]ll have to locate any switches or catches with a careful search.[=0x0022=][=0x000A=][=0x000A=]The thick carpet is scenery in the Waiting Suite. Understand [=0x0022=]red[=0x0022=] or [=0x0022=]blood[=0x0022=] or [=0x0022=]rug[=0x0022=] as the carpet. The description is [=0x0022=]A dull, unwelcoming weave, only a touch redder than the wood around you. You discern that it does not lie perfectly flat.[=0x0022=][=0x000A=][=0x000A=]Instead of touching the paneling for the first time: say [=0x0022=]You run your hands over the paneling with a methodical touch, knowing exactly what you[=0x0027=]re looking for but never quite feeling anything that gives or twists; then thump lightly, looking for hollow spaces.[=0x0022=][=0x000A=][=0x000A=]Instead of touching the paneling for the second time: say [=0x0022=]With increased vigor, you run your fingers along the borders between panels, then smack each panel sharply at the center. No luck yet, but if you keep at it, you[=0x0027=]re bound to turn up anything that[=0x0027=]s there to find.[=0x0022=][=0x000A=][=0x000A=]Instead of attacking the paneling: try touching the paneling. Instead of searching the paneling: try touching the paneling. Understand [=0x0022=]knock on [something][=0x0022=] or [=0x0022=]tap [something][=0x0022=] or [=0x0022=]tap on [something][=0x0022=] as attacking.[=0x000A=][=0x000A=]After touching the paneling when the player is not confident:[=0x000A=][=0x0009=]say [=0x0022=]Having polished off all the panels within easy reach, you now have to contort yourself around furniture here and crawl along the floorboards there, hitting each panel three times quite solidly before moving on.[=0x0022=];[=0x000A=]now the player is embarrassed.[=0x000A=][=0x000A=]Instead of looking under the carpet for the first time:[=0x000A=][=0x0009=]say [=0x0022=]You take a corner of the carpet and tug. The floor is sticky, so it doesn[=0x0027=]t come up on the first try.[=0x0022=][=0x000A=][=0x000A=]A small table is an enterable supporter in the Waiting Suite. On the table is a copy of Dragon Pursuit Today. The description of Dragon Pursuit Today is [=0x0022=]Full of glossy illustrations of dragons in various stages of capture, captivity, and destruction. The back of the magazine contains small black-and-white advertisements for hunting kits and the like.[=0x0022=] Some advertisements and some illustrations are part of Dragon Pursuit Today. The description of the illustrations is [=0x0022=]You have the misfortune to look first at the photographs accompanying [=0x0027=]Cleaning Dragon Splanchna[=0x0027=], and feel quite unwell.[=0x0022=] The description of the advertisements is [=0x0022=]Mostly terse ads and phone numbers.[=0x0022=][=0x000A=][=0x000A=]After looking under the table:[=0x000A=][=0x0009=]say [=0x0022=]It[=0x0027=]s quite a low table and you have to get down on your knees and poke your head underneath in order to get a good look.[=0x0022=][=0x000A=][=0x000A=]After looking under the carpet:[=0x000A=][=0x0009=]say [=0x0022=]You pull again at the carpet. There is a tug, then a tearing, as the ancient fabric struggles against the fabric glue. Some of the carpet winds up in your hand and some of it remains in patchy threads adhering to the floor.[=0x0022=][=0x000A=][=0x000A=]After entering the table:[=0x000A=][=0x0009=]say [=0x0022=]You climb onto the small table, noticing belatedly that you are leaving muddy footprints on its polished surface. Oh well: you can wipe them away again when you get down.[=0x0022=][=0x000A=][=0x000A=]The dragon head is scenery in the Waiting Suite. Understand [=0x0022=]kit[=0x0022=] or [=0x0022=]mouth[=0x0022=] as the dragon head. The description is [=0x0022=]Its eyes are wide with bewildered surprise; its mouth gapes, its forked tongue protrudes indignantly. From down here it looks as though there[=0x0027=]s something shiny stuck in its mouth, though you can[=0x0027=]t tell for sure.[=0x0022=] The head contains a shiny thing. The description of the shiny thing is [=0x0022=]Intriguing but impossible to see clearly.[=0x0022=] Instead of taking the shiny thing, try searching the dragon head.[=0x000A=][=0x000A=]Before searching the dragon head:[=0x000A=][=0x0009=]if the player is not on the table, try entering the table;[=0x000A=][=0x0009=]if the player is not on the table, stop the action.[=0x000A=][=0x000A=]After searching the dragon head: say [=0x0022=]You have a good look inside the dragon[=0x0027=]s mouth. There[=0x0027=]s a ball of lucite inside, propping the jaw in display position.[=0x0022=][=0x000A=][=0x000A=]A person can be confident, nervous, or embarrassed. The player is confident.[=0x000A=][=0x000A=]Touching the paneling is embarrassing behavior.  Looking under the carpet is embarrassing behavior. Entering the table is embarrassing behavior. Looking under the table is embarrassing behavior.[=0x000A=][=0x000A=]Instead of embarrassing behavior:[=0x000A=][=0x0009=]if the player is nervous, now the player is embarrassed;[=0x000A=][=0x0009=]if the player is confident:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Before you can act, you hear movement from the inner office. You freeze, not quite ready to be discovered in this situation. But no one comes out, and you begin to breathe more easily.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the player is nervous;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]continue the action.[=0x000A=][=0x000A=]Causing trouble is a scene. Causing trouble begins when play begins. Causing trouble ends when the player is embarrassed. When Causing trouble ends: say [=0x0022=]Just at this inopportune moment, you hear a throat being cleared behind you. [=0x0027=]We can see you now within,[=0x0027=] says a dry voice.[=0x0022=]; end the story saying [=0x0022=]To be continued...[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]switch paneling / touch paneling / g / g / g[=0x0022=].[=0x000A=][=0x000A=]Test more with [=0x0022=]x dragon / x shiny / search head / g[=0x0022=].[=0x000A=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Entrapment[=0x0022=][=0x000A=][=0x000A=]Waiting Suite is a room. [=0x0022=]You find yourself in a narrow room, more cozy than is really comfortable, with dark paneling on all the walls. Underfoot is a thick carpet the color of dried blood. The head of a dragon kit is mounted on the wall.[=0x0022=][=0x000A=][=0x000A=]The wood paneling is scenery in the Waiting Suite. The description is [=0x0022=]Just the sort of ornate panels that might conceal a carved switch. You[=0x0027=]ve heard all sorts of rumors about secret rooms and passages in the palace, some of which have not been opened in centuries because no one remembers how to get at them.[=0x0022=] Understand [=0x0022=]panels[=0x0022=] or [=0x0022=]panel[=0x0022=] or [=0x0022=]panelling[=0x0022=] as the paneling.[=0x000A=][=0x000A=]Instead of switching on the paneling, say [=0x0022=]First you[=0x0027=]ll have to locate any switches or catches with a careful search.[=0x0022=][=0x000A=][=0x000A=]The thick carpet is scenery in the Waiting Suite. Understand [=0x0022=]red[=0x0022=] or [=0x0022=]blood[=0x0022=] or [=0x0022=]rug[=0x0022=] as the carpet. The description is [=0x0022=]A dull, unwelcoming weave, only a touch redder than the wood around you. You discern that it does not lie perfectly flat.[=0x0022=][=0x000A=][=0x000A=]Instead of touching the paneling for the first time: say [=0x0022=]You run your hands over the paneling with a methodical touch, knowing exactly what you[=0x0027=]re looking for but never quite feeling anything that gives or twists; then thump lightly, looking for hollow spaces.[=0x0022=][=0x000A=][=0x000A=]Instead of touching the paneling for the second time: say [=0x0022=]With increased vigor, you run your fingers along the borders between panels, then smack each panel sharply at the center. No luck yet, but if you keep at it, you[=0x0027=]re bound to turn up anything that[=0x0027=]s there to find.[=0x0022=][=0x000A=][=0x000A=]Instead of attacking the paneling: try touching the paneling. Instead of searching the paneling: try touching the paneling. Understand [=0x0022=]knock on [something][=0x0022=] or [=0x0022=]tap [something][=0x0022=] or [=0x0022=]tap on [something][=0x0022=] as attacking.[=0x000A=][=0x000A=]After touching the paneling when the player is not confident:[=0x000A=][=0x0009=]say [=0x0022=]Having polished off all the panels within easy reach, you now have to contort yourself around furniture here and crawl along the floorboards there, hitting each panel three times quite solidly before moving on.[=0x0022=];[=0x000A=]now the player is embarrassed.[=0x000A=][=0x000A=]Instead of looking under the carpet for the first time:[=0x000A=][=0x0009=]say [=0x0022=]You take a corner of the carpet and tug. The floor is sticky, so it doesn[=0x0027=]t come up on the first try.[=0x0022=][=0x000A=][=0x000A=]A small table is an enterable supporter in the Waiting Suite. On the table is a copy of Dragon Pursuit Today. The description of Dragon Pursuit Today is [=0x0022=]Full of glossy illustrations of dragons in various stages of capture, captivity, and destruction. The back of the magazine contains small black-and-white advertisements for hunting kits and the like.[=0x0022=] Some advertisements and some illustrations are part of Dragon Pursuit Today. The description of the illustrations is [=0x0022=]You have the misfortune to look first at the photographs accompanying [=0x0027=]Cleaning Dragon Splanchna[=0x0027=], and feel quite unwell.[=0x0022=] The description of the advertisements is [=0x0022=]Mostly terse ads and phone numbers.[=0x0022=][=0x000A=][=0x000A=]After looking under the table:[=0x000A=][=0x0009=]say [=0x0022=]It[=0x0027=]s quite a low table and you have to get down on your knees and poke your head underneath in order to get a good look.[=0x0022=][=0x000A=][=0x000A=]After looking under the carpet:[=0x000A=][=0x0009=]say [=0x0022=]You pull again at the carpet. There is a tug, then a tearing, as the ancient fabric struggles against the fabric glue. Some of the carpet winds up in your hand and some of it remains in patchy threads adhering to the floor.[=0x0022=][=0x000A=][=0x000A=]After entering the table:[=0x000A=][=0x0009=]say [=0x0022=]You climb onto the small table, noticing belatedly that you are leaving muddy footprints on its polished surface. Oh well: you can wipe them away again when you get down.[=0x0022=][=0x000A=][=0x000A=]The dragon head is scenery in the Waiting Suite. Understand [=0x0022=]kit[=0x0022=] or [=0x0022=]mouth[=0x0022=] as the dragon head. The description is [=0x0022=]Its eyes are wide with bewildered surprise; its mouth gapes, its forked tongue protrudes indignantly. From down here it looks as though there[=0x0027=]s something shiny stuck in its mouth, though you can[=0x0027=]t tell for sure.[=0x0022=] The head contains a shiny thing. The description of the shiny thing is [=0x0022=]Intriguing but impossible to see clearly.[=0x0022=] Instead of taking the shiny thing, try searching the dragon head.[=0x000A=][=0x000A=]Before searching the dragon head:[=0x000A=][=0x0009=]if the player is not on the table, try entering the table;[=0x000A=][=0x0009=]if the player is not on the table, stop the action.[=0x000A=][=0x000A=]After searching the dragon head: say [=0x0022=]You have a good look inside the dragon[=0x0027=]s mouth. There[=0x0027=]s a ball of lucite inside, propping the jaw in display position.[=0x0022=][=0x000A=][=0x000A=]A person can be confident, nervous, or embarrassed. The player is confident.[=0x000A=][=0x000A=]Touching the paneling is embarrassing behavior.  Looking under the carpet is embarrassing behavior. Entering the table is embarrassing behavior. Looking under the table is embarrassing behavior.[=0x000A=][=0x000A=]Instead of embarrassing behavior:[=0x000A=][=0x0009=]if the player is nervous, now the player is embarrassed;[=0x000A=][=0x0009=]if the player is confident:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Before you can act, you hear movement from the inner office. You freeze, not quite ready to be discovered in this situation. But no one comes out, and you begin to breathe more easily.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the player is nervous;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]continue the action.[=0x000A=][=0x000A=]Causing trouble is a scene. Causing trouble begins when play begins. Causing trouble ends when the player is embarrassed. When Causing trouble ends: say [=0x0022=]Just at this inopportune moment, you hear a throat being cleared behind you. [=0x0027=]We can see you now within,[=0x0027=] says a dry voice.[=0x0022=]; end the story saying [=0x0022=]To be continued...[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]switch paneling / touch paneling / g / g / g[=0x0022=].[=0x000A=][=0x000A=]Test more with [=0x0022=]x dragon / x shiny / search head / g[=0x0022=].[=0x000A=][=0x000A=][=0x000A=]\n', 'Example - Entrapment')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Entrapment&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2383_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2383_418"></a>Waiting Suite is a room. &quot;You find yourself in a narrow room, more cozy than is really comfortable, with dark paneling on all the walls. Underfoot is a thick carpet the color of dried blood. The head of a dragon kit is mounted on the wall.&quot;
+            <!--START CODE "c2382_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2382_119"></a>Waiting Suite is a room. &quot;You find yourself in a narrow room, more cozy than is really comfortable, with dark paneling on all the walls. Underfoot is a thick carpet the color of dried blood. The head of a dragon kit is mounted on the wall.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2384_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2384_418"></a>The wood paneling is scenery in the Waiting Suite. The description is &quot;Just the sort of ornate panels that might conceal a carved switch. You've heard all sorts of rumors about secret rooms and passages in the palace, some of which have not been opened in centuries because no one remembers how to get at them.&quot; Understand &quot;panels&quot; or &quot;panel&quot; or &quot;panelling&quot; as the paneling.
+            <!--START CODE "c2383_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2383_119"></a>The wood paneling is scenery in the Waiting Suite. The description is &quot;Just the sort of ornate panels that might conceal a carved switch. You've heard all sorts of rumors about secret rooms and passages in the palace, some of which have not been opened in centuries because no one remembers how to get at them.&quot; Understand &quot;panels&quot; or &quot;panel&quot; or &quot;panelling&quot; as the paneling.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2385_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2385_418"></a>Instead of switching on the paneling, say &quot;First you'll have to locate any switches or catches with a careful search.&quot;
+            <!--START CODE "c2384_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2384_119"></a>Instead of switching on the paneling, say &quot;First you'll have to locate any switches or catches with a careful search.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2386_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2386_418"></a>The thick carpet is scenery in the Waiting Suite. Understand &quot;red&quot; or &quot;blood&quot; or &quot;rug&quot; as the carpet. The description is &quot;A dull, unwelcoming weave, only a touch redder than the wood around you. You discern that it does not lie perfectly flat.&quot;
+            <!--START CODE "c2385_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2385_119"></a>The thick carpet is scenery in the Waiting Suite. Understand &quot;red&quot; or &quot;blood&quot; or &quot;rug&quot; as the carpet. The description is &quot;A dull, unwelcoming weave, only a touch redder than the wood around you. You discern that it does not lie perfectly flat.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2387_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2387_418"></a>Instead of touching the paneling for the first time: say &quot;You run your hands over the paneling with a methodical touch, knowing exactly what you're looking for but never quite feeling anything that gives or twists; then thump lightly, looking for hollow spaces.&quot;
+            <!--START CODE "c2386_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2386_119"></a>Instead of touching the paneling for the first time: say &quot;You run your hands over the paneling with a methodical touch, knowing exactly what you're looking for but never quite feeling anything that gives or twists; then thump lightly, looking for hollow spaces.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2388_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2388_418"></a>Instead of touching the paneling for the second time: say &quot;With increased vigor, you run your fingers along the borders between panels, then smack each panel sharply at the center. No luck yet, but if you keep at it, you're bound to turn up anything that's there to find.&quot;
+            <!--START CODE "c2387_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2387_119"></a>Instead of touching the paneling for the second time: say &quot;With increased vigor, you run your fingers along the borders between panels, then smack each panel sharply at the center. No luck yet, but if you keep at it, you're bound to turn up anything that's there to find.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2389_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2389_418"></a>Instead of attacking the paneling: try touching the paneling. Instead of searching the paneling: try touching the paneling. Understand &quot;knock on [something]&quot; or &quot;tap [something]&quot; or &quot;tap on [something]&quot; as attacking.
+            <!--START CODE "c2388_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2388_119"></a>Instead of attacking the paneling: try touching the paneling. Instead of searching the paneling: try touching the paneling. Understand &quot;knock on [something]&quot; or &quot;tap [something]&quot; or &quot;tap on [something]&quot; as attacking.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2390_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2390_418"></a>After touching the paneling when the player is not confident:
+            <!--START CODE "c2389_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2389_119"></a>After touching the paneling when the player is not confident:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Having polished off all the panels within easy reach, you now have to contort yourself around furniture here and crawl along the floorboards there, hitting each panel three times quite solidly before moving on.&quot;;
             <br>
@@ -331,46 +331,46 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2391_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2391_418"></a>Instead of looking under the carpet for the first time:
+            <!--START CODE "c2390_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2390_119"></a>Instead of looking under the carpet for the first time:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You take a corner of the carpet and tug. The floor is sticky, so it doesn't come up on the first try.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2392_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2392_418"></a>A small table is an enterable supporter in the Waiting Suite. On the table is a copy of Dragon Pursuit Today. The description of Dragon Pursuit Today is &quot;Full of glossy illustrations of dragons in various stages of capture, captivity, and destruction. The back of the magazine contains small black-and-white advertisements for hunting kits and the like.&quot; Some advertisements and some illustrations are part of Dragon Pursuit Today. The description of the illustrations is &quot;You have the misfortune to look first at the photographs accompanying 'Cleaning Dragon Splanchna', and feel quite unwell.&quot; The description of the advertisements is &quot;Mostly terse ads and phone numbers.&quot;
+            <!--START CODE "c2391_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2391_119"></a>A small table is an enterable supporter in the Waiting Suite. On the table is a copy of Dragon Pursuit Today. The description of Dragon Pursuit Today is &quot;Full of glossy illustrations of dragons in various stages of capture, captivity, and destruction. The back of the magazine contains small black-and-white advertisements for hunting kits and the like.&quot; Some advertisements and some illustrations are part of Dragon Pursuit Today. The description of the illustrations is &quot;You have the misfortune to look first at the photographs accompanying 'Cleaning Dragon Splanchna', and feel quite unwell.&quot; The description of the advertisements is &quot;Mostly terse ads and phone numbers.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2393_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2393_418"></a>After looking under the table:
+            <!--START CODE "c2392_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2392_119"></a>After looking under the table:
             <br>
             &#160;&#160;&#160;&#160;say &quot;It's quite a low table and you have to get down on your knees and poke your head underneath in order to get a good look.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2394_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2394_418"></a>After looking under the carpet:
+            <!--START CODE "c2393_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2393_119"></a>After looking under the carpet:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You pull again at the carpet. There is a tug, then a tearing, as the ancient fabric struggles against the fabric glue. Some of the carpet winds up in your hand and some of it remains in patchy threads adhering to the floor.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2395_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2395_418"></a>After entering the table:
+            <!--START CODE "c2394_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2394_119"></a>After entering the table:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You climb onto the small table, noticing belatedly that you are leaving muddy footprints on its polished surface. Oh well: you can wipe them away again when you get down.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2396_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2396_418"></a>The dragon head is scenery in the Waiting Suite. Understand &quot;kit&quot; or &quot;mouth&quot; as the dragon head. The description is &quot;Its eyes are wide with bewildered surprise; its mouth gapes, its forked tongue protrudes indignantly. From down here it looks as though there's something shiny stuck in its mouth, though you can't tell for sure.&quot; The head contains a shiny thing. The description of the shiny thing is &quot;Intriguing but impossible to see clearly.&quot; Instead of taking the shiny thing, try searching the dragon head.
+            <!--START CODE "c2395_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2395_119"></a>The dragon head is scenery in the Waiting Suite. Understand &quot;kit&quot; or &quot;mouth&quot; as the dragon head. The description is &quot;Its eyes are wide with bewildered surprise; its mouth gapes, its forked tongue protrudes indignantly. From down here it looks as though there's something shiny stuck in its mouth, though you can't tell for sure.&quot; The head contains a shiny thing. The description of the shiny thing is &quot;Intriguing but impossible to see clearly.&quot; Instead of taking the shiny thing, try searching the dragon head.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2397_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2397_418"></a>Before searching the dragon head:
+            <!--START CODE "c2396_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2396_119"></a>Before searching the dragon head:
             <br>
             &#160;&#160;&#160;&#160;if the player is not on the table, try entering the table;
             <br>
@@ -378,23 +378,23 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2398_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2398_418"></a>After searching the dragon head: say &quot;You have a good look inside the dragon's mouth. There's a ball of lucite inside, propping the jaw in display position.&quot;
+            <!--START CODE "c2397_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2397_119"></a>After searching the dragon head: say &quot;You have a good look inside the dragon's mouth. There's a ball of lucite inside, propping the jaw in display position.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2399_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2399_418"></a>A person can be confident, nervous, or embarrassed. The player is confident.
+            <!--START CODE "c2398_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2398_119"></a>A person can be confident, nervous, or embarrassed. The player is confident.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2400_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2400_418"></a>Touching the paneling is embarrassing behavior.  Looking under the carpet is embarrassing behavior. Entering the table is embarrassing behavior. Looking under the table is embarrassing behavior.
+            <!--START CODE "c2399_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2399_119"></a>Touching the paneling is embarrassing behavior.  Looking under the carpet is embarrassing behavior. Entering the table is embarrassing behavior. Looking under the table is embarrassing behavior.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2401_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2401_418"></a>Instead of embarrassing behavior:
+            <!--START CODE "c2400_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2400_119"></a>Instead of embarrassing behavior:
             <br>
             &#160;&#160;&#160;&#160;if the player is nervous, now the player is embarrassed;
             <br>
@@ -410,23 +410,23 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2402_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2402_418"></a>Causing trouble is a scene. Causing trouble begins when play begins. Causing trouble ends when the player is embarrassed. When Causing trouble ends: say &quot;Just at this inopportune moment, you hear a throat being cleared behind you. 'We can see you now within,' says a dry voice.&quot;; end the story saying &quot;To be continued...&quot;
+            <!--START CODE "c2401_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2401_119"></a>Causing trouble is a scene. Causing trouble begins when play begins. Causing trouble ends when the player is embarrassed. When Causing trouble ends: say &quot;Just at this inopportune moment, you hear a throat being cleared behind you. 'We can see you now within,' says a dry voice.&quot;; end the story saying &quot;To be continued...&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2403_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2403_418"></a>Test me with &quot;switch paneling / touch paneling / g / g / g&quot;.
+            <!--START CODE "c2402_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2402_119"></a>Test me with &quot;switch paneling / touch paneling / g / g / g&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2404_418"-->
-            <blockquote class="code"><p class="quoted"><a id="c2404_418"></a>Test more with &quot;x dragon / x shiny / search head / g&quot;.
+            <!--START CODE "c2403_119"-->
+            <blockquote class="code"><p class="quoted"><a id="c2403_119"></a>Test more with &quot;x dragon / x shiny / search head / g&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>...and this scene might lead to another, and so on.</p>
-            <p>The purpose of an open-ended scene like this might be puzzly or narrative: we might be waiting for the player to get a puzzle solved, or we might be waiting for him to fulfil some plot condition that must be met before we can go on.</p>
+            <p>The purpose of an open-ended scene like this might be puzzly or narrative: we might be waiting for the player to get a puzzle solved, or we might be waiting for them to fulfil some plot condition that must be met before we can go on.</p>
         </div>
         <p></p>
         <!--END EXAMPLE-->

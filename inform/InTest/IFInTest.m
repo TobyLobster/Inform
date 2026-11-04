@@ -98,22 +98,23 @@ NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
 #pragma mark - Setup
 
 - (BOOL) isRunning {
-	return theTask!=nil?[theTask isRunning]:NO;
+	return theTask!=nil?theTask.running:NO;
 }
 
--(void) executeInTestForExtension: (NSString*)extensionPathName withArgs:(NSArray*) args {
+-(void) executeInTestForExtension: (NSString*)extensionPathName
+                         withArgs: (NSArray*) args {
     if (theTask) {
-        if ([theTask isRunning]) {
+        if (theTask.running) {
             [theTask terminate];
         }
         theTask = nil;
     }
 
     NSMutableArray *mutableArgs = [[NSMutableArray alloc] initWithArray:args];
-    [mutableArgs insertObject: [[extensionPathName stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]
+    [mutableArgs insertObject: extensionPathName.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent
                       atIndex: 0];
 
-    NSString *command = [[NSBundle mainBundle] pathForAuxiliaryExecutable: @"intest"];
+    NSString *command = [IFUtility pathForInformExecutable: @"intest" version: @""];
 
     // InTest Start notification
     NSDictionary* uiDict = @{@"command": command,
@@ -128,9 +129,9 @@ NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
     // Prepare the task (based on http://stackoverflow.com/questions/412562/execute-a-terminal-command-from-a-cocoa-app )
     theTask = [[NSTask alloc] init];
 
-    [theTask setArguments:  mutableArgs];
-    [theTask setLaunchPath: command];
-    [theTask setCurrentDirectoryPath: NSTemporaryDirectory()];
+    theTask.arguments = mutableArgs;
+    theTask.launchPath = command;
+    theTask.currentDirectoryPath = NSTemporaryDirectory();
 
     NSMutableString* message = [[NSMutableString alloc] init];
     [message appendFormat:@"Current Directory: %@\n", NSTemporaryDirectory()];
@@ -149,18 +150,19 @@ NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
     stdErrPipe = [[NSPipe alloc] init];
     stdOutPipe = [[NSPipe alloc] init];
 
-    [theTask setStandardOutput: stdOutPipe];
-    [theTask setStandardError:  stdErrPipe];
-    [theTask setStandardInput:[NSPipe pipe]];       // "The magic line that keeps your log where it belongs"
+    theTask.standardOutput = stdOutPipe;
+    theTask.standardError = stdErrPipe;
+    theTask.standardInput = [NSPipe pipe];       // "The magic line that keeps your log where it belongs"
 
-    stdOutH = [stdOutPipe fileHandleForReading];
+    stdOutH = stdOutPipe.fileHandleForReading;
+    stdErrH = stdErrPipe.fileHandleForReading;
 
     // Start the task
     [theTask launch];
 
     // Wait until finished
     NSMutableData *data = [NSMutableData dataWithCapacity:512];
-    while ([theTask isRunning]) {
+    while (theTask.running) {
         [data appendData:[stdOutH readDataToEndOfFile]];
     }
     [data appendData:[stdOutH readDataToEndOfFile]];
@@ -170,7 +172,7 @@ NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
                                     encoding: NSUTF8StringEncoding] mutableCopy];
     stdErr = [[[NSString alloc] initWithData: [stdErrH readDataToEndOfFile]
                                     encoding: NSUTF8StringEncoding] mutableCopy];
-    exitCode = [theTask terminationStatus];
+    exitCode = theTask.terminationStatus;
 
     // Stdout
     uiDict = @{@"string": stdOut};
@@ -214,17 +216,17 @@ NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
             NSInteger equalsIndex = [line indexOf: @" "];
             if( equalsIndex != NSNotFound )
             {
-                NSString* left  = [[line substringToIndex: equalsIndex] stringByTrimmingWhitespace];
-                NSString* right = [[line substringFromIndex: equalsIndex + 1] stringByTrimmingWhitespace];
+                NSString* left  = [line substringToIndex: equalsIndex].stringByTrimmingWhitespace;
+                NSString* right = [line substringFromIndex: equalsIndex + 1].stringByTrimmingWhitespace;
                 ConcordancePair * pair = [[ConcordancePair alloc] init];
-                pair->left  = [left intValue];
-                pair->right = [right intValue];
+                pair->left  = left.intValue;
+                pair->right = right.intValue;
                 [data->concordance addObject: pair];
             }
         }
     }
 
-    [testCaseData setObject:data forKey: testCase];
+    testCaseData[testCase] = data;
 
     // Task is completed - tidy up.
     [self tidyUp];
@@ -253,10 +255,10 @@ NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
                 if( equalsIndex != NSNotFound )
                 {
                     unichar buffer[2];
-                    buffer[0] = 'A' + [testCases count];
+                    buffer[0] = 'A' + testCases.count;
                     buffer[1] = 0;
                     NSString* key = [NSString stringWithCharacters: buffer length:1];
-                    NSString* title = [[line substringFromIndex: equalsIndex + 1] stringByTrimmingWhitespace];
+                    NSString* title = [line substringFromIndex: equalsIndex + 1].stringByTrimmingWhitespace;
                     [testCases addObject: @{ @"testKey": key,
                                              @"testTitle": title }];
                 }

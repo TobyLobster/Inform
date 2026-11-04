@@ -11,6 +11,8 @@
 #import <Cocoa/Cocoa.h>
 #import "IFNewsManager.h"
 
+@class IFProjectController;
+
 @interface IFAppDelegate : NSObject<NSOpenSavePanelDelegate>
 
 @property (atomic, readonly) IFNewsManager* newsManager;
@@ -21,8 +23,6 @@
 - (void) doCopyProject: (NSURL*) source
                     to: (NSURL*) destination;
 
-/// Displays/hides the inspector window
-- (IBAction) showInspectors: (id) sender;
 /// Shows the About panel, including the Inform compiler version
 - (IBAction) showAbout: (id) sender;
 /// Shows the preferences window
@@ -50,7 +50,8 @@
 - (void) updateExtensionsMenu;
 - (void) createNewProject: (NSString*) title
                     story: (NSString*) story;
-- (IBAction) installExtension: (id) sender;
+- (IBAction) installLegacyExtension: (id) sender;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) IFProjectController *frontmostProjectController;
 
 // Spell checking
 @property (atomic, readonly) BOOL sourceSpellChecking;

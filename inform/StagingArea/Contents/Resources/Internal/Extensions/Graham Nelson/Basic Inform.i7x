@@ -1,4 +1,4 @@
-Version 1 of Basic Inform by Graham Nelson begins here.
+Version 2 of Basic Inform by Graham Nelson begins here.
 
 "Basic Inform, included in every project, defines the basic framework
 of Inform as a programming language."
@@ -21,6 +21,7 @@ The verb to be means the built-in new-figure meaning.
 The verb to be means the built-in new-sound meaning.
 The verb to be means the built-in new-file meaning.
 The verb to be means the built-in episode meaning.
+The verb to be means the built-in declares-licence meaning.
 The verb to be means the equality relation.
 
 The verb to imply means the built-in verb-means meaning.
@@ -65,52 +66,53 @@ The operator < means the numerically-less-than relation.
 The operator >= means the numerically-greater-than-or-equal-to relation.
 The operator <= means the numerically-less-than-or-equal-to relation.
 
-Use ineffectual translates as (- ! Use ineffectual does nothing. -).
+Use ineffectual translates as a compiler feature.
 
-Use American dialect translates as (- Constant DIALECT_US; -).
-Use the serial comma translates as (- Constant SERIAL_COMMA; -).
-Use memory economy translates as (- Constant MEMORY_ECONOMY; -).
-Use engineering notation translates as (- Constant USE_E_NOTATION = 0; -).
-Use unabbreviated object names translates as (- Constant UNABBREVIATED_OBJECT_NAMES = 0; -).
-Use predictable randomisation translates as (- Constant FIX_RNG; -).
-Use fast route-finding translates as (- Constant FAST_ROUTE_FINDING; -).
-Use slow route-finding translates as (- Constant SLOW_ROUTE_FINDING; -).
-Use numbered rules translates as (- Constant NUMBERED_RULES; -).
-Use telemetry recordings translates as (- Constant TELEMETRY_ON; -).
-Use no deprecated features translates as (- Constant NO_DEPRECATED_FEATURES; -).
-Use gn testing version translates as (- Constant GN_TESTING_VERSION; -).
-Use authorial modesty translates as (- Constant AUTHORIAL_MODESTY; -).
+Use American dialect translates as the configuration flag AMERICAN_DIALECT
+	in BasicInformKit.
+Use the serial comma translates as the configuration flag SERIAL_COMMA
+	in BasicInformKit.
+Use memory economy translates as the configuration flag MEMORY_ECONOMY
+	in BasicInformKit.
+Use engineering notation translates as a compiler feature.
+Use printed engineering notation translates as the configuration flag
+	PRINT_ENGINEER_EXPS in BasicInformKit.
+Use predictable randomisation translates as the configuration flag FIX_RNG
+	in BasicInformKit.
+Use numbered rules translates as the configuration flag NUMBERED_RULES
+	in BasicInformKit.
+Use no deprecated features translates as the configuration flag NO_DEPRECATED
+	in BasicInformKit.
+Use authorial modesty translates as the configuration flag AUTHORIAL_MODESTY
+	in BasicInformKit.
+Use command line echoing translates as the configuration flag ECHO_COMMANDS
+	in BasicInformKit.
+Use dictionary resolution of at least 6 translates as the configuration value
+	DICT_RESOLUTION in BasicInformKit.
+Use no automatic plural synonyms translates as the configuration flag
+	NO_AUTO_PLURAL_NAMES in BasicInformKit.
 
-Use dynamic memory allocation of at least 8192 translates as
-	(- Constant DynamicMemoryAllocation = {N}; -).
-Use maximum text length of at least 1024 translates as
-	(- Constant TEXT_TY_BufferSize = {N}+3; -).
-Use index figure thumbnails of at least 50 translates as
-	(- Constant MAX_FIGURE_THUMBNAILS_IN_INDEX = {N}; -).
+Use dynamic memory allocation of at least 8192 translates as the configuration
+	value STACK_FRAME_CAPACITY in BasicInformKit.
+Use maximum text length of at least 1024 translates as the configuration
+	value TEXT_BUFFER_SIZE in BasicInformKit.
+Use index figure thumbnails of at least 50 translates as a compiler feature.
 
 Use dynamic memory allocation of at least 8192.
 
-Use ALLOC_CHUNK_SIZE of 32000.
-Use MAX_ARRAYS of 10000.
-Use MAX_CLASSES of 200.
-Use MAX_VERBS of 255.
-Use MAX_LABELS of 10000.
-Use MAX_ZCODE_SIZE of 1000000.
-Use MAX_STATIC_DATA of 500000.
-Use MAX_NUM_STATIC_STRINGS of 500000.
-Use MAX_PROP_TABLE_SIZE of 200000.
-Use MAX_INDIV_PROP_TABLE_SIZE of 20000.
-Use MAX_STACK_SIZE of 65536.
-Use MAX_SYMBOLS of 20000.
-Use MAX_EXPRESSION_NODES of 256.
-Use MAX_LABELS of 200000.
-Use MAX_LOCAL_VARIABLES of 256.
+Use Inform 6 compiler option "$MAX_STACK_SIZE=65536".
 
 Part Two - Miscellaneous Definitions
+
+An abstract object is a kind of object.
 
 An object has a value called variable initial value.
 
 An object has a text called specification.
+
+The specification of abstract object is "Can be used for objects which are purely
+conceptual, like ideas, or are needed for internal book-keeping."
+
 An object has a text called indefinite appearance text.
 An object has a text called printed name.
 An object has a text called printed plural name.
@@ -132,31 +134,67 @@ The language of play is a natural language that varies.
 The parameter-object is an object that varies.
 The parameter-object variable is defined by Inter as "parameter_value".
 
+Chapter - Startup
+
 Startup rules is a rulebook.
 The startup rulebook is accessible to Inter as "STARTUP_RB".
 Startup rules have outcomes allow startup (success) and deny startup (failure).
+
 Shutdown rules is a rulebook.
 The shutdown rulebook is accessible to Inter as "SHUTDOWN_RB".
 
-Starting the virtual machine (documented at act_startvm) is an activity.
+Starting the virtual machine (documented at act_startvm) is an activity on nothing.
 The starting the virtual machine activity is accessible to Inter as "STARTING_VIRTUAL_MACHINE_ACT".
-The final code startup rule is listed first in for starting the virtual machine.
-The final code startup rule is defined by Inter as "FINAL_CODE_STARTUP_R".
+The for starting the virtual machine rules have default no outcome.
 
-Printing the name of something (documented at act_pn) is an activity.
+First startup rule (this is the virtual machine startup rule):
+	carry out the starting the virtual machine activity.
+
+Section - Startup A (for Glulx only)
+
+The start capturing startup text rule is listed in the before starting the virtual machine rules.
+The start capturing startup text rule translates into Inter as "CAPTURE_STARTUP_TEXT_R".
+
+Section - Startup B
+
+The platform specific startup rule is listed in the before starting the virtual machine rules.
+The platform specific startup rule translates into Inter as "PLATFORM_SPECIFIC_STARTUP_R".
+
+The initialise memory rule is listed in the before starting the virtual machine rules.
+The initialise memory rule translates into Inter as "INITIALISE_MEMORY_R".
+
+The seed random number generator rule is listed in the before starting the virtual machine rules.
+The seed random number generator rule translates into Inter as "SEED_RANDOM_NUMBER_GENERATOR_R".
+
+Section - Startup C (for Glulx only)
+
+The recover Glk objects rule is listed in the before starting the virtual machine rules.
+The recover Glk objects rule translates into Inter as "GGRecoverObjects".
+
+The sound channel initialisation rule is listed in the for starting the virtual machine rules.
+The sound channel initialisation rule translates into Inter as "SOUND_CHANNEL_INIT_R".
+
+The open built-in windows rule is listed in the for starting the virtual machine rules.
+The open built-in windows rule translates into Inter as "OPEN_BUILT_IN_WINDOWS_R".
+
+The display captured startup text rule is listed in the for starting the virtual machine rules.
+The display captured startup text rule translates into Inter as "END_CAPTURE_STARTUP_TEXT_R".
+
+Chapter - Printing activities
+
+Printing the name of something (hidden in RULES command) (documented at act_pn) is an activity.
 The printing the name activity is accessible to Inter as "PRINTING_THE_NAME_ACT".
 
 The standard name printing rule is listed last in the for printing the name rulebook.
 The standard name printing rule is defined by Inter as "STANDARD_NAME_PRINTING_R".
 
-Printing the plural name of something (documented at act_ppn) is an activity.
+Printing the plural name of something (hidden in RULES command) (documented at act_ppn) is an activity.
 The printing the plural name activity is accessible to Inter as "PRINTING_THE_PLURAL_NAME_ACT".
 
 The standard printing the plural name rule is listed last in the for printing the
 plural name rulebook.
 The standard printing the plural name rule is defined by Inter as
 "STANDARD_PLURAL_NAME_PRINTING_R".
-
 
 Part Three - Phrasebook
 
@@ -177,6 +215,58 @@ To say s
 To showme (val - value)
 	(documented at ph_showme):
 	(- {-show-me:val} -).
+
+To say (N - a number) in hexadecimal
+	(documented at phs_inbase):
+	(- PrintInBase({N}, 16); -).
+
+To say (N - a number) in decimal
+	(documented at phs_inbase):
+	(- PrintInBase({N}, 10); -).
+
+To say (N - a number) in octal
+	(documented at phs_inbase):
+	(- PrintInBase({N}, 8); -).
+
+To say (N - a number) in binary
+	(documented at phs_inbase):
+	(- PrintInBase({N}, 2); -).
+
+To say (N - a number) in base (B - a number)
+	(documented at phs_inbase):
+	(- PrintInBase({N}, {B}); -).
+
+To say (N - a number) in (M - a number) digit/digits
+	(documented at phs_indigits):
+	(- PrintInBase({N}, 10, {M}); -).
+
+To say (N - a number) in (M - a number) hexadecimal digit/digits
+	(documented at phs_inbaseindigits):
+	(- PrintInBase({N}, 16, {M}); -).
+
+To say (N - a number) in (M - a number) decimal digit/digits
+	(documented at phs_inbaseindigits):
+	(- PrintInBase({N}, 10, {M}); -).
+
+To say (N - a number) in (M - a number) octal digit/digits
+	(documented at phs_inbaseindigits):
+	(- PrintInBase({N}, 8, {M}); -).
+
+To say (N - a number) in (M - a number) binary digit/digits
+	(documented at phs_inbaseindigits):
+	(- PrintInBase({N}, 2, {M}); -).
+
+To say (N - a number) in (M - a number) base (B - a number) digit/digits
+	(documented at phs_inbaseindigits):
+	(- PrintInBase({N}, {B}, {M}); -).
+
+To say (N - a number) in unsigned decimal
+	(documented at phs_inunsigneddecimal):
+	(- PrintInBase({N}, 10, 1); -).
+
+To say (N - a number) in (M - a number) unsigned decimal digit/digits
+	(documented at phs_inunsigneddecimaldigits):
+	(- PrintInBase({N}, 10, {M}); -).
 
 Section 2 - Saying Names
 
@@ -284,7 +374,7 @@ To say one of -- beginning say_one_of (documented at phs_oneof): (-
 {-open-brace}
 		0: -).
 To say or -- continuing say_one_of (documented at phs_or):
-	(- @nop; {-segment-count}: -).
+	(- {-segment-count}: -).
 To say at random -- ending say_one_of with marker I7_SOO_RAN (documented at phs_random):
 	(- {-close-brace} -).
 To say purely at random -- ending say_one_of with marker I7_SOO_PAR (documented at phs_purelyrandom):
@@ -518,7 +608,7 @@ To decide which real number is the floor of (R - a real number)
 	(documented at ph_floor)
 	(this is the floor function):
 	(- REAL_NUMBER_TY_Floor({R}) -).
-To decide which number is (R - a real number) to the nearest whole number
+To decide which number is (R - a real number) to the/-- nearest whole number
 	(documented at ph_nearestwholenumber)
 	(this is the int function):
 	(- REAL_NUMBER_TY_to_NUMBER_TY({R}) -).
@@ -647,7 +737,7 @@ To repeat with (loopvar - nonexisting K variable)
 To repeat with (loopvar - nonexisting K variable)
 	running from (v - enumerated value of kind K) to (w - K) begin -- end loop
 	(documented at ph_repeat):
-		(- for ({loopvar}={v}: {loopvar}<={w}: {loopvar}++)  -).
+		(- for ({loopvar}={v}: {loopvar}<={w}: {loopvar}={-next-routine:K}({loopvar}))  -).
 To repeat with (loopvar - nonexisting K variable)
 	running through (OS - description of values of kind K) begin -- end loop
 	(documented at ph_runthrough):
@@ -713,6 +803,11 @@ To next -- in loop
 	(documented at ph_next):
 	(- continue; -).
 
+Section 5 - Run-Time Problems
+
+To issue the run-time problem (pcode - text):
+	(- IssueRTP({-rtp-code: pcode}, -1, {-rtp-location: pcode}); -).
+
 Chapter 4 - Values
 
 Section 1 - Enumerations
@@ -720,6 +815,12 @@ Section 1 - Enumerations
 To decide which number is number of (S - description of values)
 	(documented at ph_numberof):
 	(- {-primitive-definition:number-of} -).
+To decide what number is the numerical value of (X - enumerated value)
+	(documented at ph_numericalvalue):
+	(- {X} -).
+To decide what number is the sequence number of (X - enumerated value of kind K)
+	(documented at ph_sequencenumber):
+	(- {-indexing-routine:K}({X}) -).
 To decide which K is (name of kind of enumerated value K) after (X - K)
 	(documented at ph_enumafter):
 	(- {-next-routine:K}({X}) -).
@@ -811,15 +912,15 @@ To decide what text is the substituted form of (T - text)
 
 Section 2 - Matching and Replacing
 
-To decide if (T - text) exactly matches the text (find - text),
+To decide if (T - text) exactly matches the/-- text (find - text),
 	case insensitively
 	(documented at ph_exactlymatches):
 	(- TEXT_TY_Replace_RE(CHR_BLOB,{-by-reference:T},{-by-reference:find},0,{phrase options},1) -).
-To decide if (T - text) matches the text (find - text),
+To decide if (T - text) matches the/-- text (find - text),
 	case insensitively
 	(documented at ph_matches):
 	(- TEXT_TY_Replace_RE(CHR_BLOB,{-by-reference:T},{-by-reference:find},0,{phrase options}) -).
-To decide what number is number of times (T - text) matches the text
+To decide what number is number of times (T - text) matches the/-- text
 	(find - text), case insensitively
 	(documented at ph_nummatches):
 	(- TEXT_TY_Replace_RE(CHR_BLOB,{-by-reference:T},{-by-reference:find},1,{phrase options}) -).
@@ -860,14 +961,23 @@ To replace line number (N - a number) in (T - text) with (replace - text)
 To replace paragraph number (N - a number) in (T - text) with (replace - text)
 	(documented at ph_replacepara):
 	(- TEXT_TY_ReplaceBlob(PARA_BLOB, {-lvalue-by-reference:T}, {N}, {-by-reference:replace}); -).
+To decide what number is the first index of text match
+	(documented at ph_textfirstindex):
+	(- (match0_idx2 ~= 0) * (match0_idx + 1) -).
+To decide what number is the last index of text match
+	(documented at ph_textlastindex):
+	(- match0_idx2 -).
+To decide what number is the length of text match
+	(documented at ph_textlength):
+	(- (match0_idx2 - match0_idx) -).
 
 Section 3 - Regular Expressions
 
-To decide if (T - text) exactly matches the regular expression (find - text),
+To decide if (T - text) exactly matches the/-- regular expression (find - text),
 	case insensitively
 	(documented at ph_exactlymatchesre):
 	(- TEXT_TY_Replace_RE(REGEXP_BLOB,{-by-reference:T},{-by-reference:find},0,{phrase options},1) -).
-To decide if (T - text) matches the regular expression (find - text),
+To decide if (T - text) matches the/-- regular expression (find - text),
 	case insensitively
 	(documented at ph_matchesre):
 	(- TEXT_TY_Replace_RE(REGEXP_BLOB,{-by-reference:T},{-by-reference:find},0,{phrase options}) -).
@@ -877,7 +987,16 @@ To decide what text is text matching regular expression
 To decide what text is text matching subexpression (N - a number)
 	(documented at ph_subexpressiontext):
 	(- TEXT_TY_RE_GetMatchVar({N}) -).
-To decide what number is number of times (T - text) matches the regular expression
+To decide what number is the first index of subexpression (n - a number)
+	(documented at ph_refirstindex):
+	(- (RE_Subexpressions-->{n}-->RE_DATA2 ~= 0) * (RE_Subexpressions-->{n}-->RE_DATA1 + 1) -).
+To decide what number is the last index of subexpression (n - a number)
+	(documented at ph_relastindex):
+	(- ((RE_Subexpressions-->{n}-->RE_DATA2 >= 0) * RE_Subexpressions-->{n}-->RE_DATA2) -).
+To decide what number is the length of subexpression (n - a number)
+	(documented at ph_relength):
+	(- (RE_Subexpressions-->{n}-->RE_DATA2 - RE_Subexpressions-->{n}-->RE_DATA1) -).
+To decide what number is number of times (T - text) matches the/-- regular expression
 	(find - text),case insensitively
 	(documented at ph_nummatchesre):
 	(- TEXT_TY_Replace_RE(REGEXP_BLOB,{-by-reference:T},{-by-reference:find},1,{phrase options}) -).
@@ -982,13 +1101,13 @@ To decide if there is no (TR - table-reference)
 To blank out (tr - table-reference)
 	(documented at ph_blankout):
 	(- {-by-reference-blank-out:tr}; -).
-To blank out the whole row
+To blank out the/-- whole row
 	(documented at ph_blankoutrow):
 	(- TableBlankOutRow({-my:ct_0}, {-my:ct_1}); -).
-To blank out the whole (TC - table column) in/from/of (T - table name)
+To blank out the/-- whole (TC - table column) in/from/of (T - table name)
 	(documented at ph_blankoutcol):
 	(- TableBlankOutColumn({T}, {TC}); -).
-To blank out the whole of (T - table name)
+To blank out the/-- whole of (T - table name)
 	(documented at ph_blankouttable):
 	(- TableBlankOutAll({T}); -).
 
@@ -1012,10 +1131,13 @@ To sort (T - table name) in/into random order
 	(- TableShuffle({T}); -).
 To sort (T - table name) in/into (TC - table column) order
 	(documented at ph_sortcolumn):
-	(- TableSort({T}, {TC}, 1); -).
+	(- TableSort({T}, {TC}, SORT_ASCENDING); -).
 To sort (T - table name) in/into reverse (TC - table column) order
 	(documented at ph_sortcolumnreverse):
-	(- TableSort({T}, {TC}, -1); -).
+	(- TableSort({T}, {TC}, SORT_DESCENDING); -).
+To sort (T - table name) with (cf - phrase (table name, number, number) -> number)
+	(documented at ph_sorttablephrase):
+	(- TableSort({T}, 0, SORT_ASCENDING, 0, {cf}-->1); -).
 
 Section 3 - Lists
 
@@ -1071,10 +1193,10 @@ To decide what number is the number of entries in/of/from (L - a list of values)
 To truncate (L - a list of values) to (N - a number) entries/entry
 	(documented at ph_truncate):
 	(- LIST_OF_TY_SetLength({-lvalue-by-reference:L}, {N}, -1, 1); -).
-To truncate (L - a list of values) to the first (N - a number) entries/entry
+To truncate (L - a list of values) to the/-- first (N - a number) entries/entry
 	(documented at ph_truncatefirst):
 	(- LIST_OF_TY_SetLength({-lvalue-by-reference:L}, {N}, -1, 1); -).
-To truncate (L - a list of values) to the last (N - a number) entries/entry
+To truncate (L - a list of values) to the/-- last (N - a number) entries/entry
 	(documented at ph_truncatelast):
 	(- LIST_OF_TY_SetLength({-lvalue-by-reference:L}, {N}, -1, -1); -).
 To extend (L - a list of values) to (N - a number) entries/entry
@@ -1097,19 +1219,22 @@ To rotate (L - a list of values) backwards
 	(- LIST_OF_TY_Rotate({-lvalue-by-reference:L}, 1); -).
 To sort (L - a list of values)
 	(documented at ph_sortlist):
-	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, 1); -).
+	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, SORT_ASCENDING); -).
 To sort (L - a list of values) in/into reverse order
 	(documented at ph_sortlistreverse):
-	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, -1); -).
+	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, SORT_DESCENDING); -).
+To sort (L - a list of values of kind K) with (cf - phrase (K, K) -> number)
+	(documented at ph_sortlistphrase):
+	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, SORT_ASCENDING, 0, 0, {cf}-->1); -).
 To sort (L - a list of values) in/into random order
 	(documented at ph_sortlistrandom):
-	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, 2); -).
+	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, SORT_LIST_RANDOM); -).
 To sort (L - a list of objects) in/into (P - property) order
 	(documented at ph_sortlistproperty):
-	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, 1, {P}, {-property-holds-block-value:P}); -).
+	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, SORT_ASCENDING, {P}, {-property-holds-block-value:P}); -).
 To sort (L - a list of objects) in/into reverse (P - property) order
 	(documented at ph_sortlistpropertyreverse):
-	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, -1, {P}, {-property-holds-block-value:P}); -).
+	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, SORT_DESCENDING, {P}, {-property-holds-block-value:P}); -).
 
 Section 6 - Relations
 
@@ -1389,6 +1514,13 @@ To mark (filename - external file) as not ready to read
 	(documented at ph_markfilenotready):
 	(- FileIO_MarkReady({filename}, false); -).
 
+Chapter 10 - Use Options
+
+Section 1 - Numerical Value
+
+To decide what number is the numerical value of (U - a use option):
+	(- USE_OPTION_VALUES-->({U}) -).
+
 Part Four - Adjectival Definitions
 
 Section 1 - Miscellaneous Useful Adjectives
@@ -1407,12 +1539,13 @@ Definition: a text is substituted rather than unsubstituted if I6 routine
 Definition: a table name is empty rather than non-empty if the number of filled rows in it is 0.
 Definition: a table name is full rather than non-full if the number of blank rows in it is 0.
 
-Definition: a rulebook is empty rather than non-empty if I6 routine "RulebookEmpty" says so (it
-	contains no rules, so that following it does nothing and makes no decision).
+Definition: a nothing based rulebook is empty rather than non-empty if I6 routine
+	"RulebookEmpty" says so (it contains no rules, so that following it does
+	nothing and makes no decision).
 
-Definition: an activity is empty rather than non-empty if I6 routine "ActivityEmpty" says so (its
-	before, for and after rulebooks are all empty).
-Definition: an activity is going on if I6 routine "TestActivity" says so (one
+Definition: an activity on nothing is empty rather than non-empty if I6 routine
+	"ActivityEmpty" says so (its before, for and after rulebooks are all empty).
+Definition: an activity on nothing is going on if I6 routine "TestActivity" says so (one
 	of its three rulebooks is currently being run).
 
 Definition: a list of values is empty rather than non-empty if I6 routine

@@ -8,6 +8,7 @@
 
 #import <AppKit/AppKit.h>
 #import "IFProjectTypes.h"
+#import "IFProject.h"
 
 @class IFProjectType;
 
@@ -30,6 +31,6 @@ typedef NS_ENUM(int, IFNewProjectFlow) {
 - (void) createInform7Project: (NSString*) title
                      fileType: (IFFileType) fileType
                         story: (NSString*) story;
-- (void) createInform7Extension;
+- (void) createInform7ExtensionForProject: (IFProject*) project;
 
 @end

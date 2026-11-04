@@ -64,11 +64,11 @@
 - (void) setChildrenForHeader: (IFHeader*) root
 					   symbol: (IFIntelSymbol*) symbol 
 					  recurse: (BOOL) recurse {
-	IFIntelSymbol* child = [symbol child];
+	IFIntelSymbol* child = symbol.child;
 	
 	// If the symbol has no children then don't add it to the list
 	if (!child) {
-		[root setChildren: @[]];
+		root.children = @[];
 		return;
 	}
 	
@@ -76,10 +76,10 @@
 	NSMutableArray* newChildren = [[NSMutableArray alloc] init];
 	while (child) {
 		// Build the new header
-		IFHeader* newChild = [[IFHeader alloc] initWithName: [child name]
+		IFHeader* newChild = [[IFHeader alloc] initWithName: child.name
 													 parent: root
 												   children: nil];
-		[newChild setSymbol: child];
+		newChild.symbol = child;
 		
 		// Add it to the array
 		[newChildren addObject: newChild];
@@ -94,48 +94,48 @@
 		// Done with this item
 
 		// Move onto the sibling for this header
-		child = [child sibling];
+		child = child.sibling;
 	}
 	
 	// Set the children for this symbol
-	[root setChildren: newChildren];
+	root.children = newChildren;
 }
 
 - (void) updateFromIntelligence: (IFIntelFile*) intel {
 	// Change the intel file object
 	intelFile = intel;
-    if ([intel firstSymbol] == NULL) {
+    if (intel.firstSymbol == NULL) {
         return;
     }
 	
 	// Firstly, build up a header structure from the intelligence object
 
     // "Story"
-	IFHeader* storyRoot = [[IFHeader alloc] initWithName: [[intel firstSymbol] name]
+	IFHeader* storyRoot = [[IFHeader alloc] initWithName: intel.firstSymbol.name
                                                   parent: nil
                                                 children: nil];
 	[self setChildrenForHeader: storyRoot
-						symbol: [intel firstSymbol]
+						symbol: intel.firstSymbol
 					   recurse: YES];
 
     // "---- DOCUMENTATION ----"
-    IFIntelSymbol* documentationRootSymbol = [intel firstSymbol];
+    IFIntelSymbol* documentationRootSymbol = intel.firstSymbol;
     while( documentationRootSymbol != nil ) {
-        documentationRootSymbol = [documentationRootSymbol nextSymbol];
-        if( [documentationRootSymbol level] == 0 ) {
+        documentationRootSymbol = documentationRootSymbol.nextSymbol;
+        if( documentationRootSymbol.level == 0 ) {
             break;
         }
     }
 
     IFHeader* newRoot = nil;
     if( documentationRootSymbol != nil ) {
-        [storyRoot setHeadingName: [IFUtility localizedString: @"HeaderExtensionTitle"]];
+        storyRoot.headingName = [IFUtility localizedString: @"HeaderExtensionTitle"];
 
         // Create documentation header
         IFHeader* docRoot = [[IFHeader alloc] initWithName: [IFUtility localizedString: @"HeaderDocumentationTitle"]
                                                     parent: nil
                                                   children: nil];
-        [docRoot setSymbol: documentationRootSymbol];
+        docRoot.symbol = documentationRootSymbol;
         [self setChildrenForHeader: docRoot
                             symbol: documentationRootSymbol
                            recurse: YES];

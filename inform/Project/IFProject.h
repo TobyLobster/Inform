@@ -14,6 +14,7 @@
 @class IFProjectFile;
 @class IFIndexFile;
 @class IFInTest;
+@class IFInBuild;
 @class IFSyntaxTypes;
 @class IFProjectMaterialsPresenter;
 @class IFSkein;
@@ -61,6 +62,7 @@
 @property (atomic, readonly, copy) NSURL *currentSkeinURL;
 @property (atomic, readonly, copy) NSURL *currentReportURL;
 @property (atomic, readonly, copy) NSURL *normalProblemsURL;
+@property (atomic, readonly, copy) NSURL *extensionReportURL;
 @property (atomic, readonly, copy) NSURL *baseReportURL;
 @property (atomic, readonly, copy) NSURL *combinedReportURL;
 
@@ -89,8 +91,11 @@
 
 #pragma mark - Extension projects
 @property (atomic, readonly) BOOL isExtensionProject;
--(BOOL) copyProjectExtensionSourceToMaterialsExtensions;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL copyProjectExtensionSourceToMaterialsExtensions;
 - (void) selectSkein: (int) index;
+
+-(NSMutableURLRequest*) makeURLRequestFromURL: (NSURL*) url;
+@property (NS_NONATOMIC_IOSONLY, readonly) bool useNewExtensions;
 
 #pragma mark - InTest support
 @property (atomic) IFInTest* inTest;
@@ -112,8 +117,18 @@
                                      numTests: (int) numTests
                                     outputURL: (NSURL*) outputURL;
 
+#pragma mark - InBuild support
+@property (atomic) IFInBuild* inBuild;
+
+- (int) executeInBuildForExtension: (NSURL*) extensionURL
+                            action: (NSString*) action
+                  withConfirmation: (bool) confirmed;
+-(bool) testExtension: (NSString*) extension
+              command: (NSString*) command
+             testcase: (NSString*) testcase;
+
 #pragma mark - Skein support
--(IFSkeinItem*) nodeToReport;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) IFSkeinItem *nodeToReport;
 
 #pragma mark - Compiler support
 - (IFCompiler*) prepareCompilerForRelease: (BOOL) release
@@ -122,6 +137,6 @@
                                  testCase: (NSString*) testCase;
 
 - (void) DEBUGverifyWrapper;
-- (NSFileWrapper*) buildWrapper;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) NSFileWrapper *buildWrapper;
 
 @end

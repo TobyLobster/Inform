@@ -57,7 +57,7 @@
 /// Pushes the current state onto the stack
 - (void) pushState;
 /// Pops a state from the stack (which is returned)
-@property (atomic, readonly) IFSyntaxState popState;
+-(IFSyntaxState) popState;
 
 /// Overwrites the styles backwards from the current position
 - (void) backtrackWithStyle: (IFSyntaxStyle) newStyle

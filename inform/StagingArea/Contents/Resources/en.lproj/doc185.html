@@ -83,23 +83,23 @@
     <!--END IGNORE-->
     <p class="sectionheading">§12.11. Making actions work for other people</p>
     <p>The &quot;photographing&quot; action now works very nicely when the player does it. But not when others try. Suppose that neither the player, nor Clark Gable, is holding the camera:</p>
-    <!--START CODE "c3424"-->
-    <blockquote class="code"><p class="quoted"><a id="c3424"></a>&gt;photograph clark
+    <!--START CODE "c3423"-->
+    <blockquote class="code"><p class="quoted"><a id="c3423"></a>&gt;photograph clark
     <br>
     You can hardly photograph without a camera, now can you?
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c3425"-->
-    <blockquote class="code"><p class="quoted"><a id="c3425"></a>&gt;clark, photograph me
+    <!--START CODE "c3424"-->
+    <blockquote class="code"><p class="quoted"><a id="c3424"></a>&gt;clark, photograph me
     <br>
     &gt;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>An uncanny silence. What has happened is that the rules written so far are all implicitly restricted to the player only. This is because when we write -</p>
-    <!--START CODE "c3426"-->
-    <blockquote class="code"><p class="quoted"><a id="c3426"></a>Check photographing:
+    <!--START CODE "c3425"-->
+    <blockquote class="code"><p class="quoted"><a id="c3425"></a>Check photographing:
     <br>
     &#160;&#160;&#160;&#160;if the camera is not carried:
     <br>
@@ -111,44 +111,44 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "203: The Man of Steel" "e83"-->
-        <a id="e83"></a><table class="egcue">
+        <!--START EXAMPLE "203: The Man of Steel" "e375"-->
+        <a id="e375"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example83'); return false;"><b>203</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example375'); return false;"><b>203</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example83'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">The Man of Steel</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example375'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">The Man of Steel</span></b></a><br>
                     An escaping action which means "go to any room you can reach from here", and is only useful to non-player characters.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc61.html#e83"><i>RB</i></a></div>
+                        <a href="Rdoc61.html#e375"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example83" style="display: none;">
+        <div class="egpanel" id="example375" style="display: none;">
             <p>It will sometimes be handy to write actions that are only available to the non-player characters and not to the player. To do this, we just define an action which has no &quot;understand&quot;: the player will never be able to specify this command himself, but other characters can try it.</p>
             <p>This is particularly useful for creating abstract or general actions for when we want a character to eat something, wear something, or go somewhere, but aren't too particular as to what the object is; as here, where we just want Clark to move away from the kryptonite, regardless of direction:</p>
-            <!--START CODE "c3427_83"-->
-            <blockquote class="code"><p class="quoted"><a id="c3427_83"></a><a href="javascript:pasteCode('[=0x0022=]The Man of Steel[=0x0022=][=0x000A=][=0x000A=]Escaping is an action applying to nothing.[=0x000A=][=0x000A=]Carry out someone escaping:[=0x000A=][=0x0009=]let space be the holder of the person asked;[=0x000A=][=0x0009=]let place be a random room which is adjacent to the space;[=0x000A=][=0x0009=]let way be the best route from the space to the place;[=0x000A=][=0x0009=]try the person asked going way.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if Clark Kent can see kryptonite, try Clark Kent escaping.[=0x000A=][=0x000A=]The Daily Planet Newsroom is a room.[=0x000A=][=0x000A=]Perry White[=0x0027=]s Office is west of the Newsroom. In Perry White[=0x0027=]s Office are a desk and a poster of Elvis. On the desk is a lead-lined box. The box is openable. In the box is the green kryptonite crystal.[=0x000A=][=0x000A=]The Supply Closet is east of the Newsroom. The Elevator Bank is north of the Newsroom.[=0x000A=][=0x000A=]Clark Kent is a man in the Newsroom. [=0x0022=]Clark [if Clark can see the kryptonite]looks a bit ill[otherwise]is here, frowning as he revises his latest article[end if].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]west / get box / east / close box / east / west / north / south / west[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Man of Steel[=0x0022=][=0x000A=][=0x000A=]Escaping is an action applying to nothing.[=0x000A=][=0x000A=]Carry out someone escaping:[=0x000A=][=0x0009=]let space be the holder of the person asked;[=0x000A=][=0x0009=]let place be a random room which is adjacent to the space;[=0x000A=][=0x0009=]let way be the best route from the space to the place;[=0x000A=][=0x0009=]try the person asked going way.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if Clark Kent can see kryptonite, try Clark Kent escaping.[=0x000A=][=0x000A=]The Daily Planet Newsroom is a room.[=0x000A=][=0x000A=]Perry White[=0x0027=]s Office is west of the Newsroom. In Perry White[=0x0027=]s Office are a desk and a poster of Elvis. On the desk is a lead-lined box. The box is openable. In the box is the green kryptonite crystal.[=0x000A=][=0x000A=]The Supply Closet is east of the Newsroom. The Elevator Bank is north of the Newsroom.[=0x000A=][=0x000A=]Clark Kent is a man in the Newsroom. [=0x0022=]Clark [if Clark can see the kryptonite]looks a bit ill[otherwise]is here, frowning as he revises his latest article[end if].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]west / get box / east / close box / east / west / north / south / west[=0x0022=].[=0x000A=]\n', 'Example - The Man of Steel')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Man of Steel&quot;
+            <!--START CODE "c3426_375"-->
+            <blockquote class="code"><p class="quoted"><a id="c3426_375"></a><a href="javascript:pasteCode('[=0x0022=]The Man of Steel[=0x0022=][=0x000A=][=0x000A=]Escaping is an action applying to nothing.[=0x000A=][=0x000A=]Carry out someone escaping:[=0x000A=][=0x0009=]let space be the holder of the person asked;[=0x000A=][=0x0009=]let place be a random room which is adjacent to the space;[=0x000A=][=0x0009=]let way be the best route from the space to the place;[=0x000A=][=0x0009=]try the person asked going way.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if Clark Kent can see kryptonite, try Clark Kent escaping.[=0x000A=][=0x000A=]The Daily Planet Newsroom is a room.[=0x000A=][=0x000A=]Perry White[=0x0027=]s Office is west of the Newsroom. In Perry White[=0x0027=]s Office are a desk and a poster of Elvis. On the desk is a lead-lined box. The box is openable. In the box is the green kryptonite crystal.[=0x000A=][=0x000A=]The Supply Closet is east of the Newsroom. The Elevator Bank is north of the Newsroom.[=0x000A=][=0x000A=]Clark Kent is a man in the Newsroom. [=0x0022=]Clark [if Clark can see the kryptonite]looks a bit ill[otherwise]is here, frowning as he revises his latest article[end if].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]west / get box / east / close box / east / west / north / south / west[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Man of Steel[=0x0022=][=0x000A=][=0x000A=]Escaping is an action applying to nothing.[=0x000A=][=0x000A=]Carry out someone escaping:[=0x000A=][=0x0009=]let space be the holder of the person asked;[=0x000A=][=0x0009=]let place be a random room which is adjacent to the space;[=0x000A=][=0x0009=]let way be the best route from the space to the place;[=0x000A=][=0x0009=]try the person asked going way.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if Clark Kent can see kryptonite, try Clark Kent escaping.[=0x000A=][=0x000A=]The Daily Planet Newsroom is a room.[=0x000A=][=0x000A=]Perry White[=0x0027=]s Office is west of the Newsroom. In Perry White[=0x0027=]s Office are a desk and a poster of Elvis. On the desk is a lead-lined box. The box is openable. In the box is the green kryptonite crystal.[=0x000A=][=0x000A=]The Supply Closet is east of the Newsroom. The Elevator Bank is north of the Newsroom.[=0x000A=][=0x000A=]Clark Kent is a man in the Newsroom. [=0x0022=]Clark [if Clark can see the kryptonite]looks a bit ill[otherwise]is here, frowning as he revises his latest article[end if].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]west / get box / east / close box / east / west / north / south / west[=0x0022=].[=0x000A=]\n', 'Example - The Man of Steel')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Man of Steel&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3428_83"-->
-            <blockquote class="code"><p class="quoted"><a id="c3428_83"></a>Escaping is an action applying to nothing.
+            <!--START CODE "c3427_375"-->
+            <blockquote class="code"><p class="quoted"><a id="c3427_375"></a>Escaping is an action applying to nothing.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3429_83"-->
-            <blockquote class="code"><p class="quoted"><a id="c3429_83"></a>Carry out someone escaping:
+            <!--START CODE "c3428_375"-->
+            <blockquote class="code"><p class="quoted"><a id="c3428_375"></a>Carry out someone escaping:
             <br>
             &#160;&#160;&#160;&#160;let space be the holder of the person asked;
             <br>
@@ -160,90 +160,90 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3430_83"-->
-            <blockquote class="code"><p class="quoted"><a id="c3430_83"></a>Every turn:
+            <!--START CODE "c3429_375"-->
+            <blockquote class="code"><p class="quoted"><a id="c3429_375"></a>Every turn:
             <br>
             &#160;&#160;&#160;&#160;if Clark Kent can see kryptonite, try Clark Kent escaping.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3431_83"-->
-            <blockquote class="code"><p class="quoted"><a id="c3431_83"></a>The Daily Planet Newsroom is a room.
+            <!--START CODE "c3430_375"-->
+            <blockquote class="code"><p class="quoted"><a id="c3430_375"></a>The Daily Planet Newsroom is a room.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3432_83"-->
-            <blockquote class="code"><p class="quoted"><a id="c3432_83"></a>Perry White's Office is west of the Newsroom. In Perry White's Office are a desk and a poster of Elvis. On the desk is a lead-lined box. The box is openable. In the box is the green kryptonite crystal.
+            <!--START CODE "c3431_375"-->
+            <blockquote class="code"><p class="quoted"><a id="c3431_375"></a>Perry White's Office is west of the Newsroom. In Perry White's Office are a desk and a poster of Elvis. On the desk is a lead-lined box. The box is openable. In the box is the green kryptonite crystal.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3433_83"-->
-            <blockquote class="code"><p class="quoted"><a id="c3433_83"></a>The Supply Closet is east of the Newsroom. The Elevator Bank is north of the Newsroom.
+            <!--START CODE "c3432_375"-->
+            <blockquote class="code"><p class="quoted"><a id="c3432_375"></a>The Supply Closet is east of the Newsroom. The Elevator Bank is north of the Newsroom.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3434_83"-->
-            <blockquote class="code"><p class="quoted"><a id="c3434_83"></a>Clark Kent is a man in the Newsroom. &quot;Clark [if Clark can see the kryptonite]looks a bit ill[otherwise]is here, frowning as he revises his latest article[end if].&quot;
+            <!--START CODE "c3433_375"-->
+            <blockquote class="code"><p class="quoted"><a id="c3433_375"></a>Clark Kent is a man in the Newsroom. &quot;Clark [if Clark can see the kryptonite]looks a bit ill[otherwise]is here, frowning as he revises his latest article[end if].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3435_83"-->
-            <blockquote class="code"><p class="quoted"><a id="c3435_83"></a>Test me with &quot;west / get box / east / close box / east / west / north / south / west&quot;.
+            <!--START CODE "c3434_375"-->
+            <blockquote class="code"><p class="quoted"><a id="c3434_375"></a>Test me with &quot;west / get box / east / close box / east / west / north / south / west&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "204: Trying Taking Manhattan" "e256"-->
-        <a id="e256"></a><table class="egcue">
+        <!--START EXAMPLE "204: Trying Taking Manhattan" "e403"-->
+        <a id="e403"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example256'); return false;"><b>204</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example403'); return false;"><b>204</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example256'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Trying Taking Manhattan</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example403'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Trying Taking Manhattan</span></b></a><br>
                     Replacing the inventory reporting rule with another which does something slightly different.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc35.html#e256"><i>RB</i></a></div>
+                        <a href="Rdoc35.html#e403"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example256" style="display: none;">
+        <div class="egpanel" id="example403" style="display: none;">
             <p>Inform has built-in commands for other people, and sometimes we may want to adjust the way these work without completely disabling and replacing the command. Suppose, for instance, that instead of</p>
-            <!--START CODE "c3436_256"-->
-            <blockquote class="code"><p class="quoted"><a id="c3436_256"></a>Kermit the Frog looks through his possessions.
+            <!--START CODE "c3435_403"-->
+            <blockquote class="code"><p class="quoted"><a id="c3435_403"></a>Kermit the Frog looks through his possessions.
             </p>
             </blockquote>
             <!--END CODE-->
-            <p>we'd like someone taking inventory to report what he's got, thus:</p>
-            <!--START CODE "c3437_256"-->
-            <blockquote class="code"><p class="quoted"><a id="c3437_256"></a>Kermit the Frog says, &quot;I seem to be carrying a microphone and wearing a hat and a trenchcoat.&quot;
+            <p>we'd like someone taking inventory to report what they have, thus:</p>
+            <!--START CODE "c3436_403"-->
+            <blockquote class="code"><p class="quoted"><a id="c3436_403"></a>Kermit the Frog says, &quot;I seem to be carrying a microphone and wearing a hat and a trenchcoat.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>To do this, we could replace the built-in report rule with a different one.</p>
-            <!--START CODE "c3438_256"-->
-            <blockquote class="code"><p class="quoted"><a id="c3438_256"></a><a href="javascript:pasteCode('[=0x0022=]Trying Taking Manhattan[=0x0022=][=0x000A=][=0x000A=]The loud inventory rule is listed instead of the report other people taking inventory rule in the report taking inventory rules.[=0x000A=][=0x000A=]This is the loud inventory rule:[=0x000A=][=0x0009=]unless the player is the person asked:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The person asked] says, [=0x0027=]I seem to be carrying [a list of things carried by the person asked][if the person asked is wearing something] and wearing [a list of things worn by the person asked][end if].[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Persuasion rule for asking someone to try doing something: persuasion succeeds.[=0x000A=][=0x000A=]Grand Central Station is a room. [=0x0022=]Here you are in New York, New York. Any minute now someone is going to burst into song.[=0x0022=][=0x000A=][=0x000A=]Kermit the Frog is a man in Grand Central Station. [=0x0022=]Kermit the Frog stands nearby, enjoying being green.[=0x0022=] Kermit is wearing a hat and a trenchcoat. He is carrying a microphone.[=0x000A=][=0x000A=]Test me with [=0x0022=]inventory / kermit, inventory[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Trying Taking Manhattan[=0x0022=][=0x000A=][=0x000A=]The loud inventory rule is listed instead of the report other people taking inventory rule in the report taking inventory rules.[=0x000A=][=0x000A=]This is the loud inventory rule:[=0x000A=][=0x0009=]unless the player is the person asked:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The person asked] says, [=0x0027=]I seem to be carrying [a list of things carried by the person asked][if the person asked is wearing something] and wearing [a list of things worn by the person asked][end if].[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Persuasion rule for asking someone to try doing something: persuasion succeeds.[=0x000A=][=0x000A=]Grand Central Station is a room. [=0x0022=]Here you are in New York, New York. Any minute now someone is going to burst into song.[=0x0022=][=0x000A=][=0x000A=]Kermit the Frog is a man in Grand Central Station. [=0x0022=]Kermit the Frog stands nearby, enjoying being green.[=0x0022=] Kermit is wearing a hat and a trenchcoat. He is carrying a microphone.[=0x000A=][=0x000A=]Test me with [=0x0022=]inventory / kermit, inventory[=0x0022=].[=0x000A=]\n', 'Example - Trying Taking Manhattan')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Trying Taking Manhattan&quot;
+            <!--START CODE "c3437_403"-->
+            <blockquote class="code"><p class="quoted"><a id="c3437_403"></a><a href="javascript:pasteCode('[=0x0022=]Trying Taking Manhattan[=0x0022=][=0x000A=][=0x000A=]The loud inventory rule is listed instead of the report other people taking inventory rule in the report taking inventory rules.[=0x000A=][=0x000A=]This is the loud inventory rule:[=0x000A=][=0x0009=]unless the player is the person asked:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The person asked] says, [=0x0027=]I seem to be carrying [a list of things carried by the person asked][if the person asked is wearing something] and wearing [a list of things worn by the person asked][end if].[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Persuasion rule for asking someone to try doing something: persuasion succeeds.[=0x000A=][=0x000A=]Grand Central Station is a room. [=0x0022=]Here you are in New York, New York. Any minute now someone is going to burst into song.[=0x0022=][=0x000A=][=0x000A=]Kermit the Frog is a man in Grand Central Station. [=0x0022=]Kermit the Frog stands nearby, enjoying being green.[=0x0022=] Kermit is wearing a hat and a trenchcoat. He is carrying a microphone.[=0x000A=][=0x000A=]Test me with [=0x0022=]inventory / kermit, inventory[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Trying Taking Manhattan[=0x0022=][=0x000A=][=0x000A=]The loud inventory rule is listed instead of the report other people taking inventory rule in the report taking inventory rules.[=0x000A=][=0x000A=]This is the loud inventory rule:[=0x000A=][=0x0009=]unless the player is the person asked:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The person asked] says, [=0x0027=]I seem to be carrying [a list of things carried by the person asked][if the person asked is wearing something] and wearing [a list of things worn by the person asked][end if].[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Persuasion rule for asking someone to try doing something: persuasion succeeds.[=0x000A=][=0x000A=]Grand Central Station is a room. [=0x0022=]Here you are in New York, New York. Any minute now someone is going to burst into song.[=0x0022=][=0x000A=][=0x000A=]Kermit the Frog is a man in Grand Central Station. [=0x0022=]Kermit the Frog stands nearby, enjoying being green.[=0x0022=] Kermit is wearing a hat and a trenchcoat. He is carrying a microphone.[=0x000A=][=0x000A=]Test me with [=0x0022=]inventory / kermit, inventory[=0x0022=].[=0x000A=]\n', 'Example - Trying Taking Manhattan')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Trying Taking Manhattan&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3439_256"-->
-            <blockquote class="code"><p class="quoted"><a id="c3439_256"></a>The loud inventory rule is listed instead of the report other people taking inventory rule in the report taking inventory rules.
+            <!--START CODE "c3438_403"-->
+            <blockquote class="code"><p class="quoted"><a id="c3438_403"></a>The loud inventory rule is listed instead of the report other people taking inventory rule in the report taking inventory rules.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3440_256"-->
-            <blockquote class="code"><p class="quoted"><a id="c3440_256"></a>This is the loud inventory rule:
+            <!--START CODE "c3439_403"-->
+            <blockquote class="code"><p class="quoted"><a id="c3439_403"></a>This is the loud inventory rule:
             <br>
             &#160;&#160;&#160;&#160;unless the player is the person asked:
             <br>
@@ -251,85 +251,85 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3441_256"-->
-            <blockquote class="code"><p class="quoted"><a id="c3441_256"></a>Persuasion rule for asking someone to try doing something: persuasion succeeds.
+            <!--START CODE "c3440_403"-->
+            <blockquote class="code"><p class="quoted"><a id="c3440_403"></a>Persuasion rule for asking someone to try doing something: persuasion succeeds.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3442_256"-->
-            <blockquote class="code"><p class="quoted"><a id="c3442_256"></a>Grand Central Station is a room. &quot;Here you are in New York, New York. Any minute now someone is going to burst into song.&quot;
+            <!--START CODE "c3441_403"-->
+            <blockquote class="code"><p class="quoted"><a id="c3441_403"></a>Grand Central Station is a room. &quot;Here you are in New York, New York. Any minute now someone is going to burst into song.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3443_256"-->
-            <blockquote class="code"><p class="quoted"><a id="c3443_256"></a>Kermit the Frog is a man in Grand Central Station. &quot;Kermit the Frog stands nearby, enjoying being green.&quot; Kermit is wearing a hat and a trenchcoat. He is carrying a microphone.
+            <!--START CODE "c3442_403"-->
+            <blockquote class="code"><p class="quoted"><a id="c3442_403"></a>Kermit the Frog is a man in Grand Central Station. &quot;Kermit the Frog stands nearby, enjoying being green.&quot; Kermit is wearing a hat and a trenchcoat. He is carrying a microphone.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3444_256"-->
-            <blockquote class="code"><p class="quoted"><a id="c3444_256"></a>Test me with &quot;inventory / kermit, inventory&quot;.
+            <!--START CODE "c3443_403"-->
+            <blockquote class="code"><p class="quoted"><a id="c3443_403"></a>Test me with &quot;inventory / kermit, inventory&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "205: Under Contract" "e398"-->
-        <a id="e398"></a><table class="egcue">
+        <!--START EXAMPLE "205: Under Contract" "e406"-->
+        <a id="e406"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example398'); return false;"><b>205</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example406'); return false;"><b>205</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example398'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Under Contract</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example406'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Under Contract</span></b></a><br>
                     Creating a person who accepts most instructions and reacts correctly when a request leads implicitly to inappropriate behavior.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc60.html#e398"><i>RB</i></a></div>
+                        <a href="Rdoc60.html#e406"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example398" style="display: none;">
-            <!--START CODE "c3445_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3445_398"></a><a href="javascript:pasteCode('[=0x0022=]Under Contract[=0x0022=][=0x000A=][=0x000A=]The Sound Stage is a room. The description is [=0x0022=]A somewhat creaky and unconvincing reproduction of the docks of San Francisco.[=0x0022=][=0x000A=][=0x000A=]Clark Gable is a man in the Sound Stage. [=0x0022=]Clark is here, carrying [the list of things carried by Clark][if Clark wears anything] and wearing [the list of things worn by Clark][end if].[=0x0022=] Clark carries a swagger stick. Clark carries an open openable player[=0x0027=]s holdall called a briefcase. The briefcase contains a signed contract. Clark wears a fedora and a pair of pants. A handle is part of the briefcase.[=0x000A=][=0x000A=]The player carries an open openable player[=0x0027=]s holdall called a frilly bag. The carrying capacity of the player is 2. The player wears a sparkly scarf and a slinky dress. A strap is part of the bag. The tent is a portable enterable container.[=0x000A=][=0x000A=]Instead of taking off the slinky dress: say [=0x0022=]Rowr! Not that kind of movie, babe.[=0x0022=][=0x000A=][=0x000A=]Instead of taking off the pants: say [=0x0022=]That[=0x0027=]s not your job, whatever the society pages might suggest.[=0x0022=][=0x000A=][=0x000A=]Unsuccessful attempt by Clark doing something:[=0x000A=][=0x0009=]repeat through table of Clark Retorts:[=0x000A=][=0x0009=][=0x0009=]if the reason the action failed is the cause entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][response entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]I don[=0x0027=]t think that[=0x0027=]s in the script,[=0x0027=] says Clark dubiously.[=0x0022=][=0x000A=][=0x000A=]Table of Clark Retorts[=0x000A=]cause[=0x0009=]response[=0x000A=]can[=0x0027=]t take yourself rule[=0x0009=][=0x0022=][=0x0027=]I[=0x0027=]m always self-possessed,[=0x0027=] Clark remarks. You[=0x0027=]ve heard that line before, but it sounds so much more convincing from him.[=0x0022=][=0x000A=]can[=0x0027=]t take other people rule[=0x0009=][=0x0022=][=0x0027=]I don[=0x0027=]t think it would be appreciated if I tried to do that to [the noun],[=0x0027=] he rumbles.[=0x0022=][=0x000A=]can[=0x0027=]t take component parts rule[=0x0009=][=0x0022=][=0x0027=]I don[=0x0027=]t want to rip [the noun] out,[=0x0027=] Clark remarks.[=0x0022=][=0x000A=]can[=0x0027=]t take people[=0x0027=]s possessions rule[=0x0009=][=0x0022=][=0x0027=]I don[=0x0027=]t cotton to acting like a thief,[=0x0027=] Clark replies. [=0x0027=]It ain[=0x0027=]t proper.[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t take what you[=0x0027=]re inside rule[=0x0009=][=0x0022=][=0x0027=]Do you see where I am, babe?[=0x0027=] Clark demands.[=0x0022=][=0x000A=]can[=0x0027=]t take what[=0x0027=]s already taken rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t take scenery rule[=0x0009=][=0x0022=][=0x0027=]I[=0x0027=]m not the stunt man, darling,[=0x0027=] he says with a wry twinkle.[=0x0022=][=0x000A=]can[=0x0027=]t take what[=0x0027=]s fixed in place rule[=0x0009=][=0x0022=][=0x0027=]I[=0x0027=]m not the stunt man, darling,[=0x0027=] he says with a wry twinkle.[=0x0022=][=0x000A=]can[=0x0027=]t exceed carrying capacity rule[=0x0009=][=0x0022=]Clark grins. [=0x0027=]I[=0x0027=]ve only got so many hands, darling,[=0x0027=] he says.[=0x0022=][=0x000A=]can[=0x0027=]t insert into closed containers rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t go that way rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t go through closed doors rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t enter closed containers rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t exit closed containers rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t drop yourself rule[=0x0009=][=0x0022=][=0x0027=]We[=0x0027=]re inseparable, me and me,[=0x0027=] Clark replies, with a smile.[=0x0022=][=0x000A=]can[=0x0027=]t drop what[=0x0027=]s already dropped rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t drop what[=0x0027=]s not held rule[=0x0009=][=0x0022=][=0x0027=]Not under my control, [the noun],[=0x0027=] replies Clark.[=0x0022=][=0x000A=]can[=0x0027=]t drop clothes being worn rule[=0x0009=][=0x0022=][salacious retort][=0x0022=][=0x000A=]can[=0x0027=]t put something on itself rule[=0x0009=][=0x0022=][=0x0027=]I lack the dexterity,[=0x0027=] says Clark. Oh, he[=0x0027=]s so modest.[=0x0022=][=0x000A=]can[=0x0027=]t put onto what[=0x0027=]s not a supporter rule[=0x0009=][=0x0022=][=0x0027=][The second noun] won[=0x0027=]t support a thing,[=0x0027=] says Clark reprovingly.[=0x0022=][=0x000A=]can[=0x0027=]t put clothes being worn rule[=0x0009=][=0x0022=][salacious retort][=0x0022=][=0x000A=]can[=0x0027=]t insert clothes being worn rule[=0x0009=][=0x0022=][salacious retort][=0x0022=][=0x000A=]can[=0x0027=]t give worn items rule[=0x0009=][=0x0022=][salacious retort][=0x0022=][=0x000A=]can[=0x0027=]t wear what[=0x0027=]s not clothing rule[=0x0009=][=0x0022=][=0x0027=]Costuming just gets stranger every year,[=0x0027=] says Clark. [=0x0027=]In short: no.[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t wear what[=0x0027=]s already worn rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t eat unless edible rule[=0x0009=][=0x0022=][=0x0027=]What[=0x0027=]re you trying to do, poison me?[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t eat clothing without removing it first rule[=0x0009=][=0x0022=][salacious retort][=0x0022=][=0x000A=]can[=0x0027=]t take off what[=0x0027=]s not worn rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t close what[=0x0027=]s already closed rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t open what[=0x0027=]s already open rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t switch off what[=0x0027=]s already off rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t switch on what[=0x0027=]s already on rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t unlock what[=0x0027=]s already unlocked rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t lock what[=0x0027=]s already locked rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=][=0x000A=]To say already done:[=0x000A=][=0x0009=]repeat through Table of Clark[=0x0027=]s Bored Remarks:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][response entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Already done.[=0x0027=] [=0x0022=][=0x000A=][=0x000A=]Table of Clark[=0x0027=]s Bored Remarks[=0x000A=]response[=0x000A=][=0x0022=][=0x0027=]I have anticipated your every demand.[=0x0027=][=0x0022=][=0x000A=][=0x0022=][=0x0027=]We[=0x0027=]ve been through this part of the script already,[=0x0027=] Clark remarks, with just a hint of creeping tedium.[=0x0022=][=0x000A=][=0x0022=][=0x0027=]Right right, already taken care of...[=0x0027=][=0x0022=][=0x000A=][=0x0022=][=0x0027=]I[=0x0027=]m a believer in rehearsal,[=0x0027=] Clark says, sounding more bored than ever, [=0x0027=]but we really have got all this done already.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]To say salacious retort:[=0x000A=][=0x0009=]repeat through Table of Clark[=0x0027=]s Flirtatious Remarks:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][response entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=]Clark, driven past the point of endurance, seizes you in his arms and kisses you.[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Table of Clark[=0x0027=]s Flirtatious Remarks[=0x000A=]response[=0x000A=][=0x0022=]Clark allows his mustache to quirk at the suggestion.[=0x0022=][=0x000A=][=0x0022=]Clark wiggles his eyebrows at you.[=0x0022=][=0x000A=][=0x0022=][=0x0027=]That kind of thing isn[=0x0027=]t in my contract, sweetie,[=0x0027=] says Clark. [=0x0027=]If you[=0x0027=]re interested you[=0x0027=]ll have to ask off-camera.[=0x0027=][=0x0022=][=0x000A=][=0x0022=][=0x0027=]I[=0x0027=]d feel so... bare,[=0x0027=] Clark says, with a sidelong look at you.[=0x0022=][=0x000A=][=0x0022=][=0x0027=]You first,[=0x0027=] says Clark.[=0x0022=][=0x000A=][=0x0022=]Clark[=0x0027=]s stare is intense. You may be on the verge of breaking him.[=0x0022=][=0x000A=][=0x000A=][=0x000A=]To say physical impossibility:[=0x000A=][=0x0009=]repeat through Table of Clark[=0x0027=]s Frustrated Denials:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][response entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=]Clark makes a helpless gesture about his ability to move himself, or parts of himself, through solid objects. [=0x0022=][=0x000A=][=0x000A=]Table of Clark[=0x0027=]s Frustrated Denials[=0x000A=]response[=0x000A=][=0x0022=]Clark frowns. [=0x0027=]I can[=0x0027=]t reach through things -- unless you were planning a special effect?[=0x0027=][=0x0022=][=0x000A=] [=0x0022=][=0x0027=]Look,[=0x0027=] says Clark. [=0x0027=]If you want a stage magician, hire one.[=0x0027=][=0x0022=][=0x000A=][=0x0022=]Clark just groans.[=0x0022=][=0x000A=][=0x0022=]Clark says drily, [=0x0027=]Is this in the script, or are we doing improvisation now?[=0x0027=][=0x0022=][=0x000A=][=0x000A=]The block giving rule is not listed in the check giving it to rules. The block showing rule is not listed in the check showing it to rules. The report smelling rule is not listed in the report smelling rules. The report listening rule is not listed in the report listening to rules.[=0x000A=][=0x000A=]Carry out listening to something:[=0x000A=][=0x0009=]do nothing.[=0x000A=][=0x000A=]Report listening to something: say [=0x0022=]Your attention bears no interesting result.[=0x0022=][=0x000A=][=0x000A=]Carry out smelling something:[=0x000A=][=0x0009=]do nothing.[=0x000A=][=0x000A=]Report smelling something:  say [=0x0022=]Your attention bears no interesting result.[=0x0022=][=0x000A=][=0x000A=]Report someone listening to something: say [=0x0022=][The person asked] concentrates, listening.[=0x0022=][=0x000A=][=0x000A=]Report someone smelling something: say [=0x0022=][The person asked] sniffs at [the noun].[=0x0022=][=0x000A=][=0x000A=]Instead of asking someone for something: try asking the noun to try giving the second noun to the player.[=0x000A=][=0x000A=]Carry out showing something to someone: say [=0x0022=]You reveal [the noun] to [the second noun].[=0x0022=][=0x000A=][=0x000A=]Carry out Clark showing something to someone:[=0x000A=][=0x0009=]if the second noun is the player:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Clark shows you [the noun]. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]try examining the noun;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Clark reveals [the noun] to [the second noun].[=0x0022=][=0x000A=][=0x000A=]Instead of asking someone to try saying yes: try saying yes. Instead of asking someone to try saying no: try saying no. Instead of asking someone to try saying sorry, try saying sorry.[=0x000A=][=0x000A=][And now we make Clark a very amenable type:][=0x000A=][=0x000A=]A persuasion rule for asking people to try doing something: persuasion succeeds.[=0x000A=][=0x000A=][There are quite a few actions for which no automatic other-character behavior is provided at all, because they always end in failure when the player tries them. Currently the response is not very interesting. Let[=0x0027=]s spice it up a bit:][=0x000A=][=0x000A=]Burning something is useless action. Waking up is useless action. Thinking is useless action. Cutting is useless action. Jumping is useless action. Tying something to something is useless action. Drinking something is useless action. Swinging is useless action.  Rubbing is useless action. Setting something to something is useless action. Waving hands is useless action. Buying is useless action. Climbing is useless action. Sleeping is useless action. Kissing is useless action. Throwing something at something is useless action. Attacking is useless action. Asking something about something is useless action. Telling something about something is useless action. Answering something that something is useless action. Waking something is useless action.[=0x000A=][=0x000A=]A persuasion rule for asking people to try useless action:[=0x000A=][=0x0009=]say [=0x0022=]Clark Gable frowns. [=0x0027=]I don[=0x0027=]t mean to be difficult, but I can[=0x0027=]t see any point in that.[=0x0027=][=0x0022=];[=0x000A=][=0x0009=]persuasion fails.[=0x000A=][=0x000A=]A persuasion rule for asking Clark to try taking off the pants:[=0x000A=][=0x0009=]say [=0x0022=]He gives you a look of mocking exasperation. Apparently you[=0x0027=]ll have to take a (slightly) more subtle approach.[=0x0022=];[=0x000A=][=0x0009=]persuasion fails.[=0x000A=][=0x000A=][=0x0009=]Check someone giving something to someone (this is the can[=0x0027=]t give worn items rule):[=0x000A=][=0x0009=][=0x0009=]if the person asked wears the noun, stop the action.[=0x000A=][=0x000A=][And because we do not want Clark automatically taking off the pants as the result of a drop action:][=0x000A=][=0x000A=]Instead of Clark taking off the pants: do nothing.[=0x000A=][=0x000A=][We know that this can only come about as a default action, because we have arranged matters so that he cannot be persuaded directly.][=0x000A=][=0x000A=]Test me with [=0x0022=]give dress to clark / clark, take off pants / clark, eat pants / clark, give me the pants / clark, drop pants / clark, put the pants in the briefcase / again / g / g / g[=0x0022=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Under Contract[=0x0022=][=0x000A=][=0x000A=]The Sound Stage is a room. The description is [=0x0022=]A somewhat creaky and unconvincing reproduction of the docks of San Francisco.[=0x0022=][=0x000A=][=0x000A=]Clark Gable is a man in the Sound Stage. [=0x0022=]Clark is here, carrying [the list of things carried by Clark][if Clark wears anything] and wearing [the list of things worn by Clark][end if].[=0x0022=] Clark carries a swagger stick. Clark carries an open openable player[=0x0027=]s holdall called a briefcase. The briefcase contains a signed contract. Clark wears a fedora and a pair of pants. A handle is part of the briefcase.[=0x000A=][=0x000A=]The player carries an open openable player[=0x0027=]s holdall called a frilly bag. The carrying capacity of the player is 2. The player wears a sparkly scarf and a slinky dress. A strap is part of the bag. The tent is a portable enterable container.[=0x000A=][=0x000A=]Instead of taking off the slinky dress: say [=0x0022=]Rowr! Not that kind of movie, babe.[=0x0022=][=0x000A=][=0x000A=]Instead of taking off the pants: say [=0x0022=]That[=0x0027=]s not your job, whatever the society pages might suggest.[=0x0022=][=0x000A=][=0x000A=]Unsuccessful attempt by Clark doing something:[=0x000A=][=0x0009=]repeat through table of Clark Retorts:[=0x000A=][=0x0009=][=0x0009=]if the reason the action failed is the cause entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][response entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]I don[=0x0027=]t think that[=0x0027=]s in the script,[=0x0027=] says Clark dubiously.[=0x0022=][=0x000A=][=0x000A=]Table of Clark Retorts[=0x000A=]cause[=0x0009=]response[=0x000A=]can[=0x0027=]t take yourself rule[=0x0009=][=0x0022=][=0x0027=]I[=0x0027=]m always self-possessed,[=0x0027=] Clark remarks. You[=0x0027=]ve heard that line before, but it sounds so much more convincing from him.[=0x0022=][=0x000A=]can[=0x0027=]t take other people rule[=0x0009=][=0x0022=][=0x0027=]I don[=0x0027=]t think it would be appreciated if I tried to do that to [the noun],[=0x0027=] he rumbles.[=0x0022=][=0x000A=]can[=0x0027=]t take component parts rule[=0x0009=][=0x0022=][=0x0027=]I don[=0x0027=]t want to rip [the noun] out,[=0x0027=] Clark remarks.[=0x0022=][=0x000A=]can[=0x0027=]t take people[=0x0027=]s possessions rule[=0x0009=][=0x0022=][=0x0027=]I don[=0x0027=]t cotton to acting like a thief,[=0x0027=] Clark replies. [=0x0027=]It ain[=0x0027=]t proper.[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t take what you[=0x0027=]re inside rule[=0x0009=][=0x0022=][=0x0027=]Do you see where I am, babe?[=0x0027=] Clark demands.[=0x0022=][=0x000A=]can[=0x0027=]t take what[=0x0027=]s already taken rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t take scenery rule[=0x0009=][=0x0022=][=0x0027=]I[=0x0027=]m not the stunt man, darling,[=0x0027=] he says with a wry twinkle.[=0x0022=][=0x000A=]can[=0x0027=]t take what[=0x0027=]s fixed in place rule[=0x0009=][=0x0022=][=0x0027=]I[=0x0027=]m not the stunt man, darling,[=0x0027=] he says with a wry twinkle.[=0x0022=][=0x000A=]can[=0x0027=]t exceed carrying capacity rule[=0x0009=][=0x0022=]Clark grins. [=0x0027=]I[=0x0027=]ve only got so many hands, darling,[=0x0027=] he says.[=0x0022=][=0x000A=]can[=0x0027=]t insert into closed containers rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t go that way rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t go through closed doors rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t enter closed containers rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t exit closed containers rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t drop yourself rule[=0x0009=][=0x0022=][=0x0027=]We[=0x0027=]re inseparable, me and me,[=0x0027=] Clark replies, with a smile.[=0x0022=][=0x000A=]can[=0x0027=]t drop what[=0x0027=]s already dropped rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t drop what[=0x0027=]s not held rule[=0x0009=][=0x0022=][=0x0027=]Not under my control, [the noun],[=0x0027=] replies Clark.[=0x0022=][=0x000A=]can[=0x0027=]t drop clothes being worn rule[=0x0009=][=0x0022=][salacious retort][=0x0022=][=0x000A=]can[=0x0027=]t put something on itself rule[=0x0009=][=0x0022=][=0x0027=]I lack the dexterity,[=0x0027=] says Clark. Oh, he[=0x0027=]s so modest.[=0x0022=][=0x000A=]can[=0x0027=]t put onto what[=0x0027=]s not a supporter rule[=0x0009=][=0x0022=][=0x0027=][The second noun] won[=0x0027=]t support a thing,[=0x0027=] says Clark reprovingly.[=0x0022=][=0x000A=]can[=0x0027=]t put clothes being worn rule[=0x0009=][=0x0022=][salacious retort][=0x0022=][=0x000A=]can[=0x0027=]t insert clothes being worn rule[=0x0009=][=0x0022=][salacious retort][=0x0022=][=0x000A=]can[=0x0027=]t give worn items rule[=0x0009=][=0x0022=][salacious retort][=0x0022=][=0x000A=]can[=0x0027=]t wear what[=0x0027=]s not clothing rule[=0x0009=][=0x0022=][=0x0027=]Costuming just gets stranger every year,[=0x0027=] says Clark. [=0x0027=]In short: no.[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t wear what[=0x0027=]s already worn rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t eat unless edible rule[=0x0009=][=0x0022=][=0x0027=]What[=0x0027=]re you trying to do, poison me?[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t eat clothing without removing it first rule[=0x0009=][=0x0022=][salacious retort][=0x0022=][=0x000A=]can[=0x0027=]t take off what[=0x0027=]s not worn rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t close what[=0x0027=]s already closed rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t open what[=0x0027=]s already open rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t switch off what[=0x0027=]s already off rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t switch on what[=0x0027=]s already on rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t unlock what[=0x0027=]s already unlocked rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t lock what[=0x0027=]s already locked rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=][=0x000A=]To say already done:[=0x000A=][=0x0009=]repeat through Table of Clark[=0x0027=]s Bored Remarks:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][response entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Already done.[=0x0027=] [=0x0022=][=0x000A=][=0x000A=]Table of Clark[=0x0027=]s Bored Remarks[=0x000A=]response[=0x000A=][=0x0022=][=0x0027=]I have anticipated your every demand.[=0x0027=][=0x0022=][=0x000A=][=0x0022=][=0x0027=]We[=0x0027=]ve been through this part of the script already,[=0x0027=] Clark remarks, with just a hint of creeping tedium.[=0x0022=][=0x000A=][=0x0022=][=0x0027=]Right right, already taken care of...[=0x0027=][=0x0022=][=0x000A=][=0x0022=][=0x0027=]I[=0x0027=]m a believer in rehearsal,[=0x0027=] Clark says, sounding more bored than ever, [=0x0027=]but we really have got all this done already.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]To say salacious retort:[=0x000A=][=0x0009=]repeat through Table of Clark[=0x0027=]s Flirtatious Remarks:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][response entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=]Clark, driven past the point of endurance, seizes you in his arms and kisses you.[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Table of Clark[=0x0027=]s Flirtatious Remarks[=0x000A=]response[=0x000A=][=0x0022=]Clark allows his mustache to quirk at the suggestion.[=0x0022=][=0x000A=][=0x0022=]Clark wiggles his eyebrows at you.[=0x0022=][=0x000A=][=0x0022=][=0x0027=]That kind of thing isn[=0x0027=]t in my contract, sweetie,[=0x0027=] says Clark. [=0x0027=]If you[=0x0027=]re interested you[=0x0027=]ll have to ask off-camera.[=0x0027=][=0x0022=][=0x000A=][=0x0022=][=0x0027=]I[=0x0027=]d feel so... bare,[=0x0027=] Clark says, with a sidelong look at you.[=0x0022=][=0x000A=][=0x0022=][=0x0027=]You first,[=0x0027=] says Clark.[=0x0022=][=0x000A=][=0x0022=]Clark[=0x0027=]s stare is intense. You may be on the verge of breaking him.[=0x0022=][=0x000A=][=0x000A=][=0x000A=]To say physical impossibility:[=0x000A=][=0x0009=]repeat through Table of Clark[=0x0027=]s Frustrated Denials:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][response entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=]Clark makes a helpless gesture about his ability to move himself, or parts of himself, through solid objects. [=0x0022=][=0x000A=][=0x000A=]Table of Clark[=0x0027=]s Frustrated Denials[=0x000A=]response[=0x000A=][=0x0022=]Clark frowns. [=0x0027=]I can[=0x0027=]t reach through things -- unless you were planning a special effect?[=0x0027=][=0x0022=][=0x000A=] [=0x0022=][=0x0027=]Look,[=0x0027=] says Clark. [=0x0027=]If you want a stage magician, hire one.[=0x0027=][=0x0022=][=0x000A=][=0x0022=]Clark just groans.[=0x0022=][=0x000A=][=0x0022=]Clark says drily, [=0x0027=]Is this in the script, or are we doing improvisation now?[=0x0027=][=0x0022=][=0x000A=][=0x000A=]The block giving rule is not listed in the check giving it to rules. The block showing rule is not listed in the check showing it to rules. The report smelling rule is not listed in the report smelling rules. The report listening rule is not listed in the report listening to rules.[=0x000A=][=0x000A=]Carry out listening to something:[=0x000A=][=0x0009=]do nothing.[=0x000A=][=0x000A=]Report listening to something: say [=0x0022=]Your attention bears no interesting result.[=0x0022=][=0x000A=][=0x000A=]Carry out smelling something:[=0x000A=][=0x0009=]do nothing.[=0x000A=][=0x000A=]Report smelling something:  say [=0x0022=]Your attention bears no interesting result.[=0x0022=][=0x000A=][=0x000A=]Report someone listening to something: say [=0x0022=][The person asked] concentrates, listening.[=0x0022=][=0x000A=][=0x000A=]Report someone smelling something: say [=0x0022=][The person asked] sniffs at [the noun].[=0x0022=][=0x000A=][=0x000A=]Instead of asking someone for something: try asking the noun to try giving the second noun to the player.[=0x000A=][=0x000A=]Carry out showing something to someone: say [=0x0022=]You reveal [the noun] to [the second noun].[=0x0022=][=0x000A=][=0x000A=]Carry out Clark showing something to someone:[=0x000A=][=0x0009=]if the second noun is the player:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Clark shows you [the noun]. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]try examining the noun;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Clark reveals [the noun] to [the second noun].[=0x0022=][=0x000A=][=0x000A=]Instead of asking someone to try saying yes: try saying yes. Instead of asking someone to try saying no: try saying no. Instead of asking someone to try saying sorry, try saying sorry.[=0x000A=][=0x000A=][And now we make Clark a very amenable type:][=0x000A=][=0x000A=]A persuasion rule for asking people to try doing something: persuasion succeeds.[=0x000A=][=0x000A=][There are quite a few actions for which no automatic other-character behavior is provided at all, because they always end in failure when the player tries them. Currently the response is not very interesting. Let[=0x0027=]s spice it up a bit:][=0x000A=][=0x000A=]Burning something is useless action. Waking up is useless action. Thinking is useless action. Cutting is useless action. Jumping is useless action. Tying something to something is useless action. Drinking something is useless action. Swinging is useless action.  Rubbing is useless action. Setting something to something is useless action. Waving hands is useless action. Buying is useless action. Climbing is useless action. Sleeping is useless action. Kissing is useless action. Throwing something at something is useless action. Attacking is useless action. Asking something about something is useless action. Telling something about something is useless action. Answering something that something is useless action. Waking something is useless action.[=0x000A=][=0x000A=]A persuasion rule for asking people to try useless action:[=0x000A=][=0x0009=]say [=0x0022=]Clark Gable frowns. [=0x0027=]I don[=0x0027=]t mean to be difficult, but I can[=0x0027=]t see any point in that.[=0x0027=][=0x0022=];[=0x000A=][=0x0009=]persuasion fails.[=0x000A=][=0x000A=]A persuasion rule for asking Clark to try taking off the pants:[=0x000A=][=0x0009=]say [=0x0022=]He gives you a look of mocking exasperation. Apparently you[=0x0027=]ll have to take a (slightly) more subtle approach.[=0x0022=];[=0x000A=][=0x0009=]persuasion fails.[=0x000A=][=0x000A=][=0x0009=]Check someone giving something to someone (this is the can[=0x0027=]t give worn items rule):[=0x000A=][=0x0009=][=0x0009=]if the person asked wears the noun, stop the action.[=0x000A=][=0x000A=][And because we do not want Clark automatically taking off the pants as the result of a drop action:][=0x000A=][=0x000A=]Instead of Clark taking off the pants: do nothing.[=0x000A=][=0x000A=][We know that this can only come about as a default action, because we have arranged matters so that he cannot be persuaded directly.][=0x000A=][=0x000A=]Test me with [=0x0022=]give dress to clark / clark, take off pants / clark, eat pants / clark, give me the pants / clark, drop pants / clark, put the pants in the briefcase / again / g / g / g[=0x0022=][=0x000A=]\n', 'Example - Under Contract')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Under Contract&quot;
+        <div class="egpanel" id="example406" style="display: none;">
+            <!--START CODE "c3444_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3444_406"></a><a href="javascript:pasteCode('[=0x0022=]Under Contract[=0x0022=][=0x000A=][=0x000A=]The Sound Stage is a room. The description is [=0x0022=]A somewhat creaky and unconvincing reproduction of the docks of San Francisco.[=0x0022=][=0x000A=][=0x000A=]Clark Gable is a man in the Sound Stage. [=0x0022=]Clark is here, carrying [the list of things carried by Clark][if Clark wears anything] and wearing [the list of things worn by Clark][end if].[=0x0022=] Clark carries a swagger stick. Clark carries an open openable player[=0x0027=]s holdall called a briefcase. The briefcase contains a signed contract. Clark wears a fedora and a pair of pants. A handle is part of the briefcase.[=0x000A=][=0x000A=]The player carries an open openable player[=0x0027=]s holdall called a frilly bag. The carrying capacity of the player is 2. The player wears a sparkly scarf and a slinky dress. A strap is part of the bag. The tent is a portable enterable container.[=0x000A=][=0x000A=]Instead of taking off the slinky dress: say [=0x0022=]Rowr! Not that kind of movie, babe.[=0x0022=][=0x000A=][=0x000A=]Instead of taking off the pants: say [=0x0022=]That[=0x0027=]s not your job, whatever the society pages might suggest.[=0x0022=][=0x000A=][=0x000A=]Unsuccessful attempt by Clark doing something:[=0x000A=][=0x0009=]repeat through table of Clark Retorts:[=0x000A=][=0x0009=][=0x0009=]if the reason the action failed is the cause entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][response entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]I don[=0x0027=]t think that[=0x0027=]s in the script,[=0x0027=] says Clark dubiously.[=0x0022=][=0x000A=][=0x000A=]Table of Clark Retorts[=0x000A=]cause[=0x0009=]response[=0x000A=]can[=0x0027=]t take yourself rule[=0x0009=][=0x0022=][=0x0027=]I[=0x0027=]m always self-possessed,[=0x0027=] Clark remarks. You[=0x0027=]ve heard that line before, but it sounds so much more convincing from him.[=0x0022=][=0x000A=]can[=0x0027=]t take other people rule[=0x0009=][=0x0022=][=0x0027=]I don[=0x0027=]t think it would be appreciated if I tried to do that to [the noun],[=0x0027=] he rumbles.[=0x0022=][=0x000A=]can[=0x0027=]t take component parts rule[=0x0009=][=0x0022=][=0x0027=]I don[=0x0027=]t want to rip [the noun] out,[=0x0027=] Clark remarks.[=0x0022=][=0x000A=]can[=0x0027=]t take people[=0x0027=]s possessions rule[=0x0009=][=0x0022=][=0x0027=]I don[=0x0027=]t cotton to acting like a thief,[=0x0027=] Clark replies. [=0x0027=]It ain[=0x0027=]t proper.[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t take what you[=0x0027=]re inside rule[=0x0009=][=0x0022=][=0x0027=]Do you see where I am, babe?[=0x0027=] Clark demands.[=0x0022=][=0x000A=]can[=0x0027=]t take what[=0x0027=]s already taken rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t take scenery rule[=0x0009=][=0x0022=][=0x0027=]I[=0x0027=]m not the stunt man, darling,[=0x0027=] he says with a wry twinkle.[=0x0022=][=0x000A=]can[=0x0027=]t take what[=0x0027=]s fixed in place rule[=0x0009=][=0x0022=][=0x0027=]I[=0x0027=]m not the stunt man, darling,[=0x0027=] he says with a wry twinkle.[=0x0022=][=0x000A=]can[=0x0027=]t exceed carrying capacity rule[=0x0009=][=0x0022=]Clark grins. [=0x0027=]I[=0x0027=]ve only got so many hands, darling,[=0x0027=] he says.[=0x0022=][=0x000A=]can[=0x0027=]t insert into closed containers rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t go that way rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t go through closed doors rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t enter closed containers rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t exit closed containers rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t drop yourself rule[=0x0009=][=0x0022=][=0x0027=]We[=0x0027=]re inseparable, me and me,[=0x0027=] Clark replies, with a smile.[=0x0022=][=0x000A=]can[=0x0027=]t drop what[=0x0027=]s already dropped rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t drop what[=0x0027=]s not held rule[=0x0009=][=0x0022=][=0x0027=]Not under my control, [the noun],[=0x0027=] replies Clark.[=0x0022=][=0x000A=]can[=0x0027=]t drop clothes being worn rule[=0x0009=][=0x0022=][salacious retort][=0x0022=][=0x000A=]can[=0x0027=]t put something on itself rule[=0x0009=][=0x0022=][=0x0027=]I lack the dexterity,[=0x0027=] says Clark. Oh, he[=0x0027=]s so modest.[=0x0022=][=0x000A=]can[=0x0027=]t put onto what[=0x0027=]s not a supporter rule[=0x0009=][=0x0022=][=0x0027=][The second noun] won[=0x0027=]t support a thing,[=0x0027=] says Clark reprovingly.[=0x0022=][=0x000A=]can[=0x0027=]t put clothes being worn rule[=0x0009=][=0x0022=][salacious retort][=0x0022=][=0x000A=]can[=0x0027=]t insert clothes being worn rule[=0x0009=][=0x0022=][salacious retort][=0x0022=][=0x000A=]can[=0x0027=]t give worn items rule[=0x0009=][=0x0022=][salacious retort][=0x0022=][=0x000A=]can[=0x0027=]t wear what[=0x0027=]s not clothing rule[=0x0009=][=0x0022=][=0x0027=]Costuming just gets stranger every year,[=0x0027=] says Clark. [=0x0027=]In short: no.[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t wear what[=0x0027=]s already worn rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t eat unless edible rule[=0x0009=][=0x0022=][=0x0027=]What[=0x0027=]re you trying to do, poison me?[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t eat clothing without removing it first rule[=0x0009=][=0x0022=][salacious retort][=0x0022=][=0x000A=]can[=0x0027=]t take off what[=0x0027=]s not worn rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t close what[=0x0027=]s already closed rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t open what[=0x0027=]s already open rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t switch off what[=0x0027=]s already off rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t switch on what[=0x0027=]s already on rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t unlock what[=0x0027=]s already unlocked rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t lock what[=0x0027=]s already locked rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=][=0x000A=]To say already done:[=0x000A=][=0x0009=]repeat through Table of Clark[=0x0027=]s Bored Remarks:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][response entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Already done.[=0x0027=] [=0x0022=][=0x000A=][=0x000A=]Table of Clark[=0x0027=]s Bored Remarks[=0x000A=]response[=0x000A=][=0x0022=][=0x0027=]I have anticipated your every demand.[=0x0027=][=0x0022=][=0x000A=][=0x0022=][=0x0027=]We[=0x0027=]ve been through this part of the script already,[=0x0027=] Clark remarks, with just a hint of creeping tedium.[=0x0022=][=0x000A=][=0x0022=][=0x0027=]Right right, already taken care of...[=0x0027=][=0x0022=][=0x000A=][=0x0022=][=0x0027=]I[=0x0027=]m a believer in rehearsal,[=0x0027=] Clark says, sounding more bored than ever, [=0x0027=]but we really have got all this done already.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]To say salacious retort:[=0x000A=][=0x0009=]repeat through Table of Clark[=0x0027=]s Flirtatious Remarks:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][response entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=]Clark, driven past the point of endurance, seizes you in his arms and kisses you.[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Table of Clark[=0x0027=]s Flirtatious Remarks[=0x000A=]response[=0x000A=][=0x0022=]Clark allows his mustache to quirk at the suggestion.[=0x0022=][=0x000A=][=0x0022=]Clark wiggles his eyebrows at you.[=0x0022=][=0x000A=][=0x0022=][=0x0027=]That kind of thing isn[=0x0027=]t in my contract, sweetie,[=0x0027=] says Clark. [=0x0027=]If you[=0x0027=]re interested you[=0x0027=]ll have to ask off-camera.[=0x0027=][=0x0022=][=0x000A=][=0x0022=][=0x0027=]I[=0x0027=]d feel so... bare,[=0x0027=] Clark says, with a sidelong look at you.[=0x0022=][=0x000A=][=0x0022=][=0x0027=]You first,[=0x0027=] says Clark.[=0x0022=][=0x000A=][=0x0022=]Clark[=0x0027=]s stare is intense. You may be on the verge of breaking him.[=0x0022=][=0x000A=][=0x000A=][=0x000A=]To say physical impossibility:[=0x000A=][=0x0009=]repeat through Table of Clark[=0x0027=]s Frustrated Denials:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][response entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=]Clark makes a helpless gesture about his ability to move himself, or parts of himself, through solid objects. [=0x0022=][=0x000A=][=0x000A=]Table of Clark[=0x0027=]s Frustrated Denials[=0x000A=]response[=0x000A=][=0x0022=]Clark frowns. [=0x0027=]I can[=0x0027=]t reach through things -- unless you were planning a special effect?[=0x0027=][=0x0022=][=0x000A=] [=0x0022=][=0x0027=]Look,[=0x0027=] says Clark. [=0x0027=]If you want a stage magician, hire one.[=0x0027=][=0x0022=][=0x000A=][=0x0022=]Clark just groans.[=0x0022=][=0x000A=][=0x0022=]Clark says drily, [=0x0027=]Is this in the script, or are we doing improvisation now?[=0x0027=][=0x0022=][=0x000A=][=0x000A=]The block giving rule is not listed in the check giving it to rules. The block showing rule is not listed in the check showing it to rules. The report smelling rule is not listed in the report smelling rules. The report listening rule is not listed in the report listening to rules.[=0x000A=][=0x000A=]Carry out listening to something:[=0x000A=][=0x0009=]do nothing.[=0x000A=][=0x000A=]Report listening to something: say [=0x0022=]Your attention bears no interesting result.[=0x0022=][=0x000A=][=0x000A=]Carry out smelling something:[=0x000A=][=0x0009=]do nothing.[=0x000A=][=0x000A=]Report smelling something:  say [=0x0022=]Your attention bears no interesting result.[=0x0022=][=0x000A=][=0x000A=]Report someone listening to something: say [=0x0022=][The person asked] concentrates, listening.[=0x0022=][=0x000A=][=0x000A=]Report someone smelling something: say [=0x0022=][The person asked] sniffs at [the noun].[=0x0022=][=0x000A=][=0x000A=]Instead of asking someone for something: try asking the noun to try giving the second noun to the player.[=0x000A=][=0x000A=]Carry out showing something to someone: say [=0x0022=]You reveal [the noun] to [the second noun].[=0x0022=][=0x000A=][=0x000A=]Carry out Clark showing something to someone:[=0x000A=][=0x0009=]if the second noun is the player:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Clark shows you [the noun]. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]try examining the noun;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Clark reveals [the noun] to [the second noun].[=0x0022=][=0x000A=][=0x000A=]Instead of asking someone to try saying yes: try saying yes. Instead of asking someone to try saying no: try saying no. Instead of asking someone to try saying sorry, try saying sorry.[=0x000A=][=0x000A=][And now we make Clark a very amenable type:][=0x000A=][=0x000A=]A persuasion rule for asking people to try doing something: persuasion succeeds.[=0x000A=][=0x000A=][There are quite a few actions for which no automatic other-character behavior is provided at all, because they always end in failure when the player tries them. Currently the response is not very interesting. Let[=0x0027=]s spice it up a bit:][=0x000A=][=0x000A=]Burning something is useless action. Waking up is useless action. Thinking is useless action. Cutting is useless action. Jumping is useless action. Tying something to something is useless action. Drinking something is useless action. Swinging is useless action.  Rubbing is useless action. Setting something to something is useless action. Waving hands is useless action. Buying is useless action. Climbing is useless action. Sleeping is useless action. Kissing is useless action. Throwing something at something is useless action. Attacking is useless action. Asking something about something is useless action. Telling something about something is useless action. Answering something that something is useless action. Waking something is useless action.[=0x000A=][=0x000A=]A persuasion rule for asking people to try useless action:[=0x000A=][=0x0009=]say [=0x0022=]Clark Gable frowns. [=0x0027=]I don[=0x0027=]t mean to be difficult, but I can[=0x0027=]t see any point in that.[=0x0027=][=0x0022=];[=0x000A=][=0x0009=]persuasion fails.[=0x000A=][=0x000A=]A persuasion rule for asking Clark to try taking off the pants:[=0x000A=][=0x0009=]say [=0x0022=]He gives you a look of mocking exasperation. Apparently you[=0x0027=]ll have to take a (slightly) more subtle approach.[=0x0022=];[=0x000A=][=0x0009=]persuasion fails.[=0x000A=][=0x000A=][=0x0009=]Check someone giving something to someone (this is the can[=0x0027=]t give worn items rule):[=0x000A=][=0x0009=][=0x0009=]if the person asked wears the noun, stop the action.[=0x000A=][=0x000A=][And because we do not want Clark automatically taking off the pants as the result of a drop action:][=0x000A=][=0x000A=]Instead of Clark taking off the pants: do nothing.[=0x000A=][=0x000A=][We know that this can only come about as a default action, because we have arranged matters so that he cannot be persuaded directly.][=0x000A=][=0x000A=]Test me with [=0x0022=]give dress to clark / clark, take off pants / clark, eat pants / clark, give me the pants / clark, drop pants / clark, put the pants in the briefcase / again / g / g / g[=0x0022=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Under Contract[=0x0022=][=0x000A=][=0x000A=]The Sound Stage is a room. The description is [=0x0022=]A somewhat creaky and unconvincing reproduction of the docks of San Francisco.[=0x0022=][=0x000A=][=0x000A=]Clark Gable is a man in the Sound Stage. [=0x0022=]Clark is here, carrying [the list of things carried by Clark][if Clark wears anything] and wearing [the list of things worn by Clark][end if].[=0x0022=] Clark carries a swagger stick. Clark carries an open openable player[=0x0027=]s holdall called a briefcase. The briefcase contains a signed contract. Clark wears a fedora and a pair of pants. A handle is part of the briefcase.[=0x000A=][=0x000A=]The player carries an open openable player[=0x0027=]s holdall called a frilly bag. The carrying capacity of the player is 2. The player wears a sparkly scarf and a slinky dress. A strap is part of the bag. The tent is a portable enterable container.[=0x000A=][=0x000A=]Instead of taking off the slinky dress: say [=0x0022=]Rowr! Not that kind of movie, babe.[=0x0022=][=0x000A=][=0x000A=]Instead of taking off the pants: say [=0x0022=]That[=0x0027=]s not your job, whatever the society pages might suggest.[=0x0022=][=0x000A=][=0x000A=]Unsuccessful attempt by Clark doing something:[=0x000A=][=0x0009=]repeat through table of Clark Retorts:[=0x000A=][=0x0009=][=0x0009=]if the reason the action failed is the cause entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][response entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]I don[=0x0027=]t think that[=0x0027=]s in the script,[=0x0027=] says Clark dubiously.[=0x0022=][=0x000A=][=0x000A=]Table of Clark Retorts[=0x000A=]cause[=0x0009=]response[=0x000A=]can[=0x0027=]t take yourself rule[=0x0009=][=0x0022=][=0x0027=]I[=0x0027=]m always self-possessed,[=0x0027=] Clark remarks. You[=0x0027=]ve heard that line before, but it sounds so much more convincing from him.[=0x0022=][=0x000A=]can[=0x0027=]t take other people rule[=0x0009=][=0x0022=][=0x0027=]I don[=0x0027=]t think it would be appreciated if I tried to do that to [the noun],[=0x0027=] he rumbles.[=0x0022=][=0x000A=]can[=0x0027=]t take component parts rule[=0x0009=][=0x0022=][=0x0027=]I don[=0x0027=]t want to rip [the noun] out,[=0x0027=] Clark remarks.[=0x0022=][=0x000A=]can[=0x0027=]t take people[=0x0027=]s possessions rule[=0x0009=][=0x0022=][=0x0027=]I don[=0x0027=]t cotton to acting like a thief,[=0x0027=] Clark replies. [=0x0027=]It ain[=0x0027=]t proper.[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t take what you[=0x0027=]re inside rule[=0x0009=][=0x0022=][=0x0027=]Do you see where I am, babe?[=0x0027=] Clark demands.[=0x0022=][=0x000A=]can[=0x0027=]t take what[=0x0027=]s already taken rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t take scenery rule[=0x0009=][=0x0022=][=0x0027=]I[=0x0027=]m not the stunt man, darling,[=0x0027=] he says with a wry twinkle.[=0x0022=][=0x000A=]can[=0x0027=]t take what[=0x0027=]s fixed in place rule[=0x0009=][=0x0022=][=0x0027=]I[=0x0027=]m not the stunt man, darling,[=0x0027=] he says with a wry twinkle.[=0x0022=][=0x000A=]can[=0x0027=]t exceed carrying capacity rule[=0x0009=][=0x0022=]Clark grins. [=0x0027=]I[=0x0027=]ve only got so many hands, darling,[=0x0027=] he says.[=0x0022=][=0x000A=]can[=0x0027=]t insert into closed containers rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t go that way rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t go through closed doors rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t enter closed containers rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t exit closed containers rule[=0x0009=][=0x0022=][physical impossibility][=0x0022=][=0x000A=]can[=0x0027=]t drop yourself rule[=0x0009=][=0x0022=][=0x0027=]We[=0x0027=]re inseparable, me and me,[=0x0027=] Clark replies, with a smile.[=0x0022=][=0x000A=]can[=0x0027=]t drop what[=0x0027=]s already dropped rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t drop what[=0x0027=]s not held rule[=0x0009=][=0x0022=][=0x0027=]Not under my control, [the noun],[=0x0027=] replies Clark.[=0x0022=][=0x000A=]can[=0x0027=]t drop clothes being worn rule[=0x0009=][=0x0022=][salacious retort][=0x0022=][=0x000A=]can[=0x0027=]t put something on itself rule[=0x0009=][=0x0022=][=0x0027=]I lack the dexterity,[=0x0027=] says Clark. Oh, he[=0x0027=]s so modest.[=0x0022=][=0x000A=]can[=0x0027=]t put onto what[=0x0027=]s not a supporter rule[=0x0009=][=0x0022=][=0x0027=][The second noun] won[=0x0027=]t support a thing,[=0x0027=] says Clark reprovingly.[=0x0022=][=0x000A=]can[=0x0027=]t put clothes being worn rule[=0x0009=][=0x0022=][salacious retort][=0x0022=][=0x000A=]can[=0x0027=]t insert clothes being worn rule[=0x0009=][=0x0022=][salacious retort][=0x0022=][=0x000A=]can[=0x0027=]t give worn items rule[=0x0009=][=0x0022=][salacious retort][=0x0022=][=0x000A=]can[=0x0027=]t wear what[=0x0027=]s not clothing rule[=0x0009=][=0x0022=][=0x0027=]Costuming just gets stranger every year,[=0x0027=] says Clark. [=0x0027=]In short: no.[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t wear what[=0x0027=]s already worn rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t eat unless edible rule[=0x0009=][=0x0022=][=0x0027=]What[=0x0027=]re you trying to do, poison me?[=0x0027=][=0x0022=][=0x000A=]can[=0x0027=]t eat clothing without removing it first rule[=0x0009=][=0x0022=][salacious retort][=0x0022=][=0x000A=]can[=0x0027=]t take off what[=0x0027=]s not worn rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t close what[=0x0027=]s already closed rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t open what[=0x0027=]s already open rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t switch off what[=0x0027=]s already off rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t switch on what[=0x0027=]s already on rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t unlock what[=0x0027=]s already unlocked rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=]can[=0x0027=]t lock what[=0x0027=]s already locked rule[=0x0009=][=0x0022=][already done][=0x0022=][=0x000A=][=0x000A=]To say already done:[=0x000A=][=0x0009=]repeat through Table of Clark[=0x0027=]s Bored Remarks:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][response entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Already done.[=0x0027=] [=0x0022=][=0x000A=][=0x000A=]Table of Clark[=0x0027=]s Bored Remarks[=0x000A=]response[=0x000A=][=0x0022=][=0x0027=]I have anticipated your every demand.[=0x0027=][=0x0022=][=0x000A=][=0x0022=][=0x0027=]We[=0x0027=]ve been through this part of the script already,[=0x0027=] Clark remarks, with just a hint of creeping tedium.[=0x0022=][=0x000A=][=0x0022=][=0x0027=]Right right, already taken care of...[=0x0027=][=0x0022=][=0x000A=][=0x0022=][=0x0027=]I[=0x0027=]m a believer in rehearsal,[=0x0027=] Clark says, sounding more bored than ever, [=0x0027=]but we really have got all this done already.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]To say salacious retort:[=0x000A=][=0x0009=]repeat through Table of Clark[=0x0027=]s Flirtatious Remarks:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][response entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=]Clark, driven past the point of endurance, seizes you in his arms and kisses you.[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Table of Clark[=0x0027=]s Flirtatious Remarks[=0x000A=]response[=0x000A=][=0x0022=]Clark allows his mustache to quirk at the suggestion.[=0x0022=][=0x000A=][=0x0022=]Clark wiggles his eyebrows at you.[=0x0022=][=0x000A=][=0x0022=][=0x0027=]That kind of thing isn[=0x0027=]t in my contract, sweetie,[=0x0027=] says Clark. [=0x0027=]If you[=0x0027=]re interested you[=0x0027=]ll have to ask off-camera.[=0x0027=][=0x0022=][=0x000A=][=0x0022=][=0x0027=]I[=0x0027=]d feel so... bare,[=0x0027=] Clark says, with a sidelong look at you.[=0x0022=][=0x000A=][=0x0022=][=0x0027=]You first,[=0x0027=] says Clark.[=0x0022=][=0x000A=][=0x0022=]Clark[=0x0027=]s stare is intense. You may be on the verge of breaking him.[=0x0022=][=0x000A=][=0x000A=][=0x000A=]To say physical impossibility:[=0x000A=][=0x0009=]repeat through Table of Clark[=0x0027=]s Frustrated Denials:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][response entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=]Clark makes a helpless gesture about his ability to move himself, or parts of himself, through solid objects. [=0x0022=][=0x000A=][=0x000A=]Table of Clark[=0x0027=]s Frustrated Denials[=0x000A=]response[=0x000A=][=0x0022=]Clark frowns. [=0x0027=]I can[=0x0027=]t reach through things -- unless you were planning a special effect?[=0x0027=][=0x0022=][=0x000A=] [=0x0022=][=0x0027=]Look,[=0x0027=] says Clark. [=0x0027=]If you want a stage magician, hire one.[=0x0027=][=0x0022=][=0x000A=][=0x0022=]Clark just groans.[=0x0022=][=0x000A=][=0x0022=]Clark says drily, [=0x0027=]Is this in the script, or are we doing improvisation now?[=0x0027=][=0x0022=][=0x000A=][=0x000A=]The block giving rule is not listed in the check giving it to rules. The block showing rule is not listed in the check showing it to rules. The report smelling rule is not listed in the report smelling rules. The report listening rule is not listed in the report listening to rules.[=0x000A=][=0x000A=]Carry out listening to something:[=0x000A=][=0x0009=]do nothing.[=0x000A=][=0x000A=]Report listening to something: say [=0x0022=]Your attention bears no interesting result.[=0x0022=][=0x000A=][=0x000A=]Carry out smelling something:[=0x000A=][=0x0009=]do nothing.[=0x000A=][=0x000A=]Report smelling something:  say [=0x0022=]Your attention bears no interesting result.[=0x0022=][=0x000A=][=0x000A=]Report someone listening to something: say [=0x0022=][The person asked] concentrates, listening.[=0x0022=][=0x000A=][=0x000A=]Report someone smelling something: say [=0x0022=][The person asked] sniffs at [the noun].[=0x0022=][=0x000A=][=0x000A=]Instead of asking someone for something: try asking the noun to try giving the second noun to the player.[=0x000A=][=0x000A=]Carry out showing something to someone: say [=0x0022=]You reveal [the noun] to [the second noun].[=0x0022=][=0x000A=][=0x000A=]Carry out Clark showing something to someone:[=0x000A=][=0x0009=]if the second noun is the player:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Clark shows you [the noun]. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]try examining the noun;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Clark reveals [the noun] to [the second noun].[=0x0022=][=0x000A=][=0x000A=]Instead of asking someone to try saying yes: try saying yes. Instead of asking someone to try saying no: try saying no. Instead of asking someone to try saying sorry, try saying sorry.[=0x000A=][=0x000A=][And now we make Clark a very amenable type:][=0x000A=][=0x000A=]A persuasion rule for asking people to try doing something: persuasion succeeds.[=0x000A=][=0x000A=][There are quite a few actions for which no automatic other-character behavior is provided at all, because they always end in failure when the player tries them. Currently the response is not very interesting. Let[=0x0027=]s spice it up a bit:][=0x000A=][=0x000A=]Burning something is useless action. Waking up is useless action. Thinking is useless action. Cutting is useless action. Jumping is useless action. Tying something to something is useless action. Drinking something is useless action. Swinging is useless action.  Rubbing is useless action. Setting something to something is useless action. Waving hands is useless action. Buying is useless action. Climbing is useless action. Sleeping is useless action. Kissing is useless action. Throwing something at something is useless action. Attacking is useless action. Asking something about something is useless action. Telling something about something is useless action. Answering something that something is useless action. Waking something is useless action.[=0x000A=][=0x000A=]A persuasion rule for asking people to try useless action:[=0x000A=][=0x0009=]say [=0x0022=]Clark Gable frowns. [=0x0027=]I don[=0x0027=]t mean to be difficult, but I can[=0x0027=]t see any point in that.[=0x0027=][=0x0022=];[=0x000A=][=0x0009=]persuasion fails.[=0x000A=][=0x000A=]A persuasion rule for asking Clark to try taking off the pants:[=0x000A=][=0x0009=]say [=0x0022=]He gives you a look of mocking exasperation. Apparently you[=0x0027=]ll have to take a (slightly) more subtle approach.[=0x0022=];[=0x000A=][=0x0009=]persuasion fails.[=0x000A=][=0x000A=][=0x0009=]Check someone giving something to someone (this is the can[=0x0027=]t give worn items rule):[=0x000A=][=0x0009=][=0x0009=]if the person asked wears the noun, stop the action.[=0x000A=][=0x000A=][And because we do not want Clark automatically taking off the pants as the result of a drop action:][=0x000A=][=0x000A=]Instead of Clark taking off the pants: do nothing.[=0x000A=][=0x000A=][We know that this can only come about as a default action, because we have arranged matters so that he cannot be persuaded directly.][=0x000A=][=0x000A=]Test me with [=0x0022=]give dress to clark / clark, take off pants / clark, eat pants / clark, give me the pants / clark, drop pants / clark, put the pants in the briefcase / again / g / g / g[=0x0022=][=0x000A=]\n', 'Example - Under Contract')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Under Contract&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3446_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3446_398"></a>The Sound Stage is a room. The description is &quot;A somewhat creaky and unconvincing reproduction of the docks of San Francisco.&quot;
+            <!--START CODE "c3445_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3445_406"></a>The Sound Stage is a room. The description is &quot;A somewhat creaky and unconvincing reproduction of the docks of San Francisco.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3447_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3447_398"></a>Clark Gable is a man in the Sound Stage. &quot;Clark is here, carrying [the list of things carried by Clark][if Clark wears anything] and wearing [the list of things worn by Clark][end if].&quot; Clark carries a swagger stick. Clark carries an open openable player's holdall called a briefcase. The briefcase contains a signed contract. Clark wears a fedora and a pair of pants. A handle is part of the briefcase.
+            <!--START CODE "c3446_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3446_406"></a>Clark Gable is a man in the Sound Stage. &quot;Clark is here, carrying [the list of things carried by Clark][if Clark wears anything] and wearing [the list of things worn by Clark][end if].&quot; Clark carries a swagger stick. Clark carries an open openable player's holdall called a briefcase. The briefcase contains a signed contract. Clark wears a fedora and a pair of pants. A handle is part of the briefcase.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3448_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3448_398"></a>The player carries an open openable player's holdall called a frilly bag. The carrying capacity of the player is 2. The player wears a sparkly scarf and a slinky dress. A strap is part of the bag. The tent is a portable enterable container.
+            <!--START CODE "c3447_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3447_406"></a>The player carries an open openable player's holdall called a frilly bag. The carrying capacity of the player is 2. The player wears a sparkly scarf and a slinky dress. A strap is part of the bag. The tent is a portable enterable container.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3449_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3449_398"></a>Instead of taking off the slinky dress: say &quot;Rowr! Not that kind of movie, babe.&quot;
+            <!--START CODE "c3448_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3448_406"></a>Instead of taking off the slinky dress: say &quot;Rowr! Not that kind of movie, babe.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3450_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3450_398"></a>Instead of taking off the pants: say &quot;That's not your job, whatever the society pages might suggest.&quot;
+            <!--START CODE "c3449_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3449_406"></a>Instead of taking off the pants: say &quot;That's not your job, whatever the society pages might suggest.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3451_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3451_398"></a>Unsuccessful attempt by Clark doing something:
+            <!--START CODE "c3450_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3450_406"></a>Unsuccessful attempt by Clark doing something:
             <br>
             &#160;&#160;&#160;&#160;repeat through table of Clark Retorts:
             <br>
@@ -343,8 +343,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3452_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3452_398"></a>Table of Clark Retorts
+            <!--START CODE "c3451_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3451_406"></a>Table of Clark Retorts
             <br>
             </p>
             </blockquote>
@@ -703,8 +703,8 @@
             <blockquote><p></p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3453_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3453_398"></a>To say already done:
+            <!--START CODE "c3452_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3452_406"></a>To say already done:
             <br>
             &#160;&#160;&#160;&#160;repeat through Table of Clark's Bored Remarks:
             <br>
@@ -718,8 +718,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3454_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3454_398"></a>Table of Clark's Bored Remarks
+            <!--START CODE "c3453_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3453_406"></a>Table of Clark's Bored Remarks
             <br>
             response
             <br>
@@ -733,8 +733,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3455_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3455_398"></a>To say salacious retort:
+            <!--START CODE "c3454_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3454_406"></a>To say salacious retort:
             <br>
             &#160;&#160;&#160;&#160;repeat through Table of Clark's Flirtatious Remarks:
             <br>
@@ -750,8 +750,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3456_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3456_398"></a>Table of Clark's Flirtatious Remarks
+            <!--START CODE "c3455_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3455_406"></a>Table of Clark's Flirtatious Remarks
             <br>
             response
             <br>
@@ -769,8 +769,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3457_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3457_398"></a>To say physical impossibility:
+            <!--START CODE "c3456_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3456_406"></a>To say physical impossibility:
             <br>
             &#160;&#160;&#160;&#160;repeat through Table of Clark's Frustrated Denials:
             <br>
@@ -784,8 +784,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3458_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3458_398"></a>Table of Clark's Frustrated Denials
+            <!--START CODE "c3457_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3457_406"></a>Table of Clark's Frustrated Denials
             <br>
             response
             <br>
@@ -799,57 +799,57 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3459_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3459_398"></a>The block giving rule is not listed in the check giving it to rules. The block showing rule is not listed in the check showing it to rules. The report smelling rule is not listed in the report smelling rules. The report listening rule is not listed in the report listening to rules.
+            <!--START CODE "c3458_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3458_406"></a>The block giving rule is not listed in the check giving it to rules. The block showing rule is not listed in the check showing it to rules. The report smelling rule is not listed in the report smelling rules. The report listening rule is not listed in the report listening to rules.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3460_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3460_398"></a>Carry out listening to something:
+            <!--START CODE "c3459_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3459_406"></a>Carry out listening to something:
             <br>
             &#160;&#160;&#160;&#160;do nothing.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3461_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3461_398"></a>Report listening to something: say &quot;Your attention bears no interesting result.&quot;
+            <!--START CODE "c3460_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3460_406"></a>Report listening to something: say &quot;Your attention bears no interesting result.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3462_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3462_398"></a>Carry out smelling something:
+            <!--START CODE "c3461_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3461_406"></a>Carry out smelling something:
             <br>
             &#160;&#160;&#160;&#160;do nothing.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3463_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3463_398"></a>Report smelling something:  say &quot;Your attention bears no interesting result.&quot;
+            <!--START CODE "c3462_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3462_406"></a>Report smelling something:  say &quot;Your attention bears no interesting result.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3464_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3464_398"></a>Report someone listening to something: say &quot;[The person asked] concentrates, listening.&quot;
+            <!--START CODE "c3463_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3463_406"></a>Report someone listening to something: say &quot;[The person asked] concentrates, listening.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3465_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3465_398"></a>Report someone smelling something: say &quot;[The person asked] sniffs at [the noun].&quot;
+            <!--START CODE "c3464_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3464_406"></a>Report someone smelling something: say &quot;[The person asked] sniffs at [the noun].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3466_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3466_398"></a>Instead of asking someone for something: try asking the noun to try giving the second noun to the player.
+            <!--START CODE "c3465_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3465_406"></a>Instead of asking someone for something: try asking the noun to try giving the second noun to the player.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3467_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3467_398"></a>Carry out showing something to someone: say &quot;You reveal [the noun] to [the second noun].&quot;
+            <!--START CODE "c3466_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3466_406"></a>Carry out showing something to someone: say &quot;You reveal [the noun] to [the second noun].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3468_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3468_398"></a>Carry out Clark showing something to someone:
+            <!--START CODE "c3467_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3467_406"></a>Carry out Clark showing something to someone:
             <br>
             &#160;&#160;&#160;&#160;if the second noun is the player:
             <br>
@@ -863,25 +863,25 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3469_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3469_398"></a>Instead of asking someone to try saying yes: try saying yes. Instead of asking someone to try saying no: try saying no. Instead of asking someone to try saying sorry, try saying sorry.
+            <!--START CODE "c3468_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3468_406"></a>Instead of asking someone to try saying yes: try saying yes. Instead of asking someone to try saying no: try saying no. Instead of asking someone to try saying sorry, try saying sorry.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>And now we make Clark a very amenable type:</p>
-            <!--START CODE "c3470_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3470_398"></a>A persuasion rule for asking people to try doing something: persuasion succeeds.
+            <!--START CODE "c3469_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3469_406"></a>A persuasion rule for asking people to try doing something: persuasion succeeds.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>There are quite a few actions for which no automatic other-character behavior is provided at all, because they always end in failure when the player tries them. Currently the response is not very interesting. Let's spice it up a bit:</p>
-            <!--START CODE "c3471_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3471_398"></a>Burning something is useless action. Waking up is useless action. Thinking is useless action. Cutting is useless action. Jumping is useless action. Tying something to something is useless action. Drinking something is useless action. Swinging is useless action.  Rubbing is useless action. Setting something to something is useless action. Waving hands is useless action. Buying is useless action. Climbing is useless action. Sleeping is useless action. Kissing is useless action. Throwing something at something is useless action. Attacking is useless action. Asking something about something is useless action. Telling something about something is useless action. Answering something that something is useless action. Waking something is useless action.
+            <!--START CODE "c3470_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3470_406"></a>Burning something is useless action. Waking up is useless action. Thinking is useless action. Cutting is useless action. Jumping is useless action. Tying something to something is useless action. Drinking something is useless action. Swinging is useless action.  Rubbing is useless action. Setting something to something is useless action. Waving hands is useless action. Buying is useless action. Climbing is useless action. Sleeping is useless action. Kissing is useless action. Throwing something at something is useless action. Attacking is useless action. Asking something about something is useless action. Telling something about something is useless action. Answering something that something is useless action. Waking something is useless action.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3472_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3472_398"></a>A persuasion rule for asking people to try useless action:
+            <!--START CODE "c3471_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3471_406"></a>A persuasion rule for asking people to try useless action:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Clark Gable frowns. 'I don't mean to be difficult, but I can't see any point in that.'&quot;;
             <br>
@@ -889,8 +889,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3473_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3473_398"></a>A persuasion rule for asking Clark to try taking off the pants:
+            <!--START CODE "c3472_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3472_406"></a>A persuasion rule for asking Clark to try taking off the pants:
             <br>
             &#160;&#160;&#160;&#160;say &quot;He gives you a look of mocking exasperation. Apparently you'll have to take a (slightly) more subtle approach.&quot;;
             <br>
@@ -898,22 +898,22 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3474_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3474_398"></a>&#160;&#160;&#160;&#160;Check someone giving something to someone (this is the can't give worn items rule):
+            <!--START CODE "c3473_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3473_406"></a>&#160;&#160;&#160;&#160;Check someone giving something to someone (this is the can't give worn items rule):
             <br>
             &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if the person asked wears the noun, stop the action.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>And because we do not want Clark automatically taking off the pants as the result of a drop action:</p>
-            <!--START CODE "c3475_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3475_398"></a>Instead of Clark taking off the pants: do nothing.
+            <!--START CODE "c3474_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3474_406"></a>Instead of Clark taking off the pants: do nothing.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>We know that this can only come about as a default action, because we have arranged matters so that he cannot be persuaded directly.</p>
-            <!--START CODE "c3476_398"-->
-            <blockquote class="code"><p class="quoted"><a id="c3476_398"></a>Test me with &quot;give dress to clark / clark, take off pants / clark, eat pants / clark, give me the pants / clark, drop pants / clark, put the pants in the briefcase / again / g / g / g&quot;
+            <!--START CODE "c3475_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c3475_406"></a>Test me with &quot;give dress to clark / clark, take off pants / clark, eat pants / clark, give me the pants / clark, drop pants / clark, put the pants in the briefcase / again / g / g / g&quot;
             </p>
             </blockquote>
             <!--END CODE-->

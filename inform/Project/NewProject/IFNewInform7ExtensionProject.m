@@ -38,8 +38,8 @@
     IFCompilerSettings* settings = [[IFCompilerSettings alloc] init];
 
     [settings setUsingNaturalInform: YES];
-	[settings setLibraryToUse: @"Natural"];
-    [file setSettings: settings];
+    [settings setAllowLegacyExtensionDirectory: NO];
+    file.settings = settings;
 
     // Read extension source
     NSData* data = [NSData dataWithContentsOfURL: extensionURL];

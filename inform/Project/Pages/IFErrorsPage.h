@@ -16,12 +16,13 @@
 ///
 /// The 'errors' page
 ///
-@interface IFErrorsPage : IFPage
+@interface IFErrorsPage : IFPage<WKNavigationDelegate>
 
 // Getting information about this page
 /// The compiler controller for this page
 @property (atomic, readonly, strong) IBOutlet IFCompilerController *compilerController;
 
-- (instancetype) initWithProjectController: (IFProjectController*) controller;
+- (instancetype) initWithProjectController: (IFProjectController*) controller
+                                  withPane: (IFProjectPane*) pane NS_DESIGNATED_INITIALIZER;
 
 @end

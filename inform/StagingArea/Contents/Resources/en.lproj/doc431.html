@@ -83,26 +83,26 @@
     <!--END IGNORE-->
     <p class="sectionheading">§27.6. Version numbering</p>
     <p>As we have seen, extensions are referred to by name and author, but they can also (optionally) be referred to by version. For instance:</p>
-    <!--START CODE "c9040"-->
-    <blockquote class="code"><p class="quoted"><a id="c9040"></a>Include version 2 of the Ducking Action by Beatrix Potter.
+    <!--START CODE "c9066"-->
+    <blockquote class="code"><p class="quoted"><a id="c9066"></a>Include version 2 of the Ducking Action by Beatrix Potter.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c9041"-->
-    <blockquote class="code"><p class="quoted"><a id="c9041"></a>Version 1.2.4 of the Ducking Action by Beatrix Potter begins here.
+    <!--START CODE "c9067"-->
+    <blockquote class="code"><p class="quoted"><a id="c9067"></a>Version 1.2.4 of the Ducking Action by Beatrix Potter begins here.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Version numbers should consist of one to three whole numbers divided by dots, with no negative numbers allowed. Thus &quot;5&quot;, &quot;3.3&quot; and &quot;2.1.71652&quot; are all valid as version numbers, but &quot;-4&quot; and &quot;3.1.2.5&quot; are not. Any numbers not specified are taken to be 0: thus &quot;3.3&quot; means the same as &quot;3.3.0&quot;, and &quot;5&quot; means the same as &quot;5.0.0&quot;.</p>
     <p>In versions of Inform before 2022, versions of extensions were also allowed to be written in the form &quot;N/YYMMDD&quot;, as in this example:</p>
-    <!--START CODE "c9042"-->
-    <blockquote class="code"><p class="quoted"><a id="c9042"></a>Version 6/040426 of the Ducking Action by Beatrix Potter begins here.
+    <!--START CODE "c9068"-->
+    <blockquote class="code"><p class="quoted"><a id="c9068"></a>Version 6/040426 of the Ducking Action by Beatrix Potter begins here.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>The material after the slash '/' was expected to be a date, so that 040426 would mean 26 April 2004. In order to preserve compatibility with old extensions, Inform continues to allow this notation, but treats it as equivalent to writing &quot;N.0.YYMMDD&quot;, though with any leading 0s trimmed. So the above sentence is equivalent to writing:</p>
-    <!--START CODE "c9043"-->
-    <blockquote class="code"><p class="quoted"><a id="c9043"></a>Version 6.0.40426 of the Ducking Action by Beatrix Potter begins here.
+    <!--START CODE "c9069"-->
+    <blockquote class="code"><p class="quoted"><a id="c9069"></a>Version 6.0.40426 of the Ducking Action by Beatrix Potter begins here.
     </p>
     </blockquote>
     <!--END CODE-->
@@ -114,22 +114,22 @@
     <p>(Z) If the extension has changed only to fix bugs, or make its existing features work more efficiently, or provide better documentation or examples, then X and Y can stay the same but Z should increase. This is a &quot;patch version&quot;.</p>
     <p>So, for example, a user who currently has version 3.2.7 can update to 3.2.8 without really investigating. That same user can update to 3.3, 3.4, ... without any trouble, choosing either to use or ignore whatever new features they are presenting. But the user knows that moving up to version 4 might well require some work - a project using version 3.Y.Z will likely need writing to adopt version 4.</p>
     <p>Now let's turn to &quot;Include&quot; sentences. A request like:</p>
-    <!--START CODE "c9044"-->
-    <blockquote class="code"><p class="quoted"><a id="c9044"></a>Include the Ducking Action by Beatrix Potter.
+    <!--START CODE "c9070"-->
+    <blockquote class="code"><p class="quoted"><a id="c9070"></a>Include the Ducking Action by Beatrix Potter.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>will be happy with any version of the extension at all, whether numbered or not; but</p>
-    <!--START CODE "c9045"-->
-    <blockquote class="code"><p class="quoted"><a id="c9045"></a>Include version 2.4 of the Ducking Action by Beatrix Potter.
+    <!--START CODE "c9071"-->
+    <blockquote class="code"><p class="quoted"><a id="c9071"></a>Include version 2.4 of the Ducking Action by Beatrix Potter.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>will only accept the extension if its version number is &quot;compatible&quot; with 2.4, which means, if it is 2.4 or later, but still belongs to the same major version, &quot;2&quot;. So if we write this inclusion sentence, but the version we have installed is version 3.1, Inform will give a problem message. The fix may well be as simple as changing the inclusion sentence to match - but it may not, because a change in major version number is a signal that things have changed a lot inside the extension (see above).</p>
     <p>During play of any story compiled by Inform 7, typing VERSION lists various serial numbers of the pieces of software used to make it. The list concludes with names, authors and version numbers of any extensions used. So every author whose work contributes to a story automatically gets a modest credit within it. The same list can be printed, at the discretion of the designer, using the textual substitution:</p>
-        <!--START PHRASE "defn378"-->
+        <!--START PHRASE "defn386"-->
         <div class="definition">
-            <a id="defn378"></a><p class='defnprototype'><b>say &quot;[the</b>/--<b> list of extension credits]&quot;</b></p>
+            <a id="defn386"></a><p class='defnprototype'><b>say &quot;[the</b>/--<b> list of extension credits]&quot;</b></p>
 
             <!--END PHRASE-->
             <!--definition of phs_extcredits-->
@@ -140,16 +140,16 @@
     </div>
 
     <p>If we want our extension to go uncredited - perhaps if it is a low-level enabling sort of thing, for instance - we can place the following sentence inside the definition of the extension:</p>
-    <!--START CODE "c9046"-->
-    <blockquote class="code"><p class="quoted"><a id="c9046"></a>Use authorial modesty.
+    <!--START CODE "c9072"-->
+    <blockquote class="code"><p class="quoted"><a id="c9072"></a>Use authorial modesty.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>The same sentence placed in the body of a source text causes all extensions by the same author as the main source text to go uncredited. In other words, if Isaac Miggins writes a source text and includes, say, Unlikely Events by Isaac Miggins, then this extension will go uncredited in the VERSION command.</p>
     <p>A complete list, undiluted by modesty, can always be obtained using:</p>
-        <!--START PHRASE "defn379"-->
+        <!--START PHRASE "defn387"-->
         <div class="definition">
-            <a id="defn379"></a><p class='defnprototype'><b>say &quot;[the</b>/--<b> complete list of extension credits]&quot;</b></p>
+            <a id="defn387"></a><p class='defnprototype'><b>say &quot;[the</b>/--<b> complete list of extension credits]&quot;</b></p>
 
             <!--END PHRASE-->
             <!--definition of phs_compextcredits-->

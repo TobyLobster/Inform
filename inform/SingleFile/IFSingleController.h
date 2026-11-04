@@ -16,11 +16,6 @@
 
 -(instancetype) initWithInitialSelectionRange: (NSRange) initialRange;
 
-/// User wants to install an extension
-- (IBAction) installFile: (id) sender;
-/// User cancelled the install panel
-- (IBAction) cancelInstall: (id) sender;
-
 - (void) indicateRange: (NSRange) rangeToHighlight;
 
 // Spelling

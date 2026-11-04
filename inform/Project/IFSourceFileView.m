@@ -46,7 +46,7 @@ static NSImage* arrowPressed	= nil;
 
 
 - (void) keyDown: (NSEvent*) event {
-	IFProjectController* controller = [[self window] windowController];
+	IFProjectController* controller = self.window.windowController;
 	if ([controller isKindOfClass: [IFProjectController class]]) {
 		[[NSRunLoop currentRunLoop] performSelector: @selector(removeAllTemporaryHighlights)
 											 target: controller
@@ -63,27 +63,27 @@ static NSImage* arrowPressed	= nil;
 }
 
 - (void) removeRestriction {
-    if( [IFSyntaxManager isRestricted:[self textStorage] forTextView:self] ) {
+    if( [IFSyntaxManager isRestricted:self.textStorage forTextView:self] ) {
 		// Get the old restriction, and first visible character
-		NSLayoutManager* layout	= [self layoutManager];
-		NSRange oldRestriction	= [IFSyntaxManager restrictedRange: [self textStorage]
+		NSLayoutManager* layout	= self.layoutManager;
+		NSRange oldRestriction	= [IFSyntaxManager restrictedRange: self.textStorage
                                                        forTextView: self];
 		NSRange selected		= [self selectedRange];
-		NSRect visibleRect		= [self visibleRect];
+		NSRect visibleRect		= self.visibleRect;
 		
-		NSPoint containerOrigin = [self textContainerOrigin];
+		NSPoint containerOrigin = self.textContainerOrigin;
 		NSPoint containerLocation = NSMakePoint(NSMinX(visibleRect)-containerOrigin.x, NSMinY(visibleRect)-containerOrigin.y);
 		
 		NSUInteger characterIndex = NSNotFound;
 		NSUInteger glyphIndex = [layout glyphIndexForPoint: containerLocation
-                                           inTextContainer: (NSTextContainer * __nonnull) [self textContainer]];
+                                           inTextContainer: (NSTextContainer * __nonnull) self.textContainer];
 		if (glyphIndex != NSNotFound) {
 			characterIndex = [layout characterIndexForGlyphAtIndex: glyphIndex];
 		}
 		
 		// Remove the storage restriction
 		BOOL wasTornAtTop = tornAtTop;
-		[IFSyntaxManager removeRestriction: [self textStorage] forTextView:self];
+		[IFSyntaxManager removeRestriction: self.textStorage forTextView:self];
 		[self setTornAtTop: NO];
 		[self setTornAtBottom: NO];
 		
@@ -99,7 +99,7 @@ static NSImage* arrowPressed	= nil;
 			NSRange glyphs = [layout glyphRangeForCharacterRange: NSMakeRange(characterIndex, 65536)
 											actualCharacterRange: nil];
 			NSPoint charPoint = [layout boundingRectForGlyphRange: glyphs
-												  inTextContainer: [self textContainer]].origin;
+												  inTextContainer: self.textContainer].origin;
 			charPoint.x = 0;
 			charPoint.y += containerOrigin.y;
 			
@@ -109,9 +109,9 @@ static NSImage* arrowPressed	= nil;
 			NSRange glyphs = [layout glyphRangeForCharacterRange: NSMakeRange(oldRestriction.location, 65536)
 											actualCharacterRange: nil];
 			NSPoint charPoint = [layout boundingRectForGlyphRange: glyphs
-												  inTextContainer: [self textContainer]].origin;
+												  inTextContainer: self.textContainer].origin;
 			charPoint.x = 0;
-			charPoint.y += containerOrigin.y - (wasTornAtTop?[topTear size].height:0);
+			charPoint.y += containerOrigin.y - (wasTornAtTop?topTear.size.height:0);
 			
 			[self scrollPoint: charPoint];
 		}
@@ -119,23 +119,23 @@ static NSImage* arrowPressed	= nil;
 }
 
 - (void) mouseDown: (NSEvent*) event {
-	NSEventModifierFlags modifiers = [event modifierFlags];
+	NSEventModifierFlags modifiers = event.modifierFlags;
 	
 	if ((modifiers & (NSEventModifierFlagShift | NSEventModifierFlagControl | NSEventModifierFlagOption | NSEventModifierFlagCommand)) == 0
-		&& [event clickCount] == 1) {
+		&& event.clickCount == 1) {
 		// Single click, no modifiers
-		NSRect bounds = [self bounds];
-		NSRect usedRect = [[self layoutManager] usedRectForTextContainer: [self textContainer]];
-		NSPoint mousePoint = [self convertPoint: [event locationInWindow]
+		NSRect bounds = self.bounds;
+		NSRect usedRect = [self.layoutManager usedRectForTextContainer: self.textContainer];
+		NSPoint mousePoint = [self convertPoint: event.locationInWindow
 									   fromView: nil];
 
-        id<NSTextViewDelegate> tempDeleg = [self delegate];
+        id<NSTextViewDelegate> tempDeleg = self.delegate;
         id<IFSourceNavigation> deleg = nil;
         if ([tempDeleg conformsToProtocol:@protocol(IFSourceNavigation)])
         {
-            deleg = (id<IFSourceNavigation>) [self delegate];
+            deleg = (id<IFSourceNavigation>) self.delegate;
         }
-        if ((tornAtTop && mousePoint.y < NSMinY(bounds)+[topTear size].height)) {
+        if ((tornAtTop && mousePoint.y < NSMinY(bounds)+topTear.size.height)) {
             if (deleg) {
                 [deleg sourceFileShowPreviousSection: self];
             } else {
@@ -143,7 +143,7 @@ static NSImage* arrowPressed	= nil;
             }
 
             return;
-        } else if (tornAtBottom && mousePoint.y > NSMinY(bounds)+[self textContainerOrigin].y+NSMaxY(usedRect)) {
+        } else if (tornAtBottom && mousePoint.y > NSMinY(bounds)+self.textContainerOrigin.y+NSMaxY(usedRect)) {
             if (deleg) {
                 [deleg sourceFileShowNextSection: self];
             } else {
@@ -163,7 +163,7 @@ static NSImage* arrowPressed	= nil;
     mousePoint = [self convertPoint: mousePoint
                            fromView: nil];
     if( tornAtTop ) {
-        NSRect tornAtTopRect = NSMakeRect(0, 0, 1000, [topTear size].height);
+        NSRect tornAtTopRect = NSMakeRect(0, 0, 1000, topTear.size.height);
         
         if( NSPointInRect(mousePoint, tornAtTopRect) ) {
             [[NSCursor pointingHandCursor] set];
@@ -172,9 +172,9 @@ static NSImage* arrowPressed	= nil;
     }
     
     if( tornAtBottom ) {
-        NSPoint origin = [self textContainerOrigin];
-        NSRect bounds = [self bounds];
-        NSRect usedRect = [[self layoutManager] usedRectForTextContainer: [self textContainer]];
+        NSPoint origin = self.textContainerOrigin;
+        NSRect bounds = self.bounds;
+        NSRect usedRect = [self.layoutManager usedRectForTextContainer: self.textContainer];
         NSSize containerSize = NSMakeSize(NSMaxX(usedRect), NSMaxY(usedRect));
         
         NSRect tornAtBottomRect = NSMakeRect(NSMinX(bounds),
@@ -190,7 +190,7 @@ static NSImage* arrowPressed	= nil;
 }
 
 -(void) mouseMoved:(NSEvent *)theEvent {
-    if( ![self setMouseCursorWithPosition:[theEvent locationInWindow]] ) {
+    if( ![self setMouseCursorWithPosition:theEvent.locationInWindow] ) {
         [super mouseMoved:theEvent];
     }
 }
@@ -204,14 +204,14 @@ static NSImage* arrowPressed	= nil;
 	[[NSGraphicsContext currentContext] restoreGraphicsState];
 	
 	// Draw the 'page tears' if necessary
-	NSRect bounds = [self bounds];
+	NSRect bounds = self.bounds;
 	NSColor* tearColour = [NSColor colorWithDeviceRed: 0.95
 												green: 0.95
 												 blue: 0.9
 												alpha: 1.0];
 
 	if (tornAtTop) {
-		NSSize tornSize = [topTear size];
+		NSSize tornSize = topTear.size;
 		
 		// Draw the tear
 		[topTear drawInRect: NSMakeRect(NSMinX(bounds), NSMinY(bounds), bounds.size.width, tornSize.height)
@@ -223,7 +223,7 @@ static NSImage* arrowPressed	= nil;
 		
 		// Draw the 'up' arrow
 		NSImage* arrow = arrowNotPressed;
-		NSSize upSize = [arrowNotPressed size];
+		NSSize upSize = arrowNotPressed.size;
 		NSRect upRect;
 		
 		upRect.origin	= NSMakePoint(floor(NSMinX(bounds) + (bounds.size.width - upSize.width)/2),
@@ -238,9 +238,9 @@ static NSImage* arrowPressed	= nil;
                     hints: nil];
 	}
 	if (tornAtBottom) {
-		NSSize tornSize = [bottomTear size];
-		NSPoint origin = [self textContainerOrigin];
-		NSRect usedRect = [[self layoutManager] usedRectForTextContainer: [self textContainer]];
+		NSSize tornSize = bottomTear.size;
+		NSPoint origin = self.textContainerOrigin;
+		NSRect usedRect = [self.layoutManager usedRectForTextContainer: self.textContainer];
 		NSSize containerSize = NSMakeSize(NSMaxX(usedRect), NSMaxY(usedRect));
 		
 		// Draw the background
@@ -260,7 +260,7 @@ static NSImage* arrowPressed	= nil;
 
 		// Draw the 'down' arrow
 		NSImage* arrow = arrowNotPressed;
-		NSSize upSize = [arrowNotPressed size];
+		NSSize upSize = arrowNotPressed.size;
 		NSRect upRect;
 		
 		upRect.origin	= NSMakePoint(floor(NSMinX(bounds) + (bounds.size.width - upSize.width)/2),
@@ -286,27 +286,27 @@ static NSImage* arrowPressed	= nil;
 	NSSize inset = NSMakeSize(3,6);
 	
 	if (tornAtTop) {
-		inset.height += floor([topTear size].height);
+		inset.height += floor(topTear.size.height);
 	}
 	if (tornAtBottom) {
-		inset.height += floor([bottomTear size].height);
+		inset.height += floor(bottomTear.size.height);
 	}
 	inset.height = floor(inset.height/2);
 
 	// Update the display
-	[self setTextContainerInset: inset];
+	self.textContainerInset = inset;
 	
-	lastUsedRect = [[self layoutManager] usedRectForTextContainer: [self textContainer]];
+	lastUsedRect = [self.layoutManager usedRectForTextContainer: self.textContainer];
 	[self setNeedsDisplay: YES];
 }
 
 - (BOOL) checkForRedraw {
 	if (tornAtBottom) {
 		// If the last used rect is different from the current used rect, then redraw the bottom of the display as well
-		NSRect newUsedRect = [[self layoutManager] usedRectForTextContainer: [self textContainer]];
+		NSRect newUsedRect = [self.layoutManager usedRectForTextContainer: self.textContainer];
 		
 		if (NSMaxY(newUsedRect) != NSMaxY(lastUsedRect)) {
-			NSRect bounds = [self bounds];
+			NSRect bounds = self.bounds;
 			lastUsedRect = newUsedRect;
 			
             CGFloat minY = NSMinY(lastUsedRect);
@@ -327,19 +327,21 @@ static NSImage* arrowPressed	= nil;
 	[self checkForRedraw];
 }
 
+/*
 - (void) unlockFocus {
 	if ([self checkForRedraw]) {
 		[self displayIfNeeded];
 	}
 	[super unlockFocus];
 }
+*/
 
 - (NSPoint) textContainerOrigin {
 	// Calculate the origin
 	NSPoint origin = NSMakePoint(3,6);
 	
 	if (tornAtTop) {
-		origin.y += [topTear size].height;
+		origin.y += topTear.size.height;
 	}
 	
 	return origin;
@@ -366,14 +368,14 @@ static NSImage* arrowPressed	= nil;
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
     NSString *pbItem = [pb readObjectsForClasses: @[[NSString class],[NSAttributedString class]] options:nil].lastObject;
     if ([pbItem isKindOfClass:[NSAttributedString class]])
-        pbItem = [(NSAttributedString *)pbItem string];
+        pbItem = ((NSAttributedString *)pbItem).string;
     
     // Fix line endings
     if ([pbItem rangeOfString:@"\r"].location != NSNotFound) {
         pbItem = [pbItem stringByReplacingOccurrencesOfString:@"\r\n" withString:@"\n"];
         pbItem = [pbItem stringByReplacingOccurrencesOfString:@"\r" withString:@"\n"];
         
-        [[[self textStorage] mutableString] appendString:pbItem];
+        [self.textStorage.mutableString appendString:pbItem];
     }
     else {
         [super paste:sender];

@@ -84,23 +84,23 @@
     <p class="sectionheading">§13.11. Indirect relations</p>
     <p>We have already seen, in the chapter on Descriptions which is a forerunner of this one, that Inform provides not only &quot;adjacent&quot; as a way of seeing if one room is directly connected to another, but also &quot;the best route from A to B&quot;, which allows us to see if any sequence of moves connects them.</p>
     <p>Something similar - in fact, simpler - is allowed for any relation between objects. Suppose we would like to go sledging: we can go downhill, but not up. Some quite distant places may be reachable, while others close by may not be, even if lower than us, because they would involve climbing again at some point. The following would implement this:</p>
-    <!--START CODE "c4138"-->
-    <blockquote class="code"><p class="quoted"><a id="c4138"></a><a href="javascript:pasteCode('Overlooking relates various rooms to various rooms.[=0x000A=][=0x000A=]The verb to overlook means the overlooking relation.[=0x000A=][=0x000A=]The Garden overlooks the Shrubbery. The Folly overlooks the Garden. The Shrubbery overlooks the Sundial Plot. The Old Ice House overlooks the Garden.[=0x000A=][=0x000A=]After looking:[=0x000A=][=0x0009=]say [=0x0022=]This wintry vantage point overlooks [the list of rooms overlooked by the location].[=0x0022=];[=0x000A=][=0x0009=]let the way be the next step via the overlooking relation from the location to the Sundial Plot;[=0x000A=][=0x0009=]if the way is a room, say [=0x0022=]To sledge downhill to the Sundial, aim for [the way].[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]It is not possible to sledge downhill to the Sundial.[=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> Overlooking relates various rooms to various rooms.
+    <!--START CODE "c4146"-->
+    <blockquote class="code"><p class="quoted"><a id="c4146"></a><a href="javascript:pasteCode('Overlooking relates various rooms to various rooms.[=0x000A=][=0x000A=]The verb to overlook means the overlooking relation.[=0x000A=][=0x000A=]The Garden overlooks the Shrubbery. The Folly overlooks the Garden. The Shrubbery overlooks the Sundial Plot. The Old Ice House overlooks the Garden.[=0x000A=][=0x000A=]After looking:[=0x000A=][=0x0009=]say [=0x0022=]This wintry vantage point overlooks [the list of rooms overlooked by the location].[=0x0022=];[=0x000A=][=0x0009=]let the way be the next step via the overlooking relation from the location to the Sundial Plot;[=0x000A=][=0x0009=]if the way is a room, say [=0x0022=]To sledge downhill to the Sundial, aim for [the way].[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]It is not possible to sledge downhill to the Sundial.[=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> Overlooking relates various rooms to various rooms.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c4139"-->
-    <blockquote class="code"><p class="quoted"><a id="c4139"></a>The verb to overlook means the overlooking relation.
+    <!--START CODE "c4147"-->
+    <blockquote class="code"><p class="quoted"><a id="c4147"></a>The verb to overlook means the overlooking relation.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c4140"-->
-    <blockquote class="code"><p class="quoted"><a id="c4140"></a>The Garden overlooks the Shrubbery. The Folly overlooks the Garden. The Shrubbery overlooks the Sundial Plot. The Old Ice House overlooks the Garden.
+    <!--START CODE "c4148"-->
+    <blockquote class="code"><p class="quoted"><a id="c4148"></a>The Garden overlooks the Shrubbery. The Folly overlooks the Garden. The Shrubbery overlooks the Sundial Plot. The Old Ice House overlooks the Garden.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c4141"-->
-    <blockquote class="code"><p class="quoted"><a id="c4141"></a>After looking:
+    <!--START CODE "c4149"-->
+    <blockquote class="code"><p class="quoted"><a id="c4149"></a>After looking:
     <br>
     &#160;&#160;&#160;&#160;say &quot;This wintry vantage point overlooks [the list of rooms overlooked by the location].&quot;;
     <br>
@@ -121,8 +121,8 @@
             <!--definition of ph_nextstep-->
 
     <p>    This phrase tries to find a shortest route between the two given endpoints, using the given relation of objects to determine single steps. Example:</p>
-    <!--START CODE "c4142"-->
-    <blockquote class="code"><p class="quoted"><a id="c4142"></a>next step via the overlooking relation from the Folly to the Chinese Lake
+    <!--START CODE "c4150"-->
+    <blockquote class="code"><p class="quoted"><a id="c4150"></a>next step via the overlooking relation from the Folly to the Chinese Lake
     </p>
     </blockquote>
     <!--END CODE-->
@@ -139,8 +139,8 @@
             <!--definition of ph_numbersteps-->
 
     <p>    This phrase tries to find the length of a shortest route between the two given endpoints, using the given relation of objects to determine single steps. Example:</p>
-    <!--START CODE "c4143"-->
-    <blockquote class="code"><p class="quoted"><a id="c4143"></a>number of steps via the overlooking relation from the Folly to the Chinese Lake
+    <!--START CODE "c4151"-->
+    <blockquote class="code"><p class="quoted"><a id="c4151"></a>number of steps via the overlooking relation from the Folly to the Chinese Lake
     </p>
     </blockquote>
     <!--END CODE-->
@@ -150,16 +150,16 @@
     </div>
 
     <p>Another example would be the &quot;six degrees of separation&quot; game, where it is claimed that any two people on Earth are connected by a sequence of up to six acquaintances. In an Inform implementation, we might talk about &quot;the next step via the friendship relation from George Bush to Saddam Hussein&quot;, for instance, a phrase likely to evaluate to Donald Rumsfeld, and then</p>
-    <!--START CODE "c4144"-->
-    <blockquote class="code"><p class="quoted"><a id="c4144"></a>the number of steps via the friendship relation from George Bush to Saddam Hussein
+    <!--START CODE "c4152"-->
+    <blockquote class="code"><p class="quoted"><a id="c4152"></a>the number of steps via the friendship relation from George Bush to Saddam Hussein
     </p>
     </blockquote>
     <!--END CODE-->
     <p>would be... but that would be telling.</p>
     <p>As with route-finding through the map, finding &quot;the next step via&quot; a relation can be slow. For instance, suppose we have dozens of articles of clothing all partially revealing each other, connected by two relations - overlying and underlying. Then &quot;the next step via&quot; these relations allows us to establish what can be worn on top of what else. If we need to calculate this often, and there are enormous wardrobes of clothes to choose from, speed starts to matter.</p>
     <p>Once again there is a choice of algorithms: &quot;fast&quot; and &quot;slow&quot;, where &quot;fast&quot; needs much more memory. To make route-finding for a given relation &quot;fast&quot;, we have to declare it that way:</p>
-    <!--START CODE "c4145"-->
-    <blockquote class="code"><p class="quoted"><a id="c4145"></a>Overlying relates various garments to various garments with fast route-finding.
+    <!--START CODE "c4153"-->
+    <blockquote class="code"><p class="quoted"><a id="c4153"></a>Overlying relates various garments to various garments with fast route-finding.
     <br>
     Overlapping relates various garments to each other with fast route-finding.
     </p>
@@ -171,58 +171,58 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "235: The Problem of Edith" "e44"-->
-        <a id="e44"></a><table class="egcue">
+        <!--START EXAMPLE "235: The Problem of Edith" "e379"-->
+        <a id="e379"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example44'); return false;"><b>235</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example379'); return false;"><b>235</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example44'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">The Problem of Edith</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example379'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">The Problem of Edith</span></b></a><br>
                     A conversation in which the main character tries to build logical connections between what the player is saying now and what went immediately before.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc57.html#e44"><i>RB</i></a></div>
+                        <a href="Rdoc57.html#e379"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example44" style="display: none;">
+        <div class="egpanel" id="example379" style="display: none;">
             <p>Suppose that we have a core set of issues we want to be able to bring up with all the characters, and we want characters to draw intelligent connections between different conversation topics. We will need some model of how things relate to one another, so:</p>
-            <!--START CODE "c4146_44"-->
-            <blockquote class="code"><p class="quoted"><a id="c4146_44"></a><a href="javascript:pasteCode('[=0x0022=]The Problem of Edith[=0x0022=][=0x000A=][=0x000A=]Suggestion relates things to each other. The verb to suggest means the suggestion relation.[=0x000A=][=0x000A=]A subject is a kind of thing. The current subject is a thing that varies. greeting is a subject.[=0x000A=][=0x000A=]Understand [=0x0022=]ask [someone] about [any subject][=0x0022=] as asking it about the subject. Understand [=0x0022=]tell [someone] about [any subject][=0x0022=] as asking it about the subject.[=0x000A=][=0x000A=]Asking it about the subject is an action applying to one thing and one visible thing.[=0x000A=][=0x000A=]Carry out asking it about the subject:[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Hmm, [the second noun],[=0x0027=] says [the noun]. [=0x0022=];[=0x000A=][=0x0009=]relate the current subject with the second noun;[=0x000A=][=0x0009=]now the current subject is the second noun.[=0x000A=][=0x000A=][And if we wanted to offer the player some hints about angles he could pursue:][=0x000A=][=0x000A=]Instead of thinking:[=0x000A=][=0x0009=]say [=0x0022=]You contemplate [a list of things suggested by the current subject].[=0x0022=][=0x000A=][=0x000A=][For that matter, we could use the same system to have characters make sense of any physical evidence the character shows them:][=0x000A=][=0x000A=]Instead of showing something which suggests the current subject to someone:[=0x000A=][=0x0009=]say [=0x0022=][The second noun] nods impatiently.[=0x0022=][=0x000A=][=0x000A=]Instead of showing something to someone:[=0x000A=][=0x0009=]let the next subject be the next step via the suggestion relation from the noun to the current subject;[=0x000A=][=0x0009=]if the next subject is a subject:[=0x000A=][=0x0009=][=0x0009=]try asking the second noun about the subject the next subject;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The second noun] shrugs.[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]Discussing: [current subject][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=] [=0x0022=].[=0x000A=][=0x000A=]Broughton Hall is a room. Lady Uckfield is a woman in Broughton Hall. [=0x0022=]Lady Uckfield sits at her desk, looking wholly composed.[=0x0022=][=0x000A=][=0x000A=]The nasty letter is a thing carried by the player. The nasty letter suggests infidelity and penmanship. The ten-pound note is carried by the player. It suggests money.[=0x000A=][=0x000A=]Infidelity is a subject. Infidelity suggests marriage and divorce. Marriage suggests love. Marriage, love, and divorce are subjects.[=0x000A=][=0x000A=]Penmanship is a subject. Penmanship suggests education. Education is a subject. Class status and money are subjects. Class status suggests education. Money suggests class status and marriage.[=0x000A=][=0x000A=]The current subject is divorce.[=0x000A=][=0x000A=][Now we can define what gets said when the subject is changed, regardless of whether the segue was introduced in speech or by a shown object. Since rows are blanked after use, the speaker will never repeat herself; if we provide more than one line about the same pair of topics, the first one will be used, then the second, and so on, until the table runs out:][=0x000A=][=0x000A=]To relate (initial - a subject) with (next - a subject):[=0x000A=][=0x0009=]repeat through Table of Remarks:[=0x000A=][=0x0009=][=0x0009=]if the initial is starting entry and the next is the final entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][comment entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say paragraph break.[=0x000A=][=0x000A=]Table of Remarks[=0x000A=]starting[=0x0009=]final[=0x0009=]comment[=0x000A=]divorce[=0x0009=]love[=0x0009=][=0x0022=][=0x0027=]As it seems to me, all the love is on one side,[=0x0027=] she says crisply. [=0x0027=]And that rarely works.[=0x0027=][=0x0022=][=0x000A=]divorce[=0x0009=]love[=0x0009=][=0x0022=][=0x0027=]Stop making that plea: it won[=0x0027=]t work.[=0x0027=][=0x0022=][=0x000A=]divorce[=0x0009=]infidelity[=0x0009=][=0x0022=][=0x0027=]Frankly, I rather think there would have been cause enough for divorce without the perversely plentiful evidence of unfaithfulness.[=0x0027=][=0x0022=][=0x000A=]divorce[=0x0009=]money[=0x0009=][=0x0022=][=0x0027=]If you mean that the divorce will be expensive, I know it,[=0x0027=] she says. [=0x0027=]But I can think of no happier investment.[=0x0027=][=0x0022=][=0x000A=]marriage[=0x0009=]money[=0x0009=][=0x0022=][=0x0027=]If you wish me to understand that it was a marriage for money, you could have spared your energy. That was patent from the outset.[=0x0027=][=0x0022=][=0x000A=]infidelity[=0x0009=]money[=0x0009=][=0x0022=][=0x0027=]I[=0x0027=]m sorry, but I don[=0x0027=]t see how having married for money excuses a subsequent infidelity.[=0x0027=][=0x0022=][=0x000A=][=0x000A=][If we had more than one character in the scenario, we could provide multiple tables, but this will do to demonstrate the idea.][=0x000A=][=0x000A=][Of course, we can override specific instances, if we want the character always to say the same thing regardless of how we came to this point:][=0x000A=][=0x000A=]Instead of asking Lady Uckfield about the subject penmanship:[=0x000A=][=0x0009=]now the current subject is penmanship;[=0x000A=][=0x0009=]say [=0x0022=]She sighs. [=0x0027=]So few people write really beautifully these days.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]think / ask lady about infidelity / show nasty letter to lady / show note to lady / think / ask lady about divorce / ask lady about love / ask lady about marriage / ask lady about divorce / ask lady about love / ask lady about penmanship[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Problem of Edith[=0x0022=][=0x000A=][=0x000A=]Suggestion relates things to each other. The verb to suggest means the suggestion relation.[=0x000A=][=0x000A=]A subject is a kind of thing. The current subject is a thing that varies. greeting is a subject.[=0x000A=][=0x000A=]Understand [=0x0022=]ask [someone] about [any subject][=0x0022=] as asking it about the subject. Understand [=0x0022=]tell [someone] about [any subject][=0x0022=] as asking it about the subject.[=0x000A=][=0x000A=]Asking it about the subject is an action applying to one thing and one visible thing.[=0x000A=][=0x000A=]Carry out asking it about the subject:[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Hmm, [the second noun],[=0x0027=] says [the noun]. [=0x0022=];[=0x000A=][=0x0009=]relate the current subject with the second noun;[=0x000A=][=0x0009=]now the current subject is the second noun.[=0x000A=][=0x000A=][And if we wanted to offer the player some hints about angles he could pursue:][=0x000A=][=0x000A=]Instead of thinking:[=0x000A=][=0x0009=]say [=0x0022=]You contemplate [a list of things suggested by the current subject].[=0x0022=][=0x000A=][=0x000A=][For that matter, we could use the same system to have characters make sense of any physical evidence the character shows them:][=0x000A=][=0x000A=]Instead of showing something which suggests the current subject to someone:[=0x000A=][=0x0009=]say [=0x0022=][The second noun] nods impatiently.[=0x0022=][=0x000A=][=0x000A=]Instead of showing something to someone:[=0x000A=][=0x0009=]let the next subject be the next step via the suggestion relation from the noun to the current subject;[=0x000A=][=0x0009=]if the next subject is a subject:[=0x000A=][=0x0009=][=0x0009=]try asking the second noun about the subject the next subject;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The second noun] shrugs.[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]Discussing: [current subject][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=] [=0x0022=].[=0x000A=][=0x000A=]Broughton Hall is a room. Lady Uckfield is a woman in Broughton Hall. [=0x0022=]Lady Uckfield sits at her desk, looking wholly composed.[=0x0022=][=0x000A=][=0x000A=]The nasty letter is a thing carried by the player. The nasty letter suggests infidelity and penmanship. The ten-pound note is carried by the player. It suggests money.[=0x000A=][=0x000A=]Infidelity is a subject. Infidelity suggests marriage and divorce. Marriage suggests love. Marriage, love, and divorce are subjects.[=0x000A=][=0x000A=]Penmanship is a subject. Penmanship suggests education. Education is a subject. Class status and money are subjects. Class status suggests education. Money suggests class status and marriage.[=0x000A=][=0x000A=]The current subject is divorce.[=0x000A=][=0x000A=][Now we can define what gets said when the subject is changed, regardless of whether the segue was introduced in speech or by a shown object. Since rows are blanked after use, the speaker will never repeat herself; if we provide more than one line about the same pair of topics, the first one will be used, then the second, and so on, until the table runs out:][=0x000A=][=0x000A=]To relate (initial - a subject) with (next - a subject):[=0x000A=][=0x0009=]repeat through Table of Remarks:[=0x000A=][=0x0009=][=0x0009=]if the initial is starting entry and the next is the final entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][comment entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say paragraph break.[=0x000A=][=0x000A=]Table of Remarks[=0x000A=]starting[=0x0009=]final[=0x0009=]comment[=0x000A=]divorce[=0x0009=]love[=0x0009=][=0x0022=][=0x0027=]As it seems to me, all the love is on one side,[=0x0027=] she says crisply. [=0x0027=]And that rarely works.[=0x0027=][=0x0022=][=0x000A=]divorce[=0x0009=]love[=0x0009=][=0x0022=][=0x0027=]Stop making that plea: it won[=0x0027=]t work.[=0x0027=][=0x0022=][=0x000A=]divorce[=0x0009=]infidelity[=0x0009=][=0x0022=][=0x0027=]Frankly, I rather think there would have been cause enough for divorce without the perversely plentiful evidence of unfaithfulness.[=0x0027=][=0x0022=][=0x000A=]divorce[=0x0009=]money[=0x0009=][=0x0022=][=0x0027=]If you mean that the divorce will be expensive, I know it,[=0x0027=] she says. [=0x0027=]But I can think of no happier investment.[=0x0027=][=0x0022=][=0x000A=]marriage[=0x0009=]money[=0x0009=][=0x0022=][=0x0027=]If you wish me to understand that it was a marriage for money, you could have spared your energy. That was patent from the outset.[=0x0027=][=0x0022=][=0x000A=]infidelity[=0x0009=]money[=0x0009=][=0x0022=][=0x0027=]I[=0x0027=]m sorry, but I don[=0x0027=]t see how having married for money excuses a subsequent infidelity.[=0x0027=][=0x0022=][=0x000A=][=0x000A=][If we had more than one character in the scenario, we could provide multiple tables, but this will do to demonstrate the idea.][=0x000A=][=0x000A=][Of course, we can override specific instances, if we want the character always to say the same thing regardless of how we came to this point:][=0x000A=][=0x000A=]Instead of asking Lady Uckfield about the subject penmanship:[=0x000A=][=0x0009=]now the current subject is penmanship;[=0x000A=][=0x0009=]say [=0x0022=]She sighs. [=0x0027=]So few people write really beautifully these days.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]think / ask lady about infidelity / show nasty letter to lady / show note to lady / think / ask lady about divorce / ask lady about love / ask lady about marriage / ask lady about divorce / ask lady about love / ask lady about penmanship[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - The Problem of Edith')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Problem of Edith&quot;
+            <!--START CODE "c4154_379"-->
+            <blockquote class="code"><p class="quoted"><a id="c4154_379"></a><a href="javascript:pasteCode('[=0x0022=]The Problem of Edith[=0x0022=][=0x000A=][=0x000A=]Suggestion relates things to each other. The verb to suggest means the suggestion relation.[=0x000A=][=0x000A=]A subject is a kind of thing. The current subject is a thing that varies. greeting is a subject.[=0x000A=][=0x000A=]Understand [=0x0022=]ask [someone] about [any subject][=0x0022=] as asking it about the subject. Understand [=0x0022=]tell [someone] about [any subject][=0x0022=] as asking it about the subject.[=0x000A=][=0x000A=]Asking it about the subject is an action applying to one thing and one visible thing.[=0x000A=][=0x000A=]Carry out asking it about the subject:[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Hmm, [the second noun],[=0x0027=] says [the noun]. [=0x0022=];[=0x000A=][=0x0009=]relate the current subject with the second noun;[=0x000A=][=0x0009=]now the current subject is the second noun.[=0x000A=][=0x000A=][And if we wanted to offer the player some hints about angles they could pursue:][=0x000A=][=0x000A=]Instead of thinking:[=0x000A=][=0x0009=]say [=0x0022=]You contemplate [a list of things suggested by the current subject].[=0x0022=][=0x000A=][=0x000A=][For that matter, we could use the same system to have characters make sense of any physical evidence the character shows them:][=0x000A=][=0x000A=]Instead of showing something which suggests the current subject to someone:[=0x000A=][=0x0009=]say [=0x0022=][The second noun] nods impatiently.[=0x0022=][=0x000A=][=0x000A=]Instead of showing something to someone:[=0x000A=][=0x0009=]let the next subject be the next step via the suggestion relation from the noun to the current subject;[=0x000A=][=0x0009=]if the next subject is a subject:[=0x000A=][=0x0009=][=0x0009=]try asking the second noun about the subject the next subject;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The second noun] shrugs.[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]Discussing: [current subject][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=] [=0x0022=].[=0x000A=][=0x000A=]Broughton Hall is a room. Lady Uckfield is a woman in Broughton Hall. [=0x0022=]Lady Uckfield sits at her desk, looking wholly composed.[=0x0022=][=0x000A=][=0x000A=]The nasty letter is a thing carried by the player. The nasty letter suggests infidelity and penmanship. The ten-pound note is carried by the player. It suggests money.[=0x000A=][=0x000A=]Infidelity is a subject. Infidelity suggests marriage and divorce. Marriage suggests love. Marriage, love, and divorce are subjects.[=0x000A=][=0x000A=]Penmanship is a subject. Penmanship suggests education. Education is a subject. Class status and money are subjects. Class status suggests education. Money suggests class status and marriage.[=0x000A=][=0x000A=]The current subject is divorce.[=0x000A=][=0x000A=][Now we can define what gets said when the subject is changed, regardless of whether the segue was introduced in speech or by a shown object. Since rows are blanked after use, the speaker will never repeat herself; if we provide more than one line about the same pair of topics, the first one will be used, then the second, and so on, until the table runs out:][=0x000A=][=0x000A=]To relate (initial - a subject) with (next - a subject):[=0x000A=][=0x0009=]repeat through Table of Remarks:[=0x000A=][=0x0009=][=0x0009=]if the initial is starting entry and the next is the final entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][comment entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say paragraph break.[=0x000A=][=0x000A=]Table of Remarks[=0x000A=]starting[=0x0009=]final[=0x0009=]comment[=0x000A=]divorce[=0x0009=]love[=0x0009=][=0x0022=][=0x0027=]As it seems to me, all the love is on one side,[=0x0027=] she says crisply. [=0x0027=]And that rarely works.[=0x0027=][=0x0022=][=0x000A=]divorce[=0x0009=]love[=0x0009=][=0x0022=][=0x0027=]Stop making that plea: it won[=0x0027=]t work.[=0x0027=][=0x0022=][=0x000A=]divorce[=0x0009=]infidelity[=0x0009=][=0x0022=][=0x0027=]Frankly, I rather think there would have been cause enough for divorce without the perversely plentiful evidence of unfaithfulness.[=0x0027=][=0x0022=][=0x000A=]divorce[=0x0009=]money[=0x0009=][=0x0022=][=0x0027=]If you mean that the divorce will be expensive, I know it,[=0x0027=] she says. [=0x0027=]But I can think of no happier investment.[=0x0027=][=0x0022=][=0x000A=]marriage[=0x0009=]money[=0x0009=][=0x0022=][=0x0027=]If you wish me to understand that it was a marriage for money, you could have spared your energy. That was patent from the outset.[=0x0027=][=0x0022=][=0x000A=]infidelity[=0x0009=]money[=0x0009=][=0x0022=][=0x0027=]I[=0x0027=]m sorry, but I don[=0x0027=]t see how having married for money excuses a subsequent infidelity.[=0x0027=][=0x0022=][=0x000A=][=0x000A=][If we had more than one character in the scenario, we could provide multiple tables, but this will do to demonstrate the idea.][=0x000A=][=0x000A=][Of course, we can override specific instances, if we want the character always to say the same thing regardless of how we came to this point:][=0x000A=][=0x000A=]Instead of asking Lady Uckfield about the subject penmanship:[=0x000A=][=0x0009=]now the current subject is penmanship;[=0x000A=][=0x0009=]say [=0x0022=]She sighs. [=0x0027=]So few people write really beautifully these days.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]think / ask lady about infidelity / show nasty letter to lady / show note to lady / think / ask lady about divorce / ask lady about love / ask lady about marriage / ask lady about divorce / ask lady about love / ask lady about penmanship[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Problem of Edith[=0x0022=][=0x000A=][=0x000A=]Suggestion relates things to each other. The verb to suggest means the suggestion relation.[=0x000A=][=0x000A=]A subject is a kind of thing. The current subject is a thing that varies. greeting is a subject.[=0x000A=][=0x000A=]Understand [=0x0022=]ask [someone] about [any subject][=0x0022=] as asking it about the subject. Understand [=0x0022=]tell [someone] about [any subject][=0x0022=] as asking it about the subject.[=0x000A=][=0x000A=]Asking it about the subject is an action applying to one thing and one visible thing.[=0x000A=][=0x000A=]Carry out asking it about the subject:[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Hmm, [the second noun],[=0x0027=] says [the noun]. [=0x0022=];[=0x000A=][=0x0009=]relate the current subject with the second noun;[=0x000A=][=0x0009=]now the current subject is the second noun.[=0x000A=][=0x000A=][And if we wanted to offer the player some hints about angles they could pursue:][=0x000A=][=0x000A=]Instead of thinking:[=0x000A=][=0x0009=]say [=0x0022=]You contemplate [a list of things suggested by the current subject].[=0x0022=][=0x000A=][=0x000A=][For that matter, we could use the same system to have characters make sense of any physical evidence the character shows them:][=0x000A=][=0x000A=]Instead of showing something which suggests the current subject to someone:[=0x000A=][=0x0009=]say [=0x0022=][The second noun] nods impatiently.[=0x0022=][=0x000A=][=0x000A=]Instead of showing something to someone:[=0x000A=][=0x0009=]let the next subject be the next step via the suggestion relation from the noun to the current subject;[=0x000A=][=0x0009=]if the next subject is a subject:[=0x000A=][=0x0009=][=0x0009=]try asking the second noun about the subject the next subject;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The second noun] shrugs.[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]Discussing: [current subject][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=] [=0x0022=].[=0x000A=][=0x000A=]Broughton Hall is a room. Lady Uckfield is a woman in Broughton Hall. [=0x0022=]Lady Uckfield sits at her desk, looking wholly composed.[=0x0022=][=0x000A=][=0x000A=]The nasty letter is a thing carried by the player. The nasty letter suggests infidelity and penmanship. The ten-pound note is carried by the player. It suggests money.[=0x000A=][=0x000A=]Infidelity is a subject. Infidelity suggests marriage and divorce. Marriage suggests love. Marriage, love, and divorce are subjects.[=0x000A=][=0x000A=]Penmanship is a subject. Penmanship suggests education. Education is a subject. Class status and money are subjects. Class status suggests education. Money suggests class status and marriage.[=0x000A=][=0x000A=]The current subject is divorce.[=0x000A=][=0x000A=][Now we can define what gets said when the subject is changed, regardless of whether the segue was introduced in speech or by a shown object. Since rows are blanked after use, the speaker will never repeat herself; if we provide more than one line about the same pair of topics, the first one will be used, then the second, and so on, until the table runs out:][=0x000A=][=0x000A=]To relate (initial - a subject) with (next - a subject):[=0x000A=][=0x0009=]repeat through Table of Remarks:[=0x000A=][=0x0009=][=0x0009=]if the initial is starting entry and the next is the final entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][comment entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say paragraph break.[=0x000A=][=0x000A=]Table of Remarks[=0x000A=]starting[=0x0009=]final[=0x0009=]comment[=0x000A=]divorce[=0x0009=]love[=0x0009=][=0x0022=][=0x0027=]As it seems to me, all the love is on one side,[=0x0027=] she says crisply. [=0x0027=]And that rarely works.[=0x0027=][=0x0022=][=0x000A=]divorce[=0x0009=]love[=0x0009=][=0x0022=][=0x0027=]Stop making that plea: it won[=0x0027=]t work.[=0x0027=][=0x0022=][=0x000A=]divorce[=0x0009=]infidelity[=0x0009=][=0x0022=][=0x0027=]Frankly, I rather think there would have been cause enough for divorce without the perversely plentiful evidence of unfaithfulness.[=0x0027=][=0x0022=][=0x000A=]divorce[=0x0009=]money[=0x0009=][=0x0022=][=0x0027=]If you mean that the divorce will be expensive, I know it,[=0x0027=] she says. [=0x0027=]But I can think of no happier investment.[=0x0027=][=0x0022=][=0x000A=]marriage[=0x0009=]money[=0x0009=][=0x0022=][=0x0027=]If you wish me to understand that it was a marriage for money, you could have spared your energy. That was patent from the outset.[=0x0027=][=0x0022=][=0x000A=]infidelity[=0x0009=]money[=0x0009=][=0x0022=][=0x0027=]I[=0x0027=]m sorry, but I don[=0x0027=]t see how having married for money excuses a subsequent infidelity.[=0x0027=][=0x0022=][=0x000A=][=0x000A=][If we had more than one character in the scenario, we could provide multiple tables, but this will do to demonstrate the idea.][=0x000A=][=0x000A=][Of course, we can override specific instances, if we want the character always to say the same thing regardless of how we came to this point:][=0x000A=][=0x000A=]Instead of asking Lady Uckfield about the subject penmanship:[=0x000A=][=0x0009=]now the current subject is penmanship;[=0x000A=][=0x0009=]say [=0x0022=]She sighs. [=0x0027=]So few people write really beautifully these days.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]think / ask lady about infidelity / show nasty letter to lady / show note to lady / think / ask lady about divorce / ask lady about love / ask lady about marriage / ask lady about divorce / ask lady about love / ask lady about penmanship[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - The Problem of Edith')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Problem of Edith&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4147_44"-->
-            <blockquote class="code"><p class="quoted"><a id="c4147_44"></a>Suggestion relates things to each other. The verb to suggest means the suggestion relation.
+            <!--START CODE "c4155_379"-->
+            <blockquote class="code"><p class="quoted"><a id="c4155_379"></a>Suggestion relates things to each other. The verb to suggest means the suggestion relation.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4148_44"-->
-            <blockquote class="code"><p class="quoted"><a id="c4148_44"></a>A subject is a kind of thing. The current subject is a thing that varies. greeting is a subject.
+            <!--START CODE "c4156_379"-->
+            <blockquote class="code"><p class="quoted"><a id="c4156_379"></a>A subject is a kind of thing. The current subject is a thing that varies. greeting is a subject.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4149_44"-->
-            <blockquote class="code"><p class="quoted"><a id="c4149_44"></a>Understand &quot;ask [someone] about [any subject]&quot; as asking it about the subject. Understand &quot;tell [someone] about [any subject]&quot; as asking it about the subject.
+            <!--START CODE "c4157_379"-->
+            <blockquote class="code"><p class="quoted"><a id="c4157_379"></a>Understand &quot;ask [someone] about [any subject]&quot; as asking it about the subject. Understand &quot;tell [someone] about [any subject]&quot; as asking it about the subject.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4150_44"-->
-            <blockquote class="code"><p class="quoted"><a id="c4150_44"></a>Asking it about the subject is an action applying to one thing and one visible thing.
+            <!--START CODE "c4158_379"-->
+            <blockquote class="code"><p class="quoted"><a id="c4158_379"></a>Asking it about the subject is an action applying to one thing and one visible thing.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4151_44"-->
-            <blockquote class="code"><p class="quoted"><a id="c4151_44"></a>Carry out asking it about the subject:
+            <!--START CODE "c4159_379"-->
+            <blockquote class="code"><p class="quoted"><a id="c4159_379"></a>Carry out asking it about the subject:
             <br>
             &#160;&#160;&#160;&#160;say &quot;'Hmm, [the second noun],' says [the noun]. &quot;;
             <br>
@@ -232,24 +232,24 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <p>And if we wanted to offer the player some hints about angles he could pursue:</p>
-            <!--START CODE "c4152_44"-->
-            <blockquote class="code"><p class="quoted"><a id="c4152_44"></a>Instead of thinking:
+            <p>And if we wanted to offer the player some hints about angles they could pursue:</p>
+            <!--START CODE "c4160_379"-->
+            <blockquote class="code"><p class="quoted"><a id="c4160_379"></a>Instead of thinking:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You contemplate [a list of things suggested by the current subject].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>For that matter, we could use the same system to have characters make sense of any physical evidence the character shows them:</p>
-            <!--START CODE "c4153_44"-->
-            <blockquote class="code"><p class="quoted"><a id="c4153_44"></a>Instead of showing something which suggests the current subject to someone:
+            <!--START CODE "c4161_379"-->
+            <blockquote class="code"><p class="quoted"><a id="c4161_379"></a>Instead of showing something which suggests the current subject to someone:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The second noun] nods impatiently.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4154_44"-->
-            <blockquote class="code"><p class="quoted"><a id="c4154_44"></a>Instead of showing something to someone:
+            <!--START CODE "c4162_379"-->
+            <blockquote class="code"><p class="quoted"><a id="c4162_379"></a>Instead of showing something to someone:
             <br>
             &#160;&#160;&#160;&#160;let the next subject be the next step via the suggestion relation from the noun to the current subject;
             <br>
@@ -263,8 +263,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4155_44"-->
-            <blockquote class="code"><p class="quoted"><a id="c4155_44"></a>When play begins:
+            <!--START CODE "c4163_379"-->
+            <blockquote class="code"><p class="quoted"><a id="c4163_379"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;now the left hand status line is &quot;Discussing: [current subject]&quot;;
             <br>
@@ -272,34 +272,34 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4156_44"-->
-            <blockquote class="code"><p class="quoted"><a id="c4156_44"></a>Broughton Hall is a room. Lady Uckfield is a woman in Broughton Hall. &quot;Lady Uckfield sits at her desk, looking wholly composed.&quot;
+            <!--START CODE "c4164_379"-->
+            <blockquote class="code"><p class="quoted"><a id="c4164_379"></a>Broughton Hall is a room. Lady Uckfield is a woman in Broughton Hall. &quot;Lady Uckfield sits at her desk, looking wholly composed.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4157_44"-->
-            <blockquote class="code"><p class="quoted"><a id="c4157_44"></a>The nasty letter is a thing carried by the player. The nasty letter suggests infidelity and penmanship. The ten-pound note is carried by the player. It suggests money.
+            <!--START CODE "c4165_379"-->
+            <blockquote class="code"><p class="quoted"><a id="c4165_379"></a>The nasty letter is a thing carried by the player. The nasty letter suggests infidelity and penmanship. The ten-pound note is carried by the player. It suggests money.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4158_44"-->
-            <blockquote class="code"><p class="quoted"><a id="c4158_44"></a>Infidelity is a subject. Infidelity suggests marriage and divorce. Marriage suggests love. Marriage, love, and divorce are subjects.
+            <!--START CODE "c4166_379"-->
+            <blockquote class="code"><p class="quoted"><a id="c4166_379"></a>Infidelity is a subject. Infidelity suggests marriage and divorce. Marriage suggests love. Marriage, love, and divorce are subjects.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4159_44"-->
-            <blockquote class="code"><p class="quoted"><a id="c4159_44"></a>Penmanship is a subject. Penmanship suggests education. Education is a subject. Class status and money are subjects. Class status suggests education. Money suggests class status and marriage.
+            <!--START CODE "c4167_379"-->
+            <blockquote class="code"><p class="quoted"><a id="c4167_379"></a>Penmanship is a subject. Penmanship suggests education. Education is a subject. Class status and money are subjects. Class status suggests education. Money suggests class status and marriage.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4160_44"-->
-            <blockquote class="code"><p class="quoted"><a id="c4160_44"></a>The current subject is divorce.
+            <!--START CODE "c4168_379"-->
+            <blockquote class="code"><p class="quoted"><a id="c4168_379"></a>The current subject is divorce.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now we can define what gets said when the subject is changed, regardless of whether the segue was introduced in speech or by a shown object. Since rows are blanked after use, the speaker will never repeat herself; if we provide more than one line about the same pair of topics, the first one will be used, then the second, and so on, until the table runs out:</p>
-            <!--START CODE "c4161_44"-->
-            <blockquote class="code"><p class="quoted"><a id="c4161_44"></a>To relate (initial - a subject) with (next - a subject):
+            <!--START CODE "c4169_379"-->
+            <blockquote class="code"><p class="quoted"><a id="c4169_379"></a>To relate (initial - a subject) with (next - a subject):
             <br>
             &#160;&#160;&#160;&#160;repeat through Table of Remarks:
             <br>
@@ -315,8 +315,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4162_44"-->
-            <blockquote class="code"><p class="quoted"><a id="c4162_44"></a>Table of Remarks
+            <!--START CODE "c4170_379"-->
+            <blockquote class="code"><p class="quoted"><a id="c4170_379"></a>Table of Remarks
             <br>
             </p>
             </blockquote>
@@ -425,8 +425,8 @@
             <!--END CODE-->
             <p>If we had more than one character in the scenario, we could provide multiple tables, but this will do to demonstrate the idea.</p>
             <p>Of course, we can override specific instances, if we want the character always to say the same thing regardless of how we came to this point:</p>
-            <!--START CODE "c4163_44"-->
-            <blockquote class="code"><p class="quoted"><a id="c4163_44"></a>Instead of asking Lady Uckfield about the subject penmanship:
+            <!--START CODE "c4171_379"-->
+            <blockquote class="code"><p class="quoted"><a id="c4171_379"></a>Instead of asking Lady Uckfield about the subject penmanship:
             <br>
             &#160;&#160;&#160;&#160;now the current subject is penmanship;
             <br>
@@ -434,8 +434,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c4164_44"-->
-            <blockquote class="code"><p class="quoted"><a id="c4164_44"></a>Test me with &quot;think / ask lady about infidelity / show nasty letter to lady / show note to lady / think / ask lady about divorce / ask lady about love / ask lady about marriage / ask lady about divorce / ask lady about love / ask lady about penmanship&quot;.
+            <!--START CODE "c4172_379"-->
+            <blockquote class="code"><p class="quoted"><a id="c4172_379"></a>Test me with &quot;think / ask lady about infidelity / show nasty letter to lady / show note to lady / think / ask lady about divorce / ask lady about love / ask lady about marriage / ask lady about divorce / ask lady about love / ask lady about penmanship&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

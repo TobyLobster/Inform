@@ -83,36 +83,36 @@
     <!--END IGNORE-->
     <p class="sectionheading">§27.13. Implications</p>
     <p>Extensions often need to define new kinds or properties, which we want to make as helpful as possible for the user. In particular, we want them not to require additional work for the author just to obtain the effect which seems only natural.</p>
-    <p>For example, consider Inform's built-in &quot;locked&quot; property. If a door is locked, then it cannot be opened, which seems fair enough. But if the player tries to unlock the door, he might then find the following response:</p>
-    <!--START CODE "c9164"-->
-    <blockquote class="code"><p class="quoted"><a id="c9164"></a>That doesn't seem to be something you can unlock.
+    <p>For example, consider Inform's built-in &quot;locked&quot; property. If a door is locked, then it cannot be opened, which seems fair enough. But if the player tries to unlock the door, they might then find the following response:</p>
+    <!--START CODE "c9190"-->
+    <blockquote class="code"><p class="quoted"><a id="c9190"></a>That doesn't seem to be something you can unlock.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Which does not seem right. In real life, almost all locked items have outwardly exposed locks which it is perfectly sensible to try to unlock, given a key. The problem is that our door has the &quot;locked&quot; property, but not the &quot;lockable&quot; one.</p>
     <p>The Standard Rules solve this problem by including the following line:</p>
-    <!--START CODE "c9165"-->
-    <blockquote class="code"><p class="quoted"><a id="c9165"></a>Something locked is usually lockable.
+    <!--START CODE "c9191"-->
+    <blockquote class="code"><p class="quoted"><a id="c9191"></a>Something locked is usually lockable.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>This ensures that any door said by the author only to be &quot;locked&quot; will be &quot;lockable&quot; as well, and adds a small but worthwhile touch of realism.</p>
     <p>Such a sentence is called an &quot;implication&quot;, as it is in the form &quot;Condition A implies Condition B&quot;. Note that the two conditions must consist of either/or properties with or without kinds attached. Thus:</p>
-    <!--START CODE "c9166"-->
-    <blockquote class="code"><p class="quoted"><a id="c9166"></a>A room in the Open Desert is usually lighted.
+    <!--START CODE "c9192"-->
+    <blockquote class="code"><p class="quoted"><a id="c9192"></a>A room in the Open Desert is usually lighted.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>will not work because &quot;a room in the Open Desert&quot; is a more complicated grammatical construction than, say, &quot;lighted&quot; or &quot;a lighted room&quot;: it contains a relative clause. Inform can only deal with simple implications.</p>
     <p>Inform never overrides certainties with mere implications, and is cautious about allowing them to build overly long chains of argument. This is to prevent the following kind of difficulty:</p>
-    <!--START CODE "c9167"-->
-    <blockquote class="code"><p class="quoted"><a id="c9167"></a>An open door is usually closed. A closed door is usually open.
+    <!--START CODE "c9193"-->
+    <blockquote class="code"><p class="quoted"><a id="c9193"></a>An open door is usually closed. A closed door is usually open.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Implications work just the same for values which aren't objects, so:</p>
-    <!--START CODE "c9168"-->
-    <blockquote class="code"><p class="quoted"><a id="c9168"></a>Colour is a kind of value. The colours are red, green and blue.
+    <!--START CODE "c9194"-->
+    <blockquote class="code"><p class="quoted"><a id="c9194"></a>Colour is a kind of value. The colours are red, green and blue.
     <br>
     A colour can be zesty or flat. A colour can be bright or dull.
     <br>
@@ -120,8 +120,8 @@
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c9169"-->
-    <blockquote class="code"><p class="quoted"><a id="c9169"></a>A bright colour is usually zesty.
+    <!--START CODE "c9195"-->
+    <blockquote class="code"><p class="quoted"><a id="c9195"></a>A bright colour is usually zesty.
     </p>
     </blockquote>
     <!--END CODE-->

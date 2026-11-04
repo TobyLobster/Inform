@@ -21,10 +21,9 @@ explained in the Standard Rules.
 Global EarlyInTurnSequence;
 Global IterationsOfTurnSequence;
 
-[ Main;
-	say__pc = say__pc | PARA_NORULEBOOKBREAKS;
-	FollowRulebook(STARTUP_RB);
-	if (say__pc & PARA_NORULEBOOKBREAKS) say__pc = say__pc - PARA_NORULEBOOKBREAKS;
++replacing(from BasicInformKit) [ Main;
+	rulebook_without_variables = ACTION_PROCESSING_RB;
+	Startup();
 	while (true) {
 		while (deadflag == false) {
 			EarlyInTurnSequence = true;
@@ -37,17 +36,14 @@ Global IterationsOfTurnSequence;
 	}
 ];
 
-@h Virtual Machine Startup Rule.
-We delegate to the appropriate VM-specific section of code for the real work.
+@h Initial Whitespace Rule.
 The printing of three blank lines at the start of play is traditional: on early
 Z-machine interpreters such as InfoTaskForce and Zip it was a necessity because
 of the way they buffered output. On modern windowed ones it still helps to
 space the opening text better.
 
 =
-[ VIRTUAL_MACHINE_STARTUP_R;
-	CarryOutActivity(STARTING_VIRTUAL_MACHINE_ACT);
-	VM_Initialise();
+[ INITIAL_WHITESPACE_R;
 	! It is now safe for the paragraph breaking between rules mechanism to work
 	if (say__pc & PARA_NORULEBOOKBREAKS) say__pc = say__pc - PARA_NORULEBOOKBREAKS;
 	print "^^^";
@@ -70,13 +66,10 @@ reads, say, "Mrs Bridges is a woman. The player is Mrs Bridges."): in
 other circumstances they are often correct, but this must not be relied on.
 
 @h Initialise Memory Rule.
-This rule amalgamates some minimal initialisations which all need to happen
-before we can risk using some of the more exotic I7 kinds:
+In addition to BasicInformKit's memory initialisation, this rule sets up
+the initial situation:
 
-(a) The language definition might call for initialisation, although the
-default language of play (English) does not.
-
-(b) A handful of variables are filled in. |I7_LOOKMODE| is a constant
+A handful of variables are filled in. |I7_LOOKMODE| is a constant
 created by the use options "use full-length room descriptions" or
 "use abbreviated room descriptions", but otherwise not existing. It is
 particularly important that |player| have the correct value, as the
@@ -90,33 +83,21 @@ we know better. We do this so that the "update chronological records rule"
 cannot see where the player is: see the Standard Rules for an explanation
 of why this is, albeit perhaps dubiously, a good thing.
 
-(c) We start the machinery needed to check that property accesses are
-valid during play.
-
-(d) And we initialise the memory allocation heap, and expand the literal
-constants, as hinted above: these are called "block constants" since
-they occupy blocks of memory.
-
 The |not_yet_in_play| flag, which is cleared when the first command is
 about to be read from the keyboard, suppresses the standard status line
 text: thus, if there is some long text to read before the player finds out
 where he is, the surprise will not be spoiled.
 
 =
-[ INITIALISE_MEMORY_R;
-	#ifdef TARGET_GLULX; VM_PreInitialise(); #Endif;
-	#Ifdef LanguageInitialise; LanguageInitialise(); #Endif;
-
++replacing(keeping)(from BasicInformKit) [ INITIALISE_MEMORY_R;
 	not_yet_in_play = true;
-	lookmode = KIT_CONFIGURATION_LOOKMODE;
+	lookmode = WorldModelKit`ROOM_DESC_DETAIL_CFGV;
 	player = InitialSituation-->PLAYER_OBJECT_INIS;
 	the_time = InitialSituation-->START_TIME_INIS;
 	real_location = nothing;
 	location = nothing;
 
-	HeapInitialise(); ! Create a completely unused memory allocation heap
-	StackFramingInitialise(); ! Create an empty stack
-	CreateDynamicRelations(); ! Create relation structures on the heap
+	replaced`INITIALISE_MEMORY_R();
 
 	rfalse;
 ];
@@ -496,7 +477,9 @@ that events always fire.)
 		if (rule == TimedEventsTable-->i) { b=i; break; }
 		if ((b==0) && (TimedEventsTable-->i == 0)) b=i;
 	}
-	if (b==0) return RunTimeProblem(RTP_TOOMANYEVENTS);
+	if (b==0) return 
+		IssueRTP("TooManyTimedEvents",
+			"Too many timed events are going on at once.", WorldModelKitRTPs);
 	TimedEventsTable-->b = rule;
 	if (absolute_time) TimedEventTimesTable-->b = event_time;
 	else TimedEventTimesTable-->b = -event_time;
@@ -543,14 +526,14 @@ See the Standard Rules for comment on this.
     objectloop (obj in player) give obj moved;
     objectloop (obj has concealed)
     	if (IndirectlyContains(player, obj)) give obj ~concealed;
-    #Ifdef RUCKSACK_CLASS;
-	objectloop (obj in player)
-		if (obj ofclass RUCKSACK_CLASS)
+	if (RUCKSACK_CLASS) {
+		objectloop (obj in player)
+			if (obj ofclass RUCKSACK_CLASS)
+				SACK_OBJECT = obj;
+		objectloop (obj ofclass RUCKSACK_CLASS && obj provides component_parent
+			&& obj.component_parent == player)
 			SACK_OBJECT = obj;
-	objectloop (obj ofclass RUCKSACK_CLASS && obj provides component_parent
-		&& obj.component_parent == player)
-		SACK_OBJECT = obj;
-	#Endif;
+	}
 	rfalse;
 ];
 
@@ -593,8 +576,7 @@ same buffers for the final question as for game commands.
 
 =
 [ READ_FINAL_ANSWER_R;
-	DrawStatusLine();
-	KeyboardPrimitive(buffer, parse);
+	KeyboardPrimitive(buffer, parse, DrawStatusLine);
 	players_command = 100 + WordCount();
 	num_words = WordCount();
 	wn = 1;
@@ -654,7 +636,7 @@ obituary" activity.
 
 =
 [ PRINT_FINAL_SCORE_R;
-	if (KIT_CONFIGURATION_BITMAP & USE_SCORING_TCBIT) ANNOUNCE_SCORE_R();
+	if (WorldModelKit`SCORING_CFGV) ANNOUNCE_SCORE_R();
 	rfalse;
 ];
 

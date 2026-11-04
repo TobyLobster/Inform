@@ -4,14 +4,16 @@ new base TIME_TY {
 	plural: times
 
 	default-value: 540
-	comparison-routine: signed
+	compare-function: signed
 	can-exchange: yes
 	loop-domain-schema: for (*1=0: *1<TWENTY_FOUR_HOURS: *1++)
 	constant-compilation-method: literal
 
-	parsing-routine: TIME_TOKEN
-	printing-routine: PrintTimeOfDay
-	printing-routine-for-debugging: PrintTimeOfDay
+	understand-function: TIME_TOKEN
+	say-function: PrintTimeOfDay
+	
+	arithmetic-modulus: 1440
+!	dimensionless: no
 
 	documentation-reference: kind_time
 	index-default-value: 9:00 AM
@@ -19,4 +21,27 @@ new base TIME_TY {
 	index-maximum-value: 23 hours 59 minutes
 	index-priority: 2
 	specification-text: A time of day, written in the form '2:34 AM' or '12:51 PM', or a length of time such as '10 minutes' or '3 hours 31 minutes', which must be between 0 minutes and 23 hours 59 minutes inclusive.
+}
+
+new base TIME_PERIOD_TY {
+	conforms-to: ARITHMETIC_VALUE_TY
+	singular: time period
+	plural: time periods
+
+	default-value: 0
+	compare-function: signed
+	can-exchange: yes
+	constant-compilation-method: literal
+
+	understand-function: RELATIVE_TIME_TOKEN
+	say-function: PrintDuration
+	
+	dimensionless: no
+
+	documentation-reference: kind_time
+	index-default-value: 0 minutes
+	index-minimum-value: 1 minute
+	index-maximum-value: 23 hours 59 minutes
+	index-priority: 2
+	specification-text: A length of time such as '10 minutes' or '3 hours 31 minutes'.
 }

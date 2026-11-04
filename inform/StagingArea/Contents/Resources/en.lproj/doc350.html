@@ -82,60 +82,60 @@
     <p class="sectionheading">§21.1. Lists and entries</p>
     <p>Many sections in this book begin by introducing a new kind of value. Reading through in order, the possibilities mount up: numbers, times, texts, and so on. (See the Kinds page of the Index for a convenient list of the options.) This section is a little different: rather than showing a single new kind of value, it shows how to make a new kind out of any existing one.</p>
     <p>If K is any kind of value, then &quot;list of K&quot; is also a kind of value. For instance, we could write:</p>
-    <!--START CODE "c8307"-->
-    <blockquote class="code"><p class="quoted"><a id="c8307"></a>let L be a list of numbers;
+    <!--START CODE "c8331"-->
+    <blockquote class="code"><p class="quoted"><a id="c8331"></a>let L be a list of numbers;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>and this would create a new &quot;let&quot; variable, called L, whose kind of value is &quot;list of numbers&quot;. On the other hand, we are not allowed to write:</p>
-    <!--START CODE "c8308"-->
-    <blockquote class="code"><p class="quoted"><a id="c8308"></a>let L be a list;
+    <!--START CODE "c8332"-->
+    <blockquote class="code"><p class="quoted"><a id="c8332"></a>let L be a list;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>because &quot;list&quot; by itself is not a kind of value. (Inform always needs to know what kinds the values entered in a list are going to have.)</p>
     <p>Lists are like flexible-length table columns, but that probably makes them sound more mysterious than they really are. A list is simply a sequence of values, called its &quot;entries&quot;, numbered from 1 upwards. The number of entries is called its &quot;length&quot;. If we try</p>
-    <!--START CODE "c8309"-->
-    <blockquote class="code"><p class="quoted"><a id="c8309"></a>let L be a list of numbers;
+    <!--START CODE "c8333"-->
+    <blockquote class="code"><p class="quoted"><a id="c8333"></a>let L be a list of numbers;
     <br>
     say &quot;L has [the number of entries in L] entries.&quot;;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>then we find</p>
-    <!--START CODE "c8310"-->
-    <blockquote class="code"><p class="quoted"><a id="c8310"></a>L has 0 entries.
+    <!--START CODE "c8334"-->
+    <blockquote class="code"><p class="quoted"><a id="c8334"></a>L has 0 entries.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>This is because all lists start out empty when created: that is, they initially have 0 entries. Inform has two built-in adjectives &quot;empty&quot; and &quot;non-empty&quot; which can apply to lists, and they mean just what they ought to mean: a list is empty if its length is 0, and otherwise non-empty.</p>
     <p>We can add entries very easily:</p>
-    <!--START CODE "c8311"-->
-    <blockquote class="code"><p class="quoted"><a id="c8311"></a>add 2 to L; add 3 to L; add 5 to L;
+    <!--START CODE "c8335"-->
+    <blockquote class="code"><p class="quoted"><a id="c8335"></a>add 2 to L; add 3 to L; add 5 to L;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>We can now, for instance, try saying the list:</p>
-    <!--START CODE "c8312"-->
-    <blockquote class="code"><p class="quoted"><a id="c8312"></a>say &quot;L is now [L].&quot;;
+    <!--START CODE "c8336"-->
+    <blockquote class="code"><p class="quoted"><a id="c8336"></a>say &quot;L is now [L].&quot;;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>with the result</p>
-    <!--START CODE "c8313"-->
-    <blockquote class="code"><p class="quoted"><a id="c8313"></a>L is now 2, 3 and 5.
+    <!--START CODE "c8337"-->
+    <blockquote class="code"><p class="quoted"><a id="c8337"></a>L is now 2, 3 and 5.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Note that only numbers can be added to L: if we try</p>
-    <!--START CODE "c8314"-->
-    <blockquote class="code"><p class="quoted"><a id="c8314"></a>add &quot;clock&quot; to L;
+    <!--START CODE "c8338"-->
+    <blockquote class="code"><p class="quoted"><a id="c8338"></a>add &quot;clock&quot; to L;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Inform will produce a problem message, because L has kind &quot;list of numbers&quot;, whereas &quot;clock&quot; is text. In this way, Inform ensures that a list always contains values of the same kind throughout. So it's not possible to construct a list whose entries are:</p>
-    <!--START CODE "c8315"-->
-    <blockquote class="code"><p class="quoted"><a id="c8315"></a>2, &quot;fish&quot;, 4 and the Entire Game
+    <!--START CODE "c8339"-->
+    <blockquote class="code"><p class="quoted"><a id="c8339"></a>2, &quot;fish&quot;, 4 and the Entire Game
     </p>
     </blockquote>
     <!--END CODE-->

@@ -15,7 +15,7 @@ NSString* const IFProjectSourceFileRenamedNotification    = @"IFProjectSourceFil
 @implementation IFProjectTypes
 
 +(NSStringEncoding) encodingForFilename: (NSString*) filename {
-	NSString* extn = [[filename pathExtension] lowercaseString];
+	NSString* extn = filename.pathExtension.lowercaseString;
     
 	if ( [extn isEqualToString: @"inf"] ||
          [extn isEqualToString: @"i6"] ||
@@ -42,7 +42,7 @@ NSString* const IFProjectSourceFileRenamedNotification    = @"IFProjectSourceFil
 }
 
 +(IFInformVersion) informVersionForFilename: (NSString*) filename {
-	NSString* extn = [[filename pathExtension] lowercaseString];
+	NSString* extn = filename.pathExtension.lowercaseString;
     
 	if ( [extn isEqualToString: @"inf"] ||
 		 [extn isEqualToString: @"i6"] ||
@@ -63,7 +63,7 @@ NSString* const IFProjectSourceFileRenamedNotification    = @"IFProjectSourceFil
 }
 
 +(IFFileType) fileTypeFromString:(NSString*) typeName {
-    typeName = [typeName lowercaseString];
+    typeName = typeName.lowercaseString;
     
     if ( [typeName isEqualTo: @"inform project file"] ||
          [typeName isEqualTo: @"inform project"] ||

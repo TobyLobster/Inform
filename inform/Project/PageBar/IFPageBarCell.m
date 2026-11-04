@@ -64,7 +64,7 @@
 			@{NSForegroundColorAttributeName: [NSColor controlTextColor],
 				NSFontAttributeName: [NSFont systemFontOfSize: 11]}];
 		
-		[self setAttributedStringValue: attrText];
+		self.attributedStringValue = attrText;
 	}
 	
 	return self;
@@ -77,7 +77,7 @@
         radioGroup = -1;
         view = nil;
 
-		[self setImage: image];
+		self.image = image;
 	}
 	
 	return self;
@@ -99,13 +99,13 @@
 		@{NSForegroundColorAttributeName: [NSColor controlTextColor],
 			NSFontAttributeName: [NSFont systemFontOfSize: 11]}];
 	
-	[self setAttributedStringValue: attrText];
+	self.attributedStringValue = attrText;
 }
 
 #pragma mark - Cell properties
 
 - (void) update {
-	[(NSControl*)[self controlView] updateCell: self];
+	[(NSControl*)self.controlView updateCell: self];
 }
 
 - (void) setHighlighted: (BOOL) highlighted {
@@ -123,11 +123,11 @@
 	NSSize size = NSZeroSize;
 
 	// Work out the minimum size required to contain the text or the image
-	NSImage* image = [self image];
-	NSAttributedString* text = [self attributedStringValue];
+	NSImage* image = self.image;
+	NSAttributedString* text = self.attributedStringValue;
 	
-	if (image && text && [text length] > 0) {
-		NSSize imageSize = [image size];
+	if (image && text && text.length > 0) {
+		NSSize imageSize = image.size;
 		NSSize textSize = [text size];
 		
 		if (textSize.height > imageSize.height) {
@@ -139,16 +139,16 @@
 		size.width = imageSize.width + 2 + textSize.width;
 		size.width += 4;
 	} else if (image) {
-		size = [image size];
+		size = image.size;
 		size.width += 4;
 	} else if (text) {
 		size = [text size];
 		size.width += 4;
 	}
 	
-	if ([self isPopup]) {
+	if (self.popup) {
 		NSImage* dropDownArrow = [IFPageBarCell dropDownImage];
-		size.width += [dropDownArrow size].width + 4;
+		size.width += dropDownArrow.size.width + 4;
 	}
 	
 	// Add a border for the margins
@@ -161,25 +161,25 @@
 
 - (void)drawInteriorWithFrame:(NSRect)cellFrame 
 					   inView:(NSView *)controlView {
-	NSImage* image = [self image];
-	NSAttributedString* text = [self attributedStringValue];
+	NSImage* image = self.image;
+	NSAttributedString* text = self.attributedStringValue;
 	
 	// Draw the background
 	NSColor * backgroundColor = nil;
 	
 	if (self.highlighted) {
-		if ([self isPopup]) {
+		if (self.popup) {
 			backgroundColor = [NSColor colorNamed:@"GraphiteSelected"];
 		} else {
 			backgroundColor = [NSColor colorNamed:@"Highlighted"];
 		}
-	} else if ([self state] == NSControlStateValueOn) {
+	} else if (self.state == NSControlStateValueOn) {
 		backgroundColor = [NSColor colorNamed:@"Selected"];
 	}
 	
 	if (backgroundColor) {
-		IFPageBarView* barView = (IFPageBarView*)[self controlView];
-		NSRect backgroundBounds = [barView bounds];
+		IFPageBarView* barView = (IFPageBarView*)self.controlView;
+		NSRect backgroundBounds = barView.bounds;
 		backgroundBounds.size.width -= 9.0;
 		
 		NSRect backgroundFrame = cellFrame;
@@ -195,10 +195,10 @@
 						  fraction: 1.0];
 	}
 	
-	if ([self isPopup]) {
+	if (self.popup) {
 		// Draw the popup arrow
 		NSImage* dropDownArrow = [IFPageBarCell dropDownImage];
-		NSSize dropDownSize = [dropDownArrow size];
+		NSSize dropDownSize = dropDownArrow.size;
 		
 		NSRect dropDownDrawRect;
 		
@@ -229,7 +229,7 @@
 	}
 
 	NSColor * textColor = NSColor.labelColor;
-	if ([self state] == NSControlStateValueOn) {
+	if (self.state == NSControlStateValueOn) {
 		textColor = [NSColor colorNamed:@"SelectedText"];
 	}
 	// If the cell is highlighted we use the highlighted text colour whether the cell is selected or not.
@@ -237,9 +237,9 @@
 		textColor = [NSColor colorNamed:@"HighlightedText"];
 	}
 
-	if (image && text && [text length] > 0) {
+	if (image && text && text.length > 0) {
 		// Work out the sizes
-		NSSize imageSize = [image size];
+		NSSize imageSize = image.size;
 		NSSize textSize = [text size];
 
 		NSSize size;
@@ -289,7 +289,7 @@
 		[text drawInRect: NSIntegralRect(textRect)];
 	} else if (image) {
 		// Draw the image
-		NSSize imageSize = [image size];
+		NSSize imageSize = image.size;
 		NSRect imageRect;
 		
 		imageRect.origin = NSMakePoint(cellFrame.origin.x + (cellFrame.size.width-imageSize.width)/2,
@@ -342,25 +342,25 @@
 }
 
 - (void) setState: (NSInteger) newState {
-	if (newState == [self state]) {
+	if (newState == self.state) {
 		return;
 	}
 	
-	[super setState: newState];
+	super.state = newState;
 	[self update];
 	
 	if (radioGroup >= 0) {
-		[(IFPageBarView*)[self controlView] setState: (int) newState
+		[(IFPageBarView*)self.controlView setState: (int) newState
 											 forCell: self];
 	}
 }
 
 - (BOOL) isEnabled {
 	if (menu) {
-		if ([menu numberOfItems] <= 0) return NO;
+		if (menu.numberOfItems <= 0) return NO;
 	}
 	
-	return [super isEnabled];
+	return super.enabled;
 }
 
 
@@ -382,25 +382,25 @@
 
 - (void) showPopupAtPoint: (NSPoint) pointInWindow {
 	if (menu) {
-		[self setState: NSControlStateValueOn];
+		self.state = NSControlStateValueOn;
 		self.highlighted = YES;
 		
 		NSEvent* fakeEvent = [NSEvent mouseEventWithType: NSEventTypeLeftMouseDown
 												location: pointInWindow
 										   modifierFlags: (NSEventModifierFlags) 0
-											   timestamp: [[NSApp currentEvent] timestamp]
-											windowNumber: [[[self controlView] window] windowNumber]
+											   timestamp: NSApp.currentEvent.timestamp
+											windowNumber: self.controlView.window.windowNumber
 												 context: nil
-											 eventNumber: [[NSApp currentEvent] eventNumber]
+											 eventNumber: NSApp.currentEvent.eventNumber
 											  clickCount: 0
 												pressure: 1.0];
 
 		[NSMenu popUpContextMenu: menu
 					   withEvent: fakeEvent
-						 forView: [self controlView]
+						 forView: self.controlView
 						withFont: [NSFont systemFontOfSize: 11]];
 		
-		[self setState: NSControlStateValueOff];
+		self.state = NSControlStateValueOff;
 		[self update];
 	}
 }
@@ -418,8 +418,8 @@
 	  untilMouseUp:(BOOL)untilMouseUp {
 	trackingFrame = cellFrame;
 	
-	if ([self isPopup]) {
-		NSRect winFrame = [[self controlView] convertRect: trackingFrame
+	if (self.popup) {
+		NSRect winFrame = [self.controlView convertRect: trackingFrame
 												   toView: nil];
 		[self showPopupAtPoint: NSMakePoint(NSMinX(winFrame)+1, NSMinY(winFrame)-3)];
 		

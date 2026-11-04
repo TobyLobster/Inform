@@ -97,7 +97,7 @@
 #pragma mark - Getting layout data
 
 - (int) levels {
-	return (int) [levels count];
+	return (int) levels.count;
 }
 
 #pragma mark - Item positioning data
@@ -138,7 +138,7 @@
 
 	// Check for level
 	int level = [self levelAtViewPosY: point.y];
-	if (level < 0 || level >= [levels count]) return nil;
+	if (level < 0 || level >= levels.count) return nil;
 
     for( IFSkeinLayoutItem* layoutItem in levels[level] ) {
         if( NSPointInRect( point, layoutItem.lozengeRect) ) {
@@ -154,7 +154,7 @@
 	if (treeRoot) {
 		NSSize res;
 
-		res.width = [treeRoot subtreeWidth] + shiftRightForReportOffsetX + kSkeinRightBorder;
+		res.width = treeRoot.subtreeWidth + shiftRightForReportOffsetX + kSkeinRightBorder;
         CGFloat treeHeight = 0.0f;
         if( levels.count > 0 ) {
             treeHeight = [levelYs[levels.count] doubleValue];
@@ -202,7 +202,7 @@
 
 -(CGFloat) currentLevelWidth:(int) level {
     // Make sure we have enough levels
-    while( [levelWidths count] <= level ) {
+    while( levelWidths.count <= level ) {
         [levelWidths addObject:@0.0f];
     }
     return [levelWidths[level] floatValue];
@@ -233,7 +233,7 @@
 	NSMutableArray* children = [[NSMutableArray alloc] init];
 
     // Create layout tree, recursively
-	for( IFSkeinItem* child in [item children] ) {
+	for( IFSkeinItem* child in item.children ) {
         IFSkeinLayoutItem* childItem = [self layoutSkeinCreateLayoutTree: child
                                                                withLevel: level+1];
         childItem.parent = result;
@@ -242,7 +242,7 @@
     result.children = children;
 
 	// Add to the 'levels' array, which contains the items to draw at each level
-	while (level >= [levels count]) {
+	while (level >= levels.count) {
 		[levels addObject: [NSMutableArray array]];
 	}
 	[levels[level] addObject: result];
@@ -257,7 +257,7 @@
     }
 
     // Align items to the left edge (DFS)
-	for( IFSkeinLayoutItem* child in [layoutItem children] ) {
+	for( IFSkeinLayoutItem* child in layoutItem.children ) {
         [self layoutSkeinItemAlignLeft: child
                              withLevel: level+1];
     }
@@ -308,18 +308,18 @@
     levelArray              = [[NSMutableArray alloc] initWithObjects: [NSMutableArray arrayWithObject: startItem], nil];
 
     // Create a queue - each item, from the top to the bottom, left to right (BFS)
-    while ([queue count] > 0) {
+    while (queue.count > 0) {
         IFSkeinLayoutItem * itemQ = queue[0];
 
-        for ( IFSkeinLayoutItem *childItem in [itemQ children] ) {
+        for ( IFSkeinLayoutItem *childItem in itemQ.children ) {
             // Add to queue
             [queue addObject: childItem];
             
             // Add to levels
-            while( [levelArray count] <= [childItem level] ) {
+            while( levelArray.count <= childItem.level ) {
                 [levelArray addObject: [NSMutableArray array]];
             }
-            [levelArray[[childItem level]] addObject: childItem];
+            [levelArray[childItem.level] addObject: childItem];
         }
         [queue removeObjectAtIndex: 0];
     }
@@ -330,13 +330,13 @@
             if(!layoutItem.onSelectedLine) {
                 // We are not on the selected line
                 // If we are a parent, centre the parent between it's children
-                if( [[layoutItem children] count] > 0 ) {
-                    CGFloat parentx = [layoutItem centreX];
+                if( layoutItem.children.count > 0 ) {
+                    CGFloat parentx = layoutItem.centreX;
                     
                     // Find centre of all children
                     CGFloat minx = CGFLOAT_MAX;
                     CGFloat maxx = -CGFLOAT_MAX;
-                    for( IFSkeinLayoutItem* item2 in [layoutItem children] ) {
+                    for( IFSkeinLayoutItem* item2 in layoutItem.children ) {
                         minx = MIN(minx, NSMidX(item2.lozengeRect));
                         maxx = MAX(maxx, NSMidX(item2.lozengeRect));
                     }
@@ -349,7 +349,7 @@
                         
                         // Move remaining items at this level right
                         [self moveRemainingItemsRightAfter: layoutItem
-                                                   onLevel: [layoutItem level]
+                                                   onLevel: layoutItem.level
                                                         by: deltaX
                                                recursively: NO];
                     } else if( parentx > centreChildrenX ) {
@@ -357,8 +357,8 @@
 
                         // Move the first child right to align under parent, and all remaining
                         // items on that level, and any of their children by the same amount
-                        [self moveRemainingItemsRightAfter: [layoutItem children][0]
-                                                   onLevel: [layoutItem level] + 1
+                        [self moveRemainingItemsRightAfter: layoutItem.children[0]
+                                                   onLevel: layoutItem.level + 1
                                                         by: deltaX
                                                recursively: YES];
                     }
@@ -366,12 +366,12 @@
             }
             else {
                 // We are on the selected line. Arrange in a straight line.
-                CGFloat parentx = [layoutItem centreX];
+                CGFloat parentx = layoutItem.centreX;
 
                 // Find child's centre point
-                IFSkeinLayoutItem* selectedLineChild = [layoutItem selectedLineChild];
+                IFSkeinLayoutItem* selectedLineChild = layoutItem.selectedLineChild;
                 if( selectedLineChild ) {
-                    CGFloat centreChildrenX = [selectedLineChild centreX];
+                    CGFloat centreChildrenX = selectedLineChild.centreX;
                     CGFloat deltaX;
 
                     if( parentx < centreChildrenX ) {
@@ -380,7 +380,7 @@
 
                         // Move remaining items at this level right
                         [self moveRemainingItemsRightAfter: layoutItem
-                                                   onLevel: [layoutItem level]
+                                                   onLevel: layoutItem.level
                                                         by: deltaX
                                                recursively: NO];
                     } else if( parentx > centreChildrenX ) {
@@ -388,8 +388,8 @@
 
                         // Move the first child right to align under parent, and all remaining
                         // items on that level, and any of their children by the same amount
-                        [self moveRemainingItemsRightAfter: [layoutItem children][0]
-                                                   onLevel: [layoutItem level] + 1
+                        [self moveRemainingItemsRightAfter: layoutItem.children[0]
+                                                   onLevel: layoutItem.level + 1
                                                         by: deltaX
                                                recursively: YES];
                     }
@@ -411,13 +411,13 @@
     
     // DFS
     CGFloat furthestRightX = 0.0f;
-	for( IFSkeinLayoutItem* child in [layoutItem children] ) {
+	for( IFSkeinLayoutItem* child in layoutItem.children ) {
         CGFloat childFurthestRightX = [self layoutSkeinCalculateSubtreeWidth: child];
         furthestRightX = MAX(furthestRightX, childFurthestRightX);
     }
     
     furthestRightX = MAX(NSMaxX(layoutItem.lozengeRect), furthestRightX);
-    [layoutItem setSubtreeWidth: furthestRightX];
+    layoutItem.subtreeWidth = furthestRightX;
     return furthestRightX;
 }
 
@@ -467,7 +467,7 @@
     CGFloat totalHeight = 0.0f;
     for( int i = 0; i < levels.count; i++ ) {
         CGFloat levelHeight = kSkeinMinLevelHeight;
-        if( i < [array count] ) {
+        if( i < array.count ) {
             levelHeight = [array[i] doubleValue];
         }
         totalHeight += levelHeight;
@@ -489,11 +489,11 @@
                                    floor(NSMaxX(selectedLineItem.lozengeRect) + kSkeinReportLeftBorder));
 
             // Move on to next level down
-            selectedLineItem = [selectedLineItem selectedLineChild];
+            selectedLineItem = selectedLineItem.selectedLineChild;
         }
 
         // Traverse the tree, looking for the item furthest left on the right hand side of the selected line
-        CGFloat selectedLineX = [treeRoot centreX];
+        CGFloat selectedLineX = treeRoot.centreX;
         IFSkeinLayoutItem* bestItem = [self itemClosestBeyondX: selectedLineX root: treeRoot];
         shiftRightForReportOffsetX = 0.0f;
         if( bestItem != nil ) {
@@ -519,7 +519,7 @@
             }
 
             // Move on to next level down
-            selectedLineItem = [selectedLineItem selectedLineChild];
+            selectedLineItem = selectedLineItem.selectedLineChild;
         }
     }
 

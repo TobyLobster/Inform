@@ -8,11 +8,11 @@
 #import "IFToolbarStatusView.h"
 #import "IFToolbarManager.h"
 #import "IFUtility.h"
-#import "IFToolbarProgressIndicator.h"
 #import "IFProjectController.h"
 #import "IFCompilerSettings.h"
 #import "IFCompiler.h"
 #import "IFProject.h"
+#import "Inform-Swift.h"
 
 static CGFloat idealTopBorder                = 6.0f;
 static CGFloat minTopBorder                  = 2.0f;
@@ -62,81 +62,81 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
         NSString* informString = [IFUtility localizedString: @"Inform"];
         informImage = [NSImage imageNamed: @"Blob-Logo"];
 
-        NSDictionary* dict = @{NSFontAttributeName: [[[NSTextField alloc] init] font]};
+        NSDictionary* dict = @{NSFontAttributeName: [[NSTextField alloc] init].font};
         NSSize informSize = [informString sizeWithAttributes: dict];
         NSSize informBuildSize = [buildString sizeWithAttributes: dict];
 
         // Create Welcome title text field
         welcomeTitle = [[NSTextField alloc] initWithFrame: NSMakeRect(0.0f, 0.0f, informSize.width, informSize.height)];
-        [welcomeTitle setStringValue: @""];
+        welcomeTitle.stringValue = @"";
         [welcomeTitle setBezeled: NO];
         [welcomeTitle setDrawsBackground: NO];
         [welcomeTitle setEditable: NO];
         [welcomeTitle setSelectable: NO];
-        [welcomeTitle setAlignment:NSTextAlignmentRight];
-        [welcomeTitle setTextColor: [NSColor colorNamed:@"StatusWelcomeText"]];
-        [welcomeTitle setAutoresizingMask: (NSUInteger) (NSViewWidthSizable | NSViewMinYMargin)];
-        [welcomeTitle setStringValue: informString];
+        welcomeTitle.alignment = NSTextAlignmentRight;
+        welcomeTitle.textColor = [NSColor colorNamed:@"StatusWelcomeText"];
+        welcomeTitle.autoresizingMask = (NSUInteger) (NSViewWidthSizable | NSViewMinYMargin);
+        welcomeTitle.stringValue = informString;
         [self addSubview: welcomeTitle];
 
         // Create Welcome build text field
         welcomeBuild = [[NSTextField alloc] initWithFrame: NSMakeRect(0.0f, 0.0f, informBuildSize.width, informBuildSize.height)];
-        [welcomeBuild setStringValue: @""];
+        welcomeBuild.stringValue = @"";
         [welcomeBuild setBezeled: NO];
         [welcomeBuild setDrawsBackground: NO];
         [welcomeBuild setEditable: NO];
         [welcomeBuild setSelectable: NO];
-        [welcomeBuild setAlignment:NSTextAlignmentLeft];
-        [welcomeBuild setTextColor: [NSColor colorNamed:@"StatusWelcomeText"]];
-        [welcomeBuild setAutoresizingMask: (NSUInteger) (NSViewWidthSizable | NSViewMinYMargin)];
-        [welcomeBuild setStringValue: buildString];
+        welcomeBuild.alignment = NSTextAlignmentLeft;
+        welcomeBuild.textColor = [NSColor colorNamed:@"StatusWelcomeText"];
+        welcomeBuild.autoresizingMask = (NSUInteger) (NSViewWidthSizable | NSViewMinYMargin);
+        welcomeBuild.stringValue = buildString;
         [self addSubview: welcomeBuild];
 
         welcomeImageView = [[NSImageView alloc] init];
-        [welcomeImageView setImage: informImage];
-        [welcomeImageView setImageAlignment: NSImageAlignCenter];
-        [welcomeImageView setImageFrameStyle: NSImageFrameNone];
-        [welcomeImageView setImageScaling: NSImageScaleNone];
+        welcomeImageView.image = informImage;
+        welcomeImageView.imageAlignment = NSImageAlignCenter;
+        welcomeImageView.imageFrameStyle = NSImageFrameNone;
+        welcomeImageView.imageScaling = NSImageScaleNone;
         [self addSubview: welcomeImageView];
 
         // Create text field
         titleText = [[NSTextField alloc] init];
-        [titleText setStringValue: @""];
+        titleText.stringValue = @"";
         [titleText setBezeled: NO];
         [titleText setDrawsBackground: NO];
         [titleText setEditable: NO];
         [titleText setSelectable: NO];
-        [titleText setAlignment:NSTextAlignmentCenter];
-        [titleText setTextColor: [NSColor colorNamed:@"StatusWelcomeText"]];
-        [titleText setAutoresizingMask: (NSUInteger) (NSViewWidthSizable | NSViewMinYMargin)];
+        titleText.alignment = NSTextAlignmentCenter;
+        titleText.textColor = [NSColor colorNamed:@"StatusWelcomeText"];
+        titleText.autoresizingMask = (NSUInteger) (NSViewWidthSizable | NSViewMinYMargin);
         [self addSubview: titleText];
 
         // Create story text field
         storyText = [[NSTextField alloc] init];
-        [storyText setStringValue: @""];
+        storyText.stringValue = @"";
         [storyText setBezeled: NO];
         [storyText setDrawsBackground: NO];
         [storyText setEditable: NO];
         [storyText setSelectable: NO];
-        [storyText setAlignment:NSTextAlignmentCenter];
-        [storyText setTextColor: [NSColor colorNamed:@"StatusWelcomeText"]];
-        [storyText setAutoresizingMask: (NSUInteger) (NSViewWidthSizable | NSViewMinYMargin)];
+        storyText.alignment = NSTextAlignmentCenter;
+        storyText.textColor = [NSColor colorNamed:@"StatusWelcomeText"];
+        storyText.autoresizingMask = (NSUInteger) (NSViewWidthSizable | NSViewMinYMargin);
         [self addSubview: storyText];
         
         // Create progress bar
         progressIndicator = [[IFToolbarProgressIndicator alloc] init];
-        [progressIndicator setAutoresizingMask: (NSUInteger) (NSViewWidthSizable | NSViewMaxYMargin)];
+        progressIndicator.autoresizingMask = (NSUInteger) (NSViewWidthSizable | NSViewMaxYMargin);
         [progressIndicator setHidden: YES];
         [self addSubview: progressIndicator];
 
         // Create cancel button
         cancelButton = [[NSButton alloc] init];
         [cancelButton setButtonType: NSButtonTypeMomentaryChange];
-        [cancelButton setImage: [NSImage imageNamed: @"App/Toolbar/cancelOut"]];
-        [cancelButton setAlternateImage: [NSImage imageNamed: @"App/Toolbar/cancelIn"]];
+        cancelButton.image = [NSImage imageNamed: @"App/Toolbar/cancelOut"];
+        cancelButton.alternateImage = [NSImage imageNamed: @"App/Toolbar/cancelIn"];
         [cancelButton setBordered: NO];
-        [cancelButton setAction: @selector(cancelAction)];
-        [cancelButton setTarget: self];
+        cancelButton.action = @selector(cancelAction);
+        cancelButton.target = self;
         [cancelButton setHidden: YES];
         [self addSubview: cancelButton];
 
@@ -157,7 +157,7 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
 }
 
 -(void) updateStoryTextAndCancelBox {
-    NSDictionary* attrs = @{NSFontAttributeName: [titleText font]};
+    NSDictionary* attrs = @{NSFontAttributeName: titleText.font};
 
     // Cancel button rect
     NSRect cancelRect;
@@ -165,33 +165,33 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
     cancelRect.size.width = cancelWidth;
     cancelRect.size.height = cancelHeight;
     
-    NSRect titleRect = [titleText frame];
-    NSRect storyRect = [storyText frame];
-    NSRect progressRect = [progressIndicator frame];
+    NSRect titleRect = titleText.frame;
+    NSRect storyRect = storyText.frame;
+    NSRect progressRect = progressIndicator.frame;
 
-    progressRect.size.width = [self frame].size.width - leftBorder - rightProgressBorder;
+    progressRect.size.width = self.frame.size.width - leftBorder - rightProgressBorder;
     progressRect.size.height = 10.0f;
 
-    if( !isInProgress && isStoryActive && ([[storyText stringValue] length]> 0) ) {
+    if( !isInProgress && isStoryActive && (storyText.stringValue.length> 0) ) {
         // Line up with story text
-        storyRect.size.width = [self frame].size.width - (gapWidthBetweenStoryAndCancel + cancelWidth);
+        storyRect.size.width = self.frame.size.width - (gapWidthBetweenStoryAndCancel + cancelWidth);
 
-        NSSize storySize = [[storyText stringValue] sizeWithAttributes: attrs];
+        NSSize storySize = [storyText.stringValue sizeWithAttributes: attrs];
 
-        cancelRect.origin.x = [self frame].size.width/2 + (storySize.width/2) - (gapWidthBetweenStoryAndCancel + cancelWidth)/2 + gapWidthBetweenStoryAndCancel;
+        cancelRect.origin.x = self.frame.size.width/2 + (storySize.width/2) - (gapWidthBetweenStoryAndCancel + cancelWidth)/2 + gapWidthBetweenStoryAndCancel;
         cancelRect.origin.y = storyRect.origin.y + storySize.height/2 - (cancelHeight / 2);
     } else {
         // Line up with where progress bar is
-        cancelRect.origin.x = [self frame].size.width - cancelRect.size.width - rightCancelBorder;
+        cancelRect.origin.x = self.frame.size.width - cancelRect.size.width - rightCancelBorder;
         cancelRect.origin.y = progressRect.origin.y + progressRect.size.height/2 - cancelHeight/2;
 
-        if( [cancelButton isHidden] ) {
-            progressRect.size.width = [self frame].size.width - leftBorder - rightProgressBorder;
+        if( cancelButton.hidden ) {
+            progressRect.size.width = self.frame.size.width - leftBorder - rightProgressBorder;
         } else {
-            progressRect.size.width = [self frame].size.width - leftBorder - cancelRect.size.width - 2.0f * rightCancelBorder;
+            progressRect.size.width = self.frame.size.width - leftBorder - cancelRect.size.width - 2.0f * rightCancelBorder;
         }
 
-        storyRect.size.width = [self frame].size.width;
+        storyRect.size.width = self.frame.size.width;
     }
 
     // Make sure title doesn't overlap story text
@@ -200,7 +200,7 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
     }
     
     // Make sure title is within reasonable height bounds, otherwise hide it
-    if ( (titleRect.origin.y + titleRect.size.height) > ([self frame].size.height - minTopBorder) ) {
+    if ( (titleRect.origin.y + titleRect.size.height) > (self.frame.size.height - minTopBorder) ) {
         [titleText setHidden: YES];
 
         // Centre everything vertically if title doesn't fit
@@ -220,17 +220,17 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
     cancelRect.origin.x = floor(cancelRect.origin.x);
     cancelRect.origin.y = floor(cancelRect.origin.y);
 
-    [titleText setFrame: titleRect];
-    [cancelButton setFrame: cancelRect];
-    [storyText setFrame: storyRect];
-    [progressIndicator setFrame: progressRect];
+    titleText.frame = titleRect;
+    cancelButton.frame = cancelRect;
+    storyText.frame = storyRect;
+    progressIndicator.frame = progressRect;
 }
 
 -(void) adjustSubviews {
-    NSDictionary* attrs = @{NSFontAttributeName: [[[NSTextField alloc] init] font]};
+    NSDictionary* attrs = @{NSFontAttributeName: [[NSTextField alloc] init].font};
 
     CGFloat titleHeight                 = [@"Fg" sizeWithAttributes: attrs].height;
-    CGFloat progressWidth               = [self frame].size.width - leftBorder - rightProgressBorder;
+    CGFloat progressWidth               = self.frame.size.width - leftBorder - rightProgressBorder;
     CGFloat progressHeight              = 8.0f;
 
     if( canCancel ) {
@@ -239,10 +239,10 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
     
     // Work out ideal titleText frame
     NSRect titleRect;
-    titleRect.size.width  = [self frame].size.width;
+    titleRect.size.width  = self.frame.size.width;
     titleRect.size.height = titleHeight;
     titleRect.origin.x    = 0.0f;
-    titleRect.origin.y    = [self frame].size.height - titleHeight - idealTopBorder;
+    titleRect.origin.y    = self.frame.size.height - titleHeight - idealTopBorder;
 
     // Work out ideal progress bar frame
     NSRect progressRect;
@@ -254,7 +254,7 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
     // Make sure progress bar isn't pushed too low
     if (progressRect.origin.y < minBottomBorder ) {
         progressRect.origin.y = minBottomBorder;
-        titleRect.origin.y    = [self frame].size.height - titleHeight - minTopBorder;
+        titleRect.origin.y    = self.frame.size.height - titleHeight - minTopBorder;
     }
 
     // Make sure title doesn't overlap progress
@@ -264,7 +264,7 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
 
     // Story text rect
     NSRect storyRect;
-    storyRect.size.width  = [self frame].size.width;
+    storyRect.size.width  = self.frame.size.width;
     storyRect.size.height = titleHeight;
     storyRect.origin.x    = 0.0f;
     storyRect.origin.y    = titleRect.origin.y - storyRect.size.height - idealGapBetweenTitleAndStory;
@@ -277,25 +277,25 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
         titleRect.origin.y = storyRect.origin.y + storyRect.size.height;
     }
 
-    [titleText setFrame: titleRect];
-    [storyText setFrame: storyRect];
-    [progressIndicator setFrame: progressRect];
+    titleText.frame = titleRect;
+    storyText.frame = storyRect;
+    progressIndicator.frame = progressRect;
 
     // Update welcome items
-    CGFloat frameLeft  = floor(([self frame].size.width / 2)  - (informImage.size.width / 2));
-    CGFloat frameTop   = floor(([self frame].size.height / 2) - (informImage.size.height / 2));
+    CGFloat frameLeft  = floor((self.frame.size.width / 2)  - (informImage.size.width / 2));
+    CGFloat frameTop   = floor((self.frame.size.height / 2) - (informImage.size.height / 2));
     CGFloat frameRight = frameLeft + informImage.size.width;
-    [welcomeImageView setFrame: NSMakeRect(frameLeft, frameTop, informImage.size.width, informImage.size.height)];
+    welcomeImageView.frame = NSMakeRect(frameLeft, frameTop, informImage.size.width, informImage.size.height);
     frameLeft  -= gapBetweenWelcomeImageAndText;
     frameRight += gapBetweenWelcomeImageAndText;
-    [welcomeTitle setFrame: NSMakeRect(0.0f,
-                                       floor(([self frame].size.height / 2) - ([welcomeTitle frame].size.height/2)),
+    welcomeTitle.frame = NSMakeRect(0.0f,
+                                       floor((self.frame.size.height / 2) - (welcomeTitle.frame.size.height/2)),
                                        frameLeft,
-                                       [welcomeTitle frame].size.height)];
-    [welcomeBuild setFrame: NSMakeRect(frameRight,
-                                       floor(([self frame].size.height / 2) - ([welcomeBuild frame].size.height/2)),
-                                       [self frame].size.width - frameRight,
-                                       [welcomeBuild frame].size.height)];
+                                       welcomeTitle.frame.size.height);
+    welcomeBuild.frame = NSMakeRect(frameRight,
+                                       floor((self.frame.size.height / 2) - (welcomeBuild.frame.size.height/2)),
+                                       self.frame.size.width - frameRight,
+                                       welcomeBuild.frame.size.height);
 
     // Set story text and cancel button positions. Hide title if needed
     [self updateStoryTextAndCancelBox];
@@ -315,7 +315,7 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
     NSGradient * kExtensionBackgroundGradient = [[NSGradient alloc] initWithColorsAndLocations:
                                     [NSColor colorNamed:@"BackgroundGradientStart"], 0.0,
                                     [NSColor colorNamed:@"BackgroundGradientEnd"], 1.0, nil];
-    NSRect bounds = [self bounds];
+    NSRect bounds = self.bounds;
     bounds.size.height -= 1.0;
     bounds.origin.y += 1.0;
     bounds.origin.x -= 0.5f;
@@ -347,19 +347,19 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
     // Draw stroke
     {
         [kBorderColor setStroke];
-        [path setLineWidth:2.0f];
+        path.lineWidth = 2.0f;
         [path setClip];
         [path stroke];
     }
 }
 
 -(void) showMessage: (NSString*) aTitle {
-    [titleText setStringValue: aTitle];
+    titleText.stringValue = aTitle;
 }
 
 + (NSString*) currentTime {
     NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
-    [timeFormat setDateFormat:@"HH:mm"];
+    timeFormat.dateFormat = @"HH:mm";
     
     NSDate *now = [[NSDate alloc] init];
     
@@ -371,11 +371,11 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
     if( isInProgress ) {
         [storyText          setHidden: YES];
         [progressIndicator  setHidden: NO];
-        [cancelButton       setHidden: !canCancel];
+        cancelButton.hidden = !canCancel;
     } else if ( isStoryActive ) {
         [storyText          setHidden: NO];
         [progressIndicator  setHidden: YES];
-        [cancelButton       setHidden: !canCancel];
+        cancelButton.hidden = !canCancel;
     } else {
         [storyText          setHidden: NO];
         [progressIndicator  setHidden: YES];
@@ -385,17 +385,17 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
     
     // Show welcome?
     BOOL welcomeIsHidden = YES;
-    if( storyText.isHidden || ([storyText.stringValue length] == 0) ) {
-        if( titleText.isHidden || ([titleText.stringValue length] == 0) ) {
+    if( storyText.isHidden || ((storyText.stringValue).length == 0) ) {
+        if( titleText.isHidden || ((titleText.stringValue).length == 0) ) {
             if( progressIndicator.isHidden ) {
                 welcomeIsHidden = NO;
             }
         }
     }
 
-    [welcomeTitle     setHidden: welcomeIsHidden];
-    [welcomeBuild     setHidden: welcomeIsHidden];
-    [welcomeImageView setHidden: welcomeIsHidden];
+    welcomeTitle.hidden = welcomeIsHidden;
+    welcomeBuild.hidden = welcomeIsHidden;
+    welcomeImageView.hidden = welcomeIsHidden;
 }
 
 -(NSString*) getCompilerVersion
@@ -414,11 +414,11 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
 
     if ([IFUtility isLatestMajorMinorCompilerVersion: version])
     {
-        [storyText setStringValue: [NSString stringWithFormat: [IFUtility localizedString: @"Story started at %@."], [[self class] currentTime]]];
+        storyText.stringValue = [NSString stringWithFormat: [IFUtility localizedString: @"Story started at %@."], [[self class] currentTime]];
     }
     else
     {
-        [storyText setStringValue: [NSString stringWithFormat: [IFUtility localizedString: @"Using historic version %@. Started at %@."], version, [[self class] currentTime]]];
+        storyText.stringValue = [NSString stringWithFormat: [IFUtility localizedString: @"Using historic version %@. Started at %@."], version, [[self class] currentTime]];
     }
     
     [self updateVisibility];
@@ -431,11 +431,11 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
 
     if ([IFUtility isLatestMajorMinorCompilerVersion: version])
     {
-        [storyText setStringValue: [IFUtility localizedString:@"Story stopped."]];
+        storyText.stringValue = [IFUtility localizedString:@"Story stopped."];
     }
     else
     {
-        [storyText setStringValue: [NSString stringWithFormat: [IFUtility localizedString: @"Using historic version %@. Story stopped."], version]];
+        storyText.stringValue = [NSString stringWithFormat: [IFUtility localizedString: @"Using historic version %@. Story stopped."], version];
     }
 
     [self updateVisibility];
@@ -454,20 +454,20 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
 }
 
 -(void) setProgressMaxValue: (CGFloat) maxValue {
-    [progressIndicator setMaxValue: maxValue];
+    progressIndicator.maxValue = maxValue;
 }
 
 -(void) updateProgress: (CGFloat) progressValue {
-    [progressIndicator setDoubleValue: progressValue];
+    progressIndicator.doubleValue = progressValue;
 }
 
 -(void) setProgressIndeterminate: (BOOL) indeterminate {
-    [progressIndicator setIndeterminate: indeterminate];
+    progressIndicator.indeterminate = indeterminate;
 }
 
 -(void) stopProgress {
     // Disable progress bars
-    [progressIndicator setDoubleValue: 0.0f];
+    progressIndicator.doubleValue = 0.0f;
     [progressIndicator setIndeterminate: YES];
     [progressIndicator setUsesThreadedAnimation: NO];
     [progressIndicator stopAnimation: self];

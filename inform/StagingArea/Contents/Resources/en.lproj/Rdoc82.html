@@ -82,77 +82,77 @@
     </div>
     <!--END IGNORE-->
     <p class="sectionheading">§10.3. Dispensers and Supplies of Small Objects</p>
-    <p>A slightly tricky situation arises in IF when we want to offer the player a simulation of a near-infinite supply of something: a napkin dispenser from which he can keep taking more napkins, or an infinite selection of pebbles on a beach, or something of that nature.</p>
+    <p>A slightly tricky situation arises in IF when we want to offer the player a simulation of a near-infinite supply of something: a napkin dispenser from which they can keep taking more napkins, or an infinite selection of pebbles on a beach, or something of that nature.</p>
     <p>One approach is simply to limit the number of items the player is allowed to pick up at a time, while maintaining the fiction that there are more of these items in existence than the player is allowed to interact with. <span class="boldface">Extra Supplies</span> demonstrates this.</p>
-    <p>The task becomes harder if we do want to let the player have as many napkins as he wants. In some languages, it is possible to generate new objects on the fly after the story has begun (called &quot;dynamic object creation&quot;), and something like this is possible if we are compiling for Glulx. (See the Inform extensions site for examples.) Usually, though, it is less complicated and almost as effective simply to have a very large supply of existing objects, which are moved in and out of play as the player needs them. <span class="boldface">Pizza Prince</span> demonstrates how to do this with slices of pizza.</p>
+    <p>The task becomes harder if we do want to let the player have as many napkins as they want. In some languages, it is possible to generate new objects on the fly after the story has begun (called &quot;dynamic object creation&quot;), and something like this is possible if we are compiling for Glulx. (See the Inform extensions site for examples.) Usually, though, it is less complicated and almost as effective simply to have a very large supply of existing objects, which are moved in and out of play as the player needs them. <span class="boldface">Pizza Prince</span> demonstrates how to do this with slices of pizza.</p>
     <p class="crossreference"><a href="Rdoc85.html" class="xreflink"><img class="asterisk" alt="*" src="inform:/doc_images/xref.png" />&#160;<i>See </i><b>Ropes</b></a><i> for an example involving divisible pieces of string, which relies on similar techniques</i></p>
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "378: Pizza Prince" "e292"-->
-        <a id="e292"></a><table class="egcue">
+        <!--START EXAMPLE "378: Pizza Prince" "e281"-->
+        <a id="e281"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example292'); return false;"><b>378</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example281'); return false;"><b>378</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example292'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Pizza Prince</span></b></a><br>
-                    Providing a pizza buffet from which the player can take as many pieces as he wants.</p>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example281'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Pizza Prince</span></b></a><br>
+                    Providing a pizza buffet from which the player can take as many pieces as they want.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc318.html#e292"><i>WI</i></a></div>
+                        <a href="doc318.html#e281"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example292" style="display: none;">
-            <p>Suppose we want the player to have a pizza buffet from which he can take a number of slices. But we don't want to actually put the slices there in front of him, because &quot;you can see 17 slices of pizza here&quot; is not the descriptive effect we want, and because we want to pretend, at least, that the pizza supply is nearly infinite. In fact, we're going to replenish the supply by allowing eaten slices to return to the buffet table (safer in IF than in real life).</p>
-            <p>To do this, we create one object to stand in for the pizza supply, but whenever the player tries to take it, we give him a different &quot;pizza slice&quot; object instead. Thus:</p>
-            <!--START CODE "c15320_292"-->
-            <blockquote class="code"><p class="quoted"><a id="c15320_292"></a><a href="javascript:pasteCode('[=0x0022=]Pizza Prince[=0x0022=][=0x000A=][=0x000A=]The Pizza Prince is a room.[=0x000A=][=0x000A=]The buffet table is a supporter in Pizza Prince.[=0x000A=][=0x000A=]The pizza selection is a thing on the buffet table. Understand [=0x0022=]slice[=0x0022=] as the pizza selection. The description is [=0x0022=]They are all cheese-only, and all luke-warm.[=0x0022=][=0x000A=][=0x000A=]Rule for writing a paragraph about the buffet table:[=0x000A=][=0x0009=]say [=0x0022=]On [the buffet table] is [a pizza selection]. [description of the pizza selection][line break][=0x0022=].[=0x000A=][=0x000A=][Now we introduce our actual pizza slices, which are retained in a container out of play until they[=0x0027=]re needed:][=0x000A=][=0x000A=]A pizza slice is a kind of thing. 10 pizza slices are in Pizza Limbo. A pizza slice is always edible. [After a fashion, anyway.][=0x000A=][=0x000A=][In this example we[=0x0027=]ve set that supply to be artificially small, to make it easier to test what happens when the player reaches the limit; but we could provide many more slices to start with in Pizza Limbo, and the aim in practice would be to pick a number high enough (such as 50 or 100) that the average player will get bored of TAKE PIZZA long before he reaches the limit.][=0x000A=][=0x000A=][The main thing to be aware of is that objects consume memory in the game file, so creating a large number of pizza slices might bulk the game out. This is more of a concern if we[=0x0027=]re compiling for the Z-machine than if we[=0x0027=]re compiling for Glulx.][=0x000A=][=0x000A=][Whenever the player tries to take the selection, we want him to wind up holding an individual slice instead; but of course we need to check and make sure that he hasn[=0x0027=]t exhausted the pizza slice supply.][=0x000A=][=0x000A=]Instead of taking the pizza selection:[=0x000A=][=0x0009=]let chosen slice be a random pizza slice in Pizza Limbo;[=0x000A=][=0x0009=]if chosen slice is nothing: [That is, there were no slices remaining][=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][manager refusal][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]move the chosen slice to the player;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Taken (gingerly).[=0x0022=][=0x000A=][=0x000A=]To say manager refusal:[=0x000A=][=0x0009=]say [=0x0022=][one of][=0x0027=]Hey![=0x0027=] barks a hitherto-unseen manager from behind you. [=0x0027=]It[=0x0027=]s an [=0x0027=]all you can eat[=0x0027=] buffet, not an [=0x0027=]all you can stuff down your pants[=0x0027=] buffet.[=0x0027=][or]You are conscious of a disapproving huff from the manager, so you refrain.[stopping][=0x0022=][=0x000A=][=0x000A=][That[=0x0027=]s fine for the case where the player is taking a new slice of pizza explicitly, but we need to handle it a little differently if the taking action is generated in response to EAT PIZZA. In that case, we need to take the slice and also change the identity of the noun, because after the implicit take action happens, the game will test whether the player is holding the noun before attempting to eat it. So we need to refocus its attention:][=0x000A=][=0x000A=]Rule for implicitly taking the pizza selection:[=0x000A=][=0x0009=]let chosen slice be a random pizza slice in Pizza Limbo;[=0x000A=][=0x0009=]if chosen slice is nothing: [That is, there were no slices remaining][=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][manager refusal][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]move the chosen slice to the player;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](helping yourself from the selection)[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the noun is the chosen slice.[=0x000A=][=0x000A=][And finally, a bit of touch-up:][=0x000A=][=0x000A=]Rule for clarifying the parser[=0x0027=]s choice of the pizza selection while taking:[=0x000A=][=0x0009=]say [=0x0022=](from the magnificent selection before you)[line break][=0x0022=][=0x000A=][=0x000A=][For tidiness, we should probably also return the consumed pizza slices to Pizza Limbo so that they can be re-used later:][=0x000A=][=0x000A=]After eating a pizza slice:[=0x000A=][=0x0009=]move the noun to Pizza Limbo;[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / get pizza / g / i / get pizza / drop pizza / look / get pizza / g / look / eat pizza / g / g / g / g / get pizza / g / g / g / g / g / g / g / g / g / g / g / g / i / eat pizza / take pizza / g[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Pizza Prince[=0x0022=][=0x000A=][=0x000A=]The Pizza Prince is a room.[=0x000A=][=0x000A=]The buffet table is a supporter in Pizza Prince.[=0x000A=][=0x000A=]The pizza selection is a thing on the buffet table. Understand [=0x0022=]slice[=0x0022=] as the pizza selection. The description is [=0x0022=]They are all cheese-only, and all luke-warm.[=0x0022=][=0x000A=][=0x000A=]Rule for writing a paragraph about the buffet table:[=0x000A=][=0x0009=]say [=0x0022=]On [the buffet table] is [a pizza selection]. [description of the pizza selection][line break][=0x0022=].[=0x000A=][=0x000A=][Now we introduce our actual pizza slices, which are retained in a container out of play until they[=0x0027=]re needed:][=0x000A=][=0x000A=]A pizza slice is a kind of thing. 10 pizza slices are in Pizza Limbo. A pizza slice is always edible. [After a fashion, anyway.][=0x000A=][=0x000A=][In this example we[=0x0027=]ve set that supply to be artificially small, to make it easier to test what happens when the player reaches the limit; but we could provide many more slices to start with in Pizza Limbo, and the aim in practice would be to pick a number high enough (such as 50 or 100) that the average player will get bored of TAKE PIZZA long before he reaches the limit.][=0x000A=][=0x000A=][The main thing to be aware of is that objects consume memory in the game file, so creating a large number of pizza slices might bulk the game out. This is more of a concern if we[=0x0027=]re compiling for the Z-machine than if we[=0x0027=]re compiling for Glulx.][=0x000A=][=0x000A=][Whenever the player tries to take the selection, we want him to wind up holding an individual slice instead; but of course we need to check and make sure that he hasn[=0x0027=]t exhausted the pizza slice supply.][=0x000A=][=0x000A=]Instead of taking the pizza selection:[=0x000A=][=0x0009=]let chosen slice be a random pizza slice in Pizza Limbo;[=0x000A=][=0x0009=]if chosen slice is nothing: [That is, there were no slices remaining][=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][manager refusal][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]move the chosen slice to the player;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Taken (gingerly).[=0x0022=][=0x000A=][=0x000A=]To say manager refusal:[=0x000A=][=0x0009=]say [=0x0022=][one of][=0x0027=]Hey![=0x0027=] barks a hitherto-unseen manager from behind you. [=0x0027=]It[=0x0027=]s an [=0x0027=]all you can eat[=0x0027=] buffet, not an [=0x0027=]all you can stuff down your pants[=0x0027=] buffet.[=0x0027=][or]You are conscious of a disapproving huff from the manager, so you refrain.[stopping][=0x0022=][=0x000A=][=0x000A=][That[=0x0027=]s fine for the case where the player is taking a new slice of pizza explicitly, but we need to handle it a little differently if the taking action is generated in response to EAT PIZZA. In that case, we need to take the slice and also change the identity of the noun, because after the implicit take action happens, the game will test whether the player is holding the noun before attempting to eat it. So we need to refocus its attention:][=0x000A=][=0x000A=]Rule for implicitly taking the pizza selection:[=0x000A=][=0x0009=]let chosen slice be a random pizza slice in Pizza Limbo;[=0x000A=][=0x0009=]if chosen slice is nothing: [That is, there were no slices remaining][=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][manager refusal][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]move the chosen slice to the player;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](helping yourself from the selection)[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the noun is the chosen slice.[=0x000A=][=0x000A=][And finally, a bit of touch-up:][=0x000A=][=0x000A=]Rule for clarifying the parser[=0x0027=]s choice of the pizza selection while taking:[=0x000A=][=0x0009=]say [=0x0022=](from the magnificent selection before you)[line break][=0x0022=][=0x000A=][=0x000A=][For tidiness, we should probably also return the consumed pizza slices to Pizza Limbo so that they can be re-used later:][=0x000A=][=0x000A=]After eating a pizza slice:[=0x000A=][=0x0009=]move the noun to Pizza Limbo;[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / get pizza / g / i / get pizza / drop pizza / look / get pizza / g / look / eat pizza / g / g / g / g / get pizza / g / g / g / g / g / g / g / g / g / g / g / g / i / eat pizza / take pizza / g[=0x0022=].[=0x000A=]\n', 'Example - Pizza Prince')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Pizza Prince&quot;
+        <div class="egpanel" id="example281" style="display: none;">
+            <p>Suppose we want the player to have a pizza buffet from which they can take a number of slices. But we don't want to actually put the slices there in front of them, because &quot;you can see 17 slices of pizza here&quot; is not the descriptive effect we want, and because we want to pretend, at least, that the pizza supply is nearly infinite. In fact, we're going to replenish the supply by allowing eaten slices to return to the buffet table (safer in IF than in real life).</p>
+            <p>To do this, we create one object to stand in for the pizza supply, but whenever the player tries to take it, we give them a different &quot;pizza slice&quot; object instead. Thus:</p>
+            <!--START CODE "c15357_281"-->
+            <blockquote class="code"><p class="quoted"><a id="c15357_281"></a><a href="javascript:pasteCode('[=0x0022=]Pizza Prince[=0x0022=][=0x000A=][=0x000A=]The Pizza Prince is a room.[=0x000A=][=0x000A=]The buffet table is a supporter in Pizza Prince.[=0x000A=][=0x000A=]The pizza selection is a thing on the buffet table. Understand [=0x0022=]slice[=0x0022=] as the pizza selection. The description is [=0x0022=]They are all cheese-only, and all luke-warm.[=0x0022=][=0x000A=][=0x000A=]Rule for writing a paragraph about the buffet table:[=0x000A=][=0x0009=]say [=0x0022=]On [the buffet table] is [a pizza selection]. [description of the pizza selection][line break][=0x0022=].[=0x000A=][=0x000A=][Now we introduce our actual pizza slices, which are retained in a container out of play until they[=0x0027=]re needed:][=0x000A=][=0x000A=]A pizza slice is a kind of thing. 10 pizza slices are in Pizza Limbo. A pizza slice is always edible. [After a fashion, anyway.][=0x000A=][=0x000A=][In this example we[=0x0027=]ve set that supply to be artificially small, to make it easier to test what happens when the player reaches the limit; but we could provide many more slices to start with in Pizza Limbo, and the aim in practice would be to pick a number high enough (such as 50 or 100) that the average player will get bored of TAKE PIZZA long before they reach the limit.][=0x000A=][=0x000A=][The main thing to be aware of is that objects consume memory in the game file, so creating a large number of pizza slices might bulk the game out. This is more of a concern if we[=0x0027=]re compiling for the Z-machine than if we[=0x0027=]re compiling for Glulx.][=0x000A=][=0x000A=][Whenever the player tries to take the selection, we want them to wind up holding an individual slice instead; but of course we need to check and make sure that they haven[=0x0027=]t exhausted the pizza slice supply.][=0x000A=][=0x000A=]Instead of taking the pizza selection:[=0x000A=][=0x0009=]let chosen slice be a random pizza slice in Pizza Limbo;[=0x000A=][=0x0009=]if chosen slice is nothing: [That is, there were no slices remaining][=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][manager refusal][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]move the chosen slice to the player;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Taken (gingerly).[=0x0022=][=0x000A=][=0x000A=]To say manager refusal:[=0x000A=][=0x0009=]say [=0x0022=][one of][=0x0027=]Hey![=0x0027=] barks a hitherto-unseen manager from behind you. [=0x0027=]It[=0x0027=]s an [=0x0027=]all you can eat[=0x0027=] buffet, not an [=0x0027=]all you can stuff down your pants[=0x0027=] buffet.[=0x0027=][or]You are conscious of a disapproving huff from the manager, so you refrain.[stopping][=0x0022=][=0x000A=][=0x000A=][That[=0x0027=]s fine for the case where the player is taking a new slice of pizza explicitly, but we need to handle it a little differently if the taking action is generated in response to EAT PIZZA. In that case, we need to take the slice and also change the identity of the noun, because after the implicit take action happens, the game will test whether the player is holding the noun before attempting to eat it. So we need to refocus its attention:][=0x000A=][=0x000A=]Rule for implicitly taking the pizza selection:[=0x000A=][=0x0009=]let chosen slice be a random pizza slice in Pizza Limbo;[=0x000A=][=0x0009=]if chosen slice is nothing: [That is, there were no slices remaining][=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][manager refusal][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]move the chosen slice to the player;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](helping yourself from the selection)[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the noun is the chosen slice.[=0x000A=][=0x000A=][And finally, a bit of touch-up:][=0x000A=][=0x000A=]Rule for clarifying the parser[=0x0027=]s choice of the pizza selection while taking:[=0x000A=][=0x0009=]say [=0x0022=](from the magnificent selection before you)[line break][=0x0022=][=0x000A=][=0x000A=][For tidiness, we should probably also return the consumed pizza slices to Pizza Limbo so that they can be re-used later:][=0x000A=][=0x000A=]After eating a pizza slice:[=0x000A=][=0x0009=]move the noun to Pizza Limbo;[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / get pizza / g / i / get pizza / drop pizza / look / get pizza / g / look / eat pizza / g / g / g / g / get pizza / g / g / g / g / g / g / g / g / g / g / g / g / i / eat pizza / take pizza / g[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Pizza Prince[=0x0022=][=0x000A=][=0x000A=]The Pizza Prince is a room.[=0x000A=][=0x000A=]The buffet table is a supporter in Pizza Prince.[=0x000A=][=0x000A=]The pizza selection is a thing on the buffet table. Understand [=0x0022=]slice[=0x0022=] as the pizza selection. The description is [=0x0022=]They are all cheese-only, and all luke-warm.[=0x0022=][=0x000A=][=0x000A=]Rule for writing a paragraph about the buffet table:[=0x000A=][=0x0009=]say [=0x0022=]On [the buffet table] is [a pizza selection]. [description of the pizza selection][line break][=0x0022=].[=0x000A=][=0x000A=][Now we introduce our actual pizza slices, which are retained in a container out of play until they[=0x0027=]re needed:][=0x000A=][=0x000A=]A pizza slice is a kind of thing. 10 pizza slices are in Pizza Limbo. A pizza slice is always edible. [After a fashion, anyway.][=0x000A=][=0x000A=][In this example we[=0x0027=]ve set that supply to be artificially small, to make it easier to test what happens when the player reaches the limit; but we could provide many more slices to start with in Pizza Limbo, and the aim in practice would be to pick a number high enough (such as 50 or 100) that the average player will get bored of TAKE PIZZA long before they reach the limit.][=0x000A=][=0x000A=][The main thing to be aware of is that objects consume memory in the game file, so creating a large number of pizza slices might bulk the game out. This is more of a concern if we[=0x0027=]re compiling for the Z-machine than if we[=0x0027=]re compiling for Glulx.][=0x000A=][=0x000A=][Whenever the player tries to take the selection, we want them to wind up holding an individual slice instead; but of course we need to check and make sure that they haven[=0x0027=]t exhausted the pizza slice supply.][=0x000A=][=0x000A=]Instead of taking the pizza selection:[=0x000A=][=0x0009=]let chosen slice be a random pizza slice in Pizza Limbo;[=0x000A=][=0x0009=]if chosen slice is nothing: [That is, there were no slices remaining][=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][manager refusal][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]move the chosen slice to the player;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Taken (gingerly).[=0x0022=][=0x000A=][=0x000A=]To say manager refusal:[=0x000A=][=0x0009=]say [=0x0022=][one of][=0x0027=]Hey![=0x0027=] barks a hitherto-unseen manager from behind you. [=0x0027=]It[=0x0027=]s an [=0x0027=]all you can eat[=0x0027=] buffet, not an [=0x0027=]all you can stuff down your pants[=0x0027=] buffet.[=0x0027=][or]You are conscious of a disapproving huff from the manager, so you refrain.[stopping][=0x0022=][=0x000A=][=0x000A=][That[=0x0027=]s fine for the case where the player is taking a new slice of pizza explicitly, but we need to handle it a little differently if the taking action is generated in response to EAT PIZZA. In that case, we need to take the slice and also change the identity of the noun, because after the implicit take action happens, the game will test whether the player is holding the noun before attempting to eat it. So we need to refocus its attention:][=0x000A=][=0x000A=]Rule for implicitly taking the pizza selection:[=0x000A=][=0x0009=]let chosen slice be a random pizza slice in Pizza Limbo;[=0x000A=][=0x0009=]if chosen slice is nothing: [That is, there were no slices remaining][=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][manager refusal][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]move the chosen slice to the player;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](helping yourself from the selection)[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the noun is the chosen slice.[=0x000A=][=0x000A=][And finally, a bit of touch-up:][=0x000A=][=0x000A=]Rule for clarifying the parser[=0x0027=]s choice of the pizza selection while taking:[=0x000A=][=0x0009=]say [=0x0022=](from the magnificent selection before you)[line break][=0x0022=][=0x000A=][=0x000A=][For tidiness, we should probably also return the consumed pizza slices to Pizza Limbo so that they can be re-used later:][=0x000A=][=0x000A=]After eating a pizza slice:[=0x000A=][=0x0009=]move the noun to Pizza Limbo;[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / get pizza / g / i / get pizza / drop pizza / look / get pizza / g / look / eat pizza / g / g / g / g / get pizza / g / g / g / g / g / g / g / g / g / g / g / g / i / eat pizza / take pizza / g[=0x0022=].[=0x000A=]\n', 'Example - Pizza Prince')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Pizza Prince&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15321_292"-->
-            <blockquote class="code"><p class="quoted"><a id="c15321_292"></a>The Pizza Prince is a room.
+            <!--START CODE "c15358_281"-->
+            <blockquote class="code"><p class="quoted"><a id="c15358_281"></a>The Pizza Prince is a room.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15322_292"-->
-            <blockquote class="code"><p class="quoted"><a id="c15322_292"></a>The buffet table is a supporter in Pizza Prince.
+            <!--START CODE "c15359_281"-->
+            <blockquote class="code"><p class="quoted"><a id="c15359_281"></a>The buffet table is a supporter in Pizza Prince.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15323_292"-->
-            <blockquote class="code"><p class="quoted"><a id="c15323_292"></a>The pizza selection is a thing on the buffet table. Understand &quot;slice&quot; as the pizza selection. The description is &quot;They are all cheese-only, and all luke-warm.&quot;
+            <!--START CODE "c15360_281"-->
+            <blockquote class="code"><p class="quoted"><a id="c15360_281"></a>The pizza selection is a thing on the buffet table. Understand &quot;slice&quot; as the pizza selection. The description is &quot;They are all cheese-only, and all luke-warm.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15324_292"-->
-            <blockquote class="code"><p class="quoted"><a id="c15324_292"></a>Rule for writing a paragraph about the buffet table:
+            <!--START CODE "c15361_281"-->
+            <blockquote class="code"><p class="quoted"><a id="c15361_281"></a>Rule for writing a paragraph about the buffet table:
             <br>
             &#160;&#160;&#160;&#160;say &quot;On [the buffet table] is [a pizza selection]. [description of the pizza selection][line break]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now we introduce our actual pizza slices, which are retained in a container out of play until they're needed:</p>
-            <!--START CODE "c15325_292"-->
-            <blockquote class="code"><p class="quoted"><a id="c15325_292"></a>A pizza slice is a kind of thing. 10 pizza slices are in Pizza Limbo. A pizza slice is always edible. [After a fashion, anyway.]
+            <!--START CODE "c15362_281"-->
+            <blockquote class="code"><p class="quoted"><a id="c15362_281"></a>A pizza slice is a kind of thing. 10 pizza slices are in Pizza Limbo. A pizza slice is always edible. [After a fashion, anyway.]
             </p>
             </blockquote>
             <!--END CODE-->
-            <p>In this example we've set that supply to be artificially small, to make it easier to test what happens when the player reaches the limit; but we could provide many more slices to start with in Pizza Limbo, and the aim in practice would be to pick a number high enough (such as 50 or 100) that the average player will get bored of TAKE PIZZA long before he reaches the limit.</p>
+            <p>In this example we've set that supply to be artificially small, to make it easier to test what happens when the player reaches the limit; but we could provide many more slices to start with in Pizza Limbo, and the aim in practice would be to pick a number high enough (such as 50 or 100) that the average player will get bored of TAKE PIZZA long before they reach the limit.</p>
             <p>The main thing to be aware of is that objects consume memory in the game file, so creating a large number of pizza slices might bulk the game out. This is more of a concern if we're compiling for the Z-machine than if we're compiling for Glulx.</p>
-            <p>Whenever the player tries to take the selection, we want him to wind up holding an individual slice instead; but of course we need to check and make sure that he hasn't exhausted the pizza slice supply.</p>
-            <!--START CODE "c15326_292"-->
-            <blockquote class="code"><p class="quoted"><a id="c15326_292"></a>Instead of taking the pizza selection:
+            <p>Whenever the player tries to take the selection, we want them to wind up holding an individual slice instead; but of course we need to check and make sure that they haven't exhausted the pizza slice supply.</p>
+            <!--START CODE "c15363_281"-->
+            <blockquote class="code"><p class="quoted"><a id="c15363_281"></a>Instead of taking the pizza selection:
             <br>
             &#160;&#160;&#160;&#160;let chosen slice be a random pizza slice in Pizza Limbo;
             <br>
@@ -168,16 +168,16 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15327_292"-->
-            <blockquote class="code"><p class="quoted"><a id="c15327_292"></a>To say manager refusal:
+            <!--START CODE "c15364_281"-->
+            <blockquote class="code"><p class="quoted"><a id="c15364_281"></a>To say manager refusal:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[one of]'Hey!' barks a hitherto-unseen manager from behind you. 'It's an 'all you can eat' buffet, not an 'all you can stuff down your pants' buffet.'[or]You are conscious of a disapproving huff from the manager, so you refrain.[stopping]&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>That's fine for the case where the player is taking a new slice of pizza explicitly, but we need to handle it a little differently if the taking action is generated in response to EAT PIZZA. In that case, we need to take the slice and also change the identity of the noun, because after the implicit take action happens, the game will test whether the player is holding the noun before attempting to eat it. So we need to refocus its attention:</p>
-            <!--START CODE "c15328_292"-->
-            <blockquote class="code"><p class="quoted"><a id="c15328_292"></a>Rule for implicitly taking the pizza selection:
+            <!--START CODE "c15365_281"-->
+            <blockquote class="code"><p class="quoted"><a id="c15365_281"></a>Rule for implicitly taking the pizza selection:
             <br>
             &#160;&#160;&#160;&#160;let chosen slice be a random pizza slice in Pizza Limbo;
             <br>
@@ -196,16 +196,16 @@
             </blockquote>
             <!--END CODE-->
             <p>And finally, a bit of touch-up:</p>
-            <!--START CODE "c15329_292"-->
-            <blockquote class="code"><p class="quoted"><a id="c15329_292"></a>Rule for clarifying the parser's choice of the pizza selection while taking:
+            <!--START CODE "c15366_281"-->
+            <blockquote class="code"><p class="quoted"><a id="c15366_281"></a>Rule for clarifying the parser's choice of the pizza selection while taking:
             <br>
             &#160;&#160;&#160;&#160;say &quot;(from the magnificent selection before you)[line break]&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>For tidiness, we should probably also return the consumed pizza slices to Pizza Limbo so that they can be re-used later:</p>
-            <!--START CODE "c15330_292"-->
-            <blockquote class="code"><p class="quoted"><a id="c15330_292"></a>After eating a pizza slice:
+            <!--START CODE "c15367_281"-->
+            <blockquote class="code"><p class="quoted"><a id="c15367_281"></a>After eating a pizza slice:
             <br>
             &#160;&#160;&#160;&#160;move the noun to Pizza Limbo;
             <br>
@@ -213,57 +213,57 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15331_292"-->
-            <blockquote class="code"><p class="quoted"><a id="c15331_292"></a>Test me with &quot;i / get pizza / g / i / get pizza / drop pizza / look / get pizza / g / look / eat pizza / g / g / g / g / get pizza / g / g / g / g / g / g / g / g / g / g / g / g / i / eat pizza / take pizza / g&quot;.
+            <!--START CODE "c15368_281"-->
+            <blockquote class="code"><p class="quoted"><a id="c15368_281"></a>Test me with &quot;i / get pizza / g / i / get pizza / drop pizza / look / get pizza / g / look / eat pizza / g / g / g / g / get pizza / g / g / g / g / g / g / g / g / g / g / g / g / i / eat pizza / take pizza / g&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "124: Extra Supplies" "e131"-->
-        <a id="e131"></a><table class="egcue">
+        <!--START EXAMPLE "124: Extra Supplies" "e125"-->
+        <a id="e125"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example131'); return false;"><b>124</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example125'); return false;"><b>124</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example131'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Extra Supplies</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example125'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Extra Supplies</span></b></a><br>
                     A supply of red pens from which the player can take another pen only if he doesn't already have one somewhere in the game world.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc123.html#e131"><i>WI</i></a></div>
+                        <a href="doc123.html#e125"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example131" style="display: none;">
-            <p>Suppose we have a supply closet in our game from which the player is allowed to take red pens. To keep modeling simple, we only allow him to have one in play at a time, and we test this by seeing whether the red pen is &quot;off-stage&quot; before moving it to his possession.</p>
+        <div class="egpanel" id="example125" style="display: none;">
+            <p>Suppose we have a supply closet in our game from which the player is allowed to take red pens. To keep modeling simple, we only allow them to have one in play at a time, and we test this by seeing whether the red pen is &quot;off-stage&quot; before moving it to their possession.</p>
             <p>This approach might seem no different from having a single red pen sitting in the closet, but it may be preferable, for two reasons. First, it's not very plausible for a supply closet to contain nothing but a single red pen (well, assuming a well-regulated supplier, anyway); and second, it gives the player a way to get a new red pen should the original be destroyed in a tragic handwriting accident.</p>
-            <!--START CODE "c15332_131"-->
-            <blockquote class="code"><p class="quoted"><a id="c15332_131"></a><a href="javascript:pasteCode('[=0x0022=]Extra Supplies[=0x0022=][=0x000A=][=0x000A=]The Supply Closet is a room. A supply of red pens is in the Supply Closet. Understand [=0x0022=]pen[=0x0022=] as the supply of red pens when the red pen is not visible.[=0x000A=][=0x000A=]There is a red pen.[=0x000A=][=0x000A=]Instead of taking the supply of red pens:[=0x000A=][=0x0009=]if the red pen is off-stage:[=0x000A=][=0x0009=][=0x0009=]move the red pen to the player;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You help yourself to a fresh red pen.[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You[=0x0027=]re only allowed one pen at a time. The department secretary is very strict.[=0x0022=][=0x000A=][=0x000A=]South of the Supply Closet is the Furnace Room. The incinerator is a thing in the Furnace Room. It is a container. [=0x0022=]The incinerator is here, working full blast.[=0x0022=][=0x000A=][=0x000A=]After inserting something into the incinerator:[=0x000A=][=0x0009=]now the noun is nowhere;[=0x000A=][=0x0009=]say [=0x0022=]A fiery blast consumes [the noun]![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]get pen / i / get pen / get supply / s / put pen in incinerator / n / get pen[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Extra Supplies[=0x0022=][=0x000A=][=0x000A=]The Supply Closet is a room. A supply of red pens is in the Supply Closet. Understand [=0x0022=]pen[=0x0022=] as the supply of red pens when the red pen is not visible.[=0x000A=][=0x000A=]There is a red pen.[=0x000A=][=0x000A=]Instead of taking the supply of red pens:[=0x000A=][=0x0009=]if the red pen is off-stage:[=0x000A=][=0x0009=][=0x0009=]move the red pen to the player;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You help yourself to a fresh red pen.[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You[=0x0027=]re only allowed one pen at a time. The department secretary is very strict.[=0x0022=][=0x000A=][=0x000A=]South of the Supply Closet is the Furnace Room. The incinerator is a thing in the Furnace Room. It is a container. [=0x0022=]The incinerator is here, working full blast.[=0x0022=][=0x000A=][=0x000A=]After inserting something into the incinerator:[=0x000A=][=0x0009=]now the noun is nowhere;[=0x000A=][=0x0009=]say [=0x0022=]A fiery blast consumes [the noun]![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]get pen / i / get pen / get supply / s / put pen in incinerator / n / get pen[=0x0022=].[=0x000A=]\n', 'Example - Extra Supplies')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Extra Supplies&quot;
+            <!--START CODE "c15369_125"-->
+            <blockquote class="code"><p class="quoted"><a id="c15369_125"></a><a href="javascript:pasteCode('[=0x0022=]Extra Supplies[=0x0022=][=0x000A=][=0x000A=]The Supply Closet is a room. A supply of red pens is in the Supply Closet. Understand [=0x0022=]pen[=0x0022=] as the supply of red pens when the red pen is not visible.[=0x000A=][=0x000A=]There is a red pen.[=0x000A=][=0x000A=]Instead of taking the supply of red pens:[=0x000A=][=0x0009=]if the red pen is off-stage:[=0x000A=][=0x0009=][=0x0009=]move the red pen to the player;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You help yourself to a fresh red pen.[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You[=0x0027=]re only allowed one pen at a time. The department secretary is very strict.[=0x0022=][=0x000A=][=0x000A=]South of the Supply Closet is the Furnace Room. The incinerator is a thing in the Furnace Room. It is a container. [=0x0022=]The incinerator is here, working full blast.[=0x0022=][=0x000A=][=0x000A=]After inserting something into the incinerator:[=0x000A=][=0x0009=]now the noun is nowhere;[=0x000A=][=0x0009=]say [=0x0022=]A fiery blast consumes [the noun]![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]get pen / i / get pen / get supply / s / put pen in incinerator / n / get pen[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Extra Supplies[=0x0022=][=0x000A=][=0x000A=]The Supply Closet is a room. A supply of red pens is in the Supply Closet. Understand [=0x0022=]pen[=0x0022=] as the supply of red pens when the red pen is not visible.[=0x000A=][=0x000A=]There is a red pen.[=0x000A=][=0x000A=]Instead of taking the supply of red pens:[=0x000A=][=0x0009=]if the red pen is off-stage:[=0x000A=][=0x0009=][=0x0009=]move the red pen to the player;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You help yourself to a fresh red pen.[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You[=0x0027=]re only allowed one pen at a time. The department secretary is very strict.[=0x0022=][=0x000A=][=0x000A=]South of the Supply Closet is the Furnace Room. The incinerator is a thing in the Furnace Room. It is a container. [=0x0022=]The incinerator is here, working full blast.[=0x0022=][=0x000A=][=0x000A=]After inserting something into the incinerator:[=0x000A=][=0x0009=]now the noun is nowhere;[=0x000A=][=0x0009=]say [=0x0022=]A fiery blast consumes [the noun]![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]get pen / i / get pen / get supply / s / put pen in incinerator / n / get pen[=0x0022=].[=0x000A=]\n', 'Example - Extra Supplies')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Extra Supplies&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15333_131"-->
-            <blockquote class="code"><p class="quoted"><a id="c15333_131"></a>The Supply Closet is a room. A supply of red pens is in the Supply Closet. Understand &quot;pen&quot; as the supply of red pens when the red pen is not visible.
+            <!--START CODE "c15370_125"-->
+            <blockquote class="code"><p class="quoted"><a id="c15370_125"></a>The Supply Closet is a room. A supply of red pens is in the Supply Closet. Understand &quot;pen&quot; as the supply of red pens when the red pen is not visible.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15334_131"-->
-            <blockquote class="code"><p class="quoted"><a id="c15334_131"></a>There is a red pen.
+            <!--START CODE "c15371_125"-->
+            <blockquote class="code"><p class="quoted"><a id="c15371_125"></a>There is a red pen.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15335_131"-->
-            <blockquote class="code"><p class="quoted"><a id="c15335_131"></a>Instead of taking the supply of red pens:
+            <!--START CODE "c15372_125"-->
+            <blockquote class="code"><p class="quoted"><a id="c15372_125"></a>Instead of taking the supply of red pens:
             <br>
             &#160;&#160;&#160;&#160;if the red pen is off-stage:
             <br>
@@ -277,13 +277,13 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15336_131"-->
-            <blockquote class="code"><p class="quoted"><a id="c15336_131"></a>South of the Supply Closet is the Furnace Room. The incinerator is a thing in the Furnace Room. It is a container. &quot;The incinerator is here, working full blast.&quot;
+            <!--START CODE "c15373_125"-->
+            <blockquote class="code"><p class="quoted"><a id="c15373_125"></a>South of the Supply Closet is the Furnace Room. The incinerator is a thing in the Furnace Room. It is a container. &quot;The incinerator is here, working full blast.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15337_131"-->
-            <blockquote class="code"><p class="quoted"><a id="c15337_131"></a>After inserting something into the incinerator:
+            <!--START CODE "c15374_125"-->
+            <blockquote class="code"><p class="quoted"><a id="c15374_125"></a>After inserting something into the incinerator:
             <br>
             &#160;&#160;&#160;&#160;now the noun is nowhere;
             <br>
@@ -291,8 +291,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15338_131"-->
-            <blockquote class="code"><p class="quoted"><a id="c15338_131"></a>Test me with &quot;get pen / i / get pen / get supply / s / put pen in incinerator / n / get pen&quot;.
+            <!--START CODE "c15375_125"-->
+            <blockquote class="code"><p class="quoted"><a id="c15375_125"></a>Test me with &quot;get pen / i / get pen / get supply / s / put pen in incinerator / n / get pen&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

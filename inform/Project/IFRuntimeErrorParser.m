@@ -7,6 +7,7 @@
 //
 
 #import "IFRuntimeErrorParser.h"
+#import "IFUtility.h"
 
 
 @implementation IFRuntimeErrorParser {
@@ -29,46 +30,23 @@
 - (void) outputText: (NSString*) outputText {
 	// Scan for '*** Run-time problem XX' at the beginning of a line: this indicates that runtime problem XX
 	// has occured (and we should probably be showing file RTP_XX.html)
-	NSString* runtimeIndicator = @"*** Run-time problem ";
-	NSString* problemType = nil;
-	
-	int len = (int) [outputText length];
-	int pos;
-	int indicatorLen = (int) [runtimeIndicator length];
-	
-	for (pos = 0; pos<len-indicatorLen-1; pos++) {
-		unichar chr = [outputText characterAtIndex: pos];
-		
-		if (chr == '\n') {
-			// Characters following pos might be the run-time problem indicator
-			NSString* mightMatch = [outputText substringWithRange: NSMakeRange(pos+1, indicatorLen)];
-			
-			if ([mightMatch isEqualToString: runtimeIndicator]) {
-				// We've got a match for the string: find the problem identifier
-				pos += indicatorLen+1;
-				
-				int startOfId = pos;
-				for (;pos<len; pos++) {
-					chr = [outputText characterAtIndex: pos];
-					
-					if (chr == ' ' || chr == '\t' || chr == '\n' || chr == '\r' || chr == ':') {
-						// We've found the end of the ID
-						break;
-					}
-					
-					// Copy the problem type
-					problemType = [outputText substringWithRange: NSMakeRange(startOfId, pos-startOfId+1)];
-				}
-				
-				break;
-			}
-		}
-	}
-	
+
+    NSString* problemType = nil;
+    NSString* directory = nil;
+
+    NSTextCheckingResult *match = [IFUtility findMatch: @"^\\*\\*\\* Run-time problem\\s+([^\\s]+):\\s*(.*)$" inText: outputText];
+    if (match) {
+        problemType = [outputText substringWithRange: [match rangeAtIndex:1]];
+        NSTextCheckingResult *oldStyleMatches = [IFUtility findMatch: @"P\\d+" inText: problemType];
+        if (oldStyleMatches == nil) {
+            directory   = [outputText substringWithRange: [match rangeAtIndex:2]];
+        }
+    }
+
 	if (problemType != nil) {
 		// A problem was encountered: inform the delegate
-		if ([delegate respondsToSelector: @selector(runtimeError:)]) {
-			[delegate runtimeError: problemType];
+        if ([delegate respondsToSelector: @selector(runtimeError:inDirectory:)]) {
+            [delegate runtimeError: problemType inDirectory: directory];
 		}
 	}
 }
@@ -79,13 +57,13 @@
 - (void) receivedCharacters: (NSString*) characters
 					 window: (int) windowNumber
 				   fromView: (GlkView*) view {
-	unichar* chrs = malloc(sizeof(unichar)*[characters length]);
+	unichar* chrs = malloc(sizeof(unichar)*characters.length);
     if( chrs != NULL ) {
         [characters getCharacters: chrs];
         
         int start = 0;
         int x;
-        for (x=0; x<[characters length]; x++) {
+        for (x=0; x<characters.length; x++) {
             if (chrs[x] == '\n') {
                 [accumulator appendString: [NSString stringWithCharacters: chrs + start
                                                                    length: x - start]];

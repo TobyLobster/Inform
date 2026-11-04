@@ -83,60 +83,60 @@
     <!--END IGNORE-->
     <p class="sectionheading">§22.3. Phrases as values</p>
     <p>Given any two kinds K and L, the kind &quot;phrase K -&gt; L&quot; is now a kind. (This is meant to look like a mathematical function arrow.) For example, the phrase defined by</p>
-    <!--START CODE "c8662"-->
-    <blockquote class="code"><p class="quoted"><a id="c8662"></a>To decide which number is the square of (N - a number): ...
+    <!--START CODE "c8688"-->
+    <blockquote class="code"><p class="quoted"><a id="c8688"></a>To decide which number is the square of (N - a number): ...
     </p>
     </blockquote>
     <!--END CODE-->
     <p>has the kind &quot;phrase number -&gt; number&quot;. Brackets and commas are used if the phrase combines several values, so</p>
-    <!--START CODE "c8663"-->
-    <blockquote class="code"><p class="quoted"><a id="c8663"></a>To decide which text is (T - text) repeated (N - a number) times: ...
+    <!--START CODE "c8689"-->
+    <blockquote class="code"><p class="quoted"><a id="c8689"></a>To decide which text is (T - text) repeated (N - a number) times: ...
     </p>
     </blockquote>
     <!--END CODE-->
     <p>has the kind &quot;phrase (text, number) -&gt; text&quot;. The word &quot;nothing&quot; is used if there are no values in, or no value out - thus</p>
-    <!--START CODE "c8664"-->
-    <blockquote class="code"><p class="quoted"><a id="c8664"></a>To decide which number is the magic target: ...
+    <!--START CODE "c8690"-->
+    <blockquote class="code"><p class="quoted"><a id="c8690"></a>To decide which number is the magic target: ...
     </p>
     </blockquote>
     <!--END CODE-->
     <p>has kind &quot;phrase nothing -&gt; number&quot;, and</p>
-    <!--START CODE "c8665"-->
-    <blockquote class="code"><p class="quoted"><a id="c8665"></a>To dig (eastward - length) by (northward - length): ...
+    <!--START CODE "c8691"-->
+    <blockquote class="code"><p class="quoted"><a id="c8691"></a>To dig (eastward - length) by (northward - length): ...
     </p>
     </blockquote>
     <!--END CODE-->
     <p>has the kind &quot;phrase (length, length) -&gt; nothing&quot;.</p>
     <p>But how are we to get at these values? The answer is that we need to give a phrase a name in order to do so. For example:</p>
-    <!--START CODE "c8666"-->
-    <blockquote class="code"><p class="quoted"><a id="c8666"></a>To decide what number is double (N - a number) (this is doubling):
+    <!--START CODE "c8692"-->
+    <blockquote class="code"><p class="quoted"><a id="c8692"></a>To decide what number is double (N - a number) (this is doubling):
     <br>
     &#160;&#160;&#160;&#160;decide on N plus N.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>This is the same syntax used to name rules, and the idea is the same. If we try &quot;showme doubling&quot;, the result is</p>
-    <!--START CODE "c8667"-->
-    <blockquote class="code"><p class="quoted"><a id="c8667"></a>phrase number -&gt; number: doubling
+    <!--START CODE "c8693"-->
+    <blockquote class="code"><p class="quoted"><a id="c8693"></a>phrase number -&gt; number: doubling
     </p>
     </blockquote>
     <!--END CODE-->
     <p>The main thing we want to do with a phrase is to apply it. So:</p>
-    <!--START CODE "c8668"-->
-    <blockquote class="code"><p class="quoted"><a id="c8668"></a>showme doubling applied to 2;
+    <!--START CODE "c8694"-->
+    <blockquote class="code"><p class="quoted"><a id="c8694"></a>showme doubling applied to 2;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>produces</p>
-    <!--START CODE "c8669"-->
-    <blockquote class="code"><p class="quoted"><a id="c8669"></a>&quot;doubling applied to 2&quot; = number: 4
+    <!--START CODE "c8695"-->
+    <blockquote class="code"><p class="quoted"><a id="c8695"></a>&quot;doubling applied to 2&quot; = number: 4
     </p>
     </blockquote>
     <!--END CODE-->
     <p>There are versions of &quot;applied to&quot; for phrases applied to 0 to 3 values:</p>
-        <!--START PHRASE "defn354"-->
+        <!--START PHRASE "defn362"-->
         <div class="definition">
-            <a id="defn354"></a><p class='defnprototype'><b></b>(phrase nothing -&gt; value)<b> applied ... value</b></p>
+            <a id="defn362"></a><p class='defnprototype'><b></b>(phrase nothing -&gt; value)<b> applied ... value</b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_applied0-->
@@ -146,9 +146,9 @@
         <!--end definition-->
     </div>
 
-        <!--START PHRASE "defn355"-->
+        <!--START PHRASE "defn363"-->
         <div class="definition">
-            <a id="defn355"></a><p class='defnprototype'><b></b>(phrase value -&gt; value)<b> applied to </b>(value)<b> ... value</b></p>
+            <a id="defn363"></a><p class='defnprototype'><b></b>(phrase value -&gt; value)<b> applied to </b>(value)<b> ... value</b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_applied1-->
@@ -158,9 +158,9 @@
         <!--end definition-->
     </div>
 
-        <!--START PHRASE "defn356"-->
+        <!--START PHRASE "defn364"-->
         <div class="definition">
-            <a id="defn356"></a><p class='defnprototype'><b></b>(phrase (value, value) -&gt; value)<b> applied to </b>(value)<b> and </b>(value)<b> ... value</b></p>
+            <a id="defn364"></a><p class='defnprototype'><b></b>(phrase (value, value) -&gt; value)<b> applied to </b>(value)<b> and </b>(value)<b> ... value</b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_applied2-->
@@ -170,9 +170,9 @@
         <!--end definition-->
     </div>
 
-        <!--START PHRASE "defn357"-->
+        <!--START PHRASE "defn365"-->
         <div class="definition">
-            <a id="defn357"></a><p class='defnprototype'><b></b>(phrase (value, value, value) -&gt; value)<b> applied to </b>(value)<b> and </b>(value)<b> and </b>(value)<b> ... value</b></p>
+            <a id="defn365"></a><p class='defnprototype'><b></b>(phrase (value, value, value) -&gt; value)<b> applied to </b>(value)<b> and </b>(value)<b> and </b>(value)<b> ... value</b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_applied3-->
@@ -183,8 +183,8 @@
     </div>
 
     <p>So for example:</p>
-    <!--START CODE "c8670"-->
-    <blockquote class="code"><p class="quoted"><a id="c8670"></a>F applied
+    <!--START CODE "c8696"-->
+    <blockquote class="code"><p class="quoted"><a id="c8696"></a>F applied
     <br>
     F applied to V
     <br>
@@ -195,9 +195,9 @@
     </blockquote>
     <!--END CODE-->
     <p>For phrases which do not produce a value, we use &quot;apply&quot;:</p>
-        <!--START PHRASE "defn358"-->
+        <!--START PHRASE "defn366"-->
         <div class="definition">
-            <a id="defn358"></a><p class='defnprototype'><b>apply </b>(phrase nothing -&gt; nothing)<b></b></p>
+            <a id="defn366"></a><p class='defnprototype'><b>apply </b>(phrase nothing -&gt; nothing)<b></b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_apply0-->
@@ -207,9 +207,9 @@
         <!--end definition-->
     </div>
 
-        <!--START PHRASE "defn359"-->
+        <!--START PHRASE "defn367"-->
         <div class="definition">
-            <a id="defn359"></a><p class='defnprototype'><b>apply </b>(phrase value -&gt; nothing)<b> to </b>(value)<b></b></p>
+            <a id="defn367"></a><p class='defnprototype'><b>apply </b>(phrase value -&gt; nothing)<b> to </b>(value)<b></b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_apply1-->
@@ -219,9 +219,9 @@
         <!--end definition-->
     </div>
 
-        <!--START PHRASE "defn360"-->
+        <!--START PHRASE "defn368"-->
         <div class="definition">
-            <a id="defn360"></a><p class='defnprototype'><b>apply </b>(phrase (value, value) -&gt; nothing)<b> to </b>(value)<b> and </b>(value)<b></b></p>
+            <a id="defn368"></a><p class='defnprototype'><b>apply </b>(phrase (value, value) -&gt; nothing)<b> to </b>(value)<b> and </b>(value)<b></b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_apply2-->
@@ -231,9 +231,9 @@
         <!--end definition-->
     </div>
 
-        <!--START PHRASE "defn361"-->
+        <!--START PHRASE "defn369"-->
         <div class="definition">
-            <a id="defn361"></a><p class='defnprototype'><b>apply </b>(phrase (value, value, value) -&gt; nothing)<b> to </b>(value)<b> and </b>(value)<b> and </b>(value)<b></b></p>
+            <a id="defn369"></a><p class='defnprototype'><b>apply </b>(phrase (value, value, value) -&gt; nothing)<b> to </b>(value)<b> and </b>(value)<b> and </b>(value)<b></b></p>
 
             <!--END PHRASE-->
             <!--definition of ph_apply3-->
@@ -244,8 +244,8 @@
     </div>
 
     <p>Thus:</p>
-    <!--START CODE "c8671"-->
-    <blockquote class="code"><p class="quoted"><a id="c8671"></a>apply F;
+    <!--START CODE "c8697"-->
+    <blockquote class="code"><p class="quoted"><a id="c8697"></a>apply F;
     <br>
     apply F to V;
     <br>

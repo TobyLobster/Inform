@@ -5,26 +5,34 @@
 //  Created by Andrew Hunter on 01/09/2006.
 //  Copyright 2006 Andrew Hunter. All rights reserved.
 //
+//  Rewritten to use CoreAnimation (see issue #46). Instead of driving the
+//  transition from an NSTimer and manually compositing two bitmaps in
+//  -drawRect: every tick, we snapshot the 'from' and 'to' views into two
+//  CALayers and let CoreAnimation slide them on the GPU, vsync-synced. The
+//  public API is unchanged, so callers need no modification.
+//
 
 #import "IFViewAnimator.h"
+#import <QuartzCore/QuartzCore.h>
 
 
 @implementation IFViewAnimator {
-    // The start and the end of the animation
+    // Snapshots of the start and the end of the animation
     NSImage* startImage;
     NSImage* endImage;
 
     // Animation settings
     NSTimeInterval animationTime;
-    IFViewAnimationStyle animationStyle;
 
     // Information used while animating
-    NSTimer* animationTimer;
     NSRect originalFrame;
     NSView* originalView;
     NSView* originalSuperview;
     NSView* originalFocusView;
-    NSDate* whenStarted;
+
+    // The CoreAnimation layers holding the two snapshots while animating
+    CALayer* startLayer;
+    CALayer* endLayer;
 
     id finishedObject;
     SEL finishedMessage;
@@ -37,6 +45,7 @@
     if (self) {
         // Initialization code here.
 		animationTime = 0.2;
+        self.wantsLayer = YES;
     }
     return self;
 }
@@ -62,11 +71,18 @@
 + (NSImage*) cacheView: (NSView*) view {
     NSSize mySize = view.bounds.size;
     NSSize imgSize = NSMakeSize( mySize.width, mySize.height );
-    
-    NSBitmapImageRep *bir = [view bitmapImageRepForCachingDisplayInRect:[view bounds]];
-    [bir setSize:imgSize];
-    [view cacheDisplayInRect:[view bounds] toBitmapImageRep:bir];
-    
+
+    // Make sure the view is fully laid out and drawn before we snapshot it.
+    // This replaces the old mid-animation "recache" hack in -drawRect:.
+    if ([view respondsToSelector: @selector(layoutSubtreeIfNeeded)]) {
+        [view layoutSubtreeIfNeeded];
+    }
+    [view displayIfNeeded];
+
+    NSBitmapImageRep *bir = [view bitmapImageRepForCachingDisplayInRect:view.bounds];
+    bir.size = imgSize;
+    [view cacheDisplayInRect:view.bounds toBitmapImageRep:bir];
+
     NSImage* image = [[NSImage alloc]initWithSize:imgSize];
     [image addRepresentation:bir];
     return image;
@@ -84,28 +100,30 @@
 
 - (void) finishAnimation {
 	if (originalView != nil) {
+        // Tear down the animation layers
+        [startLayer removeFromSuperlayer];
+        [endLayer removeFromSuperlayer];
+        startLayer = nil;
+        endLayer = nil;
+
 		// Restore the original view
 		[self removeFromSuperview];
-		
+
 		NSRect frame = originalFrame;
-		frame.size = [originalView frame].size;
-		
-		[originalView setFrame: frame];
-		[originalSuperview addSubview: originalView];
+		frame.size = originalView.frame.size;
+
+		originalView.frame = frame;
+		if (originalView.superview != originalSuperview) {
+			[originalSuperview addSubview: originalView];
+		}
 		[originalView setNeedsDisplay: YES];
-        [[originalView window] makeFirstResponder:originalFocusView];
+        [originalView.window makeFirstResponder:originalFocusView];
 		[IFViewAnimator trackView: originalView];
-				
+
 		 originalView = nil;
          originalFocusView = nil;
 		 originalSuperview = nil;
-		
-		// Finish up the timer
-		if (animationTimer) {
-			[animationTimer invalidate];
-            animationTimer = nil;
-		}
-		
+
 		// Perform whichever action was requested at the end of the animation
 		if (finishedObject) {
             // Send finished message
@@ -126,17 +144,16 @@
 
 	// Replace the specified view with the animating view (ie, this view)
 	originalView = view;
-	originalSuperview = [view superview];
-	originalFrame = [view frame];
+	originalSuperview = view.superview;
+	originalFrame = view.frame;
     originalFocusView = focusView;
-		
+
 	[IFViewAnimator detrackView: originalView];
 	[originalView removeFromSuperviewWithoutNeedingDisplay];
-	[self setFrame: originalFrame];
+	self.frame = originalFrame;
 	[originalSuperview addSubview: self];
-	[self setNeedsDisplay: YES];
-	
-	[self setAutoresizingMask: [originalView autoresizingMask]];
+
+	self.autoresizingMask = originalView.autoresizingMask;
 }
 
 // Begins animating the specified view so that transitions from the state set in
@@ -147,272 +164,145 @@
 			 style: (IFViewAnimationStyle) style
 	   sendMessage: (SEL) finMessage
 		  toObject: (id) whenFinished {
-	whenStarted = [NSDate date];
-	
 	// Remember the object to send the 'animation finished' message to
 	finishedObject = whenFinished;
 	finishedMessage	= finMessage;
-	
-	// Create the final image
-	endImage = [[self class] cacheView: view];
-	
+
 	// Replace the specified view with the animating view (ie, this view)
 	originalView = view;
-	originalFrame = [view frame];
+	originalFrame = view.frame;
     originalFocusView = focusView;
-	
+
 	[IFViewAnimator detrackView: originalView];
-	[self setFrame: originalFrame];
+	self.frame = originalFrame;
 	[originalSuperview addSubview: self];
-	[self setNeedsDisplay: YES];
-	
-	// Start running the animation
-	animationStyle = style;
-	animationTimer = [NSTimer timerWithTimeInterval: 0.01
-											  target: self
-											selector: @selector(animationTick)
-											userInfo: nil
-											 repeats: YES];
-	
-	[[NSRunLoop currentRunLoop] addTimer: animationTimer
-								 forMode: NSDefaultRunLoopMode];
-	[[NSRunLoop currentRunLoop] addTimer: animationTimer
-								 forMode: NSEventTrackingRunLoopMode];
+
+	// Put the view back in the window, underneath this one, before taking its
+	// picture, so that it's laid out and drawn in the window. A view drawn while
+	// it was out of the window could be shown in the wrong place once it was
+	// back (source text too low, under a blank band, until it was redrawn).
+	[originalSuperview addSubview: originalView
+					   positioned: NSWindowBelow
+					   relativeTo: self];
+
+	// Create the final image
+	endImage = [[self class] cacheView: view];
+
+	// Run the transition using CoreAnimation
+	[self runAnimationWithStyle: style];
 }
 
-- (CGFloat) percentDone {
-	NSTimeInterval timePassed = -[whenStarted timeIntervalSinceNow];
-    CGFloat done = ((CGFloat)timePassed)/((CGFloat)animationTime);
-	
-	if (done < 0) done = 0;
-	if (done > 1) done = 1.0;
-	
-	done = -2.0*done*done*done + 3.0*done*done;
-	
-	return done;
+#pragma mark - CoreAnimation
+
+// Convert a snapshot NSImage into a CGImage suitable for a layer's contents
+static CGImageRef IFCGImageFromImage(NSImage* image) {
+    if (image == nil) return NULL;
+    return [image CGImageForProposedRect: NULL context: nil hints: nil];
 }
 
-- (void) animationTick {
-	if ([self percentDone] >= 1.0)
-		[self finishAnimation];
-	else
-		[self setNeedsDisplay: YES];
-}
+- (void) runAnimationWithStyle: (IFViewAnimationStyle) style {
+    NSRect bounds = self.bounds;
 
-#pragma mark - Drawing
+    // If we have nothing to draw, just finish immediately.
+    if (NSIsEmptyRect(bounds) || (startImage == nil && endImage == nil)) {
+        [self finishAnimation];
+        return;
+    }
 
-static BOOL ViewNeedsDisplay(NSView* view) {
-	BOOL result = NO;
-	
-	if (view == nil) return NO;
-	if ([view needsDisplay]) {
-		[view setNeedsDisplay: NO];
-		result = YES;
-	}
-	
-	for ( NSView* subview in [view subviews] ) {
-		if (ViewNeedsDisplay(subview)) result = YES;
-	}
-	
-	return result;
-}
+    // Match the backing store so snapshots stay crisp on Retina displays
+    CGFloat scale = self.window.backingScaleFactor;
+    if (scale <= 0.0) scale = 1.0;
 
-- (void)drawRect:(NSRect)rect {
-	// Recache the view if it wants to be redrawn
-	if (ViewNeedsDisplay(originalView) && [self percentDone] < 0.25) {
-		endImage = [[self class] cacheView: originalView];
-	}
-	
-	// Draw the appropriate animation frame
-    CGFloat percentDone = [self percentDone];
-    CGFloat percentNotDone = 1.0-percentDone;
-	
-	NSRect bounds = [self bounds];
-	NSSize startSize = [startImage size];
-	NSSize endSize = [endImage size];
-	NSRect startFrom, startTo;
-	NSRect endFrom, endTo;
-	
-	switch (animationStyle) {
-		case IFAnimateLeft:
-			// Work out where to place the images
-			startFrom.origin = NSMakePoint(startSize.width*percentDone, 0);
-			startFrom.size = NSMakeSize(startSize.width*percentNotDone, startSize.height);
-			startTo.origin = NSMakePoint(0, NSMaxY(bounds)-startSize.height);
-			startTo.size = startFrom.size;
+    startLayer = [CALayer layer];
+    startLayer.frame = bounds;
+    startLayer.contentsScale = scale;
+    startLayer.contents = (__bridge id)IFCGImageFromImage(startImage);
 
-			endFrom.origin = NSMakePoint(0, 0);
-			endFrom.size = NSMakeSize(endSize.width*percentDone, endSize.height);
-			endTo.origin = NSMakePoint(startSize.width*percentNotDone, NSMaxY(bounds)-endSize.height);
-			endTo.size = endFrom.size;
-			
-			// Draw them
-			[startImage drawInRect: startTo
-						  fromRect: startFrom
-						 operation: NSCompositingOperationSourceOver
-						  fraction: 1.0];
-			[endImage drawInRect: endTo
-						fromRect: endFrom
-					   operation: NSCompositingOperationSourceOver
-						fraction: 1.0];
-			break;
+    endLayer = [CALayer layer];
+    endLayer.frame = bounds;
+    endLayer.contentsScale = scale;
+    endLayer.contents = (__bridge id)IFCGImageFromImage(endImage);
 
-		case IFAnimateRight:
-			// Work out where to place the images
-			startFrom.origin = NSMakePoint(0, 0);
-			startFrom.size = NSMakeSize(startSize.width*percentNotDone, startSize.height);
-			startTo.origin = NSMakePoint(startSize.width*percentDone, NSMaxY(bounds)-startSize.height);
-			startTo.size = startFrom.size;
-			
-			endFrom.origin = NSMakePoint(endSize.width*percentNotDone, 0);
-			endFrom.size = NSMakeSize(endSize.width*percentDone, endSize.height);
-			endTo.origin = NSMakePoint(0, NSMaxY(bounds)-endSize.height);
-			endTo.size = endFrom.size;
-			
-			// Draw them
-			[startImage drawInRect: startTo
-						  fromRect: startFrom
-						 operation: NSCompositingOperationSourceOver
-						  fraction: 1.0];
-			[endImage drawInRect: endTo
-						fromRect: endFrom
-					   operation: NSCompositingOperationSourceOver
-						fraction: 1.0];
-			break;
+    [self.layer addSublayer: endLayer];
+    [self.layer addSublayer: startLayer];
 
-		case IFAnimateUp:
-			// Work out where to place the images
-			startFrom.origin = NSMakePoint(0, 0);
-			startFrom.size = NSMakeSize(startSize.width, startSize.height*percentNotDone);
-			startTo.origin = NSMakePoint(0, NSMaxY(bounds)-startSize.height*percentNotDone);
-			startTo.size = startFrom.size;
-			
-			endFrom.origin = NSMakePoint(0, endSize.height*percentNotDone);
-			endFrom.size = NSMakeSize(endSize.width, endSize.height*percentDone);
-			endTo.origin = NSMakePoint(0, NSMaxY(bounds)-endSize.height);
-			endTo.size = endFrom.size;
-			
-			// Draw them
-			[startImage drawInRect: startTo
-						  fromRect: startFrom
-						 operation: NSCompositingOperationSourceOver
-						  fraction: 1.0];
-			[endImage drawInRect: endTo
-						fromRect: endFrom
-					   operation: NSCompositingOperationSourceOver
-						fraction: 1.0];
-			break;
+    CGPoint centre = CGPointMake(NSMidX(bounds), NSMidY(bounds));
+    CGFloat w = bounds.size.width;
+    CGFloat h = bounds.size.height;
 
-		case IFAnimateDown:
-			// Work out where to place the images
-			startFrom.origin = NSMakePoint(0, startSize.height*percentDone);
-			startFrom.size = NSMakeSize(startSize.width, startSize.height*percentNotDone);
-			startTo.origin = NSMakePoint(0, NSMaxY(bounds)-startSize.height);
-			startTo.size = startFrom.size;
-			
-			endFrom.origin = NSMakePoint(0, 0);
-			endFrom.size = NSMakeSize(endSize.width, endSize.height*percentDone);
-			endTo.origin = NSMakePoint(0, NSMaxY(bounds)-endSize.height*percentDone);
-			endTo.size = endFrom.size;
-			
-			// Draw them
-			[startImage drawInRect: startTo
-						  fromRect: startFrom
-						 operation: NSCompositingOperationSourceOver
-						  fraction: 1.0];
-			[endImage drawInRect: endTo
-						fromRect: endFrom
-					   operation: NSCompositingOperationSourceOver
-						fraction: 1.0];
-			break;
-			
-		case IFAnimateCrossFade:
-			// Work out where to place the images
-			startFrom.origin = NSMakePoint(0, 0);
-			startFrom.size = NSMakeSize(startSize.width, startSize.height);
-			startTo = startFrom;
-			
-			endFrom.origin = NSMakePoint(0, 0);
-			endFrom.size = NSMakeSize(endSize.width, endSize.height);
-			endTo = endFrom;
-			
-			// Draw them
-			[startImage drawInRect: startTo
-						  fromRect: startFrom
-						 operation: NSCompositingOperationSourceOver
-						  fraction: 1.0];
-			[endImage drawInRect: endTo
-						fromRect: endFrom
-					   operation: NSCompositingOperationSourceOver
-						fraction: percentDone];
-			break;
-			
-		case IFFloatIn:
-		{
-			// New view appears to 'float' in from above
-			startTo.origin = bounds.origin;
-			startTo.size = startSize;
-			startFrom.origin = NSMakePoint(0,0);
-			startFrom.size = startSize;
-			
-			// Draw the old view
-			[startImage drawInRect: startTo
-						  fromRect: startFrom
-						 operation: NSCompositingOperationSourceOver
-						  fraction: 1.0];
-			
-			// Draw the new view
-			endFrom.origin = NSMakePoint(0,0);
-			endFrom.size = endSize;
-			endTo = endFrom;
-			endTo.origin = bounds.origin;
-			
-            CGFloat scaleFactor = 0.95 + 0.05*percentDone;
-			endTo.size.height *= scaleFactor;
-			endTo.size.width *= scaleFactor;
-			endTo.origin.x += (endFrom.size.width - endTo.size.width) / 2;
-			endTo.origin.y += (endFrom.size.height - endTo.size.height) + 10.0*percentNotDone;
-			
-			[endImage drawInRect: endTo
-						fromRect: endFrom
-					   operation: NSCompositingOperationSourceOver
-						fraction: percentDone];
-			break;
-		}
+    // Where the 'start' (old) layer slides to, and where the 'end' (new)
+    // layer slides from. The layer y axis points up (the animator view is
+    // not flipped), matching the geometry of the original -drawRect: code.
+    CGPoint startTo = centre;   // old layer: centre -> off screen
+    CGPoint endFrom = centre;   // new layer: off screen -> centre
+    BOOL crossFade = NO;
 
-		case IFFloatOut:
-		{
-			// Old view appears to 'float' out above
-			endTo.origin = bounds.origin;
-			endTo.size = endSize;
-			endFrom.origin = NSMakePoint(0,0);
-			endFrom.size = endSize;
-			
-			// Draw the old view
-			[endImage drawInRect: endTo
-						fromRect: endFrom
-					   operation: NSCompositingOperationSourceOver
-						fraction: 1.0];
-			
-			// Draw the new view
-			startFrom.origin = NSMakePoint(0,0);
-			startFrom.size = startSize;
-			startTo = startFrom;
-			startTo.origin = bounds.origin;
-			
-            CGFloat scaleFactor = 0.95 + 0.05*percentNotDone;
-			startTo.size.height *= scaleFactor;
-			startTo.size.width *= scaleFactor;
-			startTo.origin.x += (startFrom.size.width - startTo.size.width) / 2;
-			startTo.origin.y += (startFrom.size.height - startTo.size.height) + 10.0*percentDone;
-			
-			[startImage drawInRect: startTo
-						  fromRect: startFrom
-						 operation: NSCompositingOperationSourceOver
-						  fraction: percentNotDone];
-			break;
-		}
-	}
+    switch (style) {
+        case IFAnimateLeft:     // old exits left, new enters from right
+            startTo = CGPointMake(centre.x - w, centre.y);
+            endFrom = CGPointMake(centre.x + w, centre.y);
+            break;
+        case IFAnimateRight:    // old exits right, new enters from left
+            startTo = CGPointMake(centre.x + w, centre.y);
+            endFrom = CGPointMake(centre.x - w, centre.y);
+            break;
+        case IFAnimateUp:       // old exits top, new enters from bottom
+            startTo = CGPointMake(centre.x, centre.y + h);
+            endFrom = CGPointMake(centre.x, centre.y - h);
+            break;
+        case IFAnimateDown:     // old exits bottom, new enters from top
+            startTo = CGPointMake(centre.x, centre.y - h);
+            endFrom = CGPointMake(centre.x, centre.y + h);
+            break;
+        case IFAnimateCrossFade:
+        case IFFloatIn:
+        case IFFloatOut:
+        default:
+            // These styles are not used by any current caller; fall back to a
+            // simple cross fade so the API keeps working.
+            crossFade = YES;
+            break;
+    }
+
+    CAMediaTimingFunction* timing =
+        [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut];
+
+    __weak IFViewAnimator* weakSelf = self;
+
+    [CATransaction begin];
+    [CATransaction setCompletionBlock: ^{
+        [weakSelf finishAnimation];
+    }];
+
+    if (crossFade) {
+        // Old layer fully opaque underneath, new layer fades in on top
+        endLayer.opacity = 1.0;
+        CABasicAnimation* fade = [CABasicAnimation animationWithKeyPath: @"opacity"];
+        fade.fromValue = @(0.0);
+        fade.toValue = @(1.0);
+        fade.duration = animationTime;
+        fade.timingFunction = timing;
+        [endLayer addAnimation: fade forKey: @"fade"];
+    } else {
+        // Slide the old layer out and the new layer in
+        startLayer.position = startTo;
+        CABasicAnimation* out = [CABasicAnimation animationWithKeyPath: @"position"];
+        out.fromValue = [NSValue valueWithPoint: NSPointFromCGPoint(centre)];
+        out.toValue = [NSValue valueWithPoint: NSPointFromCGPoint(startTo)];
+        out.duration = animationTime;
+        out.timingFunction = timing;
+        [startLayer addAnimation: out forKey: @"slide"];
+
+        endLayer.position = centre;
+        CABasicAnimation* in = [CABasicAnimation animationWithKeyPath: @"position"];
+        in.fromValue = [NSValue valueWithPoint: NSPointFromCGPoint(endFrom)];
+        in.toValue = [NSValue valueWithPoint: NSPointFromCGPoint(centre)];
+        in.duration = animationTime;
+        in.timingFunction = timing;
+        [endLayer addAnimation: in forKey: @"slide"];
+    }
+
+    [CATransaction commit];
 }
 
 @end

@@ -23,7 +23,7 @@
 - (void) updateAppPreferencesFromSetWithEnable: (BOOL) enable;
 - (void) updateSetFromAppPreferences;
 - (IFSyntaxColouringOption*) optionOfType:(IFSyntaxHighlightingOptionType) type;
--(BOOL) isEqualToDefault;
+@property (NS_NONATOMIC_IOSONLY, getter=isEqualToDefault, readonly) BOOL equalToDefault;
 -(BOOL) isEqual:(id)object;
 -(void) resetSettings;
 -(IFColourTheme*) createDuplicateSet;

@@ -101,7 +101,7 @@ NSString* const IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedI
     [_previousCommands insertObject: command atIndex:0];
 
     // Disable undo
-    [[_project undoManager] disableUndoRegistration];
+    [_project.undoManager disableUndoRegistration];
 
     // Track whether the skein actually changes due to adding this command
     _skeinChanged = NO;
@@ -123,8 +123,8 @@ NSString* const IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedI
     currentOutput = [[NSMutableString alloc] init];
 
     // Enable undo, but clear all undo skein commands from the stack. Mark the document as changed if required.
-    [[_project undoManager] enableUndoRegistration];
-    [[_project undoManager] removeAllActionsWithTarget: self];
+    [_project.undoManager enableUndoRegistration];
+    [_project.undoManager removeAllActionsWithTarget: self];
     if( _skeinChanged ) {
         [_project updateChangeCount:NSChangeDone];
     }
@@ -187,9 +187,9 @@ NSString* const IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedI
 
 - (void) waitingForInput {
 	// Send the current output to the active item
-	if ([currentOutput length] > 0) {
+	if (currentOutput.length > 0) {
         // Disable undo
-        [[_project undoManager] disableUndoRegistration];
+        [_project.undoManager disableUndoRegistration];
 
         // Track whether the skein actually changes due to adding the latest output
         _skeinChanged = NO;
@@ -197,8 +197,8 @@ NSString* const IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedI
         _activeItem = [_activeItem decomposeActual: currentOutput];
 
         // Enable undo, but clear all undo commands from the stack.
-        [[_project undoManager] enableUndoRegistration];
-        [[_project undoManager] removeAllActionsWithTarget: self];
+        [_project.undoManager enableUndoRegistration];
+        [_project.undoManager removeAllActionsWithTarget: self];
 
         if( _skeinChanged ) {
             // Mark the document as changed
@@ -231,14 +231,6 @@ NSString* const IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedI
                     keepActiveVisible: NO];
 }
 
-- (void) setWinningItem: (IFSkeinItem *) winningItem {
-    _winningItem = winningItem;
-}
-
-- (IFSkeinItem *) getWinningItem {
-    return _winningItem;
-}
-
 -(BOOL) isTheWinningItem: (IFSkeinItem *) winningItem {
     return _winningItem == winningItem;
 }
@@ -256,11 +248,11 @@ NSString* const IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedI
     IFSkeinItem* parent = item2;
 
     while (parent != item1) {
-        NSString* cmd = [parent command];
+        NSString* cmd = parent.command;
         if (cmd == nil) cmd = @"";
         [commandsToExecute addObject: cmd];
 
-        parent = [parent parent];
+        parent = parent.parent;
         if (parent == nil) return nil;
     }
 
@@ -280,22 +272,22 @@ NSString* const IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedI
 	while (item != nil) {
 		[itemList addObject: item];
 		
-		item = [item parent];
+		item = item.parent;
 	}
 	
 	NSMutableString* result = [[NSMutableString alloc] init];
-	while ([itemList count] > 0) {
+	while (itemList.count > 0) {
 		// Retrieve the next item
-		IFSkeinItem* thisItem = [itemList lastObject];
+		IFSkeinItem* thisItem = itemList.lastObject;
 		[itemList removeLastObject];
 		
 		// Add it to the transcript
 		if (thisItem != _rootItem) {
-			[result appendString: [thisItem command]];
+			[result appendString: thisItem.command];
 			[result appendString: @"\n"];
 		}
-		if ([thisItem actual] != nil) {
-			[result appendString: [thisItem actual]];
+		if (thisItem.actual != nil) {
+			[result appendString: thisItem.actual];
 		}
 	}
 	
@@ -314,7 +306,7 @@ NSString* const IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedI
         if( item.hasDifferences ) {
             differedItem = item;
         }
-        item = [item parent];
+        item = item.parent;
     }
     return differedItem;
 }
@@ -329,7 +321,7 @@ NSString* const IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedI
         if( item.hasDifferences ) {
             return @"wrong";
         }
-        item = [item parent];
+        item = item.parent;
     }
     return @"right";
 }
@@ -365,7 +357,7 @@ NSString* const IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedI
 // we can't undo them), but leave the undo stack's changes to the source text intact.
 
 - (void) setParentOf: (IFSkeinItem*) item parent: (IFSkeinItem*) newParent {
-    [item setParent: newParent];
+    item.parent = newParent;
 }
 
 -(void) removeFromChildrenArrayOf:(IFSkeinItem*) item itemToRemove: (IFSkeinItem*) itemToRemove {
@@ -377,15 +369,15 @@ NSString* const IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedI
 }
 
 - (void) setCommandOf:(IFSkeinItem*) item command:(NSString*) newCommand {
-    [item setCommand: newCommand];
+    item.command = newCommand;
 }
 
 - (void) setIdealOf:(IFSkeinItem*) item ideal:(NSString*) newIdeal {
-    [item setIdeal: newIdeal];
+    item.ideal = newIdeal;
 }
 
 - (void) setActualOf:(IFSkeinItem*) item actual:(NSString*) newActual {
-    [item setActual: newActual];
+    item.actual = newActual;
 }
 
 - (void) setIsTestSubItemWithNSNumberOf:(IFSkeinItem*) item isTestSubItemWithNSNumber: (NSNumber*)newIsTestSubItem {

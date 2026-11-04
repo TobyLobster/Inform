@@ -155,16 +155,16 @@
         [self paragraphStyleForTabStops: 8];
 
         // Set up intelligence
-        [self setIntelligence: intelligence];
+        self.intelligence = intelligence;
 
         // Set delegate to get notified about changes to the text
-        [_textStorage setDelegate:self];
+        _textStorage.delegate = self;
 
         // Syntax highlight the initial text
         [_textStorage beginEditing];
         self.isHighlighting = true;
 
-        NSInteger length = [_textStorage length];
+        NSInteger length = _textStorage.length;
         [self updateAfterEditingRange: NSMakeRange(0, length)
                        changeInLength: length
                       forceUpdateTabs: true];
@@ -222,7 +222,7 @@
 			continue;
 		}
 
-		NSUInteger lineEnd = middle<(nLines-1)?lineStarts[middle+1]:(int) [_textStorage length];
+		NSUInteger lineEnd = middle<(nLines-1)?lineStarts[middle+1]:(int) _textStorage.length;
 
 		if (index >= lineEnd) {
 			// Not this line: search the upper half
@@ -260,7 +260,7 @@
 			}
 		}
 		
-		unsigned strLen = (int) [_textStorage length];
+		unsigned strLen = (int) _textStorage.length;
 		
 		while (localRange.location+localRange.length < strLen) {
             if ([charStyles read:localRange.location+localRange.length] == style) {
@@ -287,16 +287,16 @@
         return;
     }
     
-    int changeInLength = (int) [attributedString length] - (int) range.length;
+    int changeInLength = (int) attributedString.length - (int) range.length;
     
     // If the change was made to one of the restricted storages, update the main text.
     bool foundChangeInRestrictedViews = false;
     for( IFSyntaxRestricted*restricted in restrictions ) {
-        if( [restricted restrictedTextStorage] == storage ) {
+        if( restricted.restrictedTextStorage == storage ) {
             foundChangeInRestrictedViews = true;
 
             // Convert range to refer to full text
-            range.location += [restricted restrictedRange].location;
+            range.location += restricted.restrictedRange.location;
             
             // Change the main text
             if( destinationStorage == _textStorage ) {
@@ -313,8 +313,8 @@
     // Change restricted view
     for( IFSyntaxRestricted*restricted in restrictions ) {
         // If this is the restricted storage that we want to change...
-        if( [restricted restrictedTextStorage] == destinationStorage ) {
-            NSRange restrictedRange = [restricted restrictedRange];
+        if( restricted.restrictedTextStorage == destinationStorage ) {
+            NSRange restrictedRange = restricted.restrictedRange;
             
             // If the range of the edit lies (at least partially) within the restricted range
             // then we want to update the restricted text.
@@ -327,7 +327,7 @@
                 
                 // Clip within start of restricted storage
                 if( editStart < 0 ) {
-                    attributedString = [attributedString attributedSubstringFromRange: NSMakeRange(-editStart, [attributedString length] + editStart)];
+                    attributedString = [attributedString attributedSubstringFromRange: NSMakeRange(-editStart, attributedString.length + editStart)];
                     changeInLength += editStart;
                     editStart = 0;
                 }
@@ -340,7 +340,7 @@
                 
                 // Restricted text range grows or shrinks with changes
                 restrictedRange.length += changeInLength;
-                [restricted setRestrictedRange:restrictedRange];
+                restricted.restrictedRange = restrictedRange;
             }
             return;
         }
@@ -365,7 +365,7 @@
         [self mirrorChangeInTextStorage: storage
                            replaceRange: range
                    withAttributedString: attributedString
-                          toTextStorage: [restricted restrictedTextStorage]];
+                          toTextStorage: restricted.restrictedTextStorage];
     }
 }
 
@@ -375,7 +375,7 @@
     BOOL changed = NO;
 
     // Give intelligence a chance to rewrite the change
-	if (intelSource && ([newString length] == 1) ) {
+	if (intelSource && (newString.length == 1) ) {
 		result = [intelSource rewriteInput: newString];
         if( result == nil ) {
             result = newString;
@@ -424,14 +424,14 @@
     }
     
     if (self.undoManager) {
-       if ( ([self.undoManager isUndoing]) ||
-            ([self.undoManager isRedoing]) ) {
+       if ( ((self.undoManager).undoing) ||
+            ((self.undoManager).redoing) ) {
         return;
        }
     }
 
     NSRange newRange = editedRange;
-    NSString *newString = [[textStorage string] substringWithRange: newRange];
+    NSString *newString = [textStorage.string substringWithRange: newRange];
 
 	// Rewrite the change if needed (e.g. to auto-insert tabs when user presses return)
     editingRange = newRange;
@@ -598,8 +598,8 @@
 
         // Convert local ranges to refer to full text
         for( IFSyntaxRestricted*restricted in restrictions ) {
-            if( [restricted restrictedTextStorage] == textStorage ) {
-                NSRange restrictedRange = [restricted restrictedRange];
+            if( restricted.restrictedTextStorage == textStorage ) {
+                NSRange restrictedRange = restricted.restrictedRange;
                 newRange.location += restrictedRange.location;
                 oldRange.location += restrictedRange.location;
                 break;
@@ -622,14 +622,14 @@
     for( IFSyntaxRestricted*restricted in restrictions ) {
         // Adjust restricted range as appropriate to reflect the edit that's just occured
         // to the main text
-        NSRange oldRestrictedRange = [restricted restrictedRange];
+        NSRange oldRestrictedRange = restricted.restrictedRange;
         NSRange newRestrictedRange = [self adjustRange: oldRestrictedRange
                                            editedRange: newRange
                                         changeInLength: changeInLength];
-        [restricted setRestrictedRange:newRestrictedRange];
+        restricted.restrictedRange = newRestrictedRange;
 
         // Start editing
-        [[restricted restrictedTextStorage] beginEditing];
+        [restricted.restrictedTextStorage beginEditing];
         
         //
         // Apply character changes
@@ -638,7 +638,7 @@
         NSRange newIntersectRange;
 
         // If this restricted storage was not the one that has already updated...
-        if( textStorage != [restricted restrictedTextStorage] ) {
+        if( textStorage != restricted.restrictedTextStorage ) {
             newIntersectRange = [self intersectRange: newRange
                                  withRestrictedRange: newRestrictedRange
                                         didIntersect: &newIntersected];
@@ -649,7 +649,7 @@
             if( oldIntersected && newIntersected ) {
                 NSAttributedString* attributedString = [_textStorage attributedSubstringFromRange: newIntersectRange];
                 NSRange localRange = NSMakeRange(oldIntersectRange.location - oldRestrictedRange.location, oldIntersectRange.length);
-                [[restricted restrictedTextStorage] replaceCharactersInRange: localRange
+                [restricted.restrictedTextStorage replaceCharactersInRange: localRange
                                                         withAttributedString: attributedString];
             }
         }
@@ -668,12 +668,12 @@
             
             // Make sure we have got our calculations right and we are only changing attributes
             {
-                NSString* oldText = [[[restricted restrictedTextStorage] string] substringWithRange:localRange];
-                NSString* newText = [attributedString string];
+                NSString* oldText = [restricted.restrictedTextStorage.string substringWithRange:localRange];
+                NSString* newText = attributedString.string;
 
                 if( [newText isEqualToString:oldText] ) {
                     // Make the change
-                    [[restricted restrictedTextStorage] replaceCharactersInRange: localRange
+                    [restricted.restrictedTextStorage replaceCharactersInRange: localRange
                                                             withAttributedString: attributedString];
                 }
                 else {
@@ -684,7 +684,7 @@
         }
 
         // End editing
-        [[restricted restrictedTextStorage] endEditing];
+        [restricted.restrictedTextStorage endEditing];
     }
 
     [_textStorage endEditing];
@@ -699,8 +699,8 @@
                     changeInLength: (NSInteger) changeInLength
                    forceUpdateTabs: (bool) forceUpdateTabs {
     NSRange    oldRange  = NSMakeRange(newRange.location, newRange.length - changeInLength);
-    NSString * newString = [[_textStorage string] substringWithRange:newRange];
-    NSUInteger newFullLength = [_textStorage length];
+    NSString * newString = [_textStorage.string substringWithRange:newRange];
+    NSUInteger newFullLength = _textStorage.length;
     NSInteger oldFullLength = newFullLength - changeInLength;
 
 	// The range of lines to be replaced
@@ -819,7 +819,7 @@
     }
 
 	// Characters in the edited range no longer have valid states
-    NSAssert((newRange.length + newRange.location - 1) < charStyles.numCharStyles, @"index out of range");
+    NSAssert((newRange.length == 0) || ((newRange.length + newRange.location - 1) < charStyles.numCharStyles), @"index out of range");
 	for (x = 0; x < newRange.length; x++) {
         [charStyles write:x + newRange.location value:IFSyntaxStyleNotHighlighted];
 	}
@@ -844,8 +844,8 @@
     }
 
     // No syntax highlighting/colouring
-    if(( ![[IFPreferences sharedPreferences] enableSyntaxHighlighting] ) &&
-       ( ![[IFPreferences sharedPreferences] enableSyntaxColouring] )) {
+    if(( ![IFPreferences sharedPreferences].enableSyntaxHighlighting ) &&
+       ( ![IFPreferences sharedPreferences].enableSyntaxColouring )) {
         // Just use standard attributes
         [_textStorage setAttributes: [highlighter attributesForStyle: IFSyntaxNaturalInform]
                               range: range];
@@ -896,8 +896,8 @@
 
 - (IFSyntaxState) popState {
     // When the highlighter closes a comment bracket (etc), it pops the state off the current stack.
-	IFSyntaxState poppedState = [[syntaxStack lastObject][0] unsignedIntValue];
-	syntaxMode = [[syntaxStack lastObject][1] unsignedIntValue];
+	IFSyntaxState poppedState = [syntaxStack.lastObject[0] unsignedIntValue];
+	syntaxMode = [syntaxStack.lastObject[1] unsignedIntValue];
 	[syntaxStack removeLastObject];
 
 	return poppedState;
@@ -939,7 +939,7 @@ static inline BOOL IsWhitespace(unichar c) {
 	if (syntaxPos == 0) return NO;
 	
 	NSInteger pos = syntaxPos-1-offset;
-	NSString* str = [_textStorage string];
+	NSString* str = _textStorage.string;
 
 	// Skip whitespace
 	while (pos > 0 && IsWhitespace([str characterAtIndex: pos]))
@@ -949,7 +949,7 @@ static inline BOOL IsWhitespace(unichar c) {
 	pos++;
 	
 	// See if the keyword is there
-	NSInteger keywordLen = [keyword length];
+	NSInteger keywordLen = keyword.length;
 	if (pos < keywordLen)
 		return NO;
 
@@ -996,13 +996,13 @@ static inline BOOL IsWhitespace(unichar c) {
 	for (line=firstLine; line<=lastLine; line++) {
 		// The range of characters in this line
 		NSUInteger firstChar = lineStarts[line];
-		NSUInteger  lastChar = (line+1) < nLines ? lineStarts[line+1] : [_textStorage length];
+		NSUInteger  lastChar = (line+1) < nLines ? lineStarts[line+1] : _textStorage.length;
         
 		// Set up the state
 		[syntaxStack setArray: lineStates[line]];
         
-		syntaxState = [[syntaxStack lastObject][0] unsignedIntValue];
-		syntaxMode  = [[syntaxStack lastObject][1] unsignedIntValue];
+		syntaxState = [syntaxStack.lastObject[0] unsignedIntValue];
+		syntaxMode  = [syntaxStack.lastObject[1] unsignedIntValue];
 		[syntaxStack removeLastObject];
 
 		IFSyntaxState initialState = syntaxState;
@@ -1014,7 +1014,7 @@ static inline BOOL IsWhitespace(unichar c) {
 		// Highlight this line
 		for (syntaxPos=firstChar; syntaxPos<lastChar; syntaxPos++) {
 			// Current state
-			unichar curChar = [[_textStorage string] characterAtIndex: syntaxPos];
+			unichar curChar = [_textStorage.string characterAtIndex: syntaxPos];
 
 			// Count tab stops at the start of the line
 			if (countingTabs) {
@@ -1042,7 +1042,7 @@ static inline BOOL IsWhitespace(unichar c) {
 		}
 
 		// Provide an opportunity for the highlighter to hint keywords, etc
-		NSString* lineToHint = [[_textStorage string] substringWithRange: NSMakeRange(firstChar, lastChar-firstChar)];
+		NSString* lineToHint = [_textStorage.string substringWithRange: NSMakeRange(firstChar, lastChar-firstChar)];
 #if HighlighterDebug
 		NSLog(@"Highlighter: finished line %i: '%@', rehinting", line, lineToHint);
 #endif
@@ -1067,10 +1067,10 @@ static inline BOOL IsWhitespace(unichar c) {
         NSDictionary* newStyle	= [self paragraphStyleForTabStops: numTabStops];
         BOOL styleChanged = NO;
 
-        if ([lineStyles count] <= line) {
+        if (lineStyles.count <= line) {
             // Add a new style if it's needed for this line
             styleChanged = YES;
-            for (;[lineStyles count] <= line;) {
+            for (;lineStyles.count <= line;) {
                 [lineStyles addObject: newStyle];
             }
         } else {
@@ -1081,7 +1081,7 @@ static inline BOOL IsWhitespace(unichar c) {
                 NSParagraphStyle*   paraStyle		= lastStyle[NSParagraphStyleAttributeName];
                 NSParagraphStyle*	newParaStyle	= newStyle[NSParagraphStyleAttributeName];
 
-                styleChanged = [paraStyle headIndent] != [newParaStyle headIndent];
+                styleChanged = paraStyle.headIndent != newParaStyle.headIndent;
                 styleChanged |= forceUpdateTabs;
 
                 if (styleChanged) {
@@ -1107,7 +1107,7 @@ static inline BOOL IsWhitespace(unichar c) {
 
 		// Compare the new stack against the old version to see if anything has changed
 		previousOldStack = nil;
-		if (line+1 < [lineStates count]) {
+		if (line+1 < lineStates.count) {
 			previousOldStack = lineStates[line+1];
 
             //
@@ -1134,14 +1134,14 @@ static inline BOOL IsWhitespace(unichar c) {
     // Phase Two: Apply the character styles as attributes
     //
 	NSUInteger firstRangeChar = lineStarts[firstLine];
-	NSUInteger lastRangeChar = (lastLine+1) < nLines ? lineStarts[lastLine+1] : [_textStorage length];
+	NSUInteger lastRangeChar = (lastLine+1) < nLines ? lineStarts[lastLine+1] : _textStorage.length;
 
     [self updateHighlightingForAttributedStringInRange: NSMakeRange(firstRangeChar, lastRangeChar-firstRangeChar)];
 
     //
     // Phase Three: Add elastic tabs
     //
-    if ( [[IFPreferences sharedPreferences] elasticTabs] ) {
+    if ( [IFPreferences sharedPreferences].elasticTabs ) {
         for (line=firstLine; line<=lastLine; line++) {
             // The range of characters on the line
             NSUInteger firstChar = lineStarts[line];
@@ -1153,7 +1153,7 @@ static inline BOOL IsWhitespace(unichar c) {
             // If we have an elastic range that we have not already dealt with...
 			if (elasticRange.location != NSNotFound &&
                 elasticRange.location != previousElasticRange.location
-                && line < [lineStyles count]) {
+                && line < lineStyles.count) {
 				// This is now the last elastic range (prevents us from formatting the same region twice)
 				previousElasticRange = elasticRange;
 
@@ -1165,11 +1165,11 @@ static inline BOOL IsWhitespace(unichar c) {
 
 				// Compare new tabs with the old ones...
 				BOOL tabsIdentical = NO;
-				if ([[currentPara tabStops] count] == [newTabStops count]) {
+				if (currentPara.tabStops.count == newTabStops.count) {
 					tabsIdentical = YES;
 					int x;
-					for (x=0; x<[newTabStops count]; x++) {
-						if (![newTabStops[x] isEqual: [currentPara tabStops][x]]) {
+					for (x=0; x<newTabStops.count; x++) {
+						if (![newTabStops[x] isEqual: currentPara.tabStops[x]]) {
 							tabsIdentical = NO;
 							break;
 						}
@@ -1184,11 +1184,11 @@ static inline BOOL IsWhitespace(unichar c) {
 				if (!tabsIdentical) {
 					int firstElasticLine	= [self lineForIndex: elasticRange.location];
 					int lastElasticLine		= [self lineForIndex: elasticRange.location + elasticRange.length];
-					if (elasticRange.location + elasticRange.length >= [_textStorage length]) lastElasticLine++;
+					if (elasticRange.location + elasticRange.length >= _textStorage.length) lastElasticLine++;
 
 					int formatLine;
 					for (formatLine = firstElasticLine; formatLine < lastElasticLine; formatLine++) {
-						while (formatLine >= [lineStyles count]) {
+						while (formatLine >= lineStyles.count) {
 							// Create a default line style for this line
 							[lineStyles addObject: [self paragraphStyleForTabStops: 0]];
 						}
@@ -1199,7 +1199,7 @@ static inline BOOL IsWhitespace(unichar c) {
 						if (!paraStyle) paraStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
 
 						// Update the paragraph style with the new tabstops
-						[paraStyle setTabStops: newTabStops];
+						paraStyle.tabStops = newTabStops;
 						style[NSParagraphStyleAttributeName] = paraStyle;
 
 						// Replace the line style
@@ -1207,7 +1207,7 @@ static inline BOOL IsWhitespace(unichar c) {
 
 						// Update tabs paragraph style for this line
 						NSUInteger formatFirstChar	= lineStarts[formatLine];
-						NSUInteger formatLastChar	= (formatLine+1<nLines)?lineStarts[formatLine+1]:[_textStorage length];
+						NSUInteger formatLastChar	= (formatLine+1<nLines)?lineStarts[formatLine+1]:_textStorage.length;
 
 						[_textStorage addAttributes: style
                                               range: NSMakeRange(formatFirstChar, formatLastChar-formatFirstChar)];
@@ -1253,7 +1253,7 @@ static inline BOOL IsWhitespace(unichar c) {
     // Update highlighting for entire range
     [_textStorage beginEditing];
     
-    [self syntaxHighlightRange: NSMakeRange(0, [_textStorage length])
+    [self syntaxHighlightRange: NSMakeRange(0, _textStorage.length)
                forceUpdateTabs: forceUpdateTabs];
     
     [_textStorage endEditing];
@@ -1269,7 +1269,7 @@ static inline BOOL IsWhitespace(unichar c) {
 	int x;
 
     // Set up member variable 'tabStops' - a standard set of tabs at the current width
-    CGFloat stopWidth = [highlighter tabStopWidth];
+    CGFloat stopWidth = highlighter.tabStopWidth;
 	if (stopWidth < 1.0) stopWidth = 1.0;
 	
 	tabStops = [[NSMutableArray alloc] init];
@@ -1295,7 +1295,7 @@ static inline BOOL IsWhitespace(unichar c) {
 	}
 
     // Set tabs
-	[res setTabStops: tabStops];
+	res.tabStops = tabStops;
 	
     // Set head indent (no longer desired)
 	//if ([[IFPreferences sharedPreferences] indentWrappedLines]) {
@@ -1320,13 +1320,13 @@ static inline BOOL IsWhitespace(unichar c) {
 	if (numberOfTabStops > 48) numberOfTabStops = 48;	// Avoid eating all the pies^Wmemory
 
 	// Use the cached version if available
-	if (numberOfTabStops < [paragraphStyles count]) {
+	if (numberOfTabStops < paragraphStyles.count) {
 		return paragraphStyles[numberOfTabStops];
 	}
 	
 	// Generate missing tab stops if not
 	int x;
-	for (x=(int)[paragraphStyles count]; x<=numberOfTabStops; x++) {
+	for (x=(int)paragraphStyles.count; x<=numberOfTabStops; x++) {
 		[paragraphStyles addObject: [self generateParagraphStyleForTabStops: x]];
 	}
 
@@ -1347,7 +1347,7 @@ static inline BOOL IsLineEnd(unichar c) {
 	NSInteger start	= charIndex;
 	NSInteger end	= charIndex;
 	
-	NSString* text = [_textStorage string];
+	NSString* text = _textStorage.string;
 	
 	// Move backwards to the beginning of the line
 	start--;
@@ -1356,7 +1356,7 @@ static inline BOOL IsLineEnd(unichar c) {
 	}
 	
 	// Move forwards to the end of the line
-	NSInteger len = [text length];
+	NSInteger len = text.length;
 	unichar lastChr = '\0';
 	while (end < len && !IsLineEnd(lastChr = [text characterAtIndex: end])) {
 		end++;
@@ -1375,7 +1375,7 @@ static inline BOOL IsLineEnd(unichar c) {
 
 // Given a range, returns YES if it is blank (only whitespace)
 - (BOOL) isBlank: (NSRange) range {
-	NSString* text = [_textStorage string];
+	NSString* text = _textStorage.string;
 	
 	NSUInteger chrPos;
 	for (chrPos = range.location; chrPos < range.location + range.length; chrPos++) {
@@ -1393,7 +1393,7 @@ static inline BOOL IsLineEnd(unichar c) {
 // non-whitespace character).
 //
 - (BOOL) isTabLess: (NSRange) range {
-	NSString* text = [_textStorage string];
+	NSString* text = _textStorage.string;
 	BOOL isBlank	= YES;
 
 	for (NSUInteger chrPos = range.location; chrPos < range.location + range.length; chrPos++) {
@@ -1434,7 +1434,7 @@ static inline BOOL IsLineEnd(unichar c) {
 	}
 
 	// Hunt forwards for the end of the file or the next tabless line that follows this index
-	NSInteger len = [_textStorage length];
+	NSInteger len = _textStorage.length;
 	while (lastLine.location + lastLine.length < len) {
 		// Get the range of the following line
 		NSRange nextLine = [self lineRangeAtIndex: lastLine.location + lastLine.length];
@@ -1465,7 +1465,7 @@ static inline BOOL IsLineEnd(unichar c) {
 	computingElasticTabs = YES;
 	
 	// Get the text stored in this object
-	NSString* text = [_textStorage string];
+	NSString* text = _textStorage.string;
 	
 	// Now, chop up into lines and columns. Columns are separated by tabs.
 	NSMutableArray* lines		= [[NSMutableArray alloc] init];
@@ -1497,8 +1497,8 @@ static inline BOOL IsLineEnd(unichar c) {
 			// Store this column
 			[currentLine addObject: [_textStorage attributedSubstringFromRange: NSMakeRange(lastTabPos, chrPos - lastTabPos)]];
 			
-			if ([currentLine count] > numColumns) {
-				numColumns = (int) [currentLine count];
+			if (currentLine.count > numColumns) {
+				numColumns = (int) currentLine.count;
 			}
 			
 			// Start the next column on the character after this one
@@ -1518,11 +1518,11 @@ static inline BOOL IsLineEnd(unichar c) {
 	NSMutableArray* elasticTabStops = [[NSMutableArray alloc] init];
 	int colNum;
 	for (colNum = 0; colNum < numColumns; colNum++) {
-		[elasticTabStops addObject: @([highlighter tabStopWidth])];
+		[elasticTabStops addObject: @(highlighter.tabStopWidth)];
 	}
 	
 	for( NSArray* line in lines ) {
-		for (colNum=0; colNum < [line count]; colNum++) {
+		for (colNum=0; colNum < line.count; colNum++) {
 			// Get the size of the line
 			NSAttributedString* colString	= line[colNum];
 			NSSize				thisSize	= [colString size];
@@ -1581,8 +1581,8 @@ static inline BOOL IsLineEnd(unichar c) {
 
 - (int) numberOfTabStopsForLine: (int) lineNumber {
 	// Details about the string
-	NSInteger strLen = [_textStorage length];
-	NSString* str = [_textStorage string];
+	NSInteger strLen = _textStorage.length;
+	NSString* str = _textStorage.string;
     
 	// Our current location, and the number of acquired tab stops
 	NSInteger lineStart = lineStarts[lineNumber];
@@ -1601,9 +1601,9 @@ static inline BOOL IsLineEnd(unichar c) {
 	
 	// Get the start/end of the line
 	NSInteger lineStart = lineStarts[lineNumber];
-	NSInteger lineEnd = lineNumber+1<nLines?lineStarts[lineNumber+1]:[_textStorage length];
+	NSInteger lineEnd = lineNumber+1<nLines?lineStarts[lineNumber+1]:_textStorage.length;
 	
-	return [[_textStorage string] substringWithRange: NSMakeRange(lineStart, lineEnd-lineStart)];
+	return [_textStorage.string substringWithRange: NSMakeRange(lineStart, lineEnd-lineStart)];
 }
 
 - (IFSyntaxStyle) styleAtStartOfLine: (int) lineNumber {
@@ -1611,7 +1611,7 @@ static inline BOOL IsLineEnd(unichar c) {
 }
 
 - (IFSyntaxStyle) styleAtEndOfLine: (int) lineNumber {
-	NSInteger pos = lineNumber+1 < nLines ? lineStarts[lineNumber+1]-1 : [_textStorage length]-1;
+	NSInteger pos = lineNumber+1 < nLines ? lineStarts[lineNumber+1]-1 : _textStorage.length-1;
 	
     if (pos < 0) return IFSyntaxStyleNotHighlighted;
     return [charStyles read:pos];
@@ -1626,13 +1626,13 @@ static inline BOOL IsLineEnd(unichar c) {
     }
     else {
         // Final character of the document
-        pos = [_textStorage length] - 1;
+        pos = _textStorage.length - 1;
     }
 
 	if (pos < 0) return 0;
-    if( [_textStorage length] < pos) return 0;
+    if( _textStorage.length < pos) return 0;
 	
-	return [[_textStorage string] characterAtIndex: pos];
+	return [_textStorage.string characterAtIndex: pos];
 }
 
 - (void) callbackForEditing: (SEL) selector
@@ -1650,12 +1650,12 @@ static inline BOOL IsLineEnd(unichar c) {
     
 	// Get the start/end of the line
 	NSInteger lineStart = lineStarts[lineNumber];
-	NSInteger lineEnd = lineNumber+1<nLines?lineStarts[lineNumber+1]:[_textStorage length];
+	NSInteger lineEnd = lineNumber+1<nLines?lineStarts[lineNumber+1]:_textStorage.length;
 	
 	// Make sure the undo manager can undo this change
 	if (self.undoManager) {
-        [[self.undoManager prepareWithInvocationTarget: _textStorage] replaceCharactersInRange: NSMakeRange(lineStart, [newLine length])
-                                                                                   withString: [[_textStorage string] substringWithRange: NSMakeRange(lineStart, lineEnd-lineStart)]];
+        [[self.undoManager prepareWithInvocationTarget: _textStorage] replaceCharactersInRange: NSMakeRange(lineStart, newLine.length)
+                                                                                   withString: [_textStorage.string substringWithRange: NSMakeRange(lineStart, lineEnd-lineStart)]];
 	}
 
 	// Perform the operation
@@ -1668,7 +1668,7 @@ static inline BOOL IsLineEnd(unichar c) {
 //
 -(IFSyntaxRestricted*) restrictedDataForTextView: (NSTextView*) view {
     for( IFSyntaxRestricted* restricted in restrictions ) {
-        if( [restricted textView] == view ) {
+        if( restricted.textView == view ) {
             return restricted;
         }
     }
@@ -1687,7 +1687,7 @@ static inline BOOL IsLineEnd(unichar c) {
     IFSyntaxRestricted* restricted = [self restrictedDataForTextView: view];
     if( restricted != nil ) {
         // Remove delegate
-        [[restricted restrictedTextStorage] setDelegate: nil];
+        [restricted.restrictedTextStorage setDelegate: nil];
         [restrictions removeObject: restricted];
         restricted = nil;
     }
@@ -1697,13 +1697,13 @@ static inline BOOL IsLineEnd(unichar c) {
                                                         range: range];
 
     // Set up the restricted text
-    [restricted setRestrictedRange:range];
-    [[restricted restrictedTextStorage]  setAttributedString: attributedString];
+    restricted.restrictedRange = range;
+    [restricted.restrictedTextStorage  setAttributedString: attributedString];
 
     // Add new text storage
-    [[restricted restrictedTextStorage] setDelegate: self];
+    restricted.restrictedTextStorage.delegate = self;
     [restrictions addObject: restricted];
-    [view.layoutManager replaceTextStorage: [restricted restrictedTextStorage]];
+    [view.layoutManager replaceTextStorage: restricted.restrictedTextStorage];
 
     // Finish editing the text
     _isHighlighting = false;
@@ -1717,14 +1717,14 @@ static inline BOOL IsLineEnd(unichar c) {
         // Start editing the text
         _isHighlighting = true;
 
-        [restricted setRestrictedRange:NSMakeRange(NSNotFound, 0)];
+        restricted.restrictedRange = NSMakeRange(NSNotFound, 0);
         
         // Set restricted storage to an empty string
         NSAttributedString* attributedString = [[NSAttributedString alloc] initWithString: @""];
-        [[restricted restrictedTextStorage] setAttributedString: attributedString];
+        [restricted.restrictedTextStorage setAttributedString: attributedString];
 
         // Remove delegate
-        [[restricted restrictedTextStorage] setDelegate: nil];
+        [restricted.restrictedTextStorage setDelegate: nil];
 
         // Remove from list of restrictions
         [restrictions removeObject:restricted];
@@ -1744,7 +1744,7 @@ static inline BOOL IsLineEnd(unichar c) {
     // Find an existing restriction
     IFSyntaxRestricted* restricted = [self restrictedDataForTextView: view];
     if( restricted != nil ) {
-        return [restricted restrictedRange];
+        return restricted.restrictedRange;
     }
     return NSMakeRange(NSNotFound, 0);
 }
@@ -1753,7 +1753,7 @@ static inline BOOL IsLineEnd(unichar c) {
     // Find an existing restriction
     IFSyntaxRestricted* restricted = [self restrictedDataForTextView: view];
     if( restricted != nil ) {
-        return [restricted restrictedTextStorage];
+        return restricted.restrictedTextStorage;
     }
     return nil;
 }

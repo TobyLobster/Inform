@@ -85,69 +85,69 @@
     <p>We can use a schedule of events to give some life to our environment: if we have a town setting, for instance, it makes sense for shops and libraries to open and close at set times; this is just what we find in <span class="boldface">IPA</span>.</p>
     <p><span class="boldface">Air Conditioning Is Standard</span> has characters who follow a timed schedule of events to interact with each other, while the player mostly wanders around missing out on the action. (Sometimes life is like that.) The same effects could have been achieved with scenes instead of clock times, but there are occasions when we do want to plan our characters' behavior to the minute rather than waiting for the player to be in the right place to observe it: in a murder mystery or a time-travel story, the exact timings might be quite significant.</p>
     <p>We may also want to add events to the schedule during play, as in</p>
-    <!--START CODE "c10763"-->
-    <blockquote class="code"><p class="quoted"><a id="c10763"></a> Instead of pushing the egg-timer: say &quot;It begins to mark time.&quot;; the egg-timer clucks in four turns from now.
+    <!--START CODE "c10790"-->
+    <blockquote class="code"><p class="quoted"><a id="c10790"></a> Instead of pushing the egg-timer: say &quot;It begins to mark time.&quot;; the egg-timer clucks in four turns from now.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c10764"-->
-    <blockquote class="code"><p class="quoted"><a id="c10764"></a>At the time when the egg-timer clucks: say &quot;Cluck! Cluck! Cluck! says the egg-timer.&quot;
+    <!--START CODE "c10791"-->
+    <blockquote class="code"><p class="quoted"><a id="c10791"></a>At the time when the egg-timer clucks: say &quot;Cluck! Cluck! Cluck! says the egg-timer.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Similarly, we can schedule things during play to happen at a specific time of day, as shown in <span class="boldface">Hour of the Wren</span>.</p>
     <p class="crossreference"><a href="Rdoc20.html" class="xreflink"><img class="asterisk" alt="*" src="inform:/doc_images/xref.png" />&#160;<i>See </i><b>Scene Changes</b></a><i> for more things that arrive at pre-determined times</i></p>
-    <p class="crossreference"><a href="Rdoc64.html" class="xreflink"><img class="asterisk" alt="*" src="inform:/doc_images/xref.png" />&#160;<i>See </i><b>Ships, Trains and Elevators</b></a><i> for a train that follows a schedule, carrying the player along if he is aboard</i></p>
+    <p class="crossreference"><a href="Rdoc64.html" class="xreflink"><img class="asterisk" alt="*" src="inform:/doc_images/xref.png" />&#160;<i>See </i><b>Ships, Trains and Elevators</b></a><i> for a train that follows a schedule, carrying the player along if they are aboard</i></p>
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "141: IPA" "e201"-->
-        <a id="e201"></a><table class="egcue">
+        <!--START EXAMPLE "141: IPA" "e192"-->
+        <a id="e192"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example201'); return false;"><b>141</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example192'); return false;"><b>141</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example201'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">IPA</span></b></a><br>
-                    Shops which each have opening and closing hours, so that it is impossible to go in at the wrong times, and the player is kicked out if he overstays his welcome.</p>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example192'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">IPA</span></b></a><br>
+                    Shops which each have opening and closing hours, so that it is impossible to go in at the wrong times, and the player is kicked out if they overstay their welcome.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc138.html#e201"><i>WI</i></a></div>
+                        <a href="doc138.html#e192"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example201" style="display: none;">
-            <p>Suppose we wanted a game set in a living town, with locations opening and closing at different times of day, and business carrying on as usual. The point might be to force the player to plan his itinerary carefully to hit the right spots at the right times; or we might be writing a more contemplative piece, where part of the enjoyment came from just watching the characters wander around doing their daily business...</p>
-            <!--START CODE "c10765_201"-->
-            <blockquote class="code"><p class="quoted"><a id="c10765_201"></a><a href="javascript:pasteCode('[=0x0022=]IPA[=0x0022=][=0x000A=][=0x000A=]When play begins: now the right hand status line is [=0x0022=][time of day][=0x0022=].[=0x000A=][=0x000A=]The time of day is 9:50 AM.[=0x000A=][=0x000A=]A shop is a kind of room. A shop has a time called the opening hour. The opening hour of the shop is usually 8 AM. A shop has a time called the closing hour. A shop usually has closing hour 6 PM.[=0x000A=][=0x000A=]Check going to a shop (called the target):[=0x000A=][=0x0009=]if the time of day is before the opening hour of the target,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The target] is locked up until [the opening hour of the target].[=0x0022=] instead.[=0x000A=][=0x000A=]Check going to a shop (called the target):[=0x000A=][=0x0009=]if the time of day is after the closing hour of the target,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The target] has been closed since [the closing hour of the target].[=0x0022=] instead.[=0x000A=][=0x000A=]Every turn when the location is a shop:[=0x000A=][=0x0009=]let deadline be the closing hour of the location;[=0x000A=][=0x0009=]if the deadline is before the time of day:[=0x000A=][=0x0009=][=0x0009=]let target be a random adjacent room which is not a shop;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You are gently but firmly ushered out, since [the location] is closing.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]move the player to the target.[=0x000A=][=0x000A=]The Strip-mall Parking Lot is a room. [=0x0022=]Dead Christmas trees are heaped outside the bagel shop. Strips of dirty ice survive along the curb, and in the shadows of the lamp-posts. A wet, almost illegible sheet of algebra homework is plastered to the asphalt.[=0x000A=][=0x000A=]Pinewood Brewing Supply is at the east end of the lot.[=0x0022=][=0x000A=][=0x000A=]Pinewood Brewing Supply is a shop. It is east of Parking Lot. The opening hour of Pinewood Brewing Supply is 10:00 AM. The closing hour of Pinewood Brewing Supply is 3:30 PM. [=0x0022=]Shelves and shelves of malt and hops; large glass carboys, and plastic tubing; empty bottles; bottle-caps; bottle-labeling kits; starters for vinegar, sourdough, root beer.[=0x000A=][=0x000A=]A sweet malty smell hangs in the air.[=0x0022=][=0x000A=][=0x000A=]Instead of going to Brewing Supply when the time of day is before the opening hour of Brewing Supply for the second time:[=0x000A=][=0x0009=]say [=0x0022=]You rattle at the door again. [=0x0027=]Hold your horses, for crying out loud,[=0x0027=] yells a voice from within.[=0x0022=][=0x000A=][=0x000A=]Noah[=0x0027=]s Bagels is a shop. It is north of the Parking Lot. The opening hour of Noah[=0x0027=]s Bagels is 6:00 AM. The closing hour of Noah[=0x0027=]s Bagels is 11:00 AM. [=0x0022=]The selection has been somewhat picked over, leaving you with your choice of Pumpernickel, Asiago, or Everything.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]e / e / n / z / s / e / z / e / z / z / e[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]IPA[=0x0022=][=0x000A=][=0x000A=]When play begins: now the right hand status line is [=0x0022=][time of day][=0x0022=].[=0x000A=][=0x000A=]The time of day is 9:50 AM.[=0x000A=][=0x000A=]A shop is a kind of room. A shop has a time called the opening hour. The opening hour of the shop is usually 8 AM. A shop has a time called the closing hour. A shop usually has closing hour 6 PM.[=0x000A=][=0x000A=]Check going to a shop (called the target):[=0x000A=][=0x0009=]if the time of day is before the opening hour of the target,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The target] is locked up until [the opening hour of the target].[=0x0022=] instead.[=0x000A=][=0x000A=]Check going to a shop (called the target):[=0x000A=][=0x0009=]if the time of day is after the closing hour of the target,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The target] has been closed since [the closing hour of the target].[=0x0022=] instead.[=0x000A=][=0x000A=]Every turn when the location is a shop:[=0x000A=][=0x0009=]let deadline be the closing hour of the location;[=0x000A=][=0x0009=]if the deadline is before the time of day:[=0x000A=][=0x0009=][=0x0009=]let target be a random adjacent room which is not a shop;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You are gently but firmly ushered out, since [the location] is closing.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]move the player to the target.[=0x000A=][=0x000A=]The Strip-mall Parking Lot is a room. [=0x0022=]Dead Christmas trees are heaped outside the bagel shop. Strips of dirty ice survive along the curb, and in the shadows of the lamp-posts. A wet, almost illegible sheet of algebra homework is plastered to the asphalt.[=0x000A=][=0x000A=]Pinewood Brewing Supply is at the east end of the lot.[=0x0022=][=0x000A=][=0x000A=]Pinewood Brewing Supply is a shop. It is east of Parking Lot. The opening hour of Pinewood Brewing Supply is 10:00 AM. The closing hour of Pinewood Brewing Supply is 3:30 PM. [=0x0022=]Shelves and shelves of malt and hops; large glass carboys, and plastic tubing; empty bottles; bottle-caps; bottle-labeling kits; starters for vinegar, sourdough, root beer.[=0x000A=][=0x000A=]A sweet malty smell hangs in the air.[=0x0022=][=0x000A=][=0x000A=]Instead of going to Brewing Supply when the time of day is before the opening hour of Brewing Supply for the second time:[=0x000A=][=0x0009=]say [=0x0022=]You rattle at the door again. [=0x0027=]Hold your horses, for crying out loud,[=0x0027=] yells a voice from within.[=0x0022=][=0x000A=][=0x000A=]Noah[=0x0027=]s Bagels is a shop. It is north of the Parking Lot. The opening hour of Noah[=0x0027=]s Bagels is 6:00 AM. The closing hour of Noah[=0x0027=]s Bagels is 11:00 AM. [=0x0022=]The selection has been somewhat picked over, leaving you with your choice of Pumpernickel, Asiago, or Everything.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]e / e / n / z / s / e / z / e / z / z / e[=0x0022=].[=0x000A=]\n', 'Example - IPA')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;IPA&quot;
+        <div class="egpanel" id="example192" style="display: none;">
+            <p>Suppose we wanted a game set in a living town, with locations opening and closing at different times of day, and business carrying on as usual. The point might be to force the player to plan an itinerary carefully to hit the right spots at the right times; or we might be writing a more contemplative piece, where part of the enjoyment came from just watching the characters wander around doing their daily business...</p>
+            <!--START CODE "c10792_192"-->
+            <blockquote class="code"><p class="quoted"><a id="c10792_192"></a><a href="javascript:pasteCode('[=0x0022=]IPA[=0x0022=][=0x000A=][=0x000A=]When play begins: now the right hand status line is [=0x0022=][time of day][=0x0022=].[=0x000A=][=0x000A=]The time of day is 9:50 AM.[=0x000A=][=0x000A=]A shop is a kind of room. A shop has a time called the opening hour. The opening hour of the shop is usually 8 AM. A shop has a time called the closing hour. A shop usually has closing hour 6 PM.[=0x000A=][=0x000A=]Check going to a shop (called the target):[=0x000A=][=0x0009=]if the time of day is before the opening hour of the target,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The target] is locked up until [the opening hour of the target].[=0x0022=] instead.[=0x000A=][=0x000A=]Check going to a shop (called the target):[=0x000A=][=0x0009=]if the time of day is after the closing hour of the target,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The target] has been closed since [the closing hour of the target].[=0x0022=] instead.[=0x000A=][=0x000A=]Every turn when the location is a shop:[=0x000A=][=0x0009=]let deadline be the closing hour of the location;[=0x000A=][=0x0009=]if the deadline is before the time of day:[=0x000A=][=0x0009=][=0x0009=]let target be a random adjacent room which is not a shop;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You are gently but firmly ushered out, since [the location] is closing.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]move the player to the target.[=0x000A=][=0x000A=]The Strip-mall Parking Lot is a room. [=0x0022=]Dead Christmas trees are heaped outside the bagel shop. Strips of dirty ice survive along the curb, and in the shadows of the lamp-posts. A wet, almost illegible sheet of algebra homework is plastered to the asphalt.[=0x000A=][=0x000A=]Pinewood Brewing Supply is at the east end of the lot.[=0x0022=][=0x000A=][=0x000A=]Pinewood Brewing Supply is a shop. It is east of Parking Lot. The opening hour of Pinewood Brewing Supply is 10:00 AM. The closing hour of Pinewood Brewing Supply is 3:30 PM. [=0x0022=]Shelves and shelves of malt and hops; large glass carboys, and plastic tubing; empty bottles; bottle-caps; bottle-labeling kits; starters for vinegar, sourdough, root beer.[=0x000A=][=0x000A=]A sweet malty smell hangs in the air.[=0x0022=][=0x000A=][=0x000A=]Instead of going to Brewing Supply when the time of day is before the opening hour of Brewing Supply for the second time:[=0x000A=][=0x0009=]say [=0x0022=]You rattle at the door again. [=0x0027=]Hold your horses, for crying out loud,[=0x0027=] yells a voice from within.[=0x0022=][=0x000A=][=0x000A=]Noah[=0x0027=]s Bagels is a shop. It is north of the Parking Lot. The opening hour of Noah[=0x0027=]s Bagels is 6:00 AM. The closing hour of Noah[=0x0027=]s Bagels is 11:00 AM. [=0x0022=]The selection has been somewhat picked over, leaving you with your choice of Pumpernickel, Asiago, or Everything.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]e / e / n / z / s / e / z / e / z / z / e[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]IPA[=0x0022=][=0x000A=][=0x000A=]When play begins: now the right hand status line is [=0x0022=][time of day][=0x0022=].[=0x000A=][=0x000A=]The time of day is 9:50 AM.[=0x000A=][=0x000A=]A shop is a kind of room. A shop has a time called the opening hour. The opening hour of the shop is usually 8 AM. A shop has a time called the closing hour. A shop usually has closing hour 6 PM.[=0x000A=][=0x000A=]Check going to a shop (called the target):[=0x000A=][=0x0009=]if the time of day is before the opening hour of the target,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The target] is locked up until [the opening hour of the target].[=0x0022=] instead.[=0x000A=][=0x000A=]Check going to a shop (called the target):[=0x000A=][=0x0009=]if the time of day is after the closing hour of the target,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The target] has been closed since [the closing hour of the target].[=0x0022=] instead.[=0x000A=][=0x000A=]Every turn when the location is a shop:[=0x000A=][=0x0009=]let deadline be the closing hour of the location;[=0x000A=][=0x0009=]if the deadline is before the time of day:[=0x000A=][=0x0009=][=0x0009=]let target be a random adjacent room which is not a shop;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You are gently but firmly ushered out, since [the location] is closing.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]move the player to the target.[=0x000A=][=0x000A=]The Strip-mall Parking Lot is a room. [=0x0022=]Dead Christmas trees are heaped outside the bagel shop. Strips of dirty ice survive along the curb, and in the shadows of the lamp-posts. A wet, almost illegible sheet of algebra homework is plastered to the asphalt.[=0x000A=][=0x000A=]Pinewood Brewing Supply is at the east end of the lot.[=0x0022=][=0x000A=][=0x000A=]Pinewood Brewing Supply is a shop. It is east of Parking Lot. The opening hour of Pinewood Brewing Supply is 10:00 AM. The closing hour of Pinewood Brewing Supply is 3:30 PM. [=0x0022=]Shelves and shelves of malt and hops; large glass carboys, and plastic tubing; empty bottles; bottle-caps; bottle-labeling kits; starters for vinegar, sourdough, root beer.[=0x000A=][=0x000A=]A sweet malty smell hangs in the air.[=0x0022=][=0x000A=][=0x000A=]Instead of going to Brewing Supply when the time of day is before the opening hour of Brewing Supply for the second time:[=0x000A=][=0x0009=]say [=0x0022=]You rattle at the door again. [=0x0027=]Hold your horses, for crying out loud,[=0x0027=] yells a voice from within.[=0x0022=][=0x000A=][=0x000A=]Noah[=0x0027=]s Bagels is a shop. It is north of the Parking Lot. The opening hour of Noah[=0x0027=]s Bagels is 6:00 AM. The closing hour of Noah[=0x0027=]s Bagels is 11:00 AM. [=0x0022=]The selection has been somewhat picked over, leaving you with your choice of Pumpernickel, Asiago, or Everything.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]e / e / n / z / s / e / z / e / z / z / e[=0x0022=].[=0x000A=]\n', 'Example - IPA')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;IPA&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10766_201"-->
-            <blockquote class="code"><p class="quoted"><a id="c10766_201"></a>When play begins: now the right hand status line is &quot;[time of day]&quot;.
+            <!--START CODE "c10793_192"-->
+            <blockquote class="code"><p class="quoted"><a id="c10793_192"></a>When play begins: now the right hand status line is &quot;[time of day]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10767_201"-->
-            <blockquote class="code"><p class="quoted"><a id="c10767_201"></a>The time of day is 9:50 AM.
+            <!--START CODE "c10794_192"-->
+            <blockquote class="code"><p class="quoted"><a id="c10794_192"></a>The time of day is 9:50 AM.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10768_201"-->
-            <blockquote class="code"><p class="quoted"><a id="c10768_201"></a>A shop is a kind of room. A shop has a time called the opening hour. The opening hour of the shop is usually 8 AM. A shop has a time called the closing hour. A shop usually has closing hour 6 PM.
+            <!--START CODE "c10795_192"-->
+            <blockquote class="code"><p class="quoted"><a id="c10795_192"></a>A shop is a kind of room. A shop has a time called the opening hour. The opening hour of the shop is usually 8 AM. A shop has a time called the closing hour. A shop usually has closing hour 6 PM.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10769_201"-->
-            <blockquote class="code"><p class="quoted"><a id="c10769_201"></a>Check going to a shop (called the target):
+            <!--START CODE "c10796_192"-->
+            <blockquote class="code"><p class="quoted"><a id="c10796_192"></a>Check going to a shop (called the target):
             <br>
             &#160;&#160;&#160;&#160;if the time of day is before the opening hour of the target,
             <br>
@@ -155,8 +155,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10770_201"-->
-            <blockquote class="code"><p class="quoted"><a id="c10770_201"></a>Check going to a shop (called the target):
+            <!--START CODE "c10797_192"-->
+            <blockquote class="code"><p class="quoted"><a id="c10797_192"></a>Check going to a shop (called the target):
             <br>
             &#160;&#160;&#160;&#160;if the time of day is after the closing hour of the target,
             <br>
@@ -164,8 +164,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10771_201"-->
-            <blockquote class="code"><p class="quoted"><a id="c10771_201"></a>Every turn when the location is a shop:
+            <!--START CODE "c10798_192"-->
+            <blockquote class="code"><p class="quoted"><a id="c10798_192"></a>Every turn when the location is a shop:
             <br>
             &#160;&#160;&#160;&#160;let deadline be the closing hour of the location;
             <br>
@@ -179,112 +179,112 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10772_201"-->
-            <blockquote class="code"><p class="quoted"><a id="c10772_201"></a>The Strip-mall Parking Lot is a room. &quot;Dead Christmas trees are heaped outside the bagel shop. Strips of dirty ice survive along the curb, and in the shadows of the lamp-posts. A wet, almost illegible sheet of algebra homework is plastered to the asphalt.
+            <!--START CODE "c10799_192"-->
+            <blockquote class="code"><p class="quoted"><a id="c10799_192"></a>The Strip-mall Parking Lot is a room. &quot;Dead Christmas trees are heaped outside the bagel shop. Strips of dirty ice survive along the curb, and in the shadows of the lamp-posts. A wet, almost illegible sheet of algebra homework is plastered to the asphalt.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10773_201"-->
-            <blockquote class="code"><p class="quoted"><a id="c10773_201"></a>Pinewood Brewing Supply is at the east end of the lot.&quot;
+            <!--START CODE "c10800_192"-->
+            <blockquote class="code"><p class="quoted"><a id="c10800_192"></a>Pinewood Brewing Supply is at the east end of the lot.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10774_201"-->
-            <blockquote class="code"><p class="quoted"><a id="c10774_201"></a>Pinewood Brewing Supply is a shop. It is east of Parking Lot. The opening hour of Pinewood Brewing Supply is 10:00 AM. The closing hour of Pinewood Brewing Supply is 3:30 PM. &quot;Shelves and shelves of malt and hops; large glass carboys, and plastic tubing; empty bottles; bottle-caps; bottle-labeling kits; starters for vinegar, sourdough, root beer.
+            <!--START CODE "c10801_192"-->
+            <blockquote class="code"><p class="quoted"><a id="c10801_192"></a>Pinewood Brewing Supply is a shop. It is east of Parking Lot. The opening hour of Pinewood Brewing Supply is 10:00 AM. The closing hour of Pinewood Brewing Supply is 3:30 PM. &quot;Shelves and shelves of malt and hops; large glass carboys, and plastic tubing; empty bottles; bottle-caps; bottle-labeling kits; starters for vinegar, sourdough, root beer.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10775_201"-->
-            <blockquote class="code"><p class="quoted"><a id="c10775_201"></a>A sweet malty smell hangs in the air.&quot;
+            <!--START CODE "c10802_192"-->
+            <blockquote class="code"><p class="quoted"><a id="c10802_192"></a>A sweet malty smell hangs in the air.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10776_201"-->
-            <blockquote class="code"><p class="quoted"><a id="c10776_201"></a>Instead of going to Brewing Supply when the time of day is before the opening hour of Brewing Supply for the second time:
+            <!--START CODE "c10803_192"-->
+            <blockquote class="code"><p class="quoted"><a id="c10803_192"></a>Instead of going to Brewing Supply when the time of day is before the opening hour of Brewing Supply for the second time:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You rattle at the door again. 'Hold your horses, for crying out loud,' yells a voice from within.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10777_201"-->
-            <blockquote class="code"><p class="quoted"><a id="c10777_201"></a>Noah's Bagels is a shop. It is north of the Parking Lot. The opening hour of Noah's Bagels is 6:00 AM. The closing hour of Noah's Bagels is 11:00 AM. &quot;The selection has been somewhat picked over, leaving you with your choice of Pumpernickel, Asiago, or Everything.&quot;
+            <!--START CODE "c10804_192"-->
+            <blockquote class="code"><p class="quoted"><a id="c10804_192"></a>Noah's Bagels is a shop. It is north of the Parking Lot. The opening hour of Noah's Bagels is 6:00 AM. The closing hour of Noah's Bagels is 11:00 AM. &quot;The selection has been somewhat picked over, leaving you with your choice of Pumpernickel, Asiago, or Everything.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10778_201"-->
-            <blockquote class="code"><p class="quoted"><a id="c10778_201"></a>Test me with &quot;e / e / n / z / s / e / z / e / z / z / e&quot;.
+            <!--START CODE "c10805_192"-->
+            <blockquote class="code"><p class="quoted"><a id="c10805_192"></a>Test me with &quot;e / e / n / z / s / e / z / e / z / z / e&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "146: Hour of the Wren" "e190"-->
-        <a id="e190"></a><table class="egcue">
+        <!--START EXAMPLE "146: Hour of the Wren" "e178"-->
+        <a id="e178"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example190'); return false;"><b>146</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example178'); return false;"><b>146</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example190'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Hour of the Wren</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example178'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Hour of the Wren</span></b></a><br>
                     Allowing the player to make an appointment, which is then kept.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc143.html#e190"><i>WI</i></a></div>
+                        <a href="doc143.html#e178"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example190" style="display: none;">
+        <div class="egpanel" id="example178" style="display: none;">
             <p>Here we allow the player to set the time at which some future event is going to happen, rather than letting the game decide. We'll need to borrow the syntax for defining new actions from a later chapter:</p>
-            <!--START CODE "c10779_190"-->
-            <blockquote class="code"><p class="quoted"><a id="c10779_190"></a><a href="javascript:pasteCode('[=0x0022=]Hour of the Wren[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]say [=0x0022=]You more or less stumble across them in Central Park: a disparate group of people, all of different ages, sitting in a circle. They aren[=0x0027=]t talking to one another -- in fact, they seem to be trying very hard to ignore one another, like people in the waiting room of an especially embarrassing kind of doctor. You are about to go around when a woman in a grey pressed suit comes up to you. Her suit-skirt is trimmed in lavender cord, and she looks as though she might have been extremely sharp-dressed in 1944. She hands you a card.[=0x0022=][=0x000A=][=0x000A=]The Circle in the Grass is a room. [=0x0022=]No one is looking at you, except for the secretary, if that is what she is.[=0x0022=][=0x000A=][=0x000A=]The player carries a card. The description of the card is [=0x0022=]Typed: [=0x0027=]Active astrology - dislike your fortunes? change your stars! - make an appointment now - hour of the wren STILL AVAILABLE.[=0x0027=][=0x0022=].[=0x000A=][=0x000A=]The time of day is 1:55 PM.[=0x000A=][=0x000A=]Understand [=0x0022=]pick [time][=0x0022=] or [=0x0022=]choose [time][=0x0022=] or [=0x0022=]make appointment for [time][=0x0022=] or [=0x0022=]make an appointment for [time][=0x0022=] as making an appointment for. Making an appointment for is an action applying to one time.[=0x000A=][=0x000A=]Carry out making an appointment for:[=0x000A=][=0x0009=]say [=0x0022=]Fate cannot be commanded more than once.[=0x0022=][=0x000A=][=0x000A=]Instead of making an appointment for the time understood for the first time:[=0x000A=][=0x0009=]say [=0x0022=]You settle on [the time understood] for your appointment. The woman makes a note of it in an appointment book, which she carries in a brown paper bag. [=0x0027=]Excellent choice, ma[=0x0027=]am,[=0x0027=] she says in a low, urgent voice. [=0x0027=]You[=0x0027=]ll be very satisfied.[=0x0027=][=0x0022=];[=0x000A=][=0x0009=]stars shift at the time understood.[=0x000A=][=0x000A=]Understand [=0x0022=]hour of the wren[=0x0022=] as 2:00 PM.[=0x000A=][=0x000A=]At the time when stars shift:[=0x000A=][=0x0009=]end the story saying [=0x0022=]insert cataclysm here[=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]x card / make appointment for hour of the wren / z / z / z / z[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Hour of the Wren[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]say [=0x0022=]You more or less stumble across them in Central Park: a disparate group of people, all of different ages, sitting in a circle. They aren[=0x0027=]t talking to one another -- in fact, they seem to be trying very hard to ignore one another, like people in the waiting room of an especially embarrassing kind of doctor. You are about to go around when a woman in a grey pressed suit comes up to you. Her suit-skirt is trimmed in lavender cord, and she looks as though she might have been extremely sharp-dressed in 1944. She hands you a card.[=0x0022=][=0x000A=][=0x000A=]The Circle in the Grass is a room. [=0x0022=]No one is looking at you, except for the secretary, if that is what she is.[=0x0022=][=0x000A=][=0x000A=]The player carries a card. The description of the card is [=0x0022=]Typed: [=0x0027=]Active astrology - dislike your fortunes? change your stars! - make an appointment now - hour of the wren STILL AVAILABLE.[=0x0027=][=0x0022=].[=0x000A=][=0x000A=]The time of day is 1:55 PM.[=0x000A=][=0x000A=]Understand [=0x0022=]pick [time][=0x0022=] or [=0x0022=]choose [time][=0x0022=] or [=0x0022=]make appointment for [time][=0x0022=] or [=0x0022=]make an appointment for [time][=0x0022=] as making an appointment for. Making an appointment for is an action applying to one time.[=0x000A=][=0x000A=]Carry out making an appointment for:[=0x000A=][=0x0009=]say [=0x0022=]Fate cannot be commanded more than once.[=0x0022=][=0x000A=][=0x000A=]Instead of making an appointment for the time understood for the first time:[=0x000A=][=0x0009=]say [=0x0022=]You settle on [the time understood] for your appointment. The woman makes a note of it in an appointment book, which she carries in a brown paper bag. [=0x0027=]Excellent choice, ma[=0x0027=]am,[=0x0027=] she says in a low, urgent voice. [=0x0027=]You[=0x0027=]ll be very satisfied.[=0x0027=][=0x0022=];[=0x000A=][=0x0009=]stars shift at the time understood.[=0x000A=][=0x000A=]Understand [=0x0022=]hour of the wren[=0x0022=] as 2:00 PM.[=0x000A=][=0x000A=]At the time when stars shift:[=0x000A=][=0x0009=]end the story saying [=0x0022=]insert cataclysm here[=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]x card / make appointment for hour of the wren / z / z / z / z[=0x0022=].[=0x000A=]\n', 'Example - Hour of the Wren')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Hour of the Wren&quot;
+            <!--START CODE "c10806_178"-->
+            <blockquote class="code"><p class="quoted"><a id="c10806_178"></a><a href="javascript:pasteCode('[=0x0022=]Hour of the Wren[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]say [=0x0022=]You more or less stumble across them in Central Park: a disparate group of people, all of different ages, sitting in a circle. They aren[=0x0027=]t talking to one another -- in fact, they seem to be trying very hard to ignore one another, like people in the waiting room of an especially embarrassing kind of doctor. You are about to go around when a woman in a grey pressed suit comes up to you. Her suit-skirt is trimmed in lavender cord, and she looks as though she might have been extremely sharp-dressed in 1944. She hands you a card.[=0x0022=][=0x000A=][=0x000A=]The Circle in the Grass is a room. [=0x0022=]No one is looking at you, except for the secretary, if that is what she is.[=0x0022=][=0x000A=][=0x000A=]The player carries a card. The description of the card is [=0x0022=]Typed: [=0x0027=]Active astrology - dislike your fortunes? change your stars! - make an appointment now - hour of the wren STILL AVAILABLE.[=0x0027=][=0x0022=].[=0x000A=][=0x000A=]The time of day is 1:55 PM.[=0x000A=][=0x000A=]Understand [=0x0022=]pick [time][=0x0022=] or [=0x0022=]choose [time][=0x0022=] or [=0x0022=]make appointment for [time][=0x0022=] or [=0x0022=]make an appointment for [time][=0x0022=] as making an appointment for. Making an appointment for is an action applying to one time.[=0x000A=][=0x000A=]Carry out making an appointment for:[=0x000A=][=0x0009=]say [=0x0022=]Fate cannot be commanded more than once.[=0x0022=][=0x000A=][=0x000A=]Instead of making an appointment for the time understood for the first time:[=0x000A=][=0x0009=]say [=0x0022=]You settle on [the time understood] for your appointment. The woman makes a note of it in an appointment book, which she carries in a brown paper bag. [=0x0027=]Excellent choice, ma[=0x0027=]am,[=0x0027=] she says in a low, urgent voice. [=0x0027=]You[=0x0027=]ll be very satisfied.[=0x0027=][=0x0022=];[=0x000A=][=0x0009=]stars shift at the time understood.[=0x000A=][=0x000A=]Understand [=0x0022=]hour of the wren[=0x0022=] as 2:00 PM.[=0x000A=][=0x000A=]At the time when stars shift:[=0x000A=][=0x0009=]end the story saying [=0x0022=]insert cataclysm here[=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]x card / make appointment for hour of the wren / z / z / z / z[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Hour of the Wren[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]say [=0x0022=]You more or less stumble across them in Central Park: a disparate group of people, all of different ages, sitting in a circle. They aren[=0x0027=]t talking to one another -- in fact, they seem to be trying very hard to ignore one another, like people in the waiting room of an especially embarrassing kind of doctor. You are about to go around when a woman in a grey pressed suit comes up to you. Her suit-skirt is trimmed in lavender cord, and she looks as though she might have been extremely sharp-dressed in 1944. She hands you a card.[=0x0022=][=0x000A=][=0x000A=]The Circle in the Grass is a room. [=0x0022=]No one is looking at you, except for the secretary, if that is what she is.[=0x0022=][=0x000A=][=0x000A=]The player carries a card. The description of the card is [=0x0022=]Typed: [=0x0027=]Active astrology - dislike your fortunes? change your stars! - make an appointment now - hour of the wren STILL AVAILABLE.[=0x0027=][=0x0022=].[=0x000A=][=0x000A=]The time of day is 1:55 PM.[=0x000A=][=0x000A=]Understand [=0x0022=]pick [time][=0x0022=] or [=0x0022=]choose [time][=0x0022=] or [=0x0022=]make appointment for [time][=0x0022=] or [=0x0022=]make an appointment for [time][=0x0022=] as making an appointment for. Making an appointment for is an action applying to one time.[=0x000A=][=0x000A=]Carry out making an appointment for:[=0x000A=][=0x0009=]say [=0x0022=]Fate cannot be commanded more than once.[=0x0022=][=0x000A=][=0x000A=]Instead of making an appointment for the time understood for the first time:[=0x000A=][=0x0009=]say [=0x0022=]You settle on [the time understood] for your appointment. The woman makes a note of it in an appointment book, which she carries in a brown paper bag. [=0x0027=]Excellent choice, ma[=0x0027=]am,[=0x0027=] she says in a low, urgent voice. [=0x0027=]You[=0x0027=]ll be very satisfied.[=0x0027=][=0x0022=];[=0x000A=][=0x0009=]stars shift at the time understood.[=0x000A=][=0x000A=]Understand [=0x0022=]hour of the wren[=0x0022=] as 2:00 PM.[=0x000A=][=0x000A=]At the time when stars shift:[=0x000A=][=0x0009=]end the story saying [=0x0022=]insert cataclysm here[=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]x card / make appointment for hour of the wren / z / z / z / z[=0x0022=].[=0x000A=]\n', 'Example - Hour of the Wren')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Hour of the Wren&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10780_190"-->
-            <blockquote class="code"><p class="quoted"><a id="c10780_190"></a>When play begins:
+            <!--START CODE "c10807_178"-->
+            <blockquote class="code"><p class="quoted"><a id="c10807_178"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You more or less stumble across them in Central Park: a disparate group of people, all of different ages, sitting in a circle. They aren't talking to one another -- in fact, they seem to be trying very hard to ignore one another, like people in the waiting room of an especially embarrassing kind of doctor. You are about to go around when a woman in a grey pressed suit comes up to you. Her suit-skirt is trimmed in lavender cord, and she looks as though she might have been extremely sharp-dressed in 1944. She hands you a card.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10781_190"-->
-            <blockquote class="code"><p class="quoted"><a id="c10781_190"></a>The Circle in the Grass is a room. &quot;No one is looking at you, except for the secretary, if that is what she is.&quot;
+            <!--START CODE "c10808_178"-->
+            <blockquote class="code"><p class="quoted"><a id="c10808_178"></a>The Circle in the Grass is a room. &quot;No one is looking at you, except for the secretary, if that is what she is.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10782_190"-->
-            <blockquote class="code"><p class="quoted"><a id="c10782_190"></a>The player carries a card. The description of the card is &quot;Typed: 'Active astrology - dislike your fortunes? change your stars! - make an appointment now - hour of the wren STILL AVAILABLE.'&quot;.
+            <!--START CODE "c10809_178"-->
+            <blockquote class="code"><p class="quoted"><a id="c10809_178"></a>The player carries a card. The description of the card is &quot;Typed: 'Active astrology - dislike your fortunes? change your stars! - make an appointment now - hour of the wren STILL AVAILABLE.'&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10783_190"-->
-            <blockquote class="code"><p class="quoted"><a id="c10783_190"></a>The time of day is 1:55 PM.
+            <!--START CODE "c10810_178"-->
+            <blockquote class="code"><p class="quoted"><a id="c10810_178"></a>The time of day is 1:55 PM.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10784_190"-->
-            <blockquote class="code"><p class="quoted"><a id="c10784_190"></a>Understand &quot;pick [time]&quot; or &quot;choose [time]&quot; or &quot;make appointment for [time]&quot; or &quot;make an appointment for [time]&quot; as making an appointment for. Making an appointment for is an action applying to one time.
+            <!--START CODE "c10811_178"-->
+            <blockquote class="code"><p class="quoted"><a id="c10811_178"></a>Understand &quot;pick [time]&quot; or &quot;choose [time]&quot; or &quot;make appointment for [time]&quot; or &quot;make an appointment for [time]&quot; as making an appointment for. Making an appointment for is an action applying to one time.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10785_190"-->
-            <blockquote class="code"><p class="quoted"><a id="c10785_190"></a>Carry out making an appointment for:
+            <!--START CODE "c10812_178"-->
+            <blockquote class="code"><p class="quoted"><a id="c10812_178"></a>Carry out making an appointment for:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Fate cannot be commanded more than once.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10786_190"-->
-            <blockquote class="code"><p class="quoted"><a id="c10786_190"></a>Instead of making an appointment for the time understood for the first time:
+            <!--START CODE "c10813_178"-->
+            <blockquote class="code"><p class="quoted"><a id="c10813_178"></a>Instead of making an appointment for the time understood for the first time:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You settle on [the time understood] for your appointment. The woman makes a note of it in an appointment book, which she carries in a brown paper bag. 'Excellent choice, ma'am,' she says in a low, urgent voice. 'You'll be very satisfied.'&quot;;
             <br>
@@ -292,72 +292,72 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10787_190"-->
-            <blockquote class="code"><p class="quoted"><a id="c10787_190"></a>Understand &quot;hour of the wren&quot; as 2:00 PM.
+            <!--START CODE "c10814_178"-->
+            <blockquote class="code"><p class="quoted"><a id="c10814_178"></a>Understand &quot;hour of the wren&quot; as 2:00 PM.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10788_190"-->
-            <blockquote class="code"><p class="quoted"><a id="c10788_190"></a>At the time when stars shift:
+            <!--START CODE "c10815_178"-->
+            <blockquote class="code"><p class="quoted"><a id="c10815_178"></a>At the time when stars shift:
             <br>
             &#160;&#160;&#160;&#160;end the story saying &quot;insert cataclysm here&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10789_190"-->
-            <blockquote class="code"><p class="quoted"><a id="c10789_190"></a>Test me with &quot;x card / make appointment for hour of the wren / z / z / z / z&quot;.
+            <!--START CODE "c10816_178"-->
+            <blockquote class="code"><p class="quoted"><a id="c10816_178"></a>Test me with &quot;x card / make appointment for hour of the wren / z / z / z / z&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "354: Air Conditioning is Standard" "e390"-->
-        <a id="e390"></a><table class="egcue">
+        <!--START EXAMPLE "355: Air Conditioning is Standard" "e14"-->
+        <a id="e14"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example390'); return false;"><b>354</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example14'); return false;"><b>355</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example390'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Air Conditioning is Standard</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example14'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Air Conditioning is Standard</span></b></a><br>
                     Uses "writing a paragraph about" to make person and object descriptions that vary considerably depending on what else is going on in the room, including some randomized NPC interactions with objects or with each other.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc308.html#e390"><i>WI</i></a></div>
+                        <a href="doc308.html#e14"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example390" style="display: none;">
-            <!--START CODE "c10790_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10790_390"></a><a href="javascript:pasteCode('[=0x0022=]Air Conditioning is Standard[=0x0022=][=0x000A=][=0x000A=]Section 1 - The Garage[=0x000A=][=0x000A=]A person has some text called current occupation. The current occupation of a person is usually [=0x0022=]None[=0x0022=].[=0x000A=][=0x000A=]Mood is a kind of value. The moods are bemused, bored, attentive, rapt, and blushing. A person has a mood. A person is usually attentive.[=0x000A=][=0x000A=]Instead of examining a person:[=0x000A=][=0x0009=]now every thing is unmentioned;[=0x000A=][=0x0009=]carry out the writing a paragraph about activity with the noun.[=0x000A=][=0x000A=]Rule for writing a paragraph about a person (called X):[=0x000A=][=0x0009=]let the subsequent mention be [=0x0022=]Name[=0x0022=];[=0x000A=][=0x0009=]if the current occupation of X is not [=0x0022=]None[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][current occupation of X]. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]let the subsequent mention be [=0x0022=]He[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]if X is female, let the subsequent mention be [=0x0022=]She[=0x0022=];[=0x000A=][=0x0009=]if X wears something unmentioned:[=0x000A=][=0x0009=][=0x0009=]if the subsequent mention is [=0x0022=]Name[=0x0022=], say [=0x0022=][The X] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=][subsequent mention] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]is wearing [a list of unmentioned things worn by X][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]if X carries something unmentioned, say [=0x0022=] and carrying [a list of unmentioned things carried by X][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=].[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if X carries something unmentioned:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the subsequent mention is [=0x0022=]Name[=0x0022=], say [=0x0022=][The X] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=][subsequent mention] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=] is carrying [a list of unmentioned things carried by X].[=0x0022=][=0x000A=][=0x000A=]The Garage is a room. [=0x0022=]Above the street door is a spectacular art nouveau fanlight, wherein a stained-glass Spirit of Progress bestows the gift of Transportation on mankind.[=0x000A=][=0x000A=]The sun, gleaming through the hair of Progress, throws amber curls on the macadam floor.[=0x0022=][=0x000A=][=0x000A=]The fanlight is scenery in the Garage. The description is [=0x0022=]A semi-circle of stained glass as wide as the garage door, designed by Louis Comfort Tiffany himself. No expense has been spared.[=0x0022=][=0x000A=][=0x000A=]The gift of Transportation is part of the fanlight. The description is [=0x0022=]The gift of Transportation is envisioned as a cornucopia disgorging a steam locomotive. And that blue bit of glass might be the Montgolfier balloon.[=0x0022=][=0x000A=][=0x000A=]The Spirit of Progress is part of the fanlight. The description is [=0x0022=]It is part of her character to have bare shoulders like that.[=0x0022=][=0x000A=][=0x000A=]The machinist is a bored man. He is in the Garage. He is wearing a grimy pair of overalls. He carries a wrench and a screwdriver. The current occupation of the machinist is [=0x0022=][The machinist] is making some adjustments to [the random thing which is part of the Victorian Car] with his [random thing carried by the machinist][=0x0022=][=0x000A=][=0x000A=]The Victorian Car is a device in the Garage. A cast-iron steering wheel, a leather bucket seat, a horn, and a combustion engine are part of the Victorian Car. The seat is an enterable supporter.[=0x000A=][=0x000A=]Rule for writing a paragraph about a device (called X):[=0x000A=][=0x0009=]let the subsequent mention be [=0x0022=]Name[=0x0022=];[=0x000A=][=0x0009=]if the X is unmentioned:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The X] is here. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]let the subsequent mention be [=0x0022=]It[=0x0022=];[=0x000A=][=0x0009=]if something is part of X:[=0x000A=][=0x0009=][=0x0009=]if the subsequent mention is [=0x0022=]Name[=0x0022=], say [=0x0022=][The X] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=][subsequent mention] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][if a mentioned thing is part of X]also [end if]features[if a mentioned thing is part of X], in addition to [the list of mentioned things which are part of X],[end if] [a list of unmentioned things which are part of X][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=].[=0x0022=].[=0x000A=][=0x000A=]Rule for printing the name of the steering wheel while writing a paragraph about a person:[=0x000A=][=0x0009=]say [=0x0022=]steering wheel[=0x0022=].[=0x000A=][=0x000A=]A supporter has some text called position. The position of a supporter is usually [=0x0022=]None[=0x0022=].[=0x000A=][=0x000A=]The Office is west of the Garage. The Office contains a desk. The desk has the position [=0x0022=]A [desk] with several dozen drawers stands in the center of the room[=0x0022=]. On the desk are some papers.[=0x000A=][=0x000A=]After printing the name of a supporter (called X) which supports an unmentioned thing:[=0x000A=][=0x0009=]now X is unmentioned.[=0x000A=][=0x000A=]Rule for writing a paragraph about a supporter (called X):[=0x000A=][=0x0009=]let the subsequent mention be [=0x0022=]Name[=0x0022=];[=0x000A=][=0x0009=]if the position of X is not [=0x0022=]None[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][position of X]. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]let the subsequent mention be [=0x0022=]It[=0x0022=];[=0x000A=][=0x0009=]if a mentioned thing is on X:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Besides [the list of mentioned things which are on X], [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]let the subsequent mention be [=0x0022=]it[=0x0022=];[=0x000A=][=0x0009=]if the subsequent mention is [=0x0022=]Name[=0x0022=], say [=0x0022=][The X] [=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=][subsequent mention] [=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]holds [a list of unmentioned things which are on X].[=0x0022=][=0x000A=][=0x000A=]Section 2 - Schedule[=0x000A=][=0x000A=]The time of day is 4:38 PM.[=0x000A=][=0x000A=]At 4:42 PM:[=0x000A=][=0x0009=]move the machinist to the Office;[=0x000A=][=0x0009=]say [=0x0022=]The machinist wanders into the Office to get some paperwork.[=0x0022=];[=0x000A=][=0x0009=]now every thing carried by the machinist is on the desk;[=0x000A=][=0x0009=]now the current occupation of the machinist is [=0x0022=][The machinist] rifles through [the papers] on [the desk][=0x0022=].[=0x000A=][=0x000A=]At 4:43 PM:[=0x000A=][=0x0009=]move the young lady to the Garage;[=0x000A=][=0x0009=]if the young lady can be seen by the player,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]An attractive young lady walks in from the street, and glances around as though she has never been here before.[=0x0022=][=0x000A=][=0x000A=]At 4:45 PM:[=0x000A=][=0x0009=]if the young lady can be seen by the player,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]With a not-quite-convincing air of innocence, [the young lady] happens to lean upon [the horn], which bleats loudly.[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]There is a honk from the Garage[if the machinist can be seen by the player]. The machinist looks up with a frown[end if].[=0x0022=];[=0x000A=][=0x0009=]now the horn is mentioned.[=0x000A=][=0x000A=]At 4:46 PM:[=0x000A=][=0x0009=]move the machinist to the Garage;[=0x000A=][=0x0009=]say [=0x0022=]The machinist strolls from the Office into the Garage to find out what is going on.[=0x0022=];[=0x000A=][=0x0009=]now the current occupation of the machinist is [=0x0022=][The machinist] is chatting with [the young lady]. He seems to be demonstrating the various features of [the car], including [the random thing which is part of the car][=0x0022=];[=0x000A=][=0x0009=]now the current occupation of the young lady is [=0x0022=][The young lady] is asking [the machinist] a number of questions about [the car][=0x0022=].[=0x000A=][=0x000A=]At 4:49 PM:[=0x000A=][=0x0009=]if the young lady can be seen by the player, say [=0x0022=][The machinist] gives [the young lady] his arm to climb into [the seat].[=0x0022=];[=0x000A=][=0x0009=]move the young lady to the seat;[=0x000A=][=0x0009=]now the young lady is rapt;[=0x000A=][=0x0009=]now the current occupation of the young lady is [=0x0022=][The young lady] is turning [the steering wheel] from side to side[=0x0022=];[=0x000A=][=0x0009=]now the current occupation of the machinist is [=0x0022=][The machinist] is leaning on the door of [the car], pointing out features to [the young lady][=0x0022=];[=0x000A=][=0x0009=]move the besotted expression to the machinist;[=0x000A=][=0x0009=]now the machinist is wearing the besotted expression.[=0x000A=][=0x000A=]At 4:52 PM:[=0x000A=][=0x0009=]now the sober grey gown is unbuttoned at the neck;[=0x000A=][=0x0009=]if the young lady can be seen by the player, say [=0x0022=][The young lady] murmurs something about the wilting heat, and undoes a button or two of her gown. The machinist[=0x0027=]s expression is comical, or would be, if you weren[=0x0027=]t annoyed.[=0x0022=][=0x000A=][=0x000A=]Every turn when the player is in the Garage and young lady is on the seat:[=0x000A=][=0x0009=]say [=0x0022=]You are beginning to feel a little unnecessary in this scene.[=0x0022=][=0x000A=][=0x000A=]Every turn when the player is in the Office and the young lady is on the seat:[=0x000A=][=0x0009=]say [=0x0022=]There[=0x0027=]s no sound at all from the other room, not even conversation.[=0x0022=][=0x000A=][=0x000A=]Before going to the Garage when the young lady is on the seat:[=0x000A=][=0x0009=]now the sober grey gown is tellingly dishevelled;[=0x000A=][=0x0009=]move the young lady to the Garage;[=0x000A=][=0x0009=]now the young lady is blushing;[=0x000A=][=0x0009=]say [=0x0022=]There is a flurry of movement as you enter the room.[=0x0022=];[=0x000A=][=0x0009=]now the current occupation of the young lady is [=0x0022=][The young lady] stands near the door, tapping her foot nervously[=0x0022=];[=0x000A=][=0x0009=]now the besotted expression is nowhere;[=0x000A=][=0x0009=]now the current occupation of the machinist is [=0x0022=][The machinist] is leaning against [the car], looking smug[=0x0022=].[=0x000A=][=0x000A=]Section 3 - Initially Out of Play[=0x000A=][=0x000A=]The besotted expression is a wearable thing. The description is [=0x0022=]It looks foolish, doesn[=0x0027=]t it?[=0x0022=][=0x000A=][=0x000A=]The young lady is a bemused woman. She is wearing a sober grey gown and a pair of black boots. The current occupation of the young lady is [=0x0022=][The young lady] is running a gloved finger along the chassis of [the victorian car][=0x0022=][=0x000A=][=0x000A=]Before printing the name of the young lady while writing a paragraph about a person:[=0x000A=][=0x0009=]say [=0x0022=][mood of the young lady] [=0x0022=][=0x000A=][=0x000A=]The description of the grey gown is [=0x0022=]Something about the perfect row of tiny buttons has the wrong effect -- at any rate, it is natural to wonder how long they take to undo.[=0x0022=] The gown can be buttoned almost to the chin, unbuttoned at the neck, or tellingly dishevelled.[=0x000A=][=0x000A=]Rule for printing the name of the gown when writing a paragraph about a person:[=0x000A=][=0x0009=]say [=0x0022=]sober grey gown ([sober grey gown condition])[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]z / look / look / z / look / west / east / z  / look / z / look / z / look / west / east[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Air Conditioning is Standard[=0x0022=][=0x000A=][=0x000A=]Section 1 - The Garage[=0x000A=][=0x000A=]A person has some text called current occupation. The current occupation of a person is usually [=0x0022=]None[=0x0022=].[=0x000A=][=0x000A=]Mood is a kind of value. The moods are bemused, bored, attentive, rapt, and blushing. A person has a mood. A person is usually attentive.[=0x000A=][=0x000A=]Instead of examining a person:[=0x000A=][=0x0009=]now every thing is unmentioned;[=0x000A=][=0x0009=]carry out the writing a paragraph about activity with the noun.[=0x000A=][=0x000A=]Rule for writing a paragraph about a person (called X):[=0x000A=][=0x0009=]let the subsequent mention be [=0x0022=]Name[=0x0022=];[=0x000A=][=0x0009=]if the current occupation of X is not [=0x0022=]None[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][current occupation of X]. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]let the subsequent mention be [=0x0022=]He[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]if X is female, let the subsequent mention be [=0x0022=]She[=0x0022=];[=0x000A=][=0x0009=]if X wears something unmentioned:[=0x000A=][=0x0009=][=0x0009=]if the subsequent mention is [=0x0022=]Name[=0x0022=], say [=0x0022=][The X] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=][subsequent mention] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]is wearing [a list of unmentioned things worn by X][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]if X carries something unmentioned, say [=0x0022=] and carrying [a list of unmentioned things carried by X][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=].[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if X carries something unmentioned:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the subsequent mention is [=0x0022=]Name[=0x0022=], say [=0x0022=][The X] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=][subsequent mention] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=] is carrying [a list of unmentioned things carried by X].[=0x0022=][=0x000A=][=0x000A=]The Garage is a room. [=0x0022=]Above the street door is a spectacular art nouveau fanlight, wherein a stained-glass Spirit of Progress bestows the gift of Transportation on mankind.[=0x000A=][=0x000A=]The sun, gleaming through the hair of Progress, throws amber curls on the macadam floor.[=0x0022=][=0x000A=][=0x000A=]The fanlight is scenery in the Garage. The description is [=0x0022=]A semi-circle of stained glass as wide as the garage door, designed by Louis Comfort Tiffany himself. No expense has been spared.[=0x0022=][=0x000A=][=0x000A=]The gift of Transportation is part of the fanlight. The description is [=0x0022=]The gift of Transportation is envisioned as a cornucopia disgorging a steam locomotive. And that blue bit of glass might be the Montgolfier balloon.[=0x0022=][=0x000A=][=0x000A=]The Spirit of Progress is part of the fanlight. The description is [=0x0022=]It is part of her character to have bare shoulders like that.[=0x0022=][=0x000A=][=0x000A=]The machinist is a bored man. He is in the Garage. He is wearing a grimy pair of overalls. He carries a wrench and a screwdriver. The current occupation of the machinist is [=0x0022=][The machinist] is making some adjustments to [the random thing which is part of the Victorian Car] with his [random thing carried by the machinist][=0x0022=][=0x000A=][=0x000A=]The Victorian Car is a device in the Garage. A cast-iron steering wheel, a leather bucket seat, a horn, and a combustion engine are part of the Victorian Car. The seat is an enterable supporter.[=0x000A=][=0x000A=]Rule for writing a paragraph about a device (called X):[=0x000A=][=0x0009=]let the subsequent mention be [=0x0022=]Name[=0x0022=];[=0x000A=][=0x0009=]if the X is unmentioned:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The X] is here. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]let the subsequent mention be [=0x0022=]It[=0x0022=];[=0x000A=][=0x0009=]if something is part of X:[=0x000A=][=0x0009=][=0x0009=]if the subsequent mention is [=0x0022=]Name[=0x0022=], say [=0x0022=][The X] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=][subsequent mention] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][if a mentioned thing is part of X]also [end if]features[if a mentioned thing is part of X], in addition to [the list of mentioned things which are part of X],[end if] [a list of unmentioned things which are part of X][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=].[=0x0022=].[=0x000A=][=0x000A=]Rule for printing the name of the steering wheel while writing a paragraph about a person:[=0x000A=][=0x0009=]say [=0x0022=]steering wheel[=0x0022=].[=0x000A=][=0x000A=]A supporter has some text called position. The position of a supporter is usually [=0x0022=]None[=0x0022=].[=0x000A=][=0x000A=]The Office is west of the Garage. The Office contains a desk. The desk has the position [=0x0022=]A [desk] with several dozen drawers stands in the center of the room[=0x0022=]. On the desk are some papers.[=0x000A=][=0x000A=]After printing the name of a supporter (called X) which supports an unmentioned thing:[=0x000A=][=0x0009=]now X is unmentioned.[=0x000A=][=0x000A=]Rule for writing a paragraph about a supporter (called X):[=0x000A=][=0x0009=]let the subsequent mention be [=0x0022=]Name[=0x0022=];[=0x000A=][=0x0009=]if the position of X is not [=0x0022=]None[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][position of X]. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]let the subsequent mention be [=0x0022=]It[=0x0022=];[=0x000A=][=0x0009=]if a mentioned thing is on X:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Besides [the list of mentioned things which are on X], [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]let the subsequent mention be [=0x0022=]it[=0x0022=];[=0x000A=][=0x0009=]if the subsequent mention is [=0x0022=]Name[=0x0022=], say [=0x0022=][The X] [=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=][subsequent mention] [=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]holds [a list of unmentioned things which are on X].[=0x0022=][=0x000A=][=0x000A=]Section 2 - Schedule[=0x000A=][=0x000A=]The time of day is 4:38 PM.[=0x000A=][=0x000A=]At 4:42 PM:[=0x000A=][=0x0009=]move the machinist to the Office;[=0x000A=][=0x0009=]say [=0x0022=]The machinist wanders into the Office to get some paperwork.[=0x0022=];[=0x000A=][=0x0009=]now every thing carried by the machinist is on the desk;[=0x000A=][=0x0009=]now the current occupation of the machinist is [=0x0022=][The machinist] rifles through [the papers] on [the desk][=0x0022=].[=0x000A=][=0x000A=]At 4:43 PM:[=0x000A=][=0x0009=]move the young lady to the Garage;[=0x000A=][=0x0009=]if the young lady can be seen by the player,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]An attractive young lady walks in from the street, and glances around as though she has never been here before.[=0x0022=][=0x000A=][=0x000A=]At 4:45 PM:[=0x000A=][=0x0009=]if the young lady can be seen by the player,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]With a not-quite-convincing air of innocence, [the young lady] happens to lean upon [the horn], which bleats loudly.[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]There is a honk from the Garage[if the machinist can be seen by the player]. The machinist looks up with a frown[end if].[=0x0022=];[=0x000A=][=0x0009=]now the horn is mentioned.[=0x000A=][=0x000A=]At 4:46 PM:[=0x000A=][=0x0009=]move the machinist to the Garage;[=0x000A=][=0x0009=]say [=0x0022=]The machinist strolls from the Office into the Garage to find out what is going on.[=0x0022=];[=0x000A=][=0x0009=]now the current occupation of the machinist is [=0x0022=][The machinist] is chatting with [the young lady]. He seems to be demonstrating the various features of [the car], including [the random thing which is part of the car][=0x0022=];[=0x000A=][=0x0009=]now the current occupation of the young lady is [=0x0022=][The young lady] is asking [the machinist] a number of questions about [the car][=0x0022=].[=0x000A=][=0x000A=]At 4:49 PM:[=0x000A=][=0x0009=]if the young lady can be seen by the player, say [=0x0022=][The machinist] gives [the young lady] his arm to climb into [the seat].[=0x0022=];[=0x000A=][=0x0009=]move the young lady to the seat;[=0x000A=][=0x0009=]now the young lady is rapt;[=0x000A=][=0x0009=]now the current occupation of the young lady is [=0x0022=][The young lady] is turning [the steering wheel] from side to side[=0x0022=];[=0x000A=][=0x0009=]now the current occupation of the machinist is [=0x0022=][The machinist] is leaning on the door of [the car], pointing out features to [the young lady][=0x0022=];[=0x000A=][=0x0009=]move the besotted expression to the machinist;[=0x000A=][=0x0009=]now the machinist is wearing the besotted expression.[=0x000A=][=0x000A=]At 4:52 PM:[=0x000A=][=0x0009=]now the sober grey gown is unbuttoned at the neck;[=0x000A=][=0x0009=]if the young lady can be seen by the player, say [=0x0022=][The young lady] murmurs something about the wilting heat, and undoes a button or two of her gown. The machinist[=0x0027=]s expression is comical, or would be, if you weren[=0x0027=]t annoyed.[=0x0022=][=0x000A=][=0x000A=]Every turn when the player is in the Garage and young lady is on the seat:[=0x000A=][=0x0009=]say [=0x0022=]You are beginning to feel a little unnecessary in this scene.[=0x0022=][=0x000A=][=0x000A=]Every turn when the player is in the Office and the young lady is on the seat:[=0x000A=][=0x0009=]say [=0x0022=]There[=0x0027=]s no sound at all from the other room, not even conversation.[=0x0022=][=0x000A=][=0x000A=]Before going to the Garage when the young lady is on the seat:[=0x000A=][=0x0009=]now the sober grey gown is tellingly dishevelled;[=0x000A=][=0x0009=]move the young lady to the Garage;[=0x000A=][=0x0009=]now the young lady is blushing;[=0x000A=][=0x0009=]say [=0x0022=]There is a flurry of movement as you enter the room.[=0x0022=];[=0x000A=][=0x0009=]now the current occupation of the young lady is [=0x0022=][The young lady] stands near the door, tapping her foot nervously[=0x0022=];[=0x000A=][=0x0009=]now the besotted expression is nowhere;[=0x000A=][=0x0009=]now the current occupation of the machinist is [=0x0022=][The machinist] is leaning against [the car], looking smug[=0x0022=].[=0x000A=][=0x000A=]Section 3 - Initially Out of Play[=0x000A=][=0x000A=]The besotted expression is a wearable thing. The description is [=0x0022=]It looks foolish, doesn[=0x0027=]t it?[=0x0022=][=0x000A=][=0x000A=]The young lady is a bemused woman. She is wearing a sober grey gown and a pair of black boots. The current occupation of the young lady is [=0x0022=][The young lady] is running a gloved finger along the chassis of [the victorian car][=0x0022=][=0x000A=][=0x000A=]Before printing the name of the young lady while writing a paragraph about a person:[=0x000A=][=0x0009=]say [=0x0022=][mood of the young lady] [=0x0022=][=0x000A=][=0x000A=]The description of the grey gown is [=0x0022=]Something about the perfect row of tiny buttons has the wrong effect -- at any rate, it is natural to wonder how long they take to undo.[=0x0022=] The gown can be buttoned almost to the chin, unbuttoned at the neck, or tellingly dishevelled.[=0x000A=][=0x000A=]Rule for printing the name of the gown when writing a paragraph about a person:[=0x000A=][=0x0009=]say [=0x0022=]sober grey gown ([sober grey gown condition])[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]z / look / look / z / look / west / east / z  / look / z / look / z / look / west / east[=0x0022=].[=0x000A=]\n', 'Example - Air Conditioning is Standard')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Air Conditioning is Standard&quot;
+        <div class="egpanel" id="example14" style="display: none;">
+            <!--START CODE "c10817_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10817_14"></a><a href="javascript:pasteCode('[=0x0022=]Air Conditioning is Standard[=0x0022=][=0x000A=][=0x000A=]Section 1 - The Garage[=0x000A=][=0x000A=]A person has some text called current occupation. The current occupation of a person is usually [=0x0022=]None[=0x0022=].[=0x000A=][=0x000A=]Mood is a kind of value. The moods are bemused, bored, attentive, rapt, and blushing. A person has a mood. A person is usually attentive.[=0x000A=][=0x000A=]Instead of examining a person:[=0x000A=][=0x0009=]now every thing is unmentioned;[=0x000A=][=0x0009=]carry out the writing a paragraph about activity with the noun.[=0x000A=][=0x000A=]Rule for writing a paragraph about a person (called X):[=0x000A=][=0x0009=]let the subsequent mention be [=0x0022=]Name[=0x0022=];[=0x000A=][=0x0009=]if the current occupation of X is not [=0x0022=]None[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][current occupation of X]. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]let the subsequent mention be [=0x0022=]He[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]if X is female, let the subsequent mention be [=0x0022=]She[=0x0022=];[=0x000A=][=0x0009=]if X wears something unmentioned:[=0x000A=][=0x0009=][=0x0009=]if the subsequent mention is [=0x0022=]Name[=0x0022=], say [=0x0022=][The X] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=][subsequent mention] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]is wearing [a list of unmentioned things worn by X][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]if X carries something unmentioned, say [=0x0022=] and carrying [a list of unmentioned things carried by X][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=].[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if X carries something unmentioned:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the subsequent mention is [=0x0022=]Name[=0x0022=], say [=0x0022=][The X] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=][subsequent mention] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=] is carrying [a list of unmentioned things carried by X].[=0x0022=][=0x000A=][=0x000A=]The Garage is a room. [=0x0022=]Above the street door is a spectacular art nouveau fanlight, wherein a stained-glass Spirit of Progress bestows the gift of Transportation on mankind.[=0x000A=][=0x000A=]The sun, gleaming through the hair of Progress, throws amber curls on the macadam floor.[=0x0022=][=0x000A=][=0x000A=]The fanlight is scenery in the Garage. The description is [=0x0022=]A semi-circle of stained glass as wide as the garage door, designed by Louis Comfort Tiffany himself. No expense has been spared.[=0x0022=][=0x000A=][=0x000A=]The gift of Transportation is part of the fanlight. The description is [=0x0022=]The gift of Transportation is envisioned as a cornucopia disgorging a steam locomotive. And that blue bit of glass might be the Montgolfier balloon.[=0x0022=][=0x000A=][=0x000A=]The Spirit of Progress is part of the fanlight. The description is [=0x0022=]It is part of her character to have bare shoulders like that.[=0x0022=][=0x000A=][=0x000A=]The machinist is a bored man. He is in the Garage. He is wearing a grimy pair of overalls. He carries a wrench and a screwdriver. The current occupation of the machinist is [=0x0022=][The machinist] is making some adjustments to [the random thing which is part of the Victorian Car] with his [random thing carried by the machinist][=0x0022=][=0x000A=][=0x000A=]The Victorian Car is a device in the Garage. A cast-iron steering wheel, a leather bucket seat, a horn, and a combustion engine are part of the Victorian Car. The seat is an enterable supporter.[=0x000A=][=0x000A=]Rule for writing a paragraph about a device (called X):[=0x000A=][=0x0009=]let the subsequent mention be [=0x0022=]Name[=0x0022=];[=0x000A=][=0x0009=]if the X is unmentioned:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The X] is here. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]let the subsequent mention be [=0x0022=]It[=0x0022=];[=0x000A=][=0x0009=]if something is part of X:[=0x000A=][=0x0009=][=0x0009=]if the subsequent mention is [=0x0022=]Name[=0x0022=], say [=0x0022=][The X] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=][subsequent mention] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][if a mentioned thing is part of X]also [end if]features[if a mentioned thing is part of X], in addition to [the list of mentioned things which are part of X],[end if] [a list of unmentioned things which are part of X][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=].[=0x0022=].[=0x000A=][=0x000A=]Rule for printing the name of the steering wheel while writing a paragraph about a person:[=0x000A=][=0x0009=]say [=0x0022=]steering wheel[=0x0022=].[=0x000A=][=0x000A=]A supporter has some text called position. The position of a supporter is usually [=0x0022=]None[=0x0022=].[=0x000A=][=0x000A=]The Office is west of the Garage. The Office contains a desk. The desk has the position [=0x0022=]A [desk] with several dozen drawers stands in the center of the room[=0x0022=]. On the desk are some papers.[=0x000A=][=0x000A=]After printing the name of a supporter (called X) which supports an unmentioned thing:[=0x000A=][=0x0009=]now X is unmentioned.[=0x000A=][=0x000A=]Rule for writing a paragraph about a supporter (called X):[=0x000A=][=0x0009=]let the subsequent mention be [=0x0022=]Name[=0x0022=];[=0x000A=][=0x0009=]if the position of X is not [=0x0022=]None[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][position of X]. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]let the subsequent mention be [=0x0022=]It[=0x0022=];[=0x000A=][=0x0009=]if a mentioned thing is on X:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Besides [the list of mentioned things which are on X], [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]let the subsequent mention be [=0x0022=]it[=0x0022=];[=0x000A=][=0x0009=]if the subsequent mention is [=0x0022=]Name[=0x0022=], say [=0x0022=][The X] [=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=][subsequent mention] [=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]holds [a list of unmentioned things which are on X].[=0x0022=][=0x000A=][=0x000A=]Section 2 - Schedule[=0x000A=][=0x000A=]The time of day is 4:38 PM.[=0x000A=][=0x000A=]At 4:42 PM:[=0x000A=][=0x0009=]move the machinist to the Office;[=0x000A=][=0x0009=]say [=0x0022=]The machinist wanders into the Office to get some paperwork.[=0x0022=];[=0x000A=][=0x0009=]now every thing carried by the machinist is on the desk;[=0x000A=][=0x0009=]now the current occupation of the machinist is [=0x0022=][The machinist] rifles through [the papers] on [the desk][=0x0022=].[=0x000A=][=0x000A=]At 4:43 PM:[=0x000A=][=0x0009=]move the young lady to the Garage;[=0x000A=][=0x0009=]if the young lady can be seen by the player,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]An attractive young lady walks in from the street, and glances around as though she has never been here before.[=0x0022=][=0x000A=][=0x000A=]At 4:45 PM:[=0x000A=][=0x0009=]if the young lady can be seen by the player,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]With a not-quite-convincing air of innocence, [the young lady] happens to lean upon [the horn], which bleats loudly.[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]There is a honk from the Garage[if the machinist can be seen by the player]. The machinist looks up with a frown[end if].[=0x0022=];[=0x000A=][=0x0009=]now the horn is mentioned.[=0x000A=][=0x000A=]At 4:46 PM:[=0x000A=][=0x0009=]move the machinist to the Garage;[=0x000A=][=0x0009=]say [=0x0022=]The machinist strolls from the Office into the Garage to find out what is going on.[=0x0022=];[=0x000A=][=0x0009=]now the current occupation of the machinist is [=0x0022=][The machinist] is chatting with [the young lady]. He seems to be demonstrating the various features of [the car], including [the random thing which is part of the car][=0x0022=];[=0x000A=][=0x0009=]now the current occupation of the young lady is [=0x0022=][The young lady] is asking [the machinist] a number of questions about [the car][=0x0022=].[=0x000A=][=0x000A=]At 4:49 PM:[=0x000A=][=0x0009=]if the young lady can be seen by the player, say [=0x0022=][The machinist] gives [the young lady] his arm to climb into [the seat].[=0x0022=];[=0x000A=][=0x0009=]move the young lady to the seat;[=0x000A=][=0x0009=]now the young lady is rapt;[=0x000A=][=0x0009=]now the current occupation of the young lady is [=0x0022=][The young lady] is turning [the steering wheel] from side to side[=0x0022=];[=0x000A=][=0x0009=]now the current occupation of the machinist is [=0x0022=][The machinist] is leaning on the door of [the car], pointing out features to [the young lady][=0x0022=];[=0x000A=][=0x0009=]move the besotted expression to the machinist;[=0x000A=][=0x0009=]now the machinist is wearing the besotted expression.[=0x000A=][=0x000A=]At 4:52 PM:[=0x000A=][=0x0009=]now the sober grey gown is unbuttoned at the neck;[=0x000A=][=0x0009=]if the young lady can be seen by the player, say [=0x0022=][The young lady] murmurs something about the wilting heat, and undoes a button or two of her gown. The machinist[=0x0027=]s expression is comical, or would be, if you weren[=0x0027=]t annoyed.[=0x0022=][=0x000A=][=0x000A=]Every turn when the player is in the Garage and young lady is on the seat:[=0x000A=][=0x0009=]say [=0x0022=]You are beginning to feel a little unnecessary in this scene.[=0x0022=][=0x000A=][=0x000A=]Every turn when the player is in the Office and the young lady is on the seat:[=0x000A=][=0x0009=]say [=0x0022=]There[=0x0027=]s no sound at all from the other room, not even conversation.[=0x0022=][=0x000A=][=0x000A=]Before going to the Garage when the young lady is on the seat:[=0x000A=][=0x0009=]now the sober grey gown is tellingly dishevelled;[=0x000A=][=0x0009=]move the young lady to the Garage;[=0x000A=][=0x0009=]now the young lady is blushing;[=0x000A=][=0x0009=]say [=0x0022=]There is a flurry of movement as you enter the room.[=0x0022=];[=0x000A=][=0x0009=]now the current occupation of the young lady is [=0x0022=][The young lady] stands near the door, tapping her foot nervously[=0x0022=];[=0x000A=][=0x0009=]now the besotted expression is nowhere;[=0x000A=][=0x0009=]now the current occupation of the machinist is [=0x0022=][The machinist] is leaning against [the car], looking smug[=0x0022=].[=0x000A=][=0x000A=]Section 3 - Initially Out of Play[=0x000A=][=0x000A=]The besotted expression is a wearable thing. The description is [=0x0022=]It looks foolish, doesn[=0x0027=]t it?[=0x0022=][=0x000A=][=0x000A=]The young lady is a bemused woman. She is wearing a sober grey gown and a pair of black boots. The current occupation of the young lady is [=0x0022=][The young lady] is running a gloved finger along the chassis of [the victorian car][=0x0022=][=0x000A=][=0x000A=]Before printing the name of the young lady while writing a paragraph about a person:[=0x000A=][=0x0009=]say [=0x0022=][mood of the young lady] [=0x0022=][=0x000A=][=0x000A=]The description of the grey gown is [=0x0022=]Something about the perfect row of tiny buttons has the wrong effect -- at any rate, it is natural to wonder how long they take to undo.[=0x0022=] The gown can be buttoned almost to the chin, unbuttoned at the neck, or tellingly dishevelled.[=0x000A=][=0x000A=]Rule for printing the name of the gown when writing a paragraph about a person:[=0x000A=][=0x0009=]say [=0x0022=]sober grey gown ([sober grey gown condition])[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]z / look / look / z / look / west / east / z  / look / z / look / z / look / west / east[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Air Conditioning is Standard[=0x0022=][=0x000A=][=0x000A=]Section 1 - The Garage[=0x000A=][=0x000A=]A person has some text called current occupation. The current occupation of a person is usually [=0x0022=]None[=0x0022=].[=0x000A=][=0x000A=]Mood is a kind of value. The moods are bemused, bored, attentive, rapt, and blushing. A person has a mood. A person is usually attentive.[=0x000A=][=0x000A=]Instead of examining a person:[=0x000A=][=0x0009=]now every thing is unmentioned;[=0x000A=][=0x0009=]carry out the writing a paragraph about activity with the noun.[=0x000A=][=0x000A=]Rule for writing a paragraph about a person (called X):[=0x000A=][=0x0009=]let the subsequent mention be [=0x0022=]Name[=0x0022=];[=0x000A=][=0x0009=]if the current occupation of X is not [=0x0022=]None[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][current occupation of X]. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]let the subsequent mention be [=0x0022=]He[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]if X is female, let the subsequent mention be [=0x0022=]She[=0x0022=];[=0x000A=][=0x0009=]if X wears something unmentioned:[=0x000A=][=0x0009=][=0x0009=]if the subsequent mention is [=0x0022=]Name[=0x0022=], say [=0x0022=][The X] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=][subsequent mention] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]is wearing [a list of unmentioned things worn by X][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]if X carries something unmentioned, say [=0x0022=] and carrying [a list of unmentioned things carried by X][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=].[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if X carries something unmentioned:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the subsequent mention is [=0x0022=]Name[=0x0022=], say [=0x0022=][The X] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=][subsequent mention] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=] is carrying [a list of unmentioned things carried by X].[=0x0022=][=0x000A=][=0x000A=]The Garage is a room. [=0x0022=]Above the street door is a spectacular art nouveau fanlight, wherein a stained-glass Spirit of Progress bestows the gift of Transportation on mankind.[=0x000A=][=0x000A=]The sun, gleaming through the hair of Progress, throws amber curls on the macadam floor.[=0x0022=][=0x000A=][=0x000A=]The fanlight is scenery in the Garage. The description is [=0x0022=]A semi-circle of stained glass as wide as the garage door, designed by Louis Comfort Tiffany himself. No expense has been spared.[=0x0022=][=0x000A=][=0x000A=]The gift of Transportation is part of the fanlight. The description is [=0x0022=]The gift of Transportation is envisioned as a cornucopia disgorging a steam locomotive. And that blue bit of glass might be the Montgolfier balloon.[=0x0022=][=0x000A=][=0x000A=]The Spirit of Progress is part of the fanlight. The description is [=0x0022=]It is part of her character to have bare shoulders like that.[=0x0022=][=0x000A=][=0x000A=]The machinist is a bored man. He is in the Garage. He is wearing a grimy pair of overalls. He carries a wrench and a screwdriver. The current occupation of the machinist is [=0x0022=][The machinist] is making some adjustments to [the random thing which is part of the Victorian Car] with his [random thing carried by the machinist][=0x0022=][=0x000A=][=0x000A=]The Victorian Car is a device in the Garage. A cast-iron steering wheel, a leather bucket seat, a horn, and a combustion engine are part of the Victorian Car. The seat is an enterable supporter.[=0x000A=][=0x000A=]Rule for writing a paragraph about a device (called X):[=0x000A=][=0x0009=]let the subsequent mention be [=0x0022=]Name[=0x0022=];[=0x000A=][=0x0009=]if the X is unmentioned:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The X] is here. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]let the subsequent mention be [=0x0022=]It[=0x0022=];[=0x000A=][=0x0009=]if something is part of X:[=0x000A=][=0x0009=][=0x0009=]if the subsequent mention is [=0x0022=]Name[=0x0022=], say [=0x0022=][The X] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=][subsequent mention] [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][if a mentioned thing is part of X]also [end if]features[if a mentioned thing is part of X], in addition to [the list of mentioned things which are part of X],[end if] [a list of unmentioned things which are part of X][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=].[=0x0022=].[=0x000A=][=0x000A=]Rule for printing the name of the steering wheel while writing a paragraph about a person:[=0x000A=][=0x0009=]say [=0x0022=]steering wheel[=0x0022=].[=0x000A=][=0x000A=]A supporter has some text called position. The position of a supporter is usually [=0x0022=]None[=0x0022=].[=0x000A=][=0x000A=]The Office is west of the Garage. The Office contains a desk. The desk has the position [=0x0022=]A [desk] with several dozen drawers stands in the center of the room[=0x0022=]. On the desk are some papers.[=0x000A=][=0x000A=]After printing the name of a supporter (called X) which supports an unmentioned thing:[=0x000A=][=0x0009=]now X is unmentioned.[=0x000A=][=0x000A=]Rule for writing a paragraph about a supporter (called X):[=0x000A=][=0x0009=]let the subsequent mention be [=0x0022=]Name[=0x0022=];[=0x000A=][=0x0009=]if the position of X is not [=0x0022=]None[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][position of X]. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]let the subsequent mention be [=0x0022=]It[=0x0022=];[=0x000A=][=0x0009=]if a mentioned thing is on X:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Besides [the list of mentioned things which are on X], [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]let the subsequent mention be [=0x0022=]it[=0x0022=];[=0x000A=][=0x0009=]if the subsequent mention is [=0x0022=]Name[=0x0022=], say [=0x0022=][The X] [=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=][subsequent mention] [=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]holds [a list of unmentioned things which are on X].[=0x0022=][=0x000A=][=0x000A=]Section 2 - Schedule[=0x000A=][=0x000A=]The time of day is 4:38 PM.[=0x000A=][=0x000A=]At 4:42 PM:[=0x000A=][=0x0009=]move the machinist to the Office;[=0x000A=][=0x0009=]say [=0x0022=]The machinist wanders into the Office to get some paperwork.[=0x0022=];[=0x000A=][=0x0009=]now every thing carried by the machinist is on the desk;[=0x000A=][=0x0009=]now the current occupation of the machinist is [=0x0022=][The machinist] rifles through [the papers] on [the desk][=0x0022=].[=0x000A=][=0x000A=]At 4:43 PM:[=0x000A=][=0x0009=]move the young lady to the Garage;[=0x000A=][=0x0009=]if the young lady can be seen by the player,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]An attractive young lady walks in from the street, and glances around as though she has never been here before.[=0x0022=][=0x000A=][=0x000A=]At 4:45 PM:[=0x000A=][=0x0009=]if the young lady can be seen by the player,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]With a not-quite-convincing air of innocence, [the young lady] happens to lean upon [the horn], which bleats loudly.[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]There is a honk from the Garage[if the machinist can be seen by the player]. The machinist looks up with a frown[end if].[=0x0022=];[=0x000A=][=0x0009=]now the horn is mentioned.[=0x000A=][=0x000A=]At 4:46 PM:[=0x000A=][=0x0009=]move the machinist to the Garage;[=0x000A=][=0x0009=]say [=0x0022=]The machinist strolls from the Office into the Garage to find out what is going on.[=0x0022=];[=0x000A=][=0x0009=]now the current occupation of the machinist is [=0x0022=][The machinist] is chatting with [the young lady]. He seems to be demonstrating the various features of [the car], including [the random thing which is part of the car][=0x0022=];[=0x000A=][=0x0009=]now the current occupation of the young lady is [=0x0022=][The young lady] is asking [the machinist] a number of questions about [the car][=0x0022=].[=0x000A=][=0x000A=]At 4:49 PM:[=0x000A=][=0x0009=]if the young lady can be seen by the player, say [=0x0022=][The machinist] gives [the young lady] his arm to climb into [the seat].[=0x0022=];[=0x000A=][=0x0009=]move the young lady to the seat;[=0x000A=][=0x0009=]now the young lady is rapt;[=0x000A=][=0x0009=]now the current occupation of the young lady is [=0x0022=][The young lady] is turning [the steering wheel] from side to side[=0x0022=];[=0x000A=][=0x0009=]now the current occupation of the machinist is [=0x0022=][The machinist] is leaning on the door of [the car], pointing out features to [the young lady][=0x0022=];[=0x000A=][=0x0009=]move the besotted expression to the machinist;[=0x000A=][=0x0009=]now the machinist is wearing the besotted expression.[=0x000A=][=0x000A=]At 4:52 PM:[=0x000A=][=0x0009=]now the sober grey gown is unbuttoned at the neck;[=0x000A=][=0x0009=]if the young lady can be seen by the player, say [=0x0022=][The young lady] murmurs something about the wilting heat, and undoes a button or two of her gown. The machinist[=0x0027=]s expression is comical, or would be, if you weren[=0x0027=]t annoyed.[=0x0022=][=0x000A=][=0x000A=]Every turn when the player is in the Garage and young lady is on the seat:[=0x000A=][=0x0009=]say [=0x0022=]You are beginning to feel a little unnecessary in this scene.[=0x0022=][=0x000A=][=0x000A=]Every turn when the player is in the Office and the young lady is on the seat:[=0x000A=][=0x0009=]say [=0x0022=]There[=0x0027=]s no sound at all from the other room, not even conversation.[=0x0022=][=0x000A=][=0x000A=]Before going to the Garage when the young lady is on the seat:[=0x000A=][=0x0009=]now the sober grey gown is tellingly dishevelled;[=0x000A=][=0x0009=]move the young lady to the Garage;[=0x000A=][=0x0009=]now the young lady is blushing;[=0x000A=][=0x0009=]say [=0x0022=]There is a flurry of movement as you enter the room.[=0x0022=];[=0x000A=][=0x0009=]now the current occupation of the young lady is [=0x0022=][The young lady] stands near the door, tapping her foot nervously[=0x0022=];[=0x000A=][=0x0009=]now the besotted expression is nowhere;[=0x000A=][=0x0009=]now the current occupation of the machinist is [=0x0022=][The machinist] is leaning against [the car], looking smug[=0x0022=].[=0x000A=][=0x000A=]Section 3 - Initially Out of Play[=0x000A=][=0x000A=]The besotted expression is a wearable thing. The description is [=0x0022=]It looks foolish, doesn[=0x0027=]t it?[=0x0022=][=0x000A=][=0x000A=]The young lady is a bemused woman. She is wearing a sober grey gown and a pair of black boots. The current occupation of the young lady is [=0x0022=][The young lady] is running a gloved finger along the chassis of [the victorian car][=0x0022=][=0x000A=][=0x000A=]Before printing the name of the young lady while writing a paragraph about a person:[=0x000A=][=0x0009=]say [=0x0022=][mood of the young lady] [=0x0022=][=0x000A=][=0x000A=]The description of the grey gown is [=0x0022=]Something about the perfect row of tiny buttons has the wrong effect -- at any rate, it is natural to wonder how long they take to undo.[=0x0022=] The gown can be buttoned almost to the chin, unbuttoned at the neck, or tellingly dishevelled.[=0x000A=][=0x000A=]Rule for printing the name of the gown when writing a paragraph about a person:[=0x000A=][=0x0009=]say [=0x0022=]sober grey gown ([sober grey gown condition])[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]z / look / look / z / look / west / east / z  / look / z / look / z / look / west / east[=0x0022=].[=0x000A=]\n', 'Example - Air Conditioning is Standard')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Air Conditioning is Standard&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10791_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10791_390"></a>Section 1 - The Garage
+            <!--START CODE "c10818_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10818_14"></a>Section 1 - The Garage
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10792_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10792_390"></a>A person has some text called current occupation. The current occupation of a person is usually &quot;None&quot;.
+            <!--START CODE "c10819_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10819_14"></a>A person has some text called current occupation. The current occupation of a person is usually &quot;None&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10793_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10793_390"></a>Mood is a kind of value. The moods are bemused, bored, attentive, rapt, and blushing. A person has a mood. A person is usually attentive.
+            <!--START CODE "c10820_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10820_14"></a>Mood is a kind of value. The moods are bemused, bored, attentive, rapt, and blushing. A person has a mood. A person is usually attentive.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10794_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10794_390"></a>Instead of examining a person:
+            <!--START CODE "c10821_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10821_14"></a>Instead of examining a person:
             <br>
             &#160;&#160;&#160;&#160;now every thing is unmentioned;
             <br>
@@ -365,8 +365,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10795_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10795_390"></a>Rule for writing a paragraph about a person (called X):
+            <!--START CODE "c10822_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10822_14"></a>Rule for writing a paragraph about a person (called X):
             <br>
             &#160;&#160;&#160;&#160;let the subsequent mention be &quot;Name&quot;;
             <br>
@@ -402,43 +402,43 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10796_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10796_390"></a>The Garage is a room. &quot;Above the street door is a spectacular art nouveau fanlight, wherein a stained-glass Spirit of Progress bestows the gift of Transportation on mankind.
+            <!--START CODE "c10823_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10823_14"></a>The Garage is a room. &quot;Above the street door is a spectacular art nouveau fanlight, wherein a stained-glass Spirit of Progress bestows the gift of Transportation on mankind.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10797_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10797_390"></a>The sun, gleaming through the hair of Progress, throws amber curls on the macadam floor.&quot;
+            <!--START CODE "c10824_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10824_14"></a>The sun, gleaming through the hair of Progress, throws amber curls on the macadam floor.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10798_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10798_390"></a>The fanlight is scenery in the Garage. The description is &quot;A semi-circle of stained glass as wide as the garage door, designed by Louis Comfort Tiffany himself. No expense has been spared.&quot;
+            <!--START CODE "c10825_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10825_14"></a>The fanlight is scenery in the Garage. The description is &quot;A semi-circle of stained glass as wide as the garage door, designed by Louis Comfort Tiffany himself. No expense has been spared.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10799_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10799_390"></a>The gift of Transportation is part of the fanlight. The description is &quot;The gift of Transportation is envisioned as a cornucopia disgorging a steam locomotive. And that blue bit of glass might be the Montgolfier balloon.&quot;
+            <!--START CODE "c10826_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10826_14"></a>The gift of Transportation is part of the fanlight. The description is &quot;The gift of Transportation is envisioned as a cornucopia disgorging a steam locomotive. And that blue bit of glass might be the Montgolfier balloon.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10800_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10800_390"></a>The Spirit of Progress is part of the fanlight. The description is &quot;It is part of her character to have bare shoulders like that.&quot;
+            <!--START CODE "c10827_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10827_14"></a>The Spirit of Progress is part of the fanlight. The description is &quot;It is part of her character to have bare shoulders like that.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10801_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10801_390"></a>The machinist is a bored man. He is in the Garage. He is wearing a grimy pair of overalls. He carries a wrench and a screwdriver. The current occupation of the machinist is &quot;[The machinist] is making some adjustments to [the random thing which is part of the Victorian Car] with his [random thing carried by the machinist]&quot;
+            <!--START CODE "c10828_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10828_14"></a>The machinist is a bored man. He is in the Garage. He is wearing a grimy pair of overalls. He carries a wrench and a screwdriver. The current occupation of the machinist is &quot;[The machinist] is making some adjustments to [the random thing which is part of the Victorian Car] with his [random thing carried by the machinist]&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10802_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10802_390"></a>The Victorian Car is a device in the Garage. A cast-iron steering wheel, a leather bucket seat, a horn, and a combustion engine are part of the Victorian Car. The seat is an enterable supporter.
+            <!--START CODE "c10829_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10829_14"></a>The Victorian Car is a device in the Garage. A cast-iron steering wheel, a leather bucket seat, a horn, and a combustion engine are part of the Victorian Car. The seat is an enterable supporter.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10803_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10803_390"></a>Rule for writing a paragraph about a device (called X):
+            <!--START CODE "c10830_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10830_14"></a>Rule for writing a paragraph about a device (called X):
             <br>
             &#160;&#160;&#160;&#160;let the subsequent mention be &quot;Name&quot;;
             <br>
@@ -460,32 +460,32 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10804_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10804_390"></a>Rule for printing the name of the steering wheel while writing a paragraph about a person:
+            <!--START CODE "c10831_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10831_14"></a>Rule for printing the name of the steering wheel while writing a paragraph about a person:
             <br>
             &#160;&#160;&#160;&#160;say &quot;steering wheel&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10805_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10805_390"></a>A supporter has some text called position. The position of a supporter is usually &quot;None&quot;.
+            <!--START CODE "c10832_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10832_14"></a>A supporter has some text called position. The position of a supporter is usually &quot;None&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10806_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10806_390"></a>The Office is west of the Garage. The Office contains a desk. The desk has the position &quot;A [desk] with several dozen drawers stands in the center of the room&quot;. On the desk are some papers.
+            <!--START CODE "c10833_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10833_14"></a>The Office is west of the Garage. The Office contains a desk. The desk has the position &quot;A [desk] with several dozen drawers stands in the center of the room&quot;. On the desk are some papers.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10807_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10807_390"></a>After printing the name of a supporter (called X) which supports an unmentioned thing:
+            <!--START CODE "c10834_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10834_14"></a>After printing the name of a supporter (called X) which supports an unmentioned thing:
             <br>
             &#160;&#160;&#160;&#160;now X is unmentioned.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10808_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10808_390"></a>Rule for writing a paragraph about a supporter (called X):
+            <!--START CODE "c10835_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10835_14"></a>Rule for writing a paragraph about a supporter (called X):
             <br>
             &#160;&#160;&#160;&#160;let the subsequent mention be &quot;Name&quot;;
             <br>
@@ -509,18 +509,18 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10809_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10809_390"></a>Section 2 - Schedule
+            <!--START CODE "c10836_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10836_14"></a>Section 2 - Schedule
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10810_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10810_390"></a>The time of day is 4:38 PM.
+            <!--START CODE "c10837_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10837_14"></a>The time of day is 4:38 PM.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10811_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10811_390"></a>At 4:42 PM:
+            <!--START CODE "c10838_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10838_14"></a>At 4:42 PM:
             <br>
             &#160;&#160;&#160;&#160;move the machinist to the Office;
             <br>
@@ -532,8 +532,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10812_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10812_390"></a>At 4:43 PM:
+            <!--START CODE "c10839_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10839_14"></a>At 4:43 PM:
             <br>
             &#160;&#160;&#160;&#160;move the young lady to the Garage;
             <br>
@@ -543,8 +543,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10813_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10813_390"></a>At 4:45 PM:
+            <!--START CODE "c10840_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10840_14"></a>At 4:45 PM:
             <br>
             &#160;&#160;&#160;&#160;if the young lady can be seen by the player,
             <br>
@@ -556,8 +556,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10814_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10814_390"></a>At 4:46 PM:
+            <!--START CODE "c10841_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10841_14"></a>At 4:46 PM:
             <br>
             &#160;&#160;&#160;&#160;move the machinist to the Garage;
             <br>
@@ -569,8 +569,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10815_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10815_390"></a>At 4:49 PM:
+            <!--START CODE "c10842_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10842_14"></a>At 4:49 PM:
             <br>
             &#160;&#160;&#160;&#160;if the young lady can be seen by the player, say &quot;[The machinist] gives [the young lady] his arm to climb into [the seat].&quot;;
             <br>
@@ -588,8 +588,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10816_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10816_390"></a>At 4:52 PM:
+            <!--START CODE "c10843_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10843_14"></a>At 4:52 PM:
             <br>
             &#160;&#160;&#160;&#160;now the sober grey gown is unbuttoned at the neck;
             <br>
@@ -597,22 +597,22 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10817_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10817_390"></a>Every turn when the player is in the Garage and young lady is on the seat:
+            <!--START CODE "c10844_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10844_14"></a>Every turn when the player is in the Garage and young lady is on the seat:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You are beginning to feel a little unnecessary in this scene.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10818_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10818_390"></a>Every turn when the player is in the Office and the young lady is on the seat:
+            <!--START CODE "c10845_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10845_14"></a>Every turn when the player is in the Office and the young lady is on the seat:
             <br>
             &#160;&#160;&#160;&#160;say &quot;There's no sound at all from the other room, not even conversation.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10819_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10819_390"></a>Before going to the Garage when the young lady is on the seat:
+            <!--START CODE "c10846_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10846_14"></a>Before going to the Garage when the young lady is on the seat:
             <br>
             &#160;&#160;&#160;&#160;now the sober grey gown is tellingly dishevelled;
             <br>
@@ -630,42 +630,42 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10820_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10820_390"></a>Section 3 - Initially Out of Play
+            <!--START CODE "c10847_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10847_14"></a>Section 3 - Initially Out of Play
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10821_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10821_390"></a>The besotted expression is a wearable thing. The description is &quot;It looks foolish, doesn't it?&quot;
+            <!--START CODE "c10848_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10848_14"></a>The besotted expression is a wearable thing. The description is &quot;It looks foolish, doesn't it?&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10822_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10822_390"></a>The young lady is a bemused woman. She is wearing a sober grey gown and a pair of black boots. The current occupation of the young lady is &quot;[The young lady] is running a gloved finger along the chassis of [the victorian car]&quot;
+            <!--START CODE "c10849_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10849_14"></a>The young lady is a bemused woman. She is wearing a sober grey gown and a pair of black boots. The current occupation of the young lady is &quot;[The young lady] is running a gloved finger along the chassis of [the victorian car]&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10823_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10823_390"></a>Before printing the name of the young lady while writing a paragraph about a person:
+            <!--START CODE "c10850_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10850_14"></a>Before printing the name of the young lady while writing a paragraph about a person:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[mood of the young lady] &quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10824_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10824_390"></a>The description of the grey gown is &quot;Something about the perfect row of tiny buttons has the wrong effect -- at any rate, it is natural to wonder how long they take to undo.&quot; The gown can be buttoned almost to the chin, unbuttoned at the neck, or tellingly dishevelled.
+            <!--START CODE "c10851_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10851_14"></a>The description of the grey gown is &quot;Something about the perfect row of tiny buttons has the wrong effect -- at any rate, it is natural to wonder how long they take to undo.&quot; The gown can be buttoned almost to the chin, unbuttoned at the neck, or tellingly dishevelled.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10825_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10825_390"></a>Rule for printing the name of the gown when writing a paragraph about a person:
+            <!--START CODE "c10852_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10852_14"></a>Rule for printing the name of the gown when writing a paragraph about a person:
             <br>
             &#160;&#160;&#160;&#160;say &quot;sober grey gown ([sober grey gown condition])&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c10826_390"-->
-            <blockquote class="code"><p class="quoted"><a id="c10826_390"></a>Test me with &quot;z / look / look / z / look / west / east / z  / look / z / look / z / look / west / east&quot;.
+            <!--START CODE "c10853_14"-->
+            <blockquote class="code"><p class="quoted"><a id="c10853_14"></a>Test me with &quot;z / look / look / z / look / west / east / z  / look / z / look / z / look / west / east&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

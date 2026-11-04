@@ -21,6 +21,7 @@
 #import "IFCompilerSettings.h"
 #import "IFCompiler.h"
 #import "IFInTest.h"
+#import "IFInBuild.h"
 #import "IFProjectFile.h"
 #import "IFIndexFile.h"
 #import "IFSkein.h"
@@ -79,6 +80,7 @@
         notes                   = [[NSTextStorage alloc] initWithString: @""];
         materialsAccess         = nil;
         _inTest                 = [[IFInTest alloc] init];
+        _inBuild                = [[IFInBuild alloc] init];
 
 		watchExpressions        = [[NSMutableArray alloc] init];
 		breakpoints             = [[NSMutableArray alloc] init];
@@ -97,7 +99,7 @@
 // == close ==
 -(void) close {
 	// Clean out any files that we aren't using any more, if set in the preferences
-	if ([[IFPreferences sharedPreferences] cleanProjectOnClose]) {
+	if ([IFPreferences sharedPreferences].cleanProjectOnClose) {
 		[self cleanOutUnnecessaryFiles: NO];
 	}
     [self unregisterProjectTextStorage];
@@ -155,12 +157,24 @@
 
 - (NSURL*) materialsDirectoryURL {
     // Work out the location of the materials folder
-    NSString* projectName	= [self.fileURL.lastPathComponent stringByDeletingPathExtension];
-    NSURL* pathURL          = [self.fileURL URLByDeletingLastPathComponent];
+    NSString* projectName	= (self.fileURL.lastPathComponent).stringByDeletingPathExtension;
+    NSURL* pathURL          = (self.fileURL).URLByDeletingLastPathComponent;
     pathURL                 = [pathURL URLByAppendingPathComponent: projectName];
     pathURL                 = [pathURL URLByAppendingPathExtension: @"materials"];
 
     return pathURL;
+}
+
+-(NSMutableURLRequest*) makeURLRequestFromURL: (NSURL*) url {
+    NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL: url];
+    urlRequest.cachePolicy = NSURLRequestReloadIgnoringLocalAndRemoteCacheData;
+
+    return urlRequest;
+}
+
+-(bool) useNewExtensions {
+    // TODO
+    return true;
 }
 
 - (NSURL*) metadataURL {
@@ -168,7 +182,7 @@
 }
 
 -(NSURL*) currentSkeinURL {
-    if( [self isExtensionProject] ) {
+    if( self.isExtensionProject ) {
         NSUInteger index = [self.skeins indexOfObject: self.currentSkein];
         if( index == NSNotFound ) {
             return nil;
@@ -184,8 +198,12 @@
     return [self.buildDirectoryURL URLByAppendingPathComponent: @"Problems.html"];
 }
 
+-(NSURL*) extensionReportURL {
+    return [self.buildDirectoryURL URLByAppendingPathComponent: @"Inbuild.html"];
+}
+
 -(NSURL*) baseReportURL {
-    if( [self isExtensionProject] ) {
+    if( self.isExtensionProject ) {
         NSString* fileName = [NSString stringWithFormat:@"Inform-Report.html"];
         return [[IFUtility temporaryDirectoryURL] URLByAppendingPathComponent:fileName];
     }
@@ -194,7 +212,7 @@
 }
 
 -(NSURL*) currentReportURL {
-    if( [self isExtensionProject] ) {
+    if( self.isExtensionProject ) {
         NSUInteger index = [self.skeins indexOfObject: self.currentSkein];
         if( index == NSNotFound ) {
             return nil;
@@ -208,7 +226,7 @@
 }
 
 -(NSURL*) combinedReportURL {
-    if( [self isExtensionProject] ) {
+    if( self.isExtensionProject ) {
         return [self.buildDirectoryURL URLByAppendingPathComponent: @"Problems.html"];
     }
     NSAssert(false, @"Asking for combined report when not an extension project");
@@ -219,21 +237,21 @@
 - (NSString*) mainSourceFile {
     if (singleFile || editingExtension) return mainSource;
 
-    NSFileWrapper* sourceDir = [projectFile sourceDirectory];
-    NSDictionary* source     = [sourceDir fileWrappers];
+    NSFileWrapper* sourceDir = projectFile.sourceDirectory;
+    NSDictionary* source     = sourceDir.fileWrappers;
 
     mainSource = nil;
 
     for( NSString* key in source ) {
         if( self.projectFileType == IFFileTypeInform7ExtensionProject ) {
-            if ([[key pathExtension] isEqualTo: @"i7x"]) {
+            if ([key.pathExtension isEqualTo: @"i7x"]) {
                 mainSource = [key copy];
             }
         }
         else {
-            if ([[key pathExtension] isEqualTo: @"inf"] ||
-                [[key pathExtension] isEqualTo: @"ni"] ||
-                [[key pathExtension] isEqualTo: @"i7"]) {
+            if ([key.pathExtension isEqualTo: @"inf"] ||
+                [key.pathExtension isEqualTo: @"ni"] ||
+                [key.pathExtension isEqualTo: @"i7"]) {
                 mainSource = [key copy];
             }
         }
@@ -264,7 +282,7 @@
 }
 
 - (NSString*) singleBuildDirectoryPath {
-    return [self.fileURL URLByDeletingLastPathComponent].path;
+    return (self.fileURL).URLByDeletingLastPathComponent.path;
 }
 
 -(NSURL*) directoryURLToFindSourceFiles {
@@ -278,7 +296,7 @@
 
 - (NSString*) pathForSourceFile: (NSString*) file {
     if( file == nil ) return nil;
-    if ([file isAbsolutePath]) return [file stringByStandardizingPath];
+    if (file.absolutePath) return file.stringByStandardizingPath;
 
     return [[self directoryURLToFindSourceFiles] URLByAppendingPathComponent: file].path;
 }
@@ -294,9 +312,9 @@
     NSTextStorage* res = [[NSTextStorage alloc] initWithString: string];
 
     [IFSyntaxManager registerTextStorage: res
-                                filename: [filename lastPathComponent]
+                                filename: filename.lastPathComponent
                             intelligence: [IFProjectTypes intelligenceForFilename: filename]
-                             undoManager: [self undoManager]];
+                             undoManager: self.undoManager];
     return res;
 }
 
@@ -305,9 +323,9 @@
     NSTextStorage* res = [[NSTextStorage alloc] initWithAttributedString: string];
 
     [IFSyntaxManager registerTextStorage: res
-                                filename: [filename lastPathComponent]
+                                filename: filename.lastPathComponent
                             intelligence: [IFProjectTypes intelligenceForFilename: filename]
-                             undoManager: [self undoManager]];
+                             undoManager: self.undoManager];
     return res;
 }
 
@@ -320,7 +338,7 @@
 
 - (NSTextStorage*) storageWithData: (NSData*) fileContents
                        forFilename: (NSString*) filename {
-    NSString* ext = [[filename pathExtension] lowercaseString];
+    NSString* ext = filename.pathExtension.lowercaseString;
     BOOL loadAsRtf = [ext isEqualToString: @"rtf"] ||
     [ext isEqualToString: @"rtfd"];
 
@@ -368,11 +386,11 @@
     if( _projectFileType != IFFileTypeInform7ExtensionProject ) {
         return;
     }
-    if( [self mainSourcePathName] == nil ) {
+    if( self.mainSourcePathName == nil ) {
         return;
     }
 
-    _testCases = [_inTest refreshExtensionCatalogue: [self mainSourcePathName]];
+    _testCases = [_inTest refreshExtensionCatalogue: self.mainSourcePathName];
 }
 
 -(void) extractSourceTaskForExtensionTestCase: (NSString*) testCase {
@@ -392,20 +410,20 @@
 -(NSArray*) testCommandsForExtensionTestCase: (NSString*) testCase {
     NSString* commandString = [_inTest testCommandsForExtension: self.mainSourcePathName
                                                        testCase: testCase];
-    commandString = [commandString stringByRemovingTrailingWhitespace];
+    commandString = commandString.stringByRemovingTrailingWhitespace;
     return [commandString componentsSeparatedByString:@"\n"];
 }
 
 -(IFSkeinItem*) nodeToReport {
     if( self.currentSkein != nil ) {
-        return [self.currentSkein nodeToReport];
+        return (self.currentSkein).nodeToReport;
     }
     return nil;
 }
 
 -(NSString*) reportStateForSkein {
     if( self.currentSkein != nil ) {
-        return [self.currentSkein reportStateForSkein];
+        return (self.currentSkein).reportStateForSkein;
     }
     return @"";
 }
@@ -419,7 +437,7 @@
     int exitCode = [_inTest generateReportForExtension: self.mainSourcePathName
                                               testCase: testCase
                                              errorCode: errorCode
-                                           problemsURL: [self normalProblemsURL]
+                                           problemsURL: self.normalProblemsURL
                                               skeinURL: skeinURL
                                            skeinNodeId: skeinNodeId
                                             skeinNodes: skeinNodes
@@ -502,10 +520,10 @@
     BOOL isExtensionProject = (fileType == IFFileTypeInform7ExtensionProject);
 
     // Clear undo stack
-    if( _currentSkein ) [[self undoManager] removeAllActionsWithTarget: _currentSkein];
+    if( _currentSkein ) [self.undoManager removeAllActionsWithTarget: _currentSkein];
 
     // Disable undo
-    [[self undoManager] disableUndoRegistration];
+    [self.undoManager disableUndoRegistration];
 
     // Load skeins
     [projectFile loadIntoSkeins: _skeins
@@ -513,7 +531,7 @@
              isExtensionProject: isExtensionProject];
 
     // Enable undo
-    [[self undoManager] enableUndoRegistration];
+    [self.undoManager enableUndoRegistration];
 
     // Select the first skein
     if( isExtensionProject ) {
@@ -523,6 +541,32 @@
         [self selectSkein: 0];
     }
 }
+
+- (int) executeInBuildForExtension: (NSURL*) extensionURL
+                            action: (NSString*) action
+                  withConfirmation: (bool) confirmed {
+    NSString* internalPath = [IFUtility pathForInformInternalAppSupport: settings.compilerVersion];
+
+    return [_inBuild executeInBuildForInfoWithProject: self.fileURL
+                                               action: action
+                                         forExtension: extensionURL
+                                         withInternal: [NSURL fileURLWithPath: internalPath]
+                                     withConfirmation: confirmed
+                                          withResults: self.extensionReportURL
+                                             settings: settings];
+}
+
+-(bool) testExtension: (NSString*) extension
+              command: (NSString*) command
+             testcase: (NSString*) testcase {
+    [compiler setBuildForRelease: false
+                      forTesting: false];
+    compiler.settings = self.settings;
+    return [compiler launchWithInTestStage: extension
+                                   command: command
+                                  testCase: testcase];
+}
+
 
 // == reading/writing ==
 
@@ -547,14 +591,14 @@
     projectFile = [[IFProjectFile alloc] initWithFileWrapper: fileWrapper];
 
     // Refresh the settings
-    settings = [projectFile settings];
+    settings = projectFile.settings;
     _projectFileType = fileType;
 
     // Create materials folder, if necessary
     [self createMaterials];
 
     // Turn the source directory into NSTextStorages
-    NSFileWrapper* sourceDir = [projectFile sourceDirectory];
+    NSFileWrapper* sourceDir = projectFile.sourceDirectory;
 
     if (sourceDir == nil) {
         projectFile = nil;
@@ -568,7 +612,7 @@
     }
 
     sourceFiles = [[NSMutableDictionary alloc] init];
-    NSDictionary* source = [sourceDir fileWrappers];
+    NSDictionary* source = sourceDir.fileWrappers;
 
     // Load all the source files
     for( NSString* key in source ) {
@@ -583,7 +627,7 @@
 
         sourceFiles[key] = text;
 
-        NSString* pathExtension = [key pathExtension];
+        NSString* pathExtension = key.pathExtension;
         if( fileType == IFFileTypeInform7ExtensionProject )
         {
             if ([pathExtension isEqualTo: @"i7x"]) {
@@ -604,10 +648,9 @@
     if (settings == nil) {
         settings = [[IFCompilerSettings alloc] init];
         
-        if ([[mainSource pathExtension] isEqualTo: @"ni"] ||
-            [[mainSource pathExtension] isEqualTo: @"i7"] ||
-            [[mainSource pathExtension] isEqualTo: @"i7x"]) {
-            [settings setLibraryToUse: @"Natural"];
+        if ([mainSource.pathExtension isEqualTo: @"ni"] ||
+            [mainSource.pathExtension isEqualTo: @"i7"] ||
+            [mainSource.pathExtension isEqualTo: @"i7x"]) {
             [settings setUsingNaturalInform: YES];
         }
     }
@@ -615,7 +658,7 @@
     singleFile = NO;
 
     // Load the notes (if present)
-    notes = [projectFile loadNotes];
+    notes = projectFile.loadNotes;
 
     // Work out which test cases we have
     [self refreshTestCases];
@@ -624,19 +667,19 @@
     [self loadSkeinsFileType: fileType];
 
     // Load the watchpoints file (if present)
-    watchExpressions = [projectFile loadWatchpoints];
+    watchExpressions = projectFile.loadWatchpoints;
     if (watchExpressions == nil ) {
         watchExpressions = [[NSMutableArray alloc] init];
     }
 
     // Load the breakpoints file (if present)
-    breakpoints = [projectFile loadBreakpoints];
+    breakpoints = projectFile.loadBreakpoints;
     if( breakpoints == nil ) {
 		breakpoints = [[NSMutableArray alloc] init];
     }
     
     // Load UUID, if present
-    uuid = [projectFile loadUUID];
+    uuid = projectFile.loadUUID;
 
     // Load the index file (if present)
     [self reloadIndexFile];
@@ -656,15 +699,14 @@
     // Default settings
     settings = [[IFCompilerSettings alloc] init];
     
-    NSString* filename = [fileWrapper filename];
+    NSString* filename = fileWrapper.filename;
 
     if( [IFProjectTypes informVersionForFilename: filename] ) {
-		[settings setLibraryToUse: @"Natural"];
 		[settings setUsingNaturalInform: YES];
     }
 
     // Load the single file
-    NSData* data = [fileWrapper regularFileContents];
+    NSData* data = fileWrapper.regularFileContents;
 
     NSString* theFile = [[NSString alloc] initWithData: data
                                               encoding: [IFProjectTypes encodingForFilename:filename]];
@@ -675,13 +717,13 @@
                                     name: filename
                                     type: [IFProjectTypes highlighterTypeForFilename: filename]
                             intelligence: [IFProjectTypes intelligenceForFilename: filename]
-                             undoManager: [self undoManager]];
+                             undoManager: self.undoManager];
 
     sourceFiles = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                    text,
-                   [filename lastPathComponent], nil];
+                   filename.lastPathComponent, nil];
 
-    mainSource = [[filename lastPathComponent] copy];
+    mainSource = [filename.lastPathComponent copy];
 
     singleFile = YES;
     return YES;
@@ -690,7 +732,7 @@
 -(BOOL) readExtension: (NSFileWrapper*) fileWrapper
                 error: (NSError*__autoreleasing*) outError {
     // Check we have a directory... Inform extension projects are directories.
-    if (![fileWrapper isDirectory]) {
+    if (!fileWrapper.directory) {
         if( outError ) {
             *outError = [NSError errorWithDomain: NSCocoaErrorDomain
                                             code: NSFileReadUnknownError
@@ -710,7 +752,7 @@
     mainSource = nil;
 
     sourceFiles = [[NSMutableDictionary alloc] init];
-    NSDictionary* source = [fileWrapper fileWrappers];
+    NSDictionary* source = fileWrapper.fileWrappers;
 
     // Load all the source files
     for( NSString* key in source ) {
@@ -729,10 +771,10 @@
 
         sourceFiles[key] = text;
 
-        if ([[key pathExtension] isEqualTo: @"inf"] ||
-            [[key pathExtension] isEqualTo: @"ni"] ||
-            [[key pathExtension] isEqualTo: @"i7"] ||
-            [[key pathExtension] isEqualTo: @""]) {
+        if ([key.pathExtension isEqualTo: @"inf"] ||
+            [key.pathExtension isEqualTo: @"ni"] ||
+            [key.pathExtension isEqualTo: @"i7"] ||
+            [key.pathExtension isEqualTo: @""]) {
             mainSource = [key copy];
         }
     }
@@ -749,7 +791,7 @@
 - (BOOL)readFromFileWrapper: (NSFileWrapper *) fileWrapper
                      ofType: (NSString *) typeName
                       error: (NSError *__autoreleasing*) outError {
-    [self setDocumentFileWrapper: fileWrapper];
+    self.documentFileWrapper = fileWrapper;
 
     IFFileType fileType = [IFProjectTypes fileTypeFromString: typeName];
     switch( fileType ) {
@@ -796,12 +838,12 @@
 
 -(NSData*) dataForSourceFileWithKey: (NSString*) key {
     // Get data
-    NSString* ext = [[key pathExtension] lowercaseString];
+    NSString* ext = key.pathExtension.lowercaseString;
 
     if ([ext isEqualToString: @"rtf"] ||
         [ext isEqualToString: @"rtfd"]) {
         NSAttributedString* str = sourceFiles[key];
-        return [str RTFFromRange: NSMakeRange(0, [str length]) documentAttributes: @{NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType}];
+        return [str RTFFromRange: NSMakeRange(0, str.length) documentAttributes: @{NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType}];
     } else {
         return [[sourceFiles[key] string] dataUsingEncoding: NSUTF8StringEncoding];
     }
@@ -816,7 +858,7 @@
         //NSLog(@"***** Writing source file %@ *****", key);
 
         // Add FileWrapper to list
-        [sourceFileWrapper removeFileWrapper: [sourceFileWrapper fileWrappers][key]];
+        [sourceFileWrapper removeFileWrapper: sourceFileWrapper.fileWrappers[key]];
         [sourceFileWrapper addRegularFileWithContents: data preferredFilename: key];
     }
     return YES;
@@ -824,7 +866,7 @@
 
 -(BOOL) writeBegin {
 	// Clean out any files that we aren't using any more, if set in the preferences
-	if ([[IFPreferences sharedPreferences] cleanProjectOnClose]) {
+	if ([IFPreferences sharedPreferences].cleanProjectOnClose) {
 		[self cleanOutUnnecessaryFiles: NO];
 	}
 
@@ -854,8 +896,8 @@
 
     // Create 'Source' directory to hold the extension files?
     NSFileWrapper* source = [[NSFileWrapper alloc] initDirectoryWithFileWrappers: @{}];
-    [source setPreferredFilename: @"Source"];
-    [source setFilename: @"Source"];
+    source.preferredFilename = @"Source";
+    source.filename = @"Source";
 
     // Write out all source files
 	if( ![self writeAllSourceFiles: source
@@ -864,16 +906,16 @@
     }
 
     // Add to document for writing
-    [[self documentFileWrapper] addFileWrapper: source];
-    return [self documentFileWrapper];
+    [self.documentFileWrapper addFileWrapper: source];
+    return self.documentFileWrapper;
 }
 
 -(NSFileWrapper *) writeProject: (NSError*__autoreleasing*) outError {
     [self writeBegin];
 
     // Create new 'project file', based on the document's file wrapper
-    projectFile = [[IFProjectFile alloc] initWithFileWrapper: [self documentFileWrapper]];
-    NSFileWrapper* source = [projectFile sourceDirectory];
+    projectFile = [[IFProjectFile alloc] initWithFileWrapper: self.documentFileWrapper];
+    NSFileWrapper* source = projectFile.sourceDirectory;
 
 	if( ![self writeAllSourceFiles: source
                              error: outError] ) {
@@ -884,11 +926,11 @@
     [projectFile replaceSourceDirectoryWrapper: source];
 
 	// Write the Notes file
-    [projectFile writeNotes: [notes RTFFromRange: NSMakeRange(0, [notes length])
+    [projectFile writeNotes: [notes RTFFromRange: NSMakeRange(0, notes.length)
                               documentAttributes: @{NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType}]];
 
 	// Write the Skein file
-    [projectFile writeSkeins: _skeins isExtensionProject: [self isExtensionProject]];
+    [projectFile writeSkeins: _skeins isExtensionProject: self.isExtensionProject];
 
 	// Write the Watchpoints file
     [projectFile writeWatchpoints: watchExpressions];
@@ -897,11 +939,11 @@
     [projectFile writeBreakpoints: breakpoints];
 
     // Setup the settings
-    [projectFile setSettings: settings];
+    projectFile.settings = settings;
 
-    [[self documentFileWrapper] addFileWrapper: source];
+    [self.documentFileWrapper addFileWrapper: source];
 
-    return [self documentFileWrapper];
+    return self.documentFileWrapper;
 }
 
 - (NSFileWrapper *)fileWrapperOfType: (NSString *)typeName
@@ -915,17 +957,17 @@
 
         // Inform 6 source file
         case IFFileTypeInform6SourceFile: {
-            NSTextStorage* theFile = [self storageForFile: [self mainSourceFile]];
+            NSTextStorage* theFile = [self storageForFile: self.mainSourceFile];
             if (theFile == nil) {
                 NSLog(@"Bug: no file storage found");
                 return nil;
             }
             
-            NSData *textData = [[theFile string] dataUsingEncoding: NSISOLatin1StringEncoding];
+            NSData *textData = [theFile.string dataUsingEncoding: NSISOLatin1StringEncoding];
             
-            [[self documentFileWrapper] addRegularFileWithContents: textData
-                                                 preferredFilename: [[self mainSourceFile] lastPathComponent]];
-            return [self documentFileWrapper];
+            [self.documentFileWrapper addRegularFileWithContents: textData
+                                                 preferredFilename: self.mainSourceFile.lastPathComponent];
+            return self.documentFileWrapper;
         }
 
         // Inform 7 source file
@@ -961,8 +1003,8 @@
     NSURL* destinationURL = [[self sourceDirectoryURL] URLByAppendingPathComponent: newFile];
 
     NSFileWrapper* newFileWrapper = [[NSFileWrapper alloc] initRegularFileWithContents: data];
-    [newFileWrapper setPreferredFilename: newFile];
-    [newFileWrapper setFilename: newFile];
+    newFileWrapper.preferredFilename = newFile;
+    newFileWrapper.filename = newFile;
     [newFileWrapper writeToURL: destinationURL
                        options: NSFileWrapperWritingWithNameUpdating
            originalContentsURL: nil
@@ -1034,41 +1076,41 @@
 	NSString*       sourceDir           = [self directoryURLToFindSourceFiles].path;
 
 	if (projectFile == nil && [sourceFile.lastPathComponent isEqualToString: self.fileURL.lastPathComponent]) {
-		if (![sourceFile isAbsolutePath]) {
+		if (!sourceFile.absolutePath) {
 			// Special case: when we're editing an individual file, then we always use that filename if possible
 			sourceFile = self.fileURL.path;
 		}
 	}
 
 	// Refuse to return storage for files outside the project directory
-	if (sourceDir && [sourceFile isAbsolutePath]) {
-		if (![[sourceFile stringByStandardizingPath] hasPrefix: sourceDir]) {
+	if (sourceDir && sourceFile.absolutePath) {
+		if (![sourceFile.stringByStandardizingPath hasPrefix: sourceDir]) {
 			return nil;
 		}
 	}
 
-	if (![sourceFile isAbsolutePath]) {
+	if (!sourceFile.absolutePath) {
 		// Force absolute path
 		sourceFile = [sourceDir stringByAppendingPathComponent: sourceFile];
-        sourceFile = [sourceFile stringByStandardizingPath];
+        sourceFile = sourceFile.stringByStandardizingPath;
 
 		if (![[NSFileManager defaultManager] fileExistsAtPath: sourceFile]) {
 			// project/Source/whatever doesn't exist: try project/whatever
 			sourceFile = [self.fileURL.path stringByAppendingPathComponent: originalSourceFile];
-            sourceFile = [sourceFile stringByStandardizingPath];
+            sourceFile = sourceFile.stringByStandardizingPath;
 
 			if (![[NSFileManager defaultManager] fileExistsAtPath: sourceFile]) {
 				// If neither exists, use project/Source/whatever by default
 				sourceFile = [sourceDir stringByAppendingPathComponent: sourceFile];
-                sourceFile = [sourceFile stringByStandardizingPath];
+                sourceFile = sourceFile.stringByStandardizingPath;
 			}
 		}
 	}
 
-	if ([sourceFile isAbsolutePath]) {
+	if (sourceFile.absolutePath) {
 		// Absolute path
-		if ([[[sourceFile stringByDeletingLastPathComponent] stringByStandardizingPath] isEqualToString: sourceDir]) {
-			return sourceFiles[[sourceFile lastPathComponent]];
+		if ([sourceFile.stringByDeletingLastPathComponent.stringByStandardizingPath isEqualToString: sourceDir]) {
+			return sourceFiles[sourceFile.lastPathComponent];
 		}
 		
 		if (![[NSFileManager defaultManager] fileExistsAtPath: sourceFile]) {
@@ -1131,7 +1173,7 @@
         indexWrapper = [[NSFileWrapper alloc] initWithURL: self.indexDirectoryURL
                                                   options: (NSFileWrapperReadingOptions)0
                                                     error: NULL];
-        [indexWrapper setPreferredFilename: @"Index"];
+        indexWrapper.preferredFilename = @"Index";
     }
 
     // Replace the old index wrapper
@@ -1167,7 +1209,7 @@
         wrapper = [[NSFileWrapper alloc] initWithURL: self.sourceDirectoryURL
                                              options: (NSFileWrapperReadingOptions)0
                                                error: NULL];
-        [wrapper setPreferredFilename: @"Source"];
+        wrapper.preferredFilename = @"Source";
     }
 
     // Replace the old build wrapper
@@ -1175,7 +1217,7 @@
 }
 
 - (NSFileWrapper*) buildWrapper {
-    return [projectFile buildWrapper];
+    return projectFile.buildWrapper;
 }
 
 - (void) DEBUGverifyWrapper {
@@ -1217,7 +1259,7 @@
 }
 
 - (NSInteger) watchExpressionCount {
-	return [watchExpressions count];
+	return watchExpressions.count;
 }
 
 // Breakpoints
@@ -1251,7 +1293,7 @@
 }
 
 - (NSInteger) breakpointCount {
-	return [breakpoints count];
+	return breakpoints.count;
 }
 
 - (void) removeBreakpointAtIndex: (NSInteger) index {
@@ -1286,12 +1328,12 @@
 }
 
 -(BOOL) isExtensionProject {
-    return [self projectFileType] == IFFileTypeInform7ExtensionProject;
+    return self.projectFileType == IFFileTypeInform7ExtensionProject;
 }
 
 -(BOOL) copyProjectExtensionSourceToMaterialsExtensions {
     // Only relevant for extension projects
-    if( ![self isExtensionProject] ) {
+    if( !self.isExtensionProject ) {
         return NO;
     }
 
@@ -1311,7 +1353,7 @@
                                                                version: &version];
         if( gotInfo == IFExtensionSuccess )
         {
-            NSURL* materialsURL  = [self materialsDirectoryURL];
+            NSURL* materialsURL  = self.materialsDirectoryURL;
             NSURL* extensionsURL = [materialsURL  URLByAppendingPathComponent: @"Extensions"];
             NSURL* authorURL     = [extensionsURL URLByAppendingPathComponent: author];
             NSURL* fileURL       = [authorURL     URLByAppendingPathComponent: title];
@@ -1340,8 +1382,8 @@
 // Extension project compilation problems need redirecting back to extension.i7x source, not story.ni
 -(NSArray*) redirectLinksToExtensionSourceCode:(NSArray*) link {
 
-    if( [link count] == 3 ) {
-        if( [self projectFileType] == IFFileTypeInform7ExtensionProject ) {
+    if( link.count == 3 ) {
+        if( self.projectFileType == IFFileTypeInform7ExtensionProject ) {
             if( [link[0] isEqualToStringCaseInsensitive: @"story.ni"] ) {
                 int extensionLineNumber = [_inTest adjustLine: [link[2] intValue] forTestCase: link[1]];
                 return @[@"extension.i7x", @(extensionLineNumber)];
@@ -1365,28 +1407,28 @@
         NSSavePanel* panel = [NSSavePanel savePanel];
 
         [panel setAccessoryView: nil];
-        [panel setAllowedFileTypes: @[@"iFiction"]];
+        panel.allowedFileTypes = @[@"iFiction"];
         [panel setCanSelectHiddenExtension: YES];
-        [panel setPrompt: [IFUtility localizedString: @"Save iFiction record"]];
+        panel.prompt = [IFUtility localizedString: @"Save iFiction record"];
         [panel setTreatsFilePackagesAsDirectories: NO];
-        [panel setDirectoryURL:         [self.fileURL URLByDeletingLastPathComponent]];
-        [panel setNameFieldStringValue: [self.fileURL.lastPathComponent stringByDeletingPathExtension]];
+        panel.directoryURL = (self.fileURL).URLByDeletingLastPathComponent;
+        panel.nameFieldStringValue = (self.fileURL.lastPathComponent).stringByDeletingPathExtension;
 
         // Show it
         [panel beginSheetModalForWindow:window completionHandler:^(NSInteger result)
          {
              // Copy the file to the specified path
              if (result == NSModalResponseOK) {
-                 NSString* filepath = [[[panel URL] path] stringByResolvingSymlinksInPath];
+                 NSString* filepath = panel.URL.path.stringByResolvingSymlinksInPath;
                  NSError* error;
-                 [[NSFileManager defaultManager] copyItemAtPath: [iFictionURL path]
+                 [[NSFileManager defaultManager] copyItemAtPath: iFictionURL.path
                                                          toPath: filepath
                                                           error: &error];
 
                  // Hide the file extension if the user has requested it
                  NSMutableDictionary* attributes = [[[NSFileManager defaultManager] attributesOfItemAtPath:filepath
                                                                                                      error:&error] mutableCopy];
-                 attributes[NSFileExtensionHidden] = @([panel isExtensionHidden]);
+                 attributes[NSFileExtensionHidden] = @(panel.extensionHidden);
                  [[NSFileManager defaultManager] setAttributes: attributes
                                                   ofItemAtPath: filepath error:&error];
              }
@@ -1415,10 +1457,10 @@
 
 - (void) openMaterials {
     // Work out where the materials folder is located
-    NSString* materialsPath = [self materialsDirectoryURL].path;
+    NSString* materialsPath = self.materialsDirectoryURL.path;
 
     // Create the folder if necessary
-    if (![self singleFile]) {
+    if (!self.singleFile) {
 
         // Create materials folder, in a sandbox friendly way, with an icon
         [self createMaterials];
@@ -1430,7 +1472,7 @@
                                              isDirectory: &isDir]) {
         if (!isDir) {
             // Odd; the materials folder is a file. We open the containing path so the user can see this and correct it if they like
-            [[NSWorkspace sharedWorkspace] openFile: [materialsPath stringByDeletingLastPathComponent]];
+            [[NSWorkspace sharedWorkspace] openFile: materialsPath.stringByDeletingLastPathComponent];
         } else {
             [[NSWorkspace sharedWorkspace] openFile: materialsPath];
         }
@@ -1444,23 +1486,23 @@
     tempInternalWindow = window;
 
     [panel setAccessoryView: nil];
-    [panel setAllowedFileTypes: @[[[[self compiler] outputFile] pathExtension]]];
+    panel.allowedFileTypes = @[self.compiler.outputFile.pathExtension];
     [panel setCanSelectHiddenExtension: YES];
-    [panel setPrompt: [IFUtility localizedString: @"Save"]];
+    panel.prompt = [IFUtility localizedString: @"Save"];
     [panel setTreatsFilePackagesAsDirectories: NO];
-    [panel setNameFieldStringValue: [self.fileURL.lastPathComponent stringByDeletingPathExtension]];
+    panel.nameFieldStringValue = (self.fileURL.lastPathComponent).stringByDeletingPathExtension;
 
     // Show it
     [panel beginSheetModalForWindow: window
                   completionHandler: ^(NSInteger result) {
         if (result == NSModalResponseOK) {
             NSError* error;
-            NSString* whereToSave = [[panel URL] path];
+            NSString* whereToSave = panel.URL.path;
 
             // Remove existing file then copy
             [[NSFileManager defaultManager] removeItemAtPath: whereToSave
                                                        error: &error];
-            if (![[NSFileManager defaultManager] copyItemAtPath: [[self compiler] outputFile]
+            if (![[NSFileManager defaultManager] copyItemAtPath: self.compiler.outputFile
                                                          toPath: whereToSave
                                                           error: &error]) {
                 [panel close];
@@ -1469,13 +1511,13 @@
                 // Report that a file failed to save
                 NSAlert* alert = [[NSAlert alloc] init];
                 NSString* contents = [NSString stringWithFormat: [IFUtility localizedString: @"An error was encountered while trying to save the file '%@'"],
-                                                                [whereToSave lastPathComponent]];
+                                                                whereToSave.lastPathComponent];
 
                 [alert addButtonWithTitle:  [IFUtility localizedString: @"Retry"]];
                 [alert addButtonWithTitle:  [IFUtility localizedString: @"Cancel"]];
-                [alert setMessageText:      [IFUtility localizedString: @"Unable to save file"]];
-                [alert setInformativeText:  contents];
-                [alert setAlertStyle:       NSAlertStyleWarning];
+                alert.messageText = [IFUtility localizedString: @"Unable to save file"];
+                alert.informativeText = contents;
+                alert.alertStyle = NSAlertStyleWarning;
 
                 [alert beginSheetModalForWindow: window
                               completionHandler:^(NSModalResponse returnCode) {
@@ -1497,7 +1539,7 @@
 
 - (BOOL) buildBlorbSetting {
     IFI7OutputSettings* outputSettings = (IFI7OutputSettings*)[self.settings settingForClass: [IFI7OutputSettings class]];
-    return [outputSettings createBlorbForRelease];
+    return outputSettings.createBlorbForRelease;
 }
 
 
@@ -1506,26 +1548,26 @@
                               refreshOnly: (BOOL) onlyRefresh
                                  testCase: (NSString*) testCase {
     // Set up the compiler
-    BOOL buildBlorb = release && ![self singleFile] && [self buildBlorbSetting];
+    BOOL buildBlorb = release && !self.singleFile && [self buildBlorbSetting];
 
-    IFCompiler* theCompiler = [self compiler];
+    IFCompiler* theCompiler = self.compiler;
     [theCompiler setBuildForRelease: release
                          forTesting: releaseForTesting];
-    [theCompiler setSettings: [self settings]];
+    theCompiler.settings = self.settings;
 
-    if (![self singleFile]) {
+    if (!self.singleFile) {
         // Create <projectname>.materials folder, in a sandbox friendly way
         [self createMaterials];
 
         // If necessary, copy the extension from an extension project to <projectname>.materials/Extensions/Author/Extension.i7x
         [self copyProjectExtensionSourceToMaterialsExtensions];
 
-        [theCompiler setOutputFile: self.buildOutputFileURL.path];
-        [theCompiler setInputFile: [self projectInputPathName]];
-        [theCompiler setDirectory: self.buildDirectoryURL.path];
+        theCompiler.outputFile = self.buildOutputFileURL.path;
+        theCompiler.inputFile = [self projectInputPathName];
+        theCompiler.directory = self.buildDirectoryURL.path;
     } else {
-        [theCompiler setInputFile: [self singleInputPathName]];
-        [theCompiler setDirectory: [self singleBuildDirectoryPath]];
+        theCompiler.inputFile = [self singleInputPathName];
+        theCompiler.directory = [self singleBuildDirectoryPath];
     }
 
     if (onlyRefresh) {
@@ -1556,7 +1598,7 @@
     // Pull out the lines from the file
     NSInteger lineStart = 0;
     NSInteger pos = 0;
-    NSInteger len = [fileString length];
+    NSInteger len = fileString.length;
 
     // Maximum length of 500k characters
     if (len > 500000) return nil;
@@ -1573,7 +1615,7 @@
             if (pos - lineStart > 50) return nil;
 
             // Maximum 10,000 moves
-            if ([lines count] >= 10000) return nil;
+            if (lines.count >= 10000) return nil;
 
             // Get the current line
             NSString* thisLine = [fileString substringWithRange: NSMakeRange(lineStart, pos-lineStart)];
@@ -1591,12 +1633,12 @@
     }
 
     // Must be at least one line in the file
-    if ([lines count] < 1) return nil;
+    if (lines.count < 1) return nil;
 
     // Build the new skein
     IFSkein* newSkein = [[IFSkein alloc] initWithProject: self];
 
-    [newSkein setActiveItem: [newSkein rootItem]];
+    newSkein.activeItem = newSkein.rootItem;
 
     for( NSString* line in lines ) {
         [newSkein inputCommand: line];
@@ -1618,15 +1660,15 @@
     [importPanel setCanChooseDirectories: NO];
     [importPanel setResolvesAliases: YES];
     [importPanel setAllowsMultipleSelection: NO];
-    [importPanel setTitle: [IFUtility localizedString:@"Choose a recording, skein or Zoom save game file"]];
-    [importPanel setAllowedFileTypes: @[@"rec", @"txt", @"zoomSave", @"skein"]];
+    importPanel.title = [IFUtility localizedString:@"Choose a recording, skein or Zoom save game file"];
+    importPanel.allowedFileTypes = @[@"rec", @"txt", @"zoomSave", @"skein"];
 
     // Display the panel
     [importPanel beginSheetModalForWindow: window completionHandler:^(NSInteger result)
      {
          if (result == NSModalResponseOK) {
-             NSString* path = [[importPanel URL] path];
-             NSString* extn = [[path pathExtension] lowercaseString];
+             NSString* path = importPanel.URL.path;
+             NSString* extn = path.pathExtension.lowercaseString;
 
              IFSkein* loadedSkein = nil;
              NSString* loadError = nil;
@@ -1649,11 +1691,11 @@
 
              if (loadedSkein != nil) {
                  // Merge the new skein into the current skein
-                 while( [[[loadedSkein rootItem] children] count] > 0 ) {
-                     IFSkeinItem* child = [[loadedSkein rootItem] children][0];
+                 while( loadedSkein.rootItem.children.count > 0 ) {
+                     IFSkeinItem* child = loadedSkein.rootItem.children[0];
                      [child removeFromParent];
 
-                     [[self->_currentSkein rootItem] addChild: child];
+                     [self->_currentSkein.rootItem addChild: child];
                  }
 
                  [self->_currentSkein postSkeinChangedWithAnimate: NO
@@ -1677,7 +1719,7 @@
 
 
 - (void) exportExtension: (NSWindow*) window {
-    if( [self isExtensionProject] ) {
+    if( self.isExtensionProject ) {
         // Save the project, without user interaction.
         [self saveDocument: self];
 
@@ -1685,31 +1727,31 @@
         NSSavePanel* panel = [NSSavePanel savePanel];
 
         [panel setAccessoryView: nil];
-        [panel setAllowedFileTypes: @[@"i7x"]];
+        panel.allowedFileTypes = @[@"i7x"];
         [panel setCanSelectHiddenExtension: YES];
-        [panel setPrompt: [IFUtility localizedString: @"Export Extension (.i7x)"]];
+        panel.prompt = [IFUtility localizedString: @"Export Extension (.i7x)"];
         [panel setTreatsFilePackagesAsDirectories: NO];
-        [panel setDirectoryURL:         [self.fileURL URLByDeletingLastPathComponent]];
-        [panel setNameFieldStringValue: [self.fileURL.lastPathComponent stringByDeletingPathExtension]];
+        panel.directoryURL = (self.fileURL).URLByDeletingLastPathComponent;
+        panel.nameFieldStringValue = (self.fileURL.lastPathComponent).stringByDeletingPathExtension;
 
         // Show it
         [panel beginSheetModalForWindow:window completionHandler:^(NSInteger result)
          {
              // Copy the file to the specified path
              if (result == NSModalResponseOK) {
-                 NSString* filepath = [[[panel URL] path] stringByResolvingSymlinksInPath];
+                 NSString* filepath = panel.URL.path.stringByResolvingSymlinksInPath;
                  NSError* error;
 
                  NSURL* sourceExtensionFileURL = [self.sourceDirectoryURL URLByAppendingPathComponent: @"extension.i7x"];
 
-                 [[NSFileManager defaultManager] copyItemAtPath: [sourceExtensionFileURL path]
+                 [[NSFileManager defaultManager] copyItemAtPath: sourceExtensionFileURL.path
                                                          toPath: filepath
                                                           error: &error];
 
                  // Hide the file extension if the user has requested it
                  NSMutableDictionary* attributes = [[[NSFileManager defaultManager] attributesOfItemAtPath:filepath
                                                                                                      error:&error] mutableCopy];
-                 attributes[NSFileExtensionHidden] = @([panel isExtensionHidden]);
+                 attributes[NSFileExtensionHidden] = @(panel.extensionHidden);
                  [[NSFileManager defaultManager] setAttributes: attributes
                                                   ofItemAtPath: filepath error:&error];
              }

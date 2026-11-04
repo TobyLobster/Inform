@@ -57,6 +57,6 @@
 
 
 - (void) DEBUGverifyWrapper;
-- (NSFileWrapper*) buildWrapper;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) NSFileWrapper *buildWrapper;
 
 @end

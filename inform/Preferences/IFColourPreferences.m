@@ -9,7 +9,6 @@
 
 #import "IFSyntaxManager.h"
 #import "IFNaturalHighlighter.h"
-#import "IFNewThemeWindow.h"
 
 #import "IFPreferences.h"
 #import "IFUtility.h"
@@ -62,8 +61,8 @@
 												   object: [IFPreferences sharedPreferences]];
 
 		// Create the preview
-		NSTextStorage* oldStorage = [previewView textStorage];
-		previewStorage = [[NSTextStorage alloc] initWithString: [oldStorage string]];
+		NSTextStorage* oldStorage = previewView.textStorage;
+		previewStorage = [[NSTextStorage alloc] initWithString: oldStorage.string];
 		[IFSyntaxManager registerTextStorage: previewStorage
                                         name: @"Colour Preferences (preview)"
                                         type: IFHighlightTypeInform7
@@ -107,32 +106,33 @@
 #pragma mark - Receiving data from/updating the interface
 
 -(void) updateDependentUIElements {
-    bool enabled = ([enableSyntaxColouringButton state] == NSControlStateValueOn);
+    bool enabled = (enableSyntaxColouringButton.state == NSControlStateValueOn);
 
-    [sourceColour               setEnabled: enabled];
-    [extensionColor             setEnabled: enabled];
-    [headingsColor              setEnabled: enabled];
-    [mainTextColor              setEnabled: enabled];
-    [commentsColor              setEnabled: enabled];
-    [quotedTextColor            setEnabled: enabled];
-    [textSubstitutionsColor     setEnabled: enabled];
+    sourceColour.enabled = enabled;
+    extensionColor.enabled = enabled;
+    headingsColor.enabled = enabled;
+    mainTextColor.enabled = enabled;
+    commentsColor.enabled = enabled;
+    quotedTextColor.enabled = enabled;
+    textSubstitutionsColor.enabled = enabled;
 
     // Enable button
-    [restoreSettingsButton setEnabled: ![currentSet isEqualToDefault]];
+    restoreSettingsButton.enabled = !currentSet.equalToDefault;
 
-    [deleteStyleButton setEnabled: (currentSet.flags.intValue & 1) == 1];
+    deleteStyleButton.enabled = (currentSet.flags.intValue & 1) == 1;
 }
 
 - (IBAction) newStyle: (id) sender {
     if (!self->sheet) {
-        [NSBundle oldLoadNibNamed: @"NewThemeWindow" owner:(id) self];
+        [NSBundle customLoadNib: @"NewThemeWindow"
+                          owner: (id) self];
     }
 
-    [self->sheet setThemeName:@"Custom"];
-    NSWindow * window = [[PreferenceController sharedPreferenceController] window];
+    self->sheet.themeName = @"Custom";
+    NSWindow * window = [PreferenceController sharedPreferenceController].window;
     [window beginSheet:self->sheet completionHandler:^(NSModalResponse returnCode) {
         if (returnCode == NSModalResponseOK) {
-            NSString * name = [self->sheet themeName];
+            NSString * name = self->sheet.themeName;
             IFPreferences* prefs = [IFPreferences sharedPreferences];
 
             // Try to add the theme
@@ -140,7 +140,7 @@
             newTheme.themeName = name;
 
             // HACK: Set as deletable
-            newTheme.flags = [[NSNumber alloc] initWithInt: newTheme.flags.intValue | 1];
+            newTheme.flags = @(newTheme.flags.intValue | 1);
 
             if (![prefs addTheme: newTheme]) {
                 [IFUtility runAlertWarningWindow: window
@@ -175,7 +175,7 @@
 - (void) confirmDidEnd:(NSWindow *)sheet returnCode:(NSModalResponse)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == NSAlertFirstButtonReturn) {
         IFPreferences* prefs = [IFPreferences sharedPreferences];
-        if ([prefs removeTheme: [prefs getCurrentThemeName]]) {
+        if ([prefs removeTheme: prefs.currentThemeName]) {
             [prefs setCurrentTheme: @"Light Mode"];
         }
     }
@@ -183,11 +183,11 @@
 
 
 - (IBAction) differentThemeChosen: (id) sender {
-    NSMenuItem* selectedItem = [styleButton selectedItem];
+    NSMenuItem* selectedItem = styleButton.selectedItem;
 
     if (selectedItem != nil) {
         // Set the new name
-        currentThemeName = [selectedItem title];
+        currentThemeName = selectedItem.title;
 
         // Get the theme from the preferences
         IFPreferences* prefs = [IFPreferences sharedPreferences];
@@ -201,16 +201,16 @@
 - (IBAction) styleSetHasChanged: (id) sender {
     // Update currentSet from preference pane
     {
-        if (sender == enableSyntaxColouringButton)        enableSyntaxColouring = ([enableSyntaxColouringButton state]==NSControlStateValueOn);
+        if (sender == enableSyntaxColouringButton)        enableSyntaxColouring = (enableSyntaxColouringButton.state==NSControlStateValueOn);
 
-        if (sender == sourceColour)                 currentSet.sourcePaper.colour       = [sourceColour color];
-        if (sender == extensionColor)               currentSet.extensionPaper.colour    = [extensionColor color];
+        if (sender == sourceColour)                 currentSet.sourcePaper.colour       = sourceColour.color;
+        if (sender == extensionColor)               currentSet.extensionPaper.colour    = extensionColor.color;
 
-        if (sender == headingsColor)                [currentSet optionOfType: IFSHOptionHeadings].colour = [headingsColor color];
-        if (sender == mainTextColor)                [currentSet optionOfType: IFSHOptionMainText].colour = [mainTextColor color];
-        if (sender == commentsColor)                [currentSet optionOfType: IFSHOptionComments].colour = [commentsColor color];
-        if (sender == quotedTextColor)              [currentSet optionOfType: IFSHOptionQuotedText].colour = [quotedTextColor color];
-        if (sender == textSubstitutionsColor)       [currentSet optionOfType: IFSHOptionTextSubstitutions].colour = [textSubstitutionsColor color];
+        if (sender == headingsColor)                [currentSet optionOfType: IFSHOptionHeadings].colour = headingsColor.color;
+        if (sender == mainTextColor)                [currentSet optionOfType: IFSHOptionMainText].colour = mainTextColor.color;
+        if (sender == commentsColor)                [currentSet optionOfType: IFSHOptionComments].colour = commentsColor.color;
+        if (sender == quotedTextColor)              [currentSet optionOfType: IFSHOptionQuotedText].colour = quotedTextColor.color;
+        if (sender == textSubstitutionsColor)       [currentSet optionOfType: IFSHOptionTextSubstitutions].colour = textSubstitutionsColor.color;
     }
 
     // Update dependent UI elements
@@ -225,43 +225,43 @@
 - (void) reflectCurrentPreferences {
     // Get current theme settings from preferences
     IFPreferences* prefs = [IFPreferences sharedPreferences];
-    currentThemeName = [prefs getCurrentThemeName];
-    NSArray* names = [prefs getThemeNames];
+    currentThemeName = prefs.currentThemeName;
+    NSArray* names = prefs.themeNames;
     [styleButton removeAllItems];
     [styleButton addItemsWithTitles: names];
-    [styleButton selectItemWithTitle: [prefs getCurrentThemeName]];
+    [styleButton selectItemWithTitle: prefs.currentThemeName];
 
-    enableSyntaxColouring = [prefs enableSyntaxColouring];
+    enableSyntaxColouring = prefs.enableSyntaxColouring;
 
     // Update currentSet based on application's current preferences
     [currentSet updateSetFromAppPreferences];
 
     // Update preference pane UI elements from currentSet
 
-    [enableSyntaxColouringButton setState: enableSyntaxColouring ? NSControlStateValueOn : NSControlStateValueOff];
-    [sourceColour           setColor: currentSet.sourcePaper.colour];
-    [extensionColor         setColor: currentSet.extensionPaper.colour];
+    enableSyntaxColouringButton.state = enableSyntaxColouring ? NSControlStateValueOn : NSControlStateValueOff;
+    sourceColour.color = currentSet.sourcePaper.colour;
+    extensionColor.color = currentSet.extensionPaper.colour;
 
     IFSyntaxColouringOption* option = (currentSet.options)[IFSHOptionHeadings];
-    [headingsColor          setColor: option.colour];
+    headingsColor.color = option.colour;
 
     option = (currentSet.options)[IFSHOptionMainText];
-    [mainTextColor          setColor: option.colour];
+    mainTextColor.color = option.colour;
 
     option = (currentSet.options)[IFSHOptionComments];
-    [commentsColor          setColor: option.colour];
+    commentsColor.color = option.colour;
 
     option = (currentSet.options)[IFSHOptionQuotedText];
-    [quotedTextColor        setColor: option.colour];
+    quotedTextColor.color = option.colour;
 
     option = (currentSet.options)[IFSHOptionTextSubstitutions];
-    [textSubstitutionsColor setColor: option.colour];
+    textSubstitutionsColor.color = option.colour;
 
     // Update dependent elements
     [self updateDependentUIElements];
 
     // Update paper colour on preview
-    [previewView setBackgroundColor: currentSet.sourcePaper.colour];
+    previewView.backgroundColor = currentSet.sourcePaper.colour;
 
     // Rehighlight the preview views
 	[IFSyntaxManager preferencesChanged: previewStorage];
@@ -273,9 +273,9 @@
     NSAlert *alert = [[NSAlert alloc] init];
     [alert addButtonWithTitle: [IFUtility localizedString: @"Restore"]];
     [alert addButtonWithTitle: [IFUtility localizedString: @"Cancel"]];
-    [alert setMessageText:     [IFUtility localizedString: @"Reset the current colours back to their original values?"]];
-    [alert setInformativeText: [IFUtility localizedString: @"This action cannot be undone."]];
-    [alert setAlertStyle:NSAlertStyleWarning];
+    alert.messageText = [IFUtility localizedString: @"Reset the current colours back to their original values?"];
+    alert.informativeText = [IFUtility localizedString: @"This action cannot be undone."];
+    alert.alertStyle = NSAlertStyleWarning;
 
     if ([alert runModal] == NSAlertFirstButtonReturn ) {
         [currentSet resetSettings];

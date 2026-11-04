@@ -85,14 +85,14 @@
     <p>When Go is clicked, Inform translates the I7 source text into a large body of so-called &quot;Inter&quot; code: &quot;Inter&quot; is short for &quot;intermediate&quot;. Large as this program is, it could not survive on its own: it needs a large body of pre-compiled code, also written in Inter, to sustain it. This additional material is organised in blocks called &quot;kits&quot;. Most Inform users never need to know about kits, but for example, a typical Inform project includes kits called BasicInformKit, WorldModelKit and CommandParserKit.</p>
     <p>These kits are compiled from what is (nearly) Inform 6-syntax source code, and for the details of that, see the documentation on the low-level tool &quot;inter&quot;. While it's absolutely possible for Inform users to create and use their own kits, that's beyond the scope of this book. But what we will cover here is the ability to include just a little extra Inter code - perhaps only a few functions or constants.</p>
     <p>In fact, we have seen the necessary syntax already:</p>
-    <!--START CODE "c9233"-->
-    <blockquote class="code"><p class="quoted"><a id="c9233"></a>Include (- ... -).
+    <!--START CODE "c9260"-->
+    <blockquote class="code"><p class="quoted"><a id="c9260"></a>Include (- ... -).
     </p>
     </blockquote>
     <!--END CODE-->
     <p>puts the given material &quot;...&quot; into the project. For example:</p>
-    <!--START CODE "c9234"-->
-    <blockquote class="code"><p class="quoted"><a id="c9234"></a>Include (-
+    <!--START CODE "c9261"-->
+    <blockquote class="code"><p class="quoted"><a id="c9261"></a>Include (-
     <br>
     &#160;&#160;&#160;&#160;[ ExtraFunction a b; return a*b; ];
     <br>
@@ -103,8 +103,8 @@
     <p>adds just a single function called &quot;ExtraFunction&quot;.</p>
     <p>And this works fine, but if we tried the same trick to create a function called &quot;SquareRoot&quot;, for example, then the result would be a problem message - because BasicInformKit also defines a function of the same name. This problem message is useful, because it warns us about accidental name clashes.</p>
     <p>But what if the name clash was not an accident at all, and what we actually wanted to give our own definition of &quot;SquareRoot&quot;, to be used instead of the one in BasicInformKit? This is also possible:</p>
-    <!--START CODE "c9235"-->
-    <blockquote class="code"><p class="quoted"><a id="c9235"></a>Include (-
+    <!--START CODE "c9262"-->
+    <blockquote class="code"><p class="quoted"><a id="c9262"></a>Include (-
     <br>
     [ SquareRoot num;
     <br>
@@ -118,8 +118,8 @@
     <!--END CODE-->
     <p>And now whenever square roots are calculated, this snarky text will be printed, and the result will always be rather meaningless (since this I6 routine always returns 1). Unless one is very careful, the result of replacing kit definitions can be absolute chaos.</p>
     <p>An important historical note: between about 2010 and 2021, kits did not exist, and instead there were &quot;template files&quot; of Inform 6 code which served roughly then same purpose. These had names like &quot;Relations.i6t&quot; or &quot;Mathematics.i6t&quot; and were internally divided into named subsections; and Inform supported syntax like the following:</p>
-    <!--START CODE "c9236"-->
-    <blockquote class="code"><p class="quoted"><a id="c9236"></a>Include (- ... -) before &quot;Relations.i6t&quot;.
+    <!--START CODE "c9263"-->
+    <blockquote class="code"><p class="quoted"><a id="c9263"></a>Include (- ... -) before &quot;Relations.i6t&quot;.
     <br>
     Include (- ... -) instead of &quot;Relations.i6t&quot;.
     <br>
@@ -130,8 +130,8 @@
     <p>to allow new material to be placed at oddball positions in the final code. There is now no need to worry about the placement of code - Inform's final code generator manages things so that code-ordering issues do not arise; as a result, the &quot;before&quot; and &quot;after&quot; options are now unnecessary. For now, Inform ignores these usages, and just disregards the &quot;before...&quot; or &quot;after...&quot; parts. But in some later version of Inform they will begin to cause problem messages, so writers of extensions using these syntaxes should now please remove them.</p>
     <p>The &quot;instead of&quot; option now cannot work at all, and throws a problem message. The new way to substitute a fresh definition of something built-in is to use the &quot;replacing&quot; notation described above.</p>
     <p>With the demise of the &quot;template layer&quot;, as it was called, another form of so-called &quot;template hacking&quot; has gone with it - the special notation:</p>
-    <!--START CODE "c9237"-->
-    <blockquote class="code"><p class="quoted"><a id="c9237"></a>Include (- {-segment:MyStuff.i6t} -).
+    <!--START CODE "c9264"-->
+    <blockquote class="code"><p class="quoted"><a id="c9264"></a>Include (- {-segment:MyStuff.i6t} -).
     </p>
     </blockquote>
     <!--END CODE-->

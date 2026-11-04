@@ -85,20 +85,20 @@
     <p>As we have seen, &quot;Release along with...&quot; allows us to package up a work of IF with all manner of extra materials. But what are these to be? One popular option is to produce a map - sometimes partial, sometimes obfuscated - and supply that with the story: besides, there are some IF competitions where the rules require that the referee is supplied with a map even if the players are not, and failing that, it is sometimes nice to be able to print out a map of a work in progress.</p>
     <p>The World map in the Index tab is heavily stylised and cartoonish, intended to be clicked on or moused over, and viewed in a browser: although it is, in fact, possible to print it, the results are not very good. Fortunately, the same underlying map mechanism can be used to output something more useful and very much more customisable, as we shall see.</p>
     <p>The map-maker is one of the most complex parts of Inform, even though it actually contributes nothing to the final story file: the problem of how to draw up a &quot;correct&quot; map from the source text is by no means easy to solve. Inform tries, but it often gets things wrong. Its general practice is to place rooms on a square grid (actually a cubic lattice, as it works in three dimensions), but not all conceptual maps fit well onto this, and Inform often annoyingly puts a particular room in the &quot;wrong&quot; place. For instance, suppose Inform puts &quot;Didcot&quot; east of &quot;Abingdon&quot; and this makes the geometry look different to what we had in mind. We can correct with:</p>
-    <!--START CODE "c8934"-->
-    <blockquote class="code"><p class="quoted"><a id="c8934"></a>Index map with Didcot mapped southeast of Abingdon.
+    <!--START CODE "c8960"-->
+    <blockquote class="code"><p class="quoted"><a id="c8960"></a>Index map with Didcot mapped southeast of Abingdon.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Note that this says nothing about exits from any room to any other room, and changes the final work of IF not at all: it simply helps Inform to draw the map index. (Instructions like this one are treated as being almost certainly true, but Inform does not quite always obey: it will never allow two rooms to be superimposed at the same grid position, no matter what we have asked in &quot;Index map with...&quot; instructions.) The same trick is useful if we have a situation like so:</p>
-    <!--START CODE "c8935"-->
-    <blockquote class="code"><p class="quoted"><a id="c8935"></a>Inside of Sweeping Sands is Beach Hut Interior.
+    <!--START CODE "c8961"-->
+    <blockquote class="code"><p class="quoted"><a id="c8961"></a>Inside of Sweeping Sands is Beach Hut Interior.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>&quot;Beach Hut Interior&quot; is a single room which does not connect to the rest of the map by any of the ten spatial directions, so Inform does not place it on the main map but instead moves it off out of the way in a map of its own. Given that it's just a single room, however, we might prefer to put into a convenient otherwise empty grid position like so:</p>
-    <!--START CODE "c8936"-->
-    <blockquote class="code"><p class="quoted"><a id="c8936"></a>Index map with Beach Hut Interior mapped west of Sweeping Sands.
+    <!--START CODE "c8962"-->
+    <blockquote class="code"><p class="quoted"><a id="c8962"></a>Index map with Beach Hut Interior mapped west of Sweeping Sands.
     </p>
     </blockquote>
     <!--END CODE-->

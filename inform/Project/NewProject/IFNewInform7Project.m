@@ -39,22 +39,22 @@
     IFCompilerSettings* settings = [[IFCompilerSettings alloc] init];
 
     [settings setUsingNaturalInform: YES];
-	[settings setLibraryToUse: @"Natural"];
-    [file setSettings: settings];
+    [settings setAllowLegacyExtensionDirectory: NO];
+    file.settings = settings;
 
     NSString* defaultContents = story;
 
 	// Default file content
     if( !story ) {
-        NSString* name = [[[file filename] lastPathComponent] stringByDeletingPathExtension];
-        if ([name length] == 0 || name == nil) name = @"Untitled";
+        NSString* name = file.filename.lastPathComponent.stringByDeletingPathExtension;
+        if (name.length == 0 || name == nil) name = @"Untitled";
         
-        NSString* longuserName = [[IFPreferences sharedPreferences] freshGameAuthorName];
+        NSString* longuserName = [IFPreferences sharedPreferences].freshGameAuthorName;
 
         // If longusername contains a '.', then we have to enclose it in quotes
         BOOL needQuotes = NO;
         int x;
-        for (x=0; x<[longuserName length]; x++) {
+        for (x=0; x<longuserName.length; x++) {
             if ([longuserName characterAtIndex: x] == '.') needQuotes = YES;
         }
         
@@ -63,7 +63,7 @@
         // The contents of the file
         defaultContents = [NSString stringWithFormat: @"\"%@\" by %@\n\n", name, longuserName];
 
-        initialSelectionRange = NSMakeRange([defaultContents length], [@"Example Location" length]);
+        initialSelectionRange = NSMakeRange(defaultContents.length, (@"Example Location").length);
         defaultContents = [defaultContents stringByAppendingString:@"Example Location is a room. "];
     }
     

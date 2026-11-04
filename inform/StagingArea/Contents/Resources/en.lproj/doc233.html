@@ -83,15 +83,15 @@
     <!--END IGNORE-->
     <p class="sectionheading">§15.10. Scaling and equivalents</p>
     <p>As we've seen, there are two ways to store values like lengths or weights: as whole numbers, or as real numbers. If we prefer to use whole numbers, or if real numbers aren't available (for example if we're using the Z-machine setting), then we might run into an awkward problem: when we write</p>
-    <!--START CODE "c4665"-->
-    <blockquote class="code"><p class="quoted"><a id="c4665"></a>1 kg specifies a weight.
+    <!--START CODE "c4673"-->
+    <blockquote class="code"><p class="quoted"><a id="c4673"></a>1 kg specifies a weight.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>we make this correspond to the whole number &quot;1&quot;, and that means Inform can never handle weights smaller than 1 kg.</p>
     <p>But as we've seen, we can provide differently scaled notations for the same unit:</p>
-    <!--START CODE "c4666"-->
-    <blockquote class="code"><p class="quoted"><a id="c4666"></a>A length is a kind of value. 1m specifies a length.
+    <!--START CODE "c4674"-->
+    <blockquote class="code"><p class="quoted"><a id="c4674"></a>A length is a kind of value. 1m specifies a length.
     <br>
     1km specifies a length scaled up by 1000.
     </p>
@@ -99,35 +99,35 @@
     <!--END CODE-->
     <p>And this allows us to write &quot;0.45km&quot; instead of &quot;450m&quot;, if we want to, both having the same effect. &quot;0.45km&quot; doesn't make a real number, despite the decimal point - it's simply another way to write &quot;450m&quot;, stored internally as the whole number 450.</p>
     <p>Just as we can scale up, so we can also scale down:</p>
-    <!--START CODE "c4667"-->
-    <blockquote class="code"><p class="quoted"><a id="c4667"></a>1cm specifies a length scaled down by 100.
+    <!--START CODE "c4675"-->
+    <blockquote class="code"><p class="quoted"><a id="c4675"></a>1cm specifies a length scaled down by 100.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Now we have a spread of three notations, so &quot;3cm&quot;, &quot;0.03m&quot; and &quot;0.00003km&quot; all mean the same thing. But something quite interesting happened at the same time: Inform realised that we want to know lengths to a greater accuracy than just a whole number of meters.</p>
     <p>If we're using whole numbers, and we want to resolve down to very small values, that reduces the size of the largest value we can have. For instance, with the Glulx format setting, writing just</p>
-    <!--START CODE "c4668"-->
-    <blockquote class="code"><p class="quoted"><a id="c4668"></a>A length is a kind of value. 1m specifies a length.
+    <!--START CODE "c4676"-->
+    <blockquote class="code"><p class="quoted"><a id="c4676"></a>A length is a kind of value. 1m specifies a length.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>gives us a range of 1m up to 2147483647m, which is plenty - it's about six times the distance from the Earth to the Moon. Going down to centimeters:</p>
-    <!--START CODE "c4669"-->
-    <blockquote class="code"><p class="quoted"><a id="c4669"></a>A length is a kind of value. 1m specifies a length. 1cm specifies a length scaled down by 100.
+    <!--START CODE "c4677"-->
+    <blockquote class="code"><p class="quoted"><a id="c4677"></a>A length is a kind of value. 1m specifies a length. 1cm specifies a length scaled down by 100.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>gives us instead 1cm up to 21474836.47m, which is still enough to represent any possible distance on the Earth's surface. For instance, London to Sydney is about 17000000m.</p>
     <p>Left to itself, Inform chooses the scaling for a unit so that it can represent exactly 1 of the smallest notation - so in our example Inform resolves down to 0.01m, not 1m, in order that it can represent 1cm accurately. But we can also fix the scaling ourselves:</p>
-    <!--START CODE "c4670"-->
-    <blockquote class="code"><p class="quoted"><a id="c4670"></a>A length is a kind of value. 1m specifies a length scaled at 10000.
+    <!--START CODE "c4678"-->
+    <blockquote class="code"><p class="quoted"><a id="c4678"></a>A length is a kind of value. 1m specifies a length scaled at 10000.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Notice &quot;scaled at&quot;, not &quot;scaled down&quot; or &quot;scaled up&quot; - this is now the first notation for length, so there's no existing notation which it could scale up or down. Anyway, now the range is 0.0001m, the width of a human hair, up to 214748.3647m, which is about 130 miles. (The Kinds index automatically keeps track of the range of values represented exactly.) The &quot;scaled at&quot; feature is meaningless if we're using real numbers, so it throws a Problem message.</p>
     <p>Finally, for a really deluxe kind of value, we can also provide &quot;equivalent&quot; notations. The idea here is that we might want both miles and kilometers to work, even though they aren't direct scalings of each other. We can only do this approximately, but:</p>
-    <!--START CODE "c4671"-->
-    <blockquote class="code"><p class="quoted"><a id="c4671"></a>1 mile specifies a length equivalent to 1609m.
+    <!--START CODE "c4679"-->
+    <blockquote class="code"><p class="quoted"><a id="c4679"></a>1 mile specifies a length equivalent to 1609m.
     </p>
     </blockquote>
     <!--END CODE-->

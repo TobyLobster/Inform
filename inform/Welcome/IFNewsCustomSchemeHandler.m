@@ -37,7 +37,7 @@
         NSString* path = nil;
 
         // Note: first character will always be '/', hence the 'substring' thing
-        if ([urlPath length] > 0) {
+        if (urlPath.length > 0) {
             urlPath = [urlPath substringFromIndex: 1];
         }
 
@@ -45,12 +45,12 @@
 
         // Try using pathForResource:ofType:
         // Advantage of this is that it will allow for localisation at some point in the future
-        path = [[NSBundle mainBundle] pathForResource: [[urlPath lastPathComponent] stringByDeletingPathExtension]
-                                               ofType: [urlPath pathExtension]
-                                          inDirectory: [urlPath stringByDeletingLastPathComponent]];
+        path = [[NSBundle mainBundle] pathForResource: urlPath.lastPathComponent.stringByDeletingPathExtension
+                                               ofType: urlPath.pathExtension
+                                          inDirectory: urlPath.stringByDeletingLastPathComponent];
 
         // Check if the file is in an asset catalog.
-        NSString *assetCheckPath = [urlPath stringByDeletingPathExtension];
+        NSString *assetCheckPath = urlPath.stringByDeletingPathExtension;
         if ([assetCheckPath endsWithCaseInsensitive: @"@2x"]) {
             assetCheckPath = [assetCheckPath stringByReplacing:@"@2x" with:@""];
         }
@@ -58,14 +58,14 @@
 
         if (path == nil && img != nil) {
             //Just output TIFF: it uses the least amount of code:
-            NSData *urlData = [img TIFFRepresentation];
+            NSData *urlData = img.TIFFRepresentation;
             //Which means a TIFF MIME type. Regardless of extension.
             NSString *ourType = @"image/tiff";
 
             // Create the response
             NSURLResponse* response = [[NSURLResponse alloc] initWithURL: urlSchemeTask.request.URL
                                                                 MIMEType: ourType
-                                                   expectedContentLength: [urlData length]
+                                                   expectedContentLength: urlData.length
                                                         textEncodingName: nil];
 
             [urlSchemeTask didReceiveResponse:response];    // We have a response
@@ -76,7 +76,7 @@
 
         if (path == nil) {
             // If that fails, then just append to the resourcePath of the main bundle
-            path = [[[[NSBundle mainBundle] resourcePath] stringByAppendingString: @"/"] stringByAppendingString: urlPath];
+            path = [[[NSBundle mainBundle].resourcePath stringByAppendingString: @"/"] stringByAppendingString: urlPath];
         }
 
         // Error out if we can't find the path to the resource
@@ -131,15 +131,15 @@
 
         if (ourType == nil) {
             ourType = @"text/html";
-            if ([[path pathExtension] isEqualToString: @"gif"]) {
+            if ([path.pathExtension isEqualToString: @"gif"]) {
                 ourType = @"image/gif";
-            } else if ([[path pathExtension] isEqualToString: @"jpeg"] ||
-                       [[path pathExtension] isEqualToString: @"jpg"]) {
+            } else if ([path.pathExtension isEqualToString: @"jpeg"] ||
+                       [path.pathExtension isEqualToString: @"jpg"]) {
                 ourType = @"image/jpeg";
-            } else if ([[path pathExtension] isEqualToString: @"png"]) {
+            } else if ([path.pathExtension isEqualToString: @"png"]) {
                 ourType = @"image/png";
-            } else if ([[path pathExtension] isEqualToString: @"tiff"] ||
-                       [[path pathExtension] isEqualToString: @"tif"]) {
+            } else if ([path.pathExtension isEqualToString: @"tiff"] ||
+                       [path.pathExtension isEqualToString: @"tif"]) {
                 ourType = @"image/tiff";
             }
         }
@@ -147,7 +147,7 @@
         // Create the response
         NSURLResponse* response = [[NSURLResponse alloc] initWithURL: urlSchemeTask.request.URL
                                                             MIMEType: ourType
-                                               expectedContentLength: [urlData length]
+                                               expectedContentLength: urlData.length
                                                     textEncodingName: nil];
 
         [urlSchemeTask didReceiveResponse:response];

@@ -29,7 +29,7 @@ static NSImage* curseOverImage;
     curseOverImage  = [NSImage imageNamed: @"App/Skein/Trans-cross"];
 }
 
-- (id)initWithFrame:(NSRect)frameRect {
+- (instancetype)initWithFrame:(NSRect)frameRect {
     self = [super initWithFrame:frameRect];
     if(self != nil) {
         self.bordered   = NO;

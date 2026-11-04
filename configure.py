@@ -6,14 +6,25 @@ import re
 import os
 from pbxproj import XcodeProject        # Install from https://github.com/kronenthaler/mod-pbxproj
 
-
 # Version numbers
-app_version_number          = "1.83"
+app_version_number          = "1.84"
 app_version_build_number    = app_version_number + ".0"
 inform_source_version       = "10.1.2"
 full_version                = app_version_number + "/6.41/" + inform_source_version
 
+# These are the project files found in various submodules. We are going to edit each of them.
+project_filenames = [
+    'zoom/ZoomCocoa.xcodeproj/project.pbxproj',
+    'zoom/depends/CocoaGlk/CocoaGlk.xcodeproj/project.pbxproj',
+    'zoom/depends/CocoaGlk/GlkSound/SFBAudioEngine/Libraries/dumb/dumb.xcodeproj/project.pbxproj',
+    'zoom/depends/CocoaGlk/GlkSound/SFBAudioEngine/Libraries/ogg/ogg.xcodeproj/project.pbxproj',
+    'zoom/depends/CocoaGlk/GlkSound/SFBAudioEngine/Libraries/vorbis/macosx/Vorbis.xcodeproj/project.pbxproj',
+    'zoom/depends/CocoaGlk/GlkSound/SFBAudioEngine/SFBAudioEngine.xcodeproj/project.pbxproj',
+]
+
+#########################################################################################
 # Helper functions
+#########################################################################################
 
 #
 # This function should really be in pbxproj, but they seem to have missed it out.
@@ -107,16 +118,6 @@ else:
 #########################################################################################
 # Submodule XCode Project editing
 #########################################################################################
-
-# These are the project files found in various submodules. We are going to edit each of them.
-project_filenames = [
-    'zoom/ZoomCocoa.xcodeproj/project.pbxproj',
-    'zoom/depends/CocoaGlk/CocoaGlk.xcodeproj/project.pbxproj',
-    'zoom/depends/CocoaGlk/GlkSound/SFBAudioEngine/Libraries/dumb/dumb.xcodeproj/project.pbxproj',
-    'zoom/depends/CocoaGlk/GlkSound/SFBAudioEngine/Libraries/ogg/ogg.xcodeproj/project.pbxproj',
-    'zoom/depends/CocoaGlk/GlkSound/SFBAudioEngine/Libraries/vorbis/macosx/Vorbis.xcodeproj/project.pbxproj',
-    'zoom/depends/CocoaGlk/GlkSound/SFBAudioEngine/SFBAudioEngine.xcodeproj/project.pbxproj',
-]
 
 script_dir = os.path.abspath(os.path.dirname(__file__))
 

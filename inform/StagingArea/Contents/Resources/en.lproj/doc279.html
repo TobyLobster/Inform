@@ -83,8 +83,8 @@
     <!--END IGNORE-->
     <p class="sectionheading">§17.17. Context: understanding when</p>
     <p>We have now seen several different forms of &quot;Understand&quot; sentence: for instance,</p>
-    <!--START CODE "c6056"-->
-    <blockquote class="code"><p class="quoted"><a id="c6056"></a>Understand the colour property as describing a building block.
+    <!--START CODE "c6072"-->
+    <blockquote class="code"><p class="quoted"><a id="c6072"></a>Understand the colour property as describing a building block.
     <br>
     Understand &quot;mix [colour] paint&quot; as mixing paint.
     <br>
@@ -95,8 +95,8 @@
     </blockquote>
     <!--END CODE-->
     <p>Any of these may optionally have a condition tacked on: for instance,</p>
-    <!--START CODE "c6057"-->
-    <blockquote class="code"><p class="quoted"><a id="c6057"></a>Understand &quot;mix [colour] paint&quot; as mixing paint when the location is the Workshop.
+    <!--START CODE "c6073"-->
+    <blockquote class="code"><p class="quoted"><a id="c6073"></a>Understand &quot;mix [colour] paint&quot; as mixing paint when the location is the Workshop.
     <br>
     Understand &quot;rouge&quot; as red when the make-up set is visible.
     </p>
@@ -104,21 +104,21 @@
     <!--END CODE-->
     <p>In principle, &quot;when ...&quot; can take in any condition at all. In practice a little care should be exercised not to do anything too slow, or which might have side-effects. (For instance, referring the decision to a phrase which then printed text up would be a bad idea.) Moreover, we must remember that the &quot;noun&quot; and &quot;second noun&quot; are not known yet, nor do we know what the action will be. So we cannot safely say &quot;when the noun is the fir cone&quot;, for instance, or refer to things like &quot;the number understood&quot;. (We aren't done understanding yet.) If we want more sophisticated handling of such cases, we need to write checking rules and so on in the usual way.</p>
     <p>Contexts can be useful to make sense of things having different names depending on who is being spoken to, as here:</p>
-    <!--START CODE "c6058"-->
-    <blockquote class="code"><p class="quoted"><a id="c6058"></a>Understand &quot;your&quot; as a thing when the item described is held by the person asked.
+    <!--START CODE "c6074"-->
+    <blockquote class="code"><p class="quoted"><a id="c6074"></a>Understand &quot;your&quot; as a thing when the item described is held by the person asked.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>With this rule in place FRODO, GIVE ME YOUR RING means that Frodo will know which ring is meant, even if there are a couple of dozen other rings present.</p>
     <p>If the name of something has to change completely, perhaps because the player's understanding of events has changed completely, then Inform's standard way of handling names can be a nuisance. When an item or room is created, Inform automatically makes its name understood as referring to it (in fact, it makes each individual word in that name understood). For instance,</p>
-    <!--START CODE "c6059"-->
-    <blockquote class="code"><p class="quoted"><a id="c6059"></a>The Wabe is a room. The blue peacock and the sundial are in the Wabe.
+    <!--START CODE "c6075"-->
+    <blockquote class="code"><p class="quoted"><a id="c6075"></a>The Wabe is a room. The blue peacock and the sundial are in the Wabe.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>means that the player can type EXAMINE BLUE PEACOCK or PUSH SUNDIAL or SHOWME WABE or TAKE BLUE, and so on. This is almost always a good thing, and here there's no problem, because peacocks and sundials are not usually disguised. But here is a case where a disguise is needed:</p>
-    <!--START CODE "c6060"-->
-    <blockquote class="code"><p class="quoted"><a id="c6060"></a>The secret document is a privately-named thing in the drawer.
+    <!--START CODE "c6076"-->
+    <blockquote class="code"><p class="quoted"><a id="c6076"></a>The secret document is a privately-named thing in the drawer.
     <br>
     The printed name of the secret document is &quot;[if the secret document is handled]secret document[otherwise]dusty paper&quot;.
     <br>
@@ -131,16 +131,16 @@
     </blockquote>
     <!--END CODE-->
     <p>As this demonstrates, the either/or property &quot;privately-named&quot; makes Inform create a thing or room which starts out with no automatic understandings at all. The name it happens to have in the source text is ignored. If we simply write:</p>
-    <!--START CODE "c6061"-->
-    <blockquote class="code"><p class="quoted"><a id="c6061"></a>The ungraspable concept is a privately-named thing in the Dining Room.
+    <!--START CODE "c6077"-->
+    <blockquote class="code"><p class="quoted"><a id="c6077"></a>The ungraspable concept is a privately-named thing in the Dining Room.
     </p>
     </blockquote>
     <!--END CODE-->
-    <p>then nothing the player can type will ever refer to it; though he will see it, and even be able to pick it up by typing TAKE ALL.</p>
+    <p>then nothing the player can type will ever refer to it; though they will see it, and even be able to pick it up by typing TAKE ALL.</p>
     <p>The reverse property is &quot;publicly-named&quot;, which all things and rooms are by default.</p>
     <p>Inform has four built-in kinds of object (room, thing, direction and region), and all of those have this either/or property. When we create new kinds, they're normally kinds of those four fundamental ones, so they pick up the same behaviour. But if we create a new kind of object outside of these four, that won't be true unless we make it so:</p>
-    <!--START CODE "c6062"-->
-    <blockquote class="code"><p class="quoted"><a id="c6062"></a>A concept is a kind of object. A concept can be privately-named or publicly-named. A concept is usually publicly-named.
+    <!--START CODE "c6078"-->
+    <blockquote class="code"><p class="quoted"><a id="c6078"></a>A concept is a kind of object. A concept can be privately-named or publicly-named. A concept is usually publicly-named.
     </p>
     </blockquote>
     <!--END CODE-->
@@ -148,57 +148,57 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "323: Quiz Show" "e311"-->
-        <a id="e311"></a><table class="egcue">
+        <!--START EXAMPLE "324: Quiz Show" "e301"-->
+        <a id="e301"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example311'); return false;"><b>323</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example301'); return false;"><b>324</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example311'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Quiz Show</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example301'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Quiz Show</span></b></a><br>
                     In this example by Mike Tarbert, the player can occasionally be quizzed on random data from a table; the potential answers will only be understood if a question has just been asked.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc6.html#e311"><i>RB</i></a></div>
+                        <a href="Rdoc6.html#e301"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example311" style="display: none;">
-            <!--START CODE "c6063_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c6063_311"></a><a href="javascript:pasteCode('[=0x0022=]Quiz Show[=0x0022=] by Mike Tarbert[=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Answer mode is a truth state that varies.[=0x000A=]Current state is a text that varies.[=0x000A=][=0x000A=]Guessing is an action applying to one topic.[=0x000A=]Understand [=0x0022=][text][=0x0022=] as guessing when answer mode is true.[=0x000A=][=0x000A=][Because of the [=0x0022=]...when[=0x0022=] part of this line, random text is only treated as an answer when a question is being asked.][=0x000A=][=0x000A=]Check guessing (this is the default wrong answer rule):[=0x000A=][=0x0009=]if the topic understood is not a topic listed in the Table of Dates of Statehood:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Wrong![=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=]Carry out guessing a topic listed in the Table of Dates of Statehood:[=0x000A=][=0x0009=]if state entry is the current state:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Correct! ([comment entry], to be exact!)[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]increase the score by one;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Wrong![=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=][This next rule allows a player to do something other than answer the question, but then makes him wait for another question before answering.][=0x000A=][=0x000A=]Before doing anything other than guessing:[=0x000A=][=0x0009=]if answer mode is true:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](ignoring the question)[line break][=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Lab is a room.  Sam is a man in the lab.[=0x000A=][=0x000A=]Every turn when the player is in the lab:[=0x000A=][=0x0009=]if a random chance of 3 in 5 succeeds:[=0x000A=][=0x0009=][=0x0009=]choose a random row in the Table of Dates of Statehood;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Sam asks you, [=0x0027=]In what year was [state entry] admitted into the Union?[=0x0027=][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now current state is state entry;[=0x000A=][=0x0009=][=0x0009=]now answer mode is true.[=0x000A=][=0x000A=]Table of Dates of Statehood[=0x000A=]State[=0x0009=]Topic[=0x0009=]Comment[=0x000A=][=0x0022=]Florida[=0x0022=][=0x0009=][=0x0022=]1845[=0x0022=][=0x0009=][=0x0022=]March 3rd[=0x0022=][=0x000A=][=0x0022=]Delaware[=0x0022=][=0x0009=][=0x0022=]1787[=0x0022=][=0x0009=][=0x0022=]December 7th[=0x0022=][=0x000A=][=0x0022=]Hawaii[=0x0022=][=0x0009=][=0x0022=]1960[=0x0022=][=0x0009=][=0x0022=]July 4th[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]1845 / z / z / 1787 / 1792 / z / 1845 / g[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Quiz Show[=0x0022=] by Mike Tarbert[=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Answer mode is a truth state that varies.[=0x000A=]Current state is a text that varies.[=0x000A=][=0x000A=]Guessing is an action applying to one topic.[=0x000A=]Understand [=0x0022=][text][=0x0022=] as guessing when answer mode is true.[=0x000A=][=0x000A=][Because of the [=0x0022=]...when[=0x0022=] part of this line, random text is only treated as an answer when a question is being asked.][=0x000A=][=0x000A=]Check guessing (this is the default wrong answer rule):[=0x000A=][=0x0009=]if the topic understood is not a topic listed in the Table of Dates of Statehood:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Wrong![=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=]Carry out guessing a topic listed in the Table of Dates of Statehood:[=0x000A=][=0x0009=]if state entry is the current state:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Correct! ([comment entry], to be exact!)[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]increase the score by one;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Wrong![=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=][This next rule allows a player to do something other than answer the question, but then makes him wait for another question before answering.][=0x000A=][=0x000A=]Before doing anything other than guessing:[=0x000A=][=0x0009=]if answer mode is true:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](ignoring the question)[line break][=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Lab is a room.  Sam is a man in the lab.[=0x000A=][=0x000A=]Every turn when the player is in the lab:[=0x000A=][=0x0009=]if a random chance of 3 in 5 succeeds:[=0x000A=][=0x0009=][=0x0009=]choose a random row in the Table of Dates of Statehood;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Sam asks you, [=0x0027=]In what year was [state entry] admitted into the Union?[=0x0027=][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now current state is state entry;[=0x000A=][=0x0009=][=0x0009=]now answer mode is true.[=0x000A=][=0x000A=]Table of Dates of Statehood[=0x000A=]State[=0x0009=]Topic[=0x0009=]Comment[=0x000A=][=0x0022=]Florida[=0x0022=][=0x0009=][=0x0022=]1845[=0x0022=][=0x0009=][=0x0022=]March 3rd[=0x0022=][=0x000A=][=0x0022=]Delaware[=0x0022=][=0x0009=][=0x0022=]1787[=0x0022=][=0x0009=][=0x0022=]December 7th[=0x0022=][=0x000A=][=0x0022=]Hawaii[=0x0022=][=0x0009=][=0x0022=]1960[=0x0022=][=0x0009=][=0x0022=]July 4th[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]1845 / z / z / 1787 / 1792 / z / 1845 / g[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Quiz Show')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Quiz Show&quot; by Mike Tarbert
+        <div class="egpanel" id="example301" style="display: none;">
+            <!--START CODE "c6079_301"-->
+            <blockquote class="code"><p class="quoted"><a id="c6079_301"></a><a href="javascript:pasteCode('[=0x0022=]Quiz Show[=0x0022=] by Mike Tarbert[=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Answer mode is a truth state that varies.[=0x000A=]Current state is a text that varies.[=0x000A=][=0x000A=]Guessing is an action applying to one topic.[=0x000A=]Understand [=0x0022=][text][=0x0022=] as guessing when answer mode is true.[=0x000A=][=0x000A=][Because of the [=0x0022=]...when[=0x0022=] part of this line, random text is only treated as an answer when a question is being asked.][=0x000A=][=0x000A=]Check guessing (this is the default wrong answer rule):[=0x000A=][=0x0009=]if the topic understood is not a topic listed in the Table of Dates of Statehood:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Wrong![=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=]Carry out guessing a topic listed in the Table of Dates of Statehood:[=0x000A=][=0x0009=]if state entry is the current state:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Correct! ([comment entry], to be exact!)[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]increase the score by one;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Wrong![=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=][This next rule allows a player to do something other than answer the question, but then makes them wait for another question before answering.][=0x000A=][=0x000A=]Before doing anything other than guessing:[=0x000A=][=0x0009=]if answer mode is true:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](ignoring the question)[line break][=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Lab is a room.  Sam is a man in the lab.[=0x000A=][=0x000A=]Every turn when the player is in the lab:[=0x000A=][=0x0009=]if a random chance of 3 in 5 succeeds:[=0x000A=][=0x0009=][=0x0009=]choose a random row in the Table of Dates of Statehood;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Sam asks you, [=0x0027=]In what year was [state entry] admitted into the Union?[=0x0027=][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now current state is state entry;[=0x000A=][=0x0009=][=0x0009=]now answer mode is true.[=0x000A=][=0x000A=]Table of Dates of Statehood[=0x000A=]State[=0x0009=]Topic[=0x0009=]Comment[=0x000A=][=0x0022=]Florida[=0x0022=][=0x0009=][=0x0022=]1845[=0x0022=][=0x0009=][=0x0022=]March 3rd[=0x0022=][=0x000A=][=0x0022=]Delaware[=0x0022=][=0x0009=][=0x0022=]1787[=0x0022=][=0x0009=][=0x0022=]December 7th[=0x0022=][=0x000A=][=0x0022=]Hawaii[=0x0022=][=0x0009=][=0x0022=]1960[=0x0022=][=0x0009=][=0x0022=]July 4th[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]1845 / z / z / 1787 / 1792 / z / 1845 / g[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Quiz Show[=0x0022=] by Mike Tarbert[=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Answer mode is a truth state that varies.[=0x000A=]Current state is a text that varies.[=0x000A=][=0x000A=]Guessing is an action applying to one topic.[=0x000A=]Understand [=0x0022=][text][=0x0022=] as guessing when answer mode is true.[=0x000A=][=0x000A=][Because of the [=0x0022=]...when[=0x0022=] part of this line, random text is only treated as an answer when a question is being asked.][=0x000A=][=0x000A=]Check guessing (this is the default wrong answer rule):[=0x000A=][=0x0009=]if the topic understood is not a topic listed in the Table of Dates of Statehood:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Wrong![=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=]Carry out guessing a topic listed in the Table of Dates of Statehood:[=0x000A=][=0x0009=]if state entry is the current state:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Correct! ([comment entry], to be exact!)[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]increase the score by one;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Wrong![=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=][This next rule allows a player to do something other than answer the question, but then makes them wait for another question before answering.][=0x000A=][=0x000A=]Before doing anything other than guessing:[=0x000A=][=0x0009=]if answer mode is true:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](ignoring the question)[line break][=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Lab is a room.  Sam is a man in the lab.[=0x000A=][=0x000A=]Every turn when the player is in the lab:[=0x000A=][=0x0009=]if a random chance of 3 in 5 succeeds:[=0x000A=][=0x0009=][=0x0009=]choose a random row in the Table of Dates of Statehood;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Sam asks you, [=0x0027=]In what year was [state entry] admitted into the Union?[=0x0027=][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now current state is state entry;[=0x000A=][=0x0009=][=0x0009=]now answer mode is true.[=0x000A=][=0x000A=]Table of Dates of Statehood[=0x000A=]State[=0x0009=]Topic[=0x0009=]Comment[=0x000A=][=0x0022=]Florida[=0x0022=][=0x0009=][=0x0022=]1845[=0x0022=][=0x0009=][=0x0022=]March 3rd[=0x0022=][=0x000A=][=0x0022=]Delaware[=0x0022=][=0x0009=][=0x0022=]1787[=0x0022=][=0x0009=][=0x0022=]December 7th[=0x0022=][=0x000A=][=0x0022=]Hawaii[=0x0022=][=0x0009=][=0x0022=]1960[=0x0022=][=0x0009=][=0x0022=]July 4th[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]1845 / z / z / 1787 / 1792 / z / 1845 / g[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Quiz Show')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Quiz Show&quot; by Mike Tarbert
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6064_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c6064_311"></a>Use scoring.
+            <!--START CODE "c6080_301"-->
+            <blockquote class="code"><p class="quoted"><a id="c6080_301"></a>Use scoring.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6065_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c6065_311"></a>Answer mode is a truth state that varies.
+            <!--START CODE "c6081_301"-->
+            <blockquote class="code"><p class="quoted"><a id="c6081_301"></a>Answer mode is a truth state that varies.
             <br>
             Current state is a text that varies.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6066_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c6066_311"></a>Guessing is an action applying to one topic.
+            <!--START CODE "c6082_301"-->
+            <blockquote class="code"><p class="quoted"><a id="c6082_301"></a>Guessing is an action applying to one topic.
             <br>
             Understand &quot;[text]&quot; as guessing when answer mode is true.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Because of the &quot;...when&quot; part of this line, random text is only treated as an answer when a question is being asked.</p>
-            <!--START CODE "c6067_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c6067_311"></a>Check guessing (this is the default wrong answer rule):
+            <!--START CODE "c6083_301"-->
+            <blockquote class="code"><p class="quoted"><a id="c6083_301"></a>Check guessing (this is the default wrong answer rule):
             <br>
             &#160;&#160;&#160;&#160;if the topic understood is not a topic listed in the Table of Dates of Statehood:
             <br>
@@ -208,8 +208,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6068_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c6068_311"></a>Carry out guessing a topic listed in the Table of Dates of Statehood:
+            <!--START CODE "c6084_301"-->
+            <blockquote class="code"><p class="quoted"><a id="c6084_301"></a>Carry out guessing a topic listed in the Table of Dates of Statehood:
             <br>
             &#160;&#160;&#160;&#160;if state entry is the current state:
             <br>
@@ -225,9 +225,9 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <p>This next rule allows a player to do something other than answer the question, but then makes him wait for another question before answering.</p>
-            <!--START CODE "c6069_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c6069_311"></a>Before doing anything other than guessing:
+            <p>This next rule allows a player to do something other than answer the question, but then makes them wait for another question before answering.</p>
+            <!--START CODE "c6085_301"-->
+            <blockquote class="code"><p class="quoted"><a id="c6085_301"></a>Before doing anything other than guessing:
             <br>
             &#160;&#160;&#160;&#160;if answer mode is true:
             <br>
@@ -237,18 +237,18 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6070_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c6070_311"></a>Section 2 - Scenario
+            <!--START CODE "c6086_301"-->
+            <blockquote class="code"><p class="quoted"><a id="c6086_301"></a>Section 2 - Scenario
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6071_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c6071_311"></a>The Lab is a room.  Sam is a man in the lab.
+            <!--START CODE "c6087_301"-->
+            <blockquote class="code"><p class="quoted"><a id="c6087_301"></a>The Lab is a room.  Sam is a man in the lab.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6072_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c6072_311"></a>Every turn when the player is in the lab:
+            <!--START CODE "c6088_301"-->
+            <blockquote class="code"><p class="quoted"><a id="c6088_301"></a>Every turn when the player is in the lab:
             <br>
             &#160;&#160;&#160;&#160;if a random chance of 3 in 5 succeeds:
             <br>
@@ -262,8 +262,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6073_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c6073_311"></a>Table of Dates of Statehood
+            <!--START CODE "c6089_301"-->
+            <blockquote class="code"><p class="quoted"><a id="c6089_301"></a>Table of Dates of Statehood
             <br>
             </p>
             </blockquote>
@@ -328,8 +328,8 @@
             <blockquote><p></p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6074_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c6074_311"></a>Test me with &quot;1845 / z / z / 1787 / 1792 / z / 1845 / g&quot;.
+            <!--START CODE "c6090_301"-->
+            <blockquote class="code"><p class="quoted"><a id="c6090_301"></a>Test me with &quot;1845 / z / z / 1787 / 1792 / z / 1845 / g&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -337,72 +337,72 @@
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "324: Bibliophilia" "e32"-->
-        <a id="e32"></a><table class="egcue">
+        <!--START EXAMPLE "325: Bibliophilia" "e43"-->
+        <a id="e43"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example32'); return false;"><b>324</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example43'); return false;"><b>325</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example32'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Bibliophilia</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example43'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Bibliophilia</span></b></a><br>
                     A bookshelf with a number of books, where the player's command to examine something will be interpreted as an attempt to look up titles if the bookshelf is present, but otherwise given the usual response.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc73.html#e32"><i>RB</i></a></div>
+                        <a href="Rdoc73.html#e43"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example32" style="display: none;">
+        <div class="egpanel" id="example43" style="display: none;">
             <p>Suppose we want a bookshelf with a very large number of books on it. They aren't to be taken or carried around in the game, but they should be mentioned, and the player should be allowed to look them up by name. Furthermore, the player's attempts to examine something unrecognized should be understood as an attempt to look up a title -- but only when the player is in the presence of the books. The rest of the time such requests should be rejected in the usual way.</p>
-            <!--START CODE "c6075_32"-->
-            <blockquote class="code"><p class="quoted"><a id="c6075_32"></a><a href="javascript:pasteCode('[=0x0022=]Bibliophilia[=0x0022=][=0x000A=][=0x000A=]The Graduate Lounge is a room. [=0x0022=]Shabby sofas; plastic cups remaining from the afternoon[=0x0027=]s pre-lecture espresso; a collection of Xena and Hercules figurines posed for ironic effect. It[=0x0027=]s somewhat depressing at this hour, when everyone has gone home.[=0x0022=][=0x000A=][=0x000A=]The Classics Reading Room is south of the Lounge. [=0x0022=]Not as large a collection as the one in the Library, but it contains copies of everything really essential for reference.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]examine [text][=0x0022=] as examining as a book when the player is in the Reading Room. Understand [=0x0022=]look up [text][=0x0022=] as examining as a book when the player is in the Reading Room.[=0x000A=][=0x000A=]Examining as a book is an action applying to one topic.[=0x000A=][=0x000A=]Carry out examining as a book:[=0x000A=][=0x0009=]say [=0x0022=]You can[=0x0027=]t find any such text.[=0x0022=][=0x000A=][=0x000A=]Instead of examining as a book a topic listed in the Table of Book Titles:[=0x000A=][=0x0009=]say [=0x0022=][description entry][paragraph break][=0x0022=][=0x000A=][=0x000A=]Table of Book Titles[=0x000A=]topic[=0x0009=]title[=0x0009=]description[=0x000A=][=0x0022=]Reading Greek Death[=0x0022=] or [=0x0022=]reading/greek/death[=0x0022=] or [=0x0022=]greek death[=0x0022=][=0x0009=][=0x0022=]Reading Greek Death[=0x0022=][=0x0009=][=0x0022=]A dense orange paperback treatise on the development of Greek eschatology.[=0x0022=][=0x000A=][=0x0022=]TAPA/Transactions/134-2[=0x0022=][=0x0009=][=0x0022=]TAPA 134-2[=0x0022=][=0x0009=][=0x0022=]Transactions of the American Philological Association from 2004.[=0x0022=][=0x000A=][=0x0022=]Oxford Classical Dictionary[=0x0022=] or [=0x0022=]OCD/dictionary/classical/oxford[=0x0022=][=0x0009=][=0x0022=]Oxford Classical Dictionary[=0x0022=][=0x0009=][=0x0022=]A hefty reference with short articles on everything from Greek meter to ancient cosmetics.[=0x0022=][=0x000A=][=0x0022=]Collected Dialogues of Plato[=0x0022=] or [=0x0022=]Plato/dialogues/hamilton/cairns[=0x0022=][=0x0009=][=0x0022=]Collected Dialogues of Plato[=0x0022=][=0x0009=][=0x0022=]All the Platonic dialogues -- some, admittedly, in rather tired translations -- but still a useful single volume, ed. Edith Hamilton and Huntington Cairns.[=0x0022=][=0x000A=][=0x0022=]Adobe Illustrator CS User Guide[=0x0022=] or [=0x0022=]user guide[=0x0022=] or [=0x0022=]adobe illustrator[=0x0022=] or [=0x0022=]adobe/illustrator/cs/user/guide[=0x0022=][=0x0009=][=0x0022=]Adobe Illustrator CS User Guide[=0x0022=][=0x0009=][=0x0022=]Hello, how did this get here? A suspiciously familiar name is scribbled inside the front cover...[=0x0022=][=0x000A=][=0x000A=]Some books are scenery in the Reading Room. Understand [=0x0022=]copies[=0x0022=] or [=0x0022=]book[=0x0022=] or [=0x0022=]shelf[=0x0022=] or [=0x0022=]shelves[=0x0022=] as the books. Instead of examining the books:[=0x000A=][=0x0009=]choose a random row in the Table of Book Titles;[=0x000A=][=0x0009=]say [=0x0022=]You scan the shelves and notice, among others, a volume entitled [italic type][title entry][roman type].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]south / examine ocd / examine books / examine books / examine plato / n / x hercules / s / x hercules[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Bibliophilia[=0x0022=][=0x000A=][=0x000A=]The Graduate Lounge is a room. [=0x0022=]Shabby sofas; plastic cups remaining from the afternoon[=0x0027=]s pre-lecture espresso; a collection of Xena and Hercules figurines posed for ironic effect. It[=0x0027=]s somewhat depressing at this hour, when everyone has gone home.[=0x0022=][=0x000A=][=0x000A=]The Classics Reading Room is south of the Lounge. [=0x0022=]Not as large a collection as the one in the Library, but it contains copies of everything really essential for reference.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]examine [text][=0x0022=] as examining as a book when the player is in the Reading Room. Understand [=0x0022=]look up [text][=0x0022=] as examining as a book when the player is in the Reading Room.[=0x000A=][=0x000A=]Examining as a book is an action applying to one topic.[=0x000A=][=0x000A=]Carry out examining as a book:[=0x000A=][=0x0009=]say [=0x0022=]You can[=0x0027=]t find any such text.[=0x0022=][=0x000A=][=0x000A=]Instead of examining as a book a topic listed in the Table of Book Titles:[=0x000A=][=0x0009=]say [=0x0022=][description entry][paragraph break][=0x0022=][=0x000A=][=0x000A=]Table of Book Titles[=0x000A=]topic[=0x0009=]title[=0x0009=]description[=0x000A=][=0x0022=]Reading Greek Death[=0x0022=] or [=0x0022=]reading/greek/death[=0x0022=] or [=0x0022=]greek death[=0x0022=][=0x0009=][=0x0022=]Reading Greek Death[=0x0022=][=0x0009=][=0x0022=]A dense orange paperback treatise on the development of Greek eschatology.[=0x0022=][=0x000A=][=0x0022=]TAPA/Transactions/134-2[=0x0022=][=0x0009=][=0x0022=]TAPA 134-2[=0x0022=][=0x0009=][=0x0022=]Transactions of the American Philological Association from 2004.[=0x0022=][=0x000A=][=0x0022=]Oxford Classical Dictionary[=0x0022=] or [=0x0022=]OCD/dictionary/classical/oxford[=0x0022=][=0x0009=][=0x0022=]Oxford Classical Dictionary[=0x0022=][=0x0009=][=0x0022=]A hefty reference with short articles on everything from Greek meter to ancient cosmetics.[=0x0022=][=0x000A=][=0x0022=]Collected Dialogues of Plato[=0x0022=] or [=0x0022=]Plato/dialogues/hamilton/cairns[=0x0022=][=0x0009=][=0x0022=]Collected Dialogues of Plato[=0x0022=][=0x0009=][=0x0022=]All the Platonic dialogues -- some, admittedly, in rather tired translations -- but still a useful single volume, ed. Edith Hamilton and Huntington Cairns.[=0x0022=][=0x000A=][=0x0022=]Adobe Illustrator CS User Guide[=0x0022=] or [=0x0022=]user guide[=0x0022=] or [=0x0022=]adobe illustrator[=0x0022=] or [=0x0022=]adobe/illustrator/cs/user/guide[=0x0022=][=0x0009=][=0x0022=]Adobe Illustrator CS User Guide[=0x0022=][=0x0009=][=0x0022=]Hello, how did this get here? A suspiciously familiar name is scribbled inside the front cover...[=0x0022=][=0x000A=][=0x000A=]Some books are scenery in the Reading Room. Understand [=0x0022=]copies[=0x0022=] or [=0x0022=]book[=0x0022=] or [=0x0022=]shelf[=0x0022=] or [=0x0022=]shelves[=0x0022=] as the books. Instead of examining the books:[=0x000A=][=0x0009=]choose a random row in the Table of Book Titles;[=0x000A=][=0x0009=]say [=0x0022=]You scan the shelves and notice, among others, a volume entitled [italic type][title entry][roman type].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]south / examine ocd / examine books / examine books / examine plato / n / x hercules / s / x hercules[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Bibliophilia')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Bibliophilia&quot;
+            <!--START CODE "c6091_43"-->
+            <blockquote class="code"><p class="quoted"><a id="c6091_43"></a><a href="javascript:pasteCode('[=0x0022=]Bibliophilia[=0x0022=][=0x000A=][=0x000A=]The Graduate Lounge is a room. [=0x0022=]Shabby sofas; plastic cups remaining from the afternoon[=0x0027=]s pre-lecture espresso; a collection of Xena and Hercules figurines posed for ironic effect. It[=0x0027=]s somewhat depressing at this hour, when everyone has gone home.[=0x0022=][=0x000A=][=0x000A=]The Classics Reading Room is south of the Lounge. [=0x0022=]Not as large a collection as the one in the Library, but it contains copies of everything really essential for reference.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]examine [text][=0x0022=] as examining as a book when the player is in the Reading Room. Understand [=0x0022=]look up [text][=0x0022=] as examining as a book when the player is in the Reading Room.[=0x000A=][=0x000A=]Examining as a book is an action applying to one topic.[=0x000A=][=0x000A=]Carry out examining as a book:[=0x000A=][=0x0009=]say [=0x0022=]You can[=0x0027=]t find any such text.[=0x0022=][=0x000A=][=0x000A=]Instead of examining as a book a topic listed in the Table of Book Titles:[=0x000A=][=0x0009=]say [=0x0022=][description entry][paragraph break][=0x0022=][=0x000A=][=0x000A=]Table of Book Titles[=0x000A=]topic[=0x0009=]title[=0x0009=]description[=0x000A=][=0x0022=]Reading Greek Death[=0x0022=] or [=0x0022=]reading/greek/death[=0x0022=] or [=0x0022=]greek death[=0x0022=][=0x0009=][=0x0022=]Reading Greek Death[=0x0022=][=0x0009=][=0x0022=]A dense orange paperback treatise on the development of Greek eschatology.[=0x0022=][=0x000A=][=0x0022=]TAPA/Transactions/134-2[=0x0022=][=0x0009=][=0x0022=]TAPA 134-2[=0x0022=][=0x0009=][=0x0022=]Transactions of the American Philological Association from 2004.[=0x0022=][=0x000A=][=0x0022=]Oxford Classical Dictionary[=0x0022=] or [=0x0022=]OCD/dictionary/classical/oxford[=0x0022=][=0x0009=][=0x0022=]Oxford Classical Dictionary[=0x0022=][=0x0009=][=0x0022=]A hefty reference with short articles on everything from Greek meter to ancient cosmetics.[=0x0022=][=0x000A=][=0x0022=]Collected Dialogues of Plato[=0x0022=] or [=0x0022=]Plato/dialogues/hamilton/cairns[=0x0022=][=0x0009=][=0x0022=]Collected Dialogues of Plato[=0x0022=][=0x0009=][=0x0022=]All the Platonic dialogues -- some, admittedly, in rather tired translations -- but still a useful single volume, ed. Edith Hamilton and Huntington Cairns.[=0x0022=][=0x000A=][=0x0022=]Adobe Illustrator CS User Guide[=0x0022=] or [=0x0022=]user guide[=0x0022=] or [=0x0022=]adobe illustrator[=0x0022=] or [=0x0022=]adobe/illustrator/cs/user/guide[=0x0022=][=0x0009=][=0x0022=]Adobe Illustrator CS User Guide[=0x0022=][=0x0009=][=0x0022=]Hello, how did this get here? A suspiciously familiar name is scribbled inside the front cover...[=0x0022=][=0x000A=][=0x000A=]Some books are scenery in the Reading Room. Understand [=0x0022=]copies[=0x0022=] or [=0x0022=]book[=0x0022=] or [=0x0022=]shelf[=0x0022=] or [=0x0022=]shelves[=0x0022=] as the books. Instead of examining the books:[=0x000A=][=0x0009=]choose a random row in the Table of Book Titles;[=0x000A=][=0x0009=]say [=0x0022=]You scan the shelves and notice, among others, a volume entitled [italic type][title entry][roman type].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]south / examine ocd / examine books / examine books / examine plato / n / x hercules / s / x hercules[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Bibliophilia[=0x0022=][=0x000A=][=0x000A=]The Graduate Lounge is a room. [=0x0022=]Shabby sofas; plastic cups remaining from the afternoon[=0x0027=]s pre-lecture espresso; a collection of Xena and Hercules figurines posed for ironic effect. It[=0x0027=]s somewhat depressing at this hour, when everyone has gone home.[=0x0022=][=0x000A=][=0x000A=]The Classics Reading Room is south of the Lounge. [=0x0022=]Not as large a collection as the one in the Library, but it contains copies of everything really essential for reference.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]examine [text][=0x0022=] as examining as a book when the player is in the Reading Room. Understand [=0x0022=]look up [text][=0x0022=] as examining as a book when the player is in the Reading Room.[=0x000A=][=0x000A=]Examining as a book is an action applying to one topic.[=0x000A=][=0x000A=]Carry out examining as a book:[=0x000A=][=0x0009=]say [=0x0022=]You can[=0x0027=]t find any such text.[=0x0022=][=0x000A=][=0x000A=]Instead of examining as a book a topic listed in the Table of Book Titles:[=0x000A=][=0x0009=]say [=0x0022=][description entry][paragraph break][=0x0022=][=0x000A=][=0x000A=]Table of Book Titles[=0x000A=]topic[=0x0009=]title[=0x0009=]description[=0x000A=][=0x0022=]Reading Greek Death[=0x0022=] or [=0x0022=]reading/greek/death[=0x0022=] or [=0x0022=]greek death[=0x0022=][=0x0009=][=0x0022=]Reading Greek Death[=0x0022=][=0x0009=][=0x0022=]A dense orange paperback treatise on the development of Greek eschatology.[=0x0022=][=0x000A=][=0x0022=]TAPA/Transactions/134-2[=0x0022=][=0x0009=][=0x0022=]TAPA 134-2[=0x0022=][=0x0009=][=0x0022=]Transactions of the American Philological Association from 2004.[=0x0022=][=0x000A=][=0x0022=]Oxford Classical Dictionary[=0x0022=] or [=0x0022=]OCD/dictionary/classical/oxford[=0x0022=][=0x0009=][=0x0022=]Oxford Classical Dictionary[=0x0022=][=0x0009=][=0x0022=]A hefty reference with short articles on everything from Greek meter to ancient cosmetics.[=0x0022=][=0x000A=][=0x0022=]Collected Dialogues of Plato[=0x0022=] or [=0x0022=]Plato/dialogues/hamilton/cairns[=0x0022=][=0x0009=][=0x0022=]Collected Dialogues of Plato[=0x0022=][=0x0009=][=0x0022=]All the Platonic dialogues -- some, admittedly, in rather tired translations -- but still a useful single volume, ed. Edith Hamilton and Huntington Cairns.[=0x0022=][=0x000A=][=0x0022=]Adobe Illustrator CS User Guide[=0x0022=] or [=0x0022=]user guide[=0x0022=] or [=0x0022=]adobe illustrator[=0x0022=] or [=0x0022=]adobe/illustrator/cs/user/guide[=0x0022=][=0x0009=][=0x0022=]Adobe Illustrator CS User Guide[=0x0022=][=0x0009=][=0x0022=]Hello, how did this get here? A suspiciously familiar name is scribbled inside the front cover...[=0x0022=][=0x000A=][=0x000A=]Some books are scenery in the Reading Room. Understand [=0x0022=]copies[=0x0022=] or [=0x0022=]book[=0x0022=] or [=0x0022=]shelf[=0x0022=] or [=0x0022=]shelves[=0x0022=] as the books. Instead of examining the books:[=0x000A=][=0x0009=]choose a random row in the Table of Book Titles;[=0x000A=][=0x0009=]say [=0x0022=]You scan the shelves and notice, among others, a volume entitled [italic type][title entry][roman type].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]south / examine ocd / examine books / examine books / examine plato / n / x hercules / s / x hercules[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Bibliophilia')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Bibliophilia&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6076_32"-->
-            <blockquote class="code"><p class="quoted"><a id="c6076_32"></a>The Graduate Lounge is a room. &quot;Shabby sofas; plastic cups remaining from the afternoon's pre-lecture espresso; a collection of Xena and Hercules figurines posed for ironic effect. It's somewhat depressing at this hour, when everyone has gone home.&quot;
+            <!--START CODE "c6092_43"-->
+            <blockquote class="code"><p class="quoted"><a id="c6092_43"></a>The Graduate Lounge is a room. &quot;Shabby sofas; plastic cups remaining from the afternoon's pre-lecture espresso; a collection of Xena and Hercules figurines posed for ironic effect. It's somewhat depressing at this hour, when everyone has gone home.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6077_32"-->
-            <blockquote class="code"><p class="quoted"><a id="c6077_32"></a>The Classics Reading Room is south of the Lounge. &quot;Not as large a collection as the one in the Library, but it contains copies of everything really essential for reference.&quot;
+            <!--START CODE "c6093_43"-->
+            <blockquote class="code"><p class="quoted"><a id="c6093_43"></a>The Classics Reading Room is south of the Lounge. &quot;Not as large a collection as the one in the Library, but it contains copies of everything really essential for reference.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6078_32"-->
-            <blockquote class="code"><p class="quoted"><a id="c6078_32"></a>Understand &quot;examine [text]&quot; as examining as a book when the player is in the Reading Room. Understand &quot;look up [text]&quot; as examining as a book when the player is in the Reading Room.
+            <!--START CODE "c6094_43"-->
+            <blockquote class="code"><p class="quoted"><a id="c6094_43"></a>Understand &quot;examine [text]&quot; as examining as a book when the player is in the Reading Room. Understand &quot;look up [text]&quot; as examining as a book when the player is in the Reading Room.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6079_32"-->
-            <blockquote class="code"><p class="quoted"><a id="c6079_32"></a>Examining as a book is an action applying to one topic.
+            <!--START CODE "c6095_43"-->
+            <blockquote class="code"><p class="quoted"><a id="c6095_43"></a>Examining as a book is an action applying to one topic.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6080_32"-->
-            <blockquote class="code"><p class="quoted"><a id="c6080_32"></a>Carry out examining as a book:
+            <!--START CODE "c6096_43"-->
+            <blockquote class="code"><p class="quoted"><a id="c6096_43"></a>Carry out examining as a book:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You can't find any such text.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6081_32"-->
-            <blockquote class="code"><p class="quoted"><a id="c6081_32"></a>Instead of examining as a book a topic listed in the Table of Book Titles:
+            <!--START CODE "c6097_43"-->
+            <blockquote class="code"><p class="quoted"><a id="c6097_43"></a>Instead of examining as a book a topic listed in the Table of Book Titles:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[description entry][paragraph break]&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6082_32"-->
-            <blockquote class="code"><p class="quoted"><a id="c6082_32"></a>Table of Book Titles
+            <!--START CODE "c6098_43"-->
+            <blockquote class="code"><p class="quoted"><a id="c6098_43"></a>Table of Book Titles
             <br>
             </p>
             </blockquote>
@@ -495,8 +495,8 @@
             <blockquote><p></p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6083_32"-->
-            <blockquote class="code"><p class="quoted"><a id="c6083_32"></a>Some books are scenery in the Reading Room. Understand &quot;copies&quot; or &quot;book&quot; or &quot;shelf&quot; or &quot;shelves&quot; as the books. Instead of examining the books:
+            <!--START CODE "c6099_43"-->
+            <blockquote class="code"><p class="quoted"><a id="c6099_43"></a>Some books are scenery in the Reading Room. Understand &quot;copies&quot; or &quot;book&quot; or &quot;shelf&quot; or &quot;shelves&quot; as the books. Instead of examining the books:
             <br>
             &#160;&#160;&#160;&#160;choose a random row in the Table of Book Titles;
             <br>
@@ -504,22 +504,22 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6084_32"-->
-            <blockquote class="code"><p class="quoted"><a id="c6084_32"></a>Test me with &quot;south / examine ocd / examine books / examine books / examine plato / n / x hercules / s / x hercules&quot;.
+            <!--START CODE "c6100_43"-->
+            <blockquote class="code"><p class="quoted"><a id="c6100_43"></a>Test me with &quot;south / examine ocd / examine books / examine books / examine plato / n / x hercules / s / x hercules&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now if we type &gt;X HERCULES in the Lounge, we will get</p>
-            <!--START CODE "c6085_32"-->
-            <blockquote class="code"><p class="quoted"><a id="c6085_32"></a>&gt;x hercules
+            <!--START CODE "c6101_43"-->
+            <blockquote class="code"><p class="quoted"><a id="c6101_43"></a>&gt;x hercules
             <br>
             You can't see any such thing.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>thanks to our somewhat slovenly implementation of the Lounge scenery; but in the Reading Room,</p>
-            <!--START CODE "c6086_32"-->
-            <blockquote class="code"><p class="quoted"><a id="c6086_32"></a>&gt;x hercules
+            <!--START CODE "c6102_43"-->
+            <blockquote class="code"><p class="quoted"><a id="c6102_43"></a>&gt;x hercules
             <br>
             You can't find any such text.
             </p>

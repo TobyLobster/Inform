@@ -13,12 +13,12 @@
 #import "IFSkeinLayout.h"
 #import "IFSkeinLayoutItem.h"
 #import "IFSkeinItemView.h"
-#import "IFSkeinLinkView.h"
 #import "IFSkeinArrowView.h"
 #import "IFSkeinReportView.h"
 #import "IFSkeinView.h"
 #import "IFUtility.h"
 #import "IFSkeinConstants.h"
+#import "Inform-Swift.h"
 
 static const int    kAnimationSteps             = 30;
 /// Link view thickness (include one pixel transparent border)
@@ -64,7 +64,7 @@ static const CGFloat  kPositionEpsilon            = 0.01f;
 
 -(void) addSubtreeItems: (IFSkeinLayoutItem*) root
                      to: (NSMutableDictionary*) array {
-    [array setObject: root forKey: @(root.item.uniqueId)];
+    array[@(root.item.uniqueId)] = root;
     for( IFSkeinLayoutItem* child in root.children ) {
         [self addSubtreeItems: child to: array];
     }
@@ -82,7 +82,7 @@ static const CGFloat  kPositionEpsilon            = 0.01f;
                                  key: (NSNumber*) key {
     IFSkeinItemView* resultView = [[IFSkeinItemView alloc] initWithFrame: layoutItem.boundingRect];
     [skeinView addSubview: resultView];            // Add item to skein view
-    [itemViews setObject: resultView forKey: key]; // Add item to dictionary
+    itemViews[key] = resultView; // Add item to dictionary
 
     [self updateItemView: resultView fromLayoutItem: layoutItem animate: NO fadeIn: YES];
 }
@@ -95,7 +95,7 @@ static const CGFloat  kPositionEpsilon            = 0.01f;
     }
     IFSkeinLinkView* newLink = [[IFSkeinLinkView alloc] init];
     [skeinView addSubview: newLink];                // Add link to skein view
-    [linkViews setObject: newLink forKey: key];     // Add link to dictionary
+    linkViews[key] = newLink;     // Add link to dictionary
 
     [self updateLinkView: newLink
                   layout: layout
@@ -109,7 +109,7 @@ static const CGFloat  kPositionEpsilon            = 0.01f;
                                layout: (IFSkeinLayout*) layout {
     IFSkeinArrowView* newArrow = [[IFSkeinArrowView alloc] init];
     [skeinView addSubview: newArrow];               // Add link to skein view
-    [arrowViews setObject: newArrow forKey: key];   // Add link to dictionary
+    arrowViews[key] = newArrow;   // Add link to dictionary
 
     [self updateArrowView: newArrow
                    layout: layout
@@ -345,7 +345,7 @@ static const CGFloat  kPositionEpsilon            = 0.01f;
         if( startOpacity > 0.0f ) {
             CABasicAnimation* fadeAnim = [CABasicAnimation animationWithKeyPath:@"opacity"];
             fadeAnim.fromValue  = [NSNumber numberWithFloat: startOpacity];
-            fadeAnim.toValue    = [NSNumber numberWithFloat:0.0];
+            fadeAnim.toValue    = @0.0f;
             fadeAnim.duration   = duration;
             CFTimeInterval localLayerTime = [view.layer convertTime: currentTimeInterval fromLayer:nil];
             fadeAnim.beginTime  = localLayerTime + delay;
@@ -485,8 +485,8 @@ static NSComparisonResult compareViewOrder(id viewA, id viewB, void *context)
     currentTimeInterval = CACurrentMediaTime();
 
     // 1. Remove views no longer in the layout
-    for( NSNumber* key in [itemViews allKeys] ) {
-        if( [layoutItems objectForKey: key] == nil ) {
+    for( NSNumber* key in itemViews.allKeys ) {
+        if( layoutItems[key] == nil ) {
             [itemViews[key] removeFromSuperview];       // Remove item  from skein view
             [linkViews[key] removeFromSuperview];       // Remove link  from skein view
             [arrowViews[key] removeFromSuperview];      // Remove arrow from skein view
@@ -500,7 +500,7 @@ static NSComparisonResult compareViewOrder(id viewA, id viewB, void *context)
     for( NSNumber* key in layoutItems ) {
         IFSkeinLayoutItem* layoutItem = layoutItems[key];
 
-        if( [itemViews objectForKey: key] == nil ) {
+        if( itemViews[key] == nil ) {
             // Create new view
             [self createItemViewFromLayoutItem: layoutItem key: key];
             [self createLinkViewFromLayoutItem: layoutItem key: key layout: layout];
@@ -543,7 +543,7 @@ static NSComparisonResult compareViewOrder(id viewA, id viewB, void *context)
                  duration: kSkeinAnimationReportFadeOut
                   animate: animate
               fromCurrent: YES];
-        [reportView setFrame: NSZeroRect];
+        reportView.frame = NSZeroRect;
     }
     else {
         NSRect reportFrame = NSMakeRect( layout.reportPosition.x,
@@ -559,7 +559,7 @@ static NSComparisonResult compareViewOrder(id viewA, id viewB, void *context)
                      animate: animate
                  fromCurrent: NO];
         }
-        [reportView setFrame: reportFrame];
+        reportView.frame = reportFrame;
     }
 
     // 4. Sort subviews z-order so that all the links appear below all the items
@@ -573,7 +573,7 @@ static NSComparisonResult compareViewOrder(id viewA, id viewB, void *context)
 }
 
 - (NSArray*) reportDetails {
-    return [reportView reportDetails];
+    return reportView.reportDetails;
 }
 
 - (IFSkeinLayoutItem*) layoutItemForItem: (IFSkeinItem*) item {

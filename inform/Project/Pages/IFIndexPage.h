@@ -21,10 +21,12 @@ typedef NS_ENUM(int, IFIndexTabType) {
 	IFIndexWorld        = 8,
 };
 
+@class IFProjectPane;
+
 ///
 /// The 'Index' page
 ///
-@interface IFIndexPage : IFPage<WebFrameLoadDelegate>
+@interface IFIndexPage : IFPage<WKNavigationDelegate>
 
 // The index view
 /// \c YES if the index tab is available
@@ -39,6 +41,6 @@ typedef NS_ENUM(int, IFIndexTabType) {
 /// Switches to the page specified by the given cell
 - (IBAction) switchToCell: (id) sender;
 
-- (instancetype) initWithProjectController: (IFProjectController*) controller;
+- (instancetype) initWithProjectController: (IFProjectController*) controller withPane: (IFProjectPane*) pane NS_DESIGNATED_INITIALIZER;
 
 @end

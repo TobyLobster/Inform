@@ -1,7 +1,7 @@
-Version 6 of the Standard Rules by Graham Nelson begins here.
+Version 7 of the Standard Rules by Graham Nelson begins here.
 
-"The Standard Rules, included in every project, define phrases, actions and
-activities for interactive fiction."
+"The Standard Rules, included in every interactive fiction project, creates
+a model world populated by actors who perform actions."
 
 Part One - Preamble
 
@@ -13,20 +13,40 @@ The verb to understand + as in the imperative means the built-in understand-as m
 The verb to release along with in the imperative means the built-in release-along-with meaning.
 The verb to index map with in the imperative means the built-in index-map-with meaning.
 
-Use command line echoing translates as (- Constant ECHO_COMMANDS; -).
-Use full-length room descriptions translates as (- #IFNDEF I7_LOOKMODE; Constant I7_LOOKMODE = 2; #ENDIF; -).
-Use abbreviated room descriptions translates as (- #IFNDEF I7_LOOKMODE; Constant I7_LOOKMODE = 3; #ENDIF; -).
-Use scoring translates as (- #IFNDEF USE_SCORING; Constant USE_SCORING = 1; #ENDIF; -).
-Use no scoring translates as (- #IFNDEF USE_SCORING; Constant USE_SCORING = 0; #ENDIF; -).
-Use manual pronouns translates as (- Constant MANUAL_PRONOUNS; -).
-Use undo prevention translates as (- Constant PREVENT_UNDO; -).
-Use VERBOSE room descriptions translates as (- Constant DEFAULT_VERBOSE_DESCRIPTIONS; -).
-Use BRIEF room descriptions translates as (- Constant DEFAULT_BRIEF_DESCRIPTIONS; -).
-Use SUPERBRIEF room descriptions translates as (- Constant DEFAULT_SUPERBRIEF_DESCRIPTIONS; -).
+Use full-length room descriptions translates as the configuration value
+	ROOM_DESC_DETAIL = 2 in WorldModelKit.
+Use abbreviated room descriptions translates as the configuration value
+	ROOM_DESC_DETAIL = 3 in WorldModelKit.
+Use VERBOSE room descriptions translates as the configuration value
+	ROOM_DESC_DETAIL = 2 in WorldModelKit.
+Use BRIEF room descriptions translates as the configuration value
+	ROOM_DESC_DETAIL = 1 in WorldModelKit.
+Use SUPERBRIEF room descriptions translates as the configuration value
+	ROOM_DESC_DETAIL = 3 in WorldModelKit.
 
-Use maximum things understood at once of at least 100 translates as
-	(- Constant MATCH_LIST_WORDS = {N}; -).
-Use maximum things understood at once of at least 100.
+Use no scoring translates as the configuration value
+	SCORING = 0 in WorldModelKit.
+Use scoring translates as the configuration value
+	SCORING = 1 in WorldModelKit.
+
+Use default route-finding translates as the configuration value
+	ROUTE_FINDING = 0 in WorldModelKit.
+Use fast route-finding translates as the configuration value
+	ROUTE_FINDING = 1 in WorldModelKit.
+Use slow route-finding translates as the configuration value
+	ROUTE_FINDING = 2 in WorldModelKit.
+
+Use maximum things understood at once of at least 100 translates as the
+	configuration value MULTI_OBJ_LIST_SIZE in WorldModelKit.
+
+Use nameless room descriptions translates as a configuration flag.
+
+Use manual pronouns translates as the configuration flag
+	MANUAL_PRONOUNS in CommandParserKit.
+Use undo prevention translates as the configuration flag
+	UNDO_PREVENTION in CommandParserKit.
+Use unabbreviated object names translates as the configuration flag
+	UNABBREVIATED_NAMES in CommandParserKit.
 
 Part Two - The Physical World Model
 
@@ -67,15 +87,32 @@ The verb to be able to hear means the audibility relation.
 The verb to be able to touch means the touchability relation.
 
 Definition: Something is visible rather than invisible if the player can see it.
+Definition: Something is audible rather than inaudible if the player can hear it.
 Definition: Something is touchable rather than untouchable if the player can touch it.
 
-The verb to conceal (he conceals, they conceal, he concealed, it is concealed,
-he is concealing) means the concealment relation.
+The verb to conceal (she conceals, they conceal, he concealed, it is concealed,
+it is concealing) means the concealment relation.
 Definition: Something is concealed rather than unconcealed if the holder of it conceals it.
+
+Definition: a container is obviously-occupied rather than possibly-unoccupied if
+I6 routine "ObviouslyOccupied" says so (it contains at least one obvious thing).
+
+Definition: a supporter is obviously-occupied rather than possibly-unoccupied if
+I6 routine "ObviouslyOccupied" says so (it supports at least one obvious thing).
+
+Definition: a container (called c) is falsely-unoccupied:
+  if the first thing held by it is nothing, no;
+  if it is closed and it is opaque and it does not enclose the player, no;
+  decide on whether or not it is possibly-unoccupied;
+
+Definition: a supporter is falsely-unoccupied:
+  if the first thing held by it is nothing, no;
+  if the first thing held by it is the player and the next thing held after the player is nothing, no;
+  decide on whether or not it is possibly-unoccupied;
 
 Definition: Something is on-stage rather than off-stage if I6 routine "OnStage"
 	makes it so (it is indirectly in one of the rooms).
-Definition: Something is offstage if it is off-stage.
+Definition: An object is offstage if it is not on-stage.
 
 Definition: a scene is happening if I6 condition "scene_status-->(*1-1)==1"
 	says so (it is currently taking place).
@@ -84,20 +121,24 @@ Chapter 2 - Kinds for the Physical World
 
 Section 1 - Kind Definitions
 
-A room is a kind.
-A thing is a kind.
-A direction is a kind.
+A room is a kind of object.
+A thing is a kind of object.
+A direction is a kind of object.
 A door is a kind of thing.
 A container is a kind of thing.
 A supporter is a kind of thing.
 A backdrop is a kind of thing.
 The plural of person is people. The plural of person is persons.
 A person is a kind of thing.
-A region is a kind.
+A region is a kind of object.
 
-Section 1a - Concepts (for concepts language element only)
+A concept is a kind of abstract object.
 
-A concept is a kind.
+A room can be privately-named or publicly-named. A room is usually publicly-named.
+A thing can be privately-named or publicly-named. A thing is usually publicly-named.
+A direction can be privately-named or publicly-named. A direction is usually
+publicly-named.
+A region can be privately-named or publicly-named. A region is usually publicly-named.
 A concept can be privately-named or publicly-named. A concept is usually publicly-named.
 
 Section 2 - Rooms
@@ -107,7 +148,6 @@ and outdoor, which are not necessarily areas in a building. A player in one
 room is mostly unable to sense, or interact with, anything in a different room.
 Rooms are arranged in a map."
 
-A room can be privately-named or publicly-named. A room is usually publicly-named.
 A room can be lighted or dark. A room is usually lighted.
 A room can be visited or unvisited. A room is usually unvisited.
 
@@ -128,8 +168,6 @@ might be inside the region 13th Arrondissement, which in turn is inside
 the region Paris. Regions are useful mainly when the world is a large one,
 and are optional."
 
-A region can be privately-named or publicly-named. A region is usually publicly-named.
-
 Section 3 - Things
 
 The specification of thing is "Represents anything interactive in the model
@@ -146,11 +184,10 @@ A thing can be pushable between rooms.
 
 A thing can be handled.
 
-A thing can be privately-named or publicly-named. A thing is usually publicly-named.
 A thing can be undescribed or described. A thing is usually described.
 A thing can be marked for listing or unmarked for listing. A thing is usually
 unmarked for listing.
-A thing can be mentioned or unmentioned. A thing is usually mentioned.
+A thing can be mentioned or unmentioned. A thing is usually unmentioned.
 
 A thing has a text called a description.
 A thing has a text called an initial appearance.
@@ -163,8 +200,6 @@ The specification of direction is "Represents a direction of movement, such
 as northeast or down. They always occur in opposite, matched pairs: northeast
 and southwest, for instance; down and up."
 
-A direction can be privately-named or publicly-named. A direction is usually
-publicly-named.
 A direction can be marked for listing or unmarked for listing. A direction is
 usually unmarked for listing.
 A direction can be scenery. A direction is always scenery.
@@ -390,6 +425,9 @@ The initial appearance property is defined by Inter as "initial".
 The map region property is defined by Inter as "map_region".
 The matching key property is defined by Inter as "with_key".
 
+A time minus a time specifies a time period.
+
+
 
 Part Three - Variables and Rulebooks
 
@@ -480,6 +518,8 @@ Section 7 - Unindexed Standard Rules variables - Unindexed
 The story title, the story author, the story headline, the story genre
 and the story description are text variables. [*****]
 The release number and the story creation year are number variables. [**]
+The story licence, the story copyright, the story origin URL, and the
+story rights history are text variables. [****]
 
 The release number is usually 1.
 The story headline is usually "An Interactive Fiction".
@@ -512,7 +552,7 @@ Chapter 2 - Rulebooks
 
 Section 1 - The Standard Rulebooks
 
-Turn sequence rules is a rulebook.
+Turn sequence rules is a nothing based rulebook.
 The turn sequence rulebook is accessible to Inter as "TURN_SEQUENCE_RB".
 
 Scene changing rules is a rulebook.
@@ -588,43 +628,40 @@ Section 2 - The Standard Rules
 
 The little-used do nothing rule is defined by Inter as "LITTLE_USED_DO_NOTHING_R".
 
-The start in the correct scenes rule is listed first in the startup rulebook. [7th.]
-The position player in model world rule is listed first in the startup rulebook. [6th.]
-This is the declare everything initially unmentioned rule:
-	repeat with item running through things:
-		now the item is not mentioned.
-The declare everything initially unmentioned rule is listed first in the startup rulebook. [5th]
-The update chronological records rule is listed first in the startup rulebook. [4th.]
-The seed random number generator rule is listed first in the startup rulebook. [3rd.]
-The virtual machine startup rule is listed first in the startup rulebook. [2nd.]
-The initialise memory rule is listed first in the startup rulebook. [1st.]
+The initial whitespace rule is listed in the after starting the virtual machine rules.
+The initial whitespace rule translates into Inter as "INITIAL_WHITESPACE_R".
 
-The virtual machine startup rule is defined by Inter as "VIRTUAL_MACHINE_STARTUP_R".
-The initialise memory rule is defined by Inter as "INITIALISE_MEMORY_R".
-The seed random number generator rule is defined by Inter as "SEED_RANDOM_NUMBER_GENERATOR_R".
-The update chronological records rule is defined by Inter as "UPDATE_CHRONOLOGICAL_RECORDS_R".
-The position player in model world rule is defined by Inter as "POSITION_PLAYER_IN_MODEL_R".
+The update chronological records rule is listed in the after starting the virtual machine rules.
+The update chronological records rule translates into Inter as "UPDATE_CHRONOLOGICAL_RECORDS_R".
 
-This is the start in the correct scenes rule: follow the scene changing rules.
+The position player in model world rule is listed in the after starting the virtual machine rules.
+The position player in model world rule translates into Inter as "POSITION_PLAYER_IN_MODEL_R".
 
-The when play begins stage rule is listed in the startup rulebook.
-The fix baseline scoring rule is listed in the startup rulebook.
-The display banner rule is listed in the startup rulebook.
-The initial room description rule is listed in the startup rulebook.
+The start in the correct scenes rule is listed in the after starting the virtual machine rules.
+This is the start in the correct scenes rule:
+	follow the scene changing rules.
 
-This is the when play begins stage rule: follow the when play begins rulebook.
+Startup rule (this is the when play begins stage rule):
+	follow the when play begins rulebook.
 
-This is the fix baseline scoring rule: now the last notified score is the score.
+Startup rule (this is the fix baseline scoring rule):
+	now the last notified score is the score.
 
-This is the display banner rule: say "[banner text]".
+Startup rule (this is the display banner rule):
+	say "[banner text]".
 
-This is the initial room description rule: try looking.
+Startup rule (this is the initial room description rule):
+	surreptitiously reckon darkness;
+	try looking.
 
 A first turn sequence rule (this is the every turn stage rule):
 	follow the every turn rules. [5th.]
 A first turn sequence rule (this is the early scene changing stage rule):
 	follow the scene changing rules. [4th.]
 The generate action rule is listed first in the turn sequence rulebook. [3rd.]
+This is the declare everything initially unmentioned rule:
+	repeat with item running through things:
+		now the item is not mentioned.
 The declare everything initially unmentioned rule is listed first in the turn sequence rulebook. [2nd.]
 The parse command rule is listed first in the turn sequence rulebook. [1st.]
 
@@ -644,8 +681,7 @@ This is the notify score changes rule:
 		now the last notified score is the score;
 
 The adjust light rule is defined by Inter as "ADJUST_LIGHT_R" with
-	"[It] [are] [if story tense is present tense]now [end if]pitch dark in
-	[if story tense is present tense]here[else]there[end if]!" (A).
+	"[It] [are] [if story tense is present tense]now [end if]pitch dark in [here]!" (A).
 The advance time rule is defined by Inter as "ADVANCE_TIME_R".
 The generate action rule is defined by Inter as "GENERATE_ACTION_R" with
 	"(considering the first sixteen objects only)[command clarification break]" (A),
@@ -760,7 +796,7 @@ The work out details of specific action rule is defined by Inter as
 "WORK_OUT_DETAILS_OF_SPECIFIC_R".
 
 A player's action awareness rule
-	(this is the player aware of his own actions rule):
+	(this is the player aware of their own actions rule):
 	if the player is the actor, rule succeeds.
 A player's action awareness rule
 	(this is the player aware of actions by visible actors rule):
@@ -961,15 +997,38 @@ The yes or no question internal rule is defined by Inter as
 	"YES_OR_NO_QUESTION_INTERNAL_R" with
 	"Please answer yes or no." (A).
 
+The pick a number internal rule is defined by Inter as
+	"PICK_A_NUMBER_INTERNAL_R" with
+	"(Please type an option in the range 1 to [number understood] and press return.)" (A).
+
 The print protagonist internal rule is defined by Inter as
 	"PRINT_PROTAGONIST_INTERNAL_R" with
 	"[We]" (A),
 	"[ourselves]" (B),
 	"[our] former self" (C).
 
-Section 10 - Dialogue (for dialogue language element only)
+Part Eight - Dialogue
+
+Chapter 1 - Fallback Implementation (not for dialogue language element)
+
+Section 1 - Interface to action machinery - unindexed
+
+To abide by dialogue before action choices:
+	do nothing.
+
+To abide by dialogue instead action choices:
+	do nothing.
+
+To abide by dialogue after action choices:
+	do nothing.
+
+Chapter 1 - Full Implementation (for dialogue language element only)
+
+Section 1 - Performance styles
 
 There is a performance style called spoken normally.
+
+Section 2 - Dialogue beats
 
 A dialogue beat can be performed or unperformed. A dialogue beat is usually
 unperformed.
@@ -977,54 +1036,22 @@ A dialogue beat can be recurring or non-recurring. A dialogue beat is usually
 non-recurring.
 A dialogue beat can be spontaneous or unspontaneous. A dialogue beat is usually
 unspontaneous.
-
-A dialogue line can be performed or unperformed. A dialogue line is usually
-unperformed.
-A dialogue line can be recurring or non-recurring. A dialogue line is usually
-non-recurring.
-A dialogue line can be elaborated or unelaborated. A dialogue line is usually
-unelaborated.
-
-A dialogue choice can be performed or unperformed. A dialogue choice is usually
-unperformed.
-A dialogue choice can be recurring or non-recurring. A dialogue choice is usually
-non-recurring.
+A dialogue beat can be voluntary or involuntary. A dialogue beat is usually
+voluntary.
 
 The performed property is accessible to Inter as "performed".
 The spontaneous property is accessible to Inter as "spontaneous".
+The voluntary property is accessible to Inter as "voluntary".
 The recurring property is accessible to Inter as "recurring".
 
-To make (T - an object) a live conversational subject:
-	(- DirectorAddLiveSubjectList({T}); -).
-To make (T - an object) a dead conversational subject:
-	(- DirectorRemoveLiveSubjectList({T}); -).
-To clear conversational subjects:
-	(- DirectorEmptyLiveSubjectList(); -).
-To decide what list of objects is the live conversational subject list:
-	(- DirectorLiveSubjectList({-new:list of objects}) -).
-To alter the live conversational subject list to (L - list of objects):
-	(- DirectorAlterLiveSubjectList({-by-reference:L}); -).
-To decide what list of objects is the list of speakers required by (B - dialogue beat):
-	(- DirectorBeatRequiredList({-new:list of objects}, {B}) -).
-To decide what dialogue line is the opening line of (B - dialogue beat):
-	(- DirectorBeatOpeningLine({B}) -).
-To decide what text is the textual content of (L - dialogue line):
-	(- DirectorLineContent({L}, {-new:text}) -).
-To decide what text is the textual content of (C - dialogue choice):
-	(- DirectorChoiceTextContent({C}, {-new:text}) -).
+Definition: A dialogue beat is available rather than unavailable if Inter routine
+	"DirectorBeatAvailable" says so (it meets all its after or before, if and unless conditions).
 
-To decide what object is the current dialogue line speaker:
-	(- DirectorCurrentLineSpeaker() -).
-To decide what object is the current dialogue line interlocutor:
-	(- DirectorCurrentLineInterlocutor() -).
-To decide what performance style is the current dialogue line style:
-	(- DirectorCurrentLineStyle() -).
+Definition: A dialogue beat is relevant rather than irrelevant if Inter routine
+	"DirectorBeatRelevant" says so (one of the topics it is about is currently live).
 
-To decide what number is the chosen dialogue number up to (N - number):
-	(- DirectorPickANumber({N}) -).
-
-To perform (B - a dialogue beat):
-	(- DirectorPerformBeat({B}); -).
+Definition: A dialogue beat is being performed if Inter routine
+	"DirectorBeatBeingPerformed" says so (it is currently having its lines performed).
 
 Topicality relates a dialogue beat (called B) to an object (called S) when about B matches S.
 
@@ -1040,21 +1067,48 @@ To decide if about (B - dialogue beat) matches (S - object):
 To decide if (S - object) can have (B - dialogue beat) performed:
 	(- (DirectorBeatAccessible({B}, {S})) -).
 
-To decide which object is the first speaker of (B - dialogue beat):
+To decide what list of objects is the list of speakers required by (B - dialogue beat)
+	(documented at ph_listofspeakers):
+	(- DirectorBeatRequiredList({-new:list of objects}, {B}) -).
+
+To decide what dialogue line is the opening line of (B - dialogue beat):
+	(- DirectorBeatOpeningLine({B}) -).
+
+To perform (B - a dialogue beat)
+	(documented at ph_performbeat):
+	(- DirectorPerformBeat({B}); -).
+
+To decide which object is the first speaker of (B - dialogue beat)
+	(documented at ph_firstspeaker):
 	(- (DirectorBeatFirstSpeaker({B})) -).
 
-To decide whether dialogue/dialog about (O - an object) intervenes:
+To decide whether dialogue/dialog about (O - an object) intervenes
+	(documented at ph_dialogueintervenes):
 	(- DirectorIntervenes({O}, nothing) -).
-To decide whether dialogue/dialog about (O - an object) led by (P - an object) intervenes:
+To decide whether dialogue/dialog about (O - an object) led by (P - an object) intervenes
+	(documented at ph_dialogueintervenesled):
 	(- DirectorIntervenes({O}, {P}) -).
 
-To showme the beat structure of (B - dialogue beat): (- DirectorDisassemble({B}); -).
+To showme the beat structure of (B - dialogue beat)
+	(documented at ph_showmebeat):
+	(- DirectorDisassemble({B}); -).
 
-Definition: A dialogue beat is available rather than unavailable if Inter routine
-	"DirectorBeatAvailable" says so (it meets all its after or before, if and unless conditions).
+Section 3 - Dialogue lines
 
-Definition: A dialogue beat is relevant rather than irrelevant if Inter routine
-	"DirectorBeatRelevant" says so (one of the topics it is about is currently live).
+A dialogue line can be performed or unperformed. A dialogue line is usually
+unperformed.
+A dialogue line can be recurring or non-recurring. A dialogue line is usually
+non-recurring.
+A dialogue line can be elaborated or unelaborated. A dialogue line is usually
+unelaborated.
+
+To decide what text is the textual content of (L - dialogue line):
+	(- DirectorLineContent({L}, {-new:text}) -).
+
+To decide what object is the current dialogue line speaker:
+	(- DirectorCurrentLineSpeaker() -).
+To decide what object is the current dialogue line interlocutor:
+	(- DirectorCurrentLineInterlocutor() -).
 
 Definition: A dialogue line is available rather than unavailable if Inter routine
 	"DirectorLineAvailable" says so (it meets all its if and unless conditions).
@@ -1065,14 +1119,68 @@ Definition: A dialogue line is narrated rather than unnarrated if Inter routine
 Definition: A dialogue line is non-verbal rather than verbal if Inter routine
 	"DirectorLineNonverbal" says so (it is a non-verbal communication, like a gesture).
 
-Definition: A dialogue choice is story-ending if Inter routine
-	"DirectorChoiceStoryEnding" says so (it is a flow marker to an end of the story).
+Section 4 - Dialogue choices
 
-Definition: A dialogue beat is being performed if Inter routine
-	"DirectorBeatBeingPerformed" says so (it is currently having its lines performed).
+A dialogue choice can be performed or unperformed. A dialogue choice is usually
+unperformed.
+A dialogue choice can be recurring or non-recurring. A dialogue choice is usually
+non-recurring.
 
 Definition: A dialogue choice is flowing rather than offered if Inter routine
 	"DirectorChoiceFlowing" says so (it is a flow-control point rather than an option).
+
+Definition: A dialogue choice is story-ending if Inter routine
+	"DirectorChoiceStoryEnding" says so (it is a flow marker to an end of the story).
+
+To decide what text is the textual content of (C - dialogue choice):
+	(- DirectorChoiceTextContent({C}, {-new:text}) -).
+
+To decide what list of dialogue choices is the current choice list
+	(documented at ph_dialoguechoices):
+	(- DirectorCurrentChoiceList() -).
+
+Section 5 - List of live conversational subjects
+
+To make (T - an object) a live conversational subject
+	(documented at ph_makelive):
+	(- DirectorAddLiveSubjectList({T}); -).
+To make (T - an object) a dead conversational subject
+	(documented at ph_makedead):
+	(- DirectorRemoveLiveSubjectList({T}); -).
+To clear conversational subjects
+	(documented at ph_clearsubjects):
+	(- DirectorEmptyLiveSubjectList(); -).
+To decide what list of objects is the/-- live conversational subject list
+	(documented at ph_getlivelist):
+	(- DirectorLiveSubjectList({-new:list of objects}) -).
+To alter the/-- live conversational subject list to (L - list of objects)
+	(documented at ph_setlivelist):
+	(- DirectorAlterLiveSubjectList({-by-reference:L}); -).
+
+Section 7 - The dialogue director
+
+To make the dialogue/dialog director active
+	(documented at ph_directoractive):
+	(- DirectorActivate(); -).
+
+To make the dialogue/dialog director passive/inactive
+	(documented at ph_directorpassive):
+	(- DirectorDeactivate(); -).
+
+To decide whether dialogue has been performed this turn
+	(documented at ph_dialoguethisturn):
+	(- (line_performance_count > 0) -).
+
+The dialogue direction rule is listed in the turn sequence rulebook.
+The dialogue direction rule is defined by Inter as "DIALOGUE_DIRECTION_R".
+
+The performing opening dialogue beat rule is listed in the startup rulebook.
+The performing opening dialogue beat rule is defined by Inter as "PERFORM_OPENING_BEAT_R".
+
+Section 8 - Interface to action machinery - unindexed
+
+To decide what performance style is the current dialogue line style:
+	(- DirectorCurrentLineStyle() -).
 
 To abide by dialogue before action choices:
 	(- if (DirectorBeforeAction()) rtrue; -).
@@ -1083,37 +1191,88 @@ To abide by dialogue instead action choices:
 To abide by dialogue after action choices:
 	(- if (DirectorAfterAction()) rtrue; -).
 
-To decide what list of dialogue choices is the current choice list:
-	(- DirectorCurrentChoiceList() -).
+Section 9 - Dialogue activities
 
-To make the dialogue/dialog director active:
-	(- DirectorActivate(); -).
+Offering something (documented at act_offering) is an activity on lists of dialogue choices.
+The offering activity is accessible to Inter as "OFFERING_A_DIALOGUE_CHOICE".
 
-To make the dialogue/dialog director passive/inactive:
-	(- DirectorDeactivate(); -).
+Last for offering a list of dialogue choices (called L)
+	(this is the default offering dialogue choices rule):
+	let N be 0;
+	repeat with C running through L:
+		increase N by 1;
+		say "([N]) [textual content of C][line break]";
+	say conditional paragraph break;
+	let M be a number chosen by the player from 1 to N;
+	set the dialogue selection value to M;
+	say "[bold type][textual content of entry M of L][roman type][paragraph break]".
 
-The dialogue direction rule is listed in the turn sequence rulebook.
-The dialogue direction rule is defined by Inter as "DIALOGUE_DIRECTION_R".
+To set the dialogue selection value to (M - a number):
+	(- dialogue_selection_value = {M}; -).
 
-The performing opening dialogue beat rule is listed in the startup rulebook.
-The performing opening dialogue beat rule is defined by Inter as "PERFORM_OPENING_BEAT_R".
+Performing something (documented at act_performing) is an activity on dialogue lines.
+The performing activity is accessible to Inter as "PERFORMING_DIALOGUE".
 
-Section 10 - Dialogue Fallback (not for dialogue language element)
+The performing activity has an object called the speaker.
 
-To abide by dialogue before action choices:
-	do nothing.
+The performing activity has an object called the interlocutor.
 
-To abide by dialogue instead action choices:
-	do nothing.
+The performing activity has a performance style called the style.
 
-To abide by dialogue after action choices:
-	do nothing.
+Before performing a dialogue line:
+	now the speaker is the current dialogue line speaker;
+	now the interlocutor is the current dialogue line interlocutor;
+	now the style is the current dialogue line style.
+
+For performing a dialogue line (called L)
+	(this is the default dialogue performance rule):
+	if L is narrated or L is elaborated or L is non-verbal:
+		say "[textual content of L][line break]";
+	otherwise:
+		say "[The speaker]";
+		if the interlocutor is something:
+			say " (to [the interlocutor])";
+		say ": '[textual content of L]'[line break]".
+
+Section 10 - Dialogue-related actions
+
+Talking about is an action applying to one object.
+
+The talking about action has a list of dialogue beats called the leading beats.
+
+The talking about action has a list of dialogue beats called the other beats.
+
+Before an actor talking about an object (called T):
+	repeat with B running through available dialogue beats about T:
+		if B is performable to the actor:
+			if the first speaker of B is the actor:
+				add B to the leading beats;
+			otherwise:
+				add B to the other beats;
+
+Carry out an actor talking about an object (called T)
+	(this is the first-declared beat rule):
+	if the leading beats is not empty:
+		perform entry 1 of the leading beats;
+		if dialogue has been performed this turn:
+			continue the action;
+	if the other beats is not empty:
+		perform entry 1 of the other beats;
+		if dialogue has been performed this turn:
+			continue the action;
+	if the player is the actor:
+		say "There is no reply." (A);
+		stop the action;
+	otherwise:
+		if the player can hear the actor:
+			say "[The actor] [talk] about [T]." (B);
+		stop the action.
 
 Part Four - Activities
 
 Section 1 - Responses
 
-Issuing the response text of something -- documented at act_resp -- is an
+Issuing the response text of something -- hidden in RULES command -- -- documented at act_resp -- is an
 activity on responses.
 The issuing the response text activity is accessible to Inter as "PRINTING_RESPONSE_ACT".
 
@@ -1140,17 +1299,69 @@ Rule for printing a number of something (called the item) (this is the standard
 The standard printing a number of something rule is listed last in the for printing
 a number rulebook.
 
-Printing room description details of something (documented at act_details) is an activity.
+Printing room description details of something (hidden in RULES command) (documented at act_details) is an activity.
 The printing room description details activity is accessible to Inter as "PRINTING_ROOM_DESC_DETAILS_ACT".
-Printing inventory details of something (documented at act_idetails) is an activity.
+
+For printing room description details of a container (called the box) when the box is falsely-unoccupied (this is the falsely-unoccupied container room description details rule):
+  say text of list writer internal rule response (A); [ " (" ]
+  if the box is lit and the location is unlit begin;
+    if the box is closed, say text of list writer internal rule response (J); [ "closed, empty[if serial comma option is active],[end if] and providing light" ]
+    else say text of list writer internal rule response (I); [ "empty and providing light" ]
+  else;
+    if the box is closed, say text of list writer internal rule response (E); [ "closed" ]
+    else say text of list writer internal rule response (F); [ "empty" ]
+  end if;
+  say text of list writer internal rule response (B); [ ")" ]
+
+Printing inventory details of something (hidden in RULES command) (documented at act_idetails) is an activity.
 The printing inventory details activity is accessible to Inter as "PRINTING_INVENTORY_DETAILS_ACT".
 
-Listing contents of something (documented at act_lc) is an activity.
+
+To say the deceitfully empty inventory details of (box - a container):
+  let inventory text printed be false;
+  if the box is lit begin;
+    if the box is worn, say text of list writer internal rule response (K); [ "providing light and being worn" ]
+    else say text of list writer internal rule response (D); [ "providing light" ]
+    now inventory text printed is true;
+  else if the box is worn;
+    say text of list writer internal rule response (L); [ "being worn" ]
+    now inventory text printed is true;
+  end if;
+  if the box is openable begin;
+    if inventory text printed is true begin;
+      if the serial comma option is active, say ",";
+      say text of list writer internal rule response (C); [ "and" ]
+    end if;
+    if the box is open begin;
+      say text of list writer internal rule response (N); [ "open but empty" ]
+    else; [ it's closed ]
+      if the box is locked, say text of list writer internal rule response (P); [ "closed and locked" ]
+      else say text of list writer internal rule response (O); [ "closed" ]
+      now inventory text printed is true;
+    end if;
+  else; [ it's not openable ]
+    if the box is transparent begin;
+      if inventory text printed is true, say text of list writer internal rule response (C); [ "and" ]
+      say text of list writer internal rule response (F); [ "empty" ]
+      now inventory text printed is true; [ not relevant unless code is added ]
+    end if;
+  end if;
+
+For printing inventory details of a container (called the box) when the box is falsely-unoccupied (this is the falsely-unoccupied container inventory details rule):
+    let the tag be "[the deceitfully empty inventory details of box]";
+    if tag is not empty begin;
+      say text of list writer internal rule response (A); [ "(" ]
+      say tag;
+      say text of list writer internal rule response (B); [ ")" ]
+    end if;
+
+Listing contents of something (hidden in RULES command) (documented at act_lc) is an activity.
 The listing contents activity is accessible to Inter as "LISTING_CONTENTS_ACT".
 The standard contents listing rule is listed last in the for listing contents rulebook.
 The standard contents listing rule is defined by Inter as "STANDARD_CONTENTS_LISTING_R".
-Grouping together something (documented at act_gt) is an activity.
+Grouping together something (hidden in RULES command) (documented at act_gt) is an activity.
 The grouping together activity is accessible to Inter as "GROUPING_TOGETHER_ACT".
+
 
 Writing a paragraph about something (documented at act_wpa) is an activity.
 The writing a paragraph about activity is accessible to Inter as "WRITING_A_PARAGRAPH_ABOUT_ACT".
@@ -1207,17 +1418,17 @@ The supplying a missing second noun activity is accessible to Inter as "SUPPLYIN
 Implicitly taking something (documented at act_implicitly) is an activity.
 The implicitly taking activity is accessible to Inter as "IMPLICITLY_TAKING_ACT".
 
-Rule for deciding whether all includes scenery while taking or taking off or
+Rule for deciding whether all includes scenery while an actor taking or taking off or
 	removing (this is the exclude scenery from take all rule): it does not.
-Rule for deciding whether all includes people while taking or taking off or
+Rule for deciding whether all includes people while an actor taking or taking off or
 	removing (this is the exclude people from take all rule): it does not.
-Rule for deciding whether all includes fixed in place things while taking or
+Rule for deciding whether all includes fixed in place things while an actor taking or
 	taking off or removing (this is the exclude fixed in place things from
 	take all rule): it does not.
 Rule for deciding whether all includes things enclosed by the person reaching
-	while taking or taking off (this is the exclude indirect possessions from
+	while an actor taking or taking off (this is the exclude indirect possessions from
 	take all rule): it does not.
-Rule for deciding whether all includes a person while dropping or throwing
+Rule for deciding whether all includes a person while an actor dropping or throwing
 	or inserting or putting (this is the exclude people from drop all rule):
 	it does not.
 
@@ -1284,14 +1495,14 @@ This is the print the final question rule:
 	repeat through the Table of Final Question Options:
 		if the only if victorious entry is false or the story has ended finally:
 			if there is a final response rule entry
-				or the final response activity entry [activity] is not empty:
+				or the final response activity entry is not empty:
 				if there is a final question wording entry, increase named options count by 1;
 	if the named options count is less than 1, abide by the immediately quit rule;
 	say "Would you like to " (A);
 	repeat through the Table of Final Question Options:
 		if the only if victorious entry is false or the story has ended finally:
 			if there is a final response rule entry
-				or the final response activity entry [activity] is not empty:
+				or the final response activity entry is not empty:
 				if there is a final question wording entry:
 					say final question wording entry;
 					decrease named options count by 1;
@@ -1307,7 +1518,7 @@ This is the standard respond to final question rule:
 	repeat through the Table of Final Question Options:
 		if the only if victorious entry is false or the story has ended finally:
 			if there is a final response rule entry
-				or the final response activity entry [activity] is not empty:
+				or the final response activity entry is not empty:
 				if the player's command matches the topic entry:
 					if there is a final response rule entry, abide by final response rule entry;
 					otherwise carry out the final response activity entry activity;
@@ -1374,6 +1585,7 @@ For printing the locale description (this is the interesting locale paragraphs r
 For printing the locale description (this is the you-can-also-see rule):
 	let the domain be the parameter-object;
 	let the mentionable count be 0;
+	if the domain is a thing and the domain holds the player and the domain is falsely-unoccupied, continue the activity;
 	repeat with item running through things:
 		now the item is not marked for listing;
 	repeat through the Table of Locale Priorities:
@@ -1413,7 +1625,7 @@ For printing the locale description (this is the you-can-also-see rule):
 						giving brief inventory information, tersely, not listing
 						concealed items, listing marked items only;
 				otherwise say "[a list of marked for listing things including contents]";
-				if the domain is the location, say " here" (F);
+				if the domain is the location, say " [here]" (F);
 				say ".[paragraph break]";
 				unfilter list recursion;
 			end the listing nondescript items activity with the domain;
@@ -1501,22 +1713,32 @@ For printing a locale paragraph about a supporter (called the tabletop)
 Definition: a thing (called the item) is locale-supportable if the item is not
 scenery and the item is not mentioned and the item is not undescribed.
 
-For printing a locale paragraph about a thing (called the item)
+For printing a locale paragraph about a thing (called the platform)
 	(this is the describe what's on scenery supporters in room descriptions rule):
-	if the item is scenery and the item does not enclose the player:
-		if a locale-supportable thing is on the item:
-			set pronouns from the item;
-			repeat with possibility running through things on the item:
-				now the possibility is marked for listing;
-				if the possibility is mentioned:
-					now the possibility is not marked for listing;
-			increase the locale paragraph count by 1;
-			say "On [the item] " (A);
-			list the contents of the item, as a sentence, including contents,
-				giving brief inventory information, tersely, not listing
-				concealed items, prefacing with is/are, listing marked items only;
-			say ".[paragraph break]";
-	continue the activity.
+    if the platform is not a scenery supporter that does not enclose the player, continue the activity;
+    let print a paragraph be false;
+    let item be the first thing held by the platform;
+    while item is not nothing begin;
+      if the item is not scenery and the item is described and the platform does not conceal the item begin;
+        if the item is mentioned begin;
+          now the item is not marked for listing;
+        else;
+          now the item is marked for listing;
+          now print a paragraph is true;
+        end if;
+      end if;
+      now the item is the next thing held after the item;
+    end while;
+    if print a paragraph is true begin;
+      set pronouns from the platform;
+      increase the locale paragraph count by 1;
+      say "On [the platform] " (A);
+      list the contents of the platform, as a sentence, including contents,
+        giving brief inventory information, tersely, not listing
+        concealed items, prefacing with is/are, listing marked items only;
+      say ".[paragraph break]";
+    end if;
+    continue the activity
 
 For printing a locale paragraph about a thing (called the item)
 	(this is the describe what's on mentioned supporters in room descriptions rule):
@@ -1535,42 +1757,6 @@ For printing a locale paragraph about a thing (called the item)
 				concealed items, prefacing with is/are, listing marked items only;
 			say ".[paragraph break]";
 	continue the activity.
-
-Section 8 - Dialogue (for dialogue language element only)
-
-Offering something is an activity on lists of dialogue choices.
-The offering activity is accessible to Inter as "OFFERING_A_DIALOGUE_CHOICE".
-
-For offering a list of dialogue choices (called L)
-	(this is the default offering dialogue choices rule):
-	let N be 1;
-	repeat with C running through L:
-		say "([N]) [textual content of C][line break]";
-		increase N by 1.
-
-Performing something is an activity on dialogue lines.
-The performing activity is accessible to Inter as "PERFORMING_DIALOGUE".
-
-The performing activity has an object called the speaker.
-
-The performing activity has an object called the interlocutor.
-
-The performing activity has a performance style called the style.
-
-Before performing a dialogue line:
-	now the speaker is the current dialogue line speaker;
-	now the interlocutor is the current dialogue line interlocutor;
-	now the style is the current dialogue line style.
-
-For performing a dialogue line (called L)
-	(this is the default dialogue performance rule):
-	if L is narrated or L is elaborated or L is non-verbal:
-		say "[textual content of L][line break]";
-	otherwise:
-		say "[The speaker]";
-		if the interlocutor is something:
-			say " (to [the interlocutor])";
-		say ": '[textual content of L]'[line break]".
 
 
 Part Five - Actions
@@ -1611,8 +1797,9 @@ Carry out taking inventory (this is the print empty inventory rule):
 
 Carry out taking inventory (this is the print standard inventory rule):
 	say "[We] [are] carrying:[line break]" (A);
-	list the contents of the player, with newlines, indented, including contents,
-		giving inventory information, with extra indentation.
+	now all things enclosed by the player are unmarked for listing;
+	now all things held by the player are marked for listing;
+	list the contents of the player, with newlines, indented, giving inventory information, with extra indentation, listing marked items only, not listing concealed items, including contents.
 
 Report an actor taking inventory (this is the report other people taking
 	inventory rule):
@@ -1749,7 +1936,7 @@ do this is to write a rule about taking, which covers all possibilities."
 Check an actor removing something from (this is the can't remove what's not inside rule):
 	if the holder of the noun is not the second noun:
 		if the actor is the player:
-			say "But [regarding the noun][they] [aren't] there now." (A);
+			say "But [regarding the noun][they] [aren't] there [now]." (A);
 		stop the action.
 
 Check an actor removing something from (this is the can't remove from people rule):
@@ -1795,7 +1982,7 @@ Check an actor dropping something which is part of the actor (this is the
 Check an actor dropping (this is the can't drop what's already dropped rule):
 	if the noun is in the holder of the actor:
 		if the actor is the player:
-			say "[The noun] [are] already here." (A);
+			say "[The noun] [are] already [here]." (A);
 		stop the action.
 
 Check an actor dropping (this is the can't drop what's not held rule):
@@ -1846,7 +2033,7 @@ Putting it on is an action applying to two things.
 The putting it on action is accessible to Inter as "PutOn".
 
 The specification of the putting it on action is "By this action, an actor puts
-something he is holding on top of a supporter: for instance, putting an apple
+something they are holding on top of a supporter: for instance, putting an apple
 on a table."
 
 Check an actor putting something on (this is the convert put to drop where possible rule):
@@ -1909,7 +2096,7 @@ Inserting it into is an action applying to two things.
 The inserting it into action is accessible to Inter as "Insert".
 
 The specification of the inserting it into action is "By this action, an actor puts
-something he is holding into a container: for instance, putting a coin into a
+something they are holding into a container: for instance, putting a coin into a
 collection box."
 
 Check an actor inserting something into (this is the convert insert to drop where
@@ -2497,26 +2684,27 @@ Carry out looking (this is the declare everything unmentioned rule):
 		now the item is not mentioned.
 
 Carry out looking (this is the room description heading rule):
-	say bold type;
-	if the visibility level count is 0:
-		begin the printing the name of a dark room activity;
-		if handling the printing the name of a dark room activity:
-			say "Darkness" (A);
-		end the printing the name of a dark room activity;
-	otherwise if the visibility ceiling is the location:
-		say "[visibility ceiling]";
-	otherwise:
-		say "[The visibility ceiling]";
-	say roman type;
-	let intermediate level be the visibility-holder of the actor;
-	repeat with intermediate level count running from 2 to the visibility level count:
-		if the intermediate level is a supporter or the intermediate level is an animal:
-			say " (on [the intermediate level])" (B);
+	if nameless room descriptions option is not active:
+		say bold type;
+		if the visibility level count is 0:
+			begin the printing the name of a dark room activity;
+			if handling the printing the name of a dark room activity:
+				say "Darkness" (A);
+			end the printing the name of a dark room activity;
+		otherwise if the visibility ceiling is the location:
+			say "[visibility ceiling]";
 		otherwise:
-			say " (in [the intermediate level])" (C);
-		let the intermediate level be the visibility-holder of the intermediate level;
-	say line break;
-	say run paragraph on with special look spacing.
+			say "[The visibility ceiling]";
+		say roman type;
+		let intermediate level be the visibility-holder of the actor;
+		repeat with intermediate level count running from 2 to the visibility level count:
+			if the intermediate level is a supporter or the intermediate level is an animal:
+				say " (on [the intermediate level])" (B);
+			otherwise:
+				say " (in [the intermediate level])" (C);
+			let the intermediate level be the visibility-holder of the intermediate level;
+		say line break;
+		say run paragraph on with special look spacing.
 
 Carry out looking (this is the room description body text rule):
 	if the visibility level count is 0:
@@ -2597,22 +2785,22 @@ Carry out examining (this is the examine directions rule):
 
 Carry out examining (this is the examine containers rule):
 	if the noun is a container:
-		if the noun is open or the noun is transparent:
-			if something described which is not scenery is in the noun and something which
-				is not the player is in the noun:
-				say "In [the noun] " (A);
-				list the contents of the noun, as a sentence, tersely, not listing
-					concealed items, prefacing with is/are;
-				say ".";
-				now examine text printed is true;
-			otherwise if examine text printed is false:
-				if the player is in the noun:
-					make no decision;
-				say "[The noun] [are] empty." (B);
-				now examine text printed is true;
+		if the noun is closed and the noun is opaque, make no decision;
+		if something described which is not scenery is in the noun and something which
+			is not the player is in the noun and the noun is not falsely-unoccupied:
+			say "In [the noun] " (A);
+			list the contents of the noun, as a sentence, tersely, not listing
+				concealed items, prefacing with is/are;
+			say ".";
+			now examine text printed is true;
+		otherwise if examine text printed is false:
+			if the player is in the noun:
+				make no decision;
+			say "[The noun] [are] empty." (B);
+			now examine text printed is true;
 
 Carry out examining (this is the examine supporters rule):
-	if the noun is a supporter:
+	if the noun is a supporter and the noun is not falsely-unoccupied:
 		if something described which is not scenery is on the noun and something which is
 			not the player is on the noun:
 			say "On [the noun] " (A);
@@ -2644,8 +2832,8 @@ model does not have a concept of things being under other things, so this
 action is only minimally provided by the Standard Rules, but it exists here
 for traditional reasons (and because, after all, LOOK UNDER TABLE is the
 sort of command which ought to be recognised even if it does nothing useful).
-The action ordinarily either tells the player he finds nothing of interest,
-or reports that somebody else has looked under something.
+The action ordinarily either tells the player that they find nothing of
+interest, or reports that somebody else has looked under something.
 
 The usual way to make this action do something useful is to write a rule
 like 'Instead of looking under the cabinet for the first time: now the
@@ -2984,7 +3172,7 @@ Carry out an actor opening (this is the standard opening rule):
 Report an actor opening (this is the reveal any newly visible interior rule):
 	if the actor is the player and
 		the noun is an opaque container and
-		the first thing held by the noun is not nothing and
+		the noun is obviously-occupied and
 		the noun does not enclose the actor:
 		if the action is not silent:
 			if the actor is the player:
@@ -3241,11 +3429,11 @@ Waking is an action applying to one thing.
 The waking action is accessible to Inter as "WakeOther".
 
 The specification of the waking action is "This is the act of jostling
-a sleeping person to wake him or her up, and it finds its way into the
-Standard Rules only for historical reasons. Inform does not by default
-provide any model for people being asleep or awake, so this action does
-not do anything in the standard implementation: instead, it is always
-stopped by the block waking rule."
+a sleeping person to wake them up, and it finds its way into the Standard
+Rules only for historical reasons. Inform does not by default provide
+any model for people being asleep or awake, so this action doesnot do
+anything in the standard implementation: instead, it is always stopped by
+the block waking rule."
 
 Check an actor waking (this is the block waking rule):
 	if the actor is the player:
@@ -3303,7 +3491,7 @@ The attacking action is accessible to Inter as "Attack".
 The specification of the attacking action is "Violence is seldom the answer,
 and attempts to attack another person are normally blocked as being unrealistic
 or not seriously meant. (I might find a shop assistant annoying, but IF is
-not Grand Theft Auto, and responding by killing him is not really one of
+not Grand Theft Auto, and responding by killing them is not really one of
 my options.) So the Standard Rules simply block attempts to fight people,
 but the action exists for rules to make exceptions."
 
@@ -3692,7 +3880,7 @@ Check an actor pushing something to (this is the can't push vertically rule):
 Check an actor pushing something to (this is the can't push from within rule):
 	if the noun encloses the actor:
 		if the actor is the player:
-			say "[The noun] [cannot] be pushed from here." (A);
+			say "[The noun] [cannot] be pushed from [here]." (A);
 		stop the action.
 
 Check an actor pushing something to (this is the standard pushing in directions rule):
@@ -3914,7 +4102,7 @@ with some further check rules.)"
 Check an actor drinking (this is the block drinking rule):
 	if the actor is the player:
 		now the prior named object is nothing;
-		say "[There's] nothing suitable to drink here." (A);
+		say "[There's] nothing suitable to drink [here]." (A);
 	stop the action.
 
 Saying sorry is an action applying to nothing.
@@ -3948,7 +4136,7 @@ with some further check rules.)"
 Check an actor swinging (this is the block swinging rule):
 	if the actor is the player:
 		now the prior named object is nothing;
-		say "[There's] nothing sensible to swing here." (A);
+		say "[There's] nothing sensible to swing [here]." (A);
 	stop the action.
 
 Rubbing is an action applying to one thing.
@@ -4119,6 +4307,14 @@ The announce the story file version rule is listed in the carry out requesting t
 	file version rulebook.
 The announce the story file version rule is defined by Inter as "ANNOUNCE_STORY_FILE_VERSION_R".
 
+
+Requesting copyright licences is an action out of world and applying to nothing.
+The requesting copyright licences action is accessible to Inter as "Copyright".
+
+The announce the copyright licences rule is listed in the carry out requesting
+	copyright licences rulebook.
+The announce the copyright licences rule is defined by Inter as "ANNOUNCE_COPYRIGHT_LICENCES_R".
+
 Requesting the score is an action out of world and applying to nothing.
 The requesting the score action is accessible to Inter as "Score".
 
@@ -4212,44 +4408,15 @@ The announce the pronoun meanings rule is defined by Inter as "ANNOUNCE_PRONOUN_
 	"is unset" (C),
 	"no pronouns are known to the game." (D).
 
-Section 10 - Dialogue-related actions (for dialogue language element only)
-
-Talking about is an action applying to one object.
-
-The talking about action has a list of dialogue beats called the leading beats.
-
-The talking about action has a list of dialogue beats called the other beats.
-
-Before an actor talking about an object (called T):
-	repeat with B running through available dialogue beats about T:
-		if B is performable to the actor:
-			if the first speaker of B is the actor:
-				add B to the leading beats;
-			otherwise:
-				add B to the other beats;
-
-Carry out an actor talking about an object (called T)
-	(this is the first-declared beat rule):
-	if the leading beats is not empty:
-		perform entry 1 of the leading beats;
-		continue the action;
-	if the other beats is not empty:
-		perform entry 1 of the other beats;
-		continue the action;
-	if the player is the actor:
-		say "There is no reply.";
-		stop the action;
-	otherwise:
-		say "[The actor] [talk] about [T].";
-		stop the action.
-
 Part Six - Grammar
 
 Understand "take [things]" as taking.
 Understand "take off [something]" as taking off.
 Understand "take [something] off" as taking off.
 Understand "take [things inside] from [something]" as removing it from.
+Understand "take [something] from [something]" as removing it from. [For better error messages.]
 Understand "take [things inside] off [something]" as removing it from.
+Understand "take [something] off [something]" as removing it from. [For better error messages.]
 Understand "take inventory" as taking inventory.
 Understand the commands "carry" and "hold" as "take".
 
@@ -4259,6 +4426,7 @@ Understand "get [things]" as taking.
 Understand "get in/into/on/onto [something]" as entering.
 Understand "get off/down [something]" as getting off.
 Understand "get [things inside] from [something]" as removing it from.
+Understand "get [something] from [something]" as removing it from. [For better error messages.]
 
 Understand "pick up [things]" or "pick [things] up" as taking.
 
@@ -4267,6 +4435,7 @@ Understand "stand on [something]" as entering.
 
 Understand "remove [something preferably held]" as taking off.
 Understand "remove [things inside] from [something]" as removing it from.
+Understand "remove [something] from [something]" as removing it from. [For better error messages.]
 
 Understand "shed [something preferably held]" as taking off.
 Understand the commands "doff" and "disrobe" as "shed".
@@ -4456,6 +4625,7 @@ Understand "restart" as restarting the game.
 Understand "restore" as restoring the game.
 Understand "verify" as verifying the story file.
 Understand "version" as requesting the story file version.
+Understand "copyright" as requesting copyright licences.
 Understand "script" or "script on" or "transcript" or "transcript on" as switching the story
 	transcript on.
 Understand "script off" or "transcript off" as switching the story transcript off.
@@ -4465,8 +4635,6 @@ Understand "brief" or "normal" as preferring sometimes abbreviated room descript
 Understand "nouns" or "pronouns" as requesting the pronoun meanings.
 Understand "notify" or "notify on" as switching score notification on.
 Understand "notify off" as switching score notification off.
-
-The understand token a time period is defined by Inter as "RELATIVE_TIME_TOKEN".
 
 Section 2 - Dialogue-related grammar (for dialogue language element only)
 
@@ -4493,7 +4661,7 @@ To say now
 
 Section 2 - Boxed quotations
 
-To display the boxed quotation (Q - text)
+To display the/-- boxed quotation (Q - text)
 	(documented at ph_boxed):
 	(- DisplayBoxedQuotation({-box-quotation-text:Q}); -).
 
@@ -4526,7 +4694,7 @@ To say text of (R - response)
 
 Section 5 - Saying lists of things
 
-To list the contents of (O - an object),
+To list the/-- contents of (O - an object),
 	with newlines,
 	indented,
 	giving inventory information,
@@ -4637,22 +4805,22 @@ To group (OS - description of objects) together
 	(documented at ph_group): (-
 		objectloop({-my:1} provides list_together)
 			if ({-matches-description:1:OS})
-				BlkValueCopy({-my:1}.list_together, {-list-together:unarticled});
+				CopyPV({-my:1}.list_together, {-list-together:unarticled});
 	-).
 To group (OS - description of objects) together giving articles
 	(documented at ph_groupart): (-
 		objectloop({-my:1} provides list_together)
 			if ({-matches-description:1:OS})
-				BlkValueCopy({-my:1}.list_together, {-list-together:articled});
+				CopyPV({-my:1}.list_together, {-list-together:articled});
 	-).
 To group (OS - description of objects) together as (T - text)
 	(documented at ph_grouptext): (-
-		{-my:2} = BlkValueCreate(TEXT_TY);
+		{-my:2} = CreatePV(TEXT_TY);
 		{-my:2} = TEXT_TY_SubstitutedForm({-my:2}, {-by-reference:T});
 		objectloop({-my:1} provides list_together)
 			if ({-matches-description:1:OS})
-				BlkValueCopy({-my:1}.list_together, {-my:2});
-		BlkValueFree({-my:2});
+				CopyPV({-my:1}.list_together, {-my:2});
+		DestroyPV({-my:2});
 	-).
 To omit contents in listing
 	(documented at ph_omit):
@@ -4703,16 +4871,16 @@ To decide whether the action is not silent:
 
 Section 2 - Action requirements
 
-To decide whether the action requires a touchable noun
+To decide whether the action requires a/-- touchable noun
 	(documented at ph_requirestouch):
 	(- (NeedToTouchNoun()) -).
-To decide whether the action requires a touchable second noun
+To decide whether the action requires a/-- touchable second noun
 	(documented at ph_requirestouch2):
 	(- (NeedToTouchSecondNoun()) -).
-To decide whether the action requires a carried noun
+To decide whether the action requires a/-- carried noun
 	(documented at ph_requirescarried):
 	(- (NeedToCarryNoun()) -).
-To decide whether the action requires a carried second noun
+To decide whether the action requires a/-- carried second noun
 	(documented at ph_requirescarried2):
 	(- (NeedToCarrySecondNoun()) -).
 To decide whether the action requires light
@@ -4743,10 +4911,10 @@ To anonymously abide by (RL - a nothing based rule)
 
 Section 3 - Stop or continue
 
-To stop the action
+To stop the/-- action
 	(documented at ph_stopaction):
 	(- rtrue; -) - in to only.
-To continue the action
+To continue the/-- action
 	(documented at ph_continueaction):
 	(- rfalse; -) - in to only.
 
@@ -4778,16 +4946,16 @@ Chapter 4 - The Model World
 
 Section 1 - Ending the story
 
-To end the story
+To end the/-- story
 	(documented at ph_end):
 	(- deadflag=3; story_complete=false; -).
-To end the story finally
+To end the/-- story finally
 	(documented at ph_endfinally):
 	(- deadflag=3; story_complete=true; -).
-To end the story saying (finale - text)
+To end the/-- story saying (finale - text)
 	(documented at ph_endsaying):
 	(- deadflag={-by-reference:finale}; BlkValueIncRefCountPrimitive(deadflag); story_complete=false; -).
-To end the story finally saying (finale - text)
+To end the/-- story finally saying (finale - text)
 	(documented at ph_endfinallysaying):
 	(- deadflag={-by-reference:finale}; BlkValueIncRefCountPrimitive(deadflag); story_complete=true; -).
 To decide whether the story has ended
@@ -4802,7 +4970,7 @@ To decide whether the story has not ended
 To decide whether the story has not ended finally
 	(documented at ph_notfinallyended):
 	(- (story_complete==false) -).
-To resume the story
+To resume the/-- story
 	(documented at ph_resume):
 	(- resurrect_please = true; -).
 
@@ -4821,21 +4989,24 @@ To decide if (t - time) is before (t2 - time)
 To decide if (t - time) is after (t2 - time)
 	(documented at ph_timeafter):
 	(- ((({t}+20*ONE_HOUR)%(TWENTY_FOUR_HOURS))>(({t2}+20*ONE_HOUR)%(TWENTY_FOUR_HOURS))) -).
-To decide which time is (t - time) before (t2 - time)
+To decide which time is (t - time period) before (t2 - time)
 	(documented at ph_shiftbefore):
 	(- (({t2}-{t}+TWENTY_FOUR_HOURS)%(TWENTY_FOUR_HOURS)) -).
-To decide which time is (t - time) after (t2 - time)
+To decide which time is (t - time period) after (t2 - time)
 	(documented at ph_shiftafter):
 	(- (({t2}+{t}+TWENTY_FOUR_HOURS)%(TWENTY_FOUR_HOURS)) -).
 
 Section 3 - Durations
 
-To decide which time is (n - number) minutes
+To decide which time period is (n - number) minutes
 	(documented at ph_durationmins):
-	(- (({n})%(TWENTY_FOUR_HOURS)) -).
-To decide which time is (n - number) hours
+	(- ({n}) -).
+To decide which time period is (n - number) hours
 	(documented at ph_durationhours):
-	(- (({n}*ONE_HOUR)%(TWENTY_FOUR_HOURS)) -).
+	(- ({n}*ONE_HOUR) -).
+To decide which time period is (n - number) hours (m - number) minutes
+	(documented at ph_durationhours):
+	(- ({n}*ONE_HOUR + {m}) -).
 
 Section 4 - Timed events
 
@@ -4845,7 +5016,7 @@ To (R - rule) in (t - number) turn/turns from now
 To (R - rule) at (t - time)
 	(documented at ph_attime):
 	(- SetTimedEvent({-mark-event-used:R}, {t}, 1); -).
-To (R - rule) in (t - time) from now
+To (R - rule) in (t - time period) from now
 	(documented at ph_timefromnow):
 	(- SetTimedEvent({-mark-event-used:R}, (the_time+{t})%(TWENTY_FOUR_HOURS), 1); -).
 
@@ -4866,13 +5037,13 @@ To decide if (sc - scene) has not ended
 
 Section 6 - Timing of scenes
 
-To decide which time is the time since (sc - scene) began
+To decide which time period is the time since (sc - scene) began
 	(documented at ph_scenetimesincebegan):
 	(- (SceneUtility({sc}, 1)) -).
 To decide which time is the time when (sc - scene) began
 	(documented at ph_scenetimewhenbegan):
 	(- (SceneUtility({sc}, 2)) -).
-To decide which time is the time since (sc - scene) ended
+To decide which time period is the time since (sc - scene) ended
 	(documented at ph_scenetimesinceended):
 	(- (SceneUtility({sc}, 3)) -).
 To decide which time is the time when (sc - scene) ended
@@ -4980,6 +5151,10 @@ To decide whether player consents
 	(documented at ph_consents):
 		(- YesOrNo() -).
 
+To decide what number is a/-- number chosen by the player from 1 to (N - number)
+	(documented at ph_numberchosen):
+		(- NumberChosenByPlayer({N}) -).
+
 Section 2 - The player's command
 
 To decide if (S - a snippet) matches (T - a topic)
@@ -4997,7 +5172,7 @@ To decide if (S - a snippet) does not include (T - a topic)
 
 Section 3 - Changing the player's command
 
-To change the text of the player's command to (T - text)
+To change the text of the/-- player's command to (T - text)
 	(documented at ph_changecommand):
 	(- SetPlayersCommand({-by-reference:T}); -).
 To replace (S - a snippet) with (T - text)
@@ -5006,7 +5181,7 @@ To replace (S - a snippet) with (T - text)
 To cut (S - a snippet)
 	(documented at ph_cutsnippet):
 	(- SpliceSnippet({S}, 0); -).
-To reject the player's command
+To reject the/-- player's command
 	(documented at ph_rejectcommand):
 	(- RulebookFails(); rtrue; -) - in to only.
 
@@ -5027,7 +5202,7 @@ Section 5 - The multiple object list
 To decide what list of objects is the multiple object list
 	(documented at ph_multipleobjectlist):
 	(- LIST_OF_TY_Mol({-new:list of objects}) -).
-To alter the multiple object list to (L - list of objects)
+To alter the/-- multiple object list to (L - list of objects)
 	(documented at ph_altermultipleobjectlist):
 	(- LIST_OF_TY_Set_Mol({-by-reference:L}); -).
 

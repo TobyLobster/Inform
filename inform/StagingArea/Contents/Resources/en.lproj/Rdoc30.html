@@ -83,8 +83,8 @@
     <!--END IGNORE-->
     <p class="sectionheading">§6.2. Writing New Commands</p>
     <p>Once we've considered all the design issues pertaining to a new action, we're ready to start writing the source text. First we need to give the player a way to issue the command:</p>
-    <!--START CODE "c11346"-->
-    <blockquote class="code"><p class="quoted"><a id="c11346"></a>Understand &quot;smile&quot; as smiling.
+    <!--START CODE "c11374"-->
+    <blockquote class="code"><p class="quoted"><a id="c11374"></a>Understand &quot;smile&quot; as smiling.
     <br>
     Understand &quot;fold [something]&quot; as folding.
     <br>
@@ -96,28 +96,28 @@
     <!--END CODE-->
     <p>(Note how &quot;it&quot; stands in for the first item when we have an action requiring two objects.) The things that go in square brackets are called &quot;tokens&quot;: they are blank spaces for the player to fill in with story objects. The different kinds of tokens are explained in the chapter on Understanding.</p>
     <p>We can add synonyms with</p>
-    <!--START CODE "c11347"-->
-    <blockquote class="code"><p class="quoted"><a id="c11347"></a>Understand the command &quot;grin&quot; as &quot;smile&quot;.
+    <!--START CODE "c11375"-->
+    <blockquote class="code"><p class="quoted"><a id="c11375"></a>Understand the command &quot;grin&quot; as &quot;smile&quot;.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>and we can create reversed versions of commands with</p>
-    <!--START CODE "c11348"-->
-    <blockquote class="code"><p class="quoted"><a id="c11348"></a>Understand &quot;shoot [something] with [something preferably held]&quot; as shooting it with (with nouns reversed).
+    <!--START CODE "c11376"-->
+    <blockquote class="code"><p class="quoted"><a id="c11376"></a>Understand &quot;shoot [something] with [something preferably held]&quot; as shooting it with (with nouns reversed).
     </p>
     </blockquote>
     <!--END CODE-->
     <p>These variations are also covered in the Understanding chapter. If the action needs to work on things that aren't within the player's sight or reach in the normal way, we may need to use an [any thing] token (see the Understanding chapter), as in</p>
-    <!--START CODE "c11349"-->
-    <blockquote class="code"><p class="quoted"><a id="c11349"></a>Understand &quot;contemplate [any thing]&quot; as considering.
+    <!--START CODE "c11377"-->
+    <blockquote class="code"><p class="quoted"><a id="c11377"></a>Understand &quot;contemplate [any thing]&quot; as considering.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>We may also need to modify reach or light levels (see Changing reachability and Changing visibility in the Advanced Actions chapter), or rely on the Deciding the scope of... activity.</p>
-    <p>As for guessing the player's intention when he isn't clear, we may want to consult the Does the player mean rules (to help Inform make guesses between multiple possible targets) and the activities Supplying a missing noun and Supplying a missing second noun (to help Inform guess an appropriate item when the player leaves something entirely out of his command). For instance, if the player typed SHOOT HENRY, it is the supplying a missing noun/second noun activity that would allow us to make Inform draw the obvious conclusion that he shoots Henry with the pistol in his hand. The Does the player mean rules are discussed in the chapter on Advanced Actions; the activities in the Activities chapter.</p>
+    <p>As for guessing the player's intention when a command isn't clear, we may want to consult the Does the player mean rules (to help Inform make guesses between multiple possible targets) and the activities Supplying a missing noun and Supplying a missing second noun (to help Inform guess an appropriate item when the player leaves something entirely out of his command). For instance, if the player typed SHOOT HENRY, it is the supplying a missing noun/second noun activity that would allow us to make Inform draw the obvious conclusion that they shoot Henry with the pistol they are carrying. The Does the player mean rules are discussed in the chapter on Advanced Actions; the activities in the Activities chapter.</p>
     <p>Next we need to define our new action, as in</p>
-    <!--START CODE "c11350"-->
-    <blockquote class="code"><p class="quoted"><a id="c11350"></a>Smiling is an action applying to nothing.
+    <!--START CODE "c11378"-->
+    <blockquote class="code"><p class="quoted"><a id="c11378"></a>Smiling is an action applying to nothing.
     <br>
     Folding is an action applying to one thing.
     <br>
@@ -126,22 +126,22 @@
     </blockquote>
     <!--END CODE-->
     <p>In cases where we're using an &quot;[any thing]&quot; token to let the player affect objects that aren't normally visible or reachable, we'll need to define the action to apply to <span class="italic">visible objects</span>. This tells Inform that the player doesn't have to be able to touch the object for it to work. So for instance</p>
-    <!--START CODE "c11351"-->
-    <blockquote class="code"><p class="quoted"><a id="c11351"></a>Considering is an action applying to one visible thing.
+    <!--START CODE "c11379"-->
+    <blockquote class="code"><p class="quoted"><a id="c11379"></a>Considering is an action applying to one visible thing.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>For more on this topic, see Visible vs. touchable vs. carried in the Advanced Actions chapter.</p>
     <p>The next step is to create rules for Inform to follow when the action happens. These can be check rules (which make sure that the conditions for the action to occur are fulfilled); carry out rules (which perform the action); and report rules (which describe the results of the action to the player). Any new action should have at least a report rule to let the player know what has happened (if anything), and a carry out rule if there are any ramifications for the world model. For instance:</p>
-    <!--START CODE "c11352"-->
-    <blockquote class="code"><p class="quoted"><a id="c11352"></a>Carry out folding:
+    <!--START CODE "c11380"-->
+    <blockquote class="code"><p class="quoted"><a id="c11380"></a>Carry out folding:
     <br>
     &#160;&#160;&#160;&#160;now the noun is swan-like.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c11353"-->
-    <blockquote class="code"><p class="quoted"><a id="c11353"></a>Report folding:
+    <!--START CODE "c11381"-->
+    <blockquote class="code"><p class="quoted"><a id="c11381"></a>Report folding:
     <br>
     &#160;&#160;&#160;&#160;say &quot;You deftly fold [the noun] into the shape of a swan.&quot;
     </p>
@@ -150,8 +150,8 @@
     <p>It's important to remember that report rules may be describing something whose name is plural, such as papers or shoes, and write our text so that it sounds right either way; see the chapter on Adaptive Text and Responses.</p>
     <p>More about defining actions and creating carry out and report rules may be found in the chapter on Advanced Actions.</p>
     <p>Meanwhile, the check rules give us a chance to provide sensible restrictions on how the command works, as in</p>
-    <!--START CODE "c11354"-->
-    <blockquote class="code"><p class="quoted"><a id="c11354"></a>Check folding:
+    <!--START CODE "c11382"-->
+    <blockquote class="code"><p class="quoted"><a id="c11382"></a>Check folding:
     <br>
     &#160;&#160;&#160;&#160;if the noun is not a napkin:
     <br>
@@ -159,37 +159,37 @@
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c11355"-->
-    <blockquote class="code"><p class="quoted"><a id="c11355"></a>Check shooting something with the noun:
+    <!--START CODE "c11383"-->
+    <blockquote class="code"><p class="quoted"><a id="c11383"></a>Check shooting something with the noun:
     <br>
     &#160;&#160;&#160;&#160;say &quot;[The noun] is incapable of aiming at itself.&quot; instead.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c11356"-->
-    <blockquote class="code"><p class="quoted"><a id="c11356"></a>Check burning something which contains the player:
+    <!--START CODE "c11384"-->
+    <blockquote class="code"><p class="quoted"><a id="c11384"></a>Check burning something which contains the player:
     <br>
     &#160;&#160;&#160;&#160;say &quot;You're not quite desperate enough to make a funeral pyre for yourself just yet.&quot; instead.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>The chapter on Advanced Actions explains how check rules work. In the special case where we want the player to take things automatically before using them, we may want to define the action to work only on carried objects, as in</p>
-    <!--START CODE "c11357"-->
-    <blockquote class="code"><p class="quoted"><a id="c11357"></a>Wrapping it in is an action applying to two carried things.
+    <!--START CODE "c11385"-->
+    <blockquote class="code"><p class="quoted"><a id="c11385"></a>Wrapping it in is an action applying to two carried things.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>The activity Implicitly taking something (documented in the Activities chapter) allows us to modify what should happen during this process.</p>
     <p>Lastly, a word or two about trouble-shooting. If a newly created command seems not to be working, we can discover what action Inform is really generating with the ACTIONS testing command, as in</p>
-    <!--START CODE "c11358"-->
-    <blockquote class="code"><p class="quoted"><a id="c11358"></a>&gt;actions
+    <!--START CODE "c11386"-->
+    <blockquote class="code"><p class="quoted"><a id="c11386"></a>&gt;actions
     <br>
     Actions listing on.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c11359"-->
-    <blockquote class="code"><p class="quoted"><a id="c11359"></a>&gt;i
+    <!--START CODE "c11387"-->
+    <blockquote class="code"><p class="quoted"><a id="c11387"></a>&gt;i
     <br>
     [taking inventory]
     <br>
@@ -197,14 +197,14 @@
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c11360"-->
-    <blockquote class="code"><p class="quoted"><a id="c11360"></a>[taking inventory - succeeded]
+    <!--START CODE "c11388"-->
+    <blockquote class="code"><p class="quoted"><a id="c11388"></a>[taking inventory - succeeded]
     </p>
     </blockquote>
     <!--END CODE-->
     <p>If the desired command is not happening, we may need to review our understand lines. A common problem is that our new action conflicts with one already defined by default. In that case, we may want to check the Actions index and see whether there are already-defined actions which might conflict with it. If so, we may need to redefine a command with a line like</p>
-    <!--START CODE "c11361"-->
-    <blockquote class="code"><p class="quoted"><a id="c11361"></a>Understand the command &quot;stand&quot; as something new.
+    <!--START CODE "c11389"-->
+    <blockquote class="code"><p class="quoted"><a id="c11389"></a>Understand the command &quot;stand&quot; as something new.
     </p>
     </blockquote>
     <!--END CODE-->

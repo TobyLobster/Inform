@@ -58,6 +58,11 @@ Constant BLANK_DCODEDT = 1;
 Constant TEXTUAL_DCODEDT = 2;
 Constant PARSED_COMMAND_DCODEDT = 3;
 Constant FLOW_DCODEDT = 4;
+Constant RANDOMISED_CONTROL_DDT = 5;
+Constant SHUFFLE_CONTROL_DDT = 6;
+Constant CYCLE_CONTROL_DDT = 7;
+Constant STEP_CONTROL_DDT = 8;
+Constant STEP_STOP_CONTROL_DDT = 9;
 
 @h Containment.
 This enables us to implement the test for whether a given line or choice
@@ -135,16 +140,28 @@ Purely for debugging purposes:
 			operand = (program-->(pc+1));
 			for (i=0: i<depth: i++) print "  ";
 			DirectorDisassembleInstruction(which, operand);
+			print "^";
 			pc = pc + 2;
 		}		
 	}
 ];
 [ DirectorDisassembleInstruction which operand;
 	switch (which) {
-		LINE_DCODEI: print "LINE ", (PrintDialogueLineName) operand, "^";
-		CHOICE_DCODEI: print "CHOICE ", (PrintDialogueChoiceName) operand, "^";
-		DECISION_DCODEI: print "DECISION of type ", operand, "^";
-		default: print "*** Unimplemented ***^";
+		LINE_DCODEI: print "LINE ", (PrintDialogueLineName) operand;
+		CHOICE_DCODEI: print "CHOICE ", (PrintDialogueChoiceName) operand;
+		DECISION_DCODEI: print "DECISION of type ";
+			switch (operand) {
+				TEXTUAL_DCODEDT: print "TEXTUAL";
+				PARSED_COMMAND_DCODEDT: print "PARSED";
+				FLOW_DCODEDT: print "FLOW";
+				RANDOMISED_CONTROL_DDT: print "RANDOMISED";
+				SHUFFLE_CONTROL_DDT: print "SHUFFLE";
+				CYCLE_CONTROL_DDT: print "CYCLE";
+				STEP_CONTROL_DDT: print "STEP";
+				STEP_STOP_CONTROL_DDT: print "STEP_STOP";
+				default: print "*** Unknown ***";
+			}
+		default: print "*** Unimplemented ***";
 	}
 ];
 
@@ -215,8 +232,8 @@ still produce an empty list in a typesafe way.
 [ DirectorCurrentChoiceList i L;
 	if (director_sp == 0) {
 		if (DirectorStackChoices-->0 == 0) {
-			DirectorStackChoices-->0 = BlkValueCreate(LIST_OF_TY);
-			BlkValueWrite(DirectorStackChoices-->0, LIST_ITEM_KOV_F, DIALOGUE_CHOICE_TY);
+			DirectorStackChoices-->0 = CreatePV(LIST_OF_TY);
+			WritePVField(DirectorStackChoices-->0, LIST_ITEM_KOV_F, DIALOGUE_CHOICE_TY);
 		}
 		return DirectorStackChoices-->0;
 	}
@@ -282,8 +299,8 @@ dialogue tree, or any well-formed subtree of it.
 	DirectorStackLastSpeaker-->director_sp = nothing;
 	DirectorStackLastInterlocutor-->director_sp = nothing;
 	if (DirectorStackChoices-->director_sp == 0) {
-		DirectorStackChoices-->director_sp = BlkValueCreate(LIST_OF_TY);
-		BlkValueWrite(DirectorStackChoices-->director_sp, LIST_ITEM_KOV_F, DIALOGUE_CHOICE_TY);
+		DirectorStackChoices-->director_sp = CreatePV(LIST_OF_TY);
+		WritePVField(DirectorStackChoices-->director_sp, LIST_ITEM_KOV_F, DIALOGUE_CHOICE_TY);
 	} else {
 		LIST_OF_TY_SetLength(DirectorStackChoices-->director_sp, 0);
 	}
@@ -332,8 +349,10 @@ Note that this loop should never hit a |CHOICE_DCODEI| instruction, because
 those are always underneath |DECISION_DCODEI| instructions -- which it does hit.
 
 =
-[ DirectorRun program pc last_pc instruction operand depth next_instruction sc;
+[ DirectorRun program pc last_pc instruction operand operand_at depth next_instruction sc;
 	while (true) {
+		if (director_is_paused_for_command) return;
+
 		! There must be a program
 		if (director_sp == 0) return;
 		
@@ -358,7 +377,8 @@ those are always underneath |DECISION_DCODEI| instructions -- which it does hit.
 		program = DirectorBeatGetProgram(DirectorStackBeat-->(director_sp-1));
 		instruction = (program-->pc)/100;
 		depth = (program-->pc)%100;
-		operand = program-->(pc+1);
+		operand_at = pc+1;
+		operand = program-->operand_at;
 
 		if (instruction == 0) { DirectorPop(); return; }
 		if (depth < DirectorStackMin-->(director_sp-1)) { DirectorPop(); return; }
@@ -385,7 +405,8 @@ those are always underneath |DECISION_DCODEI| instructions -- which it does hit.
 				DirectorExecuteLine(operand);
 			DECISION_DCODEI:
 				DirectorStackDecisionPC-->(director_sp-1) = last_pc;
-				DirectorExecuteDecision(operand);
+				program-->operand_at = (program-->operand_at)%100 + 
+					100*(DirectorExecuteDecision(operand%100, operand/100));
 			CHOICE_DCODEI:
 				print "*** Encountered CHOICE_DCODEI ***^";
 			default: "*** Bad D-code instruction ***";
@@ -422,14 +443,18 @@ and we silently return.
 
 We deal with |TEXTUAL_DCODEDT| and |FLOW_DCODEDT| decisions immediately, and
 empty the choices list as soon as we can. Perhaps surprisingly, we do nothing
-at all about a |PARSED_COMMAND_DCODEDT|. This function call nevertheless has
-an effect because it leaves the choices list on the stack, where it will cause
-the D-code interpreter to halt waiting for a command, to be re-entered later
-on when actions are processed.
+at all about a |PARSED_COMMAND_DCODEDT| except to signal a sort of exception.
+This function call nevertheless has an effect because it leaves the choices list
+on the stack, where it will cause the D-code interpreter to halt waiting for a
+command, to be re-entered later on when actions are processed.
+
+This function is passed a state value, and must return it (even if unchanged).
 
 =
-[ DirectorExecuteDecision decision dc count n spc list;
-	if (director_sp == 0) return;
+Global dialogue_selection_value = 0;
+
+[ DirectorExecuteDecision decision state dc count n m spc list k;
+	if (director_sp == 0) return state;
 	list = DirectorStackChoices-->(director_sp-1);
 	DirectorListChoices(list);
 	count = LIST_OF_TY_GetLength(list);
@@ -440,37 +465,84 @@ on when actions are processed.
 			print "-- available options: "; LIST_OF_TY_Say(list); print "^";
 		}
 	}
-	if (count == 0) return;
+	if (count == 0) return state;
 
 	switch (decision) {
 		TEXTUAL_DCODEDT: 
+			dialogue_selection_value = 1;
 			DivideParagraphPoint();
 			if (OFFERING_A_DIALOGUE_CHOICE == 0) "*** no activity ***";
 			else {
 				BeginActivity(OFFERING_A_DIALOGUE_CHOICE, list);
 				if ((ForActivity(OFFERING_A_DIALOGUE_CHOICE, list)) &&
-					(RulebookFailed())) rfalse;
+					(RulebookFailed())) return state;
 				EndActivity(OFFERING_A_DIALOGUE_CHOICE, list);
 			}
-			DivideParagraphPoint();
-			n = DirectorPickANumber(count);
+			! DivideParagraphPoint();
+			n = dialogue_selection_value;
 			dc = LIST_OF_TY_GetItem(list, n);
 			LIST_OF_TY_SetLength(list, 0);
-			style bold;
-			TEXT_TY_Say(DirectorChoiceRawContent(dc));
-			style roman;
-			print "^";
-			say__p = 1;
-			DivideParagraphPoint();
 			DirectorExerciseChoice(dc);
 		PARSED_COMMAND_DCODEDT:
-			break;
+			director_is_paused_for_command = true;
 		FLOW_DCODEDT:
 			dc = LIST_OF_TY_GetItem(list, 1);
 			LIST_OF_TY_SetLength(list, 0);
 			DirectorFollowFlowMarker(dc);
-		default: "*** unimplemented dtd ***";
+		RANDOMISED_CONTROL_DDT:
+			n = random(count);
+			dc = LIST_OF_TY_GetItem(list, n);
+			LIST_OF_TY_SetLength(list, 0);
+			DirectorExerciseChoice(dc);
+		SHUFFLE_CONTROL_DDT:
+			n = state;
+			if (n == 0) {
+				for (n=1: n<=count: n++)
+					DirectorWriteChoiceState(LIST_OF_TY_GetItem(list, n), 0);
+				n = count;
+			}
+			m = random(n);
+			n--; state = n;
+			for (n=1: n<=count: n++) {
+				dc = LIST_OF_TY_GetItem(list, n);
+				if (DirectorReadChoiceState(dc) == 0) {
+					m--;
+					if (m == 0) {
+						DirectorWriteChoiceState(dc, 1);
+						LIST_OF_TY_SetLength(list, 0);
+						DirectorExerciseChoice(dc);
+						return state;
+					}
+				}
+			}
+			LIST_OF_TY_SetLength(list, 0);
+		CYCLE_CONTROL_DDT:
+			n = state;
+			if (n < count) n++; else n = 1;
+			state = n;
+			dc = LIST_OF_TY_GetItem(list, n);
+			LIST_OF_TY_SetLength(list, 0);
+			DirectorExerciseChoice(dc);
+		STEP_CONTROL_DDT:
+			n = state;
+			if (n < count) {
+				n++; state = n;
+				dc = LIST_OF_TY_GetItem(list, n);
+				LIST_OF_TY_SetLength(list, 0);
+				DirectorExerciseChoice(dc);
+			} else {
+				LIST_OF_TY_SetLength(list, 0);
+			}
+		STEP_STOP_CONTROL_DDT:
+			n = state;
+			if (n < count) { n++; state = n; }
+			dc = LIST_OF_TY_GetItem(list, n);
+			LIST_OF_TY_SetLength(list, 0);
+			DirectorExerciseChoice(dc);
+		default:
+			print "*** unimplemented dtd ", decision, " ***^";
 	}
+	return state;
 ];
 
 @h Listing choices for a decision.
@@ -511,21 +583,26 @@ a further action choice. But that's okay, because action processing is nested
 too, even if the VM stack does for a while have a surprising state.
 
 =
-[ DirectorBeforeAction;  return DirectorDetectActionChoice(BEFORE_DSEL);     ];
+[ DirectorBeforeAction;  director_is_paused_for_command = false;
+	return DirectorDetectActionChoice(BEFORE_DSEL);     ];
 [ DirectorInsteadAction; return DirectorDetectActionChoice(INSTEAD_OF_DSEL); ];
 [ DirectorAfterAction;   return DirectorDetectActionChoice(AFTER_DSEL);      ];
 
-[ DirectorDetectActionChoice stage N list was dc i fn chose suppress_otherwise;
+[ DirectorDetectActionChoice stage N list was dc i fn chose cht echt suppress_otherwise;
 	if (director_sp == 0) rfalse;
+	if (director_is_paused_for_command) rfalse;
 	list = DirectorStackChoices-->(director_sp-1);
 	N = LIST_OF_TY_GetLength(list);
 	if (N == 0) rfalse;
 
 	if (debug_dialogue >= 2) { print "-- found: "; DirectorTraceStack(); }
-
+	echt = AFTER_DSEL;
 	for (i=1: i<=N: i++) {
 		dc = LIST_OF_TY_GetItem(list, i);
-		if ((DirectorChoiceType(dc) == OTHERWISE_DSEL) && (suppress_otherwise == false)) {
+		cht = DirectorChoiceType(dc);
+		! print "Stage ", stage, " choice ", i, "/", N, " cht ", cht, " echt ", echt, "^";
+		if (cht < echt) echt = cht;
+		if ((cht == OTHERWISE_DSEL) && (stage >= echt) && (suppress_otherwise == false)) {
 			chose = dc; break;
 		} else {
 			fn = DirectorChoiceRawContent(dc);
@@ -533,7 +610,7 @@ too, even if the VM stack does for a while have a surprising state.
 				if (DirectorChoiceType(dc) == stage) {
 					chose = dc; break;	
 				} else {
-					suppress_otherwise = true;
+					if (DirectorChoiceType(dc) ~= stage) suppress_otherwise = true;
 				}
 			}
 		}
@@ -578,74 +655,4 @@ on the subtree underneath it:
 	spc = spc + 2;
 	DirectorPush(DirectorStackBeat-->(director_sp-1), (program-->pc) % 100 + 2, spc);
 	DirectorRun();
-];
-
-@h Numerical choice at the keyboard.
-This crude function prompts the player for a number from 1 to |max|, waits for
-this to be typed at the keyboard, then returns the choice made.
-
-=
-[ DirectorPickANumber max i j wa wl sign base digit_count n digit;
-    for (::) {
-    	print ">";
-        #Ifdef TARGET_ZCODE;
-        if (location == nothing || parent(player) == nothing) read buffer2 parse2;
-        else read buffer2 parse2 DrawStatusLine;
-        j = parse2->1;
-		wa = buffer2 + parse2->5;
-		wl = parse2->4;
-        #Ifnot; ! TARGET_GLULX;
-        if (location ~= nothing && parent(player) ~= nothing) DrawStatusLine();
-        KeyboardPrimitive(buffer2, parse2);
-        j = parse2-->0;
- 		wa = buffer2 + parse2-->3;
-		wl = parse2-->2;
-        #Endif; ! TARGET_
-        if (j) { ! at least one word entered
-            sign = 1; base = 10; digit_count = 0;
-			if (wa->0 ~= '-' or '$' or '0' or '1' or '2' or '3' or '4'
-				or '5' or '6' or '7' or '8' or '9')
-				jump Retry;
-			if (wa->0 == '-') { sign = -1; wl--; wa++; }
-			if (wl == 0) jump Retry;
-			n = 0;
-			while (wl > 0) {
-				if (wa->0 >= 'a') digit = wa->0 - 'a' + 10;
-				else digit = wa->0 - '0';
-				digit_count++;
-				switch (base) {
-					2:  if (digit_count == 17) jump Retry;
-					10:
-						#Iftrue (WORDSIZE == 2);
-						if (digit_count == 6) jump Retry;
-						if (digit_count == 5) {
-							if (n > 3276) jump Retry;
-							if (n == 3276) {
-								if (sign == 1 && digit > 7) jump Retry;
-								if (sign == -1 && digit > 8) jump Retry;
-							}
-						}
-						#Ifnot; ! i.e., if (WORDSIZE == 4)
-						if (digit_count == 11) jump Retry;
-						if (digit_count == 10) {
-							if (n > 214748364) jump Retry;
-							if (n == 214748364) {
-								if (sign == 1 && digit > 7) jump Retry;
-								if (sign == -1 && digit > 8) jump Retry;
-							}
-						}
-						#Endif;
-					16: if (digit_count == 5) jump Retry;
-				}
-				if (digit >= 0 && digit < base) n = base*n + digit;
-				else jump Retry;
-				wl--; wa++;
-			}
-			n = n*sign;
-			if ((n < 1) || (n > max)) jump Retry;
-			return n;
-        }
-		.Retry;
-		print "(Please type an option in the range 1 to ", max, " and press return.)^^";
-    }
 ];

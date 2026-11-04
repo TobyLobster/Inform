@@ -14,22 +14,31 @@
 static NSLock*       uniqueIdLock;
 static unsigned long uniqueId = 1000;
 static NSURL*        temporaryFolder = nil;
+NSTimeInterval const defaultTimeoutInterval = 60.0;
+NSErrorDomain        INFORM_ERROR_DOMAIN = @"com.inform7.errors";
+
 
 CGFloat lerp(CGFloat progress, CGFloat from, CGFloat to) {
     return from + progress * (to - from);
 }
 
 CGFloat smoothstep(CGFloat t) {
+    // https://en.wikipedia.org/wiki/Smoothstep
     return t*t*(3-2*t);
 }
 
+CGFloat smootherstep(CGFloat t) {
+    // https://en.wikipedia.org/wiki/Smoothstep#Variations
+    return t*t*t*(10+3*t*(2*t-5));
+}
+
 CGFloat easeOutQuad(CGFloat t) {
-    return -t*(t-2);
+    return t*(2-t);
 };
 
 CGFloat easeOutCubic(CGFloat t) {
     t--;
-    return (t*t*t + 1);
+    return t*t*t + 1;
 };
 
 @implementation NSString (VersionNumbers)
@@ -73,12 +82,12 @@ CGFloat easeOutCubic(CGFloat t) {
 
 +(bool) url: (NSURL*) url1
      equals: (NSURL*) url2 {
-    bool sameScheme = [IFUtility safeString: [url1 scheme]
-              insensitivelyEqualsSafeString: [url2 scheme]];
-    bool samePath   = [IFUtility safeString: [url1 path]
-              insensitivelyEqualsSafeString: [url2 path]];
-    bool sameQuery  = [IFUtility safeString: [url1 query]
-              insensitivelyEqualsSafeString: [url2 query]];
+    bool sameScheme = [IFUtility safeString: url1.scheme
+              insensitivelyEqualsSafeString: url2.scheme];
+    bool samePath   = [IFUtility safeString: url1.path
+              insensitivelyEqualsSafeString: url2.path];
+    bool sameQuery  = [IFUtility safeString: url1.query
+              insensitivelyEqualsSafeString: url2.query];
     return sameScheme && samePath && sameQuery;
 }
 
@@ -107,9 +116,9 @@ CGFloat easeOutCubic(CGFloat t) {
 + (NSDictionary*) queryParametersFromURL:(NSURL*) sourceURL {
     NSMutableDictionary* results = [[NSMutableDictionary alloc] init];
 
-    NSString* path = [[sourceURL resourceSpecifier] stringByRemovingPercentEncoding];
+    NSString* path = sourceURL.resourceSpecifier.stringByRemovingPercentEncoding;
     NSArray* query = [path componentsSeparatedByString: @"?"];
-    if( [query count] < 2 ) {
+    if( query.count < 2 ) {
         return results;
     }
     query = [query[1] componentsSeparatedByString:@"#"];
@@ -117,25 +126,25 @@ CGFloat easeOutCubic(CGFloat t) {
     NSArray* keyValues = [query[0] componentsSeparatedByString: @"="];
 
     for( NSInteger i = 0; i < (keyValues.count-1); i += 2 ) {
-        [results setObject:keyValues[i+1] forKey:keyValues[i]];
+        results[keyValues[i]] = keyValues[i+1];
     }
     return results;
 }
 
 + (NSString*) fragmentFromURL:(NSURL*) sourceURL {
-    NSString* path = [[sourceURL resourceSpecifier] stringByRemovingPercentEncoding];
+    NSString* path = sourceURL.resourceSpecifier.stringByRemovingPercentEncoding;
     NSArray* array = [path componentsSeparatedByString:@"#"];
-    if( [array count] < 2 ) {
+    if( array.count < 2 ) {
         return @"";
     }
     return array[1];
 }
 
 + (NSString*) heirarchyFromURL:(NSURL*) sourceURL {
-    NSString* path = [[sourceURL resourceSpecifier] stringByRemovingPercentEncoding];
+    NSString* path = sourceURL.resourceSpecifier.stringByRemovingPercentEncoding;
     NSInteger query  = [path indexOf:@"?"];
     NSInteger hash   = [path indexOf:@"#"];
-    NSInteger result = [path length];
+    NSInteger result = path.length;
     if( query != NSNotFound ) result = MIN(result, query);
     if( hash  != NSNotFound ) result = MIN(result, hash);
 
@@ -143,20 +152,20 @@ CGFloat easeOutCubic(CGFloat t) {
 }
 
 + (NSArray*) decodeSourceSchemeURL:(NSURL*) sourceURL {
-    NSString* path = [[sourceURL resourceSpecifier] stringByRemovingPercentEncoding];
+    NSString* path = sourceURL.resourceSpecifier.stringByRemovingPercentEncoding;
 
     // Get line number from fragment
     NSString* fragment = [IFUtility fragmentFromURL: sourceURL];
-    if ([fragment length] == 0) {
+    if (fragment.length == 0) {
         NSLog(@"Bad source URL, no fragment: %@", path);
         return @[];
     }
 
     // sourceLine can have format 'line10' or '10'. 'line10' is more likely
-    int lineNumber = [fragment intValue];
+    int lineNumber = fragment.intValue;
 
     if (lineNumber == 0 && [[fragment substringToIndex: 4] isEqualToString: @"line"]) {
-        lineNumber = [[fragment substringFromIndex: 4] intValue];
+        lineNumber = [fragment substringFromIndex: 4].intValue;
     }
 
     // Get source filename
@@ -167,7 +176,7 @@ CGFloat easeOutCubic(CGFloat t) {
 
     // Get test case from query parameters
     NSDictionary * parameters = [IFUtility queryParametersFromURL: sourceURL];
-    NSString* testCase = [parameters objectForKey:@"case"];
+    NSString* testCase = parameters[@"case"];
     if( testCase == nil ) testCase = @"";
 
     return @[sourceFile, testCase, @(lineNumber)];
@@ -176,7 +185,7 @@ CGFloat easeOutCubic(CGFloat t) {
 + (NSArray*) decodeSkeinSchemeURL:(NSURL*) skeinURL {
     // e.g: Input 'skein:1003?case=B' returns [B,1003]
 
-    if( ![[skeinURL scheme] isEqualToStringCaseInsensitive: @"skein"] )
+    if( ![skeinURL.scheme isEqualToStringCaseInsensitive: @"skein"] )
     {
         return nil;
     }
@@ -186,7 +195,7 @@ CGFloat easeOutCubic(CGFloat t) {
 
     // Get test case from query parameters
     NSDictionary * parameters = [IFUtility queryParametersFromURL: skeinURL];
-    NSString* testCase = [parameters objectForKey:@"case"];
+    NSString* testCase = parameters[@"case"];
     if( testCase == nil ) testCase = @"";
 
     return @[testCase, nodeIdString];
@@ -264,9 +273,9 @@ CGFloat easeOutCubic(CGFloat t) {
     NSAlert *alert = [[NSAlert alloc] init];
     [alert addButtonWithTitle:  yes];
     [alert addButtonWithTitle:  no];
-    [alert setMessageText:      title];
-    [alert setInformativeText:  contents];
-    [alert setAlertStyle: NSAlertStyleInformational];
+    alert.messageText = title;
+    alert.informativeText = contents;
+    alert.alertStyle = NSAlertStyleInformational;
     if (@available(macOS 11.0, *)) {
         switch (desIdx) {
             case NSNotFound:
@@ -275,7 +284,7 @@ CGFloat easeOutCubic(CGFloat t) {
                 
             case 0:
             case 1:
-                [alert buttons][desIdx].hasDestructiveAction = YES;
+                alert.buttons[desIdx].hasDestructiveAction = YES;
                 
             default:
                 break;
@@ -336,7 +345,16 @@ CGFloat easeOutCubic(CGFloat t) {
                      message: (NSString*) formatString, ... {
     va_list args;
     va_start(args, formatString);
-    [self runAlertYesNoWindow:window title:title yes:yes no:no modalDelegate:modalDelegate didEndSelector:alertDidEndSelector contextInfo:contextInfo destructiveIndex:NSNotFound message:formatString args:args];
+    [self runAlertYesNoWindow:window
+                        title:title
+                          yes:yes
+                           no:no
+                modalDelegate:modalDelegate
+               didEndSelector:alertDidEndSelector
+                  contextInfo:contextInfo
+             destructiveIndex:NSNotFound
+                      message:formatString
+                         args:args];
     va_end(args);
 }
 
@@ -351,7 +369,16 @@ CGFloat easeOutCubic(CGFloat t) {
                      message: (NSString*) formatString, ... {
     va_list args;
     va_start(args, formatString);
-    [self runAlertYesNoWindow:window title:title yes:yes no:no modalDelegate:modalDelegate didEndSelector:alertDidEndSelector contextInfo:contextInfo destructiveIndex:desIdx message:formatString args:args];
+    [self runAlertYesNoWindow:window
+                        title:title
+                          yes:yes
+                           no:no
+                modalDelegate:modalDelegate
+               didEndSelector:alertDidEndSelector
+                  contextInfo:contextInfo
+             destructiveIndex:desIdx
+                      message:formatString
+                         args:args];
     va_end(args);
 }
 
@@ -382,7 +409,7 @@ CGFloat easeOutCubic(CGFloat t) {
 
     NSSavePanel* panel = [NSSavePanel savePanel];
 
-    [panel setAllowedFileTypes: @[@"txt"]];
+    panel.allowedFileTypes = @[@"txt"];
 
     // Work out starting directory
     NSString*   prefString   = [[NSUserDefaults standardUserDefaults] objectForKey: @"IFTranscriptURL"];
@@ -391,7 +418,7 @@ CGFloat easeOutCubic(CGFloat t) {
         directoryURL = [NSURL fileURLWithPath: NSHomeDirectory()];
     }
 
-    [panel setDirectoryURL: directoryURL];
+    panel.directoryURL = directoryURL;
 
     // Show it
     [panel beginSheetModalForWindow: window completionHandler:^(NSInteger returnCode)
@@ -399,15 +426,15 @@ CGFloat easeOutCubic(CGFloat t) {
          if (returnCode != NSModalResponseOK) return;
 
          // Remember the directory we last saved into
-         if ( [[panel directoryURL] absoluteString] != nil ) {
-             NSString* writePrefString = [[panel directoryURL] absoluteString];
+         if ( panel.directoryURL.absoluteString != nil ) {
+             NSString* writePrefString = panel.directoryURL.absoluteString;
              [[NSUserDefaults standardUserDefaults] setObject: writePrefString
                                                        forKey: @"IFTranscriptURL"];
          }
 
          // Save the data
          NSData* stringData = [string dataUsingEncoding: NSUTF8StringEncoding];
-         [stringData writeToURL: [panel URL]
+         [stringData writeToURL: panel.URL
                      atomically: YES];
      }];
 }
@@ -415,7 +442,7 @@ CGFloat easeOutCubic(CGFloat t) {
 
 #pragma mark - Sandboxing
 + (BOOL) isSandboxed {
-    NSDictionary* environ = [[NSProcessInfo processInfo] environment];
+    NSDictionary* environ = [NSProcessInfo processInfo].environment;
     return (nil != environ[@"APP_SANDBOX_CONTAINER_ID"]);
 }
 
@@ -423,15 +450,15 @@ CGFloat easeOutCubic(CGFloat t) {
 +(NSURL*) publicLibraryURL {
 #ifdef DEBUG
     NSString* redirectFile = [NSHomeDirectory() stringByAppendingPathComponent:@"redirect_inform.txt"];
-    NSString* redirection = [[NSString stringWithContentsOfFile: redirectFile
+    NSString* redirection = [NSString stringWithContentsOfFile: redirectFile
                                                        encoding: NSUTF8StringEncoding
-                                                          error: NULL] stringByTrimmingWhitespace];
-    if ([redirection length] > 0) {
+                                                          error: NULL].stringByTrimmingWhitespace;
+    if (redirection.length > 0) {
         return [NSURL URLWithString: redirection];
     }
 #endif
 
-    if( [[IFPreferences sharedPreferences] publicLibraryDebug] && ![IFUtility isSandboxed]) {
+    if( [IFPreferences sharedPreferences].publicLibraryDebug && ![IFUtility isSandboxed]) {
         NSString* publicLibraryURLString;
         publicLibraryURLString = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
         publicLibraryURLString = [publicLibraryURLString stringByAppendingPathComponent:@"InformPublicLibrary"];
@@ -495,6 +522,14 @@ CGFloat easeOutCubic(CGFloat t) {
     return FALSE;
 }
 
++(BOOL) compilerVersion: (NSString*) compilerVersion isAfter: (NSString*) afterVersion {
+    return [IFUtility compilerVersionCompare: compilerVersion other: afterVersion] == NSOrderedDescending;
+}
+
++(BOOL) compilerVersion: (NSString*) compilerVersion isNoLaterThan: (NSString*) otherVersion {
+    return [IFUtility compilerVersion: otherVersion isAfter: compilerVersion];
+}
+
 + (NSString*) fullCompilerVersion: (NSString*)version
 {
     if ([version isEqualToStringCaseInsensitive: @""] ||
@@ -507,26 +542,73 @@ CGFloat easeOutCubic(CGFloat t) {
 
 + (NSString*) pathForCompiler: (NSString *)compilerVersion
 {
-    if ([IFUtility isLatestMajorMinorCompilerVersion: compilerVersion]) {
-        return [[NSBundle mainBundle] pathForAuxiliaryExecutable: @"ni"];
+    // Older versions of compiler
+    if ([IFUtility compilerVersion: compilerVersion isNoLaterThan: @"6M62"]) {
+        NSString* executablePath = [NSBundle mainBundle].executablePath.stringByDeletingLastPathComponent;
+        NSString* version = [IFUtility fullCompilerVersion: compilerVersion];
+        return [[executablePath stringByAppendingPathComponent: version] stringByAppendingPathComponent: @"ni"];
     }
-    NSString* executablePath = [[[NSBundle mainBundle] executablePath] stringByDeletingLastPathComponent];
-    NSString* version = [IFUtility fullCompilerVersion: compilerVersion];
-    return [[executablePath stringByAppendingPathComponent: version] stringByAppendingPathComponent: @"ni"];
+    // Newer versions of compiler
+    return [IFUtility pathForInformExecutable: @"ni" version: compilerVersion];
 }
 
 + (NSString*) pathForInformInternalAppSupport: (NSString *)compilerVersion
 {
-    NSString* resourcePath = [[NSBundle mainBundle] resourcePath];
+    NSString* resourcePath = [NSBundle mainBundle].resourcePath;
     if ([IFUtility isLatestMajorMinorCompilerVersion: compilerVersion]) {
+        // If using external Inform Core 'Internal' data...
+        if ([IFPreferences sharedPreferences].useExternalInformCoreDirectory) {
+            NSString* informCore = [IFPreferences sharedPreferences].externalInformCoreDirectory;
+            return [[informCore stringByAppendingPathComponent:@"inform7"] stringByAppendingPathComponent: @"Internal"];
+        }
         return [resourcePath stringByAppendingPathComponent: @"Internal"];
     }
     NSString* version = [IFUtility fullCompilerVersion: compilerVersion];
     return [[resourcePath stringByAppendingPathComponent: @"retrospective"] stringByAppendingPathComponent: version];
 }
 
++ (NSString*) pathForInformExecutable: (NSString*) executableName
+                              version: (NSString*) compilerVersion
+{
+    if ([IFUtility isLatestMajorMinorCompilerVersion: compilerVersion]) {
+        if ([IFPreferences sharedPreferences].useExternalInformCoreDirectory) {
+            // Use external locations for executables
+            NSString* informCore = [IFPreferences sharedPreferences].externalInformCoreDirectory;
 
-+ (NSComparisonResult) compilerVersionCompare: (NSString*)version1 other: (NSString*) version2
+            if ([executableName isEqualToStringCaseInsensitive:@"ni"]) {
+                return [informCore stringByAppendingPathComponents: @"inform7/Tangled/inform7"];
+            }
+            if ([executableName isEqualToStringCaseInsensitive:@"inform7"]) {
+                return [informCore stringByAppendingPathComponents: @"inform7/Tangled/inform7"];
+            }
+            if ([executableName isEqualToStringCaseInsensitive:@"cBlorb"]) {
+                return [informCore stringByAppendingPathComponents: @"inblorb/Tangled/inblorb"];
+            }
+            if ([executableName isEqualToStringCaseInsensitive:@"inbuild"]) {
+                return [informCore stringByAppendingPathComponents: @"inbuild/Tangled/inbuild"];
+            }
+            if ([executableName isEqualToStringCaseInsensitive:@"inform6"]) {
+                return [informCore stringByAppendingPathComponents: @"inform6/Tangled/inform6"];
+            }
+            if ([executableName isEqualToStringCaseInsensitive:@"intest"]) {
+                // NOTE: This is outside the 'Inform Core' directory (alongside it)
+                return [informCore stringByAppendingPathComponents: @"../intest/Tangled/intest"];
+            }
+            if ([executableName isEqualToStringCaseInsensitive:@"glulxe"]) {
+                return [informCore stringByAppendingPathComponents: @"inform6/Tests/Assistants/dumb-glulx/glulxe/glulxe"];
+            }
+            if ([executableName isEqualToStringCaseInsensitive:@"dumb-frotz"]) {
+                return [informCore stringByAppendingPathComponents: @"inform6/Tests/Assistants/dumb-frotz/dumb-frotz"];
+            }
+
+            // Anything else falls through...
+        }
+    }
+    return [[NSBundle mainBundle] pathForAuxiliaryExecutable: executableName];
+}
+
++ (NSComparisonResult) compilerVersionCompare: (NSString*) version1
+                                        other: (NSString*) version2
 {
     version1 = [[self class] fullCompilerVersion: version1];
     version2 = [[self class] fullCompilerVersion: version2];
@@ -592,7 +674,7 @@ CGFloat easeOutCubic(CGFloat t) {
 +(NSURL*) temporaryDirectoryURL {
     if( temporaryFolder == nil ) {
         NSError* error;
-        temporaryFolder = [[NSURL fileURLWithPath: NSTemporaryDirectory()] URLByAppendingPathComponent: [[NSProcessInfo processInfo] globallyUniqueString] isDirectory: YES];
+        temporaryFolder = [[NSURL fileURLWithPath: NSTemporaryDirectory()] URLByAppendingPathComponent: [NSProcessInfo processInfo].globallyUniqueString isDirectory: YES];
         [[NSFileManager defaultManager] createDirectoryAtURL: temporaryFolder
                                  withIntermediateDirectories: YES
                                                   attributes: nil
@@ -634,7 +716,7 @@ CGFloat easeOutCubic(CGFloat t) {
         font = [NSFont fontWithName: font.fontName
                                size: fontSize];
     }
-    [mutableResult setObject: font forKey: NSFontAttributeName];
+    mutableResult[NSFontAttributeName] = font;
     return [mutableResult copy];
 }
 
@@ -648,6 +730,164 @@ CGFloat easeOutCubic(CGFloat t) {
         return [NSString stringWithFormat:@"%@.%@", array[0], array[1]];
     }
     return version;
+}
+
++(bool) unzip: (NSURL*) zipURL toDirectory:(NSURL*) targetDirectory {
+    // see https://stackoverflow.com/questions/2296667/unzipping-a-file-in-cocoa
+    NSFileManager* fm = [NSFileManager defaultManager];
+    NSError *error;
+
+    // create a new empty folder (to get a clean unzip)
+    [fm createDirectoryAtURL: targetDirectory
+ withIntermediateDirectories: YES
+                  attributes: nil
+                       error: &error];
+
+    //now create an unzip task
+    // -o overwrites existing files
+    // -x ignores any *.DS_Store and __MACOSX detritus (Note the -x argument must appear after the zip file)
+    NSArray *arguments = @[@"-o", zipURL.path, @"-x", @"*.DS_Store", @"__MACOSX/*"];
+    NSTask *unzipTask = [[NSTask alloc] init];
+    unzipTask.launchPath = @"/usr/bin/unzip";
+    unzipTask.currentDirectoryURL = targetDirectory;
+    unzipTask.arguments = arguments;
+    [unzipTask launch];
+    [unzipTask waitUntilExit];
+
+    if (unzipTask.terminationStatus != 0) {
+        return FALSE;
+    }
+    return TRUE;
+}
+
+static int valueForHexChar(unichar c) {
+    if (c >= '0' && c <= '9') return c - '0';
+    if (c >= 'a' && c <= 'f') return c - 'a' + 10;
+    if (c >= 'A' && c <= 'F') return c - 'A' + 10;
+
+    return 0;
+}
+
++ (NSString*) unescapeString: (NSString*) string {
+    // Change '\n', '\t', etc marks in a string to newlines, tabs, etc
+    int length = (int) string.length;
+    if (length == 0) return @"";
+
+    int outLength = -1;
+    int totalLength = 256;
+    unichar* newString = malloc(sizeof(unichar)*totalLength);
+
+    int chNum;
+    for (chNum = 0; chNum < length; chNum++) {
+        // Get the next character
+        unichar chr = [string characterAtIndex: chNum];
+        unichar outChar = '?';
+
+        // If it's an escape character, parse as appropriate
+        if (chr == '\\' && chNum+1<length) {
+            // The result depends on the next character
+            chNum++;
+            unichar nextChar = [string characterAtIndex: chNum];
+
+            switch (nextChar) {
+                case 'n':
+                    // Newline
+                    outChar = 10;
+                    break;
+
+                case 'r':
+                    // Return
+                    outChar = 13;
+                    break;
+
+                case 't':
+                    // Tab
+                    outChar = 9;
+                    break;
+
+                default:
+                    // Default behaviour is just to strip the '\'
+                    outChar = nextChar;
+            }
+        } else if (chr == '[' && chNum+1 < length) {
+            // [=0xffff=] = exact character
+            // (different versions of webkit treat the '\' character differently, so we need this to ensure that we get consistent results)
+            unichar nextChar = [string characterAtIndex: chNum+1];
+            if (nextChar == '=') {
+                // [= matched: look for the matching =]
+                unichar previous = nextChar;
+                int finalChNum;
+                for (finalChNum = chNum+1; finalChNum < length; finalChNum++) {
+                    unichar mightBeLast = [string characterAtIndex: finalChNum];
+
+                    if (previous == '=' && mightBeLast == ']') {
+                        break;
+                    }
+
+                    previous = mightBeLast;
+                }
+
+                // Get the character number from the string
+                NSString* characterString = [string substringWithRange: NSMakeRange(chNum+2, finalChNum-chNum-3)];
+
+                if ([characterString hasPrefix: @"0x"]) {
+                    // Is a hexidecimal character
+                    int val = 0;
+                    int pos;
+                    for (pos=2; pos<characterString.length; pos++) {
+                        val *= 16;
+                        val += valueForHexChar([characterString characterAtIndex: pos]);
+                    }
+                    outChar = val;
+                } else if ([characterString isEqualToString: @"BACK"]) {
+                    // Backslash
+                    outChar = '\\';
+                } else {
+                    outChar = '?';
+                }
+
+                // Move to the final character
+                chNum = finalChNum;
+            } else {
+                outChar = chr;
+            }
+        } else {
+            // Otherwise, just pass it through
+            outChar = chr;
+        }
+
+        // Add to the output string
+        outLength++;
+        if (outLength >= totalLength) {
+            totalLength += 256;
+            newString = realloc(newString, sizeof(unichar)*totalLength);
+        }
+
+        newString[outLength] = outChar;
+    }
+
+    // Turn newString into an NSString
+    outLength++;
+    NSString* result = [NSString stringWithCharacters: newString
+                                               length: outLength];
+    free(newString);
+
+    return result;
+}
+
++(NSTextCheckingResult*) findMatch: (NSString*) pattern inText:(NSString*) text {
+    NSError* error = nil;
+    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern: pattern
+                                                                           options: 0
+                                                                             error: &error];
+    if (error != nil) {
+        NSLog(@"Warning: Runtime error parser. Regex pattern error: %@", error.description);
+        return nil;
+    }
+    NSTextCheckingResult *match = [regex firstMatchInString: text
+                                                    options: 0
+                                                      range: NSMakeRange(0, text.length)];
+    return match;
 }
 
 @end

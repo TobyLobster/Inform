@@ -19,7 +19,7 @@
 @protocol IFNewProjectProtocol <NSObject>
 
 /// nil, or a project type-specific view that can be used to customise the new project. Should be reallocated every time this is called.
-- (id<IFNewProjectSetupView>) configView;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) id<IFNewProjectSetupView> configView;
 
 /// Request to setup a file from the given \c IFProjectSetupView (which will have been previously created by configView)
 - (void) setupFile: (IFProjectFile*) file
@@ -28,8 +28,8 @@
   withExtensionURL: (NSURL*) extensionURL;
 
 -(void) setInitialFocus: (NSWindow*) window;
--(NSRange) initialSelectionRange;
--(NSString*) typeName;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSRange initialSelectionRange;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *typeName;
 
 // Objects implementing the IFProjectType protocol may also implement these functions.
 @optional
@@ -50,7 +50,7 @@
 @protocol IFNewProjectSetupView <NSObject>
 
 /// The view that's displayed for this projects custom settings
-- (NSView*) view;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) NSView *view;
 
 @end
 

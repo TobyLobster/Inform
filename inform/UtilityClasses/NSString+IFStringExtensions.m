@@ -17,7 +17,7 @@ static NSCharacterSet* nonWhitespace;
 
 +(void) initialize {
     whitespace           = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-    nonWhitespace        = [[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet];
+    nonWhitespace        = [NSCharacterSet whitespaceAndNewlineCharacterSet].invertedSet;
 }
 
 - (BOOL)containsSubstring:(NSString *) string
@@ -40,7 +40,7 @@ static NSCharacterSet* nonWhitespace;
 
 -(BOOL)endsWithCaseInsensitive:(NSString *)string
 {
-    return [[self lowercaseString] hasSuffix:[string lowercaseString]];
+    return [self.lowercaseString hasSuffix:string.lowercaseString];
 }
 
 -(BOOL)startsWith:(NSString *)string
@@ -50,7 +50,7 @@ static NSCharacterSet* nonWhitespace;
 
 -(BOOL)startsWithCaseInsensitive:(NSString *)string
 {
-    return [[self lowercaseString] hasPrefix:[string lowercaseString]];
+    return [self.lowercaseString hasPrefix:string.lowercaseString];
 }
 
 -(BOOL) isEqualToStringCaseInsensitive:(NSString *)string
@@ -92,13 +92,13 @@ static NSCharacterSet* nonWhitespace;
 
 -(NSString*) stringByRemovingTrailingWhitespace
 {
-    NSString* trailing = [self trailingWhitespace];
+    NSString* trailing = self.trailingWhitespace;
     return [self substringToIndex: self.length - trailing.length];
 }
 
 -(NSString*) stringByRemovingLeadingWhitespace
 {
-    NSString* leading = [self leadingWhitespace];
+    NSString* leading = self.leadingWhitespace;
     return [self substringFromIndex: leading.length];
 }
 
@@ -111,7 +111,7 @@ static NSCharacterSet* nonWhitespace;
                            with:(NSString *) lpReplace
 {
     NSMutableString *lpMutableString = [NSMutableString stringWithString:self];
-    NSRange lWholeRange = NSMakeRange(0, [lpMutableString length]);
+    NSRange lWholeRange = NSMakeRange(0, lpMutableString.length);
     
     [lpMutableString replaceOccurrencesOfString: lpFind
                                      withString: lpReplace
@@ -137,6 +137,19 @@ static NSCharacterSet* nonWhitespace;
     } else {
         return NSNotFound;
     }
+}
+
+- (NSString *) stringByAppendingPathComponents: (NSString *)strComponents {
+    if(strComponents == nil) {
+        return self;
+    }
+    NSArray *strArray = [strComponents componentsSeparatedByString:@"/"];
+
+    NSString* work = self;
+    for (int i = 0; i < strArray.count; i++) {
+        work = [work stringByAppendingPathComponent: strArray[i]];
+    }
+    return work;
 }
 
 @end

@@ -54,7 +54,7 @@ NSString* const IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
 
 - (BOOL) startNextTask {
 	if (activeTask != nil) return YES;
-	if ([pendingTasks count] <= 0) return NO;
+	if (pendingTasks.count <= 0) return NO;
 	
 	// Retrieve the next task to run
 	NSArray* newTask = pendingTasks[0];
@@ -63,8 +63,8 @@ NSString* const IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
 	// Set up a new task
 	activeTask = [[NSTask alloc] init];
 	
-	[activeTask setExecutableURL: newTask[0]];
-	[activeTask setArguments: newTask[1]];
+	activeTask.executableURL = newTask[0];
+	activeTask.arguments = newTask[1];
     activeTaskNotificationType = newTask[2];
 	
     // NSLog(@"About to launch task '%@' with arguments '%@'", [newTask objectAtIndex: 0], [newTask objectAtIndex: 1]);
@@ -123,13 +123,13 @@ NSString* const IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
              notifyType: (NSNotificationName) notifyType {
 
     // Check if the previous item on the queue is exactly the same command, skip if so.
-    if( [pendingTasks count] > 0 ) {
-        NSArray* lastObject   = [pendingTasks lastObject];
+    if( pendingTasks.count > 0 ) {
+        NSArray* lastObject   = pendingTasks.lastObject;
         NSURL* lastCommand = lastObject[0];
         NSArray*  lastArgs    = lastObject[1];
         NSString* lastNotifyType = lastObject[2];
         
-        if( [lastArgs count] == [arguments count] ) {
+        if( lastArgs.count == arguments.count ) {
             int i = 0;
             BOOL argsEqual = YES;
             for(NSString*arg in lastArgs) {

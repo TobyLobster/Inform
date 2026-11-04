@@ -83,6 +83,6 @@
 /// Displays the entire source code, keeping the cursor in the same position
 - (IBAction) showEntireSource: (id) sender;
 
-- (instancetype) initWithProjectController: (IFProjectController*) controller;
+- (instancetype) initWithProjectController: (IFProjectController*) controller NS_DESIGNATED_INITIALIZER;
 
 @end

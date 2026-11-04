@@ -41,9 +41,9 @@
 - (void) moveRightBy: (CGFloat) deltaX
          recursively: (BOOL) recursively;
 
--(IFSkeinLayoutItem*) selectedLineChild;
-- (IFSkeinLayoutItem*) leafSelectedLineItem;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) IFSkeinLayoutItem *selectedLineChild;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) IFSkeinLayoutItem *leafSelectedLineItem;
 
--(NSUInteger) drawStateHash;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger drawStateHash;
 
 @end

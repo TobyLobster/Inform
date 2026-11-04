@@ -14,8 +14,8 @@ OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thum
 {
 	// Try to get the file that we're looking at
 	NSString* fileName = nil;
-	if ([(__bridge NSURL*)cfUrl isFileURL]) {
-		fileName = [(__bridge NSURL*)cfUrl path];
+	if (((__bridge NSURL*)cfUrl).fileURL) {
+		fileName = ((__bridge NSURL*)cfUrl).path;
 	}
 	
 	if (!fileName) {
@@ -78,7 +78,7 @@ OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thum
 	}
 	
 	// Create a suitable storage object and highlighter
-	int length = (int) [sourceCodeString length];
+	int length = (int) sourceCodeString.length;
 	if (length > 4096) length = 4096;
 	NSTextStorage* storage = [[NSTextStorage alloc] initWithString: [sourceCodeString substringToIndex: length]];
     [IFSyntaxManager registerTextStorage: storage
@@ -99,13 +99,13 @@ OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thum
 	// Start drawing
 	[NSGraphicsContext saveGraphicsState];
 	[NSGraphicsContext setCurrentContext: context];
-	[context setImageInterpolation: NSImageInterpolationHigh];
+	context.imageInterpolation = NSImageInterpolationHigh;
 	
 	// Draw the background
 	[NSGraphicsContext saveGraphicsState];
 	NSShadow* shadow = [[NSShadow alloc] init];
-	[shadow setShadowOffset: NSMakeSize(0, -7)];
-	[shadow setShadowBlurRadius: 7];
+	shadow.shadowOffset = NSMakeSize(0, -7);
+	shadow.shadowBlurRadius = 7;
 	[shadow set];
 	NSGradient* gradient = [[NSGradient alloc] initWithStartingColor: [NSColor colorWithDeviceRed: 0.95
 																							green: 0.95
@@ -121,7 +121,7 @@ OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thum
 	
 	// Draw 'Inform'
 	NSMutableParagraphStyle* centered = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-	[centered setAlignment: NSTextAlignmentCenter];
+	centered.alignment = NSTextAlignmentCenter;
 #ifndef __clang_analyzer__
     [@"Inform" drawInRect: NSMakeRect(16, 32, size.width-32, 70)
 		   withAttributes: @{NSFontAttributeName: [NSFont boldSystemFontOfSize: 64],

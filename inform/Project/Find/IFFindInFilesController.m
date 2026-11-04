@@ -10,8 +10,8 @@
 #import "IFFindResult.h"
 #import "IFFindInFiles.h"
 #import "IFProjectController.h"
-#import "IFComboBox.h"
 #import "IFUtility.h"
+#import "Inform-Swift.h"
 
 static NSString* const IFFindHistoryPref		= @"IFFindHistory";
 static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
@@ -142,7 +142,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 					  atIndex: 0];
 	
 	// Ensure that we limit the number of items in the history
-	while ([findHistory count] > FIND_HISTORY_LENGTH) {
+	while (findHistory.count > FIND_HISTORY_LENGTH) {
 		[findHistory removeLastObject];
 	}
 	
@@ -168,7 +168,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 						 atIndex: 0];
 	
 	// Ensure that we limit the number of items in the history
-	while ([replaceHistory count] > FIND_HISTORY_LENGTH) {
+	while (replaceHistory.count > FIND_HISTORY_LENGTH) {
 		[replaceHistory removeLastObject];
 	}
 	
@@ -183,10 +183,10 @@ static const int FIND_HISTORY_LENGTH = 30;
 #pragma mark - Actions
 
 - (IFFindType) currentFindType {
-	NSMenuItem* selected = [searchType selectedItem];
+	NSMenuItem* selected = searchType.selectedItem;
 	
 	IFFindType flags = IFFindInvalidType;
-	if ([ignoreCase state] == NSControlStateValueOn) flags |= IFFindCaseInsensitive;
+	if (ignoreCase.state == NSControlStateValueOn) flags |= IFFindCaseInsensitive;
 	
 	if (selected == containsItem) {
 		return IFFindContains | flags;
@@ -203,18 +203,18 @@ static const int FIND_HISTORY_LENGTH = 30;
 
 - (IFFindLocation) currentFindLocation {
     IFFindLocation locations = IFFindNowhere;
-    if( [findInSource state] == NSControlStateValueOn )                   locations |= IFFindSource;
-    if( [findInExtensions state] == NSControlStateValueOn )               locations |= IFFindExtensions;
-    if( [findInDocumentationBasic state] == NSControlStateValueOn )       locations |= IFFindDocumentationBasic;
-    if( [findInDocumentationSource state] == NSControlStateValueOn )      locations |= IFFindDocumentationSource;
-    if( [findInDocumentationDefinitions state] == NSControlStateValueOn ) locations |= IFFindDocumentationDefinitions;
+    if( findInSource.state == NSControlStateValueOn )                   locations |= IFFindSource;
+    if( findInExtensions.state == NSControlStateValueOn )               locations |= IFFindExtensions;
+    if( findInDocumentationBasic.state == NSControlStateValueOn )       locations |= IFFindDocumentationBasic;
+    if( findInDocumentationSource.state == NSControlStateValueOn )      locations |= IFFindDocumentationSource;
+    if( findInDocumentationDefinitions.state == NSControlStateValueOn ) locations |= IFFindDocumentationDefinitions;
     return locations;
 }
 
 -(NSString*) locationNameFromResult:(IFFindResult*) findResult {
     NSString* locationTypeKey = nil;
     
-    switch( [findResult locationType] ) {
+    switch( findResult.locationType ) {
         case IFFindCurrentPage:
             locationTypeKey = @"LocationCurrentPage";
             break;
@@ -227,7 +227,7 @@ static const int FIND_HISTORY_LENGTH = 30;
         case IFFindDocumentationSource:
         case IFFindDocumentationDefinitions:
         case IFFindDocumentationBasic:
-            if( [findResult isRecipeBookResult] ) {
+            if( findResult.recipeBookResult ) {
                 locationTypeKey = @"LocationDocumentationRecipeBook";
             }
             else {
@@ -243,7 +243,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 }
 
 - (IBAction) findTypeChanged: (id) sender {
-	if ([searchType selectedItem] == regexpItem) {
+	if (searchType.selectedItem == regexpItem) {
 		[self showAuxiliaryView: regexpHelpView];
 	} else {
 		if (auxView == regexpHelpView) {
@@ -253,14 +253,14 @@ static const int FIND_HISTORY_LENGTH = 30;
 }
 
 - (void) updateControls {
-    BOOL hasSearchTerm = [[findPhrase stringValue] length] > 0;
+    BOOL hasSearchTerm = findPhrase.stringValue.length > 0;
 
     // Enable or disable the buttons
-	[replaceAll setEnabled: hasSearchTerm];
-	[findAll    setEnabled: hasSearchTerm];
+	replaceAll.enabled = hasSearchTerm;
+	findAll.enabled = hasSearchTerm;
 
 	// 'Contains' is the basic type of search
-	if (![[searchType selectedItem] isEnabled]) {
+	if (!searchType.selectedItem.enabled) {
 		[searchType selectItem: containsItem];
 	}
 }
@@ -269,9 +269,9 @@ static const int FIND_HISTORY_LENGTH = 30;
 	[self updateControls];
 	
     // Restore frame position
-    [[self window] setFrameUsingName:@"FindInFilesFrame"];
+    [self.window setFrameUsingName:@"FindInFilesFrame"];
 
-	winFrame		= [[self window] frame];
+	winFrame		= self.window.frame;
     borders         = self.window.frame.size.height + findAllView.frame.size.height - findAllTable.frame.size.height;
 
     [findProgress setHidden: YES];
@@ -282,7 +282,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 	[super showWindow: sender];
 
 	// Set the first responder
-	[[self window] makeFirstResponder: findPhrase];
+	[self.window makeFirstResponder: findPhrase];
 }
 
 - (void) resizeToFitResults {
@@ -299,7 +299,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 
 - (void) updateFindAllResults {
 	// Show nothing if there are no results in the find view
-	if ([findAllResults count] <= 0) {
+	if (findAllResults.count <= 0) {
 		[self showAuxiliaryView: foundNothingView];
 		return;
 	}
@@ -312,13 +312,13 @@ static const int FIND_HISTORY_LENGTH = 30;
 
     // Compose the results count message
     NSString* message;
-    if( [findAllResults count] == 1 ) {
+    if( findAllResults.count == 1 ) {
         message = [IFUtility localizedString: @"Found Result Count"];
     } else {
         message = [IFUtility localizedString: @"Found Results Count"];
-        message = [NSString stringWithFormat:message, [findAllResults count]];
+        message = [NSString stringWithFormat:message, findAllResults.count];
     }
-    [findCountText setStringValue:message];
+    findCountText.stringValue = message;
 
     // Show the find all view
 	[self showAuxiliaryView: findAllView];
@@ -339,7 +339,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 }
 
 - (void) showFindInFilesWindow: (IFProjectController*) aController {
-    [self setProject: [aController document]];
+    [self setProject: aController.document];
     [self setController: aController];
 	[self showWindow: self];
 }
@@ -347,10 +347,10 @@ static const int FIND_HISTORY_LENGTH = 30;
 -(void) startFindInFilesSearchWithPhrase: (NSString*) aPhrase
                         withLocationType: (IFFindLocation) aLocationType
                                 withType: (IFFindType) aType {
-    [findPhrase setStringValue:aPhrase];
+    findPhrase.stringValue = aPhrase;
 
     // Set options
-    [ignoreCase setState: (aType & IFFindCaseInsensitive) ? NSControlStateValueOn : NSControlStateValueOff];
+    ignoreCase.state = (aType & IFFindCaseInsensitive) ? NSControlStateValueOn : NSControlStateValueOff;
     switch ( aType ) {
         case IFFindContains:     [searchType selectItem: containsItem]; break;
         case IFFindBeginsWith:   [searchType selectItem: beginsWithItem]; break;
@@ -359,11 +359,11 @@ static const int FIND_HISTORY_LENGTH = 30;
         default:                 [searchType selectItem: containsItem]; break;
     }
 
-    [findInSource                   setState: (aLocationType & IFFindSource)                   ? NSControlStateValueOn : NSControlStateValueOff];
-    [findInExtensions               setState: (aLocationType & IFFindExtensions)               ? NSControlStateValueOn : NSControlStateValueOff];
-    [findInDocumentationBasic       setState: (aLocationType & IFFindDocumentationBasic)       ? NSControlStateValueOn : NSControlStateValueOff];
-    [findInDocumentationSource      setState: (aLocationType & IFFindDocumentationSource)      ? NSControlStateValueOn : NSControlStateValueOff];
-    [findInDocumentationDefinitions setState: (aLocationType & IFFindDocumentationDefinitions) ? NSControlStateValueOn : NSControlStateValueOff];
+    findInSource.state = (aLocationType & IFFindSource)                   ? NSControlStateValueOn : NSControlStateValueOff;
+    findInExtensions.state = (aLocationType & IFFindExtensions)               ? NSControlStateValueOn : NSControlStateValueOff;
+    findInDocumentationBasic.state = (aLocationType & IFFindDocumentationBasic)       ? NSControlStateValueOn : NSControlStateValueOff;
+    findInDocumentationSource.state = (aLocationType & IFFindDocumentationSource)      ? NSControlStateValueOn : NSControlStateValueOff;
+    findInDocumentationDefinitions.state = (aLocationType & IFFindDocumentationDefinitions) ? NSControlStateValueOn : NSControlStateValueOff;
 
     [self findTypeChanged: self];
     [self updateControls];
@@ -375,7 +375,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 
 - (IBAction) findAll: (id) sender {
 	// Add the find phrase to the history
-	[self addPhraseToFindHistory: [findPhrase stringValue]];
+	[self addPhraseToFindHistory: findPhrase.stringValue];
 
 	// Create a new find identifier
 	findAllCount++;
@@ -388,14 +388,14 @@ static const int FIND_HISTORY_LENGTH = 30;
 	// Show progress
     [findProgress setHidden: NO];
     [findProgress setDisplayedWhenStopped: NO];
-    [findProgress setMinValue: 0.0f];
-    [findProgress setMaxValue: 1.0f];
+    findProgress.minValue = 0.0f;
+    findProgress.maxValue = 1.0f;
     [findProgress startAnimation: sender];
 
 	// Start the find
     IFFindLocation locations = [self currentFindLocation];
 
-	[findInFiles startFindInFilesWithPhrase: [findPhrase stringValue]
+	[findInFiles startFindInFilesWithPhrase: findPhrase.stringValue
                              withSearchType: [self currentFindType]
                                 fromProject: project
                               withLocations: locations
@@ -403,13 +403,13 @@ static const int FIND_HISTORY_LENGTH = 30;
         {
             // Update progress
             CGFloat progress = (CGFloat) num / (CGFloat) total;
-            [self->findProgress setDoubleValue: progress];
+            self->findProgress.doubleValue = progress;
 
-            @synchronized([self->findInFiles searchResultsLock])
+            @synchronized(self->findInFiles.searchResultsLock)
             {
                 // Update results
-                if( [self->findInFiles resultsCount] != [self->findAllResults count] ) {
-                    NSArray* results = [self->findInFiles results];
+                if( self->findInFiles.resultsCount != self->findAllResults.count ) {
+                    NSArray* results = self->findInFiles.results;
                     self->findAllResults = results;
                     [self updateFindAllResults];
                 }
@@ -438,26 +438,26 @@ static const int FIND_HISTORY_LENGTH = 30;
 #pragma mark - The find all table
 
 - (int)numberOfRowsInTableView: (NSTableView*) aTableView {
-	return (int) [findAllResults count];
+	return (int) findAllResults.count;
 }
 
 - (id)				tableView: (NSTableView*) aTableView 
 	objectValueForTableColumn: (NSTableColumn*) aTableColumn
 					row: (int) rowIndex {
     NSAssert(rowIndex < [findAllResults count], @"Table display error");
-    if( rowIndex >= [findAllResults count] ) {
+    if( rowIndex >= findAllResults.count ) {
         return nil;
     }
-	NSString* ident = [aTableColumn identifier];
+	NSString* ident = aTableColumn.identifier;
 	IFFindResult* row = findAllResults[rowIndex];
 	
 	if ([ident isEqualToString: @"location"]) {
         return [self locationNameFromResult: row];
 	} else if ([ident isEqualToString: @"context"]) {
-		return [row attributedContext];
+		return row.attributedContext;
 	}
 	
-    NSString* document = [row documentDisplayName];
+    NSString* document = row.documentDisplayName;
     if( [document compare:@"story" options:NSCaseInsensitiveSearch] == NSOrderedSame ) {
         document = [IFUtility localizedString: @"Find Results Source Document"
                                       default: @"(Source Text)"];
@@ -477,12 +477,12 @@ static const int FIND_HISTORY_LENGTH = 30;
    forTableColumn: (NSTableColumn *)tableColumn
               row: (NSInteger)rowIndex {
     NSAssert(rowIndex < [findAllResults count], @"Table display error");
-    if( rowIndex >= [findAllResults count] ) {
+    if( rowIndex >= findAllResults.count ) {
         return;
     }
 
     IFFindResult* row = findAllResults[rowIndex];
-    if( [row isRecipeBookResult] ) {
+    if( row.recipeBookResult ) {
         [cell setDrawsBackground: YES];
         NSColor* result = (rowIndex & 1) ? [NSColor colorWithCalibratedRed:1.0f green:1.0f blue:210.0f/255.0f alpha:1.0f] :
                                            [NSColor colorWithCalibratedRed:1.0f green:1.0f blue:224.0f/255.0f alpha:1.0f];
@@ -498,19 +498,19 @@ static const int FIND_HISTORY_LENGTH = 30;
 	IFFindResult* row = findAllResults[rowIndex];
     
     NSString* anchorTag = @"";
-    if( [[row definitionAnchorTag] length] > 0 ) {
-        anchorTag = [row definitionAnchorTag];
-    } else if ( [[row codeAnchorTag] length] > 0 ) {
-        anchorTag = [row codeAnchorTag];
-    } else if ( [[row exampleAnchorTag] length] > 0 ) {
-        anchorTag = [row exampleAnchorTag];
+    if( row.definitionAnchorTag.length > 0 ) {
+        anchorTag = row.definitionAnchorTag;
+    } else if ( row.codeAnchorTag.length > 0 ) {
+        anchorTag = row.codeAnchorTag;
+    } else if ( row.exampleAnchorTag.length > 0 ) {
+        anchorTag = row.exampleAnchorTag;
     }
     
     //NSLog(@"tag is %@", anchorTag);
-    [controller searchShowSelectedItemAtLocation: (int) [row fileRange].location
-                                          phrase: [row phrase]
-                                          inFile: [row filepath]
-                                            type: [row locationType]
+    [controller searchShowSelectedItemAtLocation: (int) row.fileRange.location
+                                          phrase: row.phrase
+                                          inFile: row.filepath
+                                            type: row.locationType
                                        anchorTag: anchorTag];
 }
 
@@ -528,7 +528,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 	}
 	
 	// Return the item
-	if (!itemArray || index < 0 || index >= [itemArray count]) {
+	if (!itemArray || index < 0 || index >= itemArray.count) {
 		return nil;
 	} else {
 		return itemArray[index];
@@ -548,7 +548,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 	if (!itemArray) {
 		return 0;
 	} else {
-		return (int) [itemArray count];
+		return (int) itemArray.count;
 	}
 }
 
@@ -565,37 +565,37 @@ static const int FIND_HISTORY_LENGTH = 30;
 	}
 
 	// Hack: Core animation is rubbish and screws everything up if you try to resize the window immediately after adding a layer to a view
-	[[self window] displayIfNeeded];
+	[self.window displayIfNeeded];
 	
 	// Show the new auxiliary view
 	NSRect auxFrame		= NSMakeRect(0,0,0,0);
 	
 	if (newAuxView) {
 		// Remember this view
-		auxFrame	= [newAuxView frame];
+		auxFrame	= newAuxView.frame;
 		
 		// Set its size
 		auxFrame.origin		= NSMakePoint(0, NSMaxY(auxViewPanel.bounds)-auxFrame.size.height);
-		auxFrame.size.width = [[[self window] contentView] frame].size.width;
-		[newAuxView setFrame: auxFrame];
+		auxFrame.size.width = self.window.contentView.frame.size.width;
+		newAuxView.frame = auxFrame;
 	}
 	
 	// Resize the window
-	NSRect newWinFrame = [[self window] frame];
+	NSRect newWinFrame = self.window.frame;
 
     CGFloat heightDiff		= (winFrame.size.height + auxFrame.size.height) - newWinFrame.size.height;
 	newWinFrame.size.height += heightDiff;
 	newWinFrame.origin.y	-= heightDiff;
 
-    [[self window] setFrame:newWinFrame display:YES];
+    [self.window setFrame:newWinFrame display:YES];
 	
 	// Add the new view
 	if (newAuxView) {
 		auxView		= newAuxView;
 
 		auxFrame.origin		= NSMakePoint(0, NSMaxY(auxViewPanel.bounds)-auxFrame.size.height);
-		auxFrame.size.width = [[[self window] contentView] frame].size.width;
-		[newAuxView setFrame: auxFrame];
+		auxFrame.size.width = self.window.contentView.frame.size.width;
+		newAuxView.frame = auxFrame;
 
         [newAuxView removeFromSuperview];
         [auxViewPanel addSubview:newAuxView];
@@ -618,7 +618,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 
 #pragma mark - Window delegate methods
 - (void) windowWillClose: (NSNotification*) notification {
-    NSWindow *win = [notification object];
+    NSWindow *win = notification.object;
     
     if( win == findInFilesWindow ) {
         // Clear the find all results

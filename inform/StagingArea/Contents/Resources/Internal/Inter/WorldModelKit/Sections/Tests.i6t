@@ -24,6 +24,7 @@ moves an object to a new position in the object tree.
 =
 [ XAbstractSub;
     if (XTestMove(noun, second)) return;
+    if (noun has worn) give noun ~worn;
     move noun to second;
     say__p = 1; "[Abstracted.]";
 ];
@@ -45,6 +46,17 @@ ACTIONS turns tracing of actions on.
 [ ActionsOnSub; trace_actions = 1; say__p = 1; "Actions listing on."; ];
 [ ActionsOffSub; trace_actions = 0; say__p = 1; "Actions listing off."; ];
 
+@h Banish Command.
+Like ABSTRACT, except that it removes something from play.
+
+=
+[ XBanishSub;
+    if (XTestMove(noun, nothing)) return;
+    give noun ~worn;
+    remove noun;
+    say__p = 1; "[Banished.]";
+];
+
 @h Gonear Command.
 GONEAR teleports the player to the vicinity of some named item.
 
@@ -59,7 +71,8 @@ To PURLOIN is to acquire something without reference to any rules on accessibili
 =
 [ XPurloinSub;
     if (XTestMove(noun, player)) return;
-    move noun to player; give noun moved; give noun ~concealed;
+    move noun to player;
+    give noun moved; give noun ~concealed; give noun ~worn;
     say__p = 1;
     "[Purloined.]";
 ];
@@ -177,16 +190,16 @@ DIALOGUE changes the level of dialogue tracing.
 =
 [ DialogueOnSub;
 	debug_dialogue = 1; say__p = 1;
-	"Dialogue tracing now switched on. Type ~dialogue off~ to switch it off again,
-	 or ~dialogue all~ to include even dialogue which do not apply.";
+	"(Dialogue tracing now switched on. Type ~dialogue off~ to switch it off again,
+	 or ~dialogue all~ to include even dialogue which does not apply.)";
 ];
 [ DialogueAllSub;
 	debug_dialogue = 2; say__p = 1;
-	"Dialogue tracing now switched to ~all~. Type ~dialogue off~ to switch it off again.";
+	"(Dialogue tracing now switched to ~all~. Type ~dialogue off~ to switch it off again.)";
 ];
 [ DialogueOffSub;
 	debug_dialogue = 0; say__p = 1;
-	"Dialogue tracing now switched off. Type ~dialogue~ to switch it on again.";
+	"(Dialogue tracing now switched off. Type ~dialogue~ to switch it on again.)";
 ];
 
 @h Scenes Command.
@@ -311,17 +324,16 @@ SHOWVERB is a holdover from old I6 days, but still quite useful. It writes
 out the I6 command verb grammar for the supplied command.
 
 =
-[ ShowVerbSub address lines meta i x;
+[ ShowVerbSub address lines i x;
 	wn = 2; x = NextWordStopped();
-    if (x == 0 || ((x->#dict_par1) & 1) == 0)
+    if (WordMarkedAsVerb(x) == false)
         "Try typing ~showverb~ and then the name of a verb.";
-    meta = ((x->#dict_par1) & 2)/2;
     i = DictionaryWordToVerbNum(x);
     address = VM_CommandTableAddress(i);
     lines = address->0;
     address++;
     print "Verb ";
-    if (meta) print "meta ";
+    if (WordMarkedAsMeta(x)) print "meta ";
     VM_PrintCommandWords(i);
     new_line;
     if (lines == 0) print "has no grammar lines.^";
@@ -380,10 +392,10 @@ TEST runs a short script of commands from the source text.
 =
 #ifdef DEBUG;
 
-#ifdef TARGET_GLULX;
-Constant TEST_STACK_SIZE = 128;
-#ifnot;
+#iftrue WORDSIZE == 2;
 Constant TEST_STACK_SIZE = 48;
+#ifnot;
+Constant TEST_STACK_SIZE = 128;
 #endif;
 
 Array test_stack --> TEST_STACK_SIZE;
@@ -408,12 +420,11 @@ Global test_sp = 0;
 	}
 	print "(Testing.)^"; say__p = 1;
 ];
-[ TestKeyboardPrimitive a_buffer a_table p i j l spaced ch;
+[ TestKeyboardPrimitive a_buffer a_table fn p i j l spaced ch;
 	if (test_sp == 0) {
 	    test_stack-->2 = 1;
-	    return VM_ReadKeyboard(a_buffer, a_table);
-	}
-	else {
+	    KeyboardMorePrimitive(a_buffer, a_table, fn);
+	} else {
 	    p = test_stack-->(test_sp-4);
 	    i = test_stack-->(test_sp-3);
 	    l = test_stack-->(test_sp-1);
@@ -422,13 +433,25 @@ Global test_sp = 0;
 	    print "] ";
 	    test_stack-->2 = test_stack-->2 + 1;
 	    style bold;
-	    while ((i < l) && (p->i ~= '/')) {
+	    while (i < l) {
+	        #iftrue (CHARSIZE == 1);
 	    	ch = p->i;
+	        #ifnot;
+	    	ch = p-->i;
+	        #endif;
+			if (ch == '/') break;
 	        if (spaced || (ch ~= ' ')) {
-	        	if ((p->i == '[') && (p->(i+1) == '/') && (p->(i+2) == ']')) {
-	        		ch = '/'; i = i+2;
-	        	}
+	            #iftrue (CHARSIZE == 1);
+	            if ((p->i == '[') && (p->(i+1) == '/') && (p->(i+2) == ']')) {
+	                ch = '/'; i = i+2;
+	            }
 	            a_buffer->(j+WORDSIZE) = ch;
+	            #ifnot;
+	            if ((p-->i == '[') && (p-->(i+1) == '/') && (p-->(i+2) == ']')) {
+	                ch = '/'; i = i+2;
+	            }
+	            a_buffer-->(j+1) = ch;
+	            #endif;
 	            print (char) ch;
 	            i++; j++;
 	            spaced = true;
@@ -436,13 +459,17 @@ Global test_sp = 0;
 	    }
 	    style roman;
 	    print "^";
-	    #ifdef TARGET_ZCODE;
+	    #iftrue (CHARSIZE == 1);
 	    a_buffer->1 = j;
-	    #ifnot; ! TARGET_GLULX
+	    #ifnot;
 	    a_buffer-->0 = j;
 	    #endif;
 	    VM_Tokenise(a_buffer, a_table);
+	    #iftrue (CHARSIZE == 1);
 	    if (p->i == '/') i++;
+	    #ifnot;
+	    if (p-->i == '/') i++;
+	    #endif;
 	    if (i >= l) {
 	        test_sp = test_sp - 4;
 	    } else test_stack-->(test_sp-3) = i;
@@ -466,7 +493,7 @@ of 0 (off, the default) to 5.
 [ TraceOffSub; parser_trace=0; say__p = 1; "Trace off."; ];
 
 @h Tree Command.
-TREE prints out the I6 object tree, though this is not always very helpful
+SHOWTREE prints out the I6 object tree, though this is not always very helpful
 in I7 terms. It should arguably be withdrawn, but doesn't seem to do any harm.
 
 =
@@ -491,6 +518,18 @@ in I7 terms. It should arguably be withdrawn, but doesn't seem to do any harm.
         WriteListFrom(child(obj), NEWLINE_BIT+INDENT_BIT+ALWAYS_BIT+FULLINV_BIT, 1);
 ];
 
+@h GlkList Command.
+GLKLIST is a testing command best used by those who understand Glulx and its
+ways: it isn't documented in the I7 manual, because it is pretty inscrutable
+for "real" users, but it's probably worth keeping just the same.
+
+=
+#Ifdef TARGET_GLULX;
+[ GlkListSub;
+    GlkDebuggingList();
+];
+#Endif;
+
 @h Grammar.
 In the old I6 parser, testing commands had their own scope hardwired in to the
 code: this worked by comparing the verb command word directly against |'scope'|
@@ -513,6 +552,8 @@ not picked up) and able to accept multiple objects.
 
 Verb meta 'abstract'
     * scope=testcommandnoun 'to' scope=testcommandnoun -> XAbstract;
+Verb meta 'banish'
+    * scope=testcommandnoun                     -> XBanish;
 Verb meta 'actions'
     *                                           -> ActionsOn
     * 'on'                                      -> ActionsOn
@@ -562,9 +603,13 @@ Verb meta 'trace'
     * number                                    -> TraceLevel
     * 'on'                                      -> TraceOn
     * 'off'                                     -> TraceOff;
-Verb meta 'tree'
+Verb meta 'showtree'
     *                                           -> XTree
     * scope=testcommandnoun                     -> XTree;
+#Ifdef TARGET_GLULX;
+Verb meta 'glklist'
+    *                                           -> GlkList;
+#Endif;
 
 @h End testy.
 

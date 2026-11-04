@@ -85,62 +85,62 @@
     <p><span class="boldface">1. When it happens.</span> The obituary is the text &quot;*** You have died ***&quot; or similar, sometimes followed by a final score, if the appropriate use option (&quot;Use scoring.&quot;) is in force.</p>
     <p><span class="boldface">2. The default behaviour.</span> Printing the aforementioned text, then the final score, and reducing the status line to a largely blank state.</p>
     <p><span class="boldface">3. Examples.</span> Here's one way to add to the verdict of history:</p>
-    <!--START CODE "c7306"-->
-    <blockquote class="code"><p class="quoted"><a id="c7306"></a><a href="javascript:pasteCode('After printing the player[=0x0027=]s obituary: say [=0x0022=]And you visited [number of visited rooms] place[s].[=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> After printing the player's obituary: say &quot;And you visited [number of visited rooms] place[s].&quot;
+    <!--START CODE "c7323"-->
+    <blockquote class="code"><p class="quoted"><a id="c7323"></a><a href="javascript:pasteCode('After printing the player[=0x0027=]s obituary: say [=0x0022=]And you visited [number of visited rooms] place[s].[=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> After printing the player's obituary: say &quot;And you visited [number of visited rooms] place[s].&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "383: Battle of Ridgefield" "e124"-->
-        <a id="e124"></a><table class="egcue">
+        <!--START EXAMPLE "384: Battle of Ridgefield" "e33"-->
+        <a id="e33"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example124'); return false;"><b>383</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example33'); return false;"><b>384</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example124'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Battle of Ridgefield</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example33'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Battle of Ridgefield</span></b></a><br>
                     Completely replacing the endgame text and stopping the game without giving the player a chance to restart or restore.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc96.html#e124"><i>RB</i></a></div>
+                        <a href="Rdoc96.html#e33"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example124" style="display: none;">
+        <div class="egpanel" id="example33" style="display: none;">
             <p>Occasionally, a piece of IF is sufficiently serious that it feels bathetic to offer the player the usual restore-restart-undo-quit options at the end. The following would replace &quot;*** You have died ***&quot; with a centered epitaph, then quit the game when the player hits a key.</p>
             <p>This example relies on a standard extension to avoid any fancy programming:</p>
-            <!--START CODE "c7307_124"-->
-            <blockquote class="code"><p class="quoted"><a id="c7307_124"></a><a href="javascript:pasteCode('[=0x0022=]Battle of Ridgefield[=0x0022=][=0x000A=][=0x000A=]Include Basic Screen Effects by Emily Short.[=0x000A=][=0x000A=]Ridgefield is a room.[=0x000A=][=0x000A=]Instead of doing something when the turn count is greater than 1: say [=0x0022=]Alas, you no longer have the strength.[=0x0022=]; end the story.[=0x000A=][=0x000A=]Rule for printing the player[=0x0027=]s obituary:[=0x000A=][=0x0009=]say paragraph break;[=0x000A=][=0x0009=]center [=0x0022=]In defense of American Independence[=0x0022=];[=0x000A=][=0x0009=]center [=0x0022=]at the Battle of Ridgefield, April 27, 1777,[=0x0022=];[=0x000A=][=0x0009=]center [=0x0022=]died Eight Patriots who were laid in this ground,[=0x0022=];[=0x000A=][=0x0009=]center [=0x0022=]Companioned by Sixteen British Soldiers,[=0x0022=];[=0x000A=][=0x0009=]center [=0x0022=]Living, their enemies,[=0x0022=];[=0x000A=][=0x0009=]center [=0x0022=]Dying, their guests[=0x0022=];[=0x000A=][=0x0009=]say paragraph break;[=0x000A=][=0x0009=]wait for any key;[=0x000A=][=0x0009=]stop game abruptly;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Battle of Ridgefield[=0x0022=][=0x000A=][=0x000A=]Include Basic Screen Effects by Emily Short.[=0x000A=][=0x000A=]Ridgefield is a room.[=0x000A=][=0x000A=]Instead of doing something when the turn count is greater than 1: say [=0x0022=]Alas, you no longer have the strength.[=0x0022=]; end the story.[=0x000A=][=0x000A=]Rule for printing the player[=0x0027=]s obituary:[=0x000A=][=0x0009=]say paragraph break;[=0x000A=][=0x0009=]center [=0x0022=]In defense of American Independence[=0x0022=];[=0x000A=][=0x0009=]center [=0x0022=]at the Battle of Ridgefield, April 27, 1777,[=0x0022=];[=0x000A=][=0x0009=]center [=0x0022=]died Eight Patriots who were laid in this ground,[=0x0022=];[=0x000A=][=0x0009=]center [=0x0022=]Companioned by Sixteen British Soldiers,[=0x0022=];[=0x000A=][=0x0009=]center [=0x0022=]Living, their enemies,[=0x0022=];[=0x000A=][=0x0009=]center [=0x0022=]Dying, their guests[=0x0022=];[=0x000A=][=0x0009=]say paragraph break;[=0x000A=][=0x0009=]wait for any key;[=0x000A=][=0x0009=]stop game abruptly;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=]\n', 'Example - Battle of Ridgefield')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Battle of Ridgefield&quot;
+            <!--START CODE "c7324_33"-->
+            <blockquote class="code"><p class="quoted"><a id="c7324_33"></a><a href="javascript:pasteCode('[=0x0022=]Battle of Ridgefield[=0x0022=][=0x000A=][=0x000A=]Include Basic Screen Effects by Emily Short.[=0x000A=][=0x000A=]Ridgefield is a room.[=0x000A=][=0x000A=]Instead of doing something when the turn count is greater than 1: say [=0x0022=]Alas, you no longer have the strength.[=0x0022=]; end the story.[=0x000A=][=0x000A=]Rule for printing the player[=0x0027=]s obituary:[=0x000A=][=0x0009=]say paragraph break;[=0x000A=][=0x0009=]center [=0x0022=]In defense of American Independence[=0x0022=];[=0x000A=][=0x0009=]center [=0x0022=]at the Battle of Ridgefield, April 27, 1777,[=0x0022=];[=0x000A=][=0x0009=]center [=0x0022=]died Eight Patriots who were laid in this ground,[=0x0022=];[=0x000A=][=0x0009=]center [=0x0022=]Companioned by Sixteen British Soldiers,[=0x0022=];[=0x000A=][=0x0009=]center [=0x0022=]Living, their enemies,[=0x0022=];[=0x000A=][=0x0009=]center [=0x0022=]Dying, their guests[=0x0022=];[=0x000A=][=0x0009=]say paragraph break;[=0x000A=][=0x0009=]wait for any key;[=0x000A=][=0x0009=]stop game abruptly;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Battle of Ridgefield[=0x0022=][=0x000A=][=0x000A=]Include Basic Screen Effects by Emily Short.[=0x000A=][=0x000A=]Ridgefield is a room.[=0x000A=][=0x000A=]Instead of doing something when the turn count is greater than 1: say [=0x0022=]Alas, you no longer have the strength.[=0x0022=]; end the story.[=0x000A=][=0x000A=]Rule for printing the player[=0x0027=]s obituary:[=0x000A=][=0x0009=]say paragraph break;[=0x000A=][=0x0009=]center [=0x0022=]In defense of American Independence[=0x0022=];[=0x000A=][=0x0009=]center [=0x0022=]at the Battle of Ridgefield, April 27, 1777,[=0x0022=];[=0x000A=][=0x0009=]center [=0x0022=]died Eight Patriots who were laid in this ground,[=0x0022=];[=0x000A=][=0x0009=]center [=0x0022=]Companioned by Sixteen British Soldiers,[=0x0022=];[=0x000A=][=0x0009=]center [=0x0022=]Living, their enemies,[=0x0022=];[=0x000A=][=0x0009=]center [=0x0022=]Dying, their guests[=0x0022=];[=0x000A=][=0x0009=]say paragraph break;[=0x000A=][=0x0009=]wait for any key;[=0x000A=][=0x0009=]stop game abruptly;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=]\n', 'Example - Battle of Ridgefield')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Battle of Ridgefield&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7308_124"-->
-            <blockquote class="code"><p class="quoted"><a id="c7308_124"></a>Include Basic Screen Effects by Emily Short.
+            <!--START CODE "c7325_33"-->
+            <blockquote class="code"><p class="quoted"><a id="c7325_33"></a>Include Basic Screen Effects by Emily Short.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7309_124"-->
-            <blockquote class="code"><p class="quoted"><a id="c7309_124"></a>Ridgefield is a room.
+            <!--START CODE "c7326_33"-->
+            <blockquote class="code"><p class="quoted"><a id="c7326_33"></a>Ridgefield is a room.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7310_124"-->
-            <blockquote class="code"><p class="quoted"><a id="c7310_124"></a>Instead of doing something when the turn count is greater than 1: say &quot;Alas, you no longer have the strength.&quot;; end the story.
+            <!--START CODE "c7327_33"-->
+            <blockquote class="code"><p class="quoted"><a id="c7327_33"></a>Instead of doing something when the turn count is greater than 1: say &quot;Alas, you no longer have the strength.&quot;; end the story.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7311_124"-->
-            <blockquote class="code"><p class="quoted"><a id="c7311_124"></a>Rule for printing the player's obituary:
+            <!--START CODE "c7328_33"-->
+            <blockquote class="code"><p class="quoted"><a id="c7328_33"></a>Rule for printing the player's obituary:
             <br>
             &#160;&#160;&#160;&#160;say paragraph break;
             <br>
@@ -169,45 +169,45 @@
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "384: Finality" "e142"-->
-        <a id="e142"></a><table class="egcue">
+        <!--START EXAMPLE "385: Finality" "e136"-->
+        <a id="e136"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example142'); return false;"><b>384</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example136'); return false;"><b>385</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example142'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Finality</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example136'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Finality</span></b></a><br>
                     Not mentioning UNDO in the final set of options.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc96.html#e142"><i>RB</i></a></div>
+                        <a href="Rdoc96.html#e136"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example142" style="display: none;">
-            <p>By default, Inform reminds the player that he has the option of typing UNDO after a story-ending action. This is generally good practice, especially for the sake of novice players who might not be aware of this possibility otherwise, and might be frustrated by a loss they could easily step back from.</p>
+        <div class="egpanel" id="example136" style="display: none;">
+            <p>By default, Inform reminds the player that they have the option of typing UNDO after a story-ending action. This is generally good practice, especially for the sake of novice players who might not be aware of this possibility otherwise, and might be frustrated by a loss they could easily step back from.</p>
             <p>Just occasionally, though, we may decide that the player does not deserve any such notification:</p>
-            <!--START CODE "c7312_142"-->
-            <blockquote class="code"><p class="quoted"><a id="c7312_142"></a><a href="javascript:pasteCode('[=0x0022=]Finality[=0x0022=][=0x000A=][=0x000A=]Cliff Edge is a room. [=0x0022=]This narrow strip overlooks a gorge many hundreds of feet deep, at whose bottom is a river of molten lava. The walls of the gorge are lined with poison-tipped spikes. Furthermore, the birds that inhabit this valley spit balls of fire. Good thing you[=0x0027=]re safe up here.[=0x0022=][=0x000A=][=0x000A=][The Table of Final Question Options determines what options are to be given to the player after the story ends. We can change what is mentioned there by altering the entries. (The example Jamaica 1688 explains this table in more detail, and demonstrates some other things that we might do with it.)][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]choose row with a final response rule of immediately undo rule in the Table of Final Question Options;[=0x000A=][=0x0009=]blank out the final question wording entry.[=0x000A=][=0x000A=]Instead of jumping:[=0x000A=][=0x0009=]say [=0x0022=]If you insist.[=0x0022=];[=0x000A=][=0x0009=]end the story.[=0x000A=][=0x000A=][And if we decided that we didn[=0x0027=]t want the player to be able to undo the command at all, we should add the use option][=0x000A=][=0x000A=]Use undo prevention.[=0x000A=][=0x000A=]Test me with [=0x0022=]jump[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Finality[=0x0022=][=0x000A=][=0x000A=]Cliff Edge is a room. [=0x0022=]This narrow strip overlooks a gorge many hundreds of feet deep, at whose bottom is a river of molten lava. The walls of the gorge are lined with poison-tipped spikes. Furthermore, the birds that inhabit this valley spit balls of fire. Good thing you[=0x0027=]re safe up here.[=0x0022=][=0x000A=][=0x000A=][The Table of Final Question Options determines what options are to be given to the player after the story ends. We can change what is mentioned there by altering the entries. (The example Jamaica 1688 explains this table in more detail, and demonstrates some other things that we might do with it.)][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]choose row with a final response rule of immediately undo rule in the Table of Final Question Options;[=0x000A=][=0x0009=]blank out the final question wording entry.[=0x000A=][=0x000A=]Instead of jumping:[=0x000A=][=0x0009=]say [=0x0022=]If you insist.[=0x0022=];[=0x000A=][=0x0009=]end the story.[=0x000A=][=0x000A=][And if we decided that we didn[=0x0027=]t want the player to be able to undo the command at all, we should add the use option][=0x000A=][=0x000A=]Use undo prevention.[=0x000A=][=0x000A=]Test me with [=0x0022=]jump[=0x0022=].[=0x000A=]\n', 'Example - Finality')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Finality&quot;
+            <!--START CODE "c7329_136"-->
+            <blockquote class="code"><p class="quoted"><a id="c7329_136"></a><a href="javascript:pasteCode('[=0x0022=]Finality[=0x0022=][=0x000A=][=0x000A=]Cliff Edge is a room. [=0x0022=]This narrow strip overlooks a gorge many hundreds of feet deep, at whose bottom is a river of molten lava. The walls of the gorge are lined with poison-tipped spikes. Furthermore, the birds that inhabit this valley spit balls of fire. Good thing you[=0x0027=]re safe up here.[=0x0022=][=0x000A=][=0x000A=][The Table of Final Question Options determines what options are to be given to the player after the story ends. We can change what is mentioned there by altering the entries. (The example Jamaica 1688 explains this table in more detail, and demonstrates some other things that we might do with it.)][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]choose row with a final response rule of immediately undo rule in the Table of Final Question Options;[=0x000A=][=0x0009=]blank out the final question wording entry.[=0x000A=][=0x000A=]Instead of jumping:[=0x000A=][=0x0009=]say [=0x0022=]If you insist.[=0x0022=];[=0x000A=][=0x0009=]end the story.[=0x000A=][=0x000A=][And if we decided that we didn[=0x0027=]t want the player to be able to undo the command at all, we should add the use option][=0x000A=][=0x000A=]Use undo prevention.[=0x000A=][=0x000A=]Test me with [=0x0022=]jump[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Finality[=0x0022=][=0x000A=][=0x000A=]Cliff Edge is a room. [=0x0022=]This narrow strip overlooks a gorge many hundreds of feet deep, at whose bottom is a river of molten lava. The walls of the gorge are lined with poison-tipped spikes. Furthermore, the birds that inhabit this valley spit balls of fire. Good thing you[=0x0027=]re safe up here.[=0x0022=][=0x000A=][=0x000A=][The Table of Final Question Options determines what options are to be given to the player after the story ends. We can change what is mentioned there by altering the entries. (The example Jamaica 1688 explains this table in more detail, and demonstrates some other things that we might do with it.)][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]choose row with a final response rule of immediately undo rule in the Table of Final Question Options;[=0x000A=][=0x0009=]blank out the final question wording entry.[=0x000A=][=0x000A=]Instead of jumping:[=0x000A=][=0x0009=]say [=0x0022=]If you insist.[=0x0022=];[=0x000A=][=0x0009=]end the story.[=0x000A=][=0x000A=][And if we decided that we didn[=0x0027=]t want the player to be able to undo the command at all, we should add the use option][=0x000A=][=0x000A=]Use undo prevention.[=0x000A=][=0x000A=]Test me with [=0x0022=]jump[=0x0022=].[=0x000A=]\n', 'Example - Finality')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Finality&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7313_142"-->
-            <blockquote class="code"><p class="quoted"><a id="c7313_142"></a>Cliff Edge is a room. &quot;This narrow strip overlooks a gorge many hundreds of feet deep, at whose bottom is a river of molten lava. The walls of the gorge are lined with poison-tipped spikes. Furthermore, the birds that inhabit this valley spit balls of fire. Good thing you're safe up here.&quot;
+            <!--START CODE "c7330_136"-->
+            <blockquote class="code"><p class="quoted"><a id="c7330_136"></a>Cliff Edge is a room. &quot;This narrow strip overlooks a gorge many hundreds of feet deep, at whose bottom is a river of molten lava. The walls of the gorge are lined with poison-tipped spikes. Furthermore, the birds that inhabit this valley spit balls of fire. Good thing you're safe up here.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>The Table of Final Question Options determines what options are to be given to the player after the story ends. We can change what is mentioned there by altering the entries. (The example Jamaica 1688 explains this table in more detail, and demonstrates some other things that we might do with it.)</p>
-            <!--START CODE "c7314_142"-->
-            <blockquote class="code"><p class="quoted"><a id="c7314_142"></a>When play begins:
+            <!--START CODE "c7331_136"-->
+            <blockquote class="code"><p class="quoted"><a id="c7331_136"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;choose row with a final response rule of immediately undo rule in the Table of Final Question Options;
             <br>
@@ -215,8 +215,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7315_142"-->
-            <blockquote class="code"><p class="quoted"><a id="c7315_142"></a>Instead of jumping:
+            <!--START CODE "c7332_136"-->
+            <blockquote class="code"><p class="quoted"><a id="c7332_136"></a>Instead of jumping:
             <br>
             &#160;&#160;&#160;&#160;say &quot;If you insist.&quot;;
             <br>
@@ -225,62 +225,62 @@
             </blockquote>
             <!--END CODE-->
             <p>And if we decided that we didn't want the player to be able to undo the command at all, we should add the use option</p>
-            <!--START CODE "c7316_142"-->
-            <blockquote class="code"><p class="quoted"><a id="c7316_142"></a>Use undo prevention.
+            <!--START CODE "c7333_136"-->
+            <blockquote class="code"><p class="quoted"><a id="c7333_136"></a>Use undo prevention.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7317_142"-->
-            <blockquote class="code"><p class="quoted"><a id="c7317_142"></a>Test me with &quot;jump&quot;.
+            <!--START CODE "c7334_136"-->
+            <blockquote class="code"><p class="quoted"><a id="c7334_136"></a>Test me with &quot;jump&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "385: Jamaica 1688" "e202"-->
-        <a id="e202"></a><table class="egcue">
+        <!--START EXAMPLE "386: Jamaica 1688" "e195"-->
+        <a id="e195"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example202'); return false;"><b>385</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example195'); return false;"><b>386</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example202'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Jamaica 1688</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example195'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Jamaica 1688</span></b></a><br>
                     Adding a feature to the final question after victory, so that the player can choose to reveal notes about items in the game.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc96.html#e202"><i>RB</i></a></div>
+                        <a href="Rdoc96.html#e195"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example202" style="display: none;">
+        <div class="egpanel" id="example195" style="display: none;">
             <p>The options offered to the player at the end of the game are listed in the Table of Final Question Options, which means that we can add to them simply by continuing the table; what's more, the table gives us the opportunity to create a &quot;final response rule&quot;, a rule that the game should follow in order to parse the player's input at this point.</p>
             <p>So, for instance, if we wanted the player to be allowed to ask for notes about any of the rooms, characters, or objects in a historical game:</p>
-            <!--START CODE "c7318_202"-->
-            <blockquote class="code"><p class="quoted"><a id="c7318_202"></a><a href="javascript:pasteCode('[=0x0022=]Jamaica 1688[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]Table of Final Question Options (continued)[=0x000A=]final question wording[=0x0009=]only if victorious[=0x0009=]topic[=0x0009=]final response rule[=0x0009=]final response activity[=0x000A=][=0x0022=]REVEAL the inspiration for something or somewhere[=0x0022=][=0x0009=]true[=0x0009=][=0x0022=]reveal [any thing][=0x0022=][=0x0009=]investigate something rule[=0x0009=]--[=0x000A=]--[=0x0009=]true[=0x0009=][=0x0022=]reveal [any room][=0x0022=][=0x0009=]investigate something rule[=0x0009=]--[=0x000A=][=0x000A=]This is the investigate something rule:[=0x000A=][=0x0009=]repeat through the Table of Footnotey Stuff:[=0x000A=][=0x0009=][=0x0009=]if the player[=0x0027=]s command matches the topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][revelation entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=]I[=0x0027=]m afraid I have no revelation to vouchsafe there.[=0x0022=][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Upper Deck is a room. Lucius is a man in the Upper Deck.[=0x000A=][=0x000A=]The maximum score is 501.[=0x000A=][=0x000A=]When play begins: now the score is 501; end the story finally.[=0x000A=][=0x000A=]Table of Footnotey Stuff[=0x000A=]topic[=0x0009=]revelation[=0x000A=][=0x0022=]reveal [Lucius][=0x0022=][=0x0009=][=0x0022=]Lucius is based on a historical buccaneer who sailed with William Dampier. The original did carry a Greek New Testament, from which he read aloud when the men were stranded in the jungles near Panama.[=0x0022=][=0x000A=][=0x0022=]reveal [Upper Deck][=0x0022=][=0x0009=][=0x0022=]The Callisto is a simplified and tidied representation of a pirate sloop ca. 1688.[=0x0022=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Jamaica 1688[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]Table of Final Question Options (continued)[=0x000A=]final question wording[=0x0009=]only if victorious[=0x0009=]topic[=0x0009=]final response rule[=0x0009=]final response activity[=0x000A=][=0x0022=]REVEAL the inspiration for something or somewhere[=0x0022=][=0x0009=]true[=0x0009=][=0x0022=]reveal [any thing][=0x0022=][=0x0009=]investigate something rule[=0x0009=]--[=0x000A=]--[=0x0009=]true[=0x0009=][=0x0022=]reveal [any room][=0x0022=][=0x0009=]investigate something rule[=0x0009=]--[=0x000A=][=0x000A=]This is the investigate something rule:[=0x000A=][=0x0009=]repeat through the Table of Footnotey Stuff:[=0x000A=][=0x0009=][=0x0009=]if the player[=0x0027=]s command matches the topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][revelation entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=]I[=0x0027=]m afraid I have no revelation to vouchsafe there.[=0x0022=][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Upper Deck is a room. Lucius is a man in the Upper Deck.[=0x000A=][=0x000A=]The maximum score is 501.[=0x000A=][=0x000A=]When play begins: now the score is 501; end the story finally.[=0x000A=][=0x000A=]Table of Footnotey Stuff[=0x000A=]topic[=0x0009=]revelation[=0x000A=][=0x0022=]reveal [Lucius][=0x0022=][=0x0009=][=0x0022=]Lucius is based on a historical buccaneer who sailed with William Dampier. The original did carry a Greek New Testament, from which he read aloud when the men were stranded in the jungles near Panama.[=0x0022=][=0x000A=][=0x0022=]reveal [Upper Deck][=0x0022=][=0x0009=][=0x0022=]The Callisto is a simplified and tidied representation of a pirate sloop ca. 1688.[=0x0022=][=0x000A=]\n', 'Example - Jamaica 1688')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Jamaica 1688&quot;
+            <!--START CODE "c7335_195"-->
+            <blockquote class="code"><p class="quoted"><a id="c7335_195"></a><a href="javascript:pasteCode('[=0x0022=]Jamaica 1688[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]Table of Final Question Options (continued)[=0x000A=]final question wording[=0x0009=]only if victorious[=0x0009=]topic[=0x0009=]final response rule[=0x0009=]final response activity[=0x000A=][=0x0022=]REVEAL the inspiration for something or somewhere[=0x0022=][=0x0009=]true[=0x0009=][=0x0022=]reveal [any thing][=0x0022=][=0x0009=]investigate something rule[=0x0009=]--[=0x000A=]--[=0x0009=]true[=0x0009=][=0x0022=]reveal [any room][=0x0022=][=0x0009=]investigate something rule[=0x0009=]--[=0x000A=][=0x000A=]This is the investigate something rule:[=0x000A=][=0x0009=]repeat through the Table of Footnotey Stuff:[=0x000A=][=0x0009=][=0x0009=]if the player[=0x0027=]s command matches the topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][revelation entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=]I[=0x0027=]m afraid I have no revelation to vouchsafe there.[=0x0022=][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Upper Deck is a room. Lucius is a man in the Upper Deck.[=0x000A=][=0x000A=]The maximum score is 501.[=0x000A=][=0x000A=]When play begins: now the score is 501; end the story finally.[=0x000A=][=0x000A=]Table of Footnotey Stuff[=0x000A=]topic[=0x0009=]revelation[=0x000A=][=0x0022=]reveal [Lucius][=0x0022=][=0x0009=][=0x0022=]Lucius is based on a historical buccaneer who sailed with William Dampier. The original did carry a Greek New Testament, from which he read aloud when the men were stranded in the jungles near Panama.[=0x0022=][=0x000A=][=0x0022=]reveal [Upper Deck][=0x0022=][=0x0009=][=0x0022=]The Callisto is a simplified and tidied representation of a pirate sloop ca. 1688.[=0x0022=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Jamaica 1688[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]Table of Final Question Options (continued)[=0x000A=]final question wording[=0x0009=]only if victorious[=0x0009=]topic[=0x0009=]final response rule[=0x0009=]final response activity[=0x000A=][=0x0022=]REVEAL the inspiration for something or somewhere[=0x0022=][=0x0009=]true[=0x0009=][=0x0022=]reveal [any thing][=0x0022=][=0x0009=]investigate something rule[=0x0009=]--[=0x000A=]--[=0x0009=]true[=0x0009=][=0x0022=]reveal [any room][=0x0022=][=0x0009=]investigate something rule[=0x0009=]--[=0x000A=][=0x000A=]This is the investigate something rule:[=0x000A=][=0x0009=]repeat through the Table of Footnotey Stuff:[=0x000A=][=0x0009=][=0x0009=]if the player[=0x0027=]s command matches the topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][revelation entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=]I[=0x0027=]m afraid I have no revelation to vouchsafe there.[=0x0022=][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Upper Deck is a room. Lucius is a man in the Upper Deck.[=0x000A=][=0x000A=]The maximum score is 501.[=0x000A=][=0x000A=]When play begins: now the score is 501; end the story finally.[=0x000A=][=0x000A=]Table of Footnotey Stuff[=0x000A=]topic[=0x0009=]revelation[=0x000A=][=0x0022=]reveal [Lucius][=0x0022=][=0x0009=][=0x0022=]Lucius is based on a historical buccaneer who sailed with William Dampier. The original did carry a Greek New Testament, from which he read aloud when the men were stranded in the jungles near Panama.[=0x0022=][=0x000A=][=0x0022=]reveal [Upper Deck][=0x0022=][=0x0009=][=0x0022=]The Callisto is a simplified and tidied representation of a pirate sloop ca. 1688.[=0x0022=][=0x000A=]\n', 'Example - Jamaica 1688')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Jamaica 1688&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7319_202"-->
-            <blockquote class="code"><p class="quoted"><a id="c7319_202"></a>Use scoring.
+            <!--START CODE "c7336_195"-->
+            <blockquote class="code"><p class="quoted"><a id="c7336_195"></a>Use scoring.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7320_202"-->
-            <blockquote class="code"><p class="quoted"><a id="c7320_202"></a>Section 1 - Procedure
+            <!--START CODE "c7337_195"-->
+            <blockquote class="code"><p class="quoted"><a id="c7337_195"></a>Section 1 - Procedure
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7321_202"-->
-            <blockquote class="code"><p class="quoted"><a id="c7321_202"></a>Table of Final Question Options (continued)
+            <!--START CODE "c7338_195"-->
+            <blockquote class="code"><p class="quoted"><a id="c7338_195"></a>Table of Final Question Options (continued)
             <br>
             </p>
             </blockquote>
@@ -355,8 +355,8 @@
             <blockquote><p></p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7322_202"-->
-            <blockquote class="code"><p class="quoted"><a id="c7322_202"></a>This is the investigate something rule:
+            <!--START CODE "c7339_195"-->
+            <blockquote class="code"><p class="quoted"><a id="c7339_195"></a>This is the investigate something rule:
             <br>
             &#160;&#160;&#160;&#160;repeat through the Table of Footnotey Stuff:
             <br>
@@ -370,28 +370,28 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7323_202"-->
-            <blockquote class="code"><p class="quoted"><a id="c7323_202"></a>Section 2 - Scenario
+            <!--START CODE "c7340_195"-->
+            <blockquote class="code"><p class="quoted"><a id="c7340_195"></a>Section 2 - Scenario
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7324_202"-->
-            <blockquote class="code"><p class="quoted"><a id="c7324_202"></a>The Upper Deck is a room. Lucius is a man in the Upper Deck.
+            <!--START CODE "c7341_195"-->
+            <blockquote class="code"><p class="quoted"><a id="c7341_195"></a>The Upper Deck is a room. Lucius is a man in the Upper Deck.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7325_202"-->
-            <blockquote class="code"><p class="quoted"><a id="c7325_202"></a>The maximum score is 501.
+            <!--START CODE "c7342_195"-->
+            <blockquote class="code"><p class="quoted"><a id="c7342_195"></a>The maximum score is 501.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7326_202"-->
-            <blockquote class="code"><p class="quoted"><a id="c7326_202"></a>When play begins: now the score is 501; end the story finally.
+            <!--START CODE "c7343_195"-->
+            <blockquote class="code"><p class="quoted"><a id="c7343_195"></a>When play begins: now the score is 501; end the story finally.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7327_202"-->
-            <blockquote class="code"><p class="quoted"><a id="c7327_202"></a>Table of Footnotey Stuff
+            <!--START CODE "c7344_195"-->
+            <blockquote class="code"><p class="quoted"><a id="c7344_195"></a>Table of Footnotey Stuff
             <br>
             </p>
             </blockquote>

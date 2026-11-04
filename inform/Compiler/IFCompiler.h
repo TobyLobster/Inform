@@ -64,6 +64,10 @@ typedef NS_ENUM(int, ECompilerProblemType) {
 /// \c YES if a compiler is running
 @property (atomic, getter=isRunning, readonly) BOOL running;
 
+- (BOOL) launchWithInTestStage: (NSString*) path
+                       command: (NSString*) command
+                      testCase: (NSString*) testCase;
+
 /// Adds a new build stage to the compiler
 - (void) addCustomBuildStage: (NSString*) command
                withArguments: (NSArray<NSString*>*) arguments
@@ -101,7 +105,8 @@ typedef NS_ENUM(int, ECompilerProblemType) {
 - (void) launch;
 
 /// Pretends that the given string appeared on the standard out of the task
-- (void) sendStdOut: (NSString*) data;
+- (void) sendStdOut: (NSString*) data
+          withStyle: (NSString*) style;
 
 /// Retrieves the progress indicator for this compiler
 @property (atomic, readonly, strong) IFProgress *progress;

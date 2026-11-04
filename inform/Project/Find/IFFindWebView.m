@@ -9,69 +9,90 @@
 #import "IFFindWebView.h"
 
 
-@implementation WebView(IFFindWebView)
+@implementation WKWebView(IFFindWebView)
 
 #pragma mark - Basic interface
 
-- (BOOL) findNextMatch:	(NSString*) match
-				ofType: (IFFindType) type {
-	BOOL insensitive = (type&IFFindCaseInsensitive)!=0;
+# pragma mark - Find
 
-	if (![self searchFor: match
-				 direction: YES
-			 caseSensitive: !insensitive
-					wrap: YES]) {
-		NSBeep();
-		return NO;
-	} else {
-		return YES;
-	}
+- (void) findNextMatch: (NSString*) match
+                ofType: (IFFindType) type
+     completionHandler: (void (^)(bool result))completionHandler {
+    BOOL insensitive = (type&IFFindCaseInsensitive)!=0;
+
+    if (@available(macOS 11.0, *)) {
+        WKFindConfiguration *configuration = [[WKFindConfiguration alloc] init];
+        configuration.backwards = false;
+        configuration.caseSensitive = !insensitive;
+        configuration.wraps = true;
+
+        [self      findString: match
+             withConfiguration: configuration
+             completionHandler: ^(WKFindResult *result) {
+            if (completionHandler != nil) {
+                completionHandler(result.matchFound);
+            }
+        }];
+    } else {
+        // Fallback on earlier versions
+        if (completionHandler != nil) {
+            completionHandler(false);
+        }
+    }
 }
 
-- (BOOL) findPreviousMatch: (NSString*) match
-					ofType: (IFFindType) type {
-	BOOL insensitive = (type&IFFindCaseInsensitive)!=0;
-	
-	if (![self searchFor: match
-				 direction: NO
-			 caseSensitive: !insensitive
-					wrap: YES]) {
-		NSBeep();
-		return NO;
-	} else {
-		return YES;
-	}
+- (void) findPreviousMatch: (NSString*) match
+                    ofType: (IFFindType) type
+         completionHandler: (void (^)(bool result))completionHandler {
+    BOOL insensitive = (type&IFFindCaseInsensitive)!=0;
+
+    if (@available(macOS 11.0, *)) {
+        WKFindConfiguration *configuration = [[WKFindConfiguration alloc] init];
+        configuration.backwards = true;
+        configuration.caseSensitive = !insensitive;
+        configuration.wraps = true;
+
+        [self      findString: match
+             withConfiguration: configuration
+             completionHandler: ^(WKFindResult *result) {
+            if (completionHandler != nil) {
+                completionHandler(result.matchFound);
+            }
+        }];
+    } else {
+        // Fallback on earlier versions
+        if (completionHandler != nil) {
+            completionHandler(false);
+        }
+    }
 }
 
 - (BOOL) canUseFindType: (IFFindType) find {
-	switch (find) {
-		case IFFindContains:
-			return YES;
-			
-		case IFFindBeginsWith:
-		case IFFindCompleteWord:
-		case IFFindRegexp:
-		default:
-			return NO;
-	}
+    switch (find) {
+        case IFFindContains:
+            return YES;
+
+        case IFFindBeginsWith:
+        case IFFindCompleteWord:
+        case IFFindRegexp:
+        default:
+            return NO;
+    }
 }
 
-- (NSString*) currentSelectionForFind {
-	return [[self selectedDOMRange] toString];
+- (void) currentSelectionForFindWithCompletionHandler:(void (^)(NSString*))completionHandler {
+    NSString *script = @"window.getSelection().toString()";
+    [self evaluateJavaScript:script
+           completionHandler:^(NSString *selectedString, NSError *error) {
+        if (completionHandler != nil) {
+            if (error == nil) {
+                completionHandler(selectedString);
+            } else {
+                NSBeep();
+                completionHandler(nil);
+            }
+        }
+    }];
 }
-
-#pragma mark - 'Find all'
-
-/*
-- (NSArray*) findAllMatches: (NSString*) match
-					 ofType: (IFFindType) type
-                 inLocation: (IFFindLocation) location
-		   inFindController: (IFFindController*) controller
-			 withIdentifier: (id) identifier {
-}
-
-- (void) highlightFindResult: (IFFindResult*) result {
-}
-*/
 
 @end

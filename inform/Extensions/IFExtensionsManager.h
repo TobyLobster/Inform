@@ -8,9 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 #import "IFProgress.h"
+#import "IFProject.h"
 #import "IFSemVer.h"
 
-extern NSNotificationName const IFExtensionsUpdatedNotification;				// Sent when the extensions are updated
 extern NSNotificationName const IFCensusFinishedNotification;
 extern NSNotificationName const IFCensusFinishedButDontUpdateExtensionsWebPageNotification;
 
@@ -81,7 +81,7 @@ typedef NS_ENUM(int, IFExtensionDownloadState) {
               notifyDelegate: (NSObject*) notifyDelegate
                 javascriptId: (NSString*) javascriptId NS_DESIGNATED_INITIALIZER;
 
-@property (atomic, readonly) BOOL startDownloadAndInstall;
+-(BOOL) startDownloadAndInstall;
 @property (atomic, readonly, copy) NSString *safeVersion;
 
 @end
@@ -112,11 +112,13 @@ typedef NS_ENUM(int, IFExtensionDownloadState) {
 
 // Retrieving the list of installed extensions
 /// Array of available extension information
-@property (atomic, readonly, copy) NSArray<IFExtensionInfo*> *availableExtensions;
+- (NSArray<IFExtensionInfo*>*) availableExtensionsWithCompilerVersion: (NSString*) compilerVersion;
+
 /// Array of available authors
-@property (atomic, readonly, copy) NSArray<NSString*> *availableAuthors;
+- (NSArray<NSString*>*) availableAuthorsWithCompilerVersion: (NSString*) compilerVersion;
 /// Array of available extensions for a given author
-- (NSArray<IFExtensionInfo*>*) availableExtensionsByAuthor:(NSString*) author;
+- (NSArray<IFExtensionInfo*>*) availableExtensionsByAuthor: (NSString*) author
+                                       withCompilerVersion: (NSString*) compilerVersion;
 
 - (BOOL) isFileInstalled:(NSString*) fullPath;
 
@@ -133,7 +135,7 @@ typedef NS_ENUM(int, IFExtensionDownloadState) {
                                             version: (NSString*__strong*) versionOut;
 
 /// Copies a file from the given path into the installed extensions, perhaps replacing an existing extension
-- (IFExtensionResult) installExtension: (NSString*) extensionPath
+- (IFExtensionResult) installLegacyExtension: (NSString*) extensionPath
                              finalPath: (NSString*__strong*) finalPathOut
                                  title: (NSString*__strong*) titleOut
                                 author: (NSString*__strong*) authorOut
@@ -141,8 +143,7 @@ typedef NS_ENUM(int, IFExtensionDownloadState) {
                     showWarningPrompts: (BOOL) showWarningPrompts
                                 notify: (BOOL) notify;
 
--(void) startCensus:(NSNumber*) notify;
-- (void) updateExtensions;
+-(void) startLegacyCensus:(NSNumber*) notify;
 
 #pragma mark - Download and Install
 
@@ -152,6 +153,7 @@ typedef NS_ENUM(int, IFExtensionDownloadState) {
                       notifyDelegate: (NSObject*) notifyDelegate
                         javascriptId: (NSString*) javascriptId;
 - (void) downloadAndInstallFinished: (IFExtensionDownload*) download;
+-(void) reportDownloadResults: (IFExtensionDownload*) download;
 
 #pragma mark -
 -(void) unit_test;

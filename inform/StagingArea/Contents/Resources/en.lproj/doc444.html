@@ -83,8 +83,8 @@
     <!--END IGNORE-->
     <p class="sectionheading">§27.19. Longer extracts of Inform 6 code</p>
     <p>Whole routines, object and class definitions (or any other directives) can be pasted in wholesale using sentences like so:</p>
-    <!--START CODE "c9198"-->
-    <blockquote class="code"><p class="quoted"><a id="c9198"></a>Include (-
+    <!--START CODE "c9225"-->
+    <blockquote class="code"><p class="quoted"><a id="c9225"></a>Include (-
     <br>
     [ ExtraFunction a b; return a*b; ];
     <br>
@@ -94,8 +94,8 @@
     <!--END CODE-->
     <p>Such inclusions are pasted into the final compiled code at the end of the file, after the I6 grammar has been declared.</p>
     <p>In such extracts, we sometimes need to refer to objects, variables or values which can't be described using I6: or rather, which can be described, but we don't know how. To this end, any text in an inclusion written in &quot;(+&quot; and &quot;+)&quot; parentheses is treated as an I7 value, and compiled accordingly, with all type-checking waived for the occasion. For instance:</p>
-    <!--START CODE "c9199"-->
-    <blockquote class="code"><p class="quoted"><a id="c9199"></a>Include (-
+    <!--START CODE "c9226"-->
+    <blockquote class="code"><p class="quoted"><a id="c9226"></a>Include (-
     <br>
     Global my_global = (+ the tartan rucksack +);
     <br>
@@ -104,16 +104,16 @@
     </blockquote>
     <!--END CODE-->
     <p>Here &quot;the tartan rucksack&quot; is translated into &quot;O18_tartan_rucksack&quot;, or something similar: the I6 object created to represent the rucksack. Thus the actual line of code produced is</p>
-    <!--START CODE "c9200"-->
-    <blockquote class="code"><p class="quoted"><a id="c9200"></a>Global my_global = O18_tartan_rucksack;
+    <!--START CODE "c9227"-->
+    <blockquote class="code"><p class="quoted"><a id="c9227"></a>Global my_global = O18_tartan_rucksack;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>The material between &quot;(+&quot; and &quot;+)&quot; is generally treated as a value, and thus compiles to the I6 form of that value. But it could also be a property name, which compiles to the I6 form in question, or a defined adjective, which compiles to the name of the routine to call which tests whether that adjective is true.</p>
     <p><span class="boldface">Three warnings.</span> The material in &quot;(-&quot; and &quot;-)&quot; is not quite treated as literal. Certain characters cause Inform to react:</p>
     <p>1. Beware of accidental &quot;(+&quot; usage - for instance,</p>
-    <!--START CODE "c9201"-->
-    <blockquote class="code"><p class="quoted"><a id="c9201"></a>Include (-
+    <!--START CODE "c9228"-->
+    <blockquote class="code"><p class="quoted"><a id="c9228"></a>Include (-
     <br>
     [ MyCleverLoop i; for (++i; i&lt;10; i++) print i; ];
     <br>
@@ -123,8 +123,8 @@
     <!--END CODE-->
     <p>looks reasonable, but contains &quot;(+&quot; and &quot;+)&quot;. Spaces around the first &quot;++&quot; would have been enough to avoid this one; &quot;+)&quot; is only significant where it follows a &quot;(+&quot;.</p>
     <p>2. Beware of placing an &quot;@&quot; character in the first column, that is, immediately following a new line. (In template code this marks off paragraph divisions.) So for instance,</p>
-    <!--START CODE "c9202"-->
-    <blockquote class="code"><p class="quoted"><a id="c9202"></a>Include (-
+    <!--START CODE "c9229"-->
+    <blockquote class="code"><p class="quoted"><a id="c9229"></a>Include (-
     <br>
     [ Set_Stream ret;
     <br>
@@ -138,8 +138,8 @@
     <!--END CODE-->
     <p>is tripped up by the Glulx assembly language opcode &quot;@glk&quot; because this occurs in column 1. Indenting it with a little space or a tab is enough to avoid the problem.</p>
     <p>3. Be careful if you're creating an I6 variable holding initialised I7 text. For example,</p>
-    <!--START CODE "c9203"-->
-    <blockquote class="code"><p class="quoted"><a id="c9203"></a>Include (-
+    <!--START CODE "c9230"-->
+    <blockquote class="code"><p class="quoted"><a id="c9230"></a>Include (-
     <br>
     Global saved_optional_prompt = (+ &quot;!!&gt;&quot; +);
     <br>
@@ -148,8 +148,8 @@
     </blockquote>
     <!--END CODE-->
     <p>looks as if it will work, but doesn't, for reference-counting reasons we needn't go into; instead you need</p>
-    <!--START CODE "c9204"-->
-    <blockquote class="code"><p class="quoted"><a id="c9204"></a>Include (-
+    <!--START CODE "c9231"-->
+    <blockquote class="code"><p class="quoted"><a id="c9231"></a>Include (-
     <br>
     Array sop_storage --&gt; PACKED_TEXT_STORAGE &quot;!!&gt;&quot;;
     <br>
@@ -168,8 +168,8 @@
     <p>5. Compile-time constant expression evaluation can be used with arithmetic operations, so &quot;Constant FOO = BAR + 1;&quot; is okay, but not with bitwise or logical operations, so &quot;Constant FOO = (BAR | 1);&quot; does not work.</p>
     <p>6. Calculated values cannot occur as assembly-language operands.</p>
     <p>7. Calculated values can be used for array extents, but need to be put in brackets. For example:</p>
-    <!--START CODE "c9205"-->
-    <blockquote class="code"><p class="quoted"><a id="c9205"></a>Include (-
+    <!--START CODE "c9232"-->
+    <blockquote class="code"><p class="quoted"><a id="c9232"></a>Include (-
     <br>
     Array unit_captured_text --&gt; (UNIT_CAPTURE_BUFFER_LEN + 1);
     <br>
@@ -180,43 +180,43 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "451: Status line with centered text, the hard way" "e394"-->
-        <a id="e394"></a><table class="egcue">
+        <!--START EXAMPLE "452: Corner of No and Where" "e82"-->
+        <a id="e82"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example394'); return false;"><b>451</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example82'); return false;"><b>452</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example394'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Status line with centered text, the hard way</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example82'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Corner of No and Where</span></b></a><br>
                     A status line which has only the name of the location, centered.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc98.html#e394"><i>RB</i></a></div>
+                        <a href="Rdoc98.html#e82"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example394" style="display: none;">
+        <div class="egpanel" id="example82" style="display: none;">
             <p>Making major changes to display features, such as the construction of the status line, sometimes requires that we rely on Inform 6 in bulk; here is how we might produce the Trinity-style status line, with the location centered at the top center of the screen.</p>
-            <!--START CODE "c9206_394"-->
-            <blockquote class="code"><p class="quoted"><a id="c9206_394"></a><a href="javascript:pasteCode('[=0x0022=]Corner of No and Where[=0x0022=][=0x000A=][=0x000A=]No is a room. Where is west of No.[=0x000A=][=0x000A=]Rule for constructing the status line:[=0x000A=][=0x0009=]print the location in the center of the status line;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]To print the location in the center of the status line:[=0x000A=][=0x0009=](- PrintCenteredStatus(); -).[=0x000A=][=0x000A=]Include (-[=0x000A=][=0x000A=]Array printed_text --[=0x003E=] 64;[=0x000A=][=0x000A=][ PrintCenteredStatus i j;[=0x000A=][=0x0009=]@set_cursor 1 0;[=0x000A=][=0x0009=]i = 0-[=0x003E=]33;[=0x000A=][=0x0009=]spaces(i);[=0x000A=][=0x0009=]@output_stream 3 printed_text;[=0x000A=][=0x0009=]print (name) location;[=0x000A=][=0x0009=]@output_stream -3;[=0x000A=][=0x0009=]j = (i - (printed_text--[=0x003E=]0))/2;[=0x000A=][=0x0009=]@set_cursor 1 j;[=0x000A=][=0x0009=]print (name) location;[=0x000A=][=0x0009=]spaces j-1;[=0x000A=]];[=0x000A=][=0x000A=]-)[=0x000A=][=0x000A=]Test me with [=0x0022=]w / e[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Corner of No and Where[=0x0022=][=0x000A=][=0x000A=]No is a room. Where is west of No.[=0x000A=][=0x000A=]Rule for constructing the status line:[=0x000A=][=0x0009=]print the location in the center of the status line;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]To print the location in the center of the status line:[=0x000A=][=0x0009=](- PrintCenteredStatus(); -).[=0x000A=][=0x000A=]Include (-[=0x000A=][=0x000A=]Array printed_text --[=0x003E=] 64;[=0x000A=][=0x000A=][ PrintCenteredStatus i j;[=0x000A=][=0x0009=]@set_cursor 1 0;[=0x000A=][=0x0009=]i = 0-[=0x003E=]33;[=0x000A=][=0x0009=]spaces(i);[=0x000A=][=0x0009=]@output_stream 3 printed_text;[=0x000A=][=0x0009=]print (name) location;[=0x000A=][=0x0009=]@output_stream -3;[=0x000A=][=0x0009=]j = (i - (printed_text--[=0x003E=]0))/2;[=0x000A=][=0x0009=]@set_cursor 1 j;[=0x000A=][=0x0009=]print (name) location;[=0x000A=][=0x0009=]spaces j-1;[=0x000A=]];[=0x000A=][=0x000A=]-)[=0x000A=][=0x000A=]Test me with [=0x0022=]w / e[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Status line with centered text, the hard way')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Corner of No and Where&quot;
+            <!--START CODE "c9233_82"-->
+            <blockquote class="code"><p class="quoted"><a id="c9233_82"></a><a href="javascript:pasteCode('[=0x0022=]Corner of No and Where[=0x0022=][=0x000A=][=0x000A=]No is a room. Where is west of No.[=0x000A=][=0x000A=]Rule for constructing the status line:[=0x000A=][=0x0009=]print the location in the center of the status line;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]To print the location in the center of the status line:[=0x000A=][=0x0009=](- PrintCenteredStatus(); -).[=0x000A=][=0x000A=]Include (-[=0x000A=][=0x000A=]Array printed_text --[=0x003E=] 64;[=0x000A=][=0x000A=][ PrintCenteredStatus i j;[=0x000A=][=0x0009=]@set_cursor 1 0;[=0x000A=][=0x0009=]i = 0-[=0x003E=]33;[=0x000A=][=0x0009=]spaces(i);[=0x000A=][=0x0009=]@output_stream 3 printed_text;[=0x000A=][=0x0009=]print (name) location;[=0x000A=][=0x0009=]@output_stream -3;[=0x000A=][=0x0009=]j = (i - (printed_text--[=0x003E=]0))/2;[=0x000A=][=0x0009=]@set_cursor 1 j;[=0x000A=][=0x0009=]print (name) location;[=0x000A=][=0x0009=]spaces j-1;[=0x000A=]];[=0x000A=][=0x000A=]-)[=0x000A=][=0x000A=]Test me with [=0x0022=]w / e[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Corner of No and Where[=0x0022=][=0x000A=][=0x000A=]No is a room. Where is west of No.[=0x000A=][=0x000A=]Rule for constructing the status line:[=0x000A=][=0x0009=]print the location in the center of the status line;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]To print the location in the center of the status line:[=0x000A=][=0x0009=](- PrintCenteredStatus(); -).[=0x000A=][=0x000A=]Include (-[=0x000A=][=0x000A=]Array printed_text --[=0x003E=] 64;[=0x000A=][=0x000A=][ PrintCenteredStatus i j;[=0x000A=][=0x0009=]@set_cursor 1 0;[=0x000A=][=0x0009=]i = 0-[=0x003E=]33;[=0x000A=][=0x0009=]spaces(i);[=0x000A=][=0x0009=]@output_stream 3 printed_text;[=0x000A=][=0x0009=]print (name) location;[=0x000A=][=0x0009=]@output_stream -3;[=0x000A=][=0x0009=]j = (i - (printed_text--[=0x003E=]0))/2;[=0x000A=][=0x0009=]@set_cursor 1 j;[=0x000A=][=0x0009=]print (name) location;[=0x000A=][=0x0009=]spaces j-1;[=0x000A=]];[=0x000A=][=0x000A=]-)[=0x000A=][=0x000A=]Test me with [=0x0022=]w / e[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Corner of No and Where')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Corner of No and Where&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9207_394"-->
-            <blockquote class="code"><p class="quoted"><a id="c9207_394"></a>No is a room. Where is west of No.
+            <!--START CODE "c9234_82"-->
+            <blockquote class="code"><p class="quoted"><a id="c9234_82"></a>No is a room. Where is west of No.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9208_394"-->
-            <blockquote class="code"><p class="quoted"><a id="c9208_394"></a>Rule for constructing the status line:
+            <!--START CODE "c9235_82"-->
+            <blockquote class="code"><p class="quoted"><a id="c9235_82"></a>Rule for constructing the status line:
             <br>
             &#160;&#160;&#160;&#160;print the location in the center of the status line;
             <br>
@@ -224,25 +224,25 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9209_394"-->
-            <blockquote class="code"><p class="quoted"><a id="c9209_394"></a>To print the location in the center of the status line:
+            <!--START CODE "c9236_82"-->
+            <blockquote class="code"><p class="quoted"><a id="c9236_82"></a>To print the location in the center of the status line:
             <br>
             &#160;&#160;&#160;&#160;(- PrintCenteredStatus(); -).
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9210_394"-->
-            <blockquote class="code"><p class="quoted"><a id="c9210_394"></a>Include (-
+            <!--START CODE "c9237_82"-->
+            <blockquote class="code"><p class="quoted"><a id="c9237_82"></a>Include (-
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9211_394"-->
-            <blockquote class="code"><p class="quoted"><a id="c9211_394"></a>Array printed_text --&gt; 64;
+            <!--START CODE "c9238_82"-->
+            <blockquote class="code"><p class="quoted"><a id="c9238_82"></a>Array printed_text --&gt; 64;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9212_394"-->
-            <blockquote class="code"><p class="quoted"><a id="c9212_394"></a>[ PrintCenteredStatus i j;
+            <!--START CODE "c9239_82"-->
+            <blockquote class="code"><p class="quoted"><a id="c9239_82"></a>[ PrintCenteredStatus i j;
             <br>
             &#160;&#160;&#160;&#160;@set_cursor 1 0;
             <br>
@@ -268,13 +268,13 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9213_394"-->
-            <blockquote class="code"><p class="quoted"><a id="c9213_394"></a>-)
+            <!--START CODE "c9240_82"-->
+            <blockquote class="code"><p class="quoted"><a id="c9240_82"></a>-)
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9214_394"-->
-            <blockquote class="code"><p class="quoted"><a id="c9214_394"></a>Test me with &quot;w / e&quot;.
+            <!--START CODE "c9241_82"-->
+            <blockquote class="code"><p class="quoted"><a id="c9241_82"></a>Test me with &quot;w / e&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

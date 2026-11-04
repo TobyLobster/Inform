@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "IFFindResult.h"
+#import "Inform-Swift.h"
 
 @class IFProject;
 @class IFFindInFiles;
@@ -16,7 +17,7 @@
 ///
 /// Controller for the find window
 ///
-@interface IFFindInFilesController : NSWindowController
+@interface IFFindInFilesController : NSWindowController <IFFindClickableTableViewDelegate>
 
 // Initialisation
 

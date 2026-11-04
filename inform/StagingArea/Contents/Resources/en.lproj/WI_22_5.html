@@ -1,0 +1,2332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title><span class="markdowncontent">Section 22.5: Regular expression matching</span></title>
+    <style type="text/css">
+        <!--
+        :root {
+        	--informdefault-fontfamily: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+        	--informmonospaced-fontfamily: SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+        	--informcode-fontfamily: SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+        	--informcommand-fontfamily: Georgia, "Times New Roman", Times, serif;
+        }
+
+        -->
+    </style>
+    <style type="text/css">
+        <!--
+        :root {
+            color-scheme: light dark;
+            --element-banner-background-colour: #eeeeee;
+            --heading-panel-background-colour: #eeeeee;
+            --heading-panel-text-colour: #222222;
+            --heading-panel-succeeded-background-colour: #E6FFE6;
+            --heading-panel-failed-background-colour: #f69Ca6;
+            --heading-panel-alt-text-colour: #ffffff;
+        	--heading-panel-alt-background-colour: #808080;
+
+            --heading-row-background-colour: #e0e0e0;
+            --stripe-one-background-colour: #ffffff;
+            --stripe-two-background-colour: #f3f6fa;
+            --stripe-tinted-background-colour: #808080;
+
+        	--index-plain-text-colour: #000000;
+        	--index-tinted-text-colour: #808080;
+        	--index-dark-text-colour: #505050;
+            --index-dull-red-colour: #800000;
+            --index-dull-blue-colour: #000080;
+            --index-dull-green-colour: #008000;
+            --index-map-room-border-colour: #000000;
+            --index-map-room-number-colour: #202020;
+            --index-response-letter-colour: #ffffff;
+            --index-response-letter-background-colour: #8080ff;
+            --index-response-text-colour: #000066;
+            --index-figure-background-colour: #6495ed;
+            --periodic-table-sidebar-colour: #888;
+            --periodic-table-sidebar-hover-colour: #222;
+            --periodic-table-element-text-colour: #ffffff;
+            --leaders-background-colour: white;
+            --library-card-title-colour: #803030;
+            --library-card-other-colour: #303030;
+            --index-more-box-background-colour: #e0e0e0;
+            --index-activity-contents-background-colour: #e8e0c0;
+            --registry-contents-silent-link-colour: #000000;
+            --registry-contents-passive-link-colour: #202020;
+            --registry-contents-active-link-colour: #D00000;
+
+            --extension-index-entry-colour: #404040;
+            --extension-index-name-colour: #ffffff;
+            --extension-index-error-colour: #ff8080;
+
+            --safe-button-background-colour: rgb(31, 136, 61);
+            --dangerous-button-background-colour: rgb(136, 31, 61);
+        	--button-text-background-colour: #ffffff;
+        	
+        	--syntaxdefinition-colour: #000040;
+        	--syntaxheading-colour: #7f0000;
+        	--syntaxfunction-colour: #5f0000;
+        	--syntaxreserved-colour: #000040;
+        	--syntaxelement-colour: #000040;
+        	--syntaxidentifier-colour: #000040;
+        	--syntaxcharacter-colour: #000040;
+        	--syntaxconstant-colour: #000040;
+        	--syntaxstring-colour: #0000ff;
+        	--syntaxplain-colour: #000040;
+        	--syntaxextract-colour: #FF00e0;
+        	--syntaxcomment-colour: #004000;
+
+            --paste-active-colour: #803030;
+            --paste-passive-colour: #303030;
+            --paste-background-colour: #FFD580;
+
+            --md-background-colour: #e3e6ea;
+            --md-transcript-background-colour: #f9e9e9;
+            --md-code-background-colour: #e9e9f9;
+            --md-dashed-border-colour: #2f6fab;
+            --md-extract-inform7-box-colour: #FFFDE0;
+            --md-extract-problem-box-colour: #e9f9e9;
+            --md-extract-code-box-colour: #e9f9e9;
+            --md-shaded-box-colour: #e9e9e9;
+            --md-transcript-deletion-colour: #ff0000;
+            --md-transcript-insertion-colour: #00ff00;
+            --example-see-also-colour: #E0E0E0;
+            --light-border-colour: #d0d7de;
+            
+            --documentation-index-majuscule-letter-colour: #ffffff;
+            --documentation-index-majuscule-colour: #808080;
+            --documentation-index-see-colour: #666666;
+            --documentation-index-gloss-colour: #008080;
+            --documentation-index-a-colour: #000080;
+            --documentation-index-b-colour: #8080ff;
+            --documentation-index-c-colour: #186000;
+            --documentation-index-letter-active-bg-colour: #c0c0c0;
+            --documentation-index-letter-passive-bg-colour: #e0e0e0;
+
+            --problem-bad-colour: #800000;
+            --problem-good-colour: #008000;
+            --problem-phrase-colour: #808080;
+            --problem-token-colour: #e00060;
+            --problem-token-desc-colour: #4040ff;
+            --problem-token-value-colour: #ff4040;
+
+            --documentation-duplex-paper-colour: #000000;
+            --documentation-duplex-left-colour: #eeeeee;
+            --documentation-duplex-right-colour: #ffffe5;
+            --documentation-nav-heading-background-colour: #eeeeee; 
+            --documentation-nav-background-colour: #FFFFFF;
+            --documentation-nav-heading-colour: #222222;
+            --documentation-nav-active-link-colour: #D00000;
+            --documentation-nav-passive-link-colour: #202020;
+
+        	--dotted-link-underline-colour: #666666;
+        	--registry-section-colour: #666666;
+        	--registry-button-text-colour: #000000;
+        	--registry-builtin-text-colour: #888888;
+        	--registry-installed-button-colour: #ffffff;
+        	--registry-uninstalled-button-colour: #ffffdd;
+        	--registry-button-border-colour: #000000;
+        	--registry-button-revealer-colour: #444444;
+        	--registry-button-update-colour: #aaddff;
+        	--registry-button-revert-colour: #ddaaff;
+
+        	--example-cartouche-border-colour: #202030;
+        	--example-cartouche-background-colour: #f4f4f4;
+            --example-cartouche-label-colour: #000000;
+            --example-cartouche-label-background-colour: #C0C0C0;
+        	--example-cartouche-star-colour: #DFB700;
+        }
+
+        @media (prefers-color-scheme: dark) {
+          :root {
+            --element-banner-background-colour: #444444;
+            --heading-panel-background-colour: #444444;
+            --heading-panel-text-colour: #ffffff;
+            --heading-panel-succeeded-background-colour: #738073;
+            --heading-panel-failed-background-colour: #7b4e53;
+            --heading-panel-alt-text-colour: #000000;
+        	--heading-panel-alt-background-colour: #808080;
+
+            --heading-row-background-colour: #707070;
+            --stripe-one-background-colour: #000000;
+            --stripe-two-background-colour: #090b0d;
+            --stripe-tinted-background-colour: #808080;
+
+        	--index-plain-text-colour: #ffffff;
+        	--index-tinted-text-colour: #808080;
+        	--index-dark-text-colour: #B0B0B0;
+            --index-dull-red-colour: #c00000;
+            --index-dull-blue-colour: #4040c0;
+            --index-dull-green-colour: #40c040;
+            --index-map-room-border-colour: #ffffff;
+            --index-map-room-number-colour: #e0e0e0;
+            --index-response-letter-colour: #000000;
+            --index-response-letter-background-colour: #8080ff;
+            --index-response-text-colour: #ffffaa;
+            --index-figure-background-colour: #6495ed;
+            --periodic-table-sidebar-colour: #555;
+            --periodic-table-sidebar-hover-colour: #222;
+            --periodic-table-element-text-colour: #000000;
+            --leaders-background-colour: #121212;
+            --library-card-title-colour: #a05050;
+            --library-card-other-colour: #505050;
+            --index-more-box-background-colour: #444444;
+            --index-activity-contents-background-colour: #727060;
+            --registry-contents-silent-link-colour: #ffffff;
+            --registry-contents-passive-link-colour: #ffffff;
+            --registry-contents-active-link-colour: #40ffff;
+
+            --extension-index-entry-colour: #c0c0c0;
+            --extension-index-name-colour: #000000;
+            --extension-index-error-colour: #008080;
+           
+            --safe-button-background-colour: rgb(31, 136, 61);
+            --dangerous-button-background-colour: rgb(136, 31, 61);
+        	--button-text-background-colour: #ffffff;
+         	
+        	--syntaxdefinition-colour: #e0e0ff;
+        	--syntaxheading-colour: #7f0000;
+        	--syntaxfunction-colour: #ffe0e0;
+        	--syntaxreserved-colour: #e0e0ff;
+        	--syntaxelement-colour: #e0e0ff;
+        	--syntaxidentifier-colour: #e0e0ff;
+        	--syntaxcharacter-colour: #e0e0ff;
+        	--syntaxconstant-colour: #e0e0ff;
+        	--syntaxstring-colour: #c0c0ef;
+        	--syntaxplain-colour: #e0e0ff;
+        	--syntaxextract-colour: #ff8000;
+        	--syntaxcomment-colour: #e0e0ff;
+
+            --paste-active-colour: #a05050;
+            --paste-passive-colour: #505050;
+            --paste-background-colour: #090b0d;
+
+            --md-background-colour: #090b0d;
+            --md-transcript-background-colour: #091919;
+            --md-code-background-colour: #191909;
+            --md-dashed-border-colour: #CfAf32;
+            --md-extract-inform7-box-colour: #123456;
+            --md-extract-problem-box-colour: #1f111f;
+            --md-extract-code-box-colour: #1f111f;
+            --md-shaded-box-colour: #111111;
+            --md-transcript-deletion-colour: #ffdddd;
+            --md-transcript-insertion-colour: #ddffdd;
+            --light-border-colour: #30373e;
+            
+            --documentation-index-majuscule-letter-colour: #000000;
+            --documentation-index-majuscule-colour: #808080;
+            --documentation-index-see-colour: #AAAAAA;
+            --documentation-index-gloss-colour: #ff8080;
+            --documentation-index-a-colour: #ffff80;
+            --documentation-index-b-colour: #808000;
+            --documentation-index-c-colour: #d8A0ff;
+            --documentation-index-letter-active-bg-colour: #3f3f3f;
+            --documentation-index-letter-passive-bg-colour: #202020;
+
+            --problem-bad-colour: #80ffff;
+            --problem-good-colour: #ff80ff;
+            --problem-phrase-colour: #808080;
+            --problem-token-colour: #20ffa0;
+            --problem-token-desc-colour: #C0C0ff;
+            --problem-token-value-colour: #00c0c0;
+
+            --documentation-duplex-paper-colour: #ffffff;
+            --documentation-duplex-left-colour: #111111;
+            --documentation-duplex-right-colour: #00001a;
+            --documentation-nav-heading-background-colour: #111111; 
+            --documentation-nav-background-colour: #000000;
+            --documentation-nav-heading-colour: #E0E0E0;
+            --documentation-nav-active-link-colour: #300000;
+            --documentation-nav-passive-link-colour: #E0E0E0;
+
+        	--dotted-link-underline-colour: #AAAAAA;
+        	--registry-section-colour: #AAAAAA;
+        	--registry-button-text-colour: #ffffff;
+        	--registry-builtin-text-colour: #777777;
+        	--registry-installed-button-colour: #000000;
+        	--registry-uninstalled-button-colour: #000022;
+        	--registry-button-border-colour: #ffffff;
+        	--registry-button-revealer-colour: #bbbbbb;
+        	--registry-button-update-colour: #114400;
+        	--registry-button-revert-colour: #224400;
+
+        	--example-cartouche-border-colour: #E0E0D0;
+        	--example-cartouche-background-colour: #222211;
+            --example-cartouche-label-colour: #ffffff;
+            --example-cartouche-label-background-colour: #FF2020;
+        	--example-cartouche-star-colour: #FFD700;
+           }
+        }
+
+        /* The default font (family) and size */
+
+        body, p, td {
+            font-family: var(--informdefault-fontfamily);
+            -webkit-font-smoothing: antialiased;
+            font-size: 0.8rem; /* 12/12 * 100/125 */
+        }
+
+        /* For fixed-point material within text, such as the typing on the Library Card index page */
+
+        span.typewritten {
+            font-family: var(--informmonospaced-fontfamily);
+            font-size: 0.867rem; /* 13/12 * 100/125 */
+        }
+
+        /* For less important material: the small print */
+
+        span.smaller {
+            font-size: 80%;
+        }
+
+        /* The "heading panel" is the coloured box, high up on the page. The colours
+        vary depending on the page: for example, the style on a report of a translation
+        with no problems is "headingpanelsucceeded", usually green, but if there were
+        problems then "headingpanelfailed" is used, which is usually red. "headingpanel"
+        itself is a more neutral grey by default. "headingpanelDark" is an alternative
+        look to make the extensions index pages have some visual contrast with the others;
+        by default they are a darker grey. */
+
+        .headingpanel {
+            background: var(--heading-panel-background-colour);
+        }
+        .headingpanelsucceeded {
+            background: var(--heading-panel-succeeded-background-colour);
+        }
+        .headingpanelfailed {
+            background: var(--heading-panel-failed-background-colour);
+        }
+        .headingpanelalt {
+            background: var(--heading-panel-alt-background-colour);
+        }
+
+        /* Heading panels have two lines of text: an upper one in a larger size, and a
+        lower one in a smaller. Again, the alt versions are meant to contrast.
+
+            Report on Translation: Succeeded                <-- headingpaneltext
+            Produced by Inform 10.1.0 (build 6U97)          <-- headingpanelrubric
+
+            Installed Extensions                            <-- headingpaneltextalt
+            Bundles of extra rules or phrases to...         <-- headingpanelrubricalt
+
+        */
+
+        span.headingpaneltext {
+            color: var(--heading-panel-text-colour);
+            font-family: var(--informdefault-fontfamily);
+            -webkit-font-smoothing: antialiased;
+            font-size: 1.333rem; /* 20/12 * 100/125 */
+            font-weight: bold;
+        }
+        span.headingpaneltextalt {
+            color: var(--heading-panel-alt-text-colour);
+            font-family: var(--informdefault-fontfamily);
+            -webkit-font-smoothing: antialiased;
+            font-size: 1.333rem; /* 20/12 * 100/125 */
+            font-weight: bold;
+        }
+
+        span.headingpanelrubric {
+            color: var(--heading-panel-text-colour);
+            font-family: var(--informdefault-fontfamily);
+            -webkit-font-smoothing: antialiased;
+            font-size: 0.733rem; /* 11/12 * 100/125 */
+            font-weight: bold;
+        }
+        span.headingpanelrubricalt {
+            color: var(--heading-panel-alt-text-colour);
+            font-family: var(--informdefault-fontfamily);
+            -webkit-font-smoothing: antialiased;
+            font-size: 0.733rem; /* 11/12 * 100/125 */
+            font-weight: bold;
+        }
+
+        /* This styles the (usually white) text of the example numbers written inside
+        oval blobs in the extension documentation, which mimic the look of the in-app
+        documentation. */
+
+        .oval, .oval td {
+            background-image:url('inform:/doc_images/ovoid.png');
+            color:white;
+        }
+
+        /* Styling used in the extension documentation indexes: */
+
+        /* Used for extension names in the extensions pane of the app */
+
+        span.extensioncensusentry {
+            color: var(--extension-index-name-colour);
+        }
+
+        span.extensionindexentry {
+            color: var(--extension-index-entry-colour);
+        }
+
+        span.extensionindexerror {
+        	color: var(--extension-index-error-colour);
+        }
+
+        /* Seen in problem messages: */
+
+        span.problemred {
+            color: var(--problem-bad-colour);
+        }
+
+        span.problemgreen {
+            color: var(--problem-good-colour);
+        }
+
+        span.phraseword {
+            color: var(--problem-phrase-colour);
+        }
+
+        span.phrasetokentext {
+            color: var(--problem-token-colour);
+        }
+
+        span.phrasetokendesctext {
+            color: var(--problem-token-desc-colour);
+        }
+
+        span.phrasetokenvaluetext {
+            color: var(--problem-token-value-colour);
+        }
+
+        /* Now we move on to styling used in the Index pages only: */
+
+        /* The periodic table display has "sidebars", usually grey and taller than they
+        are wide; they contain no text. */
+
+        div.periodictablesidebarcolour {
+            background: var(--periodic-table-sidebar-colour);
+        }
+        div.periodictablesidebar:hover {
+            background: var(--periodic-table-sidebar-hover-colour);
+        }
+
+        /* The text of the element-abbreviation, such as "Lx" or "Ph", uses: */
+
+        span.elementtext {
+            color: var(--periodic-table-element-text-colour);
+            font-size: 1.333rem; /* 20/12 * 100/125 */
+            font-weight: bold;
+        }
+
+        /* Similarly for the "atomic number" - a single digit - in the top left corner
+        of these boxes: */
+
+        span.elementnumbertext {
+            color: var(--periodic-table-element-text-colour);
+            font-size: 0.622rem; /* 7/12 * 96/72 * 100/125 */
+        }
+
+        /* For the text of the element title, to the right of the element box: */
+
+        span.elementtitletext {
+            color: var(--periodic-table-element-text-colour);
+            font-size: 0.6rem; /* 9/12 * 100/125 */
+            font-weight: bold;
+        }
+
+        /* The banner at the top of each element: */
+
+        table.elementbanner {
+            background: var(--element-banner-background-colour);
+        }
+
+        /* For the typewriting on the Library Card: */
+
+        span.librarycardtitle {
+            color: var(--library-card-title-colour);
+        }
+
+        span.librarycardother {
+            color: var(--library-card-other-colour);
+        }
+
+        /* Generically used for "more details" boxes in the index: */
+
+        table.indexmorebox {
+        	background-color: var(--index-more-box-background-colour);
+            border-radius: 8px;
+        }
+
+        /* But not for activity contents: */
+
+        table.indexactivitycontents {
+        	background-color: var(--index-activity-contents-background-colour);
+            border-radius: 8px;
+        }
+
+        /* For responses in index entries about rules: */
+
+        span.indexresponseletter {
+            color: var(--index-response-letter-colour);
+            font-family: var(--informmonospaced-fontfamily);
+            background-color: var(--index-response-letter-background-colour);
+        }
+
+        span.indexresponsetext {
+            color: var(--index-response-text-colour);
+        }
+
+        /* Used ubiquitously throughout the index for unemphasised text: */
+
+        span.indexblack {
+        	color: var(--index-plain-text-colour);
+        }
+
+        span.indexgrey {
+        	color: var(--index-tinted-text-colour);
+        }
+
+        span.indexdarkgrey {
+            color: var(--index-dark-text-colour);
+        }
+
+        span.indexdullred {
+            color: var(--index-dull-red-colour);
+        }
+
+        span.indexdullgreen {
+            color: var(--index-dull-green-colour);
+        }
+
+        span.indexdullblue {
+            color: var(--index-dull-blue-colour);
+        }
+
+        /* Used in the numbering of levels of the World map in the Index */
+
+        span.indexmaplevelnumbers {
+        	color: var(--index-map-room-number-colour);
+        }
+
+        /* Used for the room squares in the World map in the Index (which is currently
+        a table with one row of one column) */
+
+        table.indexmaproom {
+        	border-color: var(--index-map-room-border-colour);
+        }
+
+        /* Used e.g. for title rows in the Chart of basic kinds in the Index */
+
+        tr.headingrow {
+        	background-color: var(--heading-row-background-colour);
+        }
+
+        /* Standard rows have black text on striped background colours, these being
+        the usual ones seen in Mac OS X applications such as iTunes. */
+
+        tr.stripeone {
+        	background-color: var(--stripe-one-background-colour);
+        }
+
+        tr.stripetwo {
+        	background-color: var(--stripe-two-background-colour);
+        }
+
+        tr.tintedrow {
+        	background-color: var(--stripe-tinted-background-colour);
+        }
+
+        /* In the Figures index, this is the background colour used behind images
+        (though in fact it will only be visible if the image fails to load, or uses
+        transparency): */
+
+        div.figureindexbox {
+        	background-color: var(--index-response-text-colour);
+        }
+
+        /* To get the book-contents-page style leaders on the Contents element of
+           the index to work, these must use the background colour of the body of
+           the page, whatever that is: */
+
+        ul.leaders li.leaded span:first-child {
+            background: var(--leaders-background-colour);
+        }
+        ul.leaders li.leaded span + span {
+            background: var(--leaders-background-colour);
+        }
+
+        /* On Registry index pages (such as the Public Library), these are used for
+        download buttons and the like: */
+
+        span.registrybuttontext {
+        	font-size: 0.733rem; /* 11/12 * 100/125 */
+        	border-color: var(--registry-button-border-colour);
+        }
+
+        span.registryminibuttontext {
+        	font-size: 0.667rem; /* 10/12 * 100/125 */
+        	border-color: var(--registry-button-border-colour);
+        }
+
+        span.registrybuttonuninstalled {
+        	color: var(--registry-button-text-colour);
+        	background: var(--registry-uninstalled-button-colour);
+        }
+
+        span.registrybuttoninstalled {
+        	color: var(--registry-button-text-colour);
+        	background: var(--registry-installed-button-colour);
+        	pointer-events: none;
+        }
+
+        span.registrybuttonbuiltin {
+        	color: var(--registry-builtin-text-colour);
+        	background: var(--registry-installed-button-colour);
+        	pointer-events: none;
+        }
+
+        span.registrybuttonupdate {
+        	color: var(--registry-button-text-colour);
+        	background: var(--registry-button-update-colour);
+        }
+
+        span.registrybuttonrevert {
+        	color: var(--registry-button-text-colour);
+        	background: var(--registry-button-revert-colour);
+        }
+
+        span.registrybuttonrevealer {
+        	color: var(--registry-button-text-colour);
+        	background: var(--registry-button-revealer-colour);
+        }
+
+        /* Registry index section headings: */
+
+        span.registrysectionname {
+            font-family: var(--informdefault-fontfamily);
+        	-webkit-font-smoothing: antialiased;
+        	font-size: 1.067rem; /* 16/12 * 100/125 */
+        	line-height: 1.2rem; /* 18/12 * 100/125 */
+        }
+        span.registrysubsectionname {
+            font-family: var(--informdefault-fontfamily);
+        	-webkit-font-smoothing: antialiased;
+        	font-size: 0.933rem; /* 14/12 * 100/125 */
+        	line-height: 1.067rem; /* 16/12 * 100/125 */
+        }
+
+        /* These are for the "mark" for a section, usually a section-symbol and number */
+
+        span.registrysectionmark {
+            font-family: var(--informdefault-fontfamily);
+        	-webkit-font-smoothing: antialiased;
+        	font-size: 1.067rem; /* 16/12 * 100/125 */
+        	line-height: 1.2rem; /* 18/12 * 100/125 */
+        	var(--registry-section-colour);
+        }
+        span.registrysubsectionmark {
+            font-family: var(--informdefault-fontfamily);
+        	-webkit-font-smoothing: antialiased;
+        	font-size: 0.933rem; /* 14/12 * 100/125 */
+        	line-height: 1.067rem; /* 16/12 * 100/125 */
+        	var(--registry-section-colour);
+        }
+
+        /* Text of an item listed in a registry: */
+
+        span.registryitemtext {
+            font-family: var(--informdefault-fontfamily);
+        	-webkit-font-smoothing: antialiased;
+        	font-size: 0.8rem; /* 12/12 * 100/125 */
+        	line-height: 1.067rem; /* 16/12 * 100/125 */
+        }
+
+        /* And how the links in a registry index page behave: */
+
+        a.registrysilentlink {
+        	text-decoration: none;
+        	color: var(--registry-contents-silent-link-colour);
+        }
+        a.registrybuttonlink {
+        	text-decoration: none;
+        }
+        a.registrycontentslink:link {
+        	text-decoration: underline;
+        	text-decoration-style: dotted;
+        	color: var(--registry-contents-passive-link-colour);
+        }
+        a.registrycontentslink:visited {
+        	text-decoration: underline;
+        	text-decoration-style: dotted;
+        	color: var(--registry-contents-passive-link-colour);
+        }
+        a.registrycontentslink:hover {
+        	text-decoration: underline;
+        	text-decoration-style: dotted;
+        	color: var(--registry-contents-active-link-colour);
+        }
+        a.registrycontentslink:active {
+        	text-decoration: underline;
+        	text-decoration-style: dotted;
+        	color: var(--registry-contents-active-link-colour);
+        }
+
+        /* Buttons for use on inbuild results pages */
+
+        button.safebutton {
+        	background-color: var(--safe-button-background-colour);
+        	border: none;
+        	color: var(--button-text-background-colour);
+        	padding: 15px 32px;
+        	text-align: center;
+        	text-decoration: none;
+        	display: inline-block;
+        	font-size: 1.067rem; /* 16/12 * 100/125 */
+        	margin: 4px 2px;
+        	cursor: pointer;
+        }
+
+        button.dangerousbutton {
+        	background-color: var(--dangerous-button-background-colour);
+        	border: none;
+        	color: var(--button-text-background-colour);
+        	padding: 15px 32px;
+        	text-align: center;
+        	text-decoration: none;
+        	display: inline-block;
+        	font-size: 1.067rem; /* 16/12 * 100/125 */
+        	margin: 4px 2px;
+        	cursor: pointer;
+        }
+
+        /* Used in rendering Markdown in extension documentation */
+
+        .markdowncontent p {
+        	line-height: 1.2rem; /* 18/12 * 100/125 */
+        }
+
+        .markdowncontent em { font-style: italic; }
+        .markdowncontent strong { font-weight: bold; }
+        .markdowncontent pre {
+        	line-height: 1.067rem; /* 16/12 * 100/125 */
+        }
+        .markdowncontent code.inlinesourcetext {
+        	font-size: 90%;
+        	background-color: var(--md-extract-inform7-box-colour);
+        	font-family: var(--informdefault-fontfamily);
+        	border-bottom-left-radius: 6px;
+        	border-bottom-right-radius: 6px;
+        	border-top-left-radius: 6px;
+        	border-top-right-radius: 6px;
+        	box-sizing: border-box;
+        	padding-bottom: 2.38px;
+        	padding-left: 4.76px;
+        	padding-right: 4.76px;
+        	padding-top: 2.38px;
+        	white-space: nowrap;
+        	width: auto;
+        }
+        .markdowncontent code.inlinetranscript {
+        	background-color: var(--md-transcript-background-colour);
+        	font-family: var(--informcode-fontfamily);
+        	font-size: 90%;
+        	color: var(--syntaxplain-colour);
+        	border-bottom-left-radius: 6px;
+        	border-bottom-right-radius: 6px;
+        	border-top-left-radius: 6px;
+        	border-top-right-radius: 6px;
+        	box-sizing: border-box;
+        	padding-bottom: 2.38px;
+        	padding-left: 4.76px;
+        	padding-right: 4.76px;
+        	padding-top: 2.38px;
+        	white-space: nowrap;
+        	width: auto;
+        }
+        .markdowncontent code.inlinetranscriptcommand {
+        	background-color: var(--md-transcript-background-colour);
+        	text-transform: uppercase;
+        	font-family: var(--informcode-fontfamily);
+        	font-size: 90%;
+        	color: var(--syntaxextract-colour);
+        	border-bottom-left-radius: 6px;
+        	border-bottom-right-radius: 6px;
+        	border-top-left-radius: 6px;
+        	border-top-right-radius: 6px;
+        	box-sizing: border-box;
+        	padding-bottom: 2.38px;
+        	padding-left: 4.76px;
+        	padding-right: 4.76px;
+        	padding-top: 2.38px;
+        	white-space: nowrap;
+        	width: auto;
+        }
+        .markdowncontent code.inlinecode {
+        	font-size: 90%;
+        	font-family: var(--informcode-fontfamily);
+        	background-color: var(--md-code-background-colour);
+        	border-bottom-left-radius: 6px;
+        	border-bottom-right-radius: 6px;
+        	border-top-left-radius: 6px;
+        	border-top-right-radius: 6px;
+        	box-sizing: border-box;
+        	padding-bottom: 2.38px;
+        	padding-left: 4.76px;
+        	padding-right: 4.76px;
+        	padding-top: 2.38px;
+        	white-space: nowrap;
+        	width: auto;
+        }
+
+        .markdowncontent div.extract-transcript {
+        	margin: 0.75em;
+        	margin-inline-start: 40px;
+        	margin-inline-end: 40px;
+        	padding: 0.75em;
+        	border: 1px dotted var(--md-dashed-border-colour);
+        	background-color: var(--md-transcript-background-colour);
+        }
+
+        .markdowncontent div.extract-transcript pre {
+        	white-space: pre-wrap;
+        }
+
+        .markdowncontent div.extract-code {
+        	margin: 0.75em;
+        	padding: 0.75em;
+        	border: 1px dotted var(--md-dashed-border-colour);
+        	background-color: var(--md-code-background-colour);
+        }
+
+        .markdowncontent div.extract-problems {
+        	margin: 0.75em;
+        	padding: 0.75em;
+        	border: 1px dotted var(--md-dashed-border-colour);
+        	background-color: var(--md-extract-problem-box-colour);
+        }
+
+        .markdowncontent blockquote.extract-inform7 {
+        	padding: 0.75em;
+        	border: 1px dotted var(--md-dashed-border-colour);
+        	background-color: var(--md-extract-inform7-box-colour);
+        }
+
+        .markdowncontent blockquote.extract-inform7 td, th {
+        	border: 0px;
+        	padding: 0px;
+        }
+
+        .markdowncontent code.language-transcript {
+            font-family: var(--informdefault-fontfamily);
+        }
+
+        .markdowncontent div.definition {
+        	margin: 0.75em;
+        	padding: 0.75em;
+        	border: 1px dashed var(--md-dashed-border-colour);
+        	background-color: var(--md-shaded-box-colour);
+        }
+
+        .markdowncontent div.definition p.defnprototype {
+        	margin: 0;
+        	padding: 0;
+        	text-indent: 0;
+        }
+
+        .markdowncontent table {
+        	border-spacing: 0;
+        	border-collapse: collapse;
+        }
+
+        .markdowncontent table th, .markdowncontent table td {
+        	padding: 4px 10px;
+        	border: 1px solid var(--light-border-colour);
+        }
+
+        /* Used in syntax-colouring for extension documentation */
+
+        span.syntaxdefinition { color: var(--syntaxdefinition-colour); }
+        span.syntaxheading { color: var(--syntaxheading-colour); text-decoration: underline; }
+        span.syntaxfunction { color: var(--syntaxfunction-colour); font-style: italic; }
+        span.syntaxplain { color: var(--syntaxplain-colour); }
+        span.syntaxelement { color: var(--syntaxelement-colour); }
+        span.syntaxidentifier { color: var(--syntaxidentifier-colour); }
+        span.syntaxcharacter { color: var(--syntaxcharacter-colour); }
+        span.syntaxconstant { color: var(--syntaxconstant-colour); }
+        span.syntaxstring { color: var(--syntaxstring-colour); }
+        span.syntaxplain { color: var(--syntaxplain-colour); }
+        span.syntaxextract { color: var(--syntaxextract-colour); }
+        span.syntaxcomment { color: var(--syntaxcomment-colour); }
+
+        p.documentationerrorbox {
+        	padding: 6px;
+        }
+        span.documentationerror {
+        	background-color: var(--dangerous-button-background-colour);
+        	color: var(--button-text-background-colour);
+        	padding: 15px 32px;
+        	margin: 4px 2px;
+        }
+
+        /* For example box cues */
+
+        div.examplebox {
+        	margin-top: 6px;
+        	padding-top: 4px;
+        	border-width: 1px;
+        	border-style: inset;
+        	border-radius: 12px;
+        	padding-bottom: 4px;
+        	margin-bottom: 2px;
+        	border-color: var(--example-cartouche-border-colour);
+        	background-color: var(--example-cartouche-background-colour);
+        	height: 100%;
+        }
+
+        div.examplebox:after {
+        	content: "";
+        	display: table;
+        	clear: both;
+        }
+        div.examplebox div.exampleleft {
+        	float: left;
+        	box-sizing: border-box;
+        	width: 10%;
+        	height: 30px;
+        	padding: 8px 0;
+        	text-align: center;
+        }
+        div.examplebox div.examplemiddle {
+        	float: left;
+        	box-sizing: border-box;
+        	width: 80%;
+        }
+        div.examplebox div.exampleright {
+        	float: left;
+        	box-sizing: border-box;
+        	width: 10%;
+        	height: 30px;
+        	padding: 8px 0;
+        	text-align: center;
+        }
+
+        span.examplestars {
+        	color: var(--example-cartouche-star-colour);
+        }
+
+        span.exampleword {
+            color: var(--index-dark-text-colour);
+            padding-right: 8px;
+        }
+
+        span.examplename {
+        	color: var(--index-plain-text-colour);
+        }
+
+        span.exampledescription {
+        	color: var(--index-plain-text-colour);
+        }
+
+        span.extensionexampleletter {
+        	color: var(--example-cartouche-label-colour);
+        	font-size: 0.933rem; /* 14/12 * 100/125 */
+        	font-weight: bold;
+        	border-width: 1px;
+        	background-color: var(--example-cartouche-label-background-colour);
+        	border-radius: 12px;
+        	box-sizing: border-box;
+        	padding-bottom: 4px;
+        	padding-left: 12px;
+        	padding-right: 12px;
+        	padding-top: 4px;
+        }
+
+        span.extensionexampleseealso {
+        	color: var(--heading-panel-text-colour);
+        	font-size: 0.933rem; /* 14/12 * 100/125 */
+        	font-style: italic;
+        	background-color: var(--example-see-also-colour);
+        	border-bottom-left-radius: 12px;
+        	border-bottom-right-radius: 12px;
+        	border-top-left-radius: 12px;
+        	border-top-right-radius: 12px;
+        	box-sizing: border-box;
+        	padding-bottom: 4px;
+        	padding-left: 8px;
+        	padding-right: 8px;
+        	padding-top: 4px;
+        	min-width: 30px;
+        	width: auto;
+        }
+
+        /* For outcome pages */
+
+        .outcomeheadingpanellayout {
+        	position: relative;
+        	height: 56px;
+        	padding: 0px;
+        	white-space:nowrap;
+        }
+        .outcomeheadingtext {
+        	position: absolute;
+        	top: -4px;
+        	left: -1px;
+        	width: 100%;
+        	padding: 14px 10px 0px 10px;
+        }
+        .outcomeheadingrubric {
+        	position: absolute;
+        	top: 36px;
+        	width: 100%;
+        	padding: 0px 10px 0px 10px;
+        }
+
+        div.outcomebox div.outcomeleft {
+        	float: left;
+        	box-sizing: border-box;
+        	width: 100px;
+        	height: 100px;
+        	padding-left: 8px;
+        	padding-right: 8px;
+        }
+        div.outcomebox div.outcomeright {
+        	margin-left: 120px;
+        	box-sizing: border-box;
+        }
+
+        /* New-style paste button */
+
+        a.actionlink {
+        	background-color: var(--paste-background-colour);
+        	text-decoration: none;
+        	font-size: 80%;
+        	border-radius: 6px;
+        	text-transform: uppercase;
+        	padding: 2px;
+        	padding-left: 6px;
+        	padding-right: 6px;
+        	border: solid 1px;
+        	box-shadow: 2px 1px;
+        }
+        a.actionlink:link {
+        	text-decoration: none;
+        	color: var(--paste-passive-colour);
+        	border-color: var(--paste-passive-colour);
+        }
+        a.actionlink:visited {
+        	text-decoration: none;
+        	color: var(--paste-passive-colour);
+        	border-color: var(--paste-passive-colour);
+        }
+        a.actionlink:hover {
+        	text-decoration: none;
+        	color: var(--paste-active-colour);
+        	border-color: var(--paste-active-colour);
+        }
+        a.actionlink:active {
+        	text-decoration: none;
+        	color: var(--paste-active-colour);
+        	border-color: var(--paste-active-colour);
+        }
+        span.deadactionbutton {
+        	background-color: var(--paste-background-colour);
+        	text-decoration: none;
+        	font-size: 80%;
+        	border-radius: 6px;
+        	text-transform: uppercase;
+        	padding: 2px;
+        	padding-left: 6px;
+        	padding-right: 6px;
+        	border: solid 1px;
+        }
+
+        /* (1) General layout material */
+
+        *, *:before, *:after {
+        	-moz-box-sizing: border-box;
+        	-webkit-box-sizing: border-box;
+        	box-sizing: border-box;
+        }
+        .headingpanellayout {
+        	position: relative;
+        	height: 56px;
+        	padding: 0px;
+        	white-space:nowrap;
+        }
+        .headingpanellayoutdeeper {
+        	position: relative;
+        	height: 117px;
+        	padding: 0px;
+        	white-space:nowrap;
+        }
+        .headingtext {
+        	position: absolute;
+        	top: -4px;
+        	left: -1px;
+        	width: 100%;
+        	padding: 14px 10px 0px 10px;
+        }
+        .headingrubric {
+        	position: absolute;
+        	top: 36px;
+        	width: 100%;
+        	padding: 0px 10px 0px 10px;
+        }
+        h3.tighter {
+        	margin-top: 0px;
+        }
+        p.hang {
+        	padding-left: 25px;
+        	text-indent: -25px;
+        	margin-top: 0px;
+        	margin-bottom: 0px;
+        }
+        p.in1 {
+        	padding-left: 0px;
+        }
+        p.tightin1 {
+        	padding-left: 0px;
+        	margin-top: 2px;
+        	margin-bottom: 2px;
+        }
+        p.halftightin1 {
+        	padding-left: 0px;
+        	margin-bottom: 2px;
+        }
+        p.hangingin1 {
+        	padding-left: 50px;
+        	text-indent: -50px;
+        	margin-top: 0px;
+        	margin-bottom: 1px;
+        }
+        p.in2 {
+        	padding-left: 25px;
+        }
+        p.tightin2 {
+        	padding-left: 25px;
+        	margin-top: 2px;
+        	margin-bottom: 2px;
+        }
+        p.halftightin2 {
+        	padding-left: 25px;
+        	margin-bottom: 2px;
+        }
+        p.hangingin2 {
+        	padding-left: 75px;
+        	text-indent: -50px;
+        	margin-top: 0px;
+        	margin-bottom: 1px;
+        }
+        p.in3 {
+        	padding-left: 50px;
+        }
+        p.tightin3 {
+        	padding-left: 50px;
+        	margin-top: 2px;
+        	margin-bottom: 2px;
+        }
+        p.halftightin3 {
+        	padding-left: 50px;
+        	margin-bottom: 2px;
+        }
+        p.hangingin3 {
+        	padding-left: 100px;
+        	text-indent: -50px;
+        	margin-top: 0px;
+        	margin-bottom: 1px;
+        }
+        p.in4 {
+        	padding-left: 75px;
+        }
+        p.tightin4 {
+        	padding-left: 75px;
+        	margin-top: 2px;
+        	margin-bottom: 2px;
+        }
+        p.halftightin4 {
+        	padding-left: 75px;
+        	margin-bottom: 2px;
+        }
+        p.hangingin4 {
+        	padding-left: 125px;
+        	text-indent: -50px;
+        	margin-top: 0px;
+        	margin-bottom: 1px;
+        }
+        p.in5 {
+        	padding-left: 100px;
+        }
+        p.tightin5 {
+        	padding-left: 100px;
+        	margin-top: 2px;
+        	margin-bottom: 2px;
+        }
+        p.halftightin5 {
+        	padding-left: 100px;
+        	margin-bottom: 2px;
+        }
+        p.hangingin5 {
+        	padding-left: 150px;
+        	text-indent: -50px;
+        	margin-top: 0px;
+        	margin-bottom: 1px;
+        }
+        p.in6 {
+        	padding-left: 125px;
+        }
+        p.tightin6 {
+        	padding-left: 125px;
+        	margin-top: 2px;
+        	margin-bottom: 2px;
+        }
+        p.halftightin6 {
+        	padding-left: 125px;
+        	margin-bottom: 2px;
+        }
+        p.hangingin6 {
+        	padding-left: 175px;
+        	text-indent: -50px;
+        	margin-top: 0px;
+        	margin-bottom: 1px;
+        }
+        p.in7 {
+        	padding-left: 150px;
+        }
+        p.tightin7 {
+        	padding-left: 150px;
+        	margin-top: 2px;
+        	margin-bottom: 2px;
+        }
+        p.halftightin7 {
+        	padding-left: 150px;
+        	margin-bottom: 2px;
+        }
+        p.hangingin7 {
+        	padding-left: 200px;
+        	text-indent: -50px;
+        	margin-top: 0px;
+        	margin-bottom: 1px;
+        }
+        p.in8 {
+        	padding-left: 175px;
+        }
+        p.tightin8 {
+        	padding-left: 175px;
+        	margin-top: 2px;
+        	margin-bottom: 2px;
+        }
+        p.halftightin8 {
+        	padding-left: 175px;
+        	margin-bottom: 2px;
+        }
+        p.hangingin8 {
+        	padding-left: 225px;
+        	text-indent: -50px;
+        	margin-top: 0px;
+        	margin-bottom: 1px;
+        }
+        p.in9 {
+        	padding-left: 200px;
+        }
+        p.tightin9 {
+        	padding-left: 200px;
+        	margin-top: 2px;
+        	margin-bottom: 2px;
+        }
+        p.halftightin9 {
+        	padding-left: 200px;
+        	margin-bottom: 2px;
+        }
+        p.hangingin9 {
+        	padding-left: 250px;
+        	text-indent: -50px;
+        	margin-top: 0px;
+        	margin-bottom: 1px;
+        }
+
+        /* (2) Index page layout material */
+
+        /* The periodic table display has "sidebars", usually grey and taller than they
+        are wide; they contain no text. */
+
+        div.periodictablesidebar {
+        	height: 56px;
+        	width: 16px;
+        }
+        .periodictablesidebar a:link { text-decoration: none; }
+        .periodictablesidebar a:visited { text-decoration: none; }
+        .periodictablesidebar a:active { text-decoration: none; }
+
+        /* The "element boxes" are the cells appearing in the periodic-table display
+        on the welcome page of the index: */
+
+        .elementbox {
+        	position: relative;
+        	height: 56px;
+        	width: 56px;
+        	padding: 0px;
+        }
+
+        .elementbox a:link { text-decoration: none; }
+        .elementbox a:visited { text-decoration: none; }
+        .elementbox a:active { text-decoration: none; }
+        .elementbox a:hover { text-decoration: none; }
+        .elementbox:hover {
+        	opacity: 0.6;
+        }
+
+        /* The "small element boxes" look like those, but are smaller, and used on
+        the headings of the content which those original boxes link to: */
+
+        .smallelementbox {
+        	position: relative;
+        	height: 40px;
+        	width: 40px;
+        	padding: 0px;
+        }
+
+        .smallelementbox a:link { text-decoration: none; }
+        .smallelementbox a:visited { text-decoration: none; }
+        .smallelementbox a:active { text-decoration: none; }
+        .smallelementbox a:hover { text-decoration: none; }
+        .smallelementbox:hover {
+        	opacity: 0.6;
+        }
+
+        /* This is a class for the links formed by the element boxes: */
+
+        a.elementlink {
+        	position: absolute;
+        	top: -4px;
+        	left: -1px;
+        	width: 100%;
+        	padding: 14px 0px 14px 1px;
+        	text-align: center;
+        }
+
+        /* Similarly for the "atomic number" - a single digit - in the top left corner
+        of these boxes: */
+
+        div.elementnumber {
+        	position: absolute;
+        	top: 1px;
+        	left: 3px;
+        	text-align: left;
+        }
+
+        /* For the text of the element title, to the right of the element box: */
+
+        div.elementtitle {
+        	position: absolute;
+        	top: 35px;
+        	width: 100%;
+        	text-align: center;
+        }
+
+        /* Used for the book-contents-page style leaders on the Contents element of
+           the index: */
+
+        ul.leaders {
+        	padding: 0;
+        	margin-top: 1px;
+        	margin-bottom: 0;
+        	overflow-x: hidden;
+        	list-style: none}
+        ul.leaders li.leaded:before {
+        	float: left;
+        	width: 0;
+        	white-space: nowrap;
+        	content:
+        	".  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  "
+        	".  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  "
+        	".  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  "
+        	".  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  "
+        	".  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  "
+        	".  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  "
+        	".  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  "
+        	".  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  "
+        	".  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  "
+        	".  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  "}
+        ul.leaders li.leaded span:first-child {
+        	padding-right: 0.33em;
+        }
+        ul.leaders li.leaded span + span {
+        	float: right;
+        	padding-left: 0.33em;
+        }
+        li.indent1 span:first-child {
+        	padding-left: 25px;
+        }
+        li.indent2 span:first-child {
+        	padding-left: 50px;
+        }
+        li.indent3 span:first-child {
+        	padding-left: 75px;
+        }
+        li.indent4 span:first-child {
+        	padding-left: 100px;
+        }
+        li.indent5 span:first-child {
+        	padding-left: 125px;
+        }
+        li.indent6 span:first-child {
+        	padding-left: 150px;
+        }
+        li.indent7 span:first-child {
+        	padding-left: 175px;
+        }
+        li.indent8 span:first-child {
+        	padding-left: 200px;
+        }
+        li.indent9 span:first-child {
+        	padding-left: 225px;
+        }
+
+        li.unleaded:before {
+        	content: "";
+        }
+
+        /* Used for the contents pages in extensions indexes: */
+
+        ul.extensioncontents {
+        	padding: 0;
+        	margin-top: 4px;
+        	overflow-x: hidden;
+        	list-style: none
+        }
+
+        li.exco1 {
+        	margin-top: 4px;
+        	padding-left: 0px;
+        	margin-bottom: 6px;
+        }
+
+        li.exco2 {
+        	padding-left: 20px;
+        	margin-bottom: 6px;
+        }
+
+        li.exco3 {
+        	padding-left: 40px;
+        	margin-bottom: 6px;
+        }
+
+        p.extensionsubheading {
+        	text-transform: uppercase;
+        	letter-spacing: 2px;
+        	margin-top: 12px;
+        	margin-bottom: 4px;
+        }
+
+        /* Miscellaneous extension documentation styles: */
+
+        div.documentation p {
+        	font-size: 13px;
+        	line-height: 18px;
+        }
+
+        div.documentation blockquote {
+        	font-size: 12px;
+        	line-height: 17px;
+        }
+
+        div.documentation div.definition {
+        	margin: 0.75em;
+        	padding: 0.75em;
+        	border: 1px dashed var(--md-dashed-border-colour);
+        	background-color: var(--md-shaded-box-colour);
+        }
+
+        div.definition p.defnprototype {
+        	margin: 0;
+        	padding: 0;
+        	text-indent: 0;
+        	font-weight: bold;
+        }
+
+        /* On Registry index pages (such as the Public Library), these are used for
+        download buttons and the like: */
+
+        span.registrybuttons {
+        	height: 20px;
+        	padding: 2px 8px 2px 8px;
+        	margin: 2px;
+        	border:1px solid;
+        	border-radius: 5px;
+        }
+
+        span.registryminibuttons {
+        	height: 14px;
+        	padding: 2px 5px 2px 5px;
+        	margin: 2px;
+        	border:1px solid;
+        	border-radius: 4px;
+        }
+
+        /* Used to hide or display sections in the Registry pages: */
+
+        div.registrysectionitemsopen {
+        	display: block;
+        }
+
+        div.registrysectionitemsclosed {
+        	display: none;
+        }
+
+        /* Hanging indentation for Registry item paragraphs: */
+
+        p.registryitem {
+        	padding-left: 80px;
+        	text-indent: -40px;
+        }
+
+        p.registryaddition {
+        	padding-left: 40px;
+        	text-indent: -40px;
+        }
+
+        /* General index for inbuild-generated documents: */
+
+        div.generalindex p {
+        	font-size: 16px;
+        	line-height: 20px;
+        }
+
+        div.generalindex td {
+        	font-size: 16px;
+        	line-height: 20px;
+        }
+
+        /* This is used for the horizontal row of link letters from A to Z */
+
+        div.generalindex td.letterinrow {
+        	width: 3.846%; /* 3.846 = 1/26 to pretty good accuracy */
+        	height: 30px;
+        	text-align: center;
+        	vertical-align: middle;
+        	background-color: var(--documentation-index-letter-passive-bg-colour);
+        }
+
+        div.generalindex td.letterinrow: hover {
+        	background-color: var(--documentation-index-letter-active-bg-colour);
+        }
+
+        /* This is used to hold the "majuscule" A-Z letters left of the alpha index */
+
+        div.generalindex td.letterblock {
+        	width: 38px;
+        	text-align: left;
+        	vertical-align: top;
+        }
+
+        /* Which contains links like so: */
+
+        div.generalindex a.letterlink:link, div.generalindex a.letterlink:visited {
+        	text-decoration: none;
+        	color: var(--documentation-nav-passive-link-colour);
+        	font-size: 0.75em;
+        	font-weight: bold;
+        }
+
+        div.generalindex a.letterlink:hover, div.generalindex a.letterlink:active {
+        	text-decoration: none;
+        	color: var(--documentation-nav-active-link-colour);
+        	font-size: 0.75em;
+        	font-weight: bold;
+        }
+
+        /* A single letter of majuscule is held in this tinted box: */
+
+        div.generalindex div.majuscule {
+        	width: 30px;
+        	height: 30px;
+        	text-align: center;
+        	vertical-align: middle;
+        	background-color: var(--documentation-index-majuscule-colour);
+        	display: table-cell;
+        }
+
+        /* But a wider text (such as used in other index headings) is held in this: */
+
+        div.generalindex div.stretchymajuscule {
+        	height: 30px;
+        	text-align: center;
+        	vertical-align: middle;
+        	background-color: var(--documentation-index-majuscule-colour);
+        }
+
+        /* Either way, the actual lettering inside uses this: */
+
+        div.generalindex span.majusculelettering {
+        	font-size: 0.75em;
+        	color: var(--documentation-index-majuscule-letter-colour);
+        }
+
+        div.generalindex table.fullwidth {
+        	border-collapse: collapse;
+        	width: 100%;
+        }
+
+        div.generalindex table.fullwidth td, div.generalindex table.fullwidth th {
+            padding: 0;
+        }
+
+        div.generalindex table.fullwidtharch {
+            border-spacing: 6px;
+            border-collapse: separate;
+        	width: 100%;
+        }
+
+        div.generalindex table.fullwidtharch td, div.generalindex table.fullwidtharch th {
+            padding: 0;
+        }
+
+        div.generalindex table.indextable {
+        	border-collapse: collapse;
+        	width: 100%;
+        	margin-top: 8px;
+        }
+
+        div.generalindex p.indexentry {
+        	font-size: 0.8em;
+        	margin-top: 0px;
+        	margin-bottom: 4px;
+        	text-indent: -2em;
+        	padding-left: 2em;
+        }
+
+        div.generalindex a.indexlink {
+        	color: var(--dotted-link-underline-colour);
+        	text-decoration: none;
+        	border-bottom: 1px dotted var(--dotted-link-underline-colour);
+        }
+
+        div.generalindex a.indexseelink {
+        	text-decoration: none;
+        	border-bottom: 1px dotted var(--dotted-link-underline-colour);
+        }
+
+        div.generalindex a.indexlinkalt {
+        	color: var(--dotted-link-underline-colour);
+        	text-decoration: none;
+        	border-bottom: 1px dotted var(--dotted-link-underline-colour);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexgloss {
+        	font-size: 0.7em;
+        	font-style: italic;
+        	color: var(--documentation-index-gloss-colour);
+        }
+
+        div.generalindex span.indexsee {
+        	font-style: italic;
+        	color: var(--documentation-index-see-colour);
+        }
+
+        div.generalindex span.indexstandard {
+        }
+
+        div.generalindex span.indexsource {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexsourcearg {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexsourceargbracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexsourcepartbracketed {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexphrase {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexphrasebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexifphrase {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexifphrasebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexsayphrase {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexsayphrasebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexoutphrase {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexoutphrasebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexassert {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexassertbracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexrb {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexrbbracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexprop {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexpropbracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexpropcat {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexpropcatbracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexadj {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexadjbracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexrelbracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexrelcatbracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexrelverb {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexglob {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexglobbracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexactvar {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexactvarbracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexconst {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexconstbracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexaction {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexactionbracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexactivity {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexactivitycat {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexdescactivity {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexexample {
+        	font-style: italic;
+        }
+
+        div.generalindex span.indextitle {
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexofsourcebracketed {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexuseopt {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indextoken {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indextokenbracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexcommand {
+        	color: var(--documentation-index-c-colour);
+        	font-family: var(--informcommand-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indextestcmd {
+        	color: var(--documentation-index-c-colour);
+        	font-family: var(--informcommand-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcommandpartbracketed {
+        	color: var(--documentation-index-c-colour);
+        	font-family: var(--informcommand-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        /* In Midnight, there's a black status line at the top of each page, made
+        as a "fullwidth" table which also has this class: */
+
+        div.midnight, div.midnight td {
+        	font-size: 16px;
+        	line-height: 20px;
+        }
+
+        div.midnight table.fullwidth {
+        	border-collapse: collapse;
+        	width: 100%;
+        }
+
+        div.midnight table.midnightblack {
+        	background-color: var(--documentation-duplex-paper-colour);
+        }
+
+        /* The table is a single row of three cells: */
+
+        div.midnight td.midnightbannerleftcell {
+        	height: 26px;
+        	width: 38px;
+        	text-align: center;
+        	vertical-align: middle;
+        }
+
+        div.midnight td.midnightbannercentrecell {
+        	text-align: left;
+        	vertical-align: middle;
+        }
+
+        div.midnight td.midnightbannerrightcell {
+        	height: 26px;
+        	width: 56px;
+        	text-align: right;
+        	vertical-align: middle;
+        	white-space: nowrap;
+        }
+
+        /* Within the centre cell, the running-head text is styled with: */
+
+        div.midnight span.midnightbannertext {
+        	color: var(--documentation-nav-background-colour);
+        	font-size: 0.75em;
+        }
+
+        /* Midnight pages end with a Previous - Contents - Next footer area, which is
+        done with a table using the following cells */
+
+        div.midnight td.footerprevious {
+        	width: 33%;
+        	text-align: left;
+        }
+
+        div.midnight td.footercontents {
+        	width: 33%;
+        	text-align: center;
+        }
+
+        div.midnight td.footernext {
+        	width: 33%;
+        	text-align: right;
+        }
+
+        /* Midnight features an elaborate contents page in two columns. */
+
+        div.midnight td.midnightlefthalfpage {
+        	background-color: var(--documentation-duplex-left-colour);
+        	width: 50%;
+        	text-align: left;
+        	vertical-align: top;
+        }
+
+        div.midnight td.midnightrighthalfpage {
+        	background-color: var(--documentation-duplex-right-colour);
+        	width: 50%;
+        	text-align: left;
+        	vertical-align: top;
+        }
+
+        /* There are A- and B-level subheadings: */
+
+        div.midnight p.midnightcontentsA {
+        	font-size: 0.8em;
+        	margin-top: 2px;
+            margin-bottom: 0px;
+            text-indent: -3em;
+            margin-left: 3em;
+            margin-right: 1em;
+            padding-left: 15px;
+        }
+
+        div.midnight p.midnightcontentsB {
+        	font-size: 0.75em;
+        	margin-top: 2px;
+            margin-bottom: 0px;
+            text-indent: -2em;
+            margin-left: 4em;
+            margin-right: 1em;
+            padding-left: 6px;
+        }
+
+        div.midnight div.headingboxhigh {
+        	position: relative;
+        	height: 117px;
+        	padding: 0px;
+        	white-space:nowrap;
+        	background: var(--documentation-nav-heading-background-colour);
+            font-family: var(--informdefault-fontfamily);
+        	-webkit-font-smoothing: antialiased;
+        }
+
+        div.midnight .headingtext {
+        	position: absolute;
+        	top: -4px;
+        	left: -1px;
+        	width: 100%;
+            color: var(--documentation-nav-heading-colour);
+        	padding: 14px 10px 0px 10px;
+        	font-size: 20px;
+        	font-weight: bold;
+        }
+
+        div.midnight .headingrubric {
+        	position: absolute;
+        	top: 36px;
+        	width: 100%;
+            color: var(--documentation-nav-heading-colour);
+        	padding: 0px 10px 0px 10px;
+        	font-size: 11px;
+        	font-weight: bold;
+        }
+
+        div.midnight a:link {										/* unvisited link */
+        	text-decoration: none;
+        	color: var(--documentation-nav-passive-link-colour);
+        }
+        div.midnight a:visited {									/* visited link */
+        	text-decoration: none;
+        	color: var(--documentation-nav-passive-link-colour);
+        }
+        div.midnight a:hover {										/* mouse over link */
+        	text-decoration: none;
+        	color: var(--documentation-nav-active-link-colour);
+        }
+        div.midnight a:active {										/* selected link */
+        	text-decoration: none;
+        	color: var(--documentation-nav-active-link-colour);
+        }
+
+        div.duplexleftpage {
+        	background-color: var(--documentation-duplex-left-colour);
+        }
+
+        div.duplexrightpage {
+        	background-color: var(--documentation-duplex-right-colour);
+        }
+
+        img.thinbordered {
+        	border-style: solid;
+        	border-width: 1px;
+        	display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        div.skeinreport p.skeinerror {
+        	font-weight: bold;
+        }
+
+        div.skeinreport p.node {
+        	margin: 0.75em;
+        	padding: 0.75em;
+        	border: 1px dotted var(--md-dashed-border-colour);
+        	background-color: var(--md-transcript-background-colour);
+        }
+
+        div.skeinreport span.deletion {
+        	text-decoration: line-through;
+        	text-decoration-color: var(--md-transcript-deletion-colour);
+        }
+
+        div.skeinreport span.insertion {
+        	text-decoration: underline;
+        	text-decoration-color: var(--md-transcript-insertion-colour);
+        }
+
+        -->
+    </style>
+    <script type="text/javascript">
+        function project() {
+            return window.Project;
+        }
+        function showExtra(id, imid) {
+        	if (document.getElementById(id).style.display == 'block') {
+        		document.getElementById(id).style.display = 'none';
+        		document.getElementById(imid).src = 'inform:/extra.png';
+        	} else {
+        		document.getElementById(id).style.display = 'block';
+        		document.getElementById(imid).src = 'inform:/extraclose.png';
+        	}
+        }
+        function openExtra(id, imid) {
+        	document.getElementById(id).style.display = 'block';
+        	document.getElementById(imid).src = 'inform:/extraclose.png';
+        }
+        function closeExtra(id, imid) {
+        	document.getElementById(id).style.display = 'none';
+        	document.getElementById(imid).src = 'inform:/extra.png';
+        }
+        function pasteCode(code) {
+            var myProject = project();
+
+            myProject.selectView('source');
+            myProject.pasteCode(code);
+        }
+
+    </script>
+</head>
+<body>
+    <!--CONTENT BEGINS-->
+    <div class="bookheader">
+        <div class="midnight">
+            <table class="fullwidth midnightblack">
+                <tr>
+                    <td class="midnightbannerleftcell">
+                        <a href="WI_22_4.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
+                    </td>
+                    <td class="midnightbannercentrecell">
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 22.5: Regular expression matching</span></span></a>
+                    </td>
+                    <td class="midnightbannerrightcell">
+                        <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_22_6.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="duplexleftpage">
+        <div class="markdowncontent">
+            <h3><span>Section 22.5: Regular expression matching</span></h3>
+            <p>    </p>
+            <p>When playing around with text, we tend to get into longer and trickier wrangles of matching – we find that we want to look not for simple text like <code class="inlinesourcetext">&quot;gold&quot;</code>, but for <code class="inlinesourcetext">&quot;gold&quot;</code> used only as a separate word, or for a date in YYYY-MM-DD format, or for a seemingly endless range of other possibilities. What we need is not just for Inform to provide a highly flexible matching program, but also a good notation in which to describe what we want.</p>
+            <p>Fortunately, such a notation already exists. This is the &quot;regular expression&quot; notation, named for a 1950s mathematical model by the logician Stephen Kleene, applied to computing in the late 60s by Ken Thompson, borrowed almost at once by the early Unix tools of the 70s, and developed further by Henry Spencer in the 80s and Philip Hazel in the 90s. The glue holding the Internet together – the Apache web-server, the scripting languages Perl and Python, and so forth – makes indispensable use of regular expressions.</p>
+            <p>As might be expected from the previous section, we simply have to describe the &quot;find&quot; text as <code class="inlinesourcetext">regular expression</code> rather than <code class="inlinesourcetext">text</code> and then the same facilities are available:</p>
+            <div class="definition">
+                <p class="defnprototype">if (text) matches the/-- regular expression (text):</p>
+                <p>This condition is true if any contiguous part of the text can be matched against the given regular expression. Examples:</p>
+                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;taramasalata&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">regular</span><span class="syntaxplain"> </span><span class="syntaxidentifier">expression</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;a.\*l&quot;</span><span class="syntaxplain">, ...</span>
+                </span></blockquote>
+                <p>is true, since this looks for a part of <code class="inlinesourcetext">&quot;taramasalata&quot;</code> which begins with <code class="inlinesourcetext">&quot;a&quot;</code>, continues with any number of characters, and finishes with <code class="inlinesourcetext">&quot;l&quot;</code>; so it matches <code class="inlinesourcetext">&quot;aramasal&quot;</code>. (Not <code class="inlinesourcetext">&quot;asal&quot;</code>, because it makes the leftmost match it can.) The option <code class="inlinesourcetext">case insensitively</code> causes lower and upper case letters to be treated as equivalent.</p>
+            </div>
+            <div class="definition">
+                <p class="defnprototype">if (text) exactly matches the/-- regular expression (text):</p>
+                <p>This condition is true if the whole text (starting from the beginning and finishing at the end) can be matched against the given regular expression. The option <code class="inlinesourcetext">case insensitively</code> causes lower and upper case letters to be treated as equivalent.</p>
+            </div>
+            <p>And once again:</p>
+            <div class="definition">
+                <p class="defnprototype">number of times (text) matches the/-- regular expression (text) ... number</p>
+                <p>This produces the number of times that contiguous pieces of the text can be matched against the regular expression, without allowing them to overlap.</p>
+            </div>
+            <p>Since a regular expression can match quite a variety of possibilities (for instance <code class="inlinesourcetext">&quot;b\w+t&quot;</code> could match <code class="inlinesourcetext">&quot;boast&quot;</code>, <code class="inlinesourcetext">&quot;boat&quot;</code>, <code class="inlinesourcetext">&quot;bonnet&quot;</code> and so on), it's sometimes useful to find what the match actually was:</p>
+            <div class="definition">
+                <p class="defnprototype">text matching regular expression ... text</p>
+                <p>This phrase is only meaningful immediately after a successful match of a regular expression against text, and it produces the text which matched. Example:</p>
+                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;taramasalata&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">regular</span><span class="syntaxplain"> </span><span class="syntaxidentifier">expression</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;m.\*l&quot;</span><span class="syntaxplain">:</span>
+                <br>
+                <span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[text matching regular expression]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
+                </span></blockquote>
+                <p>says <code class="inlinetranscript">masal.</code></p>
+            </div>
+            <p>Perhaps fairly, perhaps not, regular expressions have a reputation for being inscrutable. The basic idea is that although alphanumeric characters (letters, numbers and spaces) mean just what they look like, punctuation characters are commands with sometimes dramatic effects. Thus:</p>
+            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">WHATEVER</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">regular</span><span class="syntaxplain"> </span><span class="syntaxidentifier">expression</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;fish&quot;</span><span class="syntaxplain">, ...</span>
+            <br>
+            <span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">WHATEVER</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">regular</span><span class="syntaxplain"> </span><span class="syntaxidentifier">expression</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;f.*h&quot;</span><span class="syntaxplain">, ...</span>
+            </span></blockquote>
+            <p>behave very differently. The first is just like matching the text <code class="inlinesourcetext">&quot;fish&quot;</code>, but the second matches on any sequence of characters starting with an &quot;f&quot; and ending with an &quot;h&quot;. This is not at all obvious at first sight: reading regular expressions is a skill which must be learned, like reading a musical score. A really complex regular expression can look like a soup of punctuation and even an expert will blink for a few minutes before telling you what it does – but a beginner can pick up the basics very quickly. Newcomers might like to try out and become comfortable with the features a few at a time, reading down the following list.</p>
+            <p><strong>1. Golden rule</strong>. Don't try to remember all the characters with weird effects. Instead, if you actually mean any symbol other than a letter, digit or space to be taken literally, place a backslash <code class="inlinesourcetext">\</code> in front of it. For instance, matching the regular expression</p>
+            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;*A* of the Galactic Patrol&quot;</span>
+            </span></blockquote>
+            <p>is the same as matching the text <code class="inlinesourcetext">&quot;*A* of the Galactic Patrol&quot;</code>, because the asterisks are robbed of their normal powers. This includes backslash itself: <code class="inlinesourcetext">\</code> means a literal backslash. (Don't backslash letters or digits – that turns out to have a meaning all its own, but anyway, there is never any need.)</p>
+            <p><strong>2. Alternatives</strong>. The vertical stroke <code class="inlinesourcetext">|</code> – not a letter I or L, nor the digit 1 – divides alternatives. Thus</p>
+            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;the fish|fowl|crawling thing&quot;</span>
+            </span></blockquote>
+            <p>is the same as saying match <code class="inlinesourcetext">&quot;the fish&quot;</code>, or <code class="inlinesourcetext">&quot;fowl&quot;</code>, or <code class="inlinesourcetext">&quot;crawling thing&quot;</code>.</p>
+            <p><strong>3. Dividing with brackets</strong>. Round brackets <code class="inlinesourcetext">(</code> and <code class="inlinesourcetext">)</code> group parts of the expression together.</p>
+            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;the (fish|fowl|crawling thing) in question&quot;</span>
+            </span></blockquote>
+            <p>is the same as saying match <code class="inlinesourcetext">&quot;the fish in question&quot;</code>, or <code class="inlinesourcetext">&quot;the fowl in question&quot;</code>, or <code class="inlinesourcetext">&quot;the crawling thing in question&quot;</code>. Note that the <code class="inlinesourcetext">|</code> ranges outwards only as far as the group it is in.</p>
+            <p><strong>4. Any character</strong>. The period <code class="inlinesourcetext">.</code> means any single character. So</p>
+            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;a...z&quot;</span>
+            </span></blockquote>
+            <p>matches on any sequence of five characters so long as the first is &quot;a&quot; and the last is &quot;z&quot;.</p>
+            <p><strong>5. Character alternatives</strong>. The angle brackets <code class="inlinesourcetext">&lt;</code> and <code class="inlinesourcetext">&gt;</code> are a more concise way of specifying alternatives for a single character. Thus</p>
+            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;b&lt;aeiou&gt;b&quot;</span>
+            </span></blockquote>
+            <p>matches on <code class="inlinesourcetext">&quot;bab&quot;</code>, <code class="inlinesourcetext">&quot;beb&quot;</code>, <code class="inlinesourcetext">&quot;bib&quot;</code>, <code class="inlinesourcetext">&quot;bob&quot;</code> or <code class="inlinesourcetext">&quot;bub&quot;</code>, but not <code class="inlinesourcetext">&quot;baob&quot;</code> or <code class="inlinesourcetext">&quot;beeb&quot;</code> – any single character within the angle brackets is accepted. Beginning the range with <code class="inlinesourcetext">^</code> means &quot;any single character so long as it is not one of these&quot;: thus</p>
+            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;b&lt;^aeiou&gt;b&quot;</span>
+            </span></blockquote>
+            <p>matches on <code class="inlinesourcetext">&quot;blb&quot;</code> but not <code class="inlinesourcetext">&quot;bab&quot;</code>, <code class="inlinesourcetext">&quot;beb&quot;</code>, etc., nor on <code class="inlinesourcetext">&quot;blob&quot;</code> or <code class="inlinesourcetext">&quot;bb&quot;</code>. Because long runs like this can be a little tiresome, we are also allowed to use <code class="inlinesourcetext">-</code> to indicate whole ranges. Thus</p>
+            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;b&lt;a-z&gt;b&quot;</span>
+            </span></blockquote>
+            <p>matches a &quot;b&quot;, then any lower case English letter, then another &quot;b&quot;.</p>
+            <p>In traditional regular expression language, square brackets rather than angle brackets are used for character ranges. In fact Inform does understand this notation if there are actual square brackets <code class="inlinesourcetext">[</code> and <code class="inlinesourcetext">]</code> in the pattern text, but in practice this would be tiresome to achieve, since Inform uses those to achieve text substitutions. So Inform allows <code class="inlinesourcetext">&quot;b&lt;a-z&gt;b&quot;</code> rather than making us type something like</p>
+            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;b</span><span class="syntaxextract">[bracket]</span><span class="syntaxstring">a-z</span><span class="syntaxextract">[close bracket]</span><span class="syntaxstring">b&quot;</span>
+            </span></blockquote>
+            <p>to create the text <code class="inlinesourcetext">&quot;b[a-z]b&quot;</code>.</p>
+            <p><strong>6. Popular character ranges</strong>. The range <code class="inlinesourcetext">&lt;0-9&gt;</code>, matching any decimal digit, is needed so often that it has an abbreviation: <code class="inlinesourcetext">\d</code>. Thus</p>
+            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;\d\d\d\d-\d\d-\d\d&quot;</span>
+            </span></blockquote>
+            <p>matches, say, <code class="inlinesourcetext">&quot;2006-12-03&quot;</code>. Similarly, <code class="inlinesourcetext">\s</code> means &quot;any spacing character&quot; – a space, tab or line break. <code class="inlinesourcetext">\p</code> is a punctuation character, in the same sense used for word division in the previous section: it actually matches any of</p>
+            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">. , ! ? - / </span><span class="syntaxstring">&quot; : ; ( ) </span><span class="syntaxextract">[ ]</span><span class="syntaxstring"> { }</span>
+            </span></blockquote>
+            <p><code class="inlinesourcetext">\w</code> means &quot;any character appearing in a word&quot;, and Inform defines it as anything not matching <code class="inlinesourcetext">\s</code> or <code class="inlinesourcetext">\p</code>.</p>
+            <p><code class="inlinesourcetext">\l</code> and <code class="inlinesourcetext">\u</code> match lower and upper case letters, respectively. These are much stronger than <code class="inlinesourcetext">&lt;a-z&gt;</code> and <code class="inlinesourcetext">&lt;A-Z&gt;</code>, since they use the complete definition in the Unicode 4.0.0 standard, so that letter-forms from all languages are catered for: for example <code class="inlinesourcetext">δ</code> matches <code class="inlinesourcetext">\l</code> and <code class="inlinesourcetext">Δ</code> matches <code class="inlinesourcetext">\u</code>.</p>
+            <p>The reverse of these is achieved by capitalising the letter. So <code class="inlinesourcetext">\D</code> means &quot;anything not a digit&quot;, <code class="inlinesourcetext">\P</code> means &quot;anything not punctuation&quot;, <code class="inlinesourcetext">\W</code> means &quot;anything not a word character&quot;, <code class="inlinesourcetext">\L</code> means &quot;anything not a lower case letter&quot; and so on.</p>
+            <p><strong>7. Positional restrictions</strong>. The notation <code class="inlinesourcetext">^</code> does not match anything, as such, but instead requires that we be positioned at the start of the text. Thus</p>
+            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;^fish&quot;</span>
+            </span></blockquote>
+            <p>matches only <code class="inlinesourcetext">&quot;fish&quot;</code> at the start of the text, not occurring anywhere later on. Similarly, <code class="inlinesourcetext">$</code> requires that the position be the end of the text. So</p>
+            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;fish$&quot;</span>
+            </span></blockquote>
+            <p>matches only if the last four characters are <code class="inlinesourcetext">&quot;fish&quot;</code>. Matching <code class="inlinesourcetext">&quot;^fish$&quot;</code> is the same thing as what Inform calls exactly matching <code class="inlinesourcetext">&quot;fish&quot;</code>.</p>
+            <p>Another useful notation is <code class="inlinesourcetext">\b</code>, which matches a word boundary: that is, it matches no actual text, but requires the position to be a junction between a word character and a non-word character (a <code class="inlinesourcetext">\w</code> and a <code class="inlinesourcetext">\W</code>) or vice versa. Thus</p>
+            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;\bfish\b&quot;</span>
+            </span></blockquote>
+            <p>matches <code class="inlinesourcetext">&quot;fish&quot;</code> in <code class="inlinesourcetext">&quot;some fish&quot;</code> and also <code class="inlinesourcetext">&quot;some fish, please!&quot;</code>, but not in <code class="inlinesourcetext">&quot;shellfish&quot;</code>. (The regular expression <code class="inlinesourcetext">&quot;\w\*fish\b&quot;</code> catches all words ending in <code class="inlinesourcetext">&quot;fish&quot;</code>, as we will see below.) As usual, the capitalised version <code class="inlinesourcetext">\B</code> negates this, and means &quot;not at a word boundary&quot;.</p>
+            <p><strong>8. Line break and tab</strong>. The notations <code class="inlinesourcetext">\n</code> and <code class="inlinesourcetext">\t</code> are used for a line break (&quot;n&quot; for &quot;new line&quot;) and tab, respectively. Tabs normally do not occur in Inform strings, but can do when reading from files. It makes no sense to reverse these, so <code class="inlinesourcetext">\N</code> and <code class="inlinesourcetext">\T</code> produce errors.</p>
+            <p><strong>9. Repetition</strong>. Placing a number in braces <code class="inlinesourcetext">{</code> and <code class="inlinesourcetext">}</code> after something says that it should be repeated that many times. Thus</p>
+            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;ax{25}&quot;</span>
+            </span></blockquote>
+            <p>matches only on <code class="inlinesourcetext">&quot;axxxxxxxxxxxxxxxxxxxxxxxxx&quot;</code>. More usefully, perhaps, we can specify a range of the number of repetitions:</p>
+            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;ax{2,6}&quot;</span>
+            </span></blockquote>
+            <p>matches only on <code class="inlinesourcetext">&quot;axx&quot;</code>, <code class="inlinesourcetext">&quot;axxx&quot;</code>, <code class="inlinesourcetext">&quot;axxxx&quot;</code>, <code class="inlinesourcetext">&quot;axxxxx&quot;</code>, <code class="inlinesourcetext">&quot;axxxxxx&quot;</code>. And we can leave the top end open: <code class="inlinesourcetext">ax{2,}</code> means <code class="inlinesourcetext">a</code> followed by at least two <code class="inlinesourcetext">x</code>s.</p>
+            <p>Note that the braces attach only to most recent thing – so <code class="inlinesourcetext">ax{2}</code> means <code class="inlinesourcetext">a</code> followed by two of <code class="inlinesourcetext">x</code> – but, as always, we can use grouping brackets to change that. So <code class="inlinesourcetext">(ax){2,}</code> matches <code class="inlinesourcetext">&quot;axax&quot;</code>, <code class="inlinesourcetext">&quot;axaxax&quot;</code>, <code class="inlinesourcetext">&quot;axaxaxax&quot;</code>,...</p>
+            <p>(It's probably best not to use Inform to try to match the human genome against <code class="inlinesourcetext">&quot;&lt;acgt&gt;{3000000000}&quot;</code>, but one of the most important practical uses of regular expression matching in science is in treating DNA as a string of nucleotides represented by the letters <code class="inlinesourcetext">a</code>, <code class="inlinesourcetext">c</code>, <code class="inlinesourcetext">g</code>, <code class="inlinesourcetext">t</code>, and looking for patterns.)</p>
+            <p><strong>10. Popular repetitions.</strong> Three cases are so often needed that they have standard short forms:</p>
+            <p><code class="inlinesourcetext">{0,1}</code>, which means 0 or 1 repetition of something – in other words, doesn't so much repeat it as make it optional – is written <code class="inlinesourcetext">?</code>. Thus <code class="inlinesourcetext">&quot;ax?y&quot;</code> matches only on <code class="inlinesourcetext">&quot;ay&quot;</code> or <code class="inlinesourcetext">&quot;axy&quot;</code>.</p>
+            <p><code class="inlinesourcetext">{0,}</code>, which means 0 or more repetitions – in other words, any number at all – is written <code class="inlinesourcetext">*</code>. Thus <code class="inlinesourcetext">&quot;ax*y&quot;</code> matches on <code class="inlinesourcetext">&quot;ay&quot;</code>, <code class="inlinesourcetext">&quot;axy&quot;</code>, <code class="inlinesourcetext">&quot;axxy&quot;</code>, <code class="inlinesourcetext">&quot;axxxy&quot;</code>, ... and the omnivorous <code class="inlinesourcetext">&quot;.*&quot;</code> – which means &quot;anything, any number of times&quot; – matches absolutely every text. (Perhaps unexpectedly, replacing <code class="inlinesourcetext">&quot;.*&quot;</code> in a text with <code class="inlinesourcetext">X</code> will produce <code class="inlinesourcetext">&quot;XX&quot;</code>, not <code class="inlinesourcetext">&quot;X&quot;</code>, because the <code class="inlinesourcetext">&quot;.*&quot;</code> first matches the text, then matches the empty gap at the end. To match the entire text just once, try <code class="inlinesourcetext">&quot;^.*$&quot;</code>.)</p>
+            <p><code class="inlinesourcetext">{1,}</code>, which means 1 or more repetitions, is written <code class="inlinesourcetext">+</code>. So <code class="inlinesourcetext">\d+</code> matches any run of digits, for instance.</p>
+            <p><strong>11. Greedy vs lazy.</strong> Once we allow things to repeat an unknown number of times, we run into an ambiguity. Sure, <code class="inlinesourcetext">\d+</code> matches the text <code class="inlinesourcetext">&quot;16339b&quot;</code>. But does it look only as far as the <code class="inlinesourcetext">1</code>, then reason that it now has one or more digits in a row, and stop? Or does it run onward devouring digits until it can do so no longer, so matching the <code class="inlinesourcetext">&quot;16339&quot;</code> part? These two strategies are called &quot;lazy&quot; and &quot;greedy&quot; respectively.</p>
+            <p>Do we care? Well, the strategy used makes no difference to whether there is a match, but it does affect what part of the text is matched, and the number of matches there are. Unless we mark for it, all repetitions are greedy. Usually this is good, but it means that, for instance,</p>
+            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;-.+-&quot;</span>
+            </span></blockquote>
+            <p>applied to <code class="inlinesourcetext">&quot;-alpha- -beta- -gamma-&quot;</code> will match the whole text, because <code class="inlinesourcetext">.+</code> picks up all of <code class="inlinesourcetext">&quot;alpha- -beta- -gamma&quot;</code>. To get around this, we can mark any of the repetition operators as lazy by adding a question mark <code class="inlinesourcetext">?</code>. Thus:</p>
+            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;-.+?-&quot;</span>
+            </span></blockquote>
+            <p>applied to <code class="inlinesourcetext">&quot;-alpha- -beta- -gamma-&quot;</code> matches three times, producing <code class="inlinesourcetext">&quot;-alpha-&quot;</code> then <code class="inlinesourcetext">&quot;-beta-&quot;</code> then <code class="inlinesourcetext">&quot;-gamma-&quot;</code>.</p>
+            <p>A logical but sometimes confusing consequence is that a doubled question mark <code class="inlinesourcetext">??</code> means &quot;repeat 0 or 1 times, but prefer 0 matches to 1 if both are possibilities&quot;: whereas a single question mark <code class="inlinesourcetext">?</code>, being greedy, means &quot;repeat 0 or 1 times, but prefer 1 match to 0 if both are possibilities&quot;.</p>
+            <p><strong>12. Numbered groups.</strong> We have already seen that round brackets are useful to clump together parts of the regular expression – to choose within them, or repeat them. In fact, Inform numbers these from 1 upwards as they are used from left to right, and we can subsequently refer back to their contents with the notation <code class="inlinesourcetext">\1</code>, <code class="inlinesourcetext">\2</code>, ... After a successful match, we can find the results of these subexpressions with:</p>
+            <div class="definition">
+                <p class="defnprototype">text matching subexpression (number) ... text</p>
+                <p>This phrase is only meaningful immediately after a successful match of a regular expression against text, and it produces the text which matched. The number must be from 1 to 9, and must correspond to one of the bracketed groups in the expression just matched. Example: after</p>
+                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;taramasalata&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">regular</span><span class="syntaxplain"> </span><span class="syntaxidentifier">expression</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;a(r.\*l)a(.)&quot;</span><span class="syntaxplain">:</span>
+                </span></blockquote>
+                <p>the <code class="inlinesourcetext">text matching regular expression</code> is <code class="inlinesourcetext">&quot;aramasalat&quot;</code>, the <code class="inlinesourcetext">text matching subexpression 1</code> is <code class="inlinesourcetext">&quot;ramasal&quot;</code>, and <code class="inlinesourcetext">text matching subexpression 2</code> is <code class="inlinesourcetext">&quot;t&quot;</code>.</p>
+            </div>
+            <p>For instance:</p>
+            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;(\w)\w*\1&quot;</span>
+            </span></blockquote>
+            <p>matches any run of two or more word-characters, subject to the restriction that the last one has to be the same as the first – so it matches <code class="inlinesourcetext">&quot;xerox&quot;</code> but not <code class="inlinesourcetext">&quot;alphabet&quot;</code>. When Inform matches this against <code class="inlinesourcetext">&quot;xerox&quot;</code>, first it matches the initial <code class="inlinesourcetext">x</code> against the group <code class="inlinesourcetext">(\w)</code>. It then matches <code class="inlinesourcetext">\w*</code> (&quot;any number of word-characters&quot;) against <code class="inlinesourcetext">ero</code>, so that the <code class="inlinesourcetext">*</code> runs up to 3 repetitions. It then matches &quot;\1&quot; against the final <code class="inlinesourcetext">x</code>, because <code class="inlinesourcetext">\1</code> requires it to match against whatever last matched in sub-expression 1 – which was an <code class="inlinesourcetext">x</code>.</p>
+            <p>Similar to the situation with text matches, we can find the starting and ending character numbers of where a given subexpression occurred in the original text, as well as the length.</p>
+            <div class="definition">
+                <p class="defnprototype">first index of subexpression (number) ... number</p>
+                <p>Following a successful regular expression match, this produces the character number in the original text of the beginning of a given subexpression.</p>
+                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;ham sandwich&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">regular</span><span class="syntaxplain"> </span><span class="syntaxidentifier">expression</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;a(.+)\b(.+)&quot;</span><span class="syntaxplain">:</span>
+                <br>
+                <span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">x</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">start</span><span class="syntaxplain"> </span><span class="syntaxidentifier">index</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subexpression</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain">;</span>
+                </span></blockquote>
+                <p>would set x to 5. For the first index of the match as a whole, including what is outside any groups, use <code class="inlinesourcetext">subexpression 0</code>. For the example above, the start index of subexpression 0 would be 2.</p>
+                <p>As with the text case, use or store the result promptly. And as before, results are undefined in case of failure, but with an important additional caveat: even when a match succeeds, results are not guaranteed to be meaningful <em>for a given subexpression</em> if the text that matched that subexpression was empty. For instance, adding <code class="inlinesourcetext">(.*)</code> to the end of a regular expression won't make any of the texts that currently match it fail to match, but the results for first index, last index, and length for the corresponding subexpression number might not be meaningful.</p>
+            </div>
+            <div class="definition">
+                <p class="defnprototype">last index of subexpression (number) ... number</p>
+                <p>Similarly, we can find the character number of the last character in the subexpression. For the &quot;ham sandwich&quot; example above:</p>
+                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">last</span><span class="syntaxplain"> </span><span class="syntaxidentifier">index</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subexpression</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span>
+                </span></blockquote>
+                <p>would be 4 (<code class="inlinesourcetext">.+</code> matches <code class="inlinesourcetext">&quot;ham&quot;</code> <em>and</em> the following space). The same caveats noted above apply.</p>
+            </div>
+            <div class="definition">
+                <p class="defnprototype">length of subexpression  (number) ... number</p>
+                <p>Finally, we can get the length of the match, e.g., for the above,</p>
+                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">length</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subexpression</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span>
+                </span></blockquote>
+                <p>would be 8 (for <code class="inlinesourcetext">&quot;sandwich&quot;</code>).</p>
+            </div>
+            <p>Similar to the text case, any time the empty string <code class="inlinesourcetext">&quot;&quot;</code> matches a regular expression, the values of all of first index, last index, and length for subexpression 0 would be 0.</p>
+            <p>Numbered groups allow wicked tricks in matching, it's true, but really come into their own when it comes to replacing – as we shall see.</p>
+            <p><strong>13. Switching case sensitivity on and off.</strong> The special notations <code class="inlinesourcetext">(?i)</code> and <code class="inlinesourcetext">(?-i)</code> switch sensitivity to upper vs. lower case off and on, mid-expression. Thus <code class="inlinesourcetext">&quot;a(?i)bcd(?-i)e&quot;</code> matches <code class="inlinesourcetext">&quot;abcde&quot;</code>, <code class="inlinesourcetext">&quot;aBcDe&quot;</code>, etc., but not <code class="inlinesourcetext">&quot;Abcde&quot;</code> or <code class="inlinesourcetext">&quot;abcdE&quot;</code>.</p>
+            <p><strong>14. Groups with special meanings.</strong> This is the last of the special syntaxes: but it's a doozy. A round-bracketed group can be marked to behave in a special way by following the open bracket by a symbol with a special meaning. Groups like this have no number and are not counted as part of <code class="inlinesourcetext">\1</code>, <code class="inlinesourcetext">\2</code>, and so forth – they are intended not to gather up material but to have some effect of their own.</p>
+            <ul>
+            <li>
+            <p><code class="inlinesourcetext">&quot;(# ...)&quot;</code> is a comment, that is, causes the group to do nothing and match against anything.</p>
+            </li>
+            <li>
+            <p><code class="inlinesourcetext">&quot;(?= ...)&quot;</code> is a lookahead: it is a form of positional requirement, like <code class="inlinesourcetext">\b</code> or <code class="inlinesourcetext">^</code>, but one which requires that the text ahead of us matches whatever is in the brackets. (It doesn't consume that text – only checks to see that it's there.) For instance <code class="inlinesourcetext">&quot;\w+(?=;)&quot;</code> matches a word followed by a semicolon, but does not match the semicolon itself.</p>
+            </li>
+            <li>
+            <p><code class="inlinesourcetext">&quot;(?! ...)&quot;</code> is the same but negated: it requires that the text ahead of us does not match the material given. For instance, <code class="inlinesourcetext">&quot;a+(?!z)&quot;</code> matches any run of &quot;a&quot;s not followed by a &quot;z&quot;.</p>
+            </li>
+            <li>
+            <p><code class="inlinesourcetext">&quot;(?&lt;= ...)&quot;</code> and <code class="inlinesourcetext">&quot;(?&lt;! ...)&quot;</code> are the same but looking behind (hence the <code class="inlinesourcetext">&lt;</code>), not forward. These are restricted to cases where Inform can determine that the material to be matched has a definite known width. For instance, <code class="inlinesourcetext">&quot;(?&lt;!shell)fish&quot;</code> matches any <code class="inlinesourcetext">&quot;fish&quot;</code> not occurring in <code class="inlinesourcetext">&quot;shellfish&quot;</code>.</p>
+            </li>
+            <li>
+            <p><code class="inlinesourcetext">&quot;(&gt; ...)&quot;</code> is a possessive, that is, causes the material to be matched and, once matched, never lets go. No matter what subsequently turns out to be convenient, it will never change its match. For instance, <code class="inlinesourcetext">\d+8</code> matches against <code class="inlinesourcetext">&quot;768&quot;</code> because Inform realises that <code class="inlinesourcetext">\d+</code> cannot be allowed to eat the <code class="inlinesourcetext">8</code> if there is to be a match, and stops it. But <code class="inlinesourcetext">(&gt;\d+)8</code> does not match against <code class="inlinesourcetext">&quot;768&quot;</code> because now the <code class="inlinesourcetext">\d+</code>, which initially eats <code class="inlinesourcetext">&quot;768&quot;</code>, is possessive and refuses to give up the <code class="inlinesourcetext">8</code> once taken.</p>
+            </li>
+            <li>
+            <p><code class="inlinesourcetext">&quot;(?(1)...)&quot;</code> and <code class="inlinesourcetext">&quot;(?(1)...|...)&quot;</code> are conditionals. These require us to match the material given if <code class="inlinesourcetext">\1</code> has successfully matched already; in the second version, the material after the <code class="inlinesourcetext">|</code> must be matched if <code class="inlinesourcetext">\1</code> has not successfully matched yet. And the same for 2, 3, ..., 9, of course.</p>
+            </li>
+            <li>
+            <p>Finally, conditionals can also use lookaheads or lookbehinds as their conditions. So for instance:</p>
+            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;(?(?=\d)\d\d\d\d|AY-\d\d\d\d)&quot;</span>
+            </span></blockquote>
+            <p>means if you start with a digit, match four digits; otherwise match <code class="inlinesourcetext">AY-</code> followed by four digits. There are easier ways to do this, of course, but the really juicy uses of conditionals are only borderline legible and make poor examples – perhaps this is telling us something.</p>
+            </li>
+            </ul>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg442><a style="text-decoration: none" href="eg_442.html"><span class="extensionexampleletter">442</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_442.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">About Inform's regular expression support</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Some footnotes on Inform's regular expressions, and how they compare to those of other programming languages.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg442><a style="text-decoration: none" href="RB_1_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg443><a style="text-decoration: none" href="eg_443.html"><span class="extensionexampleletter">443</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_443.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Alpha</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Creating a beta-testing command that matches any line starting with punctuation.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg443><a style="text-decoration: none" href="RB_13_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+        </div>
+        <hr>
+        <p><em> &bull; <a href="WI_22_4.html"><span class="markdowncontent">Section 22.4: Matching and exactly matching</span></a> &bull; <a href="WI_22_6.html"><span class="markdowncontent">Section 22.6: Making new text with text substitutions</span></a></em></p>
+    </div>
+
+    <!--CONTENT ENDS-->
+</body>
+</html>

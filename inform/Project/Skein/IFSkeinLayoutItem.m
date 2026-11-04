@@ -83,14 +83,14 @@
 
     // Move children by the same amount
     if( recursively ) {
-        for( IFSkeinLayoutItem* item2 in [self children] ) {
+        for( IFSkeinLayoutItem* item2 in self.children ) {
             [item2 moveRightBy: deltaX recursively: YES];
         }
     }
 }
 
 - (NSRect) lozengeRect {
-    NSRect itemRect = [self boundingRect];
+    NSRect itemRect = self.boundingRect;
 
     // Adjust bounding rectangle inwards to give the lozenge rectangle
     itemRect.origin.x += kSkeinItemImageLeftBorder;
@@ -112,9 +112,9 @@
 
 
 - (NSRect) textRect {
-    NSRect itemRect = [self lozengeRect];
+    NSRect itemRect = self.lozengeRect;
 
-    CGFloat width = [self commandWidth];
+    CGFloat width = self.commandWidth;
 
     // Adjust the lozenge width to just include the text area
     itemRect.origin.x += 15.0;
@@ -140,7 +140,7 @@
     // Find leaf node
     IFSkeinLayoutItem* leafItem = self;
     while(leafItem.onSelectedLine) {
-        IFSkeinLayoutItem* childItem = [leafItem selectedLineChild];
+        IFSkeinLayoutItem* childItem = leafItem.selectedLineChild;
         if( childItem == nil ) {
             return leafItem;
         }

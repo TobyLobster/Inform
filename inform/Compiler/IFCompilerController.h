@@ -13,24 +13,7 @@
 #import "IFError.h"
 
 @class IFProjectController;
-
-// Possible styles (stored in the styles dictionary)
-extern NSString* const IFStyleBase;
-
-// Basic compiler messages
-extern NSString* const IFStyleCompilerVersion;
-extern NSString* const IFStyleCompilerMessage;
-extern NSString* const IFStyleCompilerWarning;
-extern NSString* const IFStyleCompilerError;
-extern NSString* const IFStyleCompilerFatalError;
-extern NSString* const IFStyleProgress;
-
-extern NSString* const IFStyleFilename;
-
-// Compiler statistics/dumps/etc
-extern NSString* const IFStyleAssembly;
-extern NSString* const IFStyleHexDump;
-extern NSString* const IFStyleStatistics;
+@class IFProjectPane;
 
 /// List of tabs
 typedef NS_ENUM(unsigned int, IFCompilerTabId) {
@@ -39,6 +22,7 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
     IFTabDebugging,
     IFTabInform6,
     IFTabRuntime,
+    IFTabInBuild,
     IFTabInvalid,
 };
 
@@ -58,7 +42,7 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
 /// (In ye olden dayes, this was a window controller as well, but now young whippersnapper
 /// compilers can go anywhere, so it's not any more)
 ///
-@interface IFCompilerController : NSObject<NSTextStorageDelegate, NSSplitViewDelegate, WebPolicyDelegate, WebFrameLoadDelegate>
+@interface IFCompilerController : NSObject<NSTextStorageDelegate, NSSplitViewDelegate>
 
 /// The default styles for the error messages
 + (NSDictionary<NSAttributedStringKey, id>*) defaultStyles;
@@ -70,9 +54,9 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
 @property (atomic, strong) IFCompiler *compiler;
 
 /// Tells the compiler to start
-- (BOOL) startCompiling;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL startCompiling;
 /// Tells the compiler to stop
-- (BOOL) abortCompiling;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL abortCompiling;
 
 /// Adds an error to the display
 - (void) addErrorForFile: (NSString*) file
@@ -93,7 +77,7 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
 - (void) showContentsOfFilesIn: (NSFileWrapper*) files
 					  fromPath: (NSString*) path;
 /// Gets rid of the file tabs created by the previous function
-- (void) clearTabViews;
+- (void) clearTabViewsExcept: (IFCompilerTabId) exceptTabId;
 
 /// Where cblorb thinks the final blorb file should be copied to
 @property (atomic, readonly, copy) NSString *blorbLocation;
@@ -102,28 +86,32 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
 
 /// The tab identifier of the currently selected view
 @property (atomic, readonly) IFCompilerTabId selectedTabId;
+@property (atomic, readonly) WKWebView* currentWebView;
+
+/// Add a tab for showing results
+- (IFCompilerTabId) makeTabForFile: (NSString*) file;
 /// Switches to a view with the specified tab identifier
 - (void) switchToViewWithTabId: (IFCompilerTabId) tabId;
 /// Switches to the default split view
 - (void) switchToSplitView;
 /// Switches to the runtime error view
 - (void) switchToRuntimeErrorView;
+/// Clears the console view of text
+- (void) clearConsole: (NSNotification*) not;
 /// Returns the tabs this controller can display
 @property (atomic, readonly, copy) NSArray *viewTabs;
 
 - (int) tabIdWithTabIndex: (int) tabIndex;
 
-- (void) setProjectController: (IFProjectController*) pc;
+- (void) setProjectController: (IFProjectController*) pc withPane: (IFProjectPane*) pane;
 
 @end
 
 // Delegate methods
-@protocol IFCompilerControllerDelegate <NSObject>
+@protocol IFCompilerControllerDelegate <NSObject, WKNavigationDelegate>
 @optional
 
 // Status updates
-//- (void) compileStarted: (IFCompilerController*) sender;                  // Called when the compiler starts doing things
-//- (void) compileCompletedAndSucceeded: (IFCompilerController*) sender;	// Called when the compiler has finished and reports success
 /// Called when the compiler has finished and reports failure
 - (void) compileCompletedAndFailed: (IFCompilerController*) sender;
 
@@ -142,8 +130,6 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
                  withType: (IFLex) type
                   message: (NSString*) message;
 
-/// First chance opportunity to redirect URL requests (used so that NI error URLs are handled)
-- (BOOL) handleURLRequest: (NSURLRequest*) request;
 /// Notification that the compiler controller has changed its set of views
 - (void) viewSetHasUpdated: (IFCompilerController*) sender;
 /// Notification that the compiler has switched to the specified view

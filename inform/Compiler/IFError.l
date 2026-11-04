@@ -34,7 +34,8 @@ static struct errorValue currentError;
 %x ERRORMESSAGE
 %%
 
-.*\ Inform\ [0-9]+\.[0-9]+\ \(.*\)\n { return IFLexCompilerVersion; }
+Inform\ 7 { return IFLexCompilerVersion; }
+Inform\ 6 { return IFLexCompilerVersion; }
 
 Copy\ blorb\ to:\ \[\[.*\]\]\n {
 	// Blorb copy request

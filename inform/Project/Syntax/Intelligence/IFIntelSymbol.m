@@ -56,7 +56,7 @@ NSString* const IFSectionSymbolType = @"IFSectionSymbolType";
 		if (lastSymbol == nil)
 			return levelDelta<0?0:levelDelta;
 		
-		int realLevel = [lastSymbol level] + levelDelta;
+		int realLevel = lastSymbol.level + levelDelta;
 		
 		return realLevel<0?0:levelDelta;
 	}
@@ -81,9 +81,9 @@ NSString* const IFSectionSymbolType = @"IFSectionSymbolType";
 
 - (IFIntelSymbol*) parent {
 	IFIntelSymbol* parent = lastSymbol;
-	int myLevel = [self level];
+	int myLevel = self.level;
 	
-	while (parent != nil && [parent level] >= myLevel) {
+	while (parent != nil && parent.level >= myLevel) {
 		parent = parent->lastSymbol;
 	}
 	
@@ -94,22 +94,22 @@ NSString* const IFSectionSymbolType = @"IFSectionSymbolType";
 	IFIntelSymbol* child = nextSymbol;
 	
 	if (child == nil) return nil;
-	if ([child level] > [self level]) return child;
+	if (child.level > self.level) return child;
 	
 	return nil;
 }
 
 - (IFIntelSymbol*) sibling {
 	IFIntelSymbol* sibling = nextSymbol;
-	int myLevel = [self level];
+	int myLevel = self.level;
 	
-	while (sibling != nil && [sibling level] > myLevel) sibling = sibling->nextSymbol;
+	while (sibling != nil && sibling.level > myLevel) sibling = sibling->nextSymbol;
 		
 	if (sibling == nil) return nil;
-	if ([sibling level] == myLevel) return sibling;
+	if (sibling.level == myLevel) return sibling;
 	
-	if ([sibling level] < myLevel) {
-		if ([sibling parent] == [self parent]) return sibling;
+	if (sibling.level < myLevel) {
+		if (sibling.parent == self.parent) return sibling;
 	}
 	
 	return nil;
@@ -117,12 +117,12 @@ NSString* const IFSectionSymbolType = @"IFSectionSymbolType";
 
 - (IFIntelSymbol*) previousSibling {
 	IFIntelSymbol* sibling = lastSymbol;
-	int myLevel = [self level];
+	int myLevel = self.level;
 	
-	while (sibling != nil && [sibling level] > myLevel) sibling = sibling->lastSymbol;
+	while (sibling != nil && sibling.level > myLevel) sibling = sibling->lastSymbol;
 	
 	if (sibling == nil) return nil;
-	if ([sibling level] == [self level]) return sibling;
+	if (sibling.level == self.level) return sibling;
 	
 	return nil;
 }
