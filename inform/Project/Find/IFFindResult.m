@@ -106,7 +106,7 @@
     //
     //      \0 through \9 to be replaced with the corresponding found group.
     //      \\ to \.
-    //      \t \r \v \f \n to newline/tab characters 8, 10, 11, 12, 13.
+    //      \t \n \v \f \r to characters 9 to 13 (tab, newline, vertical tab, form feed, return).
     //      \x09 (etc) to utf8 code
     //
     NSMutableString* mutReplace = [[NSMutableString alloc] init];
@@ -144,14 +144,15 @@
                     i = (i-1) + (int) (groupString.length-1);
                 }
             }
-            else if ((c == 't') || (c == 'r') || (c == 'v') || (c == 'f') || (c == 'n')) {
+            else if ((c == 't') || (c == 'n') || (c == 'v') || (c == 'f') || (c == 'r')) {
                 if( c== 't' ) c = 9;
-                else if( c== 'r' ) c = 10;
+                else if( c== 'n' ) c = 10;
                 else if( c== 'v' ) c = 11;
                 else if( c== 'f' ) c = 12;
-                else if( c== 'n' ) c = 13;
+                else if( c== 'r' ) c = 13;
                 NSString*unicharString = [NSString stringWithFormat:@"%C", c];
                 [mutReplace replaceCharactersInRange:NSMakeRange(i-1, 2) withString:unicharString];
+                i--;    // Carry on after the character we've inserted
             } else if (c == 'x') {
                 if( i < (mutReplace.length - 2)) {
                     unsigned int hexInt;
@@ -160,6 +161,7 @@
                     [scanner scanHexInt:&hexInt];
                     NSString*unicharString = [NSString stringWithFormat:@"%C", (unichar) hexInt];
                     [mutReplace replaceCharactersInRange:NSMakeRange(i-1, 4) withString:unicharString];
+                    i--;    // Carry on after the character we've inserted
                 }
             }
             foundSlash = false;

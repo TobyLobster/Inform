@@ -29,3 +29,4 @@
 #import "IFNaturalIntel.h"
 #import "IFSourceSharedActions.h"
 #import "IFGamePage.h"
+#import "IFFindResult.h"
