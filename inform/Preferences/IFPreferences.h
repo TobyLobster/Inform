@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 // Notifications
 extern NSString* const IFPreferencesAuthorDidChangeNotification;
 extern NSString* const IFPreferencesEditingDidChangeNotification;
@@ -62,7 +64,7 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
 @property (atomic, copy) NSColor*       defaultColour;
 
 -(instancetype) initWithColour:(NSColor*) defaultColour NS_DESIGNATED_INITIALIZER;
-- (id)copyWithZone:(NSZone *)zone;
+- (id)copyWithZone:(nullable NSZone *)zone;
 
 @end
 
@@ -79,7 +81,6 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
 
 // Constructing the object
 /// The shared preference object
-+ (IFPreferences*) sharedPreferences;
 @property (class, atomic, readonly, strong) IFPreferences *sharedPreferences;
 
 // Preferences
@@ -112,7 +113,7 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
              forOptionType: (IFSyntaxHighlightingOptionType) optionType;
 
 -(bool) setCurrentTheme: (NSString*) name;
-@property (NS_NONATOMIC_IOSONLY, getter=getThemeNames, readonly, copy) NSArray *themeNames;
+@property (NS_NONATOMIC_IOSONLY, getter=getThemeNames, readonly, copy) NSArray<NSString*> *themeNames;
 -(bool) addTheme: (IFColourTheme*) theme;
 -(bool) removeTheme: (NSString*) themeName;
 
@@ -131,7 +132,7 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
 /// Regenerate the array of attribute dictionaries that make up the styles
 - (void) recalculateStyles;
 /// Retrieves an array of attribute dictionaries that describe how the styles should be displayed
-@property (atomic, readonly, copy) NSArray *styles;
+@property (atomic, readonly, copy) NSArray<NSDictionary<NSAttributedStringKey, id>*> *styles;
 
 // Intelligence preferences
 @property (atomic) BOOL enableSyntaxHighlighting;		// YES if source code should be displayed with syntax highlighting
@@ -140,7 +141,8 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
 @property (atomic) BOOL elasticTabs;					// ... and elastic tabs
 @property (atomic) BOOL indentAfterNewline;				// ... which is used to generate indentation
 @property (atomic) BOOL autoNumberSections;				// ... which is used to auto-type section numbers
-@property (atomic, copy) NSString *freshGameAuthorName;	// The default author to use for new Inform 7 games
+/// The default author to use for new Inform 7 games (nil goes back to the user's own name)
+@property (atomic, copy, null_resettable) NSString *freshGameAuthorName;
 
 // Advanced preferences
 /// \c YES if we should run the build.sh shell script to rebuild Inform 7
@@ -165,3 +167,5 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
 @property (atomic) NSPoint preferencesTopLeftPosition;
 
 @end
+
+NS_ASSUME_NONNULL_END

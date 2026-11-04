@@ -86,7 +86,7 @@ final class PreferenceController : NSWindowController, NSWindowDelegate, NSToolb
 		}
 
 		// Set the window frame based on stored coordinates
-		var topLeft = IFPreferences.shared!.preferencesTopLeftPosition
+		var topLeft = IFPreferences.shared.preferencesTopLeftPosition
 		topLeft.y = NSScreen.screens.first!.frame.size.height - topLeft.y
 		var rect = window!.frame
 		rect.origin.x = topLeft.x
@@ -107,7 +107,7 @@ final class PreferenceController : NSWindowController, NSWindowDelegate, NSToolb
 		preferenceViews.append(newPane)
 		
 		// Add to the toolbar
-		let newItem = NSToolbarItem(itemIdentifier: newPane.identifier!)
+		let newItem = NSToolbarItem(itemIdentifier: newPane.identifier)
 		
 		newItem.action = #selector(self.switchPrefPane(_:))
 		newItem.target = self
@@ -115,7 +115,7 @@ final class PreferenceController : NSWindowController, NSWindowDelegate, NSToolb
 		newItem.label = newPane.preferenceName
 		newItem.toolTip = newPane.tooltip
 		
-		toolbarItems[newPane.identifier!] = newItem;
+		toolbarItems[newPane.identifier] = newItem;
 		
 	}
 	

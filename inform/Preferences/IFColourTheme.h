@@ -9,12 +9,14 @@
 
 #import "IFPreferences.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface IFColourTheme : NSObject<NSSecureCoding>
 
-@property (atomic) NSNumber*                        flags;
-@property (atomic, copy) NSString*                  themeName;
-@property (atomic, copy) IFSyntaxColouringOption*   sourcePaper;
-@property (atomic, copy) IFSyntaxColouringOption*   extensionPaper;
+@property (atomic) NSNumber*                                  flags;
+@property (atomic, copy, nullable) NSString*                  themeName;          // nil until it's set
+@property (atomic, copy, nullable) IFSyntaxColouringOption*   sourcePaper;        // likewise
+@property (atomic, copy, nullable) IFSyntaxColouringOption*   extensionPaper;     // likewise
 
 /// Array of IFSyntaxColouringOptions
 @property (atomic, strong) NSMutableArray<IFSyntaxColouringOption*>* options;
@@ -24,8 +26,10 @@
 - (void) updateSetFromAppPreferences;
 - (IFSyntaxColouringOption*) optionOfType:(IFSyntaxHighlightingOptionType) type;
 @property (NS_NONATOMIC_IOSONLY, getter=isEqualToDefault, readonly) BOOL equalToDefault;
--(BOOL) isEqual:(id)object;
+-(BOOL) isEqual:(nullable id)object;
 -(void) resetSettings;
 -(IFColourTheme*) createDuplicateSet;
 
 @end
+
+NS_ASSUME_NONNULL_END

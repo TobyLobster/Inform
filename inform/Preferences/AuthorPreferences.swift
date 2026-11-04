@@ -11,7 +11,7 @@ final class AuthorPreferences : IFPreferencePane {
 	/// The preferred name for new Natural Inform games
 	@IBOutlet weak var newGameName: NSTextField?
 	
-	override init!() {
+	override init() {
 		super.init(nibName: "AuthorPreferences")
 		
 		reflectCurrentPreferences()
@@ -24,7 +24,7 @@ final class AuthorPreferences : IFPreferencePane {
 	// MARK: Setting ourselves up
 	
 	@IBAction func setPreference(_ sender: AnyObject?) {
-		let prefs = IFPreferences.shared!
+		let prefs = IFPreferences.shared
 		
 		if sender === newGameName {
 			prefs.freshGameAuthorName = newGameName?.stringValue
@@ -32,7 +32,7 @@ final class AuthorPreferences : IFPreferencePane {
 	}
 	
 	@objc func reflectCurrentPreferences() {
-		let prefs = IFPreferences.shared!
+		let prefs = IFPreferences.shared
 		
 		newGameName?.stringValue = (prefs.freshGameAuthorName)!
 	}
@@ -43,11 +43,11 @@ final class AuthorPreferences : IFPreferencePane {
 		return "Author"
 	}
 	
-	override var toolbarImage: NSImage! {
+	override var toolbarImage: NSImage? {
 		return Bundle(for: type(of: self)).image(forResource: NSImage.Name("App/person"))!
 	}
 	
-	override var tooltip: String! {
+	override var tooltip: String? {
 		return IFUtility.localizedString("Author preferences tooltip")
 	}
 }

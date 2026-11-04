@@ -9,6 +9,8 @@
 
 #import "IFPreferences.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface IFSyntaxHighlightingOption : NSObject
 
 @property (atomic) IFFontStyle          fontStyle;
@@ -38,7 +40,9 @@
 - (void) updateSetFromAppPreferences;
 - (IFSyntaxHighlightingOption*) optionOfType:(IFSyntaxHighlightingOptionType) type;
 -(BOOL) isEqualToPreferenceSet:(IFEditingPreferencesSet*) set;
--(BOOL) isEqual:(id)object;
+-(BOOL) isEqual:(nullable id)object;
 -(void) resetSettings;
 
 @end
+
+NS_ASSUME_NONNULL_END
