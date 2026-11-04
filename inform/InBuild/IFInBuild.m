@@ -173,12 +173,12 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
     if (exitCode != 0) {
         // Write error messaging as HTML page to resultsURL
         NSString * errorHTML = [NSString stringWithFormat:
-                                @"<HTML><body>There was an error running inbuild:<br><pre>%@\nstdout: %@\nstderr: %@exit code: %d</pre></body></html>",
+                                @"<HTML><head><meta charset=\"UTF-8\"></head><body>There was an error running inbuild:<br><pre>%@\nstdout: %@\nstderr: %@exit code: %d</pre></body></html>",
                                 message, stdOut, stdErr, exitCode];
 
         [errorHTML writeToFile: resultsURL.path
                     atomically: NO
-                      encoding: NSStringEncodingConversionAllowLossy
+                      encoding: NSUTF8StringEncoding
                          error: nil];
     }
     NSLog(@"stdout: %@", stdOut);
@@ -259,12 +259,12 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
     if (exitCode != 0) {
         // Write error messaging as HTML page to resultsURL
         NSString * errorHTML = [NSString stringWithFormat:
-                                @"<HTML><body>There was an error running inbuild:<br><pre>%@\nstdout: %@\nstderr: %@exit code: %d</pre></body></html>",
+                                @"<HTML><head><meta charset=\"UTF-8\"></head><body>There was an error running inbuild:<br><pre>%@\nstdout: %@\nstderr: %@exit code: %d</pre></body></html>",
                                 message, stdOut, stdErr, exitCode];
 
         [errorHTML writeToFile: htmlFilepath
                     atomically: NO
-                      encoding: NSStringEncodingConversionAllowLossy
+                      encoding: NSUTF8StringEncoding
                          error: nil];
     }
     NSLog(@"stdout: %@", stdOut);
