@@ -417,9 +417,11 @@
     // Check that this is the right kind of URL for us
     if (path == nil || ![url.scheme isEqualToString: @"inform"]) {
         // Doh - not a valid inform: URL
-        *error = [NSError errorWithDomain: NSURLErrorDomain
-                                     code: NSURLErrorBadURL
-                                 userInfo: @{NSURLErrorFailingURLErrorKey: url}];
+        if (error) {
+            *error = [NSError errorWithDomain: NSURLErrorDomain
+                                         code: NSURLErrorBadURL
+                                     userInfo: @{NSURLErrorFailingURLErrorKey: url}];
+        }
         return nil;
     }
 
@@ -431,18 +433,22 @@
     }
 
     if (isDir) {
-        *error = [NSError errorWithDomain: NSURLErrorDomain
-                                     code: NSURLErrorFileDoesNotExist
-                                 userInfo: @{NSURLErrorFailingURLErrorKey: url}];
+        if (error) {
+            *error = [NSError errorWithDomain: NSURLErrorDomain
+                                         code: NSURLErrorFileDoesNotExist
+                                     userInfo: @{NSURLErrorFailingURLErrorKey: url}];
+        }
         return nil;
     }
 
     // Load up the data
     NSData* urlData = [NSData dataWithContentsOfFile: path];
     if (urlData == nil) {
-        *error = [NSError errorWithDomain: NSURLErrorDomain
-                                     code: NSURLErrorCannotOpenFile
-                                 userInfo: @{NSURLErrorFailingURLErrorKey: url}];
+        if (error) {
+            *error = [NSError errorWithDomain: NSURLErrorDomain
+                                         code: NSURLErrorCannotOpenFile
+                                     userInfo: @{NSURLErrorFailingURLErrorKey: url}];
+        }
         return nil;
     }
 
@@ -467,7 +473,7 @@
 
     // Create the response
     *mimeType = ourType;
-    *error = nil;
+    if (error) *error = nil;
     return urlData;
 }
 

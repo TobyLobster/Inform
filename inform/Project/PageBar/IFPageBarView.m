@@ -465,14 +465,13 @@ static const CGFloat leftMargin = 3.0;
 	NSEnumerator* cellEnum;
 	NSEnumerator* layoutEnum;
 	int index;
-	NSCell* cell;
 	IFPageCellLayout* layout;
 	
 	cellEnum = [leftCells objectEnumerator];
 	layoutEnum = [leftLayout objectEnumerator];
 	
 	index = -1;
-	while ((cell = [cellEnum nextObject]) && (layout = [layoutEnum nextObject])) {
+	while ([cellEnum nextObject] && (layout = [layoutEnum nextObject])) {
 		// Get the index for the cell we're about to process
 		index++;
 		
@@ -490,7 +489,7 @@ static const CGFloat leftMargin = 3.0;
 	layoutEnum = [rightLayout objectEnumerator];
 	
 	index = -1;
-	while ((cell = [cellEnum nextObject]) && (layout = [layoutEnum nextObject])) {
+	while ([cellEnum nextObject] && (layout = [layoutEnum nextObject])) {
 		// Get the index for the cell we're about to process
 		index++;
 		
