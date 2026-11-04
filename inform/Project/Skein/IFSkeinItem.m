@@ -72,6 +72,7 @@ NSString* const IFSkeinItemPboardType = @"com.inform7.IFSkeinItemPboardType";
     [encoder encodeObject: _children    forKey: @"children"];
     [encoder encodeObject: _command     forKey: @"command"];
     [encoder encodeObject: _actual      forKey: @"result"];
+    [encoder encodeObject: _ideal       forKey: @"ideal"];
     [encoder encodeBool: _isTestSubItem forKey: @"isTestSubItem"];
 }
 
@@ -83,10 +84,17 @@ NSString* const IFSkeinItemPboardType = @"com.inform7.IFSkeinItemPboardType";
         _children           = [decoder decodeObjectOfClasses: [NSSet setWithObjects: [NSMutableArray class], [IFSkeinItem class], nil] forKey: @"children"];
         _command            = [decoder decodeObjectOfClass: [NSString class] forKey: @"command"];
         _actual             = [decoder decodeObjectOfClass: [NSString class] forKey: @"result"];
+        _ideal              = [decoder decodeObjectOfClass: [NSString class] forKey: @"ideal"];
         _isTestSubItem      = [decoder decodeBoolForKey:   @"isTestSubItem"];
         _diffCachedResult   = [[IFDiffer alloc] init];
         differencesHash     = 0;
         _commandSizeDidChange = YES;
+
+        // Anything missing is empty, as in a new item
+        if (_children == nil)   _children = [[NSMutableArray alloc] init];
+        if (_command == nil)    _command  = @"";
+        if (_actual == nil)     _actual   = @"";
+        if (_ideal == nil)      _ideal    = @"";
 
         for( IFSkeinItem* child in _children ) {
             child->_parent = self;
