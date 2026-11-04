@@ -15,3 +15,5 @@
 #import "IFSkeinReportView.h"
 #import "IFToolbarManager.h"
 #import "IFSkeinReportItemView.h"
+#import "IFPreferences.h"
+#import "IFSyntaxManager.h"
