@@ -8,6 +8,8 @@
 #import <Foundation/Foundation.h>
 #import "IFCompilerSettings.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSNotificationName const IFInBuildStartingNotification;
 extern NSNotificationName const IFInBuildStdoutNotification;
 extern NSNotificationName const IFInBuildStderrNotification;
@@ -32,8 +34,11 @@ extern NSNotificationName const IFInBuildFinishedNotification;
                               withInternal: (NSURL*) internalURL
                                   settings: (IFCompilerSettings*) settings;
 
-@property (nonatomic,readonly) NSMutableString* stdOut;
-@property (nonatomic,readonly) NSMutableString* stdErr;
+/// What inbuild wrote to stdout on its last run; nil before the first run, or if it wasn't UTF-8
+@property (nonatomic,readonly,nullable) NSMutableString* stdOut;
+/// What inbuild wrote to stderr on its last run; nil before the first run, or if it wasn't UTF-8
+@property (nonatomic,readonly,nullable) NSMutableString* stdErr;
 
 @end
 
+NS_ASSUME_NONNULL_END

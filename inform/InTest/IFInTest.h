@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSNotificationName const IFInTestStartingNotification;
 extern NSNotificationName const IFInTestStdoutNotification;
 extern NSNotificationName const IFInTestStderrNotification;
@@ -27,16 +29,16 @@ extern NSNotificationName const IFInTestFinishedNotification;
 
 -(int) adjustLine:(int) lineNumber forTestCase:(NSString*) testCase;
 
-// Return an array of commands to test the given extension and test case.
-- (NSString*) testCommandsForExtension: (NSString*) extensionPathName
-                              testCase: (NSString*) testCase;
+// Return the commands to test the given extension and test case, one per line; nil if intest fails.
+- (nullable NSString*) testCommandsForExtension: (NSString*) extensionPathName
+                                       testCase: (NSString*) testCase;
 
 // Outputs an HTML report for the specified test case
 - (int) generateReportForExtension: (NSString*) extensionPathName
                           testCase: (NSString*) testCase
                          errorCode: (NSString*) errorCode
                        problemsURL: (NSURL*) problemsURL
-                          skeinURL: (NSURL*) skeinURL
+                          skeinURL: (nullable NSURL*) skeinURL
                        skeinNodeId: (unsigned long) skeinNodeId
                         skeinNodes: (int) skeinNodes
                          outputURL: (NSURL*) outputURL;
@@ -47,5 +49,6 @@ extern NSNotificationName const IFInTestFinishedNotification;
                                   numTests: (int) numTests
                                  outputURL: (NSURL*) outputURL;
 
-
 @end
+
+NS_ASSUME_NONNULL_END

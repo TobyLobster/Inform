@@ -8,6 +8,10 @@
 #ifndef IFCompilerStyles_h
 #define IFCompilerStyles_h
 
+#import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
 // Possible styles (stored in the styles dictionary)
 extern NSString* const IFStyleBase;
 extern NSString* const IFStyleLaunch;
@@ -28,5 +32,7 @@ extern NSString* const IFStyleHexDump;
 extern NSString* const IFStyleStatistics;
 
 
+
+NS_ASSUME_NONNULL_END
 
 #endif /* IFCompilerStyles_h */

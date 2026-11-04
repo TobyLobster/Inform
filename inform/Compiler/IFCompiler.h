@@ -50,14 +50,12 @@ typedef NS_ENUM(int, ECompilerProblemType) {
 //+ (NSString*) compilerExecutable;
 /// If set, debug options will be turned off while building
 - (void) setBuildForRelease: (BOOL) willRelease forTesting: (BOOL) testing NS_SWIFT_NAME(setBuild(forRelease:forTesting:));
-/// The input file name.
-@property (atomic, copy) NSString *inputFile;
-/// Retrieves the settings
-/// Sets the settings to use while compiling
-@property (atomic, strong) IFCompilerSettings *settings;
-/// Sets the build products directory.
-/// Retrieves the working directory path.
-@property (atomic, copy) NSString *directory;
+/// The input file name; nil until it's set.
+@property (atomic, copy, nullable) NSString *inputFile;
+/// The settings to use while compiling; nil until they're set.
+@property (atomic, strong, nullable) IFCompilerSettings *settings;
+/// The build products directory; nil until it's set.
+@property (atomic, copy, nullable) NSString *directory;
 
 /// Prepares the first task for launch
 - (BOOL) prepareForLaunchWithBlorbStage: (BOOL) makeBlorb testCase:(nullable NSString*) testCase;
@@ -75,28 +73,22 @@ typedef NS_ENUM(int, ECompilerProblemType) {
 				errorHandler: (nullable id<IFCompilerProblemHandler>) handler
 					   named: (NSString*) stageName;
 /// Adds a new Natural Inform build stage to the compiler
-- (void) addNaturalInformStageUsingTestCase:(NSString*) testCase;
+- (void) addNaturalInformStageUsingTestCase:(nullable NSString*) testCase;
 /// Adds a new Inform 6 build stage to the compiler
 - (void) addStandardInformStage;
-/// Pathname of the input file for the current build stage
-@property (atomic, readonly, copy) NSString *currentStageInput;
+/// Pathname of the input file for the current build stage; the input file when there are no stages yet.
+@property (atomic, readonly, copy, nullable) NSString *currentStageInput;
 
 /// Deletes the output from the compiler
 - (void)      deleteOutput;
-/// Path of the compiler output file
-@property (atomic, copy) NSString *outputFile;
+/// Path of the compiler output file. With none set, it's a new temporary file, deleted with the compiler.
+@property (atomic, copy, null_resettable) NSString *outputFile;
 /// URL of the file that should be shown in the 'Problems' tab; nil if we should use the standard problems.html file
 @property (atomic, readonly, copy, nullable) NSURL *problemsURL;
-// Sets the file that the compiler should target
 /// If YES, the output is deleted when the compiler is deallocated
 @property (atomic) BOOL deletesOutput;
-- (void)      setDeletesOutput: (BOOL) deletes;
 
-/// Sets the delegate object for the compiler. The delegate is NOT RETAINED.
-- (void) setDelegate: (nullable id<IFCompilerDelegate>) delegate;
-/// Retrieves the delegate object.
-- (nullable id<IFCompilerDelegate>)   delegate;
-/// The delegate object.
+/// The delegate object, which is not retained.
 @property (atomic, weak, nullable) id<IFCompilerDelegate> delegate;
 
 /// Clears the console

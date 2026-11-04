@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 extern NSNotificationName const IFMaintenanceTasksStarted;
 extern NSNotificationName const IFMaintenanceTasksFinished;
@@ -17,8 +18,7 @@ extern NSNotificationName const IFMaintenanceTasksFinished;
 ///
 @interface IFMaintenanceTask : NSObject
 
-/// Retrieves the common maintenance task object
-+ (IFMaintenanceTask*) sharedMaintenanceTask;
+/// The common maintenance task object
 @property (class, atomic, readonly, strong) IFMaintenanceTask *sharedMaintenanceTask;
 
 /// Queues a task to run the given command (with arguments)
@@ -31,5 +31,6 @@ extern NSNotificationName const IFMaintenanceTasksFinished;
           withArguments: (NSArray<NSString*>*) arguments
              notifyType: (NSNotificationName) notifyType;
 
-
 @end
+
+NS_ASSUME_NONNULL_END
