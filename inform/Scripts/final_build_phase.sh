@@ -31,7 +31,12 @@ echo "****** Code sign executables ******"
 if [ -n "${CODE_SIGN_IDENTITY}" ]; then
     export CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/codesign_allocate
 
-    COMMON="/usr/bin/codesign --timestamp --options=runtime --force --sign \"${CODE_SIGN_IDENTITY}\" --identifier com.inform7.inform-compiler --entitlements \"${PROJECT_DIR}/Inform-inherit.entitlements\""
+    # "Sign to Run Locally" uses identity "-" (ad-hoc). Hardened-runtime flags are not used then.
+    if [ "${CODE_SIGN_IDENTITY}" = "-" ]; then
+        COMMON='/usr/bin/codesign --force --sign -'
+    else
+        COMMON="/usr/bin/codesign --timestamp --options=runtime --force --sign \"${CODE_SIGN_IDENTITY}\" --identifier com.inform7.inform-compiler --entitlements \"${PROJECT_DIR}/Inform-inherit.entitlements\""
+    fi
 
     echo "Signing Identity: ${CODE_SIGN_IDENTITY}"
     echo "Signing parameters: ${COMMON}"
