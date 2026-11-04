@@ -10,8 +10,12 @@
 
 #import "IFFindController.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 ///
 /// NSTextView category that supports the new find dialog
 ///
 @interface NSTextView(IFFindTextView) <IFFindDelegate>
 @end
+
+NS_ASSUME_NONNULL_END

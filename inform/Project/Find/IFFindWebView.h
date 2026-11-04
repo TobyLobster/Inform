@@ -11,8 +11,12 @@
 
 #import "IFFindController.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 ///
 /// WKWebView category that implements the find controller delegate functions
 ///
 @interface WKWebView(IFFindWebView) <IFFindDelegate>
 @end
+
+NS_ASSUME_NONNULL_END

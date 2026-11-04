@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "IFSyntaxTypes.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFSyntaxData;
 
 typedef union IFInform6State {
@@ -39,3 +41,5 @@ typedef union IFInform6State {
 @interface IFInform6Highlighter : NSObject<IFSyntaxHighlighter>
 
 @end
+
+NS_ASSUME_NONNULL_END

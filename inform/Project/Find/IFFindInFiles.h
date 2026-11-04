@@ -9,9 +9,9 @@
 #import "IFFindResult.h"
 #import "IFProject.h"
 
-typedef void (^IFFindInFilesProgressBlock)(int num, int total, int found);
+NS_ASSUME_NONNULL_BEGIN
 
-extern NSObject *  gSearchLock;
+typedef void (^IFFindInFilesProgressBlock)(int num, int total, int found);
 
 @class IFExampleInfo;
 
@@ -22,7 +22,7 @@ extern NSObject *  gSearchLock;
 
 @property (atomic, getter=isSearching, readonly) BOOL searching;
 @property (atomic, readonly) int resultsCount;
-@property (atomic, readonly, copy) NSArray *results;
+@property (atomic, readonly, copy) NSArray<IFFindResult*> *results;
 @property (atomic, readonly, strong) NSObject *searchResultsLock;
 
 - (void) startFindInFilesWithPhrase: (NSString*)                    searchPhrase
@@ -31,7 +31,7 @@ extern NSObject *  gSearchLock;
                       withLocations: (IFFindLocation)               locations
                   withProgressBlock: (IFFindInFilesProgressBlock)   progressBlock;
 
-- (IFExampleInfo*) exampleInfoForRange:(NSRange) range;
+- (nullable IFExampleInfo*) exampleInfoForRange:(NSRange) range;
 
 // Utility functions
 + (NSString*) getContextFromText: (NSString*) textString
@@ -40,3 +40,5 @@ extern NSObject *  gSearchLock;
              findingContextRange: (NSRange*) rangeOut;
 
 @end
+
+NS_ASSUME_NONNULL_END

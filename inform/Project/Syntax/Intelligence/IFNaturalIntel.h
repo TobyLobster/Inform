@@ -11,6 +11,8 @@
 #import "IFIntelFile.h"
 #import "IFSyntaxTypes.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFSyntaxData;
 
 ///
@@ -23,3 +25,5 @@
 + (void) enableIndentation;
 
 @end
+
+NS_ASSUME_NONNULL_END

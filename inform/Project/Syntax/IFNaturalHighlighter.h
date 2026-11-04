@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "IFSyntaxTypes.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFSyntaxData;
 
 // Natural Inform states
@@ -38,3 +40,5 @@ NS_ENUM(IFHighlighterMode) {
 @interface IFNaturalHighlighter : NSObject<IFSyntaxHighlighter>
 
 @end
+
+NS_ASSUME_NONNULL_END

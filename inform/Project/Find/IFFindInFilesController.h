@@ -10,6 +10,8 @@
 #import "IFFindResult.h"
 #import "Inform-Swift.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFProject;
 @class IFFindInFiles;
 @class IFProjectController;
@@ -30,13 +32,13 @@
 
 // Actions
 /// 'Find all' clicked
-- (IBAction) findAll: (id) sender;
+- (IBAction) findAll: (nullable id) sender;
 /// 'Replace all' clicked
-- (IBAction) replaceAll: (id) sender;
+- (IBAction) replaceAll: (nullable id) sender;
 /// The user has selected a new type of find (from contains, etc)
-- (IBAction) findTypeChanged: (id) sender;
+- (IBAction) findTypeChanged: (nullable id) sender;
 /// The user hit enter in the 'find' combo box
-- (IBAction) comboBoxEnterKeyPress: (id) sender;
+- (IBAction) comboBoxEnterKeyPress: (nullable id) sender;
 
 - (void) showFindInFilesWindow: (IFProjectController*) aController;     //
 - (void) startFindInFilesSearchWithPhrase: (NSString*) aPhrase
@@ -55,8 +57,8 @@
 - (BOOL) canUseFindType: (IFFindType) find;
 
 // 'Find all'
-/// Should return an array of IFFindResults, used to implement 'Find All'
-- (NSArray<IFFindResult*>*) findAllMatches: (NSString*) match
+/// Should return an array of IFFindResults, used to implement 'Find All' (nil if there's nothing to find)
+- (nullable NSArray<IFFindResult*>*) findAllMatches: (NSString*) match
                                     ofType: (IFFindType) type
                                 inLocation: (IFFindLocation) location
                    inFindInFilesController: (IFFindInFilesController*) controller
@@ -67,11 +69,13 @@
 // 'Replace all'
 /// Indicates that a replace all operation is starting
 - (void) beginReplaceAll: (IFFindInFilesController*) sender;
-/// Request to replace a find all result as part of a replace all operation
-- (IFFindResult*) replaceFindAllResult: (IFFindResult*) result
+/// Request to replace a find all result as part of a replace all operation (nil if its text has changed)
+- (nullable IFFindResult*) replaceFindAllResult: (IFFindResult*) result
 							withString: (NSString*) replacement
 								offset: (int*) offset;
 /// The replace all operation has finished
 - (void) finishedReplaceAll: (IFFindInFilesController*) sender;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(unsigned int, IFFindType) {
 	// The main types of find that can be performed
     IFFindInvalidType = 0,
@@ -38,31 +40,31 @@ typedef NS_OPTIONS(unsigned int, IFFindLocation) {
 
 // Data
 /// The filepath of the file in which the result was found
-@property (atomic, readonly, copy) NSString *   filepath;
+@property (atomic, readonly, copy, nullable) NSString *   filepath;
 /// The range within the file of the match
-@property (atomic, readonly)       NSRange      fileRange;
+@property (atomic, readonly)                 NSRange      fileRange;
 /// The document name diaplyed in the results
-@property (atomic, readonly, copy) NSString *   documentDisplayName;
+@property (atomic, readonly, copy, nullable) NSString *   documentDisplayName;
 /// Name used for sorting the results into order
-@property (atomic, readonly, copy) NSString *   documentSortName;
+@property (atomic, readonly, copy, nullable) NSString *   documentSortName;
 /// The location type of the match
-@property (atomic, readonly)       IFFindLocation locationType;
+@property (atomic, readonly)                 IFFindLocation locationType;
 /// The context the match was found in
-@property (atomic, readonly, copy) NSString *   context;
+@property (atomic, readonly, copy)           NSString *   context;
 /// The range in the context of the match
-@property (atomic, readonly)       NSRange      contextRange;
+@property (atomic, readonly)                 NSRange      contextRange;
 /// The name of the example where it was found
-@property (atomic, readonly, copy) NSString *   exampleName;
+@property (atomic, readonly, copy, nullable) NSString *   exampleName;
 /// The HTML anchor tag of the example where the result was found
-@property (atomic, readonly, copy) NSString *   exampleAnchorTag;
+@property (atomic, readonly, copy, nullable) NSString *   exampleAnchorTag;
 /// The HTML anchor tag of the code where the result was found
-@property (atomic, readonly, copy) NSString *   codeAnchorTag;
+@property (atomic, readonly, copy, nullable) NSString *   codeAnchorTag;
 /// The HTML anchor tag of the definition where the result was found
-@property (atomic, readonly, copy) NSString *   definitionAnchorTag;
+@property (atomic, readonly, copy, nullable) NSString *   definitionAnchorTag;
 /// The search phrase
-@property (atomic, readonly, copy) NSString *   phrase;
+@property (atomic, readonly, copy)           NSString *   phrase;
 /// Array of strings for the found regex groups
-@property (atomic, readonly, copy) NSArray *    regexFoundGroups;
+@property (atomic, readonly, copy, nullable) NSArray<NSString*> * regexFoundGroups;
 /// Is the result found in the WritingWithInform documentation?
 @property (atomic, getter=isWritingWithInformResult, readonly) bool writingWithInformResult;
 /// Is the result found in the Recipe Book documentation?
@@ -73,22 +75,24 @@ typedef NS_OPTIONS(unsigned int, IFFindLocation) {
 // Initialisation
 -(instancetype)   init NS_UNAVAILABLE;
 
--(instancetype)   initWithFilepath: (NSString*)       filepath
-                       rangeInFile: (NSRange)         fileRange
-               documentDisplayName: (NSString*)       documentDisplayName
-                  documentSortName: (NSString*)       documentSortName
-                      locationType: (IFFindLocation)  locationType
-                           context: (NSString*)       context
-                      contextRange: (NSRange)         contextRange
-                       exampleName: (NSString*)       aExampleName
-                  exampleAnchorTag: (NSString*)       aExampleAnchorTag
-                     codeAnchorTag: (NSString*)       aCodeAnchorTag
-               definitionAnchorTag: (NSString*)       aDefinitionAnchorTag
-                  regexFoundGroups: (NSArray*)        aRegexFoundGroups NS_DESIGNATED_INITIALIZER;
+-(instancetype)   initWithFilepath: (nullable NSString*)   filepath
+                       rangeInFile: (NSRange)             fileRange
+               documentDisplayName: (nullable NSString*)   documentDisplayName
+                  documentSortName: (nullable NSString*)   documentSortName
+                      locationType: (IFFindLocation)      locationType
+                           context: (NSString*)           context
+                      contextRange: (NSRange)             contextRange
+                       exampleName: (nullable NSString*)   aExampleName
+                  exampleAnchorTag: (nullable NSString*)   aExampleAnchorTag
+                     codeAnchorTag: (nullable NSString*)   aCodeAnchorTag
+               definitionAnchorTag: (nullable NSString*)   aDefinitionAnchorTag
+                  regexFoundGroups: (nullable NSArray*)    aRegexFoundGroups NS_DESIGNATED_INITIALIZER;
 
 
 - (void)            setError:(BOOL) hasError;
 - (NSString*)       stringByReplacingGroups:(NSString*) replace;
-+ (NSString*)       stringByReplacingGroups:(NSString*) replace regexFoundGroups:(NSArray*) aRegexFoundGroups;
++ (NSString*)       stringByReplacingGroups:(NSString*) replace regexFoundGroups:(nullable NSArray<NSString*>*) aRegexFoundGroups;
 
 @end
+
+NS_ASSUME_NONNULL_END

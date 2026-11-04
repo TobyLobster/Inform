@@ -8,6 +8,8 @@
 #import <Cocoa/Cocoa.h>
 #import "IFFindResult.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 ///
 /// Searches through a string to find a match for a search pattern
 ///
@@ -17,12 +19,14 @@
                  storage: (NSString*) storage
                 position: (NSUInteger) searchPosition
                  options: (IFFindType) searchType
-        regexFoundGroups: (NSArray<NSString*>*__strong*) foundGroupsOut;
+        regexFoundGroups: (NSArray<NSString*>* _Nullable __strong* _Nullable) foundGroupsOut;
 
 +(NSRange) findPreviousMatch: (NSString*) phrase
                      storage: (NSString*) storage
                     position: (NSUInteger) searchPosition
                      options: (IFFindType) searchType
-            regexFoundGroups: (NSArray<NSString*>*__strong*) foundGroupsOut;
+            regexFoundGroups: (NSArray<NSString*>* _Nullable __strong* _Nullable) foundGroupsOut;
 
 @end
+
+NS_ASSUME_NONNULL_END
