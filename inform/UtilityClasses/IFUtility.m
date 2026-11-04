@@ -300,6 +300,7 @@ CGFloat easeOutCubic(CGFloat t) {
                    modalDelegate: modalDelegate
                   didEndSelector: alertDidEndSelector
                      contextInfo: contextInfo];
+        return;
     }
 
     [alert beginSheetModalForWindow: window completionHandler: ^(NSModalResponse response) {
