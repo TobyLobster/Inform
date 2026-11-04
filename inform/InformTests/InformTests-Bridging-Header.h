@@ -20,3 +20,4 @@
 #import "IFProject.h"
 #import "IFProjectController.h"
 #import "IFWebViewHelper.h"
+#import "IFRuntimeErrorParser.h"

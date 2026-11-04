@@ -28,18 +28,33 @@
 @synthesize delegate;
 
 - (void) outputText: (NSString*) outputText {
+	// The story's output arrives in pieces of any size, so collect it into lines, and check
+	// each line once it is complete
+	[accumulator appendString: outputText];
+
+	NSRange newline;
+	while ((newline = [accumulator rangeOfString: @"\n"]).location != NSNotFound) {
+		NSString* line = [accumulator substringToIndex: newline.location];
+		[accumulator deleteCharactersInRange: NSMakeRange(0, NSMaxRange(newline))];
+		[self checkLine: line];
+	}
+}
+
+/// Tells the delegate if this line of the story's output announces a run-time problem
+- (void) checkLine: (NSString*) line {
 	// Scan for '*** Run-time problem XX' at the beginning of a line: this indicates that runtime problem XX
-	// has occured (and we should probably be showing file RTP_XX.html)
+	// has occured (and we should probably be showing file RTP_XX.html). A story compiled with
+	// debugging follows it with ': ' and the folder holding the problem's explanation.
 
     NSString* problemType = nil;
     NSString* directory = nil;
 
-    NSTextCheckingResult *match = [IFUtility findMatch: @"^\\*\\*\\* Run-time problem\\s+([^\\s]+):\\s*(.*)$" inText: outputText];
+    NSTextCheckingResult *match = [IFUtility findMatch: @"^\\*\\*\\* Run-time problem\\s+([^\\s:]+)(?::\\s*(.*))?$" inText: line];
     if (match) {
-        problemType = [outputText substringWithRange: [match rangeAtIndex:1]];
+        problemType = [line substringWithRange: [match rangeAtIndex:1]];
         NSTextCheckingResult *oldStyleMatches = [IFUtility findMatch: @"P\\d+" inText: problemType];
-        if (oldStyleMatches == nil) {
-            directory   = [outputText substringWithRange: [match rangeAtIndex:2]];
+        if ((oldStyleMatches == nil) && ([match rangeAtIndex: 2].location != NSNotFound)) {
+            directory   = [line substringWithRange: [match rangeAtIndex:2]];
         }
     }
 
@@ -57,29 +72,7 @@
 - (void) receivedCharacters: (NSString*) characters
 					 window: (int) windowNumber
 				   fromView: (GlkView*) view {
-	unichar* chrs = malloc(sizeof(unichar)*characters.length);
-    if( chrs != NULL ) {
-        [characters getCharacters: chrs];
-        
-        int start = 0;
-        int x;
-        for (x=0; x<characters.length; x++) {
-            if (chrs[x] == '\n') {
-                [accumulator appendString: [NSString stringWithCharacters: chrs + start
-                                                                   length: x - start]];
-                
-                [self outputText: accumulator];
-                accumulator = [[NSMutableString alloc] init];
-                start = x;
-            }
-        }
-        [accumulator appendString: [NSString stringWithCharacters: chrs + start
-                                                           length: x - start]];
-        
-        [accumulator appendString: characters];
-        [self outputText: characters];
-    }
-    free(chrs);
+	[self outputText: characters];
 }
 
 /// The user has typed the specified string into the specified window (which is any window that is waiting for input)
