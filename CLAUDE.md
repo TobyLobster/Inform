@@ -21,6 +21,7 @@ The macOS IDE for Inform 7. Mostly Objective-C, with some Swift. The modernisati
 - Code signing is manual and must stay manual. Never accept Xcode's "Update to recommended settings" wholesale; review each change and call out anything touching signing or entitlements.
 - Work on local branches in small commits for the maintainer to review. Don't push.
 - Don't commit changes inside `zoom/` or its submodules without being asked. Fixes for Zoom/CocoaGlk should be made so they can go upstream.
+- Never commit anything that replaces or removes the `zoom` submodule: checking out such a commit deletes the `zoom` folder, with its uncommitted changes. `inform/Scripts/git-hooks/pre-commit` refuses these commits; install it with `cp inform/Scripts/git-hooks/pre-commit "$(git rev-parse --git-common-dir)/hooks/"` and never bypass it with `--no-verify`. In a worktree whose `zoom` is a symlink to the main checkout, stage paths by name, never with `commit -a` or `add -A`. The hook doesn't run for cherry-pick or rebase, so before landing a branch check that `git diff --raw master <branch> -- zoom` prints nothing.
 - Swift conversion is one-to-one. A commit either moves logic or translates it to Swift, never both.
 - Match the surrounding code's style. App classes use the `IF` prefix.
 - Unit tests live in `inform/InformTests/` (Swift, hosted in Inform.app). App classes are made visible to them through `InformTests-Bridging-Header.h`; add header search paths to the `InformTests` target as needed.

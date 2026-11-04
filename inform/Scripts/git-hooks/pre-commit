@@ -1,0 +1,38 @@
+#!/bin/sh
+#
+# Refuse a commit that turns a submodule into something else: a symlink, a
+# file, or nothing.
+#
+# Checking out such a commit makes git delete the submodule's folder, with any
+# changes in it that aren't committed. That happened on 4 November 2026: a
+# worktree had zoom replaced by a symlink to the main checkout's zoom, the
+# symlink was committed, and fast-forwarding master deleted zoom.
+#
+# Install it for every worktree of a clone with
+#     cp inform/Scripts/git-hooks/pre-commit "$(git rev-parse --git-common-dir)/hooks/"
+# To remove a submodule on purpose, commit with ALLOW_SUBMODULE_REMOVAL=1.
+
+if [ "$ALLOW_SUBMODULE_REMOVAL" = 1 ]; then
+    exit 0
+fi
+
+if git rev-parse --verify -q HEAD > /dev/null; then
+    against=HEAD
+else
+    # The first commit: compare with an empty tree
+    against=$(git hash-object -t tree /dev/null)
+fi
+
+# Raw diff lines look like ":160000 120000 <old> <new> T<tab>zoom".
+# A submodule has mode 160000.
+replaced=$(git diff --cached --raw --no-renames --ignore-submodules=none "$against" |
+    awk -F '\t' '{ split($1, mode, " "); if (mode[1] == ":160000" && mode[2] != "160000") print $2 }')
+
+if [ -n "$replaced" ]; then
+    echo "pre-commit: not committing, because this replaces or removes a submodule:" >&2
+    echo "$replaced" | sed 's/^/    /' >&2
+    echo "Checking out the commit would delete the submodule's folder, with any changes in it." >&2
+    echo "Where a worktree has the submodule as a symlink, stage only the paths you mean (not -a or -A)." >&2
+    echo "To remove a submodule on purpose, commit with ALLOW_SUBMODULE_REMOVAL=1." >&2
+    exit 1
+fi
