@@ -102,6 +102,8 @@
 - (IFSyntaxStyle) styleAtStartOfLine: (int) lineNumber;
 /// (To be called from rewriteInput) the style at the end of a specific line
 - (IFSyntaxStyle) styleAtEndOfLine: (int) lineNumber;
+/// The syntax highlighting style of the character at an index
+- (IFSyntaxStyle) styleAtIndex: (NSUInteger) index;
 
 /// (To be called from rewriteInput) the character at the end of a specific line
 - (unichar) characterAtEndOfLine: (int) lineNumber;

@@ -17,6 +17,7 @@
 #import "IFSkeinReportItemView.h"
 #import "IFPreferences.h"
 #import "IFSyntaxManager.h"
+#import "IFSyntaxData.h"
 #import "IFProject.h"
 #import "IFProjectController.h"
 #import "IFWebViewHelper.h"

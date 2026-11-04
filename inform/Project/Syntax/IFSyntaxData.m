@@ -1627,6 +1627,11 @@ static inline BOOL IsLineEnd(unichar c) {
     return [charStyles read:pos];
 }
 
+- (IFSyntaxStyle) styleAtIndex: (NSUInteger) index {
+    if (index >= _textStorage.length) return IFSyntaxStyleNotHighlighted;
+    return [charStyles read: (long) index];
+}
+
 - (unichar) characterAtEndOfLine: (int) lineNumber {
     NSInteger pos;
     
