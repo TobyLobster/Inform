@@ -131,7 +131,13 @@ Started November 2026, on the `extensions` branch. This is a living document: up
 - Static analyser, Address and Thread Sanitizers, Main Thread Checker.
     - [x] Static analyser (4 November 2026; Xcode's `analyze`, deep mode, the project's own checker settings). The app had 7 findings, now none. One was a bug: the Extensions page's "Details Not Yet Available" page (`NoExtensions.html`), shown for a project using the new extensions before it has a catalogue of them, was looked for in `Internal/HTML`, but is in the app's `en.lproj`, so it couldn't load (5d2eecf8, with `IFWebViewHelperTests`). Once it could, it stayed after the project had a catalogue, as reloading reloaded the failure page; the page now retries the page that failed (578b1b5f). The others were tidied without changing behaviour (5a7b07a7).
     - Zoom and CocoaGlk had 138 findings, not fixed here. 54 are in CocoaGlk's copy of SFBAudioEngine, 22 in Zoom's generated interpreter headers, and 10 in glulxe and git, which is all third-party code. The rest, in their own code, are mostly dead stores. A few might be real, to look at upstream after the submodules are updated: a possible null `win->stream` in `glk_window_set_echo_stream` (`glk_windows.m`), a nil font in an attributes dictionary (`ZoomTextView.m`), a variable-length array that could have a negative size (`GlkTypesetter.m`), null `buf` arrays with a non-zero length in `glk_stream.m` and `glk_unicode.m`, and leaks in Zoom's `debug.c` and `rc.c`.
-- Unit tests for the classes that are already free of UI: skein XML, index file, runtime error parser, highlighters, settings.
+- [x] Unit tests for the classes that are already free of UI: skein XML, index file, runtime error parser, highlighters, settings. (4 November 2026: `IFSkeinXMLTests`, `IFRuntimeErrorParserTests`, `IFHighlighterTests`, `IFCompilerSettingsTests`.) They found four bugs:
+    - A run-time problem was only noticed when a piece of the story's output began with it, so one printed after other text, or split into pieces, didn't show its explanation; broken since cc9ea76f in August 2023 (b4de1456).
+    - The `!` that starts an Inform 6 comment wasn't coloured as a comment, in Inform 6 code and in Inform 6 code in Inform 7 source (9e344d78).
+    - The `(-` that starts Inform 6 code in Inform 7 source was coloured as a string or a routine name (76a1d7ba).
+    - A Z-machine version the compiler doesn't support wasn't replaced by the default (5663efa0). Only a hand-edited Settings.plist can hold one.
+    - Not checked on screen yet: the colours of the two highlighting fixes, and a run-time problem's page appearing in the Story tab.
+    - `IFIndexFile` isn't tested. `IFProject` reads `Index/Headings.xml` into one after each compile, but nothing uses it.
 
 ### Phase 5 – Swift, and separating logic from UI (goal 5)
 
