@@ -68,7 +68,12 @@
 																  afterState: newState];
 							newState = [inform6Highlighter stateForCharacter: ';'
 																  afterState: newState];
-							return newState;
+
+							// Those characters aren't in the text, so don't colour back over them
+							IFInform6State primedState;
+							primedState.state = newState;
+							primedState.bitmap.colourBacktrack = 0;
+							return primedState.state;
 						}
 					}
 					__attribute__((fallthrough));
@@ -195,6 +200,11 @@
 		// Inform 6 styles
 		case IFNaturalModeInform6MightEnd:
 		case IFNaturalModeInform6:
+			if (lastState == IFNaturalStateMaybeInform6) {
+				// The '-' that starts the Inform 6 code follows an Inform 7 state, so style it
+				// in the state that the Inform 6 code starts in
+				lastState = nextState;
+			}
 			return [inform6Highlighter styleForCharacter: chr
 											   nextState: nextState
 											   lastState: lastState] + 0x20;

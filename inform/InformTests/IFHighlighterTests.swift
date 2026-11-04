@@ -101,10 +101,18 @@ final class IFHighlighterTests: XCTestCase {
                 ("Global", .directive),
                 ("! An Inform 6 comment", .comment),
                 (").", .naturalInform),
-                ("To decide what number is the answer:", .naturalInform),
+                ("To decide what number is the answer: (", .naturalInform),
                 ("42", .codeAlpha),
                 (").", .naturalInform),
             ])
+    }
+
+    /// The "-" that starts an inclusion of Inform 6 isn't a string.
+    func testStartOfInform6Inclusions() throws {
+        let text = "Include (- Global counter = 1; -).\n"
+        let styles = try self.styles(text, .inform7)
+        let dash = (text as NSString).range(of: "-").location
+        XCTAssertNotEqual(name(styles[dash]), "string")
     }
 
     // MARK: - Inform 6
