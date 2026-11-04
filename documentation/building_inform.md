@@ -4,7 +4,8 @@
 
 - A recent version of macOS and XCode.
 	- At time of writing I'm using XCode 15. on macOS 14.4.1 (Sonoma).
-- *Apple Developer Program* membership, probably. You will need a valid *Code Signing Identity* and *Developer Team*. That means having valid *Provisioning Profiles*, *Certificates* etc configured directly from Apple.
+- To build releases, or to develop with Apple Development signing: *Apple Developer Program* membership. You will need a valid *Code Signing Identity* and *Developer Team*. That means having valid *Provisioning Profiles*, *Certificates* etc configured directly from Apple.
+	- To build and run on your own Mac only, you don't need any of that: configure with `--local` (see section 3).
 - Python 3.
 - Experience of XCode and git.
 
@@ -41,7 +42,13 @@ Debug builds are for the active architecture only (matching the submodule projec
 
 * Execute `.venv/bin/python configure.py --help` (or `./configure.py --help` with the virtual environment activated)
 
-To see the options. Execute this script with the appropriate parameters specified. Edit the `configure.py` script itself to change the current version number of the App.
+To see the options. Execute this script with the appropriate parameters specified. Edit the `configure.py` script itself to change the current version number of the App. The build types are:
+	- `--local`: build and run on this Mac only, with XCode's "Sign to Run Locally" (ad-hoc signing, no hardened runtime). No Apple Developer team is needed.
+	- `--develop`: day to day development, signed with "Apple Development".
+	- `--standalone`: a release outside the Mac App Store, signed with "Developer ID Application".
+	- `--mas`: a Mac App Store release, signed with "Apple Distribution" and sandboxed.
+
+	`--team` sets the Developer Team ID. It's ignored with `--local`, and otherwise defaults to the maintainer's team.
 
 * Open the Inform project in XCode.
 
