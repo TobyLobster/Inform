@@ -808,7 +808,7 @@
 		[animator prepareToAnimateView: self.view.subviews[0]
                              focusView: nil];
 		[animator animateTo: scrollView
-                  focusView: nil
+                  focusView: textView
 					  style: IFAnimateLeft
                 sendMessage: @selector(animationFinished:)
                    toObject: self];
