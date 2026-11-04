@@ -129,6 +129,8 @@ Started November 2026, on the `extensions` branch. This is a living document: up
 ### Phase 4 – New bugs (goal 4)
 
 - Static analyser, Address and Thread Sanitizers, Main Thread Checker.
+    - [x] Static analyser (4 November 2026; Xcode's `analyze`, deep mode, the project's own checker settings). The app had 7 findings, now none. One was a bug: the Extensions page's "Details Not Yet Available" page (`NoExtensions.html`), shown for a project using the new extensions before it has a catalogue of them, was looked for in `Internal/HTML`, but is in the app's `en.lproj`, so it couldn't load (5d2eecf8, with `IFWebViewHelperTests`). Not checked on screen. The others were tidied without changing behaviour (5a7b07a7).
+    - Zoom and CocoaGlk had 138 findings, not fixed here. 54 are in CocoaGlk's copy of SFBAudioEngine, 22 in Zoom's generated interpreter headers, and 10 in glulxe and git, which is all third-party code. The rest, in their own code, are mostly dead stores. A few might be real, to look at upstream after the submodules are updated: a possible null `win->stream` in `glk_window_set_echo_stream` (`glk_windows.m`), a nil font in an attributes dictionary (`ZoomTextView.m`), a variable-length array that could have a negative size (`GlkTypesetter.m`), null `buf` arrays with a non-zero length in `glk_stream.m` and `glk_unicode.m`, and leaks in Zoom's `debug.c` and `rc.c`.
 - Unit tests for the classes that are already free of UI: skein XML, index file, runtime error parser, highlighters, settings.
 
 ### Phase 5 – Swift, and separating logic from UI (goal 5)
