@@ -10,6 +10,8 @@
 
 #import "IFIntelFile.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFSyntaxData;
 @class IFSyntaxStyles;
 
@@ -80,7 +82,7 @@ typedef NS_ENUM(unsigned int, IFHighlightType) {
 
 #pragma mark - Notifying of the highlighter currently in use
 /// Sets the syntax data that the highlighter is (currently) dealing with
-- (void) setSyntaxData: (IFSyntaxData*) data;
+- (void) setSyntaxData: (nullable IFSyntaxData*) data;
 
 // The highlighter itself
 /// Retrieves the syntax state for a given character
@@ -112,7 +114,7 @@ typedef NS_ENUM(unsigned int, IFHighlightType) {
 
 #pragma mark - Notifying of the highlighter currently in use
 /// Sets the syntax data that the intelligence object should use
-- (void) setSyntaxData: (IFSyntaxData*) data;
+- (void) setSyntaxData: (nullable IFSyntaxData*) data;
 
 // Gathering information (works like rehint)
 /// Gathers intelligence data for the given line (with the given syntax highlighting styles, initial state and line number), and places the resulting data into the given IntelFile object
@@ -123,8 +125,8 @@ typedef NS_ENUM(unsigned int, IFHighlightType) {
 				   intoData: (IFIntelFile*) data;
 
 // Autotyping (occurs when inserting single characters, and allows us to turn '\n' into '\n\t' for example
-/// Opportunity to automatically insert data (for instance to implement auto-tabbing)
-- (NSString*) rewriteInput: (NSString*) input;
+/// Opportunity to automatically insert data (for instance to implement auto-tabbing). Returns \c nil to leave the input as it is.
+- (nullable NSString*) rewriteInput: (NSString*) input;
 
 @end
 
@@ -142,3 +144,5 @@ typedef NS_ENUM(unsigned int, IFHighlightType) {
 - (void) didEndEditing: (NSTextStorage*) storage;
 
 @end
+
+NS_ASSUME_NONNULL_END

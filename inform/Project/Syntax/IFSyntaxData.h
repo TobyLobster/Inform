@@ -8,6 +8,8 @@
 #import <Cocoa/Cocoa.h>
 #import "IFSyntaxTypes.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 // *******************************************************************************************
 ///
 /// Data about a restricted region of text storage
@@ -38,7 +40,7 @@
 @property (atomic, strong)  NSTextStorage*  textStorage;
 @property (atomic, strong)  NSString*       name;
 @property (atomic)          IFHighlightType type;
-@property (atomic, strong)  NSUndoManager*  undoManager;
+@property (atomic, strong, nullable) NSUndoManager* undoManager;
 @property (atomic)          bool            isHighlighting;
 
 // Initialisation
@@ -47,8 +49,8 @@
 -(instancetype) initWithStorage: (NSTextStorage*) aStorage
                  name: (NSString*) aName
                  type: (IFHighlightType) aType
-         intelligence: (id<IFSyntaxIntelligence>) intelligence
-          undoManager: (NSUndoManager*) aUndoManager NS_DESIGNATED_INITIALIZER;
+         intelligence: (nullable id<IFSyntaxIntelligence>) intelligence
+          undoManager: (nullable NSUndoManager*) aUndoManager NS_DESIGNATED_INITIALIZER;
 
 // Syntax Highlighting
 - (void) highlightAllForceUpdateTabs: (bool) forceUpdateTabs;
@@ -71,22 +73,19 @@
 					 offset: (int) offset;
 
 /// Forces a rehighlight (to take account of new preferences)
-- (void) preferencesChanged: (NSNotification*) not;
+- (void) preferencesChanged: (nullable NSNotification*) not;
 
 // Elastic Tabs
 /// Given a character index, works out the character range that elastic tabs should be applied to. Uses \c NSNotFound if elastic tabs shouldn't be applied to this range
 - (NSRange) rangeOfElasticRegionAtIndex: (NSUInteger) charIndex;
 /// Given a region, returns the set of tab stops to use for elastic tabs
-- (NSArray*) elasticTabsInRegion: (NSRange) region;
+- (NSArray<NSTextTab*>*) elasticTabsInRegion: (NSRange) region;
 /// Gets a paragraph style for the given number of tab stops
-- (NSDictionary*) paragraphStyleForTabStops: (int) numberOfTabstops;
+- (NSDictionary<NSAttributedStringKey,id>*) paragraphStyleForTabStops: (int) numberOfTabstops;
 
 // Gathering/retrieving intelligence data
-/// Sets the intelligence object for this highlighter
-- (void) setIntelligence: (id<IFSyntaxIntelligence>) intel;
-/// Retrieves the current intelligence object
-- (id<IFSyntaxIntelligence>) intelligence;
-@property (nonatomic, strong) id<IFSyntaxIntelligence> intelligence;
+/// The intelligence object for this highlighter
+@property (nonatomic, strong, nullable) id<IFSyntaxIntelligence> intelligence;
 /// Retrieves the intel data for the current intelligence object
 @property (atomic, readonly, strong) IFIntelFile *intelligenceData;
 
@@ -110,7 +109,7 @@
 
 /// (To be called from rewriteInput) callback allows editing outside the current line
 - (void) callbackForEditing: (SEL) selector
-				  withValue: (id) parameter;
+				  withValue: (nullable id) parameter;
 /// (To be called from the callbackForEditing) replaces a line with another line
 ///
 /// DANGEROUS! May change styles, invoke the highlighter, etc
@@ -125,7 +124,9 @@
 -(void) removeRestrictionForTextView: (NSTextView*) view;
 -(BOOL) isRestrictedForTextView:(NSTextView*) view;
 -(NSRange) restrictedRangeForTextView:(NSTextView*) view;
--(NSTextStorage*) restrictedTextStorageForTextView:(NSTextView*) view;
+-(nullable NSTextStorage*) restrictedTextStorageForTextView:(NSTextView*) view;
 
 @end
+
+NS_ASSUME_NONNULL_END
 

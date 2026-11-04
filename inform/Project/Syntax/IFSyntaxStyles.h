@@ -10,6 +10,8 @@
 
 #import "IFSyntaxTypes.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface IFSyntaxStyles : NSObject
 
 - (instancetype) init NS_DESIGNATED_INITIALIZER;
@@ -18,9 +20,11 @@
 - (IFSyntaxStyle) read: (long) index;
 - (void) write: (long) index value: (IFSyntaxStyle) value;
 
-@property (atomic) IFSyntaxStyle*   styles;
+@property (atomic, nullable) IFSyntaxStyle* styles;
 @property (atomic) unsigned long    numCharStyles;
 
 @end
+
+NS_ASSUME_NONNULL_END
 
 #endif /* IFSyntaxStyles_h */

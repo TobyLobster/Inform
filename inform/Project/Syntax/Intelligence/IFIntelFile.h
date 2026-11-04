@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFIntelSymbol;
 
 extern NSNotificationName const IFIntelFileHasChangedNotification;
@@ -34,18 +36,20 @@ extern NSNotificationName const IFIntelFileHasChangedNotification;
 
 // Finding symbols
 /// First symbol stored in this object
-@property (atomic, readonly, strong) IFIntelSymbol *firstSymbol;
+@property (atomic, readonly, strong, nullable) IFIntelSymbol *firstSymbol;
 /// Nearest symbol to a given line number (first symbol on the line if there are any symbols for that line, or the first symbol on the line before if not)
-- (IFIntelSymbol*) nearestSymbolToLine: (int) line;
+- (nullable IFIntelSymbol*) nearestSymbolToLine: (int) line;
 /// \c nil if there are no symbols for the given line, or the first symbol for that line otherwise
-- (IFIntelSymbol*) firstSymbolOnLine: (int) line;
+- (nullable IFIntelSymbol*) firstSymbolOnLine: (int) line;
 /// \c nil if there are no symbols for the given line, or the last symbol for that line otherwise
-- (IFIntelSymbol*) lastSymbolOnLine: (int) line;
+- (nullable IFIntelSymbol*) lastSymbolOnLine: (int) line;
 /// Given a symbol, works out which line number it occurs on
-- (NSUInteger) lineForSymbol: (IFIntelSymbol*) symbolToFind;
+- (NSUInteger) lineForSymbol: (nullable IFIntelSymbol*) symbolToFind;
 
 // Sending notifications
 /// Requests that a notification be sent that this object has changed
 - (void) intelFileHasChanged;
 
 @end
+
+NS_ASSUME_NONNULL_END

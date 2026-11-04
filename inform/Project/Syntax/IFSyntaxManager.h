@@ -8,6 +8,8 @@
 #import <Cocoa/Cocoa.h>
 #import "IFSyntaxData.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 ///
 /// Manages NSTextStorage objects registered
 ///
@@ -19,12 +21,12 @@
 +(void) registerTextStorage: (NSTextStorage*) storage
                        name: (NSString*) name
                        type: (IFHighlightType) type
-               intelligence: (id<IFSyntaxIntelligence>) intelligence
-                undoManager: (NSUndoManager*) undoManager;
+               intelligence: (nullable id<IFSyntaxIntelligence>) intelligence
+                undoManager: (nullable NSUndoManager*) undoManager;
 +(void) registerTextStorage: (NSTextStorage*) storage
                    filename: (NSString*) filename
-               intelligence: (id<IFSyntaxIntelligence>) intelligence
-                undoManager: (NSUndoManager*) undoManager;
+               intelligence: (nullable id<IFSyntaxIntelligence>) intelligence
+                undoManager: (nullable NSUndoManager*) undoManager;
 
 +(void) unregisterTextStorage: (NSTextStorage*) storage;
 +(bool) isRegistered: (NSTextStorage*) storage;
@@ -40,8 +42,8 @@
 // Intelligence
 //
 +(void) setIntelligenceForStorage: (NSTextStorage*) storage
-                     intelligence: (id<IFSyntaxIntelligence>) intelligence;
-+(IFIntelFile*) intelligenceDataForStorage: (NSTextStorage*) storage;
+                     intelligence: (nullable id<IFSyntaxIntelligence>) intelligence;
++(nullable IFIntelFile*) intelligenceDataForStorage: (NSTextStorage*) storage;
 
 //
 // Restricted Storage
@@ -55,13 +57,13 @@
          forTextView: (NSTextView*) view;
 +(NSRange) restrictedRange: (NSTextStorage*) storage
                forTextView: (NSTextView*) view;
-+(NSTextStorage*) restrictedTextStorage: (NSTextStorage*) storage
++(nullable NSTextStorage*) restrictedTextStorage: (NSTextStorage*) storage
                             forTextView: (NSTextView*) view;
 
 //
 // Renumbering sections
 //
-+(NSString*) textForLineWithStorage: (NSTextStorage*) storage
++(nullable NSString*) textForLineWithStorage: (NSTextStorage*) storage
                          lineNumber: (int) line;
 +(void) replaceLineWithStorage: (NSTextStorage*) storage
                     lineNumber: (int) lineNumber
@@ -70,6 +72,8 @@
 //
 // Internal
 //
-+(IFSyntaxData*) dataForStorage:(NSTextStorage*) storage;
++(nullable IFSyntaxData*) dataForStorage:(NSTextStorage*) storage;
 
 @end
+
+NS_ASSUME_NONNULL_END

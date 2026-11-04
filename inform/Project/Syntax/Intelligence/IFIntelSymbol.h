@@ -16,6 +16,8 @@ typedef NS_ENUM(int, IFSymbolRelation) {
 	IFSymbolDeltaLevel
 };
 
+NS_ASSUME_NONNULL_BEGIN
+
 // Standard symbol types
 extern NSString* const IFSectionSymbolType;	// Natural Inform section
 // (IMPLEMENT ME: Inform 6 objects, etc)
@@ -34,12 +36,14 @@ extern NSString* const IFSectionSymbolType;	// Natural Inform section
 }
 
 // Only public to IFIntelFile
-@property(atomic, weak) IFIntelSymbol* nextSymbol;
-@property(atomic, weak) IFIntelSymbol* lastSymbol;
+/// Next symbol (nearest)
+@property(atomic, weak, nullable) IFIntelSymbol* nextSymbol;
+/// Previous symbol (nearest)
+@property(atomic, weak, nullable) IFIntelSymbol* lastSymbol;
 
 // Symbol data
-@property (atomic, copy) NSString *name;
-@property (atomic, copy) NSString *type;
+@property (atomic, copy, nullable) NSString *name;
+@property (atomic, copy, nullable) NSString *type;
 @property (nonatomic) int level;
 @property (atomic) IFSymbolRelation relation;
 @property (atomic) int levelDelta;
@@ -47,17 +51,14 @@ extern NSString* const IFSectionSymbolType;	// Natural Inform section
 
 // (If we're stored in an IFIntelFile, our relation to other symbols in the file)
 /// May go down multiple levels
-@property (atomic, readonly, strong) IFIntelSymbol *parent;
+@property (atomic, readonly, strong, nullable) IFIntelSymbol *parent;
 /// Symbol that comes below us (if there is one)
-@property (atomic, readonly, strong) IFIntelSymbol *child;
+@property (atomic, readonly, strong, nullable) IFIntelSymbol *child;
 /// Next symbol on the same level
-@property (atomic, readonly, strong) IFIntelSymbol *sibling;
+@property (atomic, readonly, strong, nullable) IFIntelSymbol *sibling;
 /// Previous symbol on the same level
-@property (atomic, readonly, strong) IFIntelSymbol *previousSibling;
-
-/// Next symbol (nearest)
-- (IFIntelSymbol*) nextSymbol;
-/// Previous symbol (nearest)
-- (IFIntelSymbol*) lastSymbol;
+@property (atomic, readonly, strong, nullable) IFIntelSymbol *previousSibling;
 
 @end
+
+NS_ASSUME_NONNULL_END

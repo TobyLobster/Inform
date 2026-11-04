@@ -12,6 +12,8 @@
 ///
 /// Extensions to the NSMutableString class that allow manipulating I7 code
 ///
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSMutableString(IFInform7MutableString)
 
 ///
@@ -26,3 +28,5 @@
 - (bool) removeCommentsInform7: (NSRange*) rangeInOut;
 
 @end
+
+NS_ASSUME_NONNULL_END
