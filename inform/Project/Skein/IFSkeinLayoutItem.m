@@ -33,12 +33,6 @@
 
 #pragma mark -  Initialisation
 
-- (instancetype) init {
-	return [self initWithItem: nil
-                 subtreeWidth: 0
-						level: 0];
-}
-
 - (instancetype) initWithItem: (IFSkeinItem*) newItem
                  subtreeWidth: (CGFloat) newSubtreeWidth
                         level: (int) newLevel {

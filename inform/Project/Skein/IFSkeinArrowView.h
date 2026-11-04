@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 //
 // Represents an arrow that points to the report view in the skein
 //
@@ -15,3 +17,5 @@
 @property (atomic) BOOL forceRedraw;
 
 @end
+
+NS_ASSUME_NONNULL_END

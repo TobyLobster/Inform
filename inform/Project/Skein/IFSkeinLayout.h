@@ -7,25 +7,27 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFSkeinItem;
 @class IFSkeinLayoutItem;
 
 @interface IFSkeinLayout : NSObject
 
 // Initialisation
-- (instancetype) initWithRootItem: (IFSkeinItem*) rootItem NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithRootItem: (nullable IFSkeinItem*) rootItem NS_DESIGNATED_INITIALIZER;
 
 // Setting skein data
-@property (atomic, strong)   IFSkeinItem *        rootItem;
-@property (atomic, strong)   IFSkeinItem *        activeItem;
-@property (atomic, strong)   IFSkeinItem *        selectedItem;
+@property (atomic, strong, nullable) IFSkeinItem *        rootItem;
+@property (atomic, strong, nullable) IFSkeinItem *        activeItem;
+@property (atomic, strong, nullable) IFSkeinItem *        selectedItem;
 
 // Layout equivalents
-@property (atomic, strong)   IFSkeinLayoutItem *  rootLayoutItem;
-@property (atomic, strong)   IFSkeinLayoutItem *  activeLayoutItem;
-@property (atomic, strong)   IFSkeinLayoutItem *  selectedLayoutItem;
+@property (atomic, strong, nullable) IFSkeinLayoutItem *  rootLayoutItem;       // nil until the skein is laid out
+@property (atomic, strong, nullable) IFSkeinLayoutItem *  activeLayoutItem;
+@property (atomic, strong, nullable) IFSkeinLayoutItem *  selectedLayoutItem;
 
-@property (atomic, readonly) NSPoint              reportPosition;
+@property (atomic, readonly)         NSPoint              reportPosition;
 
 // Performing the layout
 - (void) layoutSkein;
@@ -34,11 +36,13 @@
 @property (atomic, readonly) int      levels;
 @property (atomic, readonly) NSSize   size;
 
-- (IFSkeinItem*) itemAtPoint: (NSPoint) point;
+- (nullable IFSkeinItem*) itemAtPoint: (NSPoint) point;
 
 - (NSRange) rangeOfLevelsBetweenMinViewY: (CGFloat) minY
                              andMaxViewY: (CGFloat) maxY;
 
-- (void) updateLayoutWithReportDetails: (NSArray*) array;
+- (void) updateLayoutWithReportDetails: (NSArray<NSNumber*>*) array;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -7,6 +7,8 @@
 
 #import <AppKit/AppKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFSkein;
 @class IFSkeinItem;
 @class IFSkeinLayoutItem;
@@ -20,10 +22,10 @@
 
 @interface IFSkeinReportView : NSView
 
-@property (atomic, strong) NSMutableArray*    reportDetails;
-@property (atomic, strong) IFSkeinLayoutItem* rootTree;
-@property (atomic, strong) id<IFSkeinReportBlessDelegate> delegate;
-@property (atomic)         BOOL               forceResizeDueToFontSizeChange;
+@property (atomic, strong)           NSMutableArray<NSNumber*>* reportDetails;
+@property (atomic, strong, nullable) IFSkeinLayoutItem*         rootTree;
+@property (atomic, strong, nullable) id<IFSkeinReportBlessDelegate> delegate;
+@property (atomic)                   BOOL                       forceResizeDueToFontSizeChange;
 
 
 -(void) updateReportDetails;
@@ -33,3 +35,5 @@
 +(void) adjustAttributesToFontSize;
 
 @end
+
+NS_ASSUME_NONNULL_END

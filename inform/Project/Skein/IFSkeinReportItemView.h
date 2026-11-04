@@ -7,6 +7,8 @@
 
 #import <AppKit/AppKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFSkeinBlessButton;
 
 @interface IFSkeinReportItemView : NSView
@@ -22,3 +24,5 @@
                 forceChange: (BOOL) forceChange;
 
 @end
+
+NS_ASSUME_NONNULL_END

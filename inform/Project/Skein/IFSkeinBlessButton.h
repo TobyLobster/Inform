@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 //
 // Represents a bless/curse button on the report view in the skein
 //
@@ -17,3 +19,5 @@
 -(void) toggleBlessState;
 
 @end
+
+NS_ASSUME_NONNULL_END

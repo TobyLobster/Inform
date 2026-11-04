@@ -7,6 +7,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFSkeinLayoutItem;
 
 ///
@@ -15,8 +17,8 @@
 @interface IFSkeinItemView : NSView <NSDraggingSource, NSDraggingDestination>
 
 // Properties
-@property (atomic) IFSkeinLayoutItem*       layoutItem;
-@property (atomic, readonly) unsigned long  drawnStateHash;
+@property (atomic, nullable) IFSkeinLayoutItem*  layoutItem;
+@property (atomic, readonly) unsigned long       drawnStateHash;
 
 /// Get the size of a given command string
 + (NSSize) commandSize: (IFSkeinLayoutItem*) layoutItem;
@@ -29,3 +31,5 @@
 #endif // defined(DEBUG_EXPORT_HELP_IMAGES)
 
 @end
+
+NS_ASSUME_NONNULL_END
