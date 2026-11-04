@@ -228,7 +228,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 
 	if (zcVersion < 255) {
 		// ZCode
-		[switches appendString: [NSString stringWithFormat: @"v%i", self.zcodeVersion]];
+		[switches appendString: [NSString stringWithFormat: @"v%i", zcVersion]];
 	} else {
 		// Glulx
 		[switches appendString: [NSString stringWithFormat: @"G"]];

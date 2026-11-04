@@ -130,6 +130,13 @@ final class IFCompilerSettingsTests: XCTestCase {
         XCTAssertEqual(settings.commandLineArguments.last?.hasSuffix(",.,../Source"), true)
     }
 
+    /// A version of the Z-machine the compiler doesn't support is replaced by the default.
+    func testUnsupportedStoryFormat() {
+        let settings = IFCompilerSettings()
+        settings.zcodeVersion = 2
+        XCTAssertEqual(settings.commandLineArguments.first, "-kE2SDwv5")
+    }
+
     /// The arguments given to the Inform 7 compiler (the current version).
     func testInform7Arguments() throws {
         let settings = IFCompilerSettings()
