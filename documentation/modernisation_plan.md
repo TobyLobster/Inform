@@ -137,7 +137,7 @@ Started November 2026, on the `extensions` branch. This is a living document: up
     - The `(-` that starts Inform 6 code in Inform 7 source was coloured as a string or a routine name (76a1d7ba).
     - A Z-machine version the compiler doesn't support wasn't replaced by the default (5663efa0). Only a hand-edited Settings.plist can hold one.
     - Not checked on screen yet: the colours of the two highlighting fixes, and a run-time problem's page appearing in the Story tab.
-    - `IFIndexFile` isn't tested. `IFProject` reads `Index/Headings.xml` into one after each compile, but nothing uses it.
+    - `IFIndexFile` is removed rather than tested: `IFProject` read `Index/Headings.xml` into one after each compile, but nothing had used it since the Inspectors went in May 2023 (7c2dcb00).
 
 ### Phase 5 – Swift, and separating logic from UI (goal 5)
 
