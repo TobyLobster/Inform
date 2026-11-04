@@ -23,3 +23,4 @@
 #import "IFWebViewHelper.h"
 #import "IFRuntimeErrorParser.h"
 #import "IFCompilerSettings.h"
+#import "IFGamePage.h"

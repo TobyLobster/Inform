@@ -1002,7 +1002,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
     skeinNodeStack = nil;
 
     [self.gamePage setSwitchToPage: YES];
-    [self.gamePage setTestCommands: [self.document currentSkein].previousCommands];
+    // The skein's previous commands are most recent first
+    [self.gamePage setTestCommands: [[self.document currentSkein].previousCommands reverseObjectEnumerator].allObjects];
     [self runCompilerOutput];
 }
 

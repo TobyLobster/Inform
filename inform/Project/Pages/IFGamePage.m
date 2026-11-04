@@ -247,7 +247,7 @@
     NSMutableArray* commands = [[NSMutableArray alloc] init];
 
     while( (item != nil) && (item.parent != nil) ) {
-        [commands addObject: item.command];
+        [commands insertObject: item.command atIndex: 0];
         item = item.parent;
     }
     [self setTestCommands: [commands copy]];
@@ -268,6 +268,18 @@
 
 - (BOOL) hasTestCommands {
     return ( testCommands.count > 0 );
+}
+
+- (id<ZoomViewInputSource>) takeTestCommands {
+    if( testCommands == nil ) {
+        return nil;
+    }
+
+    // TestCommands types its last command first
+    NSArray* reversedArray = [testCommands reverseObjectEnumerator].allObjects;
+    testCommands = nil;
+
+    return [[TestCommands alloc] initWithCommands: reversedArray];
 }
 
 - (void) setSwitchToPage: (BOOL) willSwitchToPage {
@@ -317,11 +329,8 @@
     [gameRunningProgress stopProgress];
 	[gameRunningProgress startStory];
 	
-	if (testCommands != nil) {
-        NSArray *reversedArray = [testCommands reverseObjectEnumerator].allObjects;
-
-        TestCommands* inputSource = [[TestCommands alloc] initWithCommands: reversedArray];
-        testCommands = nil;
+	id<ZoomViewInputSource> inputSource = [self takeTestCommands];
+	if (inputSource != nil) {
         (self.parent).glkInputSource = inputSource;
         [gView addInputReceiver: self.parent];
     }
@@ -354,9 +363,8 @@
 	setBreakpoint = NO;
 	
 	// Run to the appropriate point in the current skein
-	if( testCommands ) {
-        TestCommands* inputSource = [[TestCommands alloc] initWithCommands: testCommands];
-        testCommands = nil;
+	id<ZoomViewInputSource> inputSource = [self takeTestCommands];
+	if( inputSource ) {
         zView.inputSource = inputSource;
     }
     if( switchToPage ) {

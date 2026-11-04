@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <ZoomView/ZoomViewProtocols.h>
 #import "IFPage.h"
 
 @class GlkView;
@@ -40,8 +41,11 @@
 - (void) setPointToRunTo: (IFSkeinItem*) item;
 /// Sets whether or not a 'test me' command should be generated (provided that there is no 'point to run to')
 - (void) setTestMe: (BOOL) willTestMe;
-/// Sets the list of commands to run (assuming there's no point to run to, and no testMe)
+/// Sets the list of commands to run, in the order they are typed (assuming there's no point to run to, and no testMe)
 - (void) setTestCommands: (NSArray*) testCommands;
+/// An input source that types the test commands in order, for either kind of game, or \c nil if there are none.
+/// The commands are cleared, so they are only typed once.
+- (id<ZoomViewInputSource>) takeTestCommands;
 /// Do we want to switch to the game page?
 - (void) setSwitchToPage: (BOOL) switchToPage;
 /// Do we have test commands?
