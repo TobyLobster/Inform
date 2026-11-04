@@ -522,6 +522,7 @@ static int compare(const void* a, const void* b) {
 	// Colour for this character
     if (state.bitmap.singleQuote || state.bitmap.doubleQuote) return IFSyntaxString;
     if (state.bitmap.comment) return IFSyntaxComment;
+    if (chr == '!') return IFSyntaxComment;     // Starts a comment
     if (state.bitmap.statement) {
         if (chr == '[' || chr == ']') return IFSyntaxFunction;
         if (chr == '\'' || chr == '"') return IFSyntaxString;

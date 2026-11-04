@@ -99,7 +99,7 @@ final class IFHighlighterTests: XCTestCase {
             """, .inform7, [
                 ("Include (", .naturalInform),
                 ("Global", .directive),
-                ("An Inform 6 comment", .comment),
+                ("! An Inform 6 comment", .comment),
                 (").", .naturalInform),
                 ("To decide what number is the answer:", .naturalInform),
                 ("42", .codeAlpha),
@@ -124,7 +124,7 @@ final class IFHighlighterTests: XCTestCase {
               has light;
 
             """, .inform6, [
-                ("A comment", .comment),
+                ("! A comment", .comment),
                 ("Constant", .directive),
                 ("\"Heading\"", .string),
                 ("[ Main", .function),
@@ -134,7 +134,7 @@ final class IFHighlighterTests: XCTestCase {
                 ("~", .escapeCharacter),
                 ("c", .string),
                 ("^", .escapeCharacter),
-                ("Another comment", .comment),
+                ("! Another comment", .comment),
                 ("@print_char", .assembly),
                 ("if", .code),
                 ("return", .code),
