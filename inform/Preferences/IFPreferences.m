@@ -283,15 +283,15 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
            notification: (NSString*) notification];
 }
 
--(int) getPreferenceFloat: (NSString*) key
-                  default: (float) defaultValue {
+-(float) getPreferenceFloat: (NSString*) key
+                    default: (float) defaultValue {
     NSNumber* number = (NSNumber*)[self getPreference: key
                                               default: @(defaultValue)];
     return number.floatValue;
 }
 
--(int) getPreferenceDouble: (NSString*) key
-                  default: (double) defaultValue {
+-(double) getPreferenceDouble: (NSString*) key
+                      default: (double) defaultValue {
     NSNumber* number = (NSNumber*)[self getPreference: key
                                               default: @(defaultValue)];
     return number.doubleValue;
