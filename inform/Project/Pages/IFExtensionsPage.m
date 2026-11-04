@@ -32,6 +32,8 @@
     NSDictionary* tabDictionary;
 
     bool loadingFailureWebPage;
+    /// The page that failed to load, while the failure page is shown in its place
+    NSURL* failedURL;
 
     int inhibitAddToHistory;
 }
@@ -114,7 +116,18 @@
 - (void) censusCompleted: (NSNotification*) not {
     inhibitAddToHistory++;
 	// Force the documentation view to reload (the 'installed extensions' page may be updated)
-	[wView reload: self];
+	[self reloadPage];
+}
+
+/// Reloads the page. If the failure page is showing, tries the page that failed again instead,
+/// as it may exist now (the project's catalogue of extensions is made when it is translated).
+- (void) reloadPage {
+    if (failedURL != nil) {
+        NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: failedURL];
+        [wView loadRequest: urlRequest];
+    } else {
+        [wView reload: self];
+    }
 }
 
 #pragma mark - Documentation
@@ -123,6 +136,8 @@
     NSAssert(url != nil, @"Bad URL");
 
     [self switchToPage];
+
+    failedURL = nil;
 
     NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url];
     [wView loadRequest: urlRequest];
@@ -163,6 +178,8 @@
             url = [NSURL URLWithString: @"inform:/NoExtensions.html"];
         }
     }
+
+    failedURL = (urlString != nil) ? [NSURL URLWithString: urlString] : nil;
 
     inhibitAddToHistory++;
     NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url];
@@ -262,17 +279,21 @@
 
 -(void)         webView:(WKWebView *)webView
     didFinishNavigation:(WKNavigation *)navigation {
+    if (!loadingFailureWebPage) {
+        // A page other than the failure page has loaded
+        failedURL = nil;
+    }
     loadingFailureWebPage = false;
 }
 
 #pragma mark - History
 
 - (void) didSwitchToPage {
-    NSURL* url = wView.URL;
+    NSURL* url = (failedURL != nil) ? failedURL : wView.URL;
 
     LogHistory(@"HISTORY: Extensions Page: (didSwitchToPage) URL %@", url);
 	[self.history openHistoricalURL: url];
-    [wView reload: self];
+    [self reloadPage];
 }
 
 #pragma mark - Preferences
