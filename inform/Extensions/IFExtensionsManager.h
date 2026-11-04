@@ -11,6 +11,8 @@
 #import "IFProject.h"
 #import "IFSemVer.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSNotificationName const IFCensusFinishedNotification;
 extern NSNotificationName const IFCensusFinishedButDontUpdateExtensionsWebPageNotification;
 
@@ -27,26 +29,27 @@ typedef NS_ENUM(int, IFExtensionResult) {
 @interface IFExtensionInfo : NSObject
 
 @property (atomic, copy)   NSString* displayName;
-@property (atomic, copy)   NSString* filepath;
+@property (atomic, copy, nullable) NSString* filepath;
 @property (atomic, copy)   NSString* author;
-@property (atomic, copy)   NSString* version;
-@property (atomic, copy)   NSString* md5Hash;
+/// The version (\c nil or empty if the extension has none)
+@property (atomic, copy, nullable) NSString* version;
+@property (atomic, copy, nullable) NSString* md5Hash;
 @property (atomic)         BOOL      isBuiltIn;
 
 -(instancetype) init NS_UNAVAILABLE;
 
 -(instancetype) initWithDisplayName: (NSString*) displayName
-                 filepath: (NSString*) filepath
+                 filepath: (nullable NSString*) filepath
                    author: (NSString*) author
-                  version: (NSString*) version
-                  md5Hash: (NSString*) md5Hash
+                  version: (nullable NSString*) version
+                  md5Hash: (nullable NSString*) md5Hash
                 isBuiltIn: (BOOL) isBuiltIn NS_DESIGNATED_INITIALIZER;
 
 /// Remove leading "The ", "An ", or "A ", and trailing proviso (in brackets) from a display name to get title used for extension filename
 +(NSString*) canonicalTitle:(NSString*) displayName;
 @property (atomic, readonly, copy) NSString *safeVersion;
 @property (atomic, readonly, copy) IFSemVer *semver;
--(BOOL) isEqual: (id) other;
+-(BOOL) isEqual: (nullable id) other;
 
 @end
 
@@ -63,23 +66,23 @@ typedef NS_ENUM(int, IFExtensionDownloadState) {
 @interface IFExtensionDownload : NSObject
 
 @property (atomic) IFExtensionDownloadState state;
-@property (atomic, strong) NSURLSessionDataTask* connection;
-@property (atomic, strong) NSMutableData*   receivedData;
+@property (atomic, strong, nullable) NSURLSessionDataTask* connection;
+@property (atomic, strong, nullable) NSMutableData*   receivedData;
 @property (atomic) long long                expectedLength;
-@property (atomic, strong) NSWindow*        window;
-@property (atomic, strong) NSString*        javascriptId;
-@property (atomic, strong) NSObject*        notifyDelegate;
-@property (atomic, strong) NSString*        title;
-@property (atomic, strong) NSString*        author;
-@property (atomic, strong) NSString*        version;
+@property (atomic, strong, nullable) NSWindow*        window;
+@property (atomic, strong, nullable) NSString*        javascriptId;
+@property (atomic, strong, nullable) NSObject*        notifyDelegate;
+@property (atomic, strong, nullable) NSString*        title;
+@property (atomic, strong, nullable) NSString*        author;
+@property (atomic, strong, nullable) NSString*        version;
 @property (atomic, strong) NSURL*           url;
 
 // Download and install
 - (instancetype) init NS_UNAVAILABLE;
 - (instancetype) initWithURL: (NSURL*) url
-                      window: (NSWindow*) aWindow
-              notifyDelegate: (NSObject*) notifyDelegate
-                javascriptId: (NSString*) javascriptId NS_DESIGNATED_INITIALIZER;
+                      window: (nullable NSWindow*) aWindow
+              notifyDelegate: (nullable NSObject*) notifyDelegate
+                javascriptId: (nullable NSString*) javascriptId NS_DESIGNATED_INITIALIZER;
 
 -(BOOL) startDownloadAndInstall;
 @property (atomic, readonly, copy) NSString *safeVersion;
@@ -102,7 +105,6 @@ typedef NS_ENUM(int, IFExtensionDownloadState) {
 @property (atomic) BOOL cacheChanged;
 
 /// Shared managers
-+ (IFExtensionsManager*) sharedNaturalInformExtensionsManager;
 @property (class, atomic, readonly, strong) IFExtensionsManager *sharedNaturalInformExtensionsManager;
 
 // Setting up
@@ -124,22 +126,23 @@ typedef NS_ENUM(int, IFExtensionDownloadState) {
 
 // ... and the list of files within a given extension (full paths)
 /// Complete list of files in the given extension
-- (NSArray*) filesInExtensionWithName: (NSString*) name;
+- (NSArray<NSString*>*) filesInExtensionWithName: (NSString*) name;
 /// Complete list of source files in the given extension
-- (NSArray*) sourceFilesInExtensionWithName: (NSString*) name;
+- (NSArray<NSString*>*) sourceFilesInExtensionWithName: (NSString*) name;
 
-/// From a file potentially containing a natural inform extension, works out the author, title, version information
+/// From a file potentially containing a natural inform extension, works out the author, title, version information.
+/// Each piece given a place to go is set, to \c nil if it isn't found (the version is \c nil if there isn't one).
 - (IFExtensionResult) infoForNaturalInformExtension: (NSString*) file
-                                             author: (NSString*__strong*) authorOut
-                                              title: (NSString*__strong*) titleOut
-                                            version: (NSString*__strong*) versionOut;
+                                             author: (NSString* _Nullable __strong* _Nullable) authorOut
+                                              title: (NSString* _Nullable __strong* _Nullable) titleOut
+                                            version: (NSString* _Nullable __strong* _Nullable) versionOut;
 
 /// Copies a file from the given path into the installed extensions, perhaps replacing an existing extension
 - (IFExtensionResult) installLegacyExtension: (NSString*) extensionPath
-                             finalPath: (NSString*__strong*) finalPathOut
-                                 title: (NSString*__strong*) titleOut
-                                author: (NSString*__strong*) authorOut
-                               version: (NSString*__strong*) versionOut
+                             finalPath: (NSString* _Nullable __strong* _Nullable) finalPathOut
+                                 title: (NSString* _Nullable __strong* _Nullable) titleOut
+                                author: (NSString* _Nullable __strong* _Nullable) authorOut
+                               version: (NSString* _Nullable __strong* _Nullable) versionOut
                     showWarningPrompts: (BOOL) showWarningPrompts
                                 notify: (BOOL) notify;
 
@@ -149,9 +152,9 @@ typedef NS_ENUM(int, IFExtensionDownloadState) {
 
 -(void) addError: (NSString*) message;
 - (BOOL) downloadAndInstallExtension: (NSURL*) url
-                              window: (NSWindow*) aWindow
-                      notifyDelegate: (NSObject*) notifyDelegate
-                        javascriptId: (NSString*) javascriptId;
+                              window: (nullable NSWindow*) aWindow
+                      notifyDelegate: (nullable NSObject*) notifyDelegate
+                        javascriptId: (nullable NSString*) javascriptId;
 - (void) downloadAndInstallFinished: (IFExtensionDownload*) download;
 -(void) reportDownloadResults: (IFExtensionDownload*) download;
 
@@ -160,3 +163,4 @@ typedef NS_ENUM(int, IFExtensionDownloadState) {
 
 @end
 
+NS_ASSUME_NONNULL_END
