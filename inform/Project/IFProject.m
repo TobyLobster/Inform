@@ -305,7 +305,7 @@
 // == storage ==
 - (NSTextStorage*) storageWithString: (NSString*) string
                          forFilename: (NSString*) filename {
-    string = [string stringByReplacingOccurrencesOfString:@"\n\r" withString:@"\n"];
+    string = [string stringByReplacingOccurrencesOfString:@"\r\n" withString:@"\n"];
     string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@"\n"];
 
     // Create the syntax-highlighting text storage object
