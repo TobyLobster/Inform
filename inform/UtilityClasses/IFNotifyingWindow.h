@@ -12,6 +12,8 @@
 ///
 /// NSWindow subclass that notifies its delegate of responder changes
 ///
+NS_ASSUME_NONNULL_BEGIN
+
 @interface IFNotifyingWindow : NSWindow {
 
 }
@@ -20,6 +22,8 @@
 
 @interface NSObject(IFWindowDelegate)
 
-- (void) changeFirstResponder: (NSResponder*) newResponder;
+- (void) changeFirstResponder: (nullable NSResponder*) newResponder;
 
 @end
+
+NS_ASSUME_NONNULL_END

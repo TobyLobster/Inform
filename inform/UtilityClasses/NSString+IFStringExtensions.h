@@ -11,6 +11,8 @@
 #import <Cocoa/Cocoa.h>
 
 // *******************************************************************************************
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSString (IFStringAdditions)
 
 - (BOOL)containsSubstring: (NSString *) string;
@@ -39,6 +41,8 @@
 
 - (NSInteger) indexOf: (NSString *) text;
 - (NSInteger) lastIndexOf: (NSString *) text;
-- (NSString *) stringByAppendingPathComponents: (NSString *)strComponents;
+- (NSString *) stringByAppendingPathComponents: (nullable NSString *)strComponents;
 
 @end
+
+NS_ASSUME_NONNULL_END

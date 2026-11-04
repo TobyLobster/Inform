@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(int, IFViewAnimationStyle) {
 	IFAnimateLeft,
 	IFAnimateRight,
@@ -34,16 +36,16 @@ typedef NS_ENUM(int, IFViewAnimationStyle) {
 - (void) setTime: (NSTimeInterval) animationTime;
 /// Prepares to animate, using the specified view as a template
 - (void) prepareToAnimateView: (NSView*) view
-                    focusView: (NSView*) focusView;
+                    focusView: (nullable NSView*) focusView;
 
 /// Begins animating the specified view so that transitions from the state set in
 /// \c prepareToAnimateView to the new state, sending the specified message to the specified
 /// object when it finishes
 - (void) animateTo: (NSView*) view
-         focusView: (NSView*) focusView
+         focusView: (nullable NSView*) focusView
 			 style: (IFViewAnimationStyle) style
-	   sendMessage: (SEL) finishedMessage
-		  toObject: (id) whenFinished;
+	   sendMessage: (nullable SEL) finishedMessage
+		  toObject: (nullable id) whenFinished;
 /// Abandons any running animation
 - (void) finishAnimation;
 
@@ -57,3 +59,5 @@ typedef NS_ENUM(int, IFViewAnimationStyle) {
 - (void) setTrackingRects;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -8,8 +8,12 @@
 #import <Cocoa/Cocoa.h>
 
 // *******************************************************************************************
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSBundle (IFBundleExtensions)
--(NSString *) pathForResourcePath: (NSString *) relativePath;
-+(BOOL) customLoadNib:(NSString *)nibName owner:(id)owner;
+-(nullable NSString *) pathForResourcePath: (NSString *) relativePath;
++(BOOL) customLoadNib:(NSString *)nibName owner:(nullable id)owner;
 
 @end
+
+NS_ASSUME_NONNULL_END

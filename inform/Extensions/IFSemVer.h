@@ -9,11 +9,13 @@
 #define IFSemVer_h
 
 #pragma mark -
+NS_ASSUME_NONNULL_BEGIN
+
 @interface IFSemVer : NSObject
 
-@property (atomic)      NSMutableArray* version_numbers;
-@property (atomic)      NSMutableArray* prerelease_segments;
-@property (atomic)      NSMutableString* build_metadata;
+@property (atomic)      NSMutableArray<NSNumber*>* version_numbers;
+@property (atomic, nullable) NSMutableArray<NSString*>* prerelease_segments;
+@property (atomic, nullable) NSMutableString* build_metadata;
 
 -(instancetype) init NS_DESIGNATED_INITIALIZER;
 -(instancetype) initWithString: (NSString*) versionString NS_DESIGNATED_INITIALIZER;
@@ -21,5 +23,7 @@
 -(int) cmp: (IFSemVer*) v2;
 
 @end
+
+NS_ASSUME_NONNULL_END
 
 #endif /* IFSemVer_h */

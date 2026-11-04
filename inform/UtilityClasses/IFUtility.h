@@ -11,6 +11,8 @@
 
 @class UTType;
 
+NS_ASSUME_NONNULL_BEGIN
+
 #define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 #define DEGREES_TO_RADIANS(degrees) ((degrees) * (M_PI / 180.0))
 extern NSTimeInterval const defaultTimeoutInterval;
@@ -28,52 +30,52 @@ CGFloat easeOutCubic(CGFloat t);
 + (unsigned long) generateID;
 
 // String
-+ (bool) safeString:(NSString*) string1 insensitivelyEqualsSafeString:(NSString*) string2;
-+ (bool) url:(NSURL*) url1 equals:(NSURL*) url2;
++ (bool) safeString:(nullable NSString*) string1 insensitivelyEqualsSafeString:(nullable NSString*) string2;
++ (bool) url:(nullable NSURL*) url1 equals:(nullable NSURL*) url2;
 + (NSString*) localizedString:(NSString*) key;
 + (NSString*) localizedString: (NSString*) key
-                      default: (NSString*) value NS_FORMAT_ARGUMENT(2);
+                      default: (nullable NSString*) value NS_FORMAT_ARGUMENT(2);
 + (NSString*) localizedString: (NSString*) key
-                      default: (NSString*) value
-                        table: (NSString*) table NS_FORMAT_ARGUMENT(2);
+                      default: (nullable NSString*) value
+                        table: (nullable NSString*) table NS_FORMAT_ARGUMENT(2);
 + (NSString*) unescapeString: (NSString*) string;
 
 // Convenience methods for alerts
-+ (void) runAlertInformationWindow: (NSWindow*) window
++ (void) runAlertInformationWindow: (nullable NSWindow*) window
                              title: (NSString*) title
                            message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(3,4);
-+ (void) runAlertWarningWindow: (NSWindow*) window
++ (void) runAlertWarningWindow: (nullable NSWindow*) window
                          title: (NSString*) title
                        message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(3,4);
 
-+ (void) runAlertWindow: (NSWindow*) window
++ (void) runAlertWindow: (nullable NSWindow*) window
               localized: (BOOL) alreadyLocalized
                 warning: (BOOL) warningStyle
                   title: (NSString*) title
                 message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(5,6);
 
-+ (void) runAlertYesNoWindow: (NSWindow*) window
++ (void) runAlertYesNoWindow: (nullable NSWindow*) window
                        title: (NSString*) title
                          yes: (NSString*) yes
                           no: (NSString*) no
-               modalDelegate: (id) modalDelegate
-              didEndSelector: (SEL) alertDidEndSelector
-                 contextInfo: (void *) contextInfo
+               modalDelegate: (nullable id) modalDelegate
+              didEndSelector: (nullable SEL) alertDidEndSelector
+                 contextInfo: (nullable void *) contextInfo
                      message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(8,9);
 
-+ (void) runAlertYesNoWindow: (NSWindow*) window
++ (void) runAlertYesNoWindow: (nullable NSWindow*) window
                        title: (NSString*) title
                          yes: (NSString*) yes
                           no: (NSString*) no
-               modalDelegate: (id) modalDelegate
-              didEndSelector: (SEL) alertDidEndSelector
-                 contextInfo: (void *) contextInfo
+               modalDelegate: (nullable id) modalDelegate
+              didEndSelector: (nullable SEL) alertDidEndSelector
+                 contextInfo: (nullable void *) contextInfo
             destructiveIndex: (NSInteger) desIdx
                      message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(9,10);
 
 /// Show an error for an operation on an extension (e.g. error while installing an extension)
 + (void) showExtensionError: (IFExtensionResult) result
-                 withWindow: (NSWindow*) window;
+                 withWindow: (nullable NSWindow*) window;
 
 /// The content types for a list of filename extensions, for open and save panels
 + (NSArray<UTType*>*) contentTypesForFilenameExtensions: (NSArray<NSString*>*) extensions;
@@ -93,9 +95,9 @@ CGFloat easeOutCubic(CGFloat t);
 @property (class, readonly, atomic, getter=isSandboxed) BOOL sandboxed;
 
 /// Paths to common resources
-+ (NSURL*) publicLibraryURL;
++ (nullable NSURL*) publicLibraryURL;
 
-+ (NSString*) informSupportPath: (NSString *)firstString, ... NS_REQUIRES_NIL_TERMINATION;
++ (NSString*) informSupportPath: (nullable NSString *)firstString, ... NS_REQUIRES_NIL_TERMINATION;
 
 // External directories within Application Support or Sandboxed container
 + (NSString*) pathForInformExternalAppSupport;
@@ -106,7 +108,7 @@ CGFloat easeOutCubic(CGFloat t);
 /// The documentation page Inform writes for an extension a project uses, in the project's
 /// materials folder: Extensions/Reserved/Documentation/<author>/<title>-v<version>/index.html.
 /// Nil if there is none.
-+ (NSString*) documentationPageForExtensionTitled: (NSString*) title
++ (nullable NSString*) documentationPageForExtensionTitled: (NSString*) title
                                            author: (NSString*) author
                                   inMaterialsPath: (NSString*) materialsPath;
 
@@ -120,26 +122,26 @@ CGFloat easeOutCubic(CGFloat t);
 /// Path to the internal Inform 7 documentation
 + (NSString*) pathForInformInternalDocumentation: (NSString *)version;
 /// Path to the inform executables (ni, inbuild, intest etc)
-+ (NSString*) pathForInformExecutable: (NSString*) executableName version: (NSString*) compilerVersion;
++ (nullable NSString*) pathForInformExecutable: (NSString*) executableName version: (NSString*) compilerVersion;
 
 /// Path to the compiler
-+ (NSString*) pathForCompiler: (NSString *)version;
++ (nullable NSString*) pathForCompiler: (NSString *)version;
 /// Command line parameter name for "-format=ulx"
 + (NSString*) compilerFormatParameterName:(NSString *)version;
 /// Command line parameter name for "-project" / "-package"
 + (NSString*) compilerProjectParameterName:(NSString *) version;
 
-+ (NSString*) fullCompilerVersion: (NSString*)version;
++ (nullable NSString*) fullCompilerVersion: (NSString*)version;
 /// Compare compiler version numbers
 + (NSComparisonResult) compilerVersionCompare: (NSString*)version1 other: (NSString*) version2;
 
 + (NSURL*) temporaryDirectoryURL;
 
-/// Decode the "source:" URL scheme link
-+ (NSArray*) decodeSourceSchemeURL:(NSURL*) sourceURL;
+/// Decode the "source:" URL scheme link: the source file, the test case and the line number
++ (nullable NSArray*) decodeSourceSchemeURL:(NSURL*) sourceURL;
 
-/// Decode the "skein:" URL scheme link
-+ (NSArray*) decodeSkeinSchemeURL:(NSURL*) skeinURL;
+/// Decode the "skein:" URL scheme link: the test case and the node ID
++ (nullable NSArray<NSString*>*) decodeSkeinSchemeURL:(NSURL*) skeinURL;
 
 // OS version checking
 + (BOOL) hasFullscreenSupportFeature;
@@ -149,17 +151,19 @@ CGFloat easeOutCubic(CGFloat t);
 + (BOOL) hasUpdatedToolbarFeature;
 @property (class, readonly, atomic) BOOL hasUpdatedToolbarFeature;
 
-+ (void) performSelector:(SEL) selector object:(id) object;
++ (void) performSelector:(SEL) selector object:(nullable id) object;
 
 // Attributes for NSAttributedString
 +(NSDictionary<NSAttributedStringKey,id>*) adjustAttributesFontSize: (NSDictionary<NSAttributedStringKey,id>*) dictionary
                                      size: (CGFloat) fontSize;
 
 // Core build version
-+ (NSString*) coreBuildVersion;
-@property (class, readonly, copy, nonatomic) NSString *coreBuildVersion;
++ (nullable NSString*) coreBuildVersion;
+@property (class, readonly, copy, nonatomic, nullable) NSString *coreBuildVersion;
 
 // RegEx
-+(NSTextCheckingResult*) findMatch: (NSString*) pattern inText:(NSString*) text;
++(nullable NSTextCheckingResult*) findMatch: (NSString*) pattern inText:(NSString*) text;
 
 @end
+
+NS_ASSUME_NONNULL_END

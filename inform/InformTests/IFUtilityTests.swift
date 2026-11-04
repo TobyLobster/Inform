@@ -30,7 +30,7 @@ final class IFUtilityTests: XCTestCase {
     }
 
     func testContentTypesForNoExtensions() {
-        XCTAssertEqual(IFUtility.contentTypes(forFilenameExtensions: [])?.count, 0)
+        XCTAssertEqual(IFUtility.contentTypes(forFilenameExtensions: []).count, 0)
     }
 
     // MARK: - Extension documentation pages
@@ -102,9 +102,9 @@ final class IFUtilityTests: XCTestCase {
     }
 
     func testCoreBuildVersionIsTheVersionOfTheAppsCompiler() throws {
-        let version: String = IFUtility.coreBuildVersion
+        let version = try XCTUnwrap(IFUtility.coreBuildVersion)
         XCTAssertNotNil(version.range(of: #"^\d+\.\d+\.\d+$"#, options: .regularExpression), version)
-        XCTAssertTrue(IFUtility.path(forCompiler: "****").hasSuffix("/MacOS/ni"))
+        XCTAssertEqual(IFUtility.path(forCompiler: "****")?.hasSuffix("/MacOS/ni"), true)
 
         let reported = try output(of: "ni", ["-version"])
         XCTAssertTrue(reported.hasPrefix("inform7 version \(version)"), reported)
@@ -130,7 +130,7 @@ final class IFUtilityTests: XCTestCase {
 
     func testOlderLanguageVersionsUseTheirOwnCompilers() {
         for version in ["6L02", "6L38", "6M62"] {
-            XCTAssertTrue(IFUtility.path(forCompiler: version).hasSuffix("/MacOS/\(version)/ni"), version)
+            XCTAssertEqual(IFUtility.path(forCompiler: version)?.hasSuffix("/MacOS/\(version)/ni"), true, version)
             XCTAssertTrue(IFUtility.path(forInformInternalAppSupport: version).hasSuffix("/retrospective/\(version)"), version)
         }
     }
