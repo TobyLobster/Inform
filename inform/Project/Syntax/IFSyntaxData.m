@@ -1134,9 +1134,9 @@ static inline BOOL IsWhitespace(unichar c) {
     [self updateHighlightingForAttributedStringInRange: NSMakeRange(firstRangeChar, lastRangeChar-firstRangeChar)];
 
     // The call above uses -setAttributes:, which replaces *every* attribute on the edited
-    // lines, including the paragraph style (the highlighter's attribute dictionaries carry
-    // one with fixed tab stops). Put each line's own paragraph style back, so that the
-    // text agrees with lineStyles[] again. Without this, an edited table row silently lost
+    // lines. The highlighter's attributes have no paragraph style, so the lines are left
+    // with none. Put each line's own paragraph style back, so that the text agrees with
+    // lineStyles[] again. Without this, an edited table row silently lost
     // its elastic tab stops here while lineStyles[] still claimed it had them, and Phase
     // Three then skipped the row as "already up to date" (issue #50).
     for (line = firstLine; line <= lastLine; line++) {
