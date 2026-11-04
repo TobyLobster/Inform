@@ -17,3 +17,4 @@
 #import "IFSkeinReportItemView.h"
 #import "IFPreferences.h"
 #import "IFSyntaxManager.h"
+#import "IFProject.h"
