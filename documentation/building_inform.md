@@ -79,6 +79,8 @@ To see the options. Execute this script with the appropriate parameters specifie
 Inform Core\inform
            \intest
            \inweb
+           \makefile
+           \make-integration-settings.mk
            \...
 
 InformApp\inform
@@ -86,7 +88,13 @@ InformApp\inform
          \...
 ```
 
-- Building the app only rebuilds Inform Core if you ask it to. Copy `inform/Config/Local.xcconfig.example` to `inform/Config/Local.xcconfig` (git ignores it) and set `INFORM_CORE_UPDATE = YES`. If your Inform Core repo isn't at `../Inform Core/inform` relative to InformApp, also set `INFORM_CORE_DIR` there. Each build of the Inform for macOS app will then automatically `make all` and copy in resources from Inform Core. A clean build triggers a `make force` instead. Without this, the build just uses the resources already in `inform/StagingArea`.
+- Copy `makefile` and `make-integration-settings.mk` from `inform/Scripts/InformCore` into the `Inform Core` folder, beside `inform`, `intest` and `inweb`. The app's build runs `make` in that folder. The makefile builds Inform Core, then runs its `integration` target, which:
+    - copies the tools and the `Internal` folder into `inform/TempStagingArea` in InformApp;
+    - builds the app's documentation into `inform/resources/App HTML` in Inform Core, which the app's build then copies into the app.
+
+  The paths in `make-integration-settings.mk` are relative to `Inform Core/inform`, and assume that `Inform Core` and `InformApp` are in the same folder.
+
+- Building the app only rebuilds Inform Core if you ask it to. Copy `inform/Config/Local.xcconfig.example` to `inform/Config/Local.xcconfig` (git ignores it) and set `INFORM_CORE_UPDATE = YES`. If your Inform Core repo isn't at `../Inform Core/inform` relative to InformApp, also set `INFORM_CORE_DIR` there, and change the `../../InformApp` paths in `make-integration-settings.mk`. Each build of the Inform for macOS app will then automatically `make all` and copy in resources from Inform Core. A clean build triggers a `make force` instead. Without this, the build just uses the resources already in `inform/StagingArea`.
 
 ## Updating Submodules
 We have one submodule `zoom`, which has it's own submodules. See [here](https://git-scm.com/book/en/v2/Git-Tools-Submodules) for useful information about how to deal with the crazy world of git submodules.
