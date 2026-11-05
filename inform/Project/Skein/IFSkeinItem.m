@@ -245,7 +245,8 @@ NSString* const IFSkeinItemPboardType = @"com.inform7.IFSkeinItemPboardType";
     [_skein setLayoutDirty];
     [_skein setSkeinChanged];
     if( newParent.skein != _skein ) {
-        _skein = newParent.skein;
+        // The knots below this one move with it
+        [self setSkeinRecursively: newParent.skein];
         [_skein setLayoutDirty];
         [_skein setSkeinChanged];
     }

@@ -465,4 +465,28 @@ final class IFSkeinItemTests: XCTestCase {
             XCTAssertTrue(north.parent === look)
         }
     }
+
+    /// Undoing the removal of a knot puts the knots below it back in the skein too.
+    func testUndoingARemovalPutsTheKnotsBelowBack() throws {
+        try withUndo { skein, undoManager in
+            var look: IFSkeinItem!
+            var north: IFSkeinItem!
+            var jump: IFSkeinItem!
+            change(undoManager) {
+                look = skein.rootItem.addChild(IFSkeinItem(skein: skein, command: "look"))
+                north = look.addChild(IFSkeinItem(skein: skein, command: "north"))
+                jump = north.addChild(IFSkeinItem(skein: skein, command: "jump"))
+            }
+            change(undoManager) { look.removeFromParent() }
+            undoManager.undo()
+            XCTAssertTrue(look.skein === skein)
+            XCTAssertTrue(north.skein === skein)
+            XCTAssertTrue(jump.skein === skein)
+
+            // So changes to them can be undone
+            change(undoManager) { jump.command = "wave" }
+            undoManager.undo()
+            XCTAssertEqual(jump.command, "jump")
+        }
+    }
 }
