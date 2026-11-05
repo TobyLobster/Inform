@@ -19,6 +19,8 @@
 #import "IFSyntaxManager.h"
 #import "IFSyntaxData.h"
 #import "IFSyntaxStyles.h"
+#import "IFNaturalHighlighter.h"
+#import "IFInform6Highlighter.h"
 #import "IFInform7MutableString.h"
 #import "IFProject.h"
 #import "IFProjectFile.h"

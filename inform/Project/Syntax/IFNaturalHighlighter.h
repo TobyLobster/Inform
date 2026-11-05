@@ -21,7 +21,6 @@ NS_ENUM(IFSyntaxState) {
 	IFNaturalStateQuote,
 	IFNaturalStateSubstitution,
 	
-	IFNaturalStateHeading,
 	IFNaturalStateBlankLine,
 	
 	IFNaturalStateMaybeInform6
