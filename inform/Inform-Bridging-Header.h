@@ -6,6 +6,7 @@
 #import "IFPreferences.h"
 #import "IFUtility.h"
 #import "NSString+IFStringExtensions.h"
+#import "NSBundle+IFBundleExtensions.h"
 #import "IFCompiler.h"
 #import "IFCollapsableView.h"
 #import "IFCompilerSettings.h"
