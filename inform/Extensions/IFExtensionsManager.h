@@ -61,13 +61,6 @@ typedef NS_ENUM(int, IFExtensionResult) {
 /// Complete list of files in the given extension
 - (NSArray<NSString*>*) filesInExtensionWithName: (NSString*) name;
 
-/// From a file potentially containing a natural inform extension, works out the author, title, version information.
-/// Each piece given a place to go is set, to \c nil if it isn't found (the version is \c nil if there isn't one).
-- (IFExtensionResult) infoForNaturalInformExtension: (NSString*) file
-                                             author: (NSString* _Nullable __strong* _Nullable) authorOut
-                                              title: (NSString* _Nullable __strong* _Nullable) titleOut
-                                            version: (NSString* _Nullable __strong* _Nullable) versionOut;
-
 /// Copies a file from the given path into the installed extensions, perhaps replacing an existing extension
 - (IFExtensionResult) installLegacyExtension: (NSString*) extensionPath
                              finalPath: (NSString* _Nullable __strong* _Nullable) finalPathOut
@@ -88,6 +81,26 @@ typedef NS_ENUM(int, IFExtensionResult) {
                         javascriptId: (nullable NSString*) javascriptId;
 - (void) downloadAndInstallFinished: (IFExtensionDownload*) download;
 -(void) reportDownloadResults: (IFExtensionDownload*) download;
+
+@end
+
+#pragma mark -
+
+/// Working out what's an extension: from a file's first line, from inbuild's census, and for the open panel
+@interface IFExtensionsManager (Reading)
+
+/// From a file potentially containing a natural inform extension, works out the author, title, version information.
+/// Each piece given a place to go is set, to \c nil if it isn't found (the version is \c nil if there isn't one).
+- (IFExtensionResult) infoForNaturalInformExtension: (NSString*) file
+                                             author: (NSString* _Nullable __strong* _Nullable) authorOut
+                                              title: (NSString* _Nullable __strong* _Nullable) titleOut
+                                            version: (NSString* _Nullable __strong* _Nullable) versionOut;
+
+/// The extensions in inbuild's census, given as JSON (none if there's no census, or it can't be read)
+- (NSMutableArray<IFExtensionInfo*>*) parseExtensionsList: (nullable NSString*) jsonString;
+
+/// Whether the open panel offers a file: folders, and files that might be extensions
+- (BOOL) panel: (id) sender shouldEnableURL: (NSURL*) url;
 
 @end
 

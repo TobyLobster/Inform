@@ -152,10 +152,9 @@ final class IFExtensionsManagerTests: XCTestCase {
 
     // MARK: - Inbuild's census
 
-    /// Reads inbuild's census, as the manager does for projects after 6M62 (parseExtensionsList: isn't in the header)
+    /// Reads inbuild's census, as the manager does for projects after 6M62
     private func census(_ json: String?) -> [IFExtensionInfo] {
-        let result = manager.perform(NSSelectorFromString("parseExtensionsList:"), with: json)?.takeUnretainedValue()
-        return result as? [IFExtensionInfo] ?? []
+        return manager.parseExtensionsList(json) as? [IFExtensionInfo] ?? []
     }
 
     private func info(_ title: String, _ filepath: String?, version: String) -> IFExtensionInfo {
