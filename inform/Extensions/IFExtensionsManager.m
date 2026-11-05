@@ -16,9 +16,6 @@
 #import "IFCompilerSettings.h"
 #import "IFProjectController.h"
 
-NSString* const IFCensusFinishedNotification      = @"IFCensusFinishedNotification";
-NSString* const IFCensusFinishedButDontUpdateExtensionsWebPageNotification = @"IFCensusFinishedButDontUpdateExtensionsWebPageNotification";
-
 static int maxErrorMessagesToDisplay = 3;
 
 // *******************************************************************************************
