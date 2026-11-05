@@ -29,15 +29,6 @@ CGFloat easeOutCubic(CGFloat t);
 /// Unique identifier
 + (unsigned long) generateID;
 
-// String
-+ (NSString*) localizedString:(NSString*) key;
-+ (NSString*) localizedString: (NSString*) key
-                      default: (nullable NSString*) value NS_FORMAT_ARGUMENT(2);
-+ (NSString*) localizedString: (NSString*) key
-                      default: (nullable NSString*) value
-                        table: (nullable NSString*) table NS_FORMAT_ARGUMENT(2);
-+ (NSString*) unescapeString: (NSString*) string;
-
 // Convenience methods for alerts
 + (void) runAlertInformationWindow: (nullable NSWindow*) window
                              title: (NSString*) title
@@ -101,9 +92,6 @@ CGFloat easeOutCubic(CGFloat t);
 // Attributes for NSAttributedString
 +(NSDictionary<NSAttributedStringKey,id>*) adjustAttributesFontSize: (NSDictionary<NSAttributedStringKey,id>*) dictionary
                                      size: (CGFloat) fontSize;
-
-// RegEx
-+(nullable NSTextCheckingResult*) findMatch: (NSString*) pattern inText:(NSString*) text;
 
 @end
 
@@ -172,6 +160,22 @@ CGFloat easeOutCubic(CGFloat t);
 + (nullable NSString*) pathForCompiler: (NSString *)version;
 
 + (NSURL*) temporaryDirectoryURL;
+
+@end
+
+@interface IFUtility (Strings)
+
+// String
++ (NSString*) localizedString:(NSString*) key;
++ (NSString*) localizedString: (NSString*) key
+                      default: (nullable NSString*) value NS_FORMAT_ARGUMENT(2);
++ (NSString*) localizedString: (NSString*) key
+                      default: (nullable NSString*) value
+                        table: (nullable NSString*) table NS_FORMAT_ARGUMENT(2);
++ (NSString*) unescapeString: (NSString*) string;
+
+// RegEx
++(nullable NSTextCheckingResult*) findMatch: (NSString*) pattern inText:(NSString*) text;
 
 @end
 

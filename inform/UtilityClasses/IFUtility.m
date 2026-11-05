@@ -58,28 +58,6 @@ CGFloat easeOutCubic(CGFloat t) {
     return new_id;
 }
 
-#pragma mark - String handling
-+ (NSString*) localizedString: (NSString*) key {
-    return [[NSBundle mainBundle] localizedStringForKey: key
-                                                  value: key
-                                                  table: nil];
-}
-
-+ (NSString*) localizedString: (NSString*) key
-                      default: (NSString*) value {
-    return [[NSBundle mainBundle] localizedStringForKey: key
-                                                  value: value
-                                                  table: nil];
-}
-
-+ (NSString*) localizedString: (NSString*) key
-                      default: (NSString*) value
-                        table: (NSString*) table {
-    return [[NSBundle mainBundle] localizedStringForKey: key
-                                                  value: value
-                                                  table: table];
-}
-
 #pragma mark - Alert dialogs
 + (void) runAlertWarningWindow: (NSWindow*) window
                          title: (NSString*) title
@@ -401,6 +379,33 @@ CGFloat easeOutCubic(CGFloat t) {
         return FALSE;
     }
     return TRUE;
+}
+
+@end
+
+#pragma mark - "IFUtility (Strings)"
+@implementation IFUtility (Strings)
+
+#pragma mark - String handling
++ (NSString*) localizedString: (NSString*) key {
+    return [[NSBundle mainBundle] localizedStringForKey: key
+                                                  value: key
+                                                  table: nil];
+}
+
++ (NSString*) localizedString: (NSString*) key
+                      default: (NSString*) value {
+    return [[NSBundle mainBundle] localizedStringForKey: key
+                                                  value: value
+                                                  table: nil];
+}
+
++ (NSString*) localizedString: (NSString*) key
+                      default: (NSString*) value
+                        table: (NSString*) table {
+    return [[NSBundle mainBundle] localizedStringForKey: key
+                                                  value: value
+                                                  table: table];
 }
 
 static int valueForHexChar(unichar c) {
