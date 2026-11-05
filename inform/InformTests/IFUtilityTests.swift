@@ -161,6 +161,12 @@ final class IFUtilityTests: XCTestCase {
                        ["Extensions/Emily Short/Locksmith.i7x", "", "20"])
     }
 
+    /// The web view reads the file and line from what it gets back, so a link without a line gives nothing.
+    func testSourceLinkWithoutALineIsNotDecoded() {
+        XCTAssertNil(source("source:story.ni"))
+        XCTAssertNil(source("source:story.ni?case=A"))
+    }
+
     func testDecodesSkeinLinks() {
         XCTAssertEqual(skein("skein:1003?case=B"), ["B", "1003"])
         XCTAssertEqual(skein("skein:1003"), ["", "1003"])

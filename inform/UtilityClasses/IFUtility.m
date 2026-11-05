@@ -140,7 +140,7 @@ CGFloat easeOutCubic(CGFloat t) {
     NSString* fragment = [IFUtility fragmentFromURL: sourceURL];
     if (fragment.length == 0) {
         NSLog(@"Bad source URL, no fragment: %@", path);
-        return @[];
+        return nil;
     }
 
     // sourceLine can have format 'line10' or '10'. 'line10' is more likely
