@@ -22,10 +22,10 @@ import Foundation
 
     func read(_ index: Int) -> IFSyntaxStyle {
 
-        assert(index >= 0, "style index out of range")
+        precondition(index >= 0, "style index out of range")
 
         // Allow index == numCharStyles, counting it as a terminator
-        assert(index <= numCharStyles, "style index out of range")
+        precondition(index <= numCharStyles, "style index out of range")
 
         if (index < 0) || (index >= numCharStyles) {
             return []       // IFSyntaxNone
@@ -34,8 +34,8 @@ import Foundation
     }
 
     func write(_ index: Int, value: IFSyntaxStyle) {
-        assert(index >= 0, "style index out of range")
-        assert(index < numCharStyles, "style index out of range")
+        precondition(index >= 0, "style index out of range")
+        precondition(index < numCharStyles, "style index out of range")
 
         if (index >= 0) && (index < numCharStyles) {
             styles![index] = value

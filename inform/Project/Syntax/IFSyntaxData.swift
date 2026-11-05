@@ -285,7 +285,7 @@ private func isLineEnd(_ c: unichar) -> Bool {
             }
         }
 
-        assert(false, "something not right with the text storage")
+        preconditionFailure("something not right with the text storage")
     }
 
     // Update the text to account for different line endings and intelligence changes
@@ -411,8 +411,8 @@ private func isLineEnd(_ c: unichar) -> Bool {
             charactersToAddToLength = min(newRange.location + newRange.length - range.location, newRange.length)
         }
 
-        assert((range.location - charactersToRemoveFromLocation + charactersToAddToLocation) >= 0, "Bad location for adjusting range")
-        assert((range.length - charactersToRemoveFromLength + charactersToAddToLength) >= 0, "Bad length for adjusting range")
+        precondition((range.location - charactersToRemoveFromLocation + charactersToAddToLocation) >= 0, "Bad location for adjusting range")
+        precondition((range.length - charactersToRemoveFromLength + charactersToAddToLength) >= 0, "Bad length for adjusting range")
 
         return NSRange(location: range.location - charactersToRemoveFromLocation + charactersToAddToLocation,
                        length: range.length - charactersToRemoveFromLength + charactersToAddToLength)
@@ -582,7 +582,7 @@ private func isLineEnd(_ c: unichar) -> Bool {
                                                                            with: attributedString)
                     } else {
                         NSLog("Should be changing attributes only. Found oldText '%@' new Text '%@' differ", oldText, newText)
-                        assert(false, "Should be changing attributes only")
+                        preconditionFailure("Should be changing attributes only")
                     }
                 }
             }
@@ -712,7 +712,7 @@ private func isLineEnd(_ c: unichar) -> Bool {
         }
 
         // Characters in the edited range no longer have valid states
-        assert((newRange.length == 0) || ((newRange.length + newRange.location - 1) < Int(charStyles.numCharStyles)), "index out of range")
+        precondition((newRange.length == 0) || ((newRange.length + newRange.location - 1) < Int(charStyles.numCharStyles)), "index out of range")
         x = 0
         while x < newRange.length {
             charStyles.write(x + newRange.location, value: .styleNotHighlighted)
@@ -763,13 +763,13 @@ private func isLineEnd(_ c: unichar) -> Bool {
             textStorage.setAttributes(styleAttributes, range: styleRange)
             textStorage.fixFontAttribute(in: styleRange)
 
-            assert((styleRange.location + styleRange.length) <= textStorage.length, "Help!")
+            precondition((styleRange.location + styleRange.length) <= textStorage.length, "Help!")
 
             let nextStart = styleRange.location + styleRange.length
             let consumed  = nextStart - range.location
             range.location = nextStart
 
-            assert(consumed >= 1, "Consumed too little")
+            precondition(consumed >= 1, "Consumed too little")
 
             range.length -= min(consumed, range.length)
         }
@@ -777,7 +777,7 @@ private func isLineEnd(_ c: unichar) -> Bool {
 #if HighlighterDebug
         textStorage.enumerateAttributes(in: NSRange(location: 0, length: textStorage.length),
                                         options: []) { _, aRange, _ in
-            assert((aRange.location + aRange.length) <= self.textStorage.length, "Help!!!!")
+            precondition((aRange.location + aRange.length) <= self.textStorage.length, "Help!!!!")
         }
 #endif
     }
@@ -802,7 +802,7 @@ private func isLineEnd(_ c: unichar) -> Bool {
     @objc(backtrackWithStyle:length:)
     func backtrack(with newStyle: IFSyntaxStyle, length backtrackLength: Int32) {
         // Change the character style, going backwards for the specified length
-        assert(syntaxPos < Int(charStyles.numCharStyles), "index out of range")
+        precondition(syntaxPos < Int(charStyles.numCharStyles), "index out of range")
         for x in stride(from: syntaxPos - Int(backtrackLength), to: syntaxPos, by: 1) {
             if x >= 0 {
                 charStyles.write(x, value: newStyle)
@@ -940,7 +940,7 @@ private func isLineEnd(_ c: unichar) -> Bool {
                                                    lastState: syntaxState) ?? []
 
                 // Store the style
-                assert(syntaxPos < Int(charStyles.numCharStyles), "index out of range")
+                precondition(syntaxPos < Int(charStyles.numCharStyles), "index out of range")
                 charStyles.styles![syntaxPos] = nextStyle
 
                 // Store the state
@@ -1209,7 +1209,7 @@ private func isLineEnd(_ c: unichar) -> Bool {
             paragraphStyles = []
         }
 
-        assert(numberOfTabStops >= 0, "Asking for a negative number of tabstops?! \(numberOfTabStops)")
+        precondition(numberOfTabStops >= 0, "Asking for a negative number of tabstops?! \(numberOfTabStops)")
 
         if numberOfTabStops < 0 { numberOfTabStops = 0 }       // Technically an error
         if numberOfTabStops > 48 { numberOfTabStops = 48 }     // Avoid eating all the pies^Wmemory
