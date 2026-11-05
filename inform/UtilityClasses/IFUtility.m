@@ -73,25 +73,6 @@ CGFloat easeOutCubic(CGFloat t) {
 }
 
 #pragma mark - String handling
-// Are the strings equal, where the strings may be nil...
-+ (bool) safeString:(NSString*) string1 insensitivelyEqualsSafeString:(NSString*) string2 {
-    if(( string1 == nil ) || ( string2 == nil )) {
-        return (string1 == string2);
-    }
-    return ([string1 caseInsensitiveCompare: string2] == NSOrderedSame);
-}
-
-+(bool) url: (NSURL*) url1
-     equals: (NSURL*) url2 {
-    bool sameScheme = [IFUtility safeString: url1.scheme
-              insensitivelyEqualsSafeString: url2.scheme];
-    bool samePath   = [IFUtility safeString: url1.path
-              insensitivelyEqualsSafeString: url2.path];
-    bool sameQuery  = [IFUtility safeString: url1.query
-              insensitivelyEqualsSafeString: url2.query];
-    return sameScheme && samePath && sameQuery;
-}
-
 + (NSString*) localizedString: (NSString*) key {
     return [[NSBundle mainBundle] localizedStringForKey: key
                                                   value: key

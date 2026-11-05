@@ -30,8 +30,6 @@ CGFloat easeOutCubic(CGFloat t);
 + (unsigned long) generateID;
 
 // String
-+ (bool) safeString:(nullable NSString*) string1 insensitivelyEqualsSafeString:(nullable NSString*) string2;
-+ (bool) url:(nullable NSURL*) url1 equals:(nullable NSURL*) url2;
 + (NSString*) localizedString:(NSString*) key;
 + (NSString*) localizedString: (NSString*) key
                       default: (nullable NSString*) value NS_FORMAT_ARGUMENT(2);
