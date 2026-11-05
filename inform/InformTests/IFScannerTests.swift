@@ -77,6 +77,14 @@ final class IFScannerTests: XCTestCase {
         XCTAssertEqual(next("^two", in: "one two"), notFound)
     }
 
+    /// A lookbehind sees the text before the search position. Find All and Find Previous search again from
+    /// just after each match's start, so otherwise they found the second "a" in "aa" for (?<!a)a.
+    func testLookbehindSeesTextBeforeTheSearchPosition() {
+        XCTAssertEqual(next("(?<!a)a", in: "aa", from: 1), notFound)
+        XCTAssertEqual(previous("(?<!a)a", in: "aa", from: 1), NSRange(location: 0, length: 1))
+        XCTAssertEqual(next("(?<=a)b", in: "ab", from: 1), NSRange(location: 1, length: 1))
+    }
+
     /// Characters outside the Basic Multilingual Plane are found at their UTF-16 positions.
     func testFindsCharactersOutsideTheBasicPlane() {
         XCTAssertEqual(next("\u{1F600}(.)", in: "x\u{1F600}yz"), NSRange(location: 1, length: 3))

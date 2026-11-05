@@ -8,7 +8,6 @@
 
 #import "IFDiffer.h"
 #import "NSString+IFStringExtensions.h"
-#import "Regex.h"
 #include <wctype.h>
 
 static const int MINIMUM_SPLICE_WORTH_BOTHERING_WITH = 5;
@@ -97,6 +96,20 @@ static const BOOL trace_diff = NO;
     return NO;
 }
 
+/// The range of a typical I7 banner line in part of a text (NSNotFound if there isn't one)
+static NSRange bannerRange(NSString* text, NSRange range) {
+    static NSRegularExpression* banner;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        banner = [NSRegularExpression regularExpressionWithPattern: @"(.*?)(Release \\d+ / Serial number \\d+ / Inform 7 build .... .I6.+?lib .+?SD).*"
+                                                           options: 0
+                                                             error: NULL];
+    });
+
+    NSTextCheckingResult* match = [banner firstMatchInString: text options: 0 range: range];
+    return (match != nil) ? [match rangeAtIndex: 2] : NSMakeRange(NSNotFound, 0);
+}
+
 /*
  The first level down is also non-recursive and simply looks for a typical
  I7 banner line. Any correctly formed I7 banner matches any other; this
@@ -114,13 +127,7 @@ static const BOOL trace_diff = NO;
     // unless both strings are a good candidate, i.e. each string contains the words "Serial number".
     if( [_ideal  containsSubstring:@"Serial number"] &&
         [_actual containsSubstring:@"Serial number"] ) {
-        NSString *regEx = @"(.*?)(Release \\d+ / Serial number \\d+ / Inform 7 build .... .I6.+?lib .+?SD).*";
-
-        NSRange matchRangeA2 = [_ideal rangeOfRegex: regEx
-                                            options: RKLNoOptions
-                                            inRange: rangeA
-                                            capture: 2
-                                              error: NULL];
+        NSRange matchRangeA2 = bannerRange(_ideal, rangeA);
         if( matchRangeA2.location != NSNotFound ) {
             NSAssert(matchRangeA2.location >= rangeA.location, @"oops #1");
             NSRange matchRangeA1 = NSMakeRange(rangeA.location, matchRangeA2.location - rangeA.location);
@@ -129,11 +136,7 @@ static const BOOL trace_diff = NO;
             NSInteger A_ver_len  = matchRangeA2.length;
             NSInteger A_post_len = rangeA.length - A_pre_len - A_ver_len;
 
-            NSRange matchRangeB2 = [_actual rangeOfRegex: regEx
-                                                 options: RKLNoOptions
-                                                 inRange: rangeB
-                                                 capture: 2
-                                                   error: NULL];
+            NSRange matchRangeB2 = bannerRange(_actual, rangeB);
             if( matchRangeB2.location != NSNotFound ) {
                 NSAssert(matchRangeB2.location >= rangeB.location, @"oops #2");
                 NSRange matchRangeB1 = NSMakeRange(rangeB.location, matchRangeB2.location - rangeB.location);

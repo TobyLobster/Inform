@@ -6,10 +6,33 @@
 //
 
 #import "IFScanner.h"
-#import "Regex.h"
 #include <wctype.h>
 
 @implementation IFScanner
+
+/// Compiles a regular expression (nil if the pattern isn't one). Recent ones are kept, since Find All
+/// and Find in Files search once for each match.
++(nullable NSRegularExpression*) regularExpression: (NSString*) pattern
+                                          options: (NSRegularExpressionOptions) options {
+    static NSCache<NSString*, NSRegularExpression*>* cache;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        cache = [[NSCache alloc] init];
+        cache.countLimit = 16;
+    });
+
+    NSString* key = [NSString stringWithFormat: @"%lu:%@", (unsigned long) options, pattern];
+    NSRegularExpression* regex = [cache objectForKey: key];
+    if( regex == nil ) {
+        regex = [NSRegularExpression regularExpressionWithPattern: pattern
+                                                          options: options
+                                                            error: NULL];
+        if( regex != nil ) {
+            [cache setObject: regex forKey: key];
+        }
+    }
+    return regex;
+}
 
 +(NSRange) findNextMatch: (NSString*) phrase
                  storage: (NSString*) storage
@@ -18,7 +41,7 @@
         regexFoundGroups: (NSArray<NSString*>*__strong*) foundGroupsOut {
 
     NSStringCompareOptions options;
-    RKLRegexOptions regexOptions;
+    NSRegularExpressionOptions regexOptions;
     NSRange range = NSMakeRange(NSNotFound, 0);
     bool found = false;
     if( foundGroupsOut != nil ) {
@@ -29,15 +52,21 @@
     
     if( searchType & IFFindCaseInsensitive ) {
         options = NSLiteralSearch | NSCaseInsensitiveSearch;
-        regexOptions = RKLCaseless;
+        regexOptions = NSRegularExpressionCaseInsensitive;
     }
     else {
         options = NSLiteralSearch;
-        regexOptions = RKLNoOptions;
+        regexOptions = 0;
     }
     
     // Remove case insensitive flag, to be left with just the search type proper
     searchType = (IFFindType) (searchType & ~IFFindCaseInsensitive);
+
+    // A pattern that isn't a regular expression gives nil, which finds nothing
+    NSRegularExpression* regex = nil;
+    if( searchType == IFFindRegexp ) {
+        regex = [self regularExpression: phrase options: regexOptions];
+    }
 
     while (!found) {
         if( searchPosition >= storageLength ) {
@@ -50,23 +79,21 @@
             //
             // Search for a regex match
             //
-            range = [storage rangeOfRegex: phrase
-                                  options: regexOptions
-                                  inRange: NSMakeRange(searchPosition, storageLength - searchPosition)
-                                  capture: 0L
-                                    error: NULL];
+            NSTextCheckingResult* match = [regex firstMatchInString: storage
+                                                            options: 0
+                                                              range: NSMakeRange(searchPosition, storageLength - searchPosition)];
+            range = (match != nil) ? match.range : NSMakeRange(NSNotFound, 0);
             //
-            // Make array of any found groups, if required
+            // Make array of any found groups, if required: the whole match, then each group
+            // (an empty string if it took no part)
             //
-            if( foundGroupsOut != nil ) {
-                NSError* error;
-                NSArray* array = [storage captureComponentsMatchedByRegex: phrase
-                                                                  options: regexOptions
-                                                                    range: NSMakeRange(searchPosition, storageLength - searchPosition)
-                                                                    error: &error];
-                if( array.count > 0 ) {
-                    *foundGroupsOut = array;
+            if( (foundGroupsOut != nil) && (match != nil) ) {
+                NSMutableArray* array = [NSMutableArray arrayWithCapacity: match.numberOfRanges];
+                for( NSUInteger group = 0; group < match.numberOfRanges; group++ ) {
+                    NSRange groupRange = [match rangeAtIndex: group];
+                    [array addObject: (groupRange.location == NSNotFound) ? @"" : [storage substringWithRange: groupRange]];
                 }
+                *foundGroupsOut = array;
             }
         } else {
             //
