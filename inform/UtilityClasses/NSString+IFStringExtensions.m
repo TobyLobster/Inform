@@ -7,7 +7,6 @@
 //
 
 #import "NSString+IFStringExtensions.h"
-#import "NSMutableString+IFMutableStringExtensions.h"
 
 static NSCharacterSet* whitespace;
 static NSCharacterSet* nonWhitespace;
@@ -56,12 +55,6 @@ static NSCharacterSet* nonWhitespace;
 -(BOOL) isEqualToStringCaseInsensitive:(NSString *)string
 {
     return [self caseInsensitiveCompare:string] == NSOrderedSame;
-}
-
--(NSString *)substringFrom:(NSInteger)from to:(NSInteger)to
-{
-    NSString *rightPart = [self substringFromIndex:from];
-    return [rightPart substringToIndex:to-from];
 }
 
 -(NSString *)stringByTrimmingWhitespace

@@ -25,9 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(BOOL) startsWithCaseInsensitive: (NSString *) string;
 -(BOOL) isEqualToStringCaseInsensitive: (NSString *) string;
 
--(NSString*) substringFrom: (NSInteger)from
-                        to: (NSInteger)to;
-
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *stringByTrimmingWhitespace;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *trailingWhitespace;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *leadingWhitespace;
