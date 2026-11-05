@@ -13,6 +13,7 @@
 #import "IFSkeinItem.h"
 #import "IFIntelFile.h"
 #import "IFIntelSymbol.h"
+#import "IFNaturalIntel.h"
 #import "IFSyntaxStyles.h"
 #import "IFInform7MutableString.h"
 #import "IFSyntaxManager.h"
