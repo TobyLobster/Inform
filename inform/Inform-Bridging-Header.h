@@ -39,3 +39,5 @@
 #import "IFAppDelegate.h"
 #import "IFProjectController.h"
 #import "IFExtensionsManager.h"
+#import "IFMaintenanceTask.h"
+#import "IFInBuild.h"
