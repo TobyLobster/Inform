@@ -35,6 +35,7 @@
 #import "IFCompilerOptions.h"
 #import "IFCompilerVersionSettings.h"
 #import "IFExtensionsManager.h"
+#import "IFNewExtensionsManager.h"
 #import "IFInBuild.h"
 #import "IFNaturalIntel.h"
 #import "IFIntelFile.h"
