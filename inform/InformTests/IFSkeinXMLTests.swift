@@ -61,6 +61,107 @@ final class IFSkeinXMLTests: XCTestCase {
         }
     }
 
+    /// The XML written for a skein, with its node IDs numbered in the order they appear, and without the app's version.
+    private func writtenXML(_ skein: IFSkein) throws -> String {
+        let xml = try XCTUnwrap(skein.xmlString) as NSString
+        let result = NSMutableString(string: xml)
+        var ids: [String] = []
+        let nodeId = try NSRegularExpression(pattern: "node-[0-9]+")
+        let matches = nodeId.matches(in: xml as String, range: NSRange(location: 0, length: xml.length))
+        for match in matches where !ids.contains(xml.substring(with: match.range)) {
+            ids.append(xml.substring(with: match.range))
+        }
+        for match in matches.reversed() {
+            result.replaceCharacters(in: match.range, with: "node-\(ids.firstIndex(of: xml.substring(with: match.range))!)")
+        }
+        let generator = try NSRegularExpression(pattern: "<generator>Inform Mac Client \\(.*\\)</generator>")
+        generator.replaceMatches(in: result, range: NSRange(location: 0, length: result.length),
+                                 withTemplate: "<generator>Inform Mac Client (VERSION)</generator>")
+        return result as String
+    }
+
+    func testWritesTheSkeinAsXML() throws {
+        let skein: IFSkein = IFSkein(project: nil)
+        skein.rootItem.actual = "Library\n\n>"
+        let look: IFSkeinItem = skein.rootItem.addChild(IFSkeinItem(skein: skein, command: "look"))
+        look.actual = "The Library\n\n>"
+        look.ideal = "A library\n\n>"
+        let test: IFSkeinItem = skein.rootItem.addChild(IFSkeinItem(skein: skein, command: "test me"))
+        test.actual = "(Testing.)\n\n>[1] jump\nYou jump.\n\n>"
+        _ = test.decompose
+        skein.winningItem = look
+        // The knot for a "test me" command has children, but none that are written
+        XCTAssertEqual(try writtenXML(skein), """
+
+            <Skein rootNode="node-0">
+                <generator>Inform Mac Client (VERSION)</generator>
+                <item nodeId="node-0">
+                    <command xml:space="preserve">- start -</command>
+                    <result xml:space="preserve">Library
+
+            &gt;</result>
+                    <commentary xml:space="preserve"></commentary>
+                    <children><child nodeId="node-1"></child>
+                        <child nodeId="node-2"></child>
+                    </children>
+                </item>
+                <item nodeId="node-2">
+                    <command xml:space="preserve">test me</command>
+                    <result xml:space="preserve">(Testing.)
+
+            &gt;[1] jump
+            You jump.
+
+            &gt;</result>
+                    <commentary xml:space="preserve">[1] jump
+            </commentary>
+                    <children></children>
+                </item>
+                <item nodeId="node-1">
+                    <command xml:space="preserve">look</command>
+                    <result xml:space="preserve">The Library
+
+            &gt;</result>
+                    <commentary xml:space="preserve">A library
+
+            &gt;</commentary>
+                    <annotation xml:space="preserve">***</annotation>
+                </item>
+            </Skein>
+            """)
+    }
+
+    /// Reading a skein leaves no knot active, skips items without IDs, and children it can't find.
+    func testReadingSkipsWhatItCantFind() throws {
+        let skein: IFSkein = IFSkein(project: nil)
+        skein.activeItem = skein.rootItem
+        let xml = """
+            <?xml version="1.0"?>
+            <NotASkein rootNode="node-1">
+              <item nodeId="node-1">
+                <command xml:space="preserve">- start -</command>
+                <children>
+                  <child nodeId="node-2" />
+                  <child />
+                  <child nodeId="node-9" />
+                </children>
+              </item>
+              <item>
+                <command xml:space="preserve">no ID</command>
+              </item>
+              <item nodeId="node-2">
+                <command xml:space="preserve">look</command>
+                <annotation xml:space="preserve">Not a win</annotation>
+              </item>
+            </NotASkein>
+            """
+        XCTAssertTrue(skein.parseXmlData(Data(xml.utf8)))
+        XCTAssertNil(skein.activeItem)
+        XCTAssertNil(skein.winningItem)
+        XCTAssertEqual(skein.rootItem.children.map { $0.command }, ["look"])
+        XCTAssertTrue(skein.rootItem.children[0].skein === skein)
+    }
+
     func testReadsAZoomSkein() throws {
         let skein: IFSkein = IFSkein(project: nil)
         XCTAssertTrue(skein.parseXmlData(Data(zoomSkein.utf8)))
