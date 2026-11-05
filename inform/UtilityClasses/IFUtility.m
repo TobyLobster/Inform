@@ -12,8 +12,6 @@
 #import <objc/objc-runtime.h>
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
-static NSLock*       uniqueIdLock;
-static unsigned long uniqueId = 1000;
 NSTimeInterval const defaultTimeoutInterval = 60.0;
 NSErrorDomain        INFORM_ERROR_DOMAIN = @"com.inform7.errors";
 
@@ -246,125 +244,6 @@ CGFloat easeOutCubic(CGFloat t) {
     [IFUtility runAlertWarningWindow: window
                                title: @"Failed to Install Extension"
                              message: @"Failed to Install Extension Explanation"];
-}
-
-@end
-
-#pragma mark - "IFUtility (Miscellaneous)"
-@implementation IFUtility (Miscellaneous)
-
-#pragma mark -  Initialisation
-+ (void) initialize {
-    uniqueIdLock = [[NSLock alloc] init];
-}
-
-#pragma mark - Generating unique IDs
-+ (unsigned long) generateID {
-    unsigned long new_id;
-    [uniqueIdLock lock];
-    new_id = uniqueId++;
-    [uniqueIdLock unlock];
-    return new_id;
-}
-
-+ (NSArray<UTType*>*) contentTypesForFilenameExtensions: (NSArray<NSString*>*) extensions {
-    NSMutableArray<UTType*>* types = [NSMutableArray array];
-    for (NSString* extension in extensions) {
-        UTType* type = [UTType typeWithFilenameExtension: extension];
-        if (type != nil) {
-            [types addObject: type];
-        }
-    }
-    return types;
-}
-
-// Save transcript (handles save dialog)
-+(void) saveTranscriptPanelWithString: (NSString*) string
-                               window: (NSWindow*) window {
-
-    NSSavePanel* panel = [NSSavePanel savePanel];
-
-    panel.allowedContentTypes = [IFUtility contentTypesForFilenameExtensions: @[@"txt"]];
-
-    // Work out starting directory
-    NSString*   prefString   = [[NSUserDefaults standardUserDefaults] objectForKey: @"IFTranscriptURL"];
-    NSURL*      directoryURL = [NSURL URLWithString: prefString];
-    if (directoryURL == nil) {
-        directoryURL = [NSURL fileURLWithPath: NSHomeDirectory()];
-    }
-
-    panel.directoryURL = directoryURL;
-
-    // Show it
-    [panel beginSheetModalForWindow: window completionHandler:^(NSInteger returnCode)
-     {
-         if (returnCode != NSModalResponseOK) return;
-
-         // Remember the directory we last saved into
-         if ( panel.directoryURL.absoluteString != nil ) {
-             NSString* writePrefString = panel.directoryURL.absoluteString;
-             [[NSUserDefaults standardUserDefaults] setObject: writePrefString
-                                                       forKey: @"IFTranscriptURL"];
-         }
-
-         // Save the data
-         NSData* stringData = [string dataUsingEncoding: NSUTF8StringEncoding];
-         [stringData writeToURL: panel.URL
-                     atomically: YES];
-     }];
-}
-
-
-#pragma mark - Sandboxing
-+ (BOOL) isSandboxed {
-    NSDictionary* environ = [NSProcessInfo processInfo].environment;
-    return (nil != environ[@"APP_SANDBOX_CONTAINER_ID"]);
-}
-
-+(void) performSelector:(SEL) selector object:(id) object {
-    if( [object respondsToSelector: selector] ) {
-        // ARC safe way to do performSelector (see http://stackoverflow.com/a/20058585/4786529 ) ...
-        IMP imp = [object methodForSelector: selector];
-        void (*func)(id, SEL) = (void *) imp;
-        func(object, selector);
-    }
-}
-
-+(NSDictionary*) adjustAttributesFontSize: (NSDictionary*) dictionary
-                                     size: (CGFloat) fontSize {
-    NSMutableDictionary* mutableResult = [dictionary mutableCopy];
-    NSFont* font = mutableResult[NSFontAttributeName];
-    font = [font fontWithSize: fontSize];
-    mutableResult[NSFontAttributeName] = font;
-    return [mutableResult copy];
-}
-
-+(bool) unzip: (NSURL*) zipURL toDirectory:(NSURL*) targetDirectory {
-    // see https://stackoverflow.com/questions/2296667/unzipping-a-file-in-cocoa
-    NSFileManager* fm = [NSFileManager defaultManager];
-    NSError *error;
-
-    // create a new empty folder (to get a clean unzip)
-    [fm createDirectoryAtURL: targetDirectory
- withIntermediateDirectories: YES
-                  attributes: nil
-                       error: &error];
-
-    //now create an unzip task
-    // -o overwrites existing files
-    // -x ignores any *.DS_Store and __MACOSX detritus (Note the -x argument must appear after the zip file)
-    NSArray *arguments = @[@"-o", zipURL.path, @"-x", @"*.DS_Store", @"__MACOSX/*"];
-    NSTask *unzipTask = [[NSTask alloc] init];
-    unzipTask.launchPath = @"/usr/bin/unzip";
-    unzipTask.currentDirectoryURL = targetDirectory;
-    unzipTask.arguments = arguments;
-    [unzipTask launch];
-    [unzipTask waitUntilExit];
-
-    if (unzipTask.terminationStatus != 0) {
-        return FALSE;
-    }
-    return TRUE;
 }
 
 @end
