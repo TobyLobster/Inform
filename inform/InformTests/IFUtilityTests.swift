@@ -347,4 +347,125 @@ final class IFUtilityTests: XCTestCase {
     func testQueryParametersAreSplitOnlyAtEquals() {
         XCTAssertEqual(skein("skein:1003?case=B&x=1"), ["B&x", "1003"])
     }
+
+    // MARK: - Localized strings
+
+    func testLocalizedString() {
+        XCTAssertEqual(IFUtility.localizedString("Index"), "Help")
+        XCTAssertEqual(IFUtility.localizedString("Source Page Title"), "Source")
+    }
+
+    /// A key without a translation is its own translation.
+    func testLocalizedStringWithoutATranslation() {
+        XCTAssertEqual(IFUtility.localizedString("No such key"), "No such key")
+    }
+
+    func testLocalizedStringWithADefault() {
+        XCTAssertEqual(IFUtility.localizedString("Index", default: "Fallback"), "Help")
+        XCTAssertEqual(IFUtility.localizedString("No such key", default: "Fallback"), "Fallback")
+        XCTAssertEqual(IFUtility.localizedString("No such key", default: nil), "No such key")
+    }
+
+    func testLocalizedStringFromATable() {
+        XCTAssertEqual(IFUtility.localizedString("Debug log.txt", default: "Debug log", table: "CompilerOutput"), "Debugging")
+        XCTAssertEqual(IFUtility.localizedString("Index", default: "Fallback", table: "CompilerOutput"), "Fallback")
+        XCTAssertEqual(IFUtility.localizedString("Index", default: nil, table: nil), "Help")
+    }
+
+    // MARK: - Unescaping
+
+    private func unescape(_ string: String) -> String {
+        IFUtility.unescapeString(string)
+    }
+
+    func testUnescapeLeavesPlainTextAlone() {
+        XCTAssertEqual(unescape(""), "")
+        XCTAssertEqual(unescape("Hello, world"), "Hello, world")
+        XCTAssertEqual(unescape("Café 😀"), "Café 😀")
+    }
+
+    func testUnescapesBackslashes() {
+        XCTAssertEqual(unescape(#"a\nb\rc\td"#), "a\nb\rc\td")
+        XCTAssertEqual(unescape(#"\"quoted\" \\ \q"#), #""quoted" \ q"#)
+    }
+
+    /// A backslash at the end has nothing to escape, so it stays.
+    func testKeepsATrailingBackslash() {
+        XCTAssertEqual(unescape(#"a\"#), #"a\"#)
+    }
+
+    /// The documentation writes characters as [=0x....=], since WebKit versions treat backslashes differently.
+    func testUnescapesCharacterCodes() {
+        XCTAssertEqual(unescape("say [=0x0022=]Hello[=0x0022=];[=0x000A=]"), "say \"Hello\";\n")
+        XCTAssertEqual(unescape("[=0x00e9=][=0x00E9=]"), "éé")
+        XCTAssertEqual(unescape("[=0x41=][=0x000000042=]"), "AB")
+        XCTAssertEqual(unescape("[=BACK=]n"), #"\n"#)
+    }
+
+    /// Characters beyond 0xFFFF are written as surrogate pairs; a longer code keeps only its low 16 bits.
+    func testCharacterCodesAreUTF16() {
+        XCTAssertEqual(unescape("[=0xD83D=][=0xDE00=]"), "😀")
+        XCTAssertEqual(unescape("[=0x1F600=]"), "\u{F600}")
+    }
+
+    /// A digit that isn't hexadecimal counts as 0.
+    func testCharacterCodesWithBadDigits() {
+        XCTAssertEqual(unescape("[=0x4G=]"), "@")
+    }
+
+    /// An escape runs to the next =], so an Inform comment starting [= is taken as one.
+    func testUnknownEscapesAreQuestionMarks() {
+        XCTAssertEqual(unescape("[=back=]"), "?")
+        XCTAssertEqual(unescape("[=0X41=]"), "?")
+        XCTAssertEqual(unescape("[==]"), "?")
+        XCTAssertEqual(unescape("[=== Notes ===]"), "?")
+    }
+
+    /// Without a closing =] after it, [= is left as it is.
+    func testLeavesAnUnclosedEscapeAlone() {
+        XCTAssertEqual(unescape("[=0x41"), "[=0x41")
+        XCTAssertEqual(unescape("a[="), "a[=")
+        XCTAssertEqual(unescape("[=]"), "[=]")
+    }
+
+    func testLeavesOtherBracketsAlone() {
+        XCTAssertEqual(unescape("[x] [ [=0x0041=]"), "[x] [ A")
+        XCTAssertEqual(unescape("a["), "a[")
+    }
+
+    func testUnescapesLongStrings() {
+        let long = String(repeating: #"ab[=0x0063=]\n"#, count: 200)
+        XCTAssertEqual(unescape(long), String(repeating: "abc\n", count: 200))
+    }
+
+    // MARK: - Regular expressions
+
+    func testFindsTheFirstMatch() throws {
+        let text = "*** Run-time problem P10: Tried to divide by zero."
+        let match = try XCTUnwrap(IFUtility.findMatch(#"^\*\*\* Run-time problem\s+([^\s:]+)(?::\s*(.*))?$"#, inText: text))
+        XCTAssertEqual((text as NSString).substring(with: match.range(at: 1)), "P10")
+        XCTAssertEqual((text as NSString).substring(with: match.range(at: 2)), "Tried to divide by zero.")
+        XCTAssertEqual(IFUtility.findMatch(#"P\d+"#, inText: "P10 and P11")?.range, NSRange(location: 0, length: 3))
+    }
+
+    /// Ranges are in UTF-16 units, and the whole text is searched.
+    func testMatchesAfterCharactersOutsideASCII() {
+        XCTAssertEqual(IFUtility.findMatch(#"P\d+"#, inText: "😀 Café P10")?.range, NSRange(location: 8, length: 3))
+    }
+
+    func testNoMatch() {
+        XCTAssertNil(IFUtility.findMatch(#"P\d+"#, inText: "Something else"))
+        XCTAssertNil(IFUtility.findMatch(#"P\d+"#, inText: ""))
+    }
+
+    /// The options are the defaults: case matters, and ^ and $ are the ends of the whole text.
+    func testMatchesWithDefaultOptions() {
+        XCTAssertNil(IFUtility.findMatch("p10", inText: "P10"))
+        XCTAssertNil(IFUtility.findMatch("^P10$", inText: "First line\nP10"))
+    }
+
+    /// A pattern that doesn't compile is logged and matches nothing.
+    func testBadPatternMatchesNothing() {
+        XCTAssertNil(IFUtility.findMatch("(unclosed", inText: "(unclosed"))
+    }
 }
