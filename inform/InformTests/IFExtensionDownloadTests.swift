@@ -39,6 +39,18 @@ final class IFExtensionDownloadTests: XCTestCase {
         delegate.urlSession?(URLSession.shared, dataTask: dataTask, didReceive: Data(data.utf8))
     }
 
+    /// The paths of the files this process has open
+    private func openFilePaths() -> [String] {
+        var paths: [String] = []
+        for fd in 0..<min(getdtablesize(), 65536) {
+            var path = [CChar](repeating: 0, count: Int(MAXPATHLEN))
+            if fcntl(fd, F_GETPATH, &path) != -1 {
+                paths.append(String(cString: path))
+            }
+        }
+        return paths
+    }
+
     func testANewDownload() {
         let url = folder.appendingPathComponent("Locksmith.zip")
         let notified = NSObject()
@@ -100,6 +112,12 @@ final class IFExtensionDownloadTests: XCTestCase {
         let finished = expectation(for: NSPredicate { _, _ in newDownload.connection == nil }, evaluatedWith: nil)
         wait(for: [finished], timeout: 10)
         XCTAssertNil(newDownload.receivedData)
+
+        // ...and doesn't keep open the temporary file it saved the data in
+        XCTAssertEqual(openFilePaths().filter { path in
+            let name = (path as NSString).lastPathComponent
+            return name.hasPrefix("temp.") && name.hasSuffix(".zip")
+        }, [])
 
         // With no project to install it in, it isn't installed
         XCTAssertFalse(NSDocumentController.shared.documents.contains { $0 is IFProject })

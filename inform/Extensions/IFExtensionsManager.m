@@ -261,6 +261,9 @@ didReceiveResponse: (NSURLResponse *)response
     snprintf(tempFilename, 255, "%stemp.XXXXXX.zip", [NSTemporaryDirectory() fileSystemRepresentation]);
     int result = mkstemps(tempFilename,4);
     if( result != -1 ) {
+        // Only the name is needed: the file is written below
+        close(result);
+
         NSString* filename = [[NSFileManager defaultManager] stringWithFileSystemRepresentation: tempFilename
                                                                                          length: strlen(tempFilename)];
         // Save the data to a temporary file
