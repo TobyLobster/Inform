@@ -246,7 +246,34 @@ final class IFHighlighterTests: XCTestCase {
         ])
     }
 
+    func testInform6InclusionsWithAccentedLetters() throws {
+        try assertStyles("Include (- Constant Greeting \"Caf\u{E9}~\"; -).\n", .inform7, [
+            ("Constant", .directive),
+            ("\"Caf\u{E9}", .string),
+            ("~", .escapeCharacter),
+            ("\"", .string),
+        ])
+    }
+
     // MARK: - More Inform 6
+
+    /// Escape characters and keywords are found by their place in the line, which a letter outside ASCII mustn't move.
+    func testInform6AfterAccentedLetters() throws {
+        try assertStyles("""
+            [ Greet;
+                print "Caf\u{E9}~ok^"; rtrue;
+            ];
+
+            """, .inform6, [
+                ("print", .code),
+                ("\"Caf\u{E9}", .string),
+                ("~", .escapeCharacter),
+                ("ok", .string),
+                ("^", .escapeCharacter),
+                ("\"", .string),
+                ("rtrue", .code),
+            ])
+    }
 
     func testInform6Escapes() throws {
         try assertStyles("""

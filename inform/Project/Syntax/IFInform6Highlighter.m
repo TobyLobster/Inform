@@ -532,7 +532,6 @@ static int compare(const void* a, const void* b) {
     int x;
     int chr;
 	
-	const char* str = line.UTF8String;
 	int strLen = (int) line.length;
     
     // Firstly, any characters with colour Q (quoted-text) which have special
@@ -542,7 +541,7 @@ static int compare(const void* a, const void* b) {
     
     for (x=0; x<strLen; x++) {
         if ([styles read:x] == IFSyntaxString) {
-            chr = str[x];
+            chr = [line characterAtIndex: x];
             
             switch (chr) {
                 case '~': case '^': case '\\':
@@ -553,7 +552,7 @@ static int compare(const void* a, const void* b) {
                     [styles write:x value:IFSyntaxEscapeCharacter];
                     
                     if ((x+1) < strLen) {
-                        chr = str[x+1];
+                        chr = [line characterAtIndex: x+1];
                         
                         if (chr == '@') {
                             x++;
@@ -565,7 +564,7 @@ static int compare(const void* a, const void* b) {
 							x++;
 							if (x >= strLen) break;
 							
-							chr = str[x];
+							chr = [line characterAtIndex: x];
 							
                             if (isdigit(chr)) [styles write:x value:IFSyntaxEscapeCharacter];
 						} while (isdigit(chr));
@@ -584,7 +583,7 @@ static int compare(const void* a, const void* b) {
         int identifierStart = x;
         unsigned char colour = [styles read:identifierStart];
         
-        chr = str[x];
+        chr = [line characterAtIndex: x];
         
         if (colour != IFSyntaxCodeAlpha &&
             colour != IFSyntaxNone) {
@@ -598,7 +597,7 @@ static int compare(const void* a, const void* b) {
             x++;
             if (x >= strLen) break;
             
-            chr = str[x];
+            chr = [line characterAtIndex: x];
         }
         
         if (identifierLen == 0) continue;
@@ -612,7 +611,7 @@ static int compare(const void* a, const void* b) {
         if (colour == IFSyntaxCodeAlpha) {
             // If an identifier is in code colour, then:
 			
-            if (identifierStart > 0 && str[identifierStart-1] == '@') {
+            if (identifierStart > 0 && [line characterAtIndex: identifierStart-1] == '@') {
                 //     If it follows an "@", recolour the "@" and the identifier in
                 //        assembly-language colour.
                 identifierStart--;
@@ -631,9 +630,7 @@ static int compare(const void* a, const void* b) {
                 //       "true"  "until"  "while"  "younger"  "youngest"
 				
                 //     we recolour the identifier to "codealpha colour".
-                char* identifier = malloc(identifierLen+1);
-                identifier = strncpy(identifier, str + identifierStart, identifierLen);
-                identifier[identifierLen] = 0;
+                char* identifier = strdup([line substringWithRange: NSMakeRange(identifierStart, identifierLen)].UTF8String);
                 
                 if (FindKeyword(codeKeywords, numCodeKeywords, identifier)) newColour = IFSyntaxCode;
                 
@@ -648,9 +645,7 @@ static int compare(const void* a, const void* b) {
             
             // If it is, we recolour it in directive colour.
             
-            char* identifier = malloc(identifierLen+1);
-            identifier = strncpy(identifier, str + identifierStart, identifierLen);
-            identifier[identifierLen] = 0;
+            char* identifier = strdup([line substringWithRange: NSMakeRange(identifierStart, identifierLen)].UTF8String);
             
             if (FindKeyword(otherKeywords, numOtherKeywords, identifier)) {
                 newColour = IFSyntaxDirective;
