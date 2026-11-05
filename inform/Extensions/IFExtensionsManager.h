@@ -33,7 +33,6 @@ typedef NS_ENUM(int, IFExtensionResult) {
 @property (atomic, copy)   NSString* author;
 /// The version (\c nil or empty if the extension has none)
 @property (atomic, copy, nullable) NSString* version;
-@property (atomic, copy, nullable) NSString* md5Hash;
 @property (atomic)         BOOL      isBuiltIn;
 
 -(instancetype) init NS_UNAVAILABLE;
@@ -42,7 +41,6 @@ typedef NS_ENUM(int, IFExtensionResult) {
                  filepath: (nullable NSString*) filepath
                    author: (NSString*) author
                   version: (nullable NSString*) version
-                  md5Hash: (nullable NSString*) md5Hash
                 isBuiltIn: (BOOL) isBuiltIn NS_DESIGNATED_INITIALIZER;
 
 /// Remove leading "The ", "An ", or "A ", and trailing proviso (in brackets) from a display name to get title used for extension filename
@@ -68,13 +66,9 @@ typedef NS_ENUM(int, IFExtensionDownloadState) {
 @property (atomic) IFExtensionDownloadState state;
 @property (atomic, strong, nullable) NSURLSessionDataTask* connection;
 @property (atomic, strong, nullable) NSMutableData*   receivedData;
-@property (atomic) long long                expectedLength;
 @property (atomic, strong, nullable) NSWindow*        window;
 @property (atomic, strong, nullable) NSString*        javascriptId;
 @property (atomic, strong, nullable) NSObject*        notifyDelegate;
-@property (atomic, strong, nullable) NSString*        title;
-@property (atomic, strong, nullable) NSString*        author;
-@property (atomic, strong, nullable) NSString*        version;
 @property (atomic, strong) NSURL*           url;
 
 // Download and install
@@ -85,7 +79,6 @@ typedef NS_ENUM(int, IFExtensionDownloadState) {
                 javascriptId: (nullable NSString*) javascriptId NS_DESIGNATED_INITIALIZER;
 
 -(BOOL) startDownloadAndInstall;
-@property (atomic, readonly, copy) NSString *safeVersion;
 
 @end
 

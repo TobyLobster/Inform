@@ -30,7 +30,6 @@ static int maxErrorMessagesToDisplay = 3;
                  filepath: (NSString*) filepath
                    author: (NSString*) author
                   version: (NSString*) version
-                  md5Hash: (NSString*) md5Hash
                 isBuiltIn: (BOOL) isBuiltIn {
 	self = [super init];
     
@@ -39,7 +38,6 @@ static int maxErrorMessagesToDisplay = 3;
         self.filepath    = filepath;
         self.author      = author;
         self.version     = version;
-        self.md5Hash     = md5Hash;
         self.isBuiltIn   = isBuiltIn;
     }
 
@@ -128,8 +126,6 @@ static int maxErrorMessagesToDisplay = 3;
         return NO;
     if( ![self stringEqual: self.version to: another.version] )
         return NO;
-    if( ![self stringEqual: self.md5Hash to: another.md5Hash] )
-        return NO;
     if( self.isBuiltIn != another.isBuiltIn )
         return NO;
     return YES;
@@ -159,7 +155,6 @@ static int maxErrorMessagesToDisplay = 3;
         self.receivedData   = [NSMutableData data];
         self.notifyDelegate = notifyDelegate;
         self.javascriptId   = javascriptId;
-        self.expectedLength = NSURLResponseUnknownLength;
         urlSession = [NSURLSession sessionWithConfiguration: NSURLSessionConfiguration.ephemeralSessionConfiguration
                                                    delegate: self
                                               delegateQueue: nil];
@@ -168,13 +163,6 @@ static int maxErrorMessagesToDisplay = 3;
     return self;
 }
 
-
--(NSString*) safeVersion {
-    if (self.version == nil) {
-        return @"Version (none)";
-    }
-    return self.version;
-}
 
 #pragma mark - Download and Install
 
@@ -186,12 +174,7 @@ static int maxErrorMessagesToDisplay = 3;
 
     // Create the connection with the request and start loading the data
     self.connection = [urlSession dataTaskWithRequest: theRequest];
-    if (self.connection == nil) {
-        self.receivedData = [NSMutableData data];
-        return NO;
-    }
     self.state          = IFExtensionDownloadInProgress;
-    self.expectedLength = NSURLResponseUnknownLength;
 
     // Start the task
     [self.connection resume];
@@ -233,8 +216,6 @@ didReceiveResponse: (NSURLResponse *)response
         // redirect, so each time we reset the data.
         
         (self.receivedData).length = 0;
-        
-        self.expectedLength = response.expectedContentLength;
     }
     completionHandler(NSURLSessionResponseAllow);
 }
@@ -611,7 +592,6 @@ didReceiveResponse: (NSURLResponse *)response
                                                                             filepath: fullFilepath
                                                                               author: author
                                                                              version: version
-                                                                             md5Hash: nil
                                                                            isBuiltIn: false];
                 [result addObject: info];
             }
@@ -681,7 +661,6 @@ didReceiveResponse: (NSURLResponse *)response
                                                                                         filepath: fullFilepath
                                                                                           author: author
                                                                                          version: version
-                                                                                         md5Hash: nil
                                                                                        isBuiltIn: isBuiltIn];
                             [result addObject: info];
                         }

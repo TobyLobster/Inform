@@ -11,8 +11,7 @@
 #import "NSString+IFStringExtensions.h"
 
 // *******************************************************************************************
-@implementation IFNewExtensionsManager {
-}
+@implementation IFNewExtensionsManager
 
 #pragma mark - Shared extension manager
 
@@ -35,9 +34,6 @@
 	}
 
 	return self;
-}
-
-- (void) dealloc {
 }
 
 #pragma mark - Methods
