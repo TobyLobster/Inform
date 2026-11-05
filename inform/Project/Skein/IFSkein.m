@@ -18,6 +18,9 @@
 
 #pragma mark - "Skein"
 @implementation IFSkein {
+    IFSkeinItem*        _rootItem;
+    IFSkeinItem*        _activeItem;
+    IFSkeinItem*        _winningItem;
     NSMutableString*    currentOutput;
     BOOL                dirtyLayout;        // Does the layout need to be redone?
 }

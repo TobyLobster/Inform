@@ -22,12 +22,7 @@ extern NSString* const IFSkeinSelectionChangedItemKey;
 
 @class IFProject;
 
-@interface IFSkein : NSObject <ZoomViewOutputReceiver> {
-@private
-    IFSkeinItem*    _rootItem;
-    IFSkeinItem*    _activeItem;
-    IFSkeinItem*    _winningItem;
-}
+@interface IFSkein : NSObject <ZoomViewOutputReceiver>
 
 // Retrieving the root / active / selected skein item
 @property (atomic, readonly, strong)  IFSkeinItem * rootItem;
