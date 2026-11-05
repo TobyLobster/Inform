@@ -19,11 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// Class to gather intelligence data on Natural Inform files
 ///
 @interface IFNaturalIntel : NSObject<IFSyntaxIntelligence>
-
-/// Hacky way to enable/disable indentation and other rewriting while undoing
-+ (void) disableIndentation;
-+ (void) enableIndentation;
-
 @end
 
 NS_ASSUME_NONNULL_END

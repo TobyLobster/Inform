@@ -16,23 +16,8 @@
 static NSArray* headingList = nil;
 static NSArray* autoNumberHeading = nil;
 
-// English number arrays
-static NSArray* units;
-static NSArray* tens;
-static NSArray* majorUnits;
-static BOOL indent = YES;
-
 @implementation IFNaturalIntel {
     IFSyntaxData* highlighter;				// The highlighter that wants us to gather intelligence
-}
-
-#pragma mark - Hacky way to enable/disable indentation while undoing
-+ (void) disableIndentation {
-	indent = NO;
-}
-
-+ (void) enableIndentation {
-	indent = YES;
 }
 
 #pragma mark - Useful parsing functions 
@@ -57,13 +42,6 @@ static BOOL indent = YES;
 	if (!headingList) {
 		headingList = @[@"---- documentation ----", @"volume", @"book", @"part", @"chapter", @"section", @"example"];
         autoNumberHeading = @[@NO, @YES, @YES, @YES, @YES, @YES, @NO];
-		
-		units = @[@"zero", @"one", @"two", @"three", @"four", @"five", @"six", @"seven", 
-			@"eight", @"nine", @"ten", @"eleven", @"twelve", @"thirteen", @"fourteen", @"fifteen", @"sixteen", 
-			@"seventeen", @"eighteen", @"nineteen"];
-		tens = @[@"twenty", @"thirty", @"forty", @"fifty", @"sixty", @"seventy", @"eighty",
-			@"ninety", @"hundred"];
-		majorUnits = @[@"hundred", @"thousand", @"million", @"billion", @"trillion"];
 	}
 }
 
@@ -175,9 +153,6 @@ static BOOL indent = YES;
 #pragma mark - Rewriting
 
 - (NSString*) rewriteInput: (NSString*) input {
-	// No rewriting if indentation is disabled
-	if (!indent) return input;
-	
 	if ([input isEqualToString: @"\n"]) {
 		// Auto-tab
 		if (![IFPreferences sharedPreferences].indentAfterNewline) return nil;
