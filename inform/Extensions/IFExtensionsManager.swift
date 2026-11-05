@@ -14,10 +14,16 @@ private let maxErrorMessagesToDisplay: Int32 = 3
 
 private let sharedManager = IFExtensionsManager()
 
+/// The lists of installed extensions: for projects for 6M62 and earlier, from the extension folders,
+/// and for later projects, from inbuild's census
+private enum ExtensionList {
+    case legacy
+    case census
+}
+
 // *******************************************************************************************
 @objc @implementation
 extension IFExtensionsManager {
-    var rebuildAvailableExtensionsCache: Bool
     var rebuildExtensionDictionaryCache: Bool
     var cacheChanged: Bool
 
@@ -28,8 +34,10 @@ extension IFExtensionsManager {
     // Cache data
     /// Caches the extension dictionary until we next clear the cache
     private final var cacheExtensionDictionary: NSDictionary?
-    /// Caches the available extensions array until we next clear the cache
-    private final var cacheAvailableExtensions: [IFExtensionInfo]?
+    /// Caches each list of available extensions until we next clear the cache
+    private final var cacheAvailableExtensions: [ExtensionList: [IFExtensionInfo]]
+    /// The lists of available extensions to make again when they're next asked for
+    private final var availableExtensionsToRebuild: Set<ExtensionList>
     /// Number of extension dictionaries that are 'installed' to ~/Library/Inform rather than internal to the Inform app bundle resources (i.e. one)
     private final var userLibraryCount: Int
 
@@ -59,7 +67,7 @@ extension IFExtensionsManager {
     override init() {
         extensionCollectionDirectories = []
 
-        cacheAvailableExtensions = nil
+        cacheAvailableExtensions = [:]
         cacheExtensionDictionary = nil
 
         // Get the list of directories where extensions might live
@@ -71,7 +79,7 @@ extension IFExtensionsManager {
         numberOfErrors = 0
         errorString = NSMutableString()
 
-        rebuildAvailableExtensionsCache = true
+        availableExtensionsToRebuild = [.legacy, .census]
         rebuildExtensionDictionaryCache = true
         cacheChanged = false
 
@@ -91,7 +99,7 @@ extension IFExtensionsManager {
 
     func dirtyCache() {
         rebuildExtensionDictionaryCache = true
-        rebuildAvailableExtensionsCache = true
+        availableExtensionsToRebuild = [.legacy, .census]
     }
 
     // Returns a dictionary where key is author name, value is an array of directory paths for that author
@@ -171,13 +179,14 @@ extension IFExtensionsManager {
     // Get an array of the available extension information
     func availableExtensions(withCompilerVersion compilerVersion: String) -> [IFExtensionInfo] {
         var result: [IFExtensionInfo] = []
+        let list: ExtensionList = IFUtility.compilerVersion(compilerVersion, isAfter: "6M62") ? .census : .legacy
 
         // Use the cached version if it's around
-        if !rebuildAvailableExtensionsCache, let cacheAvailableExtensions {
-            return cacheAvailableExtensions
+        if !availableExtensionsToRebuild.contains(list), let cachedExtensions = cacheAvailableExtensions[list] {
+            return cachedExtensions
         }
 
-        if IFUtility.compilerVersion(compilerVersion, isAfter: "6M62") {
+        if list == .census {
             // New extension census. This is only used to populate the
             // menu items for extensions.
 
@@ -238,12 +247,12 @@ extension IFExtensionsManager {
         // Remember this result in cache
         let newAvailableExtensions = result
 
-        if cacheAvailableExtensions != newAvailableExtensions {
+        if cacheAvailableExtensions[list] != newAvailableExtensions {
             cacheChanged = true
         }
 
-        cacheAvailableExtensions = newAvailableExtensions
-        rebuildAvailableExtensionsCache = false
+        cacheAvailableExtensions[list] = newAvailableExtensions
+        availableExtensionsToRebuild.remove(list)
 
         // Tell anything that wants to know that the extensions have been updated
         NotificationCenter.default.post(name: .IFCensusFinished,
@@ -687,8 +696,9 @@ extension IFExtensionsManager {
         // If this particular download succeeded, tell the IFProjectController so it can update the web page to indicate it's downloaded
         if download.state == .downloadAndInstallSucceeded {
             dirtyCache()
-            // TODO: For the moment at least, this is for old style extensions
-            _ = availableExtensions(withCompilerVersion: "6M62")
+            // Make the list again for the project that the extension was installed in
+            let project = (download.notifyDelegate as? IFProjectController)?.document as? IFProject
+            _ = availableExtensions(withCompilerVersion: project?.settings.compilerVersion ?? "6M62")
 
             if download.notifyDelegate != nil {
                 if let controller = download.notifyDelegate as? IFProjectController {
