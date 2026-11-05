@@ -169,7 +169,6 @@ CGFloat easeOutCubic(CGFloat t);
 + (NSComparisonResult) compilerVersionCompare: (NSString*)version1 other: (NSString*) version2;
 
 // Core build version
-+ (nullable NSString*) coreBuildVersion;
 @property (class, readonly, copy, nonatomic, nullable) NSString *coreBuildVersion;
 
 @end
