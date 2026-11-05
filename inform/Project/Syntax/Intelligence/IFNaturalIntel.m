@@ -297,7 +297,7 @@ static NSArray* autoNumberHeading = nil;
 	while (symbol != nil) {
 		currentSectionNumber++;
 		
-		int symbolSectionNumber = [IFNaturalIntel numberOfHeading: firstSymbol.name];
+		int symbolSectionNumber = [IFNaturalIntel numberOfHeading: symbol.name];
 		
 		if (symbolSectionNumber != currentSectionNumber) {
 			// Get the data for the line this symbol is on
