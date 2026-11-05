@@ -3,6 +3,7 @@
 //  InformTests
 //
 
+import Network
 import XCTest
 
 final class IFExtensionsManagerTests: XCTestCase {
@@ -531,5 +532,68 @@ final class IFExtensionsManagerTests: XCTestCase {
         waitForAnyMoreDownloads()
         XCTAssertEqual(controller.removed.count, 1)
         XCTAssertEqual(controller.removed.first?.message, installed(0, of: 2, failed: 1))
+    }
+
+    /// A server, only on this Mac, that answers each request with "not found"
+    private final class NotFoundServer {
+        private let listener: NWListener
+        private let queue = DispatchQueue(label: "NotFoundServer")
+        private let lock = NSLock()
+        private var count = 0
+        private(set) var url: URL?
+
+        var requests: Int {
+            return lock.withLock { count }
+        }
+
+        init(path: String) throws {
+            let parameters = NWParameters.tcp
+            parameters.requiredLocalEndpoint = .hostPort(host: .ipv4(.loopback), port: .any)
+            listener = try NWListener(using: parameters)
+
+            let ready = DispatchSemaphore(value: 0)
+            listener.stateUpdateHandler = { state in
+                if case .ready = state {
+                    ready.signal()
+                }
+            }
+            listener.newConnectionHandler = { [lock, queue] connection in
+                connection.start(queue: queue)
+                connection.receive(minimumIncompleteLength: 1, maximumLength: 65536) { [weak self] _, _, _, _ in
+                    lock.withLock { self?.count += 1 }
+                    let reply = "HTTP/1.1 404 Not Found\r\nContent-Length: 9\r\nConnection: close\r\n\r\nNot found"
+                    connection.send(content: Data(reply.utf8), completion: .contentProcessed { _ in connection.cancel() })
+                }
+            }
+            listener.start(queue: queue)
+
+            if ready.wait(timeout: .now() + 5) == .success, let port = listener.port {
+                url = URL(string: "http://127.0.0.1:\(port.rawValue)/\(path)")
+            }
+        }
+
+        deinit {
+            listener.cancel()
+        }
+    }
+
+    /// The download is cancelled once the server gives an error, and that's reported as the one failure
+    func testAServersErrorIsReportedOnce() throws {
+        try XCTSkipUnless(NSHomeDirectory().hasSuffix("/TestHome"), "Only writes in the tests' own home")
+        let server = try NotFoundServer(path: "Locksmith.zip")
+        let url = try XCTUnwrap(server.url)
+        let controller = makeController()
+
+        XCTAssertTrue(manager.downloadAndInstallExtension(url, window: nil, notifyDelegate: controller, javascriptId: "1"))
+        // Cancelled, so that nothing is reported in an alert
+        try XCTUnwrap(controller.shown.first).cancel()
+        // The main thread is busy, as it may be in the app, while the server answers and the task is cancelled
+        Thread.sleep(forTimeInterval: 1)
+
+        waitForTheProgressToGo(from: controller)
+        waitForAnyMoreDownloads()
+        XCTAssertEqual(server.requests, 1)
+        XCTAssertEqual(controller.removed.count, 1)
+        XCTAssertEqual(controller.removed.first?.message, installed(0, of: 1, failed: 1))
     }
 }
