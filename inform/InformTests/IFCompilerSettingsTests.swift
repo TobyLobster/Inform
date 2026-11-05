@@ -348,7 +348,7 @@ final class IFCompilerSettingsTests: XCTestCase {
 
     func testEachSettingsObjectHasADictionary() throws {
         let settings = IFCompilerSettings()
-        let misc = try settingsClass("IFMiscSettings")
+        let misc: AnyClass = try settingsClass("IFMiscSettings")
         let setting = try XCTUnwrap(settings.setting(for: misc))
         XCTAssertTrue(type(of: setting) == misc)
         XCTAssertNotNil(settings.setting(for: try settingsClass("Inform.IFAdvancedSettings")))
