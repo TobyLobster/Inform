@@ -65,7 +65,6 @@ static inline BOOL FindKeyword(char** keywordList, int nKeywords, char* keyword)
                  character: (int) chr {
     BOOL terminalFlag = NO;
     
-    //chr = tolower(chr);
     if (state->bitmap.inner >= 0x8000) {
         state->bitmap.inner = 0;
     }
@@ -441,15 +440,6 @@ static int compare(const void* a, const void* b) {
         @"save", @"sibling", @"spaces", @"string", @"style", @"switch", @"to",
         @"true", @"until", @"while", @"younger", @"youngest", nil];
     
-	/*
-    otherKwSet = [[NSSet setWithObjects: 
-        @"alias", @"additive", @"buffer", @"class", @"creature", @"data", @"error", @"fatalerror", 
-		@"first", @"held", @"initial", @"initstr", @"last", @"long", @"meta", @"multi",
-		@"multiexcept", @"multiheld", @"multiinside", @"noun", @"number", @"only", @"private", 
-		@"replace", @"reverse", @"score", @"scope", @"special", @"string", @"table", @"terminating", 
-		@"time", @"topic", @"warning", nil]
-        retain];
-	*/
     otherKwSet = [NSSet setWithObjects: 
         @"first", @"last", @"meta", @"only", @"private", @"replace", @"reverse",
         @"string", @"table", nil];

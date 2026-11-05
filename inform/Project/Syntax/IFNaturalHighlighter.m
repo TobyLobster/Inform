@@ -123,11 +123,6 @@
 					if (chr == '[')
 						return IFNaturalStateSubstitution;
 					return lastState;
-
-				case IFNaturalStateHeading:
-					if (chr == '\n' || chr == '\r')
-						return IFNaturalStateBlankLine;
-					return IFNaturalStateHeading;
 			}
             // Unknown state
             return IFNaturalStateText;
@@ -185,9 +180,6 @@
 					
 				case IFNaturalStateSubstitution:
 					return IFSyntaxSubstitution;
-					
-				case IFNaturalStateHeading:
-					return IFSyntaxHeading;
 
                 case IFNaturalStateSpace:
                 case IFNaturalStateText:
