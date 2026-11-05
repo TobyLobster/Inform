@@ -28,6 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
                   version: (nullable NSString*) version
                 isBuiltIn: (BOOL) isBuiltIn NS_DESIGNATED_INITIALIZER;
 
+/// Orders by display name, then by author (both ignoring case), then by file
+-(NSComparisonResult) caseInsensitiveCompare: (IFExtensionInfo*) b;
+
 /// Remove leading "The ", "An ", or "A ", and trailing proviso (in brackets) from a display name to get title used for extension filename
 +(NSString*) canonicalTitle:(NSString*) displayName;
 @property (atomic, readonly, copy) NSString *safeVersion;

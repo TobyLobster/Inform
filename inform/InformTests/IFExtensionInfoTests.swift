@@ -15,14 +15,6 @@ final class IFExtensionInfoTests: XCTestCase {
                                version: version, isBuiltIn: isBuiltIn)
     }
 
-    /// Compares two infos as sorting does (caseInsensitiveCompare: isn't in the header, as only sorting uses it)
-    private func compare(_ a: IFExtensionInfo, _ b: IFExtensionInfo) -> ComparisonResult {
-        typealias Compare = @convention(c) (AnyObject, Selector, AnyObject) -> Int
-        let selector = NSSelectorFromString("caseInsensitiveCompare:")
-        let compare = unsafeBitCast(a.method(for: selector), to: Compare.self)
-        return ComparisonResult(rawValue: compare(a, selector, b))!
-    }
-
     func testAnInfoKeepsWhatItsGiven() {
         let locksmith = info(isBuiltIn: true)
 
@@ -69,17 +61,17 @@ final class IFExtensionInfoTests: XCTestCase {
 
     func testOrder() {
         // By name, ignoring case
-        XCTAssertEqual(compare(info("apple"), info("Banana")), .orderedAscending)
-        XCTAssertEqual(compare(info("Banana"), info("apple")), .orderedDescending)
+        XCTAssertEqual(info("apple").caseInsensitiveCompare(info("Banana")), .orderedAscending)
+        XCTAssertEqual(info("Banana").caseInsensitiveCompare(info("apple")), .orderedDescending)
 
         // Then by author, ignoring case
-        XCTAssertEqual(compare(info("Locksmith", author: "Anon"), info("LOCKSMITH", author: "emily Short")),
+        XCTAssertEqual(info("Locksmith", author: "Anon").caseInsensitiveCompare(info("LOCKSMITH", author: "emily Short")),
                        .orderedAscending)
 
         // Then by file, minding case
-        XCTAssertEqual(compare(info(filepath: "/b"), info(filepath: "/a", author: "EMILY SHORT")), .orderedDescending)
-        XCTAssertEqual(compare(info(filepath: "/a"), info(filepath: "/B")), .orderedDescending)
-        XCTAssertEqual(compare(info(), info(version: "v1", isBuiltIn: true)), .orderedSame)
+        XCTAssertEqual(info(filepath: "/b").caseInsensitiveCompare(info(filepath: "/a", author: "EMILY SHORT")), .orderedDescending)
+        XCTAssertEqual(info(filepath: "/a").caseInsensitiveCompare(info(filepath: "/B")), .orderedDescending)
+        XCTAssertEqual(info().caseInsensitiveCompare(info(version: "v1", isBuiltIn: true)), .orderedSame)
     }
 
     func testEquality() {
