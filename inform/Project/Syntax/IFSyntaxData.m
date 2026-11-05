@@ -804,9 +804,6 @@
     [_textStorage enumerateAttributesInRange:NSMakeRange(0, _textStorage.length)
                                      options:(NSAttributedStringEnumerationOptions)0
                                   usingBlock:^(NSDictionary* attrs, NSRange aRange, BOOL *stop) {
-        //NSLog(@"attrs = %@ ***** range=%d length %d end=%d string length=%d *****",
-        //      attrs, aRange.location, aRange.length, aRange.location + aRange.length, [self length]);
-
         NSAssert((aRange.location + aRange.length) <= _textStorage.length, @"Help!!!!");
     }];
 #endif
@@ -1077,7 +1074,6 @@ static inline BOOL IsWhitespace(unichar c) {
         for (line=firstTabLine; line<=lastTabLine; line++) {
             // The range of characters on the line
             NSUInteger firstChar = lineStarts[line];
-            //unsigned  lastChar = (line+1) < nLines ? lineStarts[line+1] : _textStorage.length;
 
 			// Get the region affected by these elastic tabs
 			NSRange elasticRange = [self rangeOfElasticRegionAtIndex: firstChar];
@@ -1213,10 +1209,6 @@ static inline BOOL IsWhitespace(unichar c) {
 }
 
 - (NSDictionary*) generateParagraphStyleForTabStops: (int) numberOfTabStops {
-    // Get the width of a tabstop
-    //CGFloat stopWidth = [highlighter tabStopWidth];
-	//if (stopWidth < 1.0) stopWidth = 1.0;
-
 	NSMutableParagraphStyle* res = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
 
 	// Create standard tab stops if needed
@@ -1226,15 +1218,6 @@ static inline BOOL IsWhitespace(unichar c) {
 
     // Set tabs
 	res.tabStops = tabStops;
-	
-    // Set head indent (no longer desired)
-	//if ([[IFPreferences sharedPreferences] indentWrappedLines]) {
-    //    // Indent half a tabstop width beyond the normal indent
-    //    CGFloat headIndent = stopWidth * ((CGFloat) numberOfTabStops) + (stopWidth/2.0);
-
-	//	[res setHeadIndent: headIndent];
-	//	[res setFirstLineHeadIndent: 0];
-	//}
 
 	return @{NSParagraphStyleAttributeName: res};
 }
