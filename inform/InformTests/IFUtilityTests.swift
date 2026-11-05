@@ -134,4 +134,46 @@ final class IFUtilityTests: XCTestCase {
             XCTAssertTrue(IFUtility.path(forInformInternalAppSupport: version).hasSuffix("/retrospective/\(version)"), version)
         }
     }
+
+    // MARK: - URL schemes
+
+    /// The file, test case and line number of a source: link, as strings
+    private func source(_ link: String) -> [String]? {
+        return IFUtility.decodeSourceSchemeURL(URL(string: link)!)?.map { "\($0)" }
+    }
+
+    /// The test case and node of a skein: link
+    private func skein(_ link: String) -> [String]? {
+        return IFUtility.decodeSkeinSchemeURL(URL(string: link)!)
+    }
+
+    func testDecodesSourceLinks() {
+        XCTAssertEqual(source("source:story.ni#line10"), ["story.ni", "", "10"])
+        XCTAssertEqual(source("source:story.ni#10"), ["story.ni", "", "10"])
+        XCTAssertEqual(source("source:story.ni?case=A#line12"), ["story.ni", "A", "12"])
+    }
+
+    /// A link is percent-decoded before it's taken apart, so an encoded # still marks the line.
+    func testDecodesPercentEncodedSourceLinks() {
+        XCTAssertEqual(source("source:My%20Story.ni#line3"), ["My Story.ni", "", "3"])
+        XCTAssertEqual(source("source:Caf%C3%A9.ni#line1"), ["Café.ni", "", "1"])
+        XCTAssertEqual(source("source:Extensions/Emily%20Short/Locksmith.i7x%23line20"),
+                       ["Extensions/Emily Short/Locksmith.i7x", "", "20"])
+    }
+
+    func testDecodesSkeinLinks() {
+        XCTAssertEqual(skein("skein:1003?case=B"), ["B", "1003"])
+        XCTAssertEqual(skein("skein:1003"), ["", "1003"])
+        XCTAssertEqual(skein("SKEIN:1003#here"), ["", "1003"])
+    }
+
+    func testOnlyDecodesSkeinLinks() {
+        XCTAssertNil(skein("source:1003?case=B"))
+        XCTAssertNil(skein("1003"))
+    }
+
+    /// Parameters aren't separated at &, so a value runs to the next =.
+    func testQueryParametersAreSplitOnlyAtEquals() {
+        XCTAssertEqual(skein("skein:1003?case=B&x=1"), ["B&x", "1003"])
+    }
 }
