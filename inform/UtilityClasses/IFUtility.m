@@ -361,40 +361,24 @@ CGFloat easeOutCubic(CGFloat t) {
     return [NSURL URLWithString: [IFUtility localizedString: @"PublicLibraryURL"]];
 }
 
-+ (NSString*) informSupportPath: (NSString *)firstArg, ... {
++ (NSString*) pathForInformExternalAppSupport {
     // Get library directory (possibly in a sandboxed container).
     NSString *newPath = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0];
 
     // Add inform subdirectory
-    newPath = [newPath stringByAppendingPathComponent:@"Inform"];
-
-    // Add any additional subdirectories
-    va_list args;
-    va_start(args, firstArg);
-    for (NSString *arg = firstArg; arg != nil; arg = va_arg(args, NSString*))
-    {
-        newPath = [newPath stringByAppendingPathComponent: arg];
-    }
-    va_end(args);
-
-    // Return path
-    return newPath;
-}
-
-+ (NSString*) pathForInformExternalAppSupport {
-    return [self informSupportPath: nil, nil];
+    return [newPath stringByAppendingPathComponent:@"Inform"];
 }
 
 + (NSString*) pathForInformExternalExtensions {
-    return [IFUtility informSupportPath: @"Extensions", nil];
+    return [[IFUtility pathForInformExternalAppSupport] stringByAppendingPathComponent: @"Extensions"];
 }
 
 + (NSString*) pathForInformExternalLibraries {
-    return [IFUtility informSupportPath: @"Libraries", nil];
+    return [[IFUtility pathForInformExternalAppSupport] stringByAppendingPathComponent: @"Libraries"];
 }
 
 + (NSString*) pathForInformExternalDocumentation {
-    return [IFUtility informSupportPath: @"Documentation", nil];
+    return [[IFUtility pathForInformExternalAppSupport] stringByAppendingPathComponent: @"Documentation"];
 }
 
 + (NSString*) documentationPageForExtensionTitled: (NSString*) title

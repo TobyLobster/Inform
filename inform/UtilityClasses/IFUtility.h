@@ -91,8 +91,6 @@ CGFloat easeOutCubic(CGFloat t);
 /// Paths to common resources
 + (nullable NSURL*) publicLibraryURL;
 
-+ (NSString*) informSupportPath: (nullable NSString *)firstString, ... NS_REQUIRES_NIL_TERMINATION;
-
 // External directories within Application Support or Sandboxed container
 + (NSString*) pathForInformExternalAppSupport;
 + (NSString*) pathForInformExternalExtensions;
