@@ -493,6 +493,9 @@ private let otherKeywords: Set<String> = [
                         if isdigit(Int32(chr)) != 0 { styles.write(x, value: .escapeCharacter) }
                     } while isdigit(Int32(chr)) != 0
 
+                    // Go back one, so the character after the digits is looked at next
+                    x -= 1
+
                 default:
                     break
                 }

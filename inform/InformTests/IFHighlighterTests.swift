@@ -290,6 +290,20 @@ final class IFHighlighterTests: XCTestCase {
             ])
     }
 
+    /// The character after an "@" and its digits is looked at too, so it can be another escape.
+    func testInform6EscapeAfterAnAtSignAndDigits() throws {
+        try assertStyles("""
+            [ Main;
+                print "@@92~ok";
+            ];
+
+            """, .inform6, [
+                ("@@92", .escapeCharacter),
+                ("~", .escapeCharacter),
+                ("ok\"", .string),
+            ])
+    }
+
     /// An exclamation mark in a string doesn't start a comment.
     func testInform6ExclamationMarksInStrings() throws {
         try assertStyles("""
