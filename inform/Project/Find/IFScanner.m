@@ -62,10 +62,11 @@
     // Remove case insensitive flag, to be left with just the search type proper
     searchType = (IFFindType) (searchType & ~IFFindCaseInsensitive);
 
-    // A pattern that isn't a regular expression gives nil, which finds nothing
+    // A pattern that isn't a regular expression gives nil, which finds nothing. ^ and $ match at the
+    // start and end of each line, as the Find window's help says.
     NSRegularExpression* regex = nil;
     if( searchType == IFFindRegexp ) {
-        regex = [self regularExpression: phrase options: regexOptions];
+        regex = [self regularExpression: phrase options: regexOptions | NSRegularExpressionAnchorsMatchLines];
     }
 
     while (!found) {
@@ -77,10 +78,10 @@
 
         if( searchType == IFFindRegexp ) {
             //
-            // Search for a regex match
+            // Search for a regex match. ^ doesn't match where the search starts unless a line starts there.
             //
             NSTextCheckingResult* match = [regex firstMatchInString: storage
-                                                            options: 0
+                                                            options: NSMatchingWithoutAnchoringBounds
                                                               range: NSMakeRange(searchPosition, storageLength - searchPosition)];
             range = (match != nil) ? match.range : NSMakeRange(NSNotFound, 0);
             //

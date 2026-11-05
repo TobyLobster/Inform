@@ -71,10 +71,15 @@ final class IFScannerTests: XCTestCase {
         XCTAssertEqual(next("x*", in: "abxc"), NSRange(location: 2, length: 1))
     }
 
-    /// The search starts at the position as if the text started there, so ^ matches there.
-    func testCaretMatchesWhereTheSearchStarts() {
-        XCTAssertEqual(next("^two", in: "one two", from: 4), NSRange(location: 4, length: 3))
-        XCTAssertEqual(next("^two", in: "one two"), notFound)
+    /// ^ and $ match at the start and end of each line, as the Find window's help says, and not wherever
+    /// the search starts.
+    func testCaretAndDollarMatchAtLineStartsAndEnds() {
+        XCTAssertEqual(next("^two", in: "one\ntwo"), NSRange(location: 4, length: 3))
+        XCTAssertEqual(next("^two", in: "one\r\ntwo"), NSRange(location: 5, length: 3))
+        XCTAssertEqual(next("one$", in: "one\ntwo"), NSRange(location: 0, length: 3))
+        XCTAssertEqual(next("two$", in: "one two"), NSRange(location: 4, length: 3))
+        XCTAssertEqual(next("^two", in: "one two", from: 4), notFound)
+        XCTAssertEqual(previous(#"^t\w+"#, in: "two\nthree four", from: 10), NSRange(location: 4, length: 5))
     }
 
     /// A lookbehind sees the text before the search position. Find All and Find Previous search again from
