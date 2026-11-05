@@ -318,8 +318,10 @@ static int maxErrorMessagesToDisplay = 3;
 		NSArray* files = [manager contentsOfDirectoryAtPath: path
                                                       error: &error];
 		for(NSString* file in files) {
-			// Add to the result
-			resultDict[file.lowercaseString] = [path stringByAppendingPathComponent: file];
+			// Add to the result, unless it was in an earlier path
+			if (resultDict[file.lowercaseString] == nil) {
+				resultDict[file.lowercaseString] = [path stringByAppendingPathComponent: file];
+			}
 		}
 	}
 

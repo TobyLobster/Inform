@@ -361,6 +361,18 @@ final class IFExtensionsManagerTests: XCTestCase {
         XCTAssertEqual(manager.filesInExtension(withName: "emily short"), [keys, locksmith, notes])
     }
 
+    /// Your own file comes before the app's of the same name, as your extension does for the compiler
+    func testYourOwnFilesComeBeforeTheApps() throws {
+        let folder = try makeExtensionsFolder()
+        let yours = try put("Basic Inform by Graham Nelson begins here.", "basic inform.i7xd", in: "Graham Nelson", of: folder)
+        let app = (IFUtility.path(forInformInternalExtensions: "") as NSString).appendingPathComponent("Graham Nelson")
+
+        let files = manager.filesInExtension(withName: "Graham Nelson")
+        XCTAssertTrue(files.contains(yours), "\(files)")
+        XCTAssertFalse(files.contains((app as NSString).appendingPathComponent("Basic Inform.i7xd")), "\(files)")
+        XCTAssertTrue(files.contains((app as NSString).appendingPathComponent("Standard Rules.i7xd")), "\(files)")
+    }
+
     // MARK: - Installing a legacy extension
 
     private struct Installed {
