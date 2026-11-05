@@ -165,4 +165,176 @@ final class IFHighlighterTests: XCTestCase {
             ("\"Heading\"", .string),
         ])
     }
+
+    // MARK: - More Inform 7
+
+    func testInform7CurlyQuotes() throws {
+        try assertStyles("The sign says \u{201C}Keep out\u{201D} in red.\n", .inform7, [
+            ("The sign says ", .naturalInform),
+            ("\u{201C}Keep out\u{201D}", .gameText),
+            (" in red.", .naturalInform),
+        ])
+    }
+
+    func testInform7HeadingsWithColons() throws {
+        try assertStyles("""
+            "Colons" by Toby Nelson
+
+            Volume: One
+
+            Book: Two
+
+            Part: Three
+
+            Chapter: Four
+
+            Section: Five
+
+            Example: * Six - A sample
+
+            Parted lips are a thing.
+
+            Chapterhouse is a room.
+
+            ---- DOCUMENTATION ----
+
+            Some documentation.
+
+            """, .inform7, [
+                ("Volume: One", .heading),
+                ("Book: Two", .heading),
+                ("Part: Three", .heading),
+                ("Chapter: Four", .heading),
+                ("Section: Five", .heading),
+                ("Example: * Six - A sample", .heading),
+                ("Parted lips are a thing.", .naturalInform),
+                ("Chapterhouse is a room.", .naturalInform),
+                ("---- DOCUMENTATION ----", .heading),
+                ("Some documentation.", .naturalInform),
+            ])
+    }
+
+    /// A line in the middle of quoted text or a comment isn't a heading, whatever it starts with.
+    func testInform7HeadingWordsInQuotesAndComments() throws {
+        try assertStyles("""
+            The note is "A long note
+            Chapter 1 of the note" here.
+            [A long comment
+            Section 2 of the comment]
+
+            """, .inform7, [
+                ("The note is ", .naturalInform),
+                ("\"A long note\nChapter 1 of the note\"", .gameText),
+                (" here.", .naturalInform),
+                ("[A long comment\nSection 2 of the comment]", .comment),
+            ])
+    }
+
+    /// Brackets that don't start Inform 6 are ordinary text.
+    func testInform7Parentheses() throws {
+        try assertStyles("The box (which is open) is here.\n", .inform7, [
+            ("The box (which is open) is here.", .naturalInform),
+        ])
+    }
+
+    /// Only "-)" ends Inform 6 code, not a minus sign in it.
+    func testInform6InclusionsWithMinusSigns() throws {
+        try assertStyles("To decide what number is the answer: (- 43 - 1 -). The end.\n", .inform7, [
+            ("To decide what number is the answer: (", .naturalInform),
+            ("43 - 1 ", .codeAlpha),
+            (". The end.", .naturalInform),
+        ])
+    }
+
+    // MARK: - More Inform 6
+
+    func testInform6Escapes() throws {
+        try assertStyles("""
+            [ Main;
+                print "a\\b @@92 c";
+            ];
+
+            """, .inform6, [
+                ("\"a", .string),
+                ("\\", .escapeCharacter),
+                ("b ", .string),
+                ("@@92", .escapeCharacter),
+                (" c\"", .string),
+            ])
+    }
+
+    /// An exclamation mark in a string doesn't start a comment.
+    func testInform6ExclamationMarksInStrings() throws {
+        try assertStyles("""
+            [ Main;
+                print "Hello!"; ! A comment
+            ];
+
+            """, .inform6, [
+                ("\"Hello!\"", .string),
+                ("! A comment", .comment),
+            ])
+    }
+
+    func testInform6KeywordsInCapitals() throws {
+        try assertStyles("""
+            [ Main x;
+                IF (x) RTRUE;
+            ];
+
+            """, .inform6, [
+                ("IF", .code),
+                ("x", .codeAlpha),
+                ("RTRUE", .code),
+            ])
+    }
+
+    func testInform6Grammar() throws {
+        try assertStyles("Verb meta 'score' * -> Score;\n", .inform6, [
+            ("Verb", .directive),
+            ("meta", .directive),
+            ("'score'", .string),
+            ("*", .directive),
+            ("->", .directive),
+            ("Score", []),
+        ])
+    }
+
+    func testInform6ObjectProperties() throws {
+        try assertStyles("""
+            Object box "box"
+              class Container
+              with name 'box', description "A box.",
+              has open light;
+
+            """, .inform6, [
+                ("Object", .directive),
+                ("\"box\"", .string),
+                ("class", .directive),
+                ("Container", .property),
+                ("with", .directive),
+                ("name", .property),
+                ("'box'", .string),
+                ("description", .property),
+                ("\"A box.\"", .string),
+                ("has", .directive),
+                ("open", .property),
+                ("light", .property),
+            ])
+    }
+
+    // MARK: - Styles
+
+    func testTabStopsAndAttributes() {
+        let natural = IFNaturalHighlighter()
+        let inform6 = IFInform6Highlighter()
+        XCTAssertEqual(natural.tabStopWidth, IFPreferences.shared.tabWidth)
+        XCTAssertEqual(inform6.tabStopWidth, 28)
+
+        for style: IFSyntaxStyle in [[], .comment, .string, .directive, .heading, .gameText, .naturalInform] {
+            let expected = IFPreferences.shared.styles[Int(style.rawValue)] as NSDictionary
+            XCTAssertEqual(natural.attributes(for: style) as NSDictionary, expected, name(style))
+            XCTAssertEqual(inform6.attributes(for: style) as NSDictionary, expected, name(style))
+        }
+    }
 }
