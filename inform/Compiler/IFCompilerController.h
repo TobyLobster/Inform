@@ -12,6 +12,8 @@
 #import "IFCompiler.h"
 #import "IFError.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFProjectController;
 @class IFProjectPane;
 
@@ -65,9 +67,9 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
                  message: (NSString*) message;
 
 /// Displays the window thats displaying the compiler messages
-- (void) showWindow: (id) sender;
+- (void) showWindow: (nullable id) sender;
 /// The delegate object
-@property (atomic, weak) IBOutlet id<IFCompilerControllerDelegate> delegate;
+@property (atomic, weak, nullable) IBOutlet id<IFCompilerControllerDelegate> delegate;
 
 /// No matter the exit/RTP supplied by the compiler, use this problems URL instead
 - (void) overrideProblemsURL: (NSURL*) problemsURL;
@@ -79,14 +81,14 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
 /// Gets rid of the file tabs created by the previous function
 - (void) clearTabViewsExcept: (IFCompilerTabId) exceptTabId;
 
-/// Where cblorb thinks the final blorb file should be copied to
-@property (atomic, readonly, copy) NSString *blorbLocation;
+/// Where cblorb thinks the final blorb file should be copied to (nil if it hasn't said)
+@property (atomic, readonly, copy, nullable) NSString *blorbLocation;
 /// The splitter view for this object
 @property (nonatomic, strong) NSSplitView *splitView;
 
 /// The tab identifier of the currently selected view
 @property (atomic, readonly) IFCompilerTabId selectedTabId;
-@property (atomic, readonly) WKWebView* currentWebView;
+@property (atomic, readonly, nullable) WKWebView* currentWebView;
 
 /// Add a tab for showing results
 - (IFCompilerTabId) makeTabForFile: (NSString*) file;
@@ -97,9 +99,9 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
 /// Switches to the runtime error view
 - (void) switchToRuntimeErrorView;
 /// Clears the console view of text
-- (void) clearConsole: (NSNotification*) not;
+- (void) clearConsole: (nullable NSNotification*) not;
 /// Returns the tabs this controller can display
-@property (atomic, readonly, copy) NSArray *viewTabs;
+@property (atomic, readonly, copy) NSArray<IFCompilerTab*> *viewTabs;
 
 - (int) tabIdWithTabIndex: (int) tabIndex;
 
@@ -140,3 +142,5 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
 - (void) setProjectController: (IFProjectController*) pc;
 
 @end
+
+NS_ASSUME_NONNULL_END

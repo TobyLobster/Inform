@@ -11,6 +11,8 @@
 #import <Cocoa/Cocoa.h>
 #import "IFProjectPane.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFProjectController;
 @class IFProject;
 
@@ -21,8 +23,8 @@
 
 // Initialisation
 - (instancetype) init NS_UNAVAILABLE;
-- (instancetype) initWithProjectController: (IFProjectController*) theProjectController
-                                  withPane: (IFProjectPane*) newPane NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithProjectController: (nullable IFProjectController*) theProjectController
+                                  withPane: (nullable IFProjectPane*) newPane NS_DESIGNATED_INITIALIZER;
 
 #pragma mark - JavaScript operations
 
@@ -41,5 +43,7 @@
 - (void) fontSizePreferenceChanged: (WKWebView*) wView;
 
 @end
+
+NS_ASSUME_NONNULL_END
 
 #endif /* IFWebViewHelper_h */

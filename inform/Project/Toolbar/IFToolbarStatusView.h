@@ -7,6 +7,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFToolbarManager;
 @class IFToolbarProgressIndicator;
 
@@ -26,7 +28,9 @@
 -(void) setProgressIndeterminate: (BOOL) indeterminate;
 -(void) stopProgress;
 
-@property (weak, atomic) IFToolbarManager *delegate;
+@property (weak, atomic, nullable) IFToolbarManager *delegate;
 -(void) updateToolbar;
 
 @end
+
+NS_ASSUME_NONNULL_END

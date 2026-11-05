@@ -5,6 +5,8 @@
 //  Created by Toby Nelson in 2014.
 //
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFProgress;
 @class IFProjectController;
 @class IFToolbarStatusView;
@@ -21,13 +23,12 @@
 
 // Status Messages
 - (void) showMessage: (NSString*) message;
-@property (atomic, readonly, copy)    NSString *      toolbarIdentifier;
-@property (atomic, readonly, strong)  NSPopUpButton*  testCasesPopUpButton;
-@property (atomic, readonly, strong)  NSButton*       goButton;
+@property (atomic, readonly, copy)              NSString *      toolbarIdentifier;
+@property (atomic, readonly, strong, nullable)  NSPopUpButton*  testCasesPopUpButton;   // nil until the toolbar has made it
 /// Array of availabale test cases
-@property (atomic, readonly, strong)  NSArray*        testCases;
+@property (atomic, readonly, strong, nullable)  NSArray<NSDictionary<NSString*, id>*>* testCases;
 
-@property (atomic, readonly, weak)    IFProjectController* projectController;
+@property (atomic, readonly, weak, nullable)    IFProjectController* projectController;
 
 // Progress
 - (void) updateProgress;
@@ -36,7 +37,7 @@
 - (void) progressIndicator: (IFProgress*) indicator
 				percentage: (CGFloat) newPercentage;
 - (void) progressIndicator: (IFProgress*) indicator
-				   message: (NSString*) newMessage;
+				   message: (nullable NSString*) newMessage;
 - (void) progressIndicatorStartStory: (IFProgress*) indicator;
 - (void) progressIndicatorStopStory: (IFProgress*) indicator;
 - (void) progressIndicatorStartProgress: (IFProgress*) indicator;
@@ -45,8 +46,8 @@
 
 // Extension projects
 -(void) setIsExtensionProject:(BOOL) isExtensionProject;
--(void) setTestCases:(NSArray*) testCasesArray;
--(NSString*) getTestCase:(int) index;
+-(void) setTestCases:(nullable NSArray<NSDictionary<NSString*, id>*>*) testCasesArray;
+-(nullable NSString*) getTestCase:(int) index;
 @property (NS_NONATOMIC_IOSONLY, getter=getNumberOfTestCases, readonly) int numberOfTestCases;
 @property (NS_NONATOMIC_IOSONLY, getter=getTestCaseIndex, readonly) int testCaseIndex;
 
@@ -54,6 +55,8 @@
 
 -(void) redrawToolbar;
 
-@property (atomic, readonly, copy) NSString *currentTestCase;
+@property (atomic, readonly, copy, nullable) NSString *currentTestCase;
 
 @end
+
+NS_ASSUME_NONNULL_END

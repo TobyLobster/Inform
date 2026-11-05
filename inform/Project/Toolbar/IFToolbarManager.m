@@ -40,7 +40,6 @@ static void IFSetToolbarViewWidth(NSView* view, CGFloat minWidth, CGFloat maxWid
 }
 
 @synthesize testCasesPopUpButton;
-@synthesize goButton;
 @synthesize testCases;
 @synthesize projectController;
 
