@@ -141,12 +141,28 @@ final class IFSyntaxDataEditingTests: XCTestCase {
         assertView(view, of: storage, shows: chapter1 + "The Pantry is a room.\n\n")
     }
 
+    func testDeletingAcrossTheStartOfARestrictedView() throws {
+        let storage = registered(source)
+        let (view, _) = try view(of: storage, restrictedTo: chapter1)
+
+        replace("\"Tick.\"\n\nChapter 1 - ", with: "", in: storage)
+        assertView(view, of: storage, shows: "The Start\n\nThe Kitchen is a room.\n\n")
+    }
+
     func testDeletingAcrossTheEndOfARestrictedView() throws {
         let storage = registered(source)
         let (view, _) = try view(of: storage, restrictedTo: chapter1)
 
         replace("room.\n\nChapter 2 - ", with: "", in: storage)
         assertView(view, of: storage, shows: "Chapter 1 - The Start\n\nThe Kitchen is a ")
+    }
+
+    func testDeletingARestrictedViewsTextAndTheTextAroundIt() throws {
+        let storage = registered(source)
+        let (view, _) = try view(of: storage, restrictedTo: chapter1)
+
+        replace("\"Tick.\"\n\n" + chapter1 + "Chapter 2 - ", with: "", in: storage)
+        assertView(view, of: storage, shows: "")
     }
 
     func testEditingARestrictedView() throws {

@@ -396,7 +396,7 @@
     // Removing characters within the range changes the length
     if( ((oldRange.location + oldRange.length) > range.location ) &&
          (oldRange.location <= (range.location + range.length)) ) {
-        NSUInteger start = MAX(oldRange.location - range.location, 0);
+        NSUInteger start = (oldRange.location > range.location) ? (oldRange.location - range.location) : 0;
         NSUInteger end   = MIN((oldRange.location + oldRange.length) - range.location, oldRange.location + oldRange.length);
         end       = MIN(end, range.length);
         
