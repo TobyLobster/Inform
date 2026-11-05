@@ -297,6 +297,9 @@ static BOOL isWordBoundary(NSString* string, NSUInteger index) {
     unichar a = charAt(string, index);
     unichar b = charAt(string, index+1);
 
+    // Never between the two halves of a character beyond 0xFFFF, such as an emoji
+    if ( CFStringIsSurrogateHighCharacter(a) && CFStringIsSurrogateLowCharacter(b) ) return NO;
+
     // The letterCharacterSet contains the Unicode categories "Letters" and "Marks".
     // See eg. http://www.fileformat.info/info/unicode/category/index.htm
     NSCharacterSet* charSet = [NSCharacterSet letterCharacterSet];

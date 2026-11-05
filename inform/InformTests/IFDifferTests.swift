@@ -150,6 +150,11 @@ final class IFDifferTests: XCTestCase {
         XCTAssertEqual(edits("naïve", "naïf"), "<delete>naïve</delete><insert>naïf</insert>")
     }
 
+    /// A character beyond 0xFFFF, such as an emoji, takes two UTF-16 units, and they're kept together.
+    func testKeepsSurrogatePairsWhole() {
+        XCTAssertEqual(edits("I see 😀 here", "I see 😢 here"), "I see <delete>😀</delete><insert>😢</insert> here")
+    }
+
     /// Each diff starts afresh.
     func testADifferCanBeUsedAgain() {
         let differ = IFDiffer()
