@@ -21,8 +21,8 @@ extension IFSetting {
 
     // MARK: - Initialisation
 
-    override convenience init() {
-        self.init(nibName: nil)
+    override init() {
+        super.init()
     }
 
     init(nibName: NSNib.Name?) {

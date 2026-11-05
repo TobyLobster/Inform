@@ -9,8 +9,8 @@ import XCTest
 private final class CountingSetting: IFSetting {
     var updates = 0
 
-    init() {
-        super.init(nibName: nil)
+    override init() {
+        super.init()
     }
 
     override func updateFromCompilerSettings() {

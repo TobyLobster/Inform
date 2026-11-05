@@ -25,6 +25,8 @@ extern NSString* const IFSettingCreateBlorb;
 ///
 @interface IFSetting : NSObject
 
+/// Initialises the setting object with no nib (each subclass overrides this to load its own)
+- (instancetype) init NS_DESIGNATED_INITIALIZER;
 /// Initialises the setting object, and loads the given nib
 - (instancetype) initWithNibName: (nullable NSNibName) nibName NS_DESIGNATED_INITIALIZER;
 

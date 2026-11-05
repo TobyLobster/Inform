@@ -10,7 +10,7 @@ import Foundation
 class IFBasicInformSettings : IFSetting {
     @IBOutlet var basicInform: NSButton!
 
-    convenience init() {
+    override convenience init() {
         self.init(nibName:"BasicInformSettings")
     }
 
