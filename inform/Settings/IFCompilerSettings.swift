@@ -544,8 +544,7 @@ private let libraryPaths: [String] = {
 
         // Get updated data from all the generic settings classes
         for setting in genericSettings {
-            // (Read through Objective-C, which gives the setting's own dictionary, where Swift would copy it)
-            if let entries = setting.value(forKey: "plistEntries") {
+            if let entries = setting.plistEntries {
                 plData[NSStringFromClass(type(of: setting))] = entries
             }
         }

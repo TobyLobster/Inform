@@ -25,6 +25,8 @@ extern NSString* const IFSettingCreateBlorb;
 ///
 @interface IFSetting : NSObject
 
+/// Initialises the setting object with no nib (each subclass overrides this to load its own)
+- (instancetype) init NS_DESIGNATED_INITIALIZER;
 /// Initialises the setting object, and loads the given nib
 - (instancetype) initWithNibName: (nullable NSNibName) nibName NS_DESIGNATED_INITIALIZER;
 
@@ -54,8 +56,8 @@ extern NSString* const IFSettingCreateBlorb;
 - (IBAction) settingsHaveChanged: (nullable id) sender;
 
 // Saving settings
-/// Retrieves the Plist dictionary for this setting
-@property (atomic, readonly, copy, nullable) NSDictionary<NSString*, id> *plistEntries;
+/// Retrieves the Plist dictionary for this setting (the setting's own dictionary, which the compiler settings keep)
+@property (atomic, readonly, nullable) NSMutableDictionary<NSString*, id> *plistEntries;
 /// Updates the values for this setting from a Plist dictionary (\c nil if the Plist has none for it)
 - (void) updateSettings: (IFCompilerSettings*) settings
 	   withPlistEntries: (nullable NSDictionary<NSString*, id>*) entries;

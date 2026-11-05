@@ -10,7 +10,7 @@ import Foundation
 class IFAdvancedSettings: IFSetting {
     @IBOutlet var allowLegacyExtensionDirectory: NSButton!
 
-    convenience init() {
+    override convenience init() {
         self.init(nibName:"AdvancedSettings")
     }
 

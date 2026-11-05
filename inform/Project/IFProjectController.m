@@ -41,7 +41,6 @@
 #import "IFExtensionsManager.h"
 #import "IFNewExtensionsManager.h"
 
-#import "IFI7OutputSettings.h"
 #import "IFCompilerController.h"
 #import "IFCompilerSettings.h"
 

@@ -10,7 +10,7 @@ import Foundation
 class IFRandomSettings : IFSetting {
     @IBOutlet var makePredictable: NSButton!
 
-    convenience init() {
+    override convenience init() {
         self.init(nibName:"RandomSettings")
     }
 
