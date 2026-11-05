@@ -86,7 +86,8 @@ typedef NS_ENUM(int, IFExtensionResult) {
 
 #pragma mark -
 
-/// Working out what's an extension: from a file's first line, from inbuild's census, and for the open panel
+/// Working out what's an extension: from a file's first line, and from inbuild's census.
+/// (The open panel's choice of files is in the same Swift file, as \c NSOpenSavePanelDelegate declares it.)
 @interface IFExtensionsManager (Reading)
 
 /// From a file potentially containing a natural inform extension, works out the author, title, version information.
@@ -98,9 +99,6 @@ typedef NS_ENUM(int, IFExtensionResult) {
 
 /// The extensions in inbuild's census, given as JSON (none if there's no census, or it can't be read)
 - (NSMutableArray<IFExtensionInfo*>*) parseExtensionsList: (nullable NSString*) jsonString;
-
-/// Whether the open panel offers a file: folders, and files that might be extensions
-- (BOOL) panel: (id) sender shouldEnableURL: (NSURL*) url;
 
 @end
 

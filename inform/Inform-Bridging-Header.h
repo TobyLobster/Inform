@@ -38,3 +38,4 @@
 #import "IFExtensionDownload.h"
 #import "IFAppDelegate.h"
 #import "IFProjectController.h"
+#import "IFExtensionsManager.h"
