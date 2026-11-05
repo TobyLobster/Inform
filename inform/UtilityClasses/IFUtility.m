@@ -146,7 +146,7 @@ CGFloat easeOutCubic(CGFloat t) {
     // sourceLine can have format 'line10' or '10'. 'line10' is more likely
     int lineNumber = fragment.intValue;
 
-    if (lineNumber == 0 && [[fragment substringToIndex: 4] isEqualToString: @"line"]) {
+    if (lineNumber == 0 && [fragment hasPrefix: @"line"]) {
         lineNumber = [fragment substringFromIndex: 4].intValue;
     }
 

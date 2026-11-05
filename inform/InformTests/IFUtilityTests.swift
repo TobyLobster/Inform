@@ -167,6 +167,13 @@ final class IFUtilityTests: XCTestCase {
         XCTAssertNil(source("source:story.ni?case=A"))
     }
 
+    /// A line that isn't a number, or "line" and a number, is line 0.
+    func testSourceLinkWithAShortLineThatIsNotANumber() {
+        XCTAssertEqual(source("source:story.ni#0"), ["story.ni", "", "0"])
+        XCTAssertEqual(source("source:story.ni#ab"), ["story.ni", "", "0"])
+        XCTAssertEqual(source("source:story.ni#line"), ["story.ni", "", "0"])
+    }
+
     func testDecodesSkeinLinks() {
         XCTAssertEqual(skein("skein:1003?case=B"), ["B", "1003"])
         XCTAssertEqual(skein("skein:1003"), ["", "1003"])
