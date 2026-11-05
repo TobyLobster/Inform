@@ -22,10 +22,6 @@ NSString* const IFSectionSymbolType = @"IFSectionSymbolType";
     IFSymbolRelation relation;
     /// If \c relation is \c IFSymbolDelta , the difference in levels, otherwise the absolute level
     int levelDelta;
-
-    // The file we're stored in
-    /// The \c IntelFile that owns this symbol
-    IFIntelFile* ourFile;
 }
 
 #pragma mark - Initialisation

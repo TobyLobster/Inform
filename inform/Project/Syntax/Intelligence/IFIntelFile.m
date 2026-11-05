@@ -248,26 +248,6 @@ NSString* const IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotif
 	return symbols[symbol];
 }
 
-- (IFIntelSymbol*) firstSymbolOnLine: (int) line {
-	int nSymbols = (int) symbols.count;
-	int symbol = [self indexOfStartOfLine: line];
-	
-	if (symbol < 0) return nil;
-	if (symbol+1 >= nSymbols) return nil;
-	if (symbolLines[symbol+1] != line) return nil;
-	
-	return symbols[symbol+1];
-}
-
-- (IFIntelSymbol*) lastSymbolOnLine: (int) line {
-	int symbol = [self indexOfEndOfLine: line];
-	
-	if (symbol <= 0) return nil;
-	if (symbolLines[symbol-1] != line) return nil;
-	
-	return symbols[symbol-1];
-}
-
 - (NSUInteger) lineForSymbol: (IFIntelSymbol*) symbolToFind {
 	int symbol;
 	int nSymbols = (int) symbols.count;
