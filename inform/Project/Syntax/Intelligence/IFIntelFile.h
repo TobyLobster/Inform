@@ -36,7 +36,7 @@ extern NSNotificationName const IFIntelFileHasChangedNotification;
 
 // Finding symbols
 /// First symbol stored in this object
-@property (atomic, readonly, strong, nullable) IFIntelSymbol *firstSymbol;
+@property (nonatomic, readonly, strong, nullable) IFIntelSymbol *firstSymbol;
 /// Nearest symbol to a given line number (first symbol on the line if there are any symbols for that line, or the first symbol on the line before if not)
 - (nullable IFIntelSymbol*) nearestSymbolToLine: (int) line;
 /// Given a symbol, works out which line number it occurs on

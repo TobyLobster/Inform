@@ -11,6 +11,7 @@
 #import "IFDiffer.h"
 #import "IFSkein.h"
 #import "IFSkeinItem.h"
+#import "IFIntelFile.h"
 #import "IFIntelSymbol.h"
 #import "IFProject.h"
 #import "IFCompiler.h"
