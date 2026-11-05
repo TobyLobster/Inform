@@ -26,4 +26,7 @@
 #import "IFCollapsableView.h"
 #import "IFCompilerSettings.h"
 #import "IFSetting.h"
+#import "IFSettingsController.h"
+#import "IFMiscSettings.h"
+#import "IFOutputSettings.h"
 #import "IFCompilerSettings.h"
