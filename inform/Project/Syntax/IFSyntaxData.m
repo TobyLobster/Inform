@@ -361,8 +361,17 @@
     NSRange newRange = editedRange;
     NSString *newString = [textStorage.string substringWithRange: newRange];
 
-	// Rewrite the change if needed (e.g. to auto-insert tabs when user presses return)
+    // The intelligence reads the main text, so a change to a restricted storage is offset by
+    // its restricted range
     editingRange = newRange;
+    for( IFSyntaxRestricted*restricted in restrictions ) {
+        if( restricted.restrictedTextStorage == textStorage ) {
+            editingRange.location += restricted.restrictedRange.location;
+            break;
+        }
+    }
+
+	// Rewrite the change if needed (e.g. to auto-insert tabs when user presses return)
     NSString* rewritten = [self rewriteInput: newString];
     if (rewritten) {
         // Actually make the change

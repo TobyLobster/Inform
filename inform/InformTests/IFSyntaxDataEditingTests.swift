@@ -241,6 +241,20 @@ final class IFSyntaxDataEditingTests: XCTestCase {
         XCTAssertTrue(storage.string.contains("Every turn:\n\t\n\n\tsay \"Tick.\"\n\t\n\nChapter 1"), storage.string)
     }
 
+    /// The line before is found in the whole text, not at the view's own offsets.
+    func testANewLineInARestrictedViewIsIndented() throws {
+        try XCTSkipUnless(IFPreferences.shared.indentAfterNewline, "Indenting new lines is turned off in Inform's preferences")
+        let storage = registered(source, intelligence: IFNaturalIntel())
+        let (view, shown) = try view(of: storage, restrictedTo: chapter2)
+
+        type("\n", after: "The Hall is a room.", in: shown)
+        assertView(view, of: storage, shows: chapter2 + "\n")
+
+        type("\nInstead of waiting:", after: "The Hall is a room.\n", in: shown)
+        type("\n", after: "Instead of waiting:", in: shown)
+        assertView(view, of: storage, shows: chapter2 + "\nInstead of waiting:\n\t\n")
+    }
+
     /// Undoing puts back what was there, without rewriting it.
     func testUndoingIsNotRewritten() throws {
         try XCTSkipUnless(IFPreferences.shared.indentAfterNewline, "Indenting new lines is turned off in Inform's preferences")
