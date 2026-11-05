@@ -11,6 +11,8 @@
 
 #import "IFSyntaxTypes.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFProgress;
 @class IFPageBarView;
 @class IFPageBarCell;
@@ -54,8 +56,8 @@ typedef NS_ENUM(int, IFProjectPaneType) {
 
 @protocol IFHistoryRecorder <NSObject>
 
-/// Retrieves a history event that can have new events recorded via the proxy
-@property (NS_NONATOMIC_IOSONLY, readonly, strong) IFHistoryEvent *historyEvent;
+/// Retrieves a history event that can have new events recorded via the proxy (nil while replaying history)
+@property (NS_NONATOMIC_IOSONLY, readonly, strong, nullable) IFHistoryEvent *historyEvent;
 
 @end
 
@@ -71,7 +73,6 @@ typedef NS_ENUM(int, IFProjectPaneType) {
 + (NSDictionary<NSAttributedStringKey, id>*) attributeForStyle: (IFSyntaxStyle) style;
 
 // Sets the project controller (once the nib has loaded and the project controller been set, we are considered 'awake')
-@property (atomic, readonly, strong) IFProjectController *controller;
 - (void) setController: (IFProjectController*) p
              viewIndex: (NSInteger) viewIndex;
 
@@ -80,7 +81,7 @@ typedef NS_ENUM(int, IFProjectPaneType) {
 /// The main pane view
 @property (nonatomic, readwrite, strong) IBOutlet NSView *    paneView;
 /// The presently displayed pane
-@property (atomic, readonly, strong) NSView *                 activeView;
+@property (atomic, readonly, strong, nullable) NSView *       activeView;
 /// The compiler controller associated with this view
 @property (atomic, readonly, strong) IFCompilerController *   compilerController;
 /// Returns the currently displayed view (\c IFUnknownPane is a possibility for some views I haven't added code to check for)
@@ -127,7 +128,7 @@ typedef NS_ENUM(int, IFProjectPaneType) {
 /// Informs this pane that it's time to prepare to save the document
 - (void) prepareToSave;
 /// Sets the source page to show a specific source file
-- (void) showSourceFile: (NSString*) file;
+- (void) showSourceFile: (nullable NSString*) file;
 
 // The game page
 /// Convenience method
@@ -135,21 +136,23 @@ typedef NS_ENUM(int, IFProjectPaneType) {
 
 // Search/replace
 /// Called to invoke the find panel for the current pane
-- (void) performFindPanelAction: (id) sender;
+- (void) performFindPanelAction: (nullable id) sender;
 
 // History
-/// Gets the current history event for this run through the loop
-@property (atomic, readonly, strong) IFHistoryEvent * historyEvent;
-/// Returns a proxy for this object for a new history item
-@property (atomic, readonly, strong) id               history;
+/// Gets the current history event for this run through the loop (nil while replaying history)
+@property (atomic, readonly, strong, nullable) IFHistoryEvent * historyEvent;
+/// Returns a proxy for this object for a new history item (nil while replaying history)
+@property (atomic, readonly, strong, nullable) id               history;
 /// Adds a new invocation to the forward/backwards history
 - (void) addHistoryInvocation: (NSInvocation*) invoke;
 /// Go forwards in the history
-- (IBAction) goForwards: (id) sender;
+- (IBAction) goForwards: (nullable id) sender;
 /// Go backwards in the history
-- (IBAction) goBackwards: (id) sender;
+- (IBAction) goBackwards: (nullable id) sender;
 
 // Extension updated
-- (void) extensionUpdated:(NSString*) javascriptId;
+- (void) extensionUpdated:(nullable NSString*) javascriptId;
 
 @end
+
+NS_ASSUME_NONNULL_END

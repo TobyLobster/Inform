@@ -15,6 +15,8 @@
 #import "IFSourceSharedActions.h"
 #import "IFRuntimeErrorParser.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class ZoomView;
 @class IFSkeinItem;
 @class IFProgress;
@@ -33,41 +35,42 @@
 
 - (void) layoutPanes;
 
-@property (atomic, readonly, strong) IFProjectPane *sourcePane;
-@property (atomic, readonly, strong) IFProjectPane *runningGamePane;
-@property (atomic, readonly, strong) IFProjectPane *auxPane;
-@property (atomic, readonly, strong) IFProjectPane *indexPane;
+/// The panes to show the source, the running game, documentation and the index in (all nil once the
+/// window has closed, and the running game's also nil when no game is running)
+@property (atomic, readonly, strong, nullable) IFProjectPane *sourcePane;
+@property (atomic, readonly, strong, nullable) IFProjectPane *runningGamePane;
+@property (atomic, readonly, strong, nullable) IFProjectPane *auxPane;
+@property (atomic, readonly, strong, nullable) IFProjectPane *indexPane;
 
 
-- (IFProjectPane*) oppositePane: (IFProjectPane*) pane;
+- (nullable IFProjectPane*) oppositePane: (IFProjectPane*) pane;
 
 // Communication from the containing panes
 - (BOOL) showTestCase: (NSString*) testCase skeinNode:(unsigned long) skeinNodeId;
 - (BOOL) selectSourceFile: (NSString*) fileName;
 - (void) moveToSourceFilePosition: (NSInteger) location;
 - (void) moveToSourceFileLine: (NSInteger) line;
-@property (atomic, readonly, copy) NSString *selectedSourceFile;
+@property (atomic, readonly, copy, nullable) NSString *selectedSourceFile;
 
 - (void) highlightSourceFileLine: (NSInteger) line
                           inFile: (NSString*) file;
 - (void) highlightSourceFileLine: (NSInteger) line
                           inFile: (NSString*) file
                            style: (IFLineStyle) style;
-- (NSArray*) highlightsForFile: (NSString*) file;
+- (nullable NSArray<NSArray<NSNumber*>*>*) highlightsForFile: (nullable NSString*) file;
 
 - (void) removeHighlightsInFile: (NSString*) file
                         ofStyle: (IFLineStyle) style;
 - (void) removeHighlightsOfStyle: (IFLineStyle) style;
 - (void) removeAllTemporaryHighlights;
 
--(BOOL) isCurrentlyTesting;
 @property (readonly, atomic, getter=isCurrentlyTesting) BOOL currentlyTesting;
 
-@property (atomic, readonly, strong) IFIntelFile *currentIntelligence;
+@property (atomic, readonly, strong, nullable) IFIntelFile *currentIntelligence;
 
 @property (atomic, readonly) BOOL safeToSwitchTabs;
-@property (atomic) NSOpenPanel* openExtensionPanel;
-@property (atomic) NSOpenPanel* openLegacyExtensionPanel;
+@property (atomic, nullable) NSOpenPanel* openExtensionPanel;
+@property (atomic, nullable) NSOpenPanel* openLegacyExtensionPanel;
 
 - (void) zoomViewIsWaitingForInput;
 
@@ -79,78 +82,78 @@
 - (void) removeProgressIndicator:   (IFProgress*) indicator;
 
 // Menu options
-- (IBAction) shiftLeft:         (id) sender;
-- (IBAction) shiftRight:        (id) sender;
-- (IBAction) renumberSections:  (id) sender;
+- (IBAction) shiftLeft:         (nullable id) sender;
+- (IBAction) shiftRight:        (nullable id) sender;
+- (IBAction) renumberSections:  (nullable id) sender;
 
-- (IBAction) openMaterials:     (id) sender;
-- (IBAction) exportIFiction:    (id) sender;
+- (IBAction) openMaterials:     (nullable id) sender;
+- (IBAction) exportIFiction:    (nullable id) sender;
 
 // Tabbing around
-- (IBAction) tabSource:         (id) sender;
-- (IBAction) tabErrors:         (id) sender;
-- (IBAction) tabIndex:          (id) sender;
-- (IBAction) tabSkein:          (id) sender;
-- (IBAction) tabGame:           (id) sender;
-- (IBAction) tabDocumentation:  (id) sender;
-- (IBAction) tabSettings:       (id) sender;
+- (IBAction) tabSource:         (nullable id) sender;
+- (IBAction) tabErrors:         (nullable id) sender;
+- (IBAction) tabIndex:          (nullable id) sender;
+- (IBAction) tabSkein:          (nullable id) sender;
+- (IBAction) tabGame:           (nullable id) sender;
+- (IBAction) tabDocumentation:  (nullable id) sender;
+- (IBAction) tabSettings:       (nullable id) sender;
 
-- (IBAction) gotoLeftPane:      (id) sender;
-- (IBAction) gotoRightPane:     (id) sender;
-- (IBAction) switchPanes:       (id) sender;
+- (IBAction) gotoLeftPane:      (nullable id) sender;
+- (IBAction) gotoRightPane:     (nullable id) sender;
+- (IBAction) switchPanes:       (nullable id) sender;
 
-- (IBAction) docRecipes:          (id) sender;
-- (IBAction) docExtensions:       (id) sender;
-- (IBAction) showHeadings:        (id) sender;
-- (IBAction) showPreviousSection: (id) sender;
-- (IBAction) showNextSection:     (id) sender;
-- (IBAction) commentOutSelection: (id) sender;
-- (IBAction) uncommentSelection:  (id) sender;
-- (IBAction) release:           (id) sender;
-- (IBAction) releaseForTesting: (id) sender;
-- (IBAction) compile:           (id) sender;
-- (IBAction) compileAndRun:     (id) sender;
-- (IBAction) compileAndDebug:   (id) sender;
-- (IBAction) compileAndRefresh: (id) sender;
-- (IBAction) replayUsingSkein:  (id) sender;
-- (IBAction) stopProcess:       (id) sender;
-- (IBAction) searchDocs:        (id) sender;
-- (IBAction) searchProject:     (id) sender;
-- (IBAction) testSelector:      (id) sender;
-- (IBAction) installLegacyExtension:  (id) sender;
-- (IBAction) exportExtension:   (id) sender;
-- (IBAction) testMe:            (id) sender;
+- (IBAction) docRecipes:          (nullable id) sender;
+- (IBAction) docExtensions:       (nullable id) sender;
+- (IBAction) showHeadings:        (nullable id) sender;
+- (IBAction) showPreviousSection: (nullable id) sender;
+- (IBAction) showNextSection:     (nullable id) sender;
+- (IBAction) commentOutSelection: (nullable id) sender;
+- (IBAction) uncommentSelection:  (nullable id) sender;
+- (IBAction) release:           (nullable id) sender;
+- (IBAction) releaseForTesting: (nullable id) sender;
+- (IBAction) compile:           (nullable id) sender;
+- (IBAction) compileAndRun:     (nullable id) sender;
+- (IBAction) compileAndDebug:   (nullable id) sender;
+- (IBAction) compileAndRefresh: (nullable id) sender;
+- (IBAction) replayUsingSkein:  (nullable id) sender;
+- (IBAction) stopProcess:       (nullable id) sender;
+- (IBAction) searchDocs:        (nullable id) sender;
+- (IBAction) searchProject:     (nullable id) sender;
+- (IBAction) testSelector:      (nullable id) sender;
+- (IBAction) installLegacyExtension:  (nullable id) sender;
+- (IBAction) exportExtension:   (nullable id) sender;
+- (IBAction) testMe:            (nullable id) sender;
 
-- (void) changeFirstResponder: (NSResponder*) first;
+- (void) changeFirstResponder: (nullable NSResponder*) first;
 - (void) searchShowSelectedItemAtLocation: (NSInteger) location
                                    phrase: (NSString*) phrase
                                    inFile: (NSString*) filename
                                      type: (IFFindLocation) type
-                                anchorTag: (NSString*) anchorTag;
+                                anchorTag: (nullable NSString*) anchorTag;
 
 // Spelling
 - (void) setSourceSpellChecking: (BOOL) spellChecking;
 
 // The GLK view
-- (IBAction) glkTaskHasStarted: (id) sender;
-@property (atomic, strong) id<ZoomViewInputSource> glkInputSource;
+- (IBAction) glkTaskHasStarted: (nullable id) sender;
+@property (atomic, strong, nullable) id<ZoomViewInputSource> glkInputSource;
 
 // Headers
 @property (atomic, readonly, strong) IFHeaderController *headerController;
 
 // Show documentation index page
-- (void) docIndex: (id) sender;
+- (void) docIndex: (nullable id) sender;
 
-- (void) extensionUpdated: (NSString*) javascriptId;
+- (void) extensionUpdated: (nullable NSString*) javascriptId;
 
 @property (atomic, getter=isRunningGame, readonly) BOOL runningGame;
 @property (atomic, getter=isCompiling, readonly) BOOL compiling;
 
-- (void) inputSourceHasFinished: (id) source;
+- (void) inputSourceHasFinished: (nullable id) source;
 - (void) showPublicLibrary;
 
-- (IBAction) addExtensionFromFile: (id) sender;
-- (IBAction) addExtensionFromLegacyInstalledFolder: (id) sender;
+- (IBAction) addExtensionFromFile: (nullable id) sender;
+- (IBAction) addExtensionFromLegacyInstalledFolder: (nullable id) sender;
 
 -(void) confirmInbuildAction;
 -(void) installExtension: (NSString*) extension;
@@ -162,3 +165,5 @@
 -(void) installExtensionURL: (NSURL*) extension;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -87,8 +87,6 @@ static NSDictionary* IFSyntaxAttributes[256];
     /// The settings page
     IFSettingsPage*         settingsPage;
 
-    IFProjectController *   controller;
-
     // Other variables
     /// \c YES if we've loaded from the nib and initialised properly
     BOOL awake;
@@ -359,8 +357,6 @@ static NSDictionary* IFSyntaxAttributes[256];
 
 	[pageBar setLeftCells: @[backCell, forwardCell]];
 }
-
-@synthesize controller;
 
 - (void) setController: (IFProjectController*) p
              viewIndex: (NSInteger) viewIndex {

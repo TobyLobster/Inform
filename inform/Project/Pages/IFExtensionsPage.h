@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Show the public library
 - (void) showPublicLibrary: (nullable id) sender;
 
-- (void) extensionUpdated:(NSString*) javascriptId;
+- (void) extensionUpdated:(nullable NSString*) javascriptId;
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller
                                   withPane: (IFProjectPane*) pane NS_DESIGNATED_INITIALIZER;
