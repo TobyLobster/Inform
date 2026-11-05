@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 ///
 /// Extensions and other lone files are stored by this document class.
 ///
@@ -23,3 +25,5 @@
 
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFProjectFile;
 
 @protocol IFNewProjectSetupView;
@@ -19,13 +21,13 @@
 @protocol IFNewProjectProtocol <NSObject>
 
 /// nil, or a project type-specific view that can be used to customise the new project. Should be reallocated every time this is called.
-@property (NS_NONATOMIC_IOSONLY, readonly, strong) id<IFNewProjectSetupView> configView;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong, nullable) id<IFNewProjectSetupView> configView;
 
 /// Request to setup a file from the given \c IFProjectSetupView (which will have been previously created by configView)
 - (void) setupFile: (IFProjectFile*) file
-          fromView: (NSObject<IFNewProjectSetupView>*) view
-         withStory: (NSString*) story
-  withExtensionURL: (NSURL*) extensionURL;
+          fromView: (nullable NSObject<IFNewProjectSetupView>*) view
+         withStory: (nullable NSString*) story
+  withExtensionURL: (nullable NSURL*) extensionURL;
 
 -(void) setInitialFocus: (NSWindow*) window;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSRange initialSelectionRange;
@@ -33,12 +35,12 @@
 
 // Objects implementing the IFProjectType protocol may also implement these functions.
 @optional
-/// Return a string to display an 'are you sure' type message
-@property (atomic, readonly, copy) NSString *confirmationMessage;
-/// Return a string to indicate an error with the way things are set up
-@property (atomic, readonly, copy) NSString *errorMessage;
-/// If showFinalPage is NO, this is the filename to create
-@property (atomic, readonly, copy) NSString *saveFilename;
+/// Return a string to display an 'are you sure' type message (nil if there's nothing to confirm)
+@property (atomic, readonly, copy, nullable) NSString *confirmationMessage;
+/// Return a string to indicate an error with the way things are set up (nil if there's no error)
+@property (atomic, readonly, copy, nullable) NSString *errorMessage;
+/// If showFinalPage is NO, this is the filename to create (nil if it can't be worked out)
+@property (atomic, readonly, copy, nullable) NSString *saveFilename;
 /// If present, the file type to open this project as
 @property (atomic, readonly, copy) NSString *openAsType;
 
@@ -54,3 +56,4 @@
 
 @end
 
+NS_ASSUME_NONNULL_END

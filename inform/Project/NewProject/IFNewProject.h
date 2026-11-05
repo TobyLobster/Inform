@@ -10,6 +10,8 @@
 #import "IFProjectTypes.h"
 #import "IFProject.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFProjectType;
 
 typedef NS_ENUM(int, IFNewProjectFlow) {
@@ -23,14 +25,16 @@ typedef NS_ENUM(int, IFNewProjectFlow) {
 ///
 @interface IFNewProject : NSWindowController<NSOpenSavePanelDelegate>
 
--(IBAction) cancelButtonClicked: (id) sender;
--(IBAction) okButtonClicked: (id) sender;
+-(IBAction) cancelButtonClicked: (nullable id) sender;
+-(IBAction) okButtonClicked: (nullable id) sender;
 
 - (void) createInform7ExtensionProject: (NSString*) title
                       fromExtensionURL: (NSURL*) extensionURL;
-- (void) createInform7Project: (NSString*) title
+- (void) createInform7Project: (nullable NSString*) title
                      fileType: (IFFileType) fileType
-                        story: (NSString*) story;
+                        story: (nullable NSString*) story;
 - (void) createInform7ExtensionForProject: (IFProject*) project;
 
 @end
+
+NS_ASSUME_NONNULL_END

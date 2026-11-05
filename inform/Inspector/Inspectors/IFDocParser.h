@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NSString *IFDocAttributeKey NS_STRING_ENUM;
 
 extern IFDocAttributeKey const IFDocAttributeHtmlTitle;
@@ -31,8 +33,9 @@ extern IFDocAttributeKey const IFDocAttributeSort;
 @interface IFCodeInfo : NSObject
 
 - (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
-- (instancetype) initWithAnchorTag:(NSString*) aAnchorTag range:(NSRange)aRange NS_DESIGNATED_INITIALIZER;
-@property (atomic, readonly, copy) NSString *anchorTag;
+- (instancetype) initWithAnchorTag:(nullable NSString*) aAnchorTag range:(NSRange)aRange NS_DESIGNATED_INITIALIZER;
+/// The anchor tag of the section (nil if the document ends a section it didn't start)
+@property (atomic, readonly, copy, nullable) NSString *anchorTag;
 @property (atomic, readonly) NSRange range;
 
 @end
@@ -59,3 +62,5 @@ extern IFDocAttributeKey const IFDocAttributeSort;
 @property (atomic, readonly, copy) NSArray<IFCodeInfo*> *definitionInfo;
 
 @end
+
+NS_ASSUME_NONNULL_END

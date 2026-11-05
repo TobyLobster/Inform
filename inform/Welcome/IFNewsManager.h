@@ -10,13 +10,18 @@
 
 #import "IFNewsCustomSchemeHandler.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface IFNewsManager : NSObject
 
-@property (atomic, readwrite, copy) NSURLSessionDataTask* _Nonnull task;
-@property (atomic, readwrite) IFNewsCustomSchemeHandler* _Nonnull newsSchemeHandler;
+/// The news download (nil until one starts)
+@property (atomic, readwrite, copy, nullable) NSURLSessionDataTask* task;
+@property (atomic, readwrite) IFNewsCustomSchemeHandler* newsSchemeHandler;
 
--(void)     getNewsWithCompletionHandler: (void (^_Nonnull)(NSString * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)) completionHandler;
+-(void)     getNewsWithCompletionHandler: (void (^)(NSString * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)) completionHandler;
 
 @end
+
+NS_ASSUME_NONNULL_END
 
 #endif /* IFNewsManager_h */

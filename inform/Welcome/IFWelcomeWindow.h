@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface IFWelcomeWindow : NSWindowController<NSTableViewDelegate, NSTableViewDataSource, WKNavigationDelegate>
 
 /// Gets the shared welcome window
@@ -21,6 +23,8 @@
 - (void) hideWebView;
 - (void) showWebView;
 
-- (IBAction) clickImage:(id) sender;
+- (IBAction) clickImage:(nullable id) sender;
 
 @end
+
+NS_ASSUME_NONNULL_END

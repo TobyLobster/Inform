@@ -10,6 +10,8 @@
 
 #import "IFNewProjectProtocol.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 
 @class IFProject;
 @class IFNewInform7ExtensionView;
@@ -32,3 +34,5 @@
 - (void) setInitialFocus: (NSWindow*) window;
 
 @end
+
+NS_ASSUME_NONNULL_END

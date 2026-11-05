@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "IFNewProjectProtocol.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 ///
 /// Project type that creates an empty Natural Inform project
 ///
@@ -17,3 +19,5 @@
 @interface IFNewInform7Project : NSObject<IFNewProjectProtocol>
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -8,6 +8,8 @@
 
 #import <AppKit/AppKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFProjectController;
 
 ///
@@ -20,11 +22,13 @@
 - (instancetype) initWithProjectController: (IFProjectController*) control;
 
 /// Cancels the action
-- (IBAction) cancel: (id) sender;
+- (IBAction) cancel: (nullable id) sender;
 /// Performs the action
-- (IBAction) addFile: (id) sender;
+- (IBAction) addFile: (nullable id) sender;
 
-/// Retrieves the name of the file that should be created
-@property (atomic, getter=getNewFilename, readonly, copy) NSString *newFilename;
+/// Retrieves the name of the file that should be created (nil if the dialog was cancelled)
+@property (atomic, getter=getNewFilename, readonly, copy, nullable) NSString *newFilename;
 
 @end
+
+NS_ASSUME_NONNULL_END

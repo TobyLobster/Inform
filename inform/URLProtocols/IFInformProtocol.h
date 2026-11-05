@@ -9,6 +9,8 @@
 #import <AppKit/AppKit.h>
 #import <WebKit/WebKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 ///
 /// Inform protocol: refers to files within the Inform application bundle
 /// Grr, Apple's docs on how to write these is VERY sparse and unhelpful
@@ -18,3 +20,5 @@
 @interface IFInformProtocol : NSURLProtocol
 
 @end
+
+NS_ASSUME_NONNULL_END

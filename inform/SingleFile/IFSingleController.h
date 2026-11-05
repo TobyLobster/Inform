@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "IFSourceSharedActions.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 ///
 /// WindowController for a single-file document.
 ///
@@ -23,3 +25,5 @@
 - (void) setContinuousSpelling:(BOOL) continuousSpelling;
 
 @end
+
+NS_ASSUME_NONNULL_END
