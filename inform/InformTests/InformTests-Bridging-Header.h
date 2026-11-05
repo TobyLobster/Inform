@@ -32,3 +32,4 @@
 #import "IFFindResult.h"
 #import "IFScanner.h"
 #import "IFDiffer.h"
+#import "NSBundle+IFBundleExtensions.h"
