@@ -395,6 +395,20 @@ final class IFCompilerSettingsTests: XCTestCase {
         XCTAssertFalse(settings.strict)
     }
 
+    /// Saving keeps each settings object's own dictionary as the settings read, so reloading afterwards
+    /// (as a settings page does when it's given the settings) keeps changes made since.
+    func testReloadingAfterSavingKeepsLaterChanges() throws {
+        let settings = IFCompilerSettings()
+        XCTAssertTrue(settings.restore(fromPlist: Data(settingsFile.utf8)))
+        XCTAssertNotNil(settings.currentPlist)
+        settings.zcodeVersion = 5
+        settings.strict = true
+
+        settings.reloadAllSettings()
+        XCTAssertEqual(settings.zcodeVersion, 5)
+        XCTAssertTrue(settings.strict)
+    }
+
     /// Reading settings that aren't a property list forgets the settings read before, so they aren't saved,
     /// but leaves the settings themselves as they were.
     func testAFailedReadForgetsWhatWasRead() throws {
