@@ -96,12 +96,14 @@ static const BOOL trace_diff = NO;
     return NO;
 }
 
-/// The range of a typical I7 banner line in part of a text (NSNotFound if there isn't one)
+/// The range of a typical I7 banner line in part of a text (NSNotFound if there isn't one). Banners
+/// end like "Inform 7 build 6M62 (I6/v6.33 lib 6/12N) SD" up to 6M62, and like "Inform 7 v10.2.0 / D"
+/// since, with "+6X97" after the version when the VERSION command asks for the build.
 static NSRange bannerRange(NSString* text, NSRange range) {
     static NSRegularExpression* banner;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        banner = [NSRegularExpression regularExpressionWithPattern: @"(.*?)(Release \\d+ / Serial number \\d+ / Inform 7 build .... .I6.+?lib .+?SD).*"
+        banner = [NSRegularExpression regularExpressionWithPattern: @"(.*?)(Release \\d+ / Serial number \\d+ / Inform 7 (?:build .... .I6.+?lib .+?SD|v\\d\\S*(?: / D)?)).*"
                                                            options: 0
                                                              error: NULL];
     });

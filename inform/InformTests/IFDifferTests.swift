@@ -31,6 +31,31 @@ final class IFDifferTests: XCTestCase {
                                        actual: "Goodbye\n" + transcript(serial: "150101", i6: "6.34")))
     }
 
+    /// The start of a transcript with the banner Inform 10 prints, as in "Inform 7 v10.2.0 / D".
+    private func transcript(serial: String, version: String, room: String = "Bedroom") -> String {
+        return "Story\nAn Interactive Fiction by Jane Doe\n"
+            + "Release 1 / Serial number \(serial) / Inform 7 v\(version) / D\n\n"
+            + "\(room)\nIt's dark.\n\n>"
+    }
+
+    /// Inform 10's banners from different days and builds count as the same.
+    func testInform10BannersFromDifferentBuildsMatch() {
+        let differ = IFDiffer()
+        XCTAssertFalse(differ.diffIdeal(transcript(serial: "261104", version: "10.2.0"),
+                                        actual: transcript(serial: "261105", version: "10.2.0")))
+        XCTAssertFalse(differ.diffIdeal(transcript(serial: "221105", version: "10.1.2"),
+                                        actual: transcript(serial: "261105", version: "10.2.0-beta+6Y13")))
+        XCTAssertTrue(differ.diffIdeal(transcript(serial: "261104", version: "10.2.0"),
+                                       actual: transcript(serial: "261105", version: "10.2.0", room: "Kitchen")))
+    }
+
+    /// A transcript blessed with an older Inform still matches one from Inform 10.
+    func testOldAndInform10BannersMatch() {
+        let differ = IFDiffer()
+        XCTAssertFalse(differ.diffIdeal(transcript(serial: "151220", i6: "6.33"),
+                                        actual: transcript(serial: "261104", version: "10.2.0")))
+    }
+
     /// Without a banner on both sides, a different serial number is a difference.
     func testSerialNumbersDifferWithoutABanner() {
         let differ = IFDiffer()
