@@ -26,9 +26,6 @@ CGFloat easeOutCubic(CGFloat t);
 
 @interface IFUtility : NSObject
 
-/// Unique identifier
-+ (unsigned long) generateID;
-
 // Convenience methods for alerts
 + (void) runAlertInformationWindow: (nullable NSWindow*) window
                              title: (NSString*) title
@@ -65,24 +62,6 @@ CGFloat easeOutCubic(CGFloat t);
 /// Show an error for an operation on an extension (e.g. error while installing an extension)
 + (void) showExtensionError: (IFExtensionResult) result
                  withWindow: (nullable NSWindow*) window;
-
-/// The content types for a list of filename extensions, for open and save panels
-+ (NSArray<UTType*>*) contentTypesForFilenameExtensions: (NSArray<NSString*>*) extensions;
-
-/// Save transcript (handles save dialog)
-+(void) saveTranscriptPanelWithString: (NSString*) string
-                               window: (NSWindow*) window;
-
-+(bool) unzip: (NSURL*) zipFilepath toDirectory:(NSURL*) targetDirectory;
-
-/// Sandboxing
-@property (class, readonly, atomic, getter=isSandboxed) BOOL sandboxed;
-
-+ (void) performSelector:(SEL) selector object:(nullable id) object;
-
-// Attributes for NSAttributedString
-+(NSDictionary<NSAttributedStringKey,id>*) adjustAttributesFontSize: (NSDictionary<NSAttributedStringKey,id>*) dictionary
-                                     size: (CGFloat) fontSize;
 
 @end
 
@@ -167,6 +146,31 @@ CGFloat easeOutCubic(CGFloat t);
 
 // RegEx
 +(nullable NSTextCheckingResult*) findMatch: (NSString*) pattern inText:(NSString*) text;
+
+@end
+
+@interface IFUtility (Miscellaneous)
+
+/// Unique identifier
++ (unsigned long) generateID;
+
+/// The content types for a list of filename extensions, for open and save panels
++ (NSArray<UTType*>*) contentTypesForFilenameExtensions: (NSArray<NSString*>*) extensions;
+
+/// Save transcript (handles save dialog)
++(void) saveTranscriptPanelWithString: (NSString*) string
+                               window: (NSWindow*) window;
+
++(bool) unzip: (NSURL*) zipFilepath toDirectory:(NSURL*) targetDirectory;
+
+/// Sandboxing
+@property (class, readonly, atomic, getter=isSandboxed) BOOL sandboxed;
+
++ (void) performSelector:(SEL) selector object:(nullable id) object;
+
+// Attributes for NSAttributedString
++(NSDictionary<NSAttributedStringKey,id>*) adjustAttributesFontSize: (NSDictionary<NSAttributedStringKey,id>*) dictionary
+                                     size: (CGFloat) fontSize;
 
 @end
 

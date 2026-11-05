@@ -44,20 +44,6 @@ CGFloat easeOutCubic(CGFloat t) {
 #pragma mark - "IFUtility"
 @implementation IFUtility
 
-#pragma mark -  Initialisation
-+ (void) initialize {
-    uniqueIdLock = [[NSLock alloc] init];
-}
-
-#pragma mark - Generating unique IDs
-+ (unsigned long) generateID {
-    unsigned long new_id;
-    [uniqueIdLock lock];
-    new_id = uniqueId++;
-    [uniqueIdLock unlock];
-    return new_id;
-}
-
 #pragma mark - Alert dialogs
 + (void) runAlertWarningWindow: (NSWindow*) window
                          title: (NSString*) title
@@ -260,6 +246,25 @@ CGFloat easeOutCubic(CGFloat t) {
     [IFUtility runAlertWarningWindow: window
                                title: @"Failed to Install Extension"
                              message: @"Failed to Install Extension Explanation"];
+}
+
+@end
+
+#pragma mark - "IFUtility (Miscellaneous)"
+@implementation IFUtility (Miscellaneous)
+
+#pragma mark -  Initialisation
++ (void) initialize {
+    uniqueIdLock = [[NSLock alloc] init];
+}
+
+#pragma mark - Generating unique IDs
++ (unsigned long) generateID {
+    unsigned long new_id;
+    [uniqueIdLock lock];
+    new_id = uniqueId++;
+    [uniqueIdLock unlock];
+    return new_id;
 }
 
 + (NSArray<UTType*>*) contentTypesForFilenameExtensions: (NSArray<NSString*>*) extensions {
