@@ -421,6 +421,13 @@ final class IFUtilityTests: XCTestCase {
         XCTAssertEqual(unescape("[=== Notes ===]"), "?")
     }
 
+    /// Without a closing =] after it, [= is left as it is.
+    func testLeavesAnUnclosedEscapeAlone() {
+        XCTAssertEqual(unescape("[=0x41"), "[=0x41")
+        XCTAssertEqual(unescape("a[="), "a[=")
+        XCTAssertEqual(unescape("[=]"), "[=]")
+    }
+
     func testLeavesOtherBracketsAlone() {
         XCTAssertEqual(unescape("[x] [ [=0x0041=]"), "[x] [ A")
         XCTAssertEqual(unescape("a["), "a[")

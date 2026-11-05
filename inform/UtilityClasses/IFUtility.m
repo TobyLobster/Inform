@@ -457,10 +457,10 @@ static int valueForHexChar(unichar c) {
             // (different versions of webkit treat the '\' character differently, so we need this to ensure that we get consistent results)
             unichar nextChar = [string characterAtIndex: chNum+1];
             if (nextChar == '=') {
-                // [= matched: look for the matching =]
-                unichar previous = nextChar;
+                // [= matched: look for the matching =] after it
+                unichar previous = 0;
                 int finalChNum;
-                for (finalChNum = chNum+1; finalChNum < length; finalChNum++) {
+                for (finalChNum = chNum+2; finalChNum < length; finalChNum++) {
                     unichar mightBeLast = [string characterAtIndex: finalChNum];
 
                     if (previous == '=' && mightBeLast == ']') {
@@ -470,27 +470,32 @@ static int valueForHexChar(unichar c) {
                     previous = mightBeLast;
                 }
 
-                // Get the character number from the string
-                NSString* characterString = [string substringWithRange: NSMakeRange(chNum+2, finalChNum-chNum-3)];
-
-                if ([characterString hasPrefix: @"0x"]) {
-                    // Is a hexidecimal character
-                    int val = 0;
-                    int pos;
-                    for (pos=2; pos<characterString.length; pos++) {
-                        val *= 16;
-                        val += valueForHexChar([characterString characterAtIndex: pos]);
-                    }
-                    outChar = val;
-                } else if ([characterString isEqualToString: @"BACK"]) {
-                    // Backslash
-                    outChar = '\\';
+                if (finalChNum >= length) {
+                    // No =], so this isn't an escape
+                    outChar = chr;
                 } else {
-                    outChar = '?';
-                }
+                    // Get the character number from the string
+                    NSString* characterString = [string substringWithRange: NSMakeRange(chNum+2, finalChNum-chNum-3)];
 
-                // Move to the final character
-                chNum = finalChNum;
+                    if ([characterString hasPrefix: @"0x"]) {
+                        // Is a hexidecimal character
+                        int val = 0;
+                        int pos;
+                        for (pos=2; pos<characterString.length; pos++) {
+                            val *= 16;
+                            val += valueForHexChar([characterString characterAtIndex: pos]);
+                        }
+                        outChar = val;
+                    } else if ([characterString isEqualToString: @"BACK"]) {
+                        // Backslash
+                        outChar = '\\';
+                    } else {
+                        outChar = '?';
+                    }
+
+                    // Move to the final character
+                    chNum = finalChNum;
+                }
             } else {
                 outChar = chr;
             }
