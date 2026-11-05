@@ -261,11 +261,9 @@ static NSDictionary* itemTextAttributes;
 
 -(void) awakeFromNib
 {
-    if( [IFUtility hasScrollElasticityFeature] ) {
-        // Make sure the skein view doesn't have elasticity
-        (self.enclosingScrollView).horizontalScrollElasticity = NSScrollElasticityNone;
-        (self.enclosingScrollView).verticalScrollElasticity = NSScrollElasticityNone;
-    }
+    // Make sure the skein view doesn't have elasticity
+    (self.enclosingScrollView).horizontalScrollElasticity = NSScrollElasticityNone;
+    (self.enclosingScrollView).verticalScrollElasticity = NSScrollElasticityNone;
 }
 
 #pragma mark - Mouse handling

@@ -316,20 +316,6 @@ CGFloat easeOutCubic(CGFloat t) {
     return (nil != environ[@"APP_SANDBOX_CONTAINER_ID"]);
 }
 
-+(BOOL) hasFullscreenSupportFeature {
-    // Lion (10.7) introduced fullscreen support
-    return NSAppKitVersionNumber >= NSAppKitVersionNumber10_7;
-}
-
-+(BOOL) hasScrollElasticityFeature {
-    // Lion (10.7) introduced elasticity on scrolling
-    return NSAppKitVersionNumber >= NSAppKitVersionNumber10_7;
-}
-
-+ (BOOL) hasUpdatedToolbarFeature {
-    return NSAppKitVersionNumber > NSAppKitVersionNumber10_10_Max;
-}
-
 +(void) performSelector:(SEL) selector object:(id) object {
     if( [object respondsToSelector: selector] ) {
         // ARC safe way to do performSelector (see http://stackoverflow.com/a/20058585/4786529 ) ...

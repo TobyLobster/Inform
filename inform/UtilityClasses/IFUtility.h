@@ -79,14 +79,6 @@ CGFloat easeOutCubic(CGFloat t);
 + (BOOL) isSandboxed;
 @property (class, readonly, atomic, getter=isSandboxed) BOOL sandboxed;
 
-// OS version checking
-+ (BOOL) hasFullscreenSupportFeature;
-@property (class, readonly, atomic) BOOL hasFullscreenSupportFeature;
-+ (BOOL) hasScrollElasticityFeature;
-@property (class, readonly, atomic) BOOL hasScrollElasticityFeature;
-+ (BOOL) hasUpdatedToolbarFeature;
-@property (class, readonly, atomic) BOOL hasUpdatedToolbarFeature;
-
 + (void) performSelector:(SEL) selector object:(nullable id) object;
 
 // Attributes for NSAttributedString
