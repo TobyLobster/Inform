@@ -35,7 +35,6 @@ typedef NS_ENUM(int, IFExtensionResult) {
 ///
 @interface IFExtensionsManager : NSObject<NSOpenSavePanelDelegate>
 
-@property (atomic) BOOL rebuildAvailableExtensionsCache;
 @property (atomic) BOOL rebuildExtensionDictionaryCache;
 @property (atomic) BOOL cacheChanged;
 

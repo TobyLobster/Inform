@@ -338,6 +338,32 @@ final class IFExtensionsManagerTests: XCTestCase {
                        [info("Locksmith", locksmith, version: "v3"), info("Keys", keys, version: "")])
     }
 
+    /// Projects for 6M62 and earlier, and later ones, each get their own list, whichever asks first
+    func testKeepsAListForEachKindOfProject() throws {
+        let folder = try makeExtensionsFolder()
+        let locksmith = try put("Version 3 of Locksmith by Emily Short begins here.", "Locksmith.i7x", in: "Emily Short", of: folder)
+        var told = 0
+        let observer = NotificationCenter.default.addObserver(forName: .IFCensusFinished, object: manager, queue: nil) { _ in
+            told += 1
+        }
+        defer { NotificationCenter.default.removeObserver(observer) }
+
+        XCTAssertEqual(manager.availableExtensions(withCompilerVersion: "6M62"), [info("Locksmith", locksmith, version: "Version 3")])
+        XCTAssertEqual(manager.availableExtensions(withCompilerVersion: "10.1"), [info("Locksmith", locksmith, version: "v3")])
+        XCTAssertEqual(manager.availableExtensions(withCompilerVersion: "6L38"), [info("Locksmith", locksmith, version: "Version 3")])
+        XCTAssertEqual(manager.availableExtensions(withCompilerVersion: "10.2"), [info("Locksmith", locksmith, version: "v3")])
+        XCTAssertEqual(told, 2)
+
+        // Dirtying the cache makes both again
+        let keys = try put("Keys by Emily Short begins here.", "Keys.i7x", in: "Emily Short", of: folder)
+        manager.dirtyCache()
+        XCTAssertEqual(Set(manager.availableExtensions(withCompilerVersion: "10.1")),
+                       [info("Locksmith", locksmith, version: "v3"), info("Keys", keys, version: "")])
+        XCTAssertEqual(Set(manager.availableExtensions(withCompilerVersion: "6M62")),
+                       [info("Locksmith", locksmith, version: "Version 3"), info("Keys", keys, version: nil)])
+        XCTAssertEqual(told, 4)
+    }
+
     /// The files in an author's folders, by name, which a link to an extension is looked for in
     func testListsTheFilesInAnAuthorsFolders() throws {
         let yours = (IFUtility.pathForInformExternalExtensions() as NSString).appendingPathComponent("Graham Nelson")
