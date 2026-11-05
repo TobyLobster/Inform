@@ -35,3 +35,6 @@
 #import "IFCompilerSettings.h"
 #import "IFNewExtensionsManager.h"
 #import "IFExtensionInfo.h"
+#import "IFExtensionDownload.h"
+#import "IFAppDelegate.h"
+#import "IFProjectController.h"
