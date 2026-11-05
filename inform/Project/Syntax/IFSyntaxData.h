@@ -20,9 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype) initWithTextView: (NSTextView*)view
                             range: (NSRange) range NS_DESIGNATED_INITIALIZER;
 
-@property (atomic, strong) NSTextView*      textView;
-@property (atomic, strong) NSTextStorage*   restrictedTextStorage;
-@property (atomic)         NSRange          restrictedRange;
+@property (nonatomic, strong) NSTextView*      textView;
+@property (nonatomic, strong) NSTextStorage*   restrictedTextStorage;
+@property (nonatomic)         NSRange          restrictedRange;
 
 @end
 
@@ -37,11 +37,11 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 @interface IFSyntaxData : NSObject<NSTextStorageDelegate>
 
-@property (atomic, strong)  NSTextStorage*  textStorage;
-@property (atomic, strong)  NSString*       name;
-@property (atomic)          IFHighlightType type;
-@property (atomic, strong, nullable) NSUndoManager* undoManager;
-@property (atomic)          bool            isHighlighting;
+@property (nonatomic, strong) NSTextStorage*  textStorage;
+@property (nonatomic, strong) NSString*       name;
+@property (nonatomic)         IFHighlightType type;
+@property (nonatomic, strong, nullable) NSUndoManager* undoManager;
+@property (nonatomic)         bool            isHighlighting;
 
 // Initialisation
 - (instancetype)init NS_UNAVAILABLE;
@@ -67,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 		
 /// Allows the highlighter to run in different 'modes' (basically, extends the state data to 64 bits)
 /// Retrieves the current highlighter mode
-@property (atomic) IFHighlighterMode highlighterMode;
+@property (nonatomic) IFHighlighterMode highlighterMode;
 /// If the given keyword occurs offset characters behind the current position, returns \c YES (ie, if the given keyword occurs and ends offset characters previously)
 - (BOOL) preceededByKeyword: (NSString*) keyword
 					 offset: (int) offset;
@@ -87,11 +87,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// The intelligence object for this highlighter
 @property (nonatomic, strong, nullable) id<IFSyntaxIntelligence> intelligence;
 /// Retrieves the intel data for the current intelligence object
-@property (atomic, readonly, strong) IFIntelFile *intelligenceData;
+@property (nonatomic, readonly, strong) IFIntelFile *intelligenceData;
 
 // Intelligence callbacks (rewriting lines)
 /// (To be called from rewriteInput) the number of the line being rewritten
-@property (atomic, readonly) int editingLineNumber;
+@property (nonatomic, readonly) int editingLineNumber;
 /// (To be called from rewriteInput) the number of tab stops on the given line
 - (int) numberOfTabStopsForLine: (int) lineNumber;
 /// (To be called from rewriteInput) the text for a specific line number (which must be lower than the current line number)
