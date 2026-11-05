@@ -18,8 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (IFSyntaxStyle) read: (long) index;
 - (void) write: (long) index value: (IFSyntaxStyle) value;
 
-@property (atomic, nullable) IFSyntaxStyle* styles;
-@property (atomic) unsigned long    numCharStyles;
+@property (nonatomic, nullable) IFSyntaxStyle* styles;
+@property (nonatomic) unsigned long numCharStyles;
 
 @end
 

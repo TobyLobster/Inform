@@ -13,6 +13,7 @@
 #import "IFSkeinItem.h"
 #import "IFIntelFile.h"
 #import "IFIntelSymbol.h"
+#import "IFSyntaxStyles.h"
 #import "IFProject.h"
 #import "IFCompiler.h"
 #import "IFCollapsableView.h"
