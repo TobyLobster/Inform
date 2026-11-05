@@ -9,6 +9,10 @@
 #import "IFIntelSymbol.h"
 
 @implementation IFIntelSymbol {
+    // Our relation in the list of symbols
+    __weak IFIntelSymbol* nextSymbol;
+    __weak IFIntelSymbol* lastSymbol;
+
     // Our data
     /// Name of the symbol (as displayed in the index)
     NSString* name;

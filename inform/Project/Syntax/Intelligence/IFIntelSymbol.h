@@ -27,13 +27,7 @@ extern NSString* const IFSectionSymbolType;	// Natural Inform section
 ///
 /// A single symbol gathered by the 'intelligence'
 ///
-@interface IFIntelSymbol : NSObject<NSSecureCoding> {
-@protected
-    // Our relation in the list of symbols
-    // Only public to IFIntelFile
-    __weak IFIntelSymbol* nextSymbol;
-    __weak IFIntelSymbol* lastSymbol;
-}
+@interface IFIntelSymbol : NSObject<NSSecureCoding>
 
 // Only public to IFIntelFile
 /// Next symbol (nearest)
