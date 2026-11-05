@@ -28,8 +28,8 @@
     for (int index = 0; index < range->location; index++) {
         int chr = [self characterAtIndex: index];
         
-        // Check for start or end of string
-        if ((chr == '"') || (chr == 0x201C) || (chr == 0x201D)) {
+        // Check for start or end of string (a quotation mark in a comment is part of the comment)
+        if (((chr == '"') || (chr == 0x201C) || (chr == 0x201D)) && (commentDepth == 0)) {
             inString = !inString;
         } else if (!inString) {
             // Check for start or end comment
@@ -51,7 +51,7 @@
     for(NSUInteger index = range->location; index < (range->location + range->length); index++ ) {
         int chr = [self characterAtIndex: index];
         
-        if ((chr == '"') || (chr == 0x201C) || (chr == 0x201D)) {
+        if (((chr == '"') || (chr == 0x201C) || (chr == 0x201D)) && (rangeCommentDepth == 0)) {
             inString = !inString;
         } else if (!inString) {
             // Check for start or end comment

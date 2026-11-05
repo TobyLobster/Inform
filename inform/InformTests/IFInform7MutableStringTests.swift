@@ -70,6 +70,13 @@ final class IFInform7MutableStringTests: XCTestCase {
         XCTAssertEqual(commentOut("say \"[\". «Every turn» \"]\""), "say \"[\". «[Every turn]» \"]\"")
     }
 
+    func testAQuotationMarkInACommentIsntAString() {
+        // As the highlighter and Inform have it
+        XCTAssertEqual(commentOut("[Use a \" for text.]\n«Every turn: say \"Hi\".»\n"),
+                       "[Use a \" for text.]\n«[Every turn: say \"Hi\".]»\n")
+        XCTAssertEqual(commentOut("[A «note with a “» here.]"), "[A «[note with a “]» here.]")
+    }
+
     func testCommentingOutPastTheEndOfTheText() {
         let text = NSMutableString(string: "Every turn")
         var range = NSRange(location: 6, length: 100)
@@ -88,6 +95,12 @@ final class IFInform7MutableStringTests: XCTestCase {
     func testUncommentingPartOfAComment() {
         // The comment is closed before the selection and opened again after it
         XCTAssertEqual(uncomment("[A «note» here.]"), "[A «]note[» here.]")
+    }
+
+    func testUncommentingAfterAQuotationMarkInAComment() {
+        XCTAssertEqual(uncomment("[Use a \" for text.]\n«[Every turn: say \"Hi\".]»\n"),
+                       "[Use a \" for text.]\n«Every turn: say \"Hi\".»\n")
+        XCTAssertEqual(uncomment("[A «note with a \"» here.]"), "[A «]note with a \"[» here.]")
     }
 
     func testUncommentingWhatIsntAComment() {
