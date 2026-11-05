@@ -10,9 +10,6 @@
 #import "NSBundle+IFBundleExtensions.h"
 #import "IFCompilerSettings.h"
 
-NSString* const IFSettingHasChangedNotification = @"IFSettingHasChangedNotification";
-NSString* const IFSettingCreateBlorb = @"IFSettingCreateBlorb";
-
 @implementation IFSetting {
     /// The view that can be used to edit the settings
     NSView*             settingView;
