@@ -21,11 +21,6 @@ static NSMutableDictionary<NSValue*,IFSyntaxData*>* storages = nil;
     });
 }
 
-+(void) dealloc {
-    [super dealloc];
-}
-
-
 ///
 /// Internal
 ///
@@ -164,12 +159,6 @@ static NSMutableDictionary<NSValue*,IFSyntaxData*>* storages = nil;
 //
 // Intelligence
 //
-+(void) setIntelligenceForStorage: (NSTextStorage*) storage
-                     intelligence: (id<IFSyntaxIntelligence>) intelligence {
-    IFSyntaxData* data = [IFSyntaxManager dataForStorage:storage];
-    data.intelligence = intelligence;
-}
-
 +(IFIntelFile*) intelligenceDataForStorage: (NSTextStorage*) storage {
     IFSyntaxData* data = [IFSyntaxManager dataForStorage:storage];
     return data.intelligenceData;

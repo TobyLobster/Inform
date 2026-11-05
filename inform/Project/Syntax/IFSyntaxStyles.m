@@ -10,18 +10,6 @@
 
 @implementation IFSyntaxStyles
 
-- (instancetype) initWithStyles: (IFSyntaxStyle*) styles
-                  numCharStyles: (unsigned long) numCharStyles {
-    self = [super init];
-
-    if (self) {
-        self.styles = styles;
-        self.numCharStyles = numCharStyles;
-    }
-
-    return self;
-}
-
 - (instancetype) init {
     self = [super init];
 
