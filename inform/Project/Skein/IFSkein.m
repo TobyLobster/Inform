@@ -590,12 +590,8 @@ static NSString* idForNode(IFSkeinItem* item) {
             }
             NSString* composedActual = node.composedActual;
             NSString* composedIdeal  = node.composedIdeal;
-            if (composedActual != nil) {
-                [item addChild: [IFSkein elementWithName: @"result"  value: composedActual preserveWhitespace: YES]];
-            }
-            if (composedIdeal != nil) {
-                [item addChild: [IFSkein elementWithName: @"commentary" value: composedIdeal preserveWhitespace: YES]];
-            }
+            [item addChild: [IFSkein elementWithName: @"result"  value: composedActual preserveWhitespace: YES]];
+            [item addChild: [IFSkein elementWithName: @"commentary" value: composedIdeal preserveWhitespace: YES]];
 
             if (_winningItem == node) {
                 [item addChild: [IFSkein elementWithName: @"annotation" value: @"***" preserveWhitespace: YES]];
