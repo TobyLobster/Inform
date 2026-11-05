@@ -34,8 +34,12 @@ NSString* const IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotif
 		symbols = [[NSMutableArray alloc] init];
 		symbolLines = NULL;
 	}
-	
+
 	return self;
+}
+
+- (void) dealloc {
+	free(symbolLines);
 }
 
 - (int) indexOfSymbolOnLine: (NSUInteger) lineNumber {
