@@ -28,17 +28,17 @@ extern NSString* const IFSkeinItemPboardType;
 -(nullable instancetype) initWithCoder: (NSCoder *) decoder NS_DESIGNATED_INITIALIZER;
 
 #pragma mark - Properties
-@property (atomic, readonly)          unsigned long   uniqueId;
-@property (atomic, strong, nullable)  IFSkein *       skein;
+@property (nonatomic, readonly)       unsigned long   uniqueId;
+@property (nonatomic, strong, nullable) IFSkein *     skein;
 @property (nonatomic, weak, nullable) IFSkeinItem *   parent;
-@property (atomic, readonly, copy)    NSArray<IFSkeinItem*> *       children;
+@property (nonatomic, readonly, copy) NSArray<IFSkeinItem*> *       children;
 @property (nonatomic, copy, null_resettable) NSString * command;        // Command
 @property (nonatomic, copy, null_resettable) NSString * actual;         // Latest actual output from the game
 @property (nonatomic, copy, null_resettable) NSString * ideal;          // The ideal version of the output
 @property (nonatomic)                 BOOL            isTestSubItem;  // Is node a result of a "test me" style command?
-@property (atomic)                    IFDiffer*       diffCachedResult;       // Differences
+@property (nonatomic)                 IFDiffer*       diffCachedResult;       // Differences
 
-@property (atomic, readonly)          unsigned long   reportStateHash;
+@property (nonatomic, readonly)       unsigned long   reportStateHash;
 
 #pragma mark - Methods
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) IFSkeinItem *rootItem;
@@ -75,8 +75,8 @@ extern NSString* const IFSkeinItemPboardType;
 
 // Cache of command size, used by IFSkeinItemView when laying out
 #pragma mark - Command size cache
-@property (atomic) BOOL     commandSizeDidChange;
-@property (atomic) NSSize   cachedCommandSize;
+@property (nonatomic) BOOL     commandSizeDidChange;
+@property (nonatomic) NSSize   cachedCommandSize;
 
 /// When font size preference changes, force recalculation of command sizes
 -(void) forceCommandSizeChangeRecursively;
