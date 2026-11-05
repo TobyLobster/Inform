@@ -289,12 +289,13 @@ static NSArray* autoNumberHeading = nil;
 	if (currentSectionNumber <= 0) return;
 	if (firstSymbol.level == 0) return;
 	
-	// Renumber all the siblings
+	// Renumber the siblings at the same level (a heading of a higher level can be a sibling too,
+	// such as a chapter after sections that aren't in one)
 	IFIntelSymbol* symbol = firstSymbol.sibling;
-	
+
 	NSMutableArray* todoList = [NSMutableArray array];
-	
-	while (symbol != nil) {
+
+	while (symbol != nil && symbol.level == firstSymbol.level) {
 		currentSectionNumber++;
 		
 		int symbolSectionNumber = [IFNaturalIntel numberOfHeading: symbol.name];

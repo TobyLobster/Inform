@@ -262,4 +262,22 @@ final class IFNaturalIntelTests: XCTestCase {
         XCTAssertEqual(storage.string, text.replacingOccurrences(of: "Section 2 - Side", with: "Section 2 - \n\nSection 3 - Side"))
         XCTAssertEqual(renumbered, ["Section 3 - Side\n"])
     }
+
+    /// Sections before the first chapter come under the title, as the chapters do, but aren't numbered with them.
+    func testRenumberingStopsAtAHigherHeading() throws {
+        try skipUnlessNumbering()
+        let text = """
+            "Loose" by Tester
+
+            Section 1 - Setting Up
+
+            Chapter 1 - Starting
+
+            Chapter 2 - Going On
+
+            """
+        let storage = registered(text)
+        typeHeading("Section", before: "Chapter 1", in: storage)
+        XCTAssertEqual(storage.string, text.replacingOccurrences(of: "Chapter 1", with: "Section 2 - \n\nChapter 1"))
+    }
 }
