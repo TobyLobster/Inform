@@ -96,6 +96,20 @@ final class IFExtensionsManagerTests: XCTestCase {
         XCTAssertEqual(line.result, .notValid)
     }
 
+    /// The start that's read can end part way through a character
+    func testReadsAFileWhoseStartEndsInACharacter() throws {
+        let start = "Locksmith by Emily Short begins here.\n\n"
+        let text = start + String(repeating: "-", count: 1023 - start.utf8.count) + "\u{E9} ends here.\n"
+        let file = try makeFolder().appendingPathComponent("Extension.i7x")
+        try text.write(to: file, atomically: true, encoding: .utf8)
+        // The first byte of the two in é is the last byte read
+        XCTAssertEqual(try Data(contentsOf: file)[1023], 0xC3)
+
+        let line = read(file)
+        XCTAssertEqual(line.result, .success)
+        XCTAssertEqual(line.author, "Emily Short")
+    }
+
     func testRejectsAFirstLineWithNoAuthor() throws {
         XCTAssertEqual(try read(firstLine: "Locksmith by  begins here.").result, .notValid)
     }

@@ -471,7 +471,12 @@ static int maxErrorMessagesToDisplay = 3;
 	NSData* extensionInitialData = [extensionFile readDataOfLength: 1024];
 	NSString* extensionString = [[NSString alloc] initWithData: extensionInitialData
                                                        encoding: NSUTF8StringEncoding];
-    
+    // The data read can end part way through a character: if so, leave that character out
+    for (NSUInteger cut = 1; (extensionString == nil) && (cut <= 3) && (cut < extensionInitialData.length); cut++) {
+        extensionString = [[NSString alloc] initWithData: [extensionInitialData subdataWithRange: NSMakeRange(0, extensionInitialData.length - cut)]
+                                                encoding: NSUTF8StringEncoding];
+    }
+
     // Fix line endings
     if ([extensionString rangeOfString:@"\r"].location != NSNotFound) {
         extensionString = [extensionString stringByReplacingOccurrencesOfString:@"\r\n" withString:@"\n"];
