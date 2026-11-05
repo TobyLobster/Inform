@@ -152,7 +152,7 @@ private func isWordBoundary(_ string: NSString, _ index: Int) -> Bool {
            actual.containsSubstring("Serial number") {
             let matchRangeA2 = bannerRange(ideal, rangeA)
             if matchRangeA2.location != NSNotFound {
-                assert(matchRangeA2.location >= rangeA.location, "oops #1")
+                precondition(matchRangeA2.location >= rangeA.location, "oops #1")
                 let matchRangeA1 = NSRange(location: rangeA.location, length: matchRangeA2.location - rangeA.location)
 
                 let A_pre_len  = matchRangeA1.length
@@ -161,7 +161,7 @@ private func isWordBoundary(_ string: NSString, _ index: Int) -> Bool {
 
                 let matchRangeB2 = bannerRange(actual, rangeB)
                 if matchRangeB2.location != NSNotFound {
-                    assert(matchRangeB2.location >= rangeB.location, "oops #2")
+                    precondition(matchRangeB2.location >= rangeB.location, "oops #2")
                     let matchRangeB1 = NSRange(location: rangeB.location, length: matchRangeB2.location - rangeB.location)
 
                     let B_pre_len  = matchRangeB1.length
@@ -288,7 +288,7 @@ private func isWordBoundary(_ string: NSString, _ index: Int) -> Bool {
             if trace_diff { NSLog("substring: ") }
             for c in 0..<max_len {
                 if trace_diff { NSLog("%c", charAt(ideal, rangeA.location + max_i+c)) }
-                assert(charAt(ideal, rangeA.location + max_i+c) == charAt(actual, rangeB.location + max_j+c), "oops #3")
+                precondition(charAt(ideal, rangeA.location + max_i+c) == charAt(actual, rangeB.location + max_j+c), "oops #3")
             }
             if trace_diff { NSLog("\n---\n") }
 

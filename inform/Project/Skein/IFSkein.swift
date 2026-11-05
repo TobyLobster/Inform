@@ -103,12 +103,12 @@ import Cocoa
         // Merge the item into the skein
         let mergedItem = activeItem?.addChild(newItem)
 
-        assert((activeItem == nil) || (activeItem?.skein != nil), "Active item has no skein #1")
+        precondition((activeItem == nil) || (activeItem?.skein != nil), "Active item has no skein #1")
 
         // Move the 'active' item
         activeItem = mergedItem
 
-        assert((activeItem == nil) || (activeItem?.skein != nil), "Active item has no skein #2")
+        precondition((activeItem == nil) || (activeItem?.skein != nil), "Active item has no skein #2")
 
         // Create a buffer for any new output
         currentOutput = NSMutableString()
