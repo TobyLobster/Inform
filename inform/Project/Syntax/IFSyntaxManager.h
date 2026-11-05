@@ -41,8 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
 //
 // Intelligence
 //
-+(void) setIntelligenceForStorage: (NSTextStorage*) storage
-                     intelligence: (nullable id<IFSyntaxIntelligence>) intelligence;
 +(nullable IFIntelFile*) intelligenceDataForStorage: (NSTextStorage*) storage;
 
 //

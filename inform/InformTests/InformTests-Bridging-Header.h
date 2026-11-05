@@ -18,6 +18,8 @@
 #import "IFPreferences.h"
 #import "IFSyntaxManager.h"
 #import "IFSyntaxData.h"
+#import "IFSyntaxStyles.h"
+#import "IFInform7MutableString.h"
 #import "IFProject.h"
 #import "IFProjectFile.h"
 #import "IFProjectController.h"

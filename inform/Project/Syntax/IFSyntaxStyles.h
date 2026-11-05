@@ -15,13 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface IFSyntaxStyles : NSObject
 
 - (instancetype) init NS_DESIGNATED_INITIALIZER;
-- (instancetype) initWithStyles: (IFSyntaxStyle*) styles
-                  numCharStyles: (unsigned long) numCharStyles NS_DESIGNATED_INITIALIZER;
 - (IFSyntaxStyle) read: (long) index;
 - (void) write: (long) index value: (IFSyntaxStyle) value;
 
-@property (atomic, nullable) IFSyntaxStyle* styles;
-@property (atomic) unsigned long    numCharStyles;
+@property (nonatomic, nullable) IFSyntaxStyle* styles;
+@property (nonatomic) unsigned long numCharStyles;
 
 @end
 
