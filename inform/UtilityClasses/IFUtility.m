@@ -329,12 +329,7 @@ CGFloat easeOutCubic(CGFloat t) {
                                      size: (CGFloat) fontSize {
     NSMutableDictionary* mutableResult = [dictionary mutableCopy];
     NSFont* font = mutableResult[NSFontAttributeName];
-    if (@available(macOS 10.15, *)) {
-        font = [font fontWithSize: fontSize];
-    } else {
-        font = [NSFont fontWithName: font.fontName
-                               size: fontSize];
-    }
+    font = [font fontWithSize: fontSize];
     mutableResult[NSFontAttributeName] = font;
     return [mutableResult copy];
 }
