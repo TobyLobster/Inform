@@ -37,6 +37,10 @@ CGFloat easeOutCubic(CGFloat t);
 + (void) runAlertWarningWindow: (nullable NSWindow*) window
                          title: (NSString*) title
                informativeText: (NSString*) text;
+/// A warning whose title is already localised, with its text as it is, for Swift
++ (void) runAlertWarningWindow: (nullable NSWindow*) window
+                localizedTitle: (NSString*) title
+               informativeText: (NSString*) text;
 
 + (void) runAlertWindow: (nullable NSWindow*) window
               localized: (BOOL) alreadyLocalized

@@ -668,24 +668,18 @@ static int maxErrorMessagesToDisplay = 3;
                 } else {
                     messageKey = [NSString stringWithFormat: [IFUtility localizedString: @"%d extensions installed successfully, %d failed"], numberOfBatchedExtensions - numberOfErrors, numberOfErrors];
                 }
-                [IFUtility runAlertWindow: download.window
-                                localized: YES
-                                  warning: YES
-                                    title: messageKey
-                                  message: @"%@", errorString];
+                [IFUtility runAlertWarningWindow: download.window
+                                  localizedTitle: messageKey
+                                 informativeText: errorString];
             } else {
                 if (numberOfBatchedExtensions > 1 ) {
-                    [IFUtility runAlertWindow: download.window
-                                    localized: YES
-                                      warning: YES
-                                        title: [NSString stringWithFormat: [IFUtility localizedString: @"Failed to install %d extensions"], numberOfErrors]
-                                      message: @"%@", errorString];
+                    [IFUtility runAlertWarningWindow: download.window
+                                      localizedTitle: [NSString stringWithFormat: [IFUtility localizedString: @"Failed to install %d extensions"], numberOfErrors]
+                                     informativeText: errorString];
                 } else {
-                    [IFUtility runAlertWindow: download.window
-                                    localized: YES
-                                      warning: YES
-                                        title: [IFUtility localizedString: @"Failed to install extension"]
-                                      message: @"%@", errorString];
+                    [IFUtility runAlertWarningWindow: download.window
+                                      localizedTitle: [IFUtility localizedString: @"Failed to install extension"]
+                                     informativeText: errorString];
                 }
             }
         }

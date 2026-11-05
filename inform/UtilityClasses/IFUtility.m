@@ -67,6 +67,16 @@ CGFloat easeOutCubic(CGFloat t) {
                         message: @"%@", text];
 }
 
++ (void) runAlertWarningWindow: (NSWindow*) window
+                localizedTitle: (NSString*) title
+               informativeText: (NSString*) text {
+    [[self class] runAlertWindow: window
+                       localized: YES
+                         warning: YES
+                           title: title
+                         message: @"%@", text];
+}
+
 + (void) runAlertInformationWindow: (NSWindow*) window
                              title: (NSString*) title
                            message: (NSString*) formatString, ... {
