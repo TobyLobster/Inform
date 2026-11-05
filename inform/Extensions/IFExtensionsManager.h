@@ -9,7 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "IFProgress.h"
 #import "IFProject.h"
-#import "IFSemVer.h"
+#import "IFExtensionInfo.h"
+#import "IFExtensionDownload.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,65 +24,6 @@ typedef NS_ENUM(int, IFExtensionResult) {
     IFExtensionCantWriteDestination,
     IFExtensionSuccess,
 };
-
-#pragma mark -
-
-@interface IFExtensionInfo : NSObject
-
-@property (atomic, copy)   NSString* displayName;
-@property (atomic, copy, nullable) NSString* filepath;
-@property (atomic, copy)   NSString* author;
-/// The version (\c nil or empty if the extension has none)
-@property (atomic, copy, nullable) NSString* version;
-@property (atomic)         BOOL      isBuiltIn;
-
--(instancetype) init NS_UNAVAILABLE;
-
--(instancetype) initWithDisplayName: (NSString*) displayName
-                 filepath: (nullable NSString*) filepath
-                   author: (NSString*) author
-                  version: (nullable NSString*) version
-                isBuiltIn: (BOOL) isBuiltIn NS_DESIGNATED_INITIALIZER;
-
-/// Remove leading "The ", "An ", or "A ", and trailing proviso (in brackets) from a display name to get title used for extension filename
-+(NSString*) canonicalTitle:(NSString*) displayName;
-@property (atomic, readonly, copy) NSString *safeVersion;
-@property (atomic, readonly, copy) IFSemVer *semver;
--(BOOL) isEqual: (nullable id) other;
-
-@end
-
-#pragma mark -
-
-typedef NS_ENUM(int, IFExtensionDownloadState) {
-    IFExtensionDownloadNotStarted,
-    IFExtensionDownloadInProgress,
-    IFExtensionDownloadFailed,
-    IFExtensionInstallFailed,
-    IFExtensionDownloadAndInstallSucceeded,
-};
-
-@interface IFExtensionDownload : NSObject
-
-@property (atomic) IFExtensionDownloadState state;
-@property (atomic, strong, nullable) NSURLSessionDataTask* connection;
-@property (atomic, strong, nullable) NSMutableData*   receivedData;
-@property (atomic, strong, nullable) NSWindow*        window;
-@property (atomic, strong, nullable) NSString*        javascriptId;
-@property (atomic, strong, nullable) NSObject*        notifyDelegate;
-@property (atomic, strong) NSURL*           url;
-
-// Download and install
-- (instancetype) init NS_UNAVAILABLE;
-- (instancetype) initWithURL: (NSURL*) url
-                      window: (nullable NSWindow*) aWindow
-              notifyDelegate: (nullable NSObject*) notifyDelegate
-                javascriptId: (nullable NSString*) javascriptId NS_DESIGNATED_INITIALIZER;
-
--(BOOL) startDownloadAndInstall;
-
-@end
-
 
 #pragma mark -
 
