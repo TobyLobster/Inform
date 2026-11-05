@@ -100,5 +100,9 @@ final class IFExtensionDownloadTests: XCTestCase {
         let finished = expectation(for: NSPredicate { _, _ in newDownload.connection == nil }, evaluatedWith: nil)
         wait(for: [finished], timeout: 10)
         XCTAssertNil(newDownload.receivedData)
+
+        // With no project to install it in, it isn't installed
+        XCTAssertFalse(NSDocumentController.shared.documents.contains { $0 is IFProject })
+        XCTAssertEqual(newDownload.state, .installFailed)
     }
 }

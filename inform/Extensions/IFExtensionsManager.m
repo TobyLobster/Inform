@@ -270,6 +270,7 @@ didReceiveResponse: (NSURLResponse *)response
             NSURL *url = [NSURL fileURLWithPath: filename isDirectory: NO];
             IFAppDelegate* appDelegate = (IFAppDelegate*)NSApp.delegate;
             IFProjectController * projectController = appDelegate.frontmostProjectController;
+            BOOL installing = NO;
             if (projectController) {
                 IFProject * project = projectController.document;
                 NSString *name = [task.originalRequest.URL lastPathComponent];
@@ -279,7 +280,7 @@ didReceiveResponse: (NSURLResponse *)response
                 if (extensionURL) {
                     // Call inbuild to check it's a valid extension and install
                     [projectController installExtensionURL: extensionURL];
-                    self.state = IFExtensionDownloadAndInstallSucceeded;
+                    installing = YES;
                 }
             }
 
@@ -288,7 +289,8 @@ didReceiveResponse: (NSURLResponse *)response
             [[NSFileManager defaultManager] removeItemAtPath: filename
                                                        error: &ourError];
 
-            self.state = IFExtensionDownloadAndInstallSucceeded;
+            // Only report success if the extension was handed over to be installed
+            self.state = installing ? IFExtensionDownloadAndInstallSucceeded : IFExtensionInstallFailed;
         }
         else {
             self.state = IFExtensionInstallFailed;
