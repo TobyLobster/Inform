@@ -27,6 +27,8 @@
 #import "IFExtensionsManager.h"
 #import "IFInBuild.h"
 #import "IFNaturalIntel.h"
+#import "IFIntelFile.h"
+#import "IFIntelSymbol.h"
 #import "IFSourceSharedActions.h"
 #import "IFGamePage.h"
 #import "IFFindResult.h"

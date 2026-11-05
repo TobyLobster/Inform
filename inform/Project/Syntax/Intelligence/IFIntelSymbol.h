@@ -27,37 +27,31 @@ extern NSString* const IFSectionSymbolType;	// Natural Inform section
 ///
 /// A single symbol gathered by the 'intelligence'
 ///
-@interface IFIntelSymbol : NSObject<NSSecureCoding> {
-@protected
-    // Our relation in the list of symbols
-    // Only public to IFIntelFile
-    __weak IFIntelSymbol* nextSymbol;
-    __weak IFIntelSymbol* lastSymbol;
-}
+@interface IFIntelSymbol : NSObject<NSSecureCoding>
 
 // Only public to IFIntelFile
 /// Next symbol (nearest)
-@property(atomic, weak, nullable) IFIntelSymbol* nextSymbol;
+@property(nonatomic, weak, nullable) IFIntelSymbol* nextSymbol;
 /// Previous symbol (nearest)
-@property(atomic, weak, nullable) IFIntelSymbol* lastSymbol;
+@property(nonatomic, weak, nullable) IFIntelSymbol* lastSymbol;
 
 // Symbol data
-@property (atomic, copy, nullable) NSString *name;
-@property (atomic, copy, nullable) NSString *type;
+@property (nonatomic, copy, nullable) NSString *name;
+@property (nonatomic, copy, nullable) NSString *type;
 @property (nonatomic) int level;
-@property (atomic) IFSymbolRelation relation;
-@property (atomic) int levelDelta;
+@property (nonatomic) IFSymbolRelation relation;
+@property (nonatomic) int levelDelta;
 
 
 // (If we're stored in an IFIntelFile, our relation to other symbols in the file)
 /// May go down multiple levels
-@property (atomic, readonly, strong, nullable) IFIntelSymbol *parent;
+@property (nonatomic, readonly, strong, nullable) IFIntelSymbol *parent;
 /// Symbol that comes below us (if there is one)
-@property (atomic, readonly, strong, nullable) IFIntelSymbol *child;
+@property (nonatomic, readonly, strong, nullable) IFIntelSymbol *child;
 /// Next symbol on the same level
-@property (atomic, readonly, strong, nullable) IFIntelSymbol *sibling;
+@property (nonatomic, readonly, strong, nullable) IFIntelSymbol *sibling;
 /// Previous symbol on the same level
-@property (atomic, readonly, strong, nullable) IFIntelSymbol *previousSibling;
+@property (nonatomic, readonly, strong, nullable) IFIntelSymbol *previousSibling;
 
 @end
 
