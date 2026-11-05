@@ -91,7 +91,7 @@ NSString* const IFSettingCreateBlorb = @"IFSettingCreateBlorb";
 
 #pragma mark - Default way of dealing with the plist: copy entries from the dictionary
 
-- (NSDictionary*) plistEntries {
+- (NSMutableDictionary*) plistEntries {
 	return [self dictionary];
 }
 

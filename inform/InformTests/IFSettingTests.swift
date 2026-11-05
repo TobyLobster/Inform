@@ -82,7 +82,7 @@ final class IFSettingTests: XCTestCase {
         XCTAssertTrue(dictionary === settings.dictionary(for: type(of: misc)))
 
         // Its plist entries are the dictionary itself, not a copy
-        XCTAssertTrue((misc.value(forKey: "plistEntries") as? NSMutableDictionary) === dictionary)
+        XCTAssertTrue(misc.plistEntries === dictionary)
     }
 
     func testChangesAreNotifiedOnce() {

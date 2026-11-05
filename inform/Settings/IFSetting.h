@@ -54,8 +54,8 @@ extern NSString* const IFSettingCreateBlorb;
 - (IBAction) settingsHaveChanged: (nullable id) sender;
 
 // Saving settings
-/// Retrieves the Plist dictionary for this setting
-@property (atomic, readonly, copy, nullable) NSDictionary<NSString*, id> *plistEntries;
+/// Retrieves the Plist dictionary for this setting (the setting's own dictionary, which the compiler settings keep)
+@property (atomic, readonly, nullable) NSMutableDictionary<NSString*, id> *plistEntries;
 /// Updates the values for this setting from a Plist dictionary (\c nil if the Plist has none for it)
 - (void) updateSettings: (IFCompilerSettings*) settings
 	   withPlistEntries: (nullable NSDictionary<NSString*, id>*) entries;
