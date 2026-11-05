@@ -72,6 +72,11 @@ final class IFExtensionInfoTests: XCTestCase {
         XCTAssertEqual(info(filepath: "/b").caseInsensitiveCompare(info(filepath: "/a", author: "EMILY SHORT")), .orderedDescending)
         XCTAssertEqual(info(filepath: "/a").caseInsensitiveCompare(info(filepath: "/B")), .orderedDescending)
         XCTAssertEqual(info().caseInsensitiveCompare(info(version: "v1", isBuiltIn: true)), .orderedSame)
+
+        // With no file, it's the same as any other, but a file comes after no file
+        XCTAssertEqual(info(filepath: nil).caseInsensitiveCompare(info(filepath: "/a")), .orderedSame)
+        XCTAssertEqual(info(filepath: nil).caseInsensitiveCompare(info(filepath: nil)), .orderedSame)
+        XCTAssertEqual(info(filepath: "/a").caseInsensitiveCompare(info(filepath: nil)), .orderedDescending)
     }
 
     func testEquality() {
@@ -86,6 +91,9 @@ final class IFExtensionInfoTests: XCTestCase {
         XCTAssertFalse(info().isEqual(info(version: "v13")))
         XCTAssertFalse(info().isEqual(info(version: nil)))
         XCTAssertFalse(info().isEqual(info(isBuiltIn: true)))
+
+        // Text is compared as it's written, so an accent written two ways makes two names
+        XCTAssertFalse(info("Caf\u{E9}").isEqual(info("Cafe\u{301}")))
 
         XCTAssertFalse(info().isEqual(nil))
         XCTAssertFalse(info().isEqual("Locksmith"))
