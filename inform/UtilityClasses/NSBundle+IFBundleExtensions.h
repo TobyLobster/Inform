@@ -11,7 +11,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSBundle (IFBundleExtensions)
--(nullable NSString *) pathForResourcePath: (NSString *) relativePath;
 +(BOOL) customLoadNib:(NSString *)nibName owner:(nullable id)owner;
 
 @end
