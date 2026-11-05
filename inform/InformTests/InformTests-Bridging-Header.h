@@ -28,6 +28,7 @@
 #import "IFWebViewHelper.h"
 #import "IFRuntimeErrorParser.h"
 #import "IFCompilerSettings.h"
+#import "IFSetting.h"
 #import "IFExtensionsManager.h"
 #import "IFInBuild.h"
 #import "IFNaturalIntel.h"

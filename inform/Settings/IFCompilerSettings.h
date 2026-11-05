@@ -27,7 +27,6 @@ extern NSString* const IFSettingBasicInform;          // default NO
 extern NSString* const IFSettingCompilerVersion;      // default "Latest"
 
 // Debug
-extern NSString* const IFSettingCompileNatOutput;
 extern NSString* const IFSettingAllowLegacyExtensionDirectory;
 
 // Notifications
@@ -71,8 +70,6 @@ extern NSString* const IFCompilerNaturalInform;
 @property (atomic, readwrite, setter=setZCodeVersion:) int zcodeVersion;
 @property (atomic, readonly, copy) NSString *fileExtension;
 
-@property (atomic) BOOL debugMemory;
-
 /// Generates a settings changed notification
 - (void) settingsHaveChanged;
 
@@ -85,8 +82,6 @@ extern NSString* const IFCompilerNaturalInform;
 - (nullable IFSetting*) settingForClass: (Class) cls;
 
 // Getting command line arguments, etc
-/// Retrieves the command line arguments to pass to the Inform 6 compiler
-@property (atomic, readonly, copy) NSArray<NSString*> *commandLineArguments;
 /// Retrieves the command line arguments to pass to the Inform 6 compiler. If \c release is YES, debugging options are turned off
 - (NSArray<NSString*>*) commandLineArgumentsForRelease: (BOOL) release
                                             forTesting: (BOOL) testing;

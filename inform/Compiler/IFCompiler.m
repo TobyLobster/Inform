@@ -289,20 +289,6 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     theTask = [[NSTask alloc] init];
     finishCount = 0;
 
-    if (settings.debugMemory) {
-        NSMutableDictionary* newEnvironment = [theTask.environment mutableCopy];
-        if (!newEnvironment) newEnvironment = [[NSMutableDictionary alloc] init];
-
-        newEnvironment[@"MallocGuardEdges"]     = @"1";
-        newEnvironment[@"MallocScribble"]       = @"1";
-        newEnvironment[@"MallocBadFreeAbort"]   = @"1";
-        newEnvironment[@"MallocCheckHeapStart"] = @"512";
-        newEnvironment[@"MallocCheckHeapEach"]  = @"256";
-        newEnvironment[@"MallocStackLogging"]   = @"1";
-
-        theTask.environment = newEnvironment;
-    }
-
     theTask.arguments = args;
     theTask.launchPath = command;
     if (workingDirectory)
