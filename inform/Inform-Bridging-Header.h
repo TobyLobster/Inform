@@ -34,3 +34,4 @@
 #import "IFCompilerVersionSettings.h"
 #import "IFCompilerSettings.h"
 #import "IFNewExtensionsManager.h"
+#import "IFExtensionInfo.h"
