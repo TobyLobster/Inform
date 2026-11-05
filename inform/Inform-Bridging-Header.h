@@ -19,6 +19,7 @@
 #import "IFSyntaxData.h"
 #import "IFInform6Highlighter.h"
 #import "IFNaturalHighlighter.h"
+#import "IFProjectPane.h"
 #import "IFProject.h"
 #import "IFCompiler.h"
 #import "IFCollapsableView.h"
