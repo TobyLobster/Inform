@@ -277,96 +277,24 @@
 }
 
 //
-// Copy the latest change from one textStorage into another
-//
--(void) mirrorChangeInTextStorage: (NSTextStorage*) storage
-                     replaceRange: (NSRange) range
-             withAttributedString: (NSAttributedString*) attributedString
-                    toTextStorage: (NSTextStorage*) destinationStorage {
-    if( storage == destinationStorage ) {
-        return;
-    }
-    
-    int changeInLength = (int) attributedString.length - (int) range.length;
-    
-    // If the change was made to one of the restricted storages, update the main text.
-    bool foundChangeInRestrictedViews = false;
-    for( IFSyntaxRestricted*restricted in restrictions ) {
-        if( restricted.restrictedTextStorage == storage ) {
-            foundChangeInRestrictedViews = true;
-
-            // Convert range to refer to full text
-            range.location += restricted.restrictedRange.location;
-            
-            // Change the main text
-            if( destinationStorage == _textStorage ) {
-                [_textStorage replaceCharactersInRange: range
-                                  withAttributedString: attributedString];
-                return;
-            }
-            break;
-        }
-    }
-
-    NSAssert(foundChangeInRestrictedViews || (storage == _textStorage), @"something not right with the text storage");
-
-    // Change restricted view
-    for( IFSyntaxRestricted*restricted in restrictions ) {
-        // If this is the restricted storage that we want to change...
-        if( restricted.restrictedTextStorage == destinationStorage ) {
-            NSRange restrictedRange = restricted.restrictedRange;
-            
-            // If the range of the edit lies (at least partially) within the restricted range
-            // then we want to update the restricted text.
-            if( ((range.location + range.length) > restrictedRange.location) &&
-               (range.location < (restrictedRange.location + restrictedRange.length)) ) {
-                
-                // Normal edit range, in restricted storage
-                int editStart = (int)range.location - (int)restrictedRange.location;
-                int editEnd   = editStart + (int) range.length;
-                
-                // Clip within start of restricted storage
-                if( editStart < 0 ) {
-                    attributedString = [attributedString attributedSubstringFromRange: NSMakeRange(-editStart, attributedString.length + editStart)];
-                    changeInLength += editStart;
-                    editStart = 0;
-                }
-                
-                NSRange editRange = NSMakeRange(editStart, editEnd - editStart);
-                
-                // Change text
-                [_textStorage replaceCharactersInRange: editRange
-                                  withAttributedString: attributedString];
-                
-                // Restricted text range grows or shrinks with changes
-                restrictedRange.length += changeInLength;
-                restricted.restrictedRange = restrictedRange;
-            }
-            return;
-        }
-    }
-}
-
-//
-// Duplicate the change just made in one storage through to all the other related textStorages
+// Copy a change made to one of the restricted storages into the main text
 //
 -(void) mirrorChangeInTextStorage: (NSTextStorage*) storage
                      replaceRange: (NSRange) range
              withAttributedString: (NSAttributedString*) attributedString {
-    
-    // Change main text
-    [self mirrorChangeInTextStorage: storage
-                       replaceRange: range
-               withAttributedString: attributedString
-                      toTextStorage: _textStorage];
-    
-    // Change all restricted views
     for( IFSyntaxRestricted*restricted in restrictions ) {
-        [self mirrorChangeInTextStorage: storage
-                           replaceRange: range
-                   withAttributedString: attributedString
-                          toTextStorage: restricted.restrictedTextStorage];
+        if( restricted.restrictedTextStorage == storage ) {
+            // Convert range to refer to full text
+            range.location += restricted.restrictedRange.location;
+
+            // Change the main text
+            [_textStorage replaceCharactersInRange: range
+                              withAttributedString: attributedString];
+            return;
+        }
     }
+
+    NSAssert(false, @"something not right with the text storage");
 }
 
 // Update the text to account for different line endings and intelligence changes
@@ -440,22 +368,6 @@
         // Actually make the change
         [textStorage replaceCharactersInRange: newRange
                                    withString: rewritten];
-
-        /*
-         // Commented out:
-         // We don't write the change to the other text storages here, as this will happen in textStorageDidProcessEditing
-         //
-
-        // Get attributed rewritten string
-        NSAttributedString *attributedRewritten = [textStorage attributedSubstringFromRange: NSMakeRange(range.location, [rewritten length])];
-
-        // Mirror the change into related text storages
-        // The range has length zero here becuase the original change (before being rewritten) 
-        // has not been reflected in the other storages, so we just need to insert the rewritten string
-        [self mirrorChangeInTextStorage: textStorage
-                           replaceRange: NSMakeRange(range.location, 0)
-                   withAttributedString: attributedRewritten];
-        */
     }
 }
 
@@ -593,8 +505,7 @@
 
         [self mirrorChangeInTextStorage: textStorage
                            replaceRange: oldRange
-                   withAttributedString: newString
-                          toTextStorage: _textStorage];
+                   withAttributedString: newString];
 
         // Convert local ranges to refer to full text
         for( IFSyntaxRestricted*restricted in restrictions ) {
@@ -1381,21 +1292,6 @@ static inline BOOL IsLineEnd(unichar c) {
 	
 	// Start now points to the newline preceeding this line, end to the final newline character, which we want to include in the result
 	return NSMakeRange(start+1, end - start);
-}
-
-// Given a range, returns YES if it is blank (only whitespace)
-- (BOOL) isBlank: (NSRange) range {
-	NSString* text = _textStorage.string;
-	
-	NSUInteger chrPos;
-	for (chrPos = range.location; chrPos < range.location + range.length; chrPos++) {
-		unichar chr = [text characterAtIndex: chrPos];
-		if (!IsWhitespace(chr) && !IsLineEnd(chr)) {
-			return NO;
-		}
-	}
-	
-	return YES;
 }
 
 //
