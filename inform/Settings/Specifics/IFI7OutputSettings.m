@@ -68,6 +68,8 @@
     if ([zmachineVersion cellWithTag: settings.zcodeVersion] != nil) {
         [zmachineVersion selectCellWithTag: settings.zcodeVersion];
     } else {
+        // (A radio matrix only deselects its cells if it allows no selection)
+        zmachineVersion.allowsEmptySelection = YES;
         [zmachineVersion deselectAllCells];
     }
 	
@@ -79,7 +81,10 @@
 	BOOL willCreateBlorb = releaseBlorb.state==NSControlStateValueOn;
     IFCompilerSettings* settings = self.compilerSettings;
 
-	settings.zcodeVersion = (int) zmachineVersion.selectedCell.tag;
+	// (Nothing is selected if the version isn't one offered here)
+	if (zmachineVersion.selectedCell != nil) {
+		settings.zcodeVersion = (int) zmachineVersion.selectedCell.tag;
+	}
 	self.createBlorbForRelease = willCreateBlorb;
 }
 

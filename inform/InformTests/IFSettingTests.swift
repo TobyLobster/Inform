@@ -266,6 +266,25 @@ final class IFSettingTests: XCTestCase {
         try checkOutputSettings("IFI7OutputSettings", formats: [8, 256], forNaturalInform: true)
     }
 
+    func testAFormatNotOfferedIsKept() throws {
+        for (name, version) in [("IFOutputSettings", 7), ("IFI7OutputSettings", 5)] {
+            let settings = IFCompilerSettings()
+            let output = try pane(name, of: settings)
+            let zmachineVersion = try outlet("zmachineVersion", of: output, as: NSMatrix.self)
+            let releaseBlorb = try outlet("releaseBlorb", of: output, as: NSButton.self)
+
+            settings.zcodeVersion = Int32(version)
+            output.updateFromCompilerSettings()
+            XCTAssertNil(zmachineVersion.selectedCell(), name)
+
+            // Changing whether to make a Blorb file leaves the format alone
+            releaseBlorb.state = .off
+            output.setSettings()
+            XCTAssertEqual(settings.zcodeVersion, Int32(version), name)
+            XCTAssertEqual(output.value(forKey: "createBlorbForRelease") as? Bool, false, name)
+        }
+    }
+
     func testOutputSettingsWithNoCompilerSettings() {
         let output = IFI7OutputSettings(nibName: nil)
 
