@@ -221,6 +221,11 @@ final class IFExtensionsManagerTests: XCTestCase {
         XCTAssertEqual(census(#"{ "other": [] }"#), [])
     }
 
+    /// As when inbuild hasn't run, or its output wasn't UTF-8
+    func testNoCensusIsEmpty() {
+        XCTAssertEqual(census(nil), [])
+    }
+
     // MARK: - The open panel
 
     func testTheOpenPanelOffersFoldersAndExtensionFiles() throws {

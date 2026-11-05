@@ -204,6 +204,10 @@ static int maxErrorMessagesToDisplay = 3;
     NSError* error;
 
     NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    if (jsonData == nil) {
+        // There's no census to read
+        return result;
+    }
 
     id object = [NSJSONSerialization
                  JSONObjectWithData:jsonData
