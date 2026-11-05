@@ -90,6 +90,14 @@ final class IFScannerTests: XCTestCase {
         XCTAssertEqual(next("(?<=a)b", in: "ab", from: 1), NSRange(location: 1, length: 1))
     }
 
+    /// \b sees the text before the search position too, so Find All, which searches again from just after
+    /// the start of each match, doesn't find a word boundary inside a word.
+    func testWordBoundarySeesTextBeforeTheSearchPosition() {
+        XCTAssertEqual(next(#"\bfoo"#, in: "xfoo", from: 1), notFound)
+        XCTAssertEqual(next(#"\b\w"#, in: "ab cd", from: 1), NSRange(location: 3, length: 1))
+        XCTAssertEqual(next(#"\Bb"#, in: "ab", from: 1), NSRange(location: 1, length: 1))
+    }
+
     /// Characters outside the Basic Multilingual Plane are found at their UTF-16 positions.
     func testFindsCharactersOutsideTheBasicPlane() {
         XCTAssertEqual(next("\u{1F600}(.)", in: "x\u{1F600}yz"), NSRange(location: 1, length: 3))

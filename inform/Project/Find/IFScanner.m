@@ -78,10 +78,11 @@
 
         if( searchType == IFFindRegexp ) {
             //
-            // Search for a regex match. ^ doesn't match where the search starts unless a line starts there.
+            // Search for a regex match. ^ doesn't match where the search starts unless a line starts there,
+            // and \b sees the text before it.
             //
             NSTextCheckingResult* match = [regex firstMatchInString: storage
-                                                            options: NSMatchingWithoutAnchoringBounds
+                                                            options: NSMatchingWithoutAnchoringBounds | NSMatchingWithTransparentBounds
                                                               range: NSMakeRange(searchPosition, storageLength - searchPosition)];
             range = (match != nil) ? match.range : NSMakeRange(NSNotFound, 0);
             //
