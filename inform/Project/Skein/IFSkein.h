@@ -25,14 +25,14 @@ extern NSString* const IFSkeinSelectionChangedItemKey;
 @interface IFSkein : NSObject <ZoomViewOutputReceiver>
 
 // Retrieving the root / active / selected skein item
-@property (atomic, readonly, strong)  IFSkeinItem * rootItem;
-@property (atomic, strong, nullable)  IFSkeinItem * activeItem;
-@property (atomic, strong, nullable)  IFSkeinItem * winningItem;
-@property (atomic)                    BOOL          skeinChanged;
+@property (nonatomic, readonly, strong) IFSkeinItem * rootItem;
+@property (nonatomic, strong, nullable) IFSkeinItem * activeItem;
+@property (nonatomic, strong, nullable) IFSkeinItem * winningItem;
+@property (nonatomic)                 BOOL          skeinChanged;
 
 
 // Get the list of commands previously executed
-@property (atomic, readonly, strong)  NSMutableArray<NSString*>* previousCommands;
+@property (nonatomic, readonly, strong) NSMutableArray<NSString*>* previousCommands;
 
 - (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
 - (instancetype) initWithProject:(nullable IFProject*) theProject NS_DESIGNATED_INITIALIZER;
@@ -74,9 +74,9 @@ extern NSString* const IFSkeinSelectionChangedItemKey;
 
 // Dragging
 /// Current item being dragged
-@property (atomic, nullable) IFSkeinItem*   draggingItem;
+@property (nonatomic, nullable) IFSkeinItem*   draggingItem;
 /// Used to animate after dragging
-@property (atomic) BOOL           draggingSourceNeedsUpdating;
+@property (nonatomic) BOOL           draggingSourceNeedsUpdating;
 
 // Undo helpers
 - (void) setParentOf:                   (IFSkeinItem*) item parent:         (nullable IFSkeinItem*) newParent;
