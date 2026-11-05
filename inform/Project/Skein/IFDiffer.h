@@ -17,11 +17,10 @@ typedef NS_ENUM(int, EFormOfEdit) {
 };
 
 // *******************************************************************************************
-@interface IFDiffEdit : NSObject {
-@public
-    NSRange     fragment;
-    EFormOfEdit formOfEdit;
-}
+@interface IFDiffEdit : NSObject
+
+@property (nonatomic, readonly) NSRange     fragment;
+@property (nonatomic, readonly) EFormOfEdit formOfEdit;
 
 -(instancetype) initWithRange: (NSRange) range
                          form: (EFormOfEdit) form;

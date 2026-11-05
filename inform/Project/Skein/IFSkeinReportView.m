@@ -85,31 +85,31 @@ static NSDictionary* deleteAttr = nil;
     else {
         output = [[NSMutableAttributedString alloc] initWithString: @"" attributes: normalAttr];
         for( IFDiffEdit* edit in diffResult.differences ) {
-            switch( edit->formOfEdit ) {
+            switch( edit.formOfEdit ) {
                 case DELETE_EDIT:
                 {
-                    NSString* substring = [diffResult.ideal substringWithRange: edit->fragment];
+                    NSString* substring = [diffResult.ideal substringWithRange: edit.fragment];
                     [output appendAttributedString: [[NSAttributedString alloc] initWithString: substring
                                                                                     attributes: deleteAttr] ];
                 }
                 break;
                 case PRESERVE_EDIT:
                 {
-                    NSString* substring = [diffResult.ideal substringWithRange: edit->fragment];
+                    NSString* substring = [diffResult.ideal substringWithRange: edit.fragment];
                     [output appendAttributedString: [[NSAttributedString alloc] initWithString: substring
                                                                                     attributes: normalAttr] ];
                 }
                 break;
                 case PRESERVE_ACTUAL_EDIT:
                 {
-                    NSString* substring = [diffResult.actual substringWithRange: edit->fragment];
+                    NSString* substring = [diffResult.actual substringWithRange: edit.fragment];
                     [output appendAttributedString: [[NSAttributedString alloc] initWithString: substring
                                                                                     attributes: normalAttr] ];
                 }
                 break;
                 case INSERT_EDIT:
                 {
-                    NSString* substring = [diffResult.actual substringWithRange: edit->fragment];
+                    NSString* substring = [diffResult.actual substringWithRange: edit.fragment];
                     [output appendAttributedString: [[NSAttributedString alloc] initWithString: substring
                                                                                     attributes: insertAttr] ];
                 }

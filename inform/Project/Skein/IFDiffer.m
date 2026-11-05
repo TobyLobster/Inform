@@ -20,8 +20,8 @@ static const BOOL trace_diff = NO;
                          form: (EFormOfEdit) form {
     self = [super init];
     if( self ) {
-        fragment   = range;
-        formOfEdit = form;
+        _fragment   = range;
+        _formOfEdit = form;
     }
     return self;
 }
@@ -56,11 +56,11 @@ static const BOOL trace_diff = NO;
 -(void) print {
     NSMutableString* message = [[NSMutableString alloc] init];
     for( IFDiffEdit* edit in _differences ) {
-        switch( edit->formOfEdit ) {
-            case DELETE_EDIT:           [message appendFormat: @"<delete>%@</delete>", [_ideal  substringWithRange:edit->fragment]]; break;
-            case PRESERVE_EDIT:         [message appendFormat: @"%@",                  [_ideal  substringWithRange:edit->fragment]]; break;
-            case PRESERVE_ACTUAL_EDIT:  [message appendFormat: @"%@",                  [_actual substringWithRange:edit->fragment]]; break;
-            case INSERT_EDIT:           [message appendFormat: @"<insert>%@</insert>", [_actual substringWithRange:edit->fragment]]; break;
+        switch( edit.formOfEdit ) {
+            case DELETE_EDIT:           [message appendFormat: @"<delete>%@</delete>", [_ideal  substringWithRange:edit.fragment]]; break;
+            case PRESERVE_EDIT:         [message appendFormat: @"%@",                  [_ideal  substringWithRange:edit.fragment]]; break;
+            case PRESERVE_ACTUAL_EDIT:  [message appendFormat: @"%@",                  [_actual substringWithRange:edit.fragment]]; break;
+            case INSERT_EDIT:           [message appendFormat: @"<insert>%@</insert>", [_actual substringWithRange:edit.fragment]]; break;
         }
     }
     NSLog(@"%@", message);
@@ -87,8 +87,8 @@ static const BOOL trace_diff = NO;
                    rangeB: NSMakeRange(0, theActual.length)];
 
     for( IFDiffEdit* edit in _differences ) {
-        if( ( edit->formOfEdit != PRESERVE_EDIT ) &&
-            ( edit->formOfEdit != PRESERVE_ACTUAL_EDIT ) ) {
+        if( ( edit.formOfEdit != PRESERVE_EDIT ) &&
+            ( edit.formOfEdit != PRESERVE_ACTUAL_EDIT ) ) {
             return YES;
         }
     }
