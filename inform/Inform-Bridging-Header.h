@@ -33,3 +33,4 @@
 #import "IFCompilerOptions.h"
 #import "IFCompilerVersionSettings.h"
 #import "IFCompilerSettings.h"
+#import "IFNewExtensionsManager.h"
