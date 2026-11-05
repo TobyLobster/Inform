@@ -8,8 +8,6 @@
 
 #import "IFIntelSymbol.h"
 
-NSString* const IFSectionSymbolType = @"IFSectionSymbolType";
-
 @implementation IFIntelSymbol {
     // Our data
     /// Name of the symbol (as displayed in the index)
