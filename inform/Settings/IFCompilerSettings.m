@@ -25,28 +25,6 @@
 
 #import "IFSettingsController.h"
 
-NSString* const IFSettingZCodeVersion         = @"IFSettingZCodeVersion";
-
-NSString* const IFSettingNaturalInform        = @"IFSettingNaturalInform";
-NSString* const IFSettingStrict               = @"IFSettingStrict";
-NSString* const IFSettingInfix                = @"IFSettingInfix";
-NSString* const IFSettingDEBUG                = @"IFSettingDEBUG";
-NSString* const IFSettingTestingTabHelpShown  = @"IFSettingTestingTabHelpShown";
-NSString* const IFSettingTestingTabShownCount = @"IFSettingTestingTabShownCount";
-NSString* const IFSettingNobbleRng            = @"IFSettingNobbleRng";
-NSString* const IFSettingBasicInform          = @"IFSettingBasicInform";
-NSString* const IFSettingCompilerVersion      = @"IFSettingCompilerVersion";
-
-// Debug
-NSString* const IFSettingAllowLegacyExtensionDirectory   = @"IFSettingAllowLegacyExtensionDirectory";
-
-// Compiler types
-NSString* const IFCompilerInform6		  = @"IFCompilerInform6";
-NSString* const IFCompilerNaturalInform = @"IFCompilerNaturalInform";
-
-// Notifications
-NSString* const IFSettingNotification = @"IFSettingNotification";
-
 // The classes the settings are associated with
 // (Legacy-type stuff: ie, tentacles that are too much bother to remove)
 #include "IFOutputSettings.h"
