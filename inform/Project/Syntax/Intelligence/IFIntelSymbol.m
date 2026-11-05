@@ -54,7 +54,7 @@ NSString* const IFSectionSymbolType = @"IFSectionSymbolType";
 		
 		int realLevel = lastSymbol.level + levelDelta;
 		
-		return realLevel<0?0:levelDelta;
+		return realLevel<0?0:realLevel;
 	}
 	
 	return level;

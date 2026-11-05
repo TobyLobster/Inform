@@ -74,6 +74,21 @@ final class IFIntelSymbolTests: XCTestCase {
         XCTAssertEqual(symbol.level, 0)
     }
 
+    func testARelativeLevelIsCountedFromTheSymbolBefore() {
+        let previous = heading("Part 1", level: 1)
+        let symbol = IFIntelSymbol()
+        symbol.relation = .deltaLevel
+        symbol.levelDelta = 2
+        withExtendedLifetime(previous) {
+            symbol.last = previous
+            XCTAssertEqual(symbol.level, 3)
+
+            previous.levelDelta = 3
+            symbol.levelDelta = -1
+            XCTAssertEqual(symbol.level, 2)
+        }
+    }
+
     func testARelativeLevelIsNeverBelowZero() {
         let previous = heading("Part 1", level: 1)
         let symbol = IFIntelSymbol()
