@@ -30,6 +30,8 @@ extension IFExtensionDownload {
     /// The URL, kept as an object, as `@implementation` can't store a `URL`
     private final var urlObject: NSURL
     private final var urlSession: URLSession?
+    /// The server's error, if it gave one: the task is cancelled, and this is reported when it completes
+    private final var serverError: NSError?
 
     @objc(initWithURL:window:notifyDelegate:javascriptId:)
     init(url: URL,
@@ -157,15 +159,12 @@ extension IFExtensionDownload: URLSessionDataDelegate {
                 let statusCode = response.statusCode
                 if statusCode >= 400 {
                     let localizedStringForStatusCode = HTTPURLResponse.localizedString(forStatusCode: statusCode)
-                    completionHandler(.cancel) // stop connecting; no more delegate messages
                     let errorInfo = [NSLocalizedDescriptionKey: String(format: IFUtility.localizedString("Server returned status code %d, local string %@"),
                                                                        Int32(statusCode), localizedStringForStatusCode)]
-                    let statusError = NSError(domain: "Error",
-                                              code: statusCode,
-                                              userInfo: errorInfo)
-                    urlSession(session,
-                               task: dataTask,
-                               didCompleteWithError: statusError)
+                    serverError = NSError(domain: "Error",
+                                          code: statusCode,
+                                          userInfo: errorInfo)
+                    completionHandler(.cancel) // stop connecting: the task completes, cancelled
                     return
                 }
             }
@@ -197,6 +196,9 @@ extension IFExtensionDownload: URLSessionDataDelegate {
         if task === connection {
             // Let go of the session, so that it lets go of this download
             session.finishTasksAndInvalidate()
+
+            // A task cancelled after the server's error reports that error
+            let error = serverError ?? error
 
             // Process the downloaded data on the main thread
             DispatchQueue.main.async {
