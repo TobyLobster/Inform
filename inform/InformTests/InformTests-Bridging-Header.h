@@ -30,3 +30,5 @@
 #import "IFSourceSharedActions.h"
 #import "IFGamePage.h"
 #import "IFFindResult.h"
+#import "IFScanner.h"
+#import "IFDiffer.h"
