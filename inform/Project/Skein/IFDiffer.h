@@ -17,12 +17,12 @@ typedef NS_ENUM(int, EFormOfEdit) {
 };
 
 // *******************************************************************************************
-@interface IFDiffEdit : NSObject {
-@public
-    NSRange     fragment;
-    EFormOfEdit formOfEdit;
-}
+@interface IFDiffEdit : NSObject
 
+@property (nonatomic, readonly) NSRange     fragment;
+@property (nonatomic, readonly) EFormOfEdit formOfEdit;
+
+-(instancetype) init NS_UNAVAILABLE;
 -(instancetype) initWithRange: (NSRange) range
                          form: (EFormOfEdit) form;
 
@@ -31,9 +31,9 @@ typedef NS_ENUM(int, EFormOfEdit) {
 // *******************************************************************************************
 @interface IFDiffer : NSObject
 
-@property (atomic, nullable) NSString*       ideal;
-@property (atomic, nullable) NSString*       actual;
-@property (atomic) NSMutableArray<IFDiffEdit*>* differences;
+@property (nonatomic, nullable) NSString*       ideal;
+@property (nonatomic, nullable) NSString*       actual;
+@property (nonatomic) NSMutableArray<IFDiffEdit*>* differences;
 
 
 -(BOOL) diffIdeal: (nullable NSString*) theIdeal
