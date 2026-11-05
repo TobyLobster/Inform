@@ -31,4 +31,5 @@
 #import "IFOutputSettings.h"
 #import "IFI7OutputSettings.h"
 #import "IFCompilerOptions.h"
+#import "IFCompilerVersionSettings.h"
 #import "IFCompilerSettings.h"
