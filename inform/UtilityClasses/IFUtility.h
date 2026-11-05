@@ -30,8 +30,6 @@ CGFloat easeOutCubic(CGFloat t);
 + (unsigned long) generateID;
 
 // String
-+ (bool) safeString:(nullable NSString*) string1 insensitivelyEqualsSafeString:(nullable NSString*) string2;
-+ (bool) url:(nullable NSURL*) url1 equals:(nullable NSURL*) url2;
 + (NSString*) localizedString:(NSString*) key;
 + (NSString*) localizedString: (NSString*) key
                       default: (nullable NSString*) value NS_FORMAT_ARGUMENT(2);
@@ -137,12 +135,6 @@ CGFloat easeOutCubic(CGFloat t);
 
 + (NSURL*) temporaryDirectoryURL;
 
-/// Decode the "source:" URL scheme link: the source file, the test case and the line number
-+ (nullable NSArray*) decodeSourceSchemeURL:(NSURL*) sourceURL;
-
-/// Decode the "skein:" URL scheme link: the test case and the node ID
-+ (nullable NSArray<NSString*>*) decodeSkeinSchemeURL:(NSURL*) skeinURL;
-
 // OS version checking
 + (BOOL) hasFullscreenSupportFeature;
 @property (class, readonly, atomic) BOOL hasFullscreenSupportFeature;
@@ -163,6 +155,16 @@ CGFloat easeOutCubic(CGFloat t);
 
 // RegEx
 +(nullable NSTextCheckingResult*) findMatch: (NSString*) pattern inText:(NSString*) text;
+
+@end
+
+@interface IFUtility (URLSchemes)
+
+/// Decode the "source:" URL scheme link: the source file, the test case and the line number
++ (nullable NSArray*) decodeSourceSchemeURL:(NSURL*) sourceURL;
+
+/// Decode the "skein:" URL scheme link: the test case and the node ID
++ (nullable NSArray<NSString*>*) decodeSkeinSchemeURL:(NSURL*) skeinURL;
 
 @end
 

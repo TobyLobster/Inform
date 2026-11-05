@@ -73,25 +73,6 @@ CGFloat easeOutCubic(CGFloat t) {
 }
 
 #pragma mark - String handling
-// Are the strings equal, where the strings may be nil...
-+ (bool) safeString:(NSString*) string1 insensitivelyEqualsSafeString:(NSString*) string2 {
-    if(( string1 == nil ) || ( string2 == nil )) {
-        return (string1 == string2);
-    }
-    return ([string1 caseInsensitiveCompare: string2] == NSOrderedSame);
-}
-
-+(bool) url: (NSURL*) url1
-     equals: (NSURL*) url2 {
-    bool sameScheme = [IFUtility safeString: url1.scheme
-              insensitivelyEqualsSafeString: url2.scheme];
-    bool samePath   = [IFUtility safeString: url1.path
-              insensitivelyEqualsSafeString: url2.path];
-    bool sameQuery  = [IFUtility safeString: url1.query
-              insensitivelyEqualsSafeString: url2.query];
-    return sameScheme && samePath && sameQuery;
-}
-
 + (NSString*) localizedString: (NSString*) key {
     return [[NSBundle mainBundle] localizedStringForKey: key
                                                   value: key
@@ -111,95 +92,6 @@ CGFloat easeOutCubic(CGFloat t) {
     return [[NSBundle mainBundle] localizedStringForKey: key
                                                   value: value
                                                   table: table];
-}
-
-#pragma mark - URL scheme parsing
-+ (NSDictionary*) queryParametersFromURL:(NSURL*) sourceURL {
-    NSMutableDictionary* results = [[NSMutableDictionary alloc] init];
-
-    NSString* path = sourceURL.resourceSpecifier.stringByRemovingPercentEncoding;
-    NSArray* query = [path componentsSeparatedByString: @"?"];
-    if( query.count < 2 ) {
-        return results;
-    }
-    query = [query[1] componentsSeparatedByString:@"#"];
-
-    NSArray* keyValues = [query[0] componentsSeparatedByString: @"="];
-
-    for( NSInteger i = 0; i < (keyValues.count-1); i += 2 ) {
-        results[keyValues[i]] = keyValues[i+1];
-    }
-    return results;
-}
-
-+ (NSString*) fragmentFromURL:(NSURL*) sourceURL {
-    NSString* path = sourceURL.resourceSpecifier.stringByRemovingPercentEncoding;
-    NSArray* array = [path componentsSeparatedByString:@"#"];
-    if( array.count < 2 ) {
-        return @"";
-    }
-    return array[1];
-}
-
-+ (NSString*) heirarchyFromURL:(NSURL*) sourceURL {
-    NSString* path = sourceURL.resourceSpecifier.stringByRemovingPercentEncoding;
-    NSInteger query  = [path indexOf:@"?"];
-    NSInteger hash   = [path indexOf:@"#"];
-    NSInteger result = path.length;
-    if( query != NSNotFound ) result = MIN(result, query);
-    if( hash  != NSNotFound ) result = MIN(result, hash);
-
-    return [path substringToIndex: result];
-}
-
-+ (NSArray*) decodeSourceSchemeURL:(NSURL*) sourceURL {
-    NSString* path = sourceURL.resourceSpecifier.stringByRemovingPercentEncoding;
-
-    // Get line number from fragment
-    NSString* fragment = [IFUtility fragmentFromURL: sourceURL];
-    if (fragment.length == 0) {
-        NSLog(@"Bad source URL, no fragment: %@", path);
-        return @[];
-    }
-
-    // sourceLine can have format 'line10' or '10'. 'line10' is more likely
-    int lineNumber = fragment.intValue;
-
-    if (lineNumber == 0 && [[fragment substringToIndex: 4] isEqualToString: @"line"]) {
-        lineNumber = [fragment substringFromIndex: 4].intValue;
-    }
-
-    // Get source filename
-    NSString* sourceFile = [IFUtility heirarchyFromURL: sourceURL];
-    if( sourceFile == nil ) {
-        return nil;
-    }
-
-    // Get test case from query parameters
-    NSDictionary * parameters = [IFUtility queryParametersFromURL: sourceURL];
-    NSString* testCase = parameters[@"case"];
-    if( testCase == nil ) testCase = @"";
-
-    return @[sourceFile, testCase, @(lineNumber)];
-}
-
-+ (NSArray*) decodeSkeinSchemeURL:(NSURL*) skeinURL {
-    // e.g: Input 'skein:1003?case=B' returns [B,1003]
-
-    if( ![skeinURL.scheme isEqualToStringCaseInsensitive: @"skein"] )
-    {
-        return nil;
-    }
-
-    // Get node id from heirarchy
-    NSString* nodeIdString = [IFUtility heirarchyFromURL: skeinURL];
-
-    // Get test case from query parameters
-    NSDictionary * parameters = [IFUtility queryParametersFromURL: skeinURL];
-    NSString* testCase = parameters[@"case"];
-    if( testCase == nil ) testCase = @"";
-
-    return @[testCase, nodeIdString];
 }
 
 #pragma mark - Alert dialogs
