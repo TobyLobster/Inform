@@ -14,6 +14,7 @@
 #import "IFIntelFile.h"
 #import "IFIntelSymbol.h"
 #import "IFSyntaxStyles.h"
+#import "IFInform7MutableString.h"
 #import "IFProject.h"
 #import "IFCompiler.h"
 #import "IFCollapsableView.h"
