@@ -80,7 +80,7 @@
         if( error != nil ) {
             [IFUtility runAlertWarningWindow: nil
                                        title: [IFUtility localizedString:@"Error"]
-                                     message: @"%@", error.localizedDescription];
+                             informativeText: error.localizedDescription];
         }
         return nil;
     }
