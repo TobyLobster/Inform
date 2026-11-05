@@ -35,10 +35,6 @@ static int maxErrorMessagesToDisplay = 3;
     /// Number of extension dictionaries that are 'installed' to ~/Library/Inform rather than internal to the Inform app bundle resources (i.e. one)
     int           userLibraryCount;
 
-    // Update extensions
-    /// Set to \c YES if an update is pending
-    BOOL          updatingExtensions;
-
     BOOL _rebuildAvailableExtensionsCache;
     BOOL _rebuildExtensionDictionaryCache;
     BOOL _cacheChanged;
@@ -97,9 +93,6 @@ static int maxErrorMessagesToDisplay = 3;
         self.cacheChanged = NO;
 
         _inBuild = [[IFInBuild alloc] init];
-#if DEBUG
-        [self unit_test];
-#endif
 	}
 
 	return self;
@@ -204,102 +197,6 @@ static int maxErrorMessagesToDisplay = 3;
         count++;
     }
     return NO;
-}
-
--(BOOL) isFileInstalled:(NSString*) fullPath {
-	for( NSString* extnDir in extensionCollectionDirectories ) {
-        if( [fullPath startsWith: extnDir] ) {
-            return YES;
-        }
-    }
-    return NO;
-}
-
--(NSString*) removeBracketedSection: (NSString *) string {
-    NSString* result = string;
-    NSError* error;
-    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern: @"(.*)\\((.*)\\)(.*)"
-                                                                           options: 0
-                                                                             error: &error];
-    NSTextCheckingResult *match = [regex firstMatchInString: string
-                                                    options: 0
-                                                      range: NSMakeRange(0, string.length)];
-    if (match) {
-        NSString* first  = [string substringWithRange: [match rangeAtIndex:1]];
-        NSString* third  = [string substringWithRange: [match rangeAtIndex:3]];
-
-        result = [NSString stringWithFormat:@"%@%@", first, third];
-    }
-    return result.stringByTrimmingWhitespace;
-}
-
--(NSMutableArray*) parseExtensionsList: (NSString*) jsonString {
-    NSMutableArray* result = [NSMutableArray array];
-    NSError* error;
-
-    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-
-    id object = [NSJSONSerialization
-                 JSONObjectWithData:jsonData
-                 options:0
-                 error:&error];
-
-    if(error) {
-        // JSON was malformed
-        NSLog(@"Warning: Inbuild JSON error: %@", error.description);
-        NSLog(@"JSON was: %@", jsonString);
-        return result;
-    }
-
-    // The top level is a dictionary. We are only interested in key "inspection".
-    if([object isKindOfClass:[NSDictionary class]])
-    {
-        NSDictionary *results = object;
-        id inspection_id = results[@"inspection"];
-        if([inspection_id isKindOfClass:[NSArray class]]) {
-            NSArray *inspection = inspection_id;
-            for(int i= 0; i < inspection.count; i++) {
-                id entry_id = inspection[i];
-
-                if(![entry_id isKindOfClass:[NSDictionary class]]) {
-                    continue;
-                }
-                NSDictionary* entry = entry_id;
-                NSString* fullFilepath = entry[@"location-file"];
-                id resource_id = entry[@"resource"];
-                if(![resource_id isKindOfClass:[NSDictionary class]]) {
-                    continue;
-                }
-                NSDictionary* resource = resource_id;
-
-                NSString* type = resource[@"type"];
-                if(![type isEqualToStringCaseInsensitive: @"extension"]) {
-                    continue;
-                }
-
-                NSString* title = resource[@"title"];
-                NSString* author = resource[@"author"];
-                NSString* version = resource[@"version"];
-                if (title == nil) { title = @""; }
-                if (author == nil) { author = @""; }
-                if (version == nil) {
-                    version = @"";
-                }
-                if (version.length > 0) {
-                    version = [NSString stringWithFormat: @"v%@", version];
-                }
-
-                IFExtensionInfo* info = [[IFExtensionInfo alloc] initWithDisplayName: title
-                                                                            filepath: fullFilepath
-                                                                              author: author
-                                                                             version: version
-                                                                           isBuiltIn: false];
-                [result addObject: info];
-            }
-        }
-    }
-
-    return result;
 }
 
 // Get an array of the available extension information
@@ -448,52 +345,6 @@ static int maxErrorMessagesToDisplay = 3;
 	return [result copy];
 }
 
-// Returns full filepaths for files we can open in the given extension directory (author) name
-- (NSArray*) sourceFilesInExtensionWithName: (NSString*) name {
-	NSFileManager* manager = [NSFileManager defaultManager];
-
-	// Filter for valid source files
-	NSMutableArray* result = [NSMutableArray array];
-
-	NSArray* files = [self filesInExtensionWithName: name];
-	for(NSString* file in files) {
-		// File must exist and not be a directory
-		BOOL exists;
-        BOOL isDir;
-
-		exists = [manager fileExistsAtPath: file
-							   isDirectory: &isDir];
-		if (!exists || isDir) {
-            continue;
-        }
-
-		// File must not begin with a '.'
-		if ([file.lastPathComponent characterAtIndex: 0] == '.') {
-            continue;
-        }
-
-		// File must have a suitable extension
-		NSString* extn = file.pathExtension.lowercaseString;
-        BOOL isOpenable = [extn isEqualToString: @""]    ||
-                          [extn isEqualToString: @"i7x"] ||
-                          [extn isEqualToString: @"txt"] ||
-                          [extn isEqualToString: @"rtf"] ||
-                          [extn isEqualToString: @"rtfd"] ||
-                          [extn isEqualToString: @"inf"] ||
-                          [extn isEqualToString: @"h"]   ||
-                          [extn isEqualToString: @"i6"];
-		if (isOpenable) {
-			// Add to the result
-			[result addObject: file];
-		}
-	}
-
-    // Sort alphabetically
-	[result sortUsingSelector: @selector(caseInsensitiveCompare:)];
-
-	return [result copy];
-}
-
 // Create directories
 - (void) createDirectory: (NSString*) dir {
     NSAssert(dir != nil,                   @"Bad directory in createDirectory (1)");
@@ -521,120 +372,6 @@ static int maxErrorMessagesToDisplay = 3;
 
     // Create the directory (and the hierarchy)
 	[self createDirectory: directory];
-}
-
-// Work out the extension's author, title and version by reading the first line from a given full filepath of a Natural Inform extension file
-- (IFExtensionResult) infoForNaturalInformExtension: (NSString*) file
-                                             author: (NSString*__strong*) authorOut
-                                              title: (NSString*__strong*) titleOut
-                                            version: (NSString*__strong*) versionOut {
-	NSFileManager* mgr = [NSFileManager defaultManager];
-	
-	if (authorOut != nil) {
-        *authorOut = nil;
-    }
-	if (titleOut != nil) {
-        *titleOut = nil;
-    }
-    if( versionOut != nil ) {
-        *versionOut = nil;
-    }
-
-	// Can't do anything with a non-existant file
-	BOOL isDir;
-	BOOL exists = [mgr fileExistsAtPath: file
-							isDirectory: &isDir];
-	if (!exists || isDir) return IFExtensionNotFound;
-
-	// Read the first 1k of the extension
-	NSFileHandle* extensionFile = [NSFileHandle fileHandleForReadingAtPath: file];
-	NSData* extensionInitialData = [extensionFile readDataOfLength: 1024];
-	NSString* extensionString = [[NSString alloc] initWithData: extensionInitialData
-                                                       encoding: NSUTF8StringEncoding];
-    
-    // Fix line endings
-    if ([extensionString rangeOfString:@"\r"].location != NSNotFound) {
-        extensionString = [extensionString stringByReplacingOccurrencesOfString:@"\r\n" withString:@"\n"];
-        extensionString = [extensionString stringByReplacingOccurrencesOfString:@"\r" withString:@"\n"];
-    }
-    
-    // Get the first line
-    NSRange range = [extensionString rangeOfString:@"\n"];
-    if( range.location != NSNotFound ) {
-        extensionString = [extensionString substringToIndex:range.location];
-    }
-
-    // Trim whitespace
-	extensionString = [extensionString stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
-
-	// Check that the ending is 'begins here'
-    if (![extensionString.lowercaseString endsWith:@" begins here."]) {
-        return IFExtensionNotValid;
-    }
-
-    // Remove the " begins here." from the end
-    extensionString = [extensionString substringToIndex: extensionString.length - (@" begins here.").length];
-
-    // Examples:
-    // Version 1 of Title Name by Author Name
-    // Another Title Name by Author Name
-
-    // Find version name
-    NSString* versionName = nil;
-    if( [extensionString.lowercaseString startsWith:@"version "] ) {
-        NSRange versionRange = [extensionString rangeOfString: @" of "
-                                                      options: NSCaseInsensitiveSearch];
-        // Without an ' of ', 'Version' is part of the title
-        if (versionRange.location != NSNotFound) {
-            versionName     = [extensionString substringToIndex:   versionRange.location];
-
-            // Remove the version
-            extensionString = [extensionString substringFromIndex: versionRange.location + versionRange.length];
-        }
-    }
-
-    // Find title name
-    NSString* titleName = nil;
-    {
-        NSRange byPosition = [extensionString rangeOfString: @" by "
-                                                    options: NSCaseInsensitiveSearch];
-        // Must have a ' by '
-        if (byPosition.location == NSNotFound) return IFExtensionNotValid;
-
-        titleName = [extensionString substringToIndex: byPosition.location];
-
-        // Remove the title
-        extensionString = [extensionString substringFromIndex: byPosition.location + byPosition.length];
-    }
-
-    // Remainder of string is the author
-    NSString* authorName = extensionString;
-
-	authorName  = authorName.stringByTrimmingWhitespace;
-	titleName   = titleName.stringByTrimmingWhitespace;
-	versionName = versionName.stringByTrimmingWhitespace;
-
-    // Remove leading 'The' from extension name
-    if( [titleName.lowercaseString startsWith:@"the "] ) {
-        titleName = [titleName substringFromIndex: (@"the ").length];
-    }
-
-    // Bail out if there is no author name or title left
-    if( (authorName.length == 0) ||
-        (titleName.length  == 0) ) {
-        return IFExtensionNotValid;
-    }
-
-    if(authorOut) {
-        *authorOut = authorName;
-    }
-	if (titleOut) {
-        *titleOut = titleName;
-    }
-    if(versionOut) {
-        *versionOut = versionName;
-    }
-	return IFExtensionSuccess;
 }
 
 // Install the given extension
@@ -884,26 +621,6 @@ static int maxErrorMessagesToDisplay = 3;
     }
 }
 
-#pragma mark - NSSavePanel delegate methods
-
-- (BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url {
-    BOOL isDir;
-    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath: url.path
-                                                       isDirectory: &isDir];
-    
-    if (!exists) return NO;
-    if (isDir) return YES;
-    
-    NSString* extn = url.pathExtension.lowercaseString;
-
-    if( ![extn isEqualToString: @"i7x"] &&
-        ![extn isEqualToString: @""] ) {
-        return NO;
-    }
-
-    return YES;
-}
-
 #pragma mark - Download and Install
 
 -(void) addError: (NSString*) message {
@@ -1076,74 +793,6 @@ static int maxErrorMessagesToDisplay = 3;
         [self performSelector: @selector(startDownloadAndInstallNextInQueue)
                  withObject: nil
                  afterDelay: 0.5];
-    }
-}
-
--(void) unit_test {
-    NSDictionary* unit_test = @{
-       @"1+lobster"              : @"1+lobster",
-       @"1"                      : @"1",
-       @"1.2"                    : @"1.2",
-       @"1.2.3"                  : @"1.2.3",
-       @"71.0.45672"             : @"71.0.45672",
-       @"1.2.3.4"                : @"null",
-       @"9/861022"               : @"9.0.861022",
-       @"9/86102"                : @"null",
-       @"9/8610223"              : @"null",
-       @"9/861022.2"             : @"null",
-       @"9/861022/2"             : @"null",
-       @"1.2.3-alpha.0.x45.1789" : @"1.2.3-alpha.0.x45.1789",
-       @"1.2+lobster"            : @"1.2+lobster",
-       @"1.2.3+lobster"          : @"1.2.3+lobster",
-       @"1.2.3-beta.2+shellfish" : @"1.2.3-beta.2+shellfish",
-    };
-
-    for(NSString*key in unit_test) {
-        IFSemVer* ver = [[IFSemVer alloc] initWithString: key];
-        NSString* str = ver.to_text;
-        if ([str isEqualToString: unit_test[key]]) {
-            NSLog(@"%@ --> %@ success", key, str);
-        }
-        else {
-            NSLog(@"%@ --> %@ fail! (should be %@)", key, str, unit_test[key]);
-            assert(false);
-        }
-    }
-
-    NSArray* compare_test = @[
-        @[@"3", @"<", @"5"],
-        @[@"3", @"=", @"3"],
-        @[@"3", @"=", @"3.0"],
-        @[@"3", @"=", @"3.0.0"],
-        @[@"3.1.41", @">", @"3.1.5"],
-        @[@"3.1.41", @"<", @"3.2.5"],
-        @[@"3.1.41", @"=", @"3.1.41+arm64"],
-        @[@"3.1.41", @">", @"3.1.41-pre.0.1"],
-        @[@"3.1.41-alpha.72", @">", @"3.1.41-alpha.8"],
-        @[@"3.1.41-alpha.72a", @"<", @"3.1.41-alpha.8a"],
-        @[@"3.1.41-alpha.72", @"<", @"3.1.41-beta.72"],
-        @[@"3.1.41-alpha.72", @"<", @"3.1.41-alpha.72.zeta"],
-        @[@"1.2.3+lobster.54", @"=", @"1.2.3+lobster.100"],
-    ];
-
-    for(NSArray*key in compare_test) {
-        NSString* str1 = key[0];
-        NSString* op_expected = key[1];
-        NSString* str2 = key[2];
-        IFSemVer* ver1 = [[IFSemVer alloc] initWithString: str1];
-        IFSemVer* ver2 = [[IFSemVer alloc] initWithString: str2];
-        int result = [ver1 cmp:ver2];
-        NSString* op_actual = @"=";
-        if (result > 0) {
-            op_actual = @">";
-        } else if (result < 0) {
-            op_actual = @"<";
-        }
-        if ([op_expected isEqualTo: op_actual]) {
-            NSLog(@"%@ %@ %@ success", str1, op_actual, str2);
-        } else {
-            NSLog(@"%@ %@ %@ fail! (should be %@)", str1, op_actual, str2, op_expected);
-        }
     }
 }
 

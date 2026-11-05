@@ -33,7 +33,7 @@ typedef NS_ENUM(int, IFExtensionResult) {
 /// This class can be used as a delegate for NSSave/Open panel delegates to only allow valid extensions
 /// to be selected.
 ///
-@interface IFExtensionsManager : NSObject<NSTableViewDataSource, NSOpenSavePanelDelegate>
+@interface IFExtensionsManager : NSObject<NSOpenSavePanelDelegate>
 
 @property (atomic) BOOL rebuildAvailableExtensionsCache;
 @property (atomic) BOOL rebuildExtensionDictionaryCache;
@@ -57,20 +57,9 @@ typedef NS_ENUM(int, IFExtensionResult) {
 - (NSArray<IFExtensionInfo*>*) availableExtensionsByAuthor: (NSString*) author
                                        withCompilerVersion: (NSString*) compilerVersion;
 
-- (BOOL) isFileInstalled:(NSString*) fullPath;
-
 // ... and the list of files within a given extension (full paths)
 /// Complete list of files in the given extension
 - (NSArray<NSString*>*) filesInExtensionWithName: (NSString*) name;
-/// Complete list of source files in the given extension
-- (NSArray<NSString*>*) sourceFilesInExtensionWithName: (NSString*) name;
-
-/// From a file potentially containing a natural inform extension, works out the author, title, version information.
-/// Each piece given a place to go is set, to \c nil if it isn't found (the version is \c nil if there isn't one).
-- (IFExtensionResult) infoForNaturalInformExtension: (NSString*) file
-                                             author: (NSString* _Nullable __strong* _Nullable) authorOut
-                                              title: (NSString* _Nullable __strong* _Nullable) titleOut
-                                            version: (NSString* _Nullable __strong* _Nullable) versionOut;
 
 /// Copies a file from the given path into the installed extensions, perhaps replacing an existing extension
 - (IFExtensionResult) installLegacyExtension: (NSString*) extensionPath
@@ -93,8 +82,23 @@ typedef NS_ENUM(int, IFExtensionResult) {
 - (void) downloadAndInstallFinished: (IFExtensionDownload*) download;
 -(void) reportDownloadResults: (IFExtensionDownload*) download;
 
+@end
+
 #pragma mark -
--(void) unit_test;
+
+/// Working out what's an extension: from a file's first line, and from inbuild's census.
+/// (The open panel's choice of files is in the same Swift file, as \c NSOpenSavePanelDelegate declares it.)
+@interface IFExtensionsManager (Reading)
+
+/// From a file potentially containing a natural inform extension, works out the author, title, version information.
+/// Each piece given a place to go is set, to \c nil if it isn't found (the version is \c nil if there isn't one).
+- (IFExtensionResult) infoForNaturalInformExtension: (NSString*) file
+                                             author: (NSString* _Nullable __strong* _Nullable) authorOut
+                                              title: (NSString* _Nullable __strong* _Nullable) titleOut
+                                            version: (NSString* _Nullable __strong* _Nullable) versionOut;
+
+/// The extensions in inbuild's census, given as JSON (none if there's no census, or it can't be read)
+- (NSMutableArray<IFExtensionInfo*>*) parseExtensionsList: (nullable NSString*) jsonString;
 
 @end
 
