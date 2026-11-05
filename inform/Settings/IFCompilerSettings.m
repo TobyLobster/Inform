@@ -630,7 +630,10 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 	// If it exists, get it to update from the plist data
 	if (settingToReload) {
 		NSDictionary* settingData = originalPlist[class];
-		
+
+		// Anything but a dictionary can't be read: pass it over
+		if (![settingData isKindOfClass: [NSDictionary class]]) settingData = nil;
+
 		[settingToReload updateSettings: self
 					   withPlistEntries: settingData];
 	}

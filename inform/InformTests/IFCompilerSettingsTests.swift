@@ -78,6 +78,19 @@ final class IFCompilerSettingsTests: XCTestCase {
         XCTAssertEqual(settings.compilerVersion, "6M62")
     }
 
+    /// Settings for a settings object that aren't a dictionary are passed over, and the rest are read.
+    func testSettingsThatArentADictionaryArePassedOver() {
+        let settings = IFCompilerSettings()
+        XCTAssertTrue(settings.restore(fromPlist: Data("""
+            <plist version="1.0"><dict>
+            <key>IFMiscSettings</key><string>Not settings</string>
+            <key>IFOutputSettings</key><dict><key>IFSettingZCodeVersion</key><integer>8</integer></dict>
+            </dict></plist>
+            """.utf8)))
+        XCTAssertEqual(settings.zcodeVersion, 8)
+        XCTAssertTrue(settings.strict)
+    }
+
     func testRejectsAFileThatIsNotSettings() {
         let settings = IFCompilerSettings()
         XCTAssertFalse(settings.restore(fromPlist: Data("not a property list".utf8)))
