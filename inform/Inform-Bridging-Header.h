@@ -29,4 +29,5 @@
 #import "IFSettingsController.h"
 #import "IFMiscSettings.h"
 #import "IFOutputSettings.h"
+#import "IFI7OutputSettings.h"
 #import "IFCompilerSettings.h"
