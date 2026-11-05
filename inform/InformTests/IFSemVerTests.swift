@@ -17,6 +17,10 @@ final class IFSemVerTests: XCTestCase {
 
     // MARK: - Parsing
 
+    func testANewVersionIsNull() {
+        XCTAssertEqual(IFSemVer().to_text, "null")
+    }
+
     func testParsesMajorMinorPatch() {
         XCTAssertEqual(text("1.2.3"), "1.2.3")
         XCTAssertEqual(text("2.0"), "2.0")
@@ -25,6 +29,7 @@ final class IFSemVerTests: XCTestCase {
 
     func testIgnoresVersionPrefixAndWhitespace() {
         XCTAssertEqual(text("Version 1.2.3"), "1.2.3")
+        XCTAssertEqual(text("version 1.2"), "1.2")
         XCTAssertEqual(text("  2.0  "), "2.0")
     }
 
@@ -33,10 +38,35 @@ final class IFSemVerTests: XCTestCase {
         XCTAssertEqual(text("1.0.0+20240531"), "1.0.0+20240531")
     }
 
+    /// A prerelease can follow any number, and keeps any later hyphens. The build is everything after the first +.
+    func testParsesPrereleaseAndBuildText() {
+        XCTAssertEqual(text("1-beta"), "1-beta")
+        XCTAssertEqual(text("1.0.0-alpha-1.2"), "1.0.0-alpha-1.2")
+        XCTAssertEqual(text("1.0+a+b"), "1.0+a+b")
+        XCTAssertEqual(text("1.0-é😀+😀"), "1.0-é😀+😀")
+    }
+
+    /// An empty prerelease segment makes the version null, but an empty one at the end is dropped, as is an empty build.
+    func testEmptyPrereleaseSegments() {
+        XCTAssertEqual(text("1.0.0-alpha..1"), "null")
+        XCTAssertEqual(text("1.0.0-alpha."), "1.0.0-alpha")
+        XCTAssertEqual(text("1.0.0-"), "1.0.0")
+        XCTAssertEqual(text("1.0.0-alpha+"), "1.0.0-alpha")
+    }
+
     func testParsesDateStyleVersion() {
         // Old style Inform extension versions, e.g. "6/150203", read as major.0.date
         XCTAssertEqual(text("6/150203"), "6.0.150203")
         XCTAssertEqual(text("6/1502"), "null")
+        // The date can start with a zero, but the major version can't
+        XCTAssertEqual(text("6/050203"), "6.0.50203")
+        XCTAssertEqual(text("06/150203"), "null")
+    }
+
+    /// A number too long for an int isn't meaningful, but it mustn't stop the version being read.
+    func testOverlongNumbers() {
+        XCTAssertTrue(text("1.2.99999999999").hasPrefix("1.2."))
+        XCTAssertEqual(cmp("1.0.0-99999999999", "1.0.0-1"), 1)
     }
 
     func testRejectsMalformedVersions() {
@@ -59,6 +89,19 @@ final class IFSemVerTests: XCTestCase {
     func testMissingComponentsCountAsZero() {
         XCTAssertEqual(cmp("1", "1.0.0"), 0)
         XCTAssertEqual(cmp("1.0", "1.0.1"), -1)
+    }
+
+    /// A null version compares as 0.0.0.
+    func testNullComparesAsZero() {
+        XCTAssertEqual(cmp("", "0"), 0)
+        XCTAssertEqual(cmp("abc", "0.0.1"), -1)
+        XCTAssertEqual(IFSemVer().cmp(IFSemVer(string: "1")), -1)
+    }
+
+    /// Numeric prerelease segments compare as numbers, unless they start with a zero.
+    func testNumericPrereleaseSegments() {
+        XCTAssertEqual(cmp("1.0.0-9", "1.0.0-10"), -1)
+        XCTAssertEqual(cmp("1.0.0-011", "1.0.0-9"), -1)
     }
 
     func testBuildMetadataIsIgnored() {

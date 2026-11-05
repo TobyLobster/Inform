@@ -13,9 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IFSemVer : NSObject
 
-@property (atomic)      NSMutableArray<NSNumber*>* version_numbers;
-@property (atomic, nullable) NSMutableArray<NSString*>* prerelease_segments;
-@property (atomic, nullable) NSMutableString* build_metadata;
+@property (nonatomic)   NSMutableArray<NSNumber*>* version_numbers;
+@property (nonatomic, nullable) NSMutableArray<NSString*>* prerelease_segments;
+@property (nonatomic, nullable) NSMutableString* build_metadata;
 
 -(instancetype) init NS_DESIGNATED_INITIALIZER;
 -(instancetype) initWithString: (NSString*) versionString NS_DESIGNATED_INITIALIZER;
