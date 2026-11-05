@@ -120,4 +120,52 @@ final class IFSemVerTests: XCTestCase {
             XCTAssertEqual(cmp(lower, lower), 0, "\(lower) == \(lower)")
         }
     }
+
+    // MARK: - The extensions manager's checks
+
+    /// These were checked by the extensions manager each time it started, in Debug
+    func testTheExtensionsManagersVersions() {
+        let versions = [
+            "1+lobster":               "1+lobster",
+            "1":                       "1",
+            "1.2":                     "1.2",
+            "1.2.3":                   "1.2.3",
+            "71.0.45672":              "71.0.45672",
+            "1.2.3.4":                 "null",
+            "9/861022":                "9.0.861022",
+            "9/86102":                 "null",
+            "9/8610223":               "null",
+            "9/861022.2":              "null",
+            "9/861022/2":              "null",
+            "1.2.3-alpha.0.x45.1789":  "1.2.3-alpha.0.x45.1789",
+            "1.2+lobster":             "1.2+lobster",
+            "1.2.3+lobster":           "1.2.3+lobster",
+            "1.2.3-beta.2+shellfish":  "1.2.3-beta.2+shellfish",
+        ]
+        for (string, expected) in versions {
+            XCTAssertEqual(text(string), expected, string)
+        }
+    }
+
+    func testTheExtensionsManagersComparisons() {
+        let comparisons: [(String, String, String)] = [
+            ("3",                "<", "5"),
+            ("3",                "=", "3"),
+            ("3",                "=", "3.0"),
+            ("3",                "=", "3.0.0"),
+            ("3.1.41",           ">", "3.1.5"),
+            ("3.1.41",           "<", "3.2.5"),
+            ("3.1.41",           "=", "3.1.41+arm64"),
+            ("3.1.41",           ">", "3.1.41-pre.0.1"),
+            ("3.1.41-alpha.72",  ">", "3.1.41-alpha.8"),
+            ("3.1.41-alpha.72a", "<", "3.1.41-alpha.8a"),
+            ("3.1.41-alpha.72",  "<", "3.1.41-beta.72"),
+            ("3.1.41-alpha.72",  "<", "3.1.41-alpha.72.zeta"),
+            ("1.2.3+lobster.54", "=", "1.2.3+lobster.100"),
+        ]
+        let results = ["<": -1, "=": 0, ">": 1]
+        for (a, op, b) in comparisons {
+            XCTAssertEqual(cmp(a, b), Int32(results[op]!), "\(a) \(op) \(b)")
+        }
+    }
 }

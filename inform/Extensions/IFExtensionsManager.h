@@ -89,9 +89,6 @@ typedef NS_ENUM(int, IFExtensionResult) {
 - (void) downloadAndInstallFinished: (IFExtensionDownload*) download;
 -(void) reportDownloadResults: (IFExtensionDownload*) download;
 
-#pragma mark -
--(void) unit_test;
-
 @end
 
 NS_ASSUME_NONNULL_END
