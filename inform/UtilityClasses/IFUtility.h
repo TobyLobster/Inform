@@ -82,10 +82,6 @@ CGFloat easeOutCubic(CGFloat t);
 +(void) saveTranscriptPanelWithString: (NSString*) string
                                window: (NSWindow*) window;
 
-+(BOOL) isLatestMajorMinorCompilerVersion: (NSString*) compilerVersion;
-+(BOOL) compilerVersion: (NSString*) compilerVersion isAfter: (NSString*) afterVersion;
-+(BOOL) compilerVersion: (NSString*) compilerVersion isNoLaterThan: (NSString*) otherVersion;
-+(NSString*) majorMinor: (NSString*) version;
 +(bool) unzip: (NSURL*) zipFilepath toDirectory:(NSURL*) targetDirectory;
 
 /// Sandboxing
@@ -124,14 +120,6 @@ CGFloat easeOutCubic(CGFloat t);
 
 /// Path to the compiler
 + (nullable NSString*) pathForCompiler: (NSString *)version;
-/// Command line parameter name for "-format=ulx"
-+ (NSString*) compilerFormatParameterName:(NSString *)version;
-/// Command line parameter name for "-project" / "-package"
-+ (NSString*) compilerProjectParameterName:(NSString *) version;
-
-+ (nullable NSString*) fullCompilerVersion: (NSString*)version;
-/// Compare compiler version numbers
-+ (NSComparisonResult) compilerVersionCompare: (NSString*)version1 other: (NSString*) version2;
 
 + (NSURL*) temporaryDirectoryURL;
 
@@ -149,10 +137,6 @@ CGFloat easeOutCubic(CGFloat t);
 +(NSDictionary<NSAttributedStringKey,id>*) adjustAttributesFontSize: (NSDictionary<NSAttributedStringKey,id>*) dictionary
                                      size: (CGFloat) fontSize;
 
-// Core build version
-+ (nullable NSString*) coreBuildVersion;
-@property (class, readonly, copy, nonatomic, nullable) NSString *coreBuildVersion;
-
 // RegEx
 +(nullable NSTextCheckingResult*) findMatch: (NSString*) pattern inText:(NSString*) text;
 
@@ -165,6 +149,27 @@ CGFloat easeOutCubic(CGFloat t);
 
 /// Decode the "skein:" URL scheme link: the test case and the node ID
 + (nullable NSArray<NSString*>*) decodeSkeinSchemeURL:(NSURL*) skeinURL;
+
+@end
+
+@interface IFUtility (CompilerVersions)
+
++(BOOL) isLatestMajorMinorCompilerVersion: (NSString*) compilerVersion;
++(BOOL) compilerVersion: (NSString*) compilerVersion isAfter: (NSString*) afterVersion;
++(BOOL) compilerVersion: (NSString*) compilerVersion isNoLaterThan: (NSString*) otherVersion;
++(NSString*) majorMinor: (NSString*) version;
+
+/// Command line parameter name for "-format=ulx"
++ (NSString*) compilerFormatParameterName:(NSString *)version;
+/// Command line parameter name for "-project" / "-package"
++ (NSString*) compilerProjectParameterName:(NSString *) version;
+
++ (nullable NSString*) fullCompilerVersion: (NSString*)version;
+/// Compare compiler version numbers
++ (NSComparisonResult) compilerVersionCompare: (NSString*)version1 other: (NSString*) version2;
+
+// Core build version
+@property (class, readonly, copy, nonatomic, nullable) NSString *coreBuildVersion;
 
 @end
 

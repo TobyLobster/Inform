@@ -42,19 +42,6 @@ CGFloat easeOutCubic(CGFloat t) {
     return t*t*t + 1;
 };
 
-@implementation NSString (VersionNumbers)
-- (NSString *)shortenedVersionNumberString {
-    static NSString *const unnecessaryVersionSuffix = @".0";
-    NSString *shortenedVersionNumber = self;
-
-    while ([shortenedVersionNumber hasSuffix:unnecessaryVersionSuffix]) {
-        shortenedVersionNumber = [shortenedVersionNumber substringToIndex:shortenedVersionNumber.length - unnecessaryVersionSuffix.length];
-    }
-
-    return shortenedVersionNumber;
-}
-@end
-
 #pragma mark - "IFUtility"
 @implementation IFUtility
 
@@ -442,47 +429,6 @@ CGFloat easeOutCubic(CGFloat t) {
     return page;
 }
 
-+(BOOL) isLatestMajorMinorCompilerVersion: (NSString*) compilerVersion {
-    NSString* version = [IFUtility fullCompilerVersion: compilerVersion];
-    NSString* currentVersion = [IFUtility coreBuildVersion];
-
-    // If version wanted is equal to the current version, use the current version
-    if ([version isEqualToStringCaseInsensitive:currentVersion])
-    {
-        return TRUE;
-    }
-    // If version wanted is equal to the 'major.minor' of the current version, good enough, use the current version
-    NSString* currentMajorMinor = [IFUtility majorMinor: currentVersion];
-    if ([version isEqualToString:currentMajorMinor])
-    {
-        return TRUE;
-    }
-    // There's no retrospective build of 10.1, so it uses the current version (as on Windows)
-    if ([version isEqualToString:@"10.1"])
-    {
-        return TRUE;
-    }
-    return FALSE;
-}
-
-+(BOOL) compilerVersion: (NSString*) compilerVersion isAfter: (NSString*) afterVersion {
-    return [IFUtility compilerVersionCompare: compilerVersion other: afterVersion] == NSOrderedDescending;
-}
-
-+(BOOL) compilerVersion: (NSString*) compilerVersion isNoLaterThan: (NSString*) otherVersion {
-    return ![IFUtility compilerVersion: compilerVersion isAfter: otherVersion];
-}
-
-+ (NSString*) fullCompilerVersion: (NSString*)version
-{
-    if ([version isEqualToStringCaseInsensitive: @""] ||
-        [version isEqualToStringCaseInsensitive: @"****"])
-    {
-        return [IFUtility coreBuildVersion];
-    }
-    return version;
-}
-
 + (NSString*) pathForCompiler: (NSString *)compilerVersion
 {
     // Older versions of compiler
@@ -550,58 +496,6 @@ CGFloat easeOutCubic(CGFloat t) {
     return [[NSBundle mainBundle] pathForAuxiliaryExecutable: executableName];
 }
 
-+ (NSComparisonResult) compilerVersionCompare: (NSString*) version1
-                                        other: (NSString*) version2
-{
-    version1 = [[self class] fullCompilerVersion: version1];
-    version2 = [[self class] fullCompilerVersion: version2];
-
-    BOOL isV1Dotted = [version1 containsSubstring: @"."];
-    BOOL isV2Dotted = [version2 containsSubstring: @"."];
-
-    // One version is dotted, the other not
-    if (isV1Dotted != isV2Dotted) {
-        if (isV1Dotted) {
-            return NSOrderedDescending;
-        }
-        return NSOrderedAscending;
-    }
-
-    if (isV1Dotted) {
-        // Both versions are dotted, we use numerical search compare after removing any trailing ".0"s so that "1" = "1.0" = "1.0.0"
-        return [[version1 shortenedVersionNumberString] compare:[version2 shortenedVersionNumberString] options:NSNumericSearch];
-    }
-
-    // Neither version is dotted, use regular string compare
-    return [version1 compare:version2 options: NSCaseInsensitiveSearch];
-}
-
-+ (NSString*) compilerFormatParameterName:(NSString *)version
-{
-    NSComparisonResult result = [IFUtility compilerVersionCompare: version other:@"6L02"];
-
-    if(result != NSOrderedDescending)
-    {
-        // Old
-        return @"extension";
-    }
-    // New
-    return @"format";
-}
-
-+ (NSString*) compilerProjectParameterName:(NSString *) version
-{
-    NSComparisonResult result = [IFUtility compilerVersionCompare: version other:@"6L02"];
-
-    if(result != NSOrderedDescending)
-    {
-        // Old
-        return @"package";
-    }
-    // New
-    return @"project";
-}
-
 + (NSString*) pathForInformInternalExtensions: (NSString *)version {
     return [[IFUtility pathForInformInternalAppSupport:version] stringByAppendingPathComponent:@"Extensions"];
 }
@@ -661,26 +555,6 @@ CGFloat easeOutCubic(CGFloat t) {
     }
     mutableResult[NSFontAttributeName] = font;
     return [mutableResult copy];
-}
-
-+ (NSString*) coreBuildVersion {
-    // The build takes this from the app's ni (see compiler_injection.sh)
-    static NSString* version = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSString* path = [[NSBundle mainBundle] pathForResource: @"InformCoreVersion" ofType: @"txt"];
-        version = [[NSString stringWithContentsOfFile: path encoding: NSUTF8StringEncoding error: nil]
-                      stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    });
-    return version;
-}
-
-+(NSString*) majorMinor: (NSString*) version {
-    NSArray *array = [version componentsSeparatedByString:@"."];
-    if (array.count >= 3) {
-        return [NSString stringWithFormat:@"%@.%@", array[0], array[1]];
-    }
-    return version;
 }
 
 +(bool) unzip: (NSURL*) zipURL toDirectory:(NSURL*) targetDirectory {
