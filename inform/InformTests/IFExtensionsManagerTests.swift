@@ -157,8 +157,8 @@ final class IFExtensionsManagerTests: XCTestCase {
         return manager.parseExtensionsList(json) as? [IFExtensionInfo] ?? []
     }
 
-    private func info(_ title: String, _ filepath: String?, version: String) -> IFExtensionInfo {
-        return IFExtensionInfo(displayName: title, filepath: filepath, author: "Emily Short", version: version, isBuiltIn: false)
+    private func info(_ title: String, _ filepath: String?, by author: String = "Emily Short", version: String?) -> IFExtensionInfo {
+        return IFExtensionInfo(displayName: title, filepath: filepath, author: author, version: version, isBuiltIn: false)
     }
 
     func testReadsInbuildsCensus() {
@@ -244,5 +244,292 @@ final class IFExtensionsManagerTests: XCTestCase {
         XCTAssertEqual(offers("Emily Short.txt"), true)
         XCTAssertEqual(offers("Notes.txt"), false)
         XCTAssertEqual(offers("Missing.i7x"), false)
+    }
+
+    // MARK: - Installed extensions
+
+    /// The extensions folder in Inform's Application Support, which only tests in their own home write in.
+    /// It's removed after the test, and the manager's lists are made again.
+    private func makeExtensionsFolder() throws -> String {
+        try XCTSkipUnless(NSHomeDirectory().hasSuffix("/TestHome"), "Only writes in the tests' own home")
+        let folder = IFUtility.pathForInformExternalExtensions()
+        XCTAssertFalse(FileManager.default.fileExists(atPath: folder))
+        try FileManager.default.createDirectory(atPath: folder, withIntermediateDirectories: true)
+        IFExtensionsManager.sharedNaturalInform.dirtyCache()
+        addTeardownBlock {
+            try? FileManager.default.removeItem(atPath: folder)
+            IFExtensionsManager.sharedNaturalInform.dirtyCache()
+        }
+        return folder
+    }
+
+    /// Writes an extension that starts with the given line, in a folder of the extensions folder
+    @discardableResult
+    private func put(_ firstLine: String, _ name: String, in authorFolder: String, of folder: String) throws -> String {
+        let directory = (folder as NSString).appendingPathComponent(authorFolder)
+        try FileManager.default.createDirectory(atPath: directory, withIntermediateDirectories: true)
+        let file = (directory as NSString).appendingPathComponent(name)
+        try (firstLine + "\n\n" + "Something ends here.\n").write(toFile: file, atomically: true, encoding: .utf8)
+        return file
+    }
+
+    /// For 6M62 and earlier, the extensions are the files in each author's folder whose first lines say what they are
+    func testListsTheExtensionsInEachAuthorsFolder() throws {
+        let folder = try makeExtensionsFolder()
+        let locksmith = try put("Version 3 of Locksmith by Emily Short begins here.", "Locksmith.i7x", in: "Emily Short", of: folder)
+        let keys = try put("Keys by Emily Short begins here.", "Keys", in: "Emily Short", of: folder)
+        let parser = try put("Unicode Parser by Andrew Plotkin begins here.", "Unicode Parser.I7X", in: "Andrew Plotkin", of: folder)
+        // The author is the one on the first line
+        let clock = try put("Clock by Jane Doe begins here.", "Clock.i7x", in: "Misfiled", of: folder)
+
+        // None of these is listed
+        try put("Notes by Emily Short begins here.", "Notes.txt", in: "Emily Short", of: folder)
+        try put("Hidden by Emily Short begins here.", ".Hidden.i7x", in: "Emily Short", of: folder)
+        try put("Not an extension", "Broken.i7x", in: "Emily Short", of: folder)
+        try put("Secret by Emily Short begins here.", "Secret.i7x", in: "Reserved", of: folder)
+        try put("Secret by Emily Short begins here.", "Secret.i7x", in: ".Hidden", of: folder)
+        try put("Loose by Emily Short begins here.", "Loose.i7x", in: "", of: folder)
+
+        XCTAssertEqual(Set(manager.availableExtensions(withCompilerVersion: "6M62")),
+                       [info("Locksmith", locksmith, version: "Version 3"),
+                        info("Keys", keys, version: nil),
+                        info("Unicode Parser", parser, by: "Andrew Plotkin", version: nil),
+                        info("Clock", clock, by: "Jane Doe", version: nil)])
+
+        // Sorted, without case mattering
+        XCTAssertEqual(manager.availableAuthors(withCompilerVersion: "6M62"), ["Andrew Plotkin", "Emily Short", "Jane Doe"])
+        XCTAssertEqual(manager.availableExtensions(byAuthor: "EMILY SHORT", withCompilerVersion: "6M62"),
+                       [info("Keys", keys, version: nil), info("Locksmith", locksmith, version: "Version 3")])
+        XCTAssertEqual(manager.availableExtensions(byAuthor: "Graham Nelson", withCompilerVersion: "6M62"), [])
+    }
+
+    /// The list is kept until the cache is dirtied. Each time it's made, anything that wants to know is told.
+    func testKeepsTheListUntilItsCacheIsDirtied() throws {
+        let folder = try makeExtensionsFolder()
+        let locksmith = try put("Locksmith by Emily Short begins here.", "Locksmith.i7x", in: "Emily Short", of: folder)
+        var told = 0
+        let observer = NotificationCenter.default.addObserver(forName: .IFCensusFinished, object: manager, queue: nil) { _ in
+            told += 1
+        }
+        defer { NotificationCenter.default.removeObserver(observer) }
+
+        XCTAssertEqual(manager.availableExtensions(withCompilerVersion: "6M62"), [info("Locksmith", locksmith, version: nil)])
+        XCTAssertEqual(told, 1)
+
+        let keys = try put("Keys by Emily Short begins here.", "Keys.i7x", in: "Emily Short", of: folder)
+        XCTAssertEqual(manager.availableExtensions(withCompilerVersion: "6M62"), [info("Locksmith", locksmith, version: nil)])
+        XCTAssertEqual(manager.availableAuthors(withCompilerVersion: "6M62"), ["Emily Short"])
+        XCTAssertEqual(told, 1)
+
+        manager.dirtyCache()
+        XCTAssertEqual(Set(manager.availableExtensions(withCompilerVersion: "6M62")),
+                       [info("Locksmith", locksmith, version: nil), info("Keys", keys, version: nil)])
+        XCTAssertEqual(told, 2)
+    }
+
+    /// After 6M62, the list is inbuild's census of the extensions folder
+    func testListsInbuildsCensusAfter6M62() throws {
+        let folder = try makeExtensionsFolder()
+        let locksmith = try put("Version 3 of Locksmith by Emily Short begins here.", "Locksmith.i7x", in: "Emily Short", of: folder)
+        let keys = try put("Keys by Emily Short begins here.", "Keys.i7x", in: "Emily Short", of: folder)
+
+        XCTAssertEqual(Set(manager.availableExtensions(withCompilerVersion: "10.1")),
+                       [info("Locksmith", locksmith, version: "v3"), info("Keys", keys, version: "")])
+    }
+
+    /// The files in an author's folders, by name, which a link to an extension is looked for in
+    func testListsTheFilesInAnAuthorsFolders() throws {
+        let yours = (IFUtility.pathForInformExternalExtensions() as NSString).appendingPathComponent("Graham Nelson")
+        try XCTSkipIf(FileManager.default.fileExists(atPath: yours), "Has extensions by Graham Nelson of your own")
+        let app = (IFUtility.path(forInformInternalExtensions: "") as NSString).appendingPathComponent("Graham Nelson")
+
+        // (In Debug, the app's extensions are those in Inform Core, which may have others)
+        let files = manager.filesInExtension(withName: "GRAHAM NELSON")
+        XCTAssertTrue(Set(files).isSuperset(of: ["Basic Inform.i7xd", "English Language.i7xd", "Standard Rules.i7xd"].map {
+            (app as NSString).appendingPathComponent($0)
+        }), "\(files)")
+        XCTAssertEqual(manager.filesInExtension(withName: "Nobody"), [])
+    }
+
+    func testListsTheFilesInAnAuthorsFoldersOfYourOwn() throws {
+        let folder = try makeExtensionsFolder()
+        let locksmith = try put("Locksmith by Emily Short begins here.", "Locksmith.i7x", in: "Emily Short", of: folder)
+        let keys = try put("Keys by Emily Short begins here.", "keys.i7x", in: "Emily Short", of: folder)
+        let notes = try put("Notes", "Notes.txt", in: "Emily Short", of: folder)
+
+        XCTAssertEqual(manager.filesInExtension(withName: "emily short"), [keys, locksmith, notes])
+    }
+
+    // MARK: - Installing a legacy extension
+
+    private struct Installed {
+        let result: IFExtensionResult
+        let finalPath: String?
+        let title: String?
+        let author: String?
+        let version: String?
+    }
+
+    private func install(_ file: String) -> Installed {
+        var finalPath: NSString?
+        var title: NSString?
+        var author: NSString?
+        var version: NSString?
+        let result = manager.installLegacyExtension(file, finalPath: &finalPath, title: &title, author: &author, version: &version,
+                                                    showWarningPrompts: false, notify: false)
+        return Installed(result: result, finalPath: finalPath as String?, title: title as String?,
+                         author: author as String?, version: version as String?)
+    }
+
+    func testInstallsALegacyExtensionInItsAuthorsFolder() throws {
+        let folder = try makeExtensionsFolder()
+        let file = try write(firstLine: "Version 2 of The Locksmith by Emily Short begins here.")
+
+        let installed = install(file.path)
+        let destination = (folder as NSString).appendingPathComponent("Emily Short/Locksmith.i7x")
+        XCTAssertEqual(installed.result, .success)
+        XCTAssertEqual(installed.finalPath, destination)
+        XCTAssertEqual(installed.title, "Locksmith")
+        XCTAssertEqual(installed.author, "Emily Short")
+        XCTAssertEqual(installed.version, "Version 2")
+        XCTAssertEqual(try Data(contentsOf: URL(fileURLWithPath: destination)), try Data(contentsOf: file))
+
+        // The list is made again
+        XCTAssertEqual(manager.availableExtensions(withCompilerVersion: "6M62"), [info("Locksmith", destination, version: "Version 2")])
+    }
+
+    /// Without the warnings, an extension replaces the one installed, and an old copy with no .i7x
+    func testReplacesALegacyExtension() throws {
+        let folder = try makeExtensionsFolder()
+        let installed = try put("Version 3 of Locksmith by Emily Short begins here.", "Locksmith.i7x", in: "Emily Short", of: folder)
+        let old = try put("Version 1 of Locksmith by Emily Short begins here.", "Locksmith", in: "Emily Short", of: folder)
+        let file = try write(firstLine: "Version 2 of Locksmith by Emily Short begins here.")
+
+        XCTAssertEqual(install(file.path).result, .success)
+        XCTAssertEqual(try Data(contentsOf: URL(fileURLWithPath: installed)), try Data(contentsOf: file))
+        XCTAssertFalse(FileManager.default.fileExists(atPath: old))
+    }
+
+    func testShortensALongTitleForItsFile() throws {
+        let folder = try makeExtensionsFolder()
+        let title = String(repeating: "Lock", count: 15)
+        let file = try write(firstLine: "\(title) by Emily Short begins here.")
+
+        let installed = install(file.path)
+        XCTAssertEqual(installed.result, .success)
+        XCTAssertEqual(installed.title, title)
+        XCTAssertEqual(installed.finalPath, (folder as NSString).appendingPathComponent("Emily Short/" + title.prefix(50) + ".i7x"))
+    }
+
+    func testDoesntInstallWhatIsntAnExtension() throws {
+        _ = try makeExtensionsFolder()
+        let folder = try makeFolder()
+
+        XCTAssertEqual(install(folder.appendingPathComponent("Missing.i7x").path).result, .notFound)
+        XCTAssertEqual(install(folder.path).result, .notFound)
+
+        let notValid = install(try write(firstLine: "Locksmith begins here.").path)
+        XCTAssertEqual(notValid.result, .notValid)
+        XCTAssertNil(notValid.finalPath)
+        XCTAssertNil(notValid.title)
+        XCTAssertEqual(manager.availableExtensions(withCompilerVersion: "6M62"), [])
+    }
+
+    // MARK: - Downloading extensions
+
+    /// Stands in for a project's controller, which shows the manager's progress, and is told of each extension installed
+    private final class ProjectControllerSpy: IFProjectController {
+        var shown: [IFProgress] = []
+        var removed: [(progress: IFProgress, message: String?)] = []
+        var updated: [String?] = []
+
+        override func addProgressIndicator(_ indicator: IFProgress) {
+            shown.append(indicator)
+        }
+
+        /// Only the progress shown here: the manager takes away its last progress from the next controller it shows one in
+        override func removeProgressIndicator(_ indicator: IFProgress) {
+            if shown.contains(where: { $0 === indicator }) {
+                removed.append((indicator, indicator.message))
+            }
+        }
+
+        override func extensionUpdated(_ javascriptId: String?) {
+            updated.append(javascriptId)
+        }
+    }
+
+    /// With no window, a controller can't take changes to the project's intelligence or settings, so it isn't told of them
+    private func makeController() -> ProjectControllerSpy {
+        let controller = ProjectControllerSpy()
+        NotificationCenter.default.removeObserver(controller)
+        return controller
+    }
+
+    private func waitForTheProgressToGo(from controller: ProjectControllerSpy) {
+        let removed = expectation(for: NSPredicate { _, _ in !controller.removed.isEmpty }, evaluatedWith: nil)
+        wait(for: [removed], timeout: 10)
+    }
+
+    /// Waits long enough for the next download in the queue to have started and finished, if it was going to
+    private func waitForAnyMoreDownloads() {
+        let waited = expectation(description: "Waited")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { waited.fulfill() }
+        wait(for: [waited], timeout: 5)
+    }
+
+    private func installed(_ done: Int32, of total: Int32) -> String {
+        return String(format: IFUtility.localizedString("Installed %d of %d"), done, total)
+    }
+
+    private func installed(_ done: Int32, of total: Int32, failed: Int32) -> String {
+        return String(format: IFUtility.localizedString("Installed %d of %d (%d failed)"), done, total, failed)
+    }
+
+    /// Downloads go one at a time, under one progress. Without a project open, none can be installed.
+    func testDownloadsOneAfterAnother() throws {
+        try XCTSkipUnless(NSHomeDirectory().hasSuffix("/TestHome"), "Only writes in the tests' own home")
+        XCTAssertFalse(NSDocumentController.shared.documents.contains { $0 is IFProject })
+        let folder = try makeFolder()
+        let locksmith = folder.appendingPathComponent("Locksmith.zip")
+        let keys = folder.appendingPathComponent("Keys.zip")
+        try Data("Not really a zip file".utf8).write(to: locksmith)
+        try Data("Nor this".utf8).write(to: keys)
+        let controller = makeController()
+
+        XCTAssertTrue(manager.downloadAndInstallExtension(locksmith, window: nil, notifyDelegate: controller, javascriptId: "1"))
+        XCTAssertTrue(manager.downloadAndInstallExtension(keys, window: nil, notifyDelegate: controller, javascriptId: "2"))
+        XCTAssertEqual(controller.shown.count, 1)
+        let progress = try XCTUnwrap(controller.shown.first)
+        XCTAssertEqual(progress.message, IFUtility.localizedString("Installing extension"))
+        XCTAssertTrue(progress.isInProgress)
+
+        waitForTheProgressToGo(from: controller)
+        waitForAnyMoreDownloads()
+        XCTAssertEqual(controller.removed.count, 1)
+        XCTAssertTrue(controller.removed.first?.progress === progress)
+        XCTAssertEqual(controller.removed.first?.message, installed(2, of: 2))
+        XCTAssertFalse(progress.isInProgress)
+        XCTAssertEqual(controller.updated, [])
+    }
+
+    /// Cancelling the progress stops the downloads still to come, and nothing is reported
+    func testCancellingStopsTheDownloads() throws {
+        try XCTSkipUnless(NSHomeDirectory().hasSuffix("/TestHome"), "Only writes in the tests' own home")
+        let folder = try makeFolder()
+        let keys = folder.appendingPathComponent("Keys.zip")
+        try Data("Not really a zip file".utf8).write(to: keys)
+        let controller = makeController()
+
+        XCTAssertTrue(manager.downloadAndInstallExtension(folder.appendingPathComponent("Missing.zip"),
+                                                          window: nil, notifyDelegate: controller, javascriptId: "1"))
+        XCTAssertTrue(manager.downloadAndInstallExtension(keys, window: nil, notifyDelegate: controller, javascriptId: "2"))
+        let progress = try XCTUnwrap(controller.shown.first)
+        progress.cancel()
+
+        waitForTheProgressToGo(from: controller)
+        waitForAnyMoreDownloads()
+        XCTAssertEqual(controller.removed.count, 1)
+        XCTAssertEqual(controller.removed.first?.message, installed(0, of: 2, failed: 1))
     }
 }
