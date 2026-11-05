@@ -98,15 +98,6 @@ static int maxErrorMessagesToDisplay = 3;
 	return self;
 }
 
-- (void) dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver: self];
-
-	 extensionCollectionDirectories = nil;
-     downloads =  nil;
-     errorString = nil;
-    
-}
-
 #pragma mark - Setting up
 
 - (void) addExtensionCollectionDirectory: (NSString*) directory {
@@ -307,12 +298,6 @@ static int maxErrorMessagesToDisplay = 3;
 	[extensions sortUsingSelector: @selector(caseInsensitiveCompare:)];
     return extensions;
 }
-
-
-
-
-
-
 
 // Returns the array of full extension pathnames for a given extension directory (author) name
 - (NSArray*) filesInExtensionWithName: (NSString*) name {
@@ -716,18 +701,7 @@ static int maxErrorMessagesToDisplay = 3;
                                       message: @"%@", errorString];
                 }
             }
-        }/* else {
-            // Show final message
-            if( numberOfBatchedExtensions > 1 ) {
-                [IFUtility runAlertInformationWindow: download.window
-                                               title: @"Installation complete"
-                                             message: @"%d extensions installed successfully", numberOfBatchedExtensions];
-            } else {
-                [IFUtility runAlertInformationWindow: download.window
-                                               title: @"Installation complete"
-                                             message: @"Extension \"%@\" by %@ (%@) installed successfully", download.title, download.author, download.safeVersion];
-            }
-        } */
+        }
     }
 
     // Remove progress indicator
