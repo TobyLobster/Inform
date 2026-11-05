@@ -8,12 +8,10 @@
 
 #import "IFCompilerOptions.h"
 
-#import "IFCompiler.h"
 #import "IFUtility.h"
 #import "IFCompilerSettings.h"
 
 @implementation IFCompilerOptions {
-    IBOutlet NSPopUpButton* compilerVersion;
     IBOutlet NSButton* naturalInform;
 }
 

@@ -16,7 +16,6 @@
 #import "IFUtility.h"
 #import "IFProjectMaterialsPresenter.h"
 #import "IFI7OutputSettings.h"
-#import "IFOutputSettings.h"
 #import "NSString+IFStringExtensions.h"
 #import "IFCompilerSettings.h"
 #import "IFCompiler.h"
