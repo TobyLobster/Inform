@@ -307,6 +307,10 @@ final class IFCompilerSettingsTests: XCTestCase {
         XCTAssertNil(IFCompilerSettings.path(forLibrary: "Broken"))
         XCTAssertNil(IFCompilerSettings.path(forLibrary: "Plain"))
 
+        // So is a link that can't be read, rather than giving the Libraries folder itself
+        try Data([0xFF, 0xFE, 0x41]).write(to: URL(fileURLWithPath: external + "/Garbled"))
+        XCTAssertNil(IFCompilerSettings.path(forLibrary: "Garbled"))
+
         // Each name is listed once
         let available = IFCompilerSettings.availableLibraries
         XCTAssertEqual(available.filter { $0 == "Standard" }.count, 1)

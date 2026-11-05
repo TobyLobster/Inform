@@ -102,6 +102,10 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 				// Must be a directory
                 NSError *error;
 				NSString* newDir = [NSString stringWithContentsOfFile: libDir encoding:NSUTF8StringEncoding error:&error];
+				if (newDir == nil) {
+					NSLog(@"Couldn't read library link %@ in %@: %@", library, path, error);
+					continue;
+				}
 
 				libDir = [path stringByAppendingPathComponent: newDir];
 
