@@ -355,7 +355,6 @@ static int maxErrorMessagesToDisplay = 3;
 - (void) createDefaultExtnDir {
 	// Create the directory that will contain the extensions (if necessary)
 	NSString* directory = extensionCollectionDirectories[0];
-	if (directory == nil) return;
 
     // Create the directory (and the hierarchy)
 	[self createDirectory: directory];
@@ -418,10 +417,6 @@ static int maxErrorMessagesToDisplay = 3;
 	// Try to create the destination. First extensionDirectory should be the writable one
 	NSString* directory = extensionCollectionDirectories[0];
 	NSString* destDir;
-
-	if (directory == nil) {
-        return IFExtensionCantWriteDestination;
-    }
 
     if (author) {
         destDir = [directory stringByAppendingPathComponent: author];
@@ -503,9 +498,7 @@ static int maxErrorMessagesToDisplay = 3;
                         alert.informativeText = [NSString stringWithFormat: [IFUtility localizedString: @"Overwrite Extension Explanation"], existingVersion, version];
                         [alert addButtonWithTitle:[IFUtility localizedString: @"Cancel"]];
                         NSButton *destructive = [alert addButtonWithTitle:[IFUtility localizedString: @"Replace"]];
-                        if (@available(macOS 11, *)) {
-                            destructive.hasDestructiveAction = YES;
-                        }
+                        destructive.hasDestructiveAction = YES;
                         NSModalResponse overwrite = [alert runModal];
                         if (overwrite != NSAlertSecondButtonReturn) {
                             return IFExtensionSuccess;
@@ -518,9 +511,7 @@ static int maxErrorMessagesToDisplay = 3;
                         alert.informativeText = [NSString stringWithFormat: [IFUtility localizedString: @"Replace Extension Explanation"], existingVersion, version];
                         [alert addButtonWithTitle:[IFUtility localizedString: @"Cancel"]];
                         NSButton *destructive = [alert addButtonWithTitle:[IFUtility localizedString: @"Replace"]];
-                        if (@available(macOS 11, *)) {
-                            destructive.hasDestructiveAction = YES;
-                        }
+                        destructive.hasDestructiveAction = YES;
                         NSModalResponse overwrite = [alert runModal];
                         if (overwrite != NSAlertSecondButtonReturn) {
                             return IFExtensionSuccess;
@@ -642,32 +633,29 @@ static int maxErrorMessagesToDisplay = 3;
                                                                       window: aWindow
                                                               notifyDelegate: notifyDelegate
                                                                 javascriptId: javascriptId];
-    if ( download ) {
-        [downloads addObject: download];
-        numberOfBatchedExtensions++;
+    [downloads addObject: download];
+    numberOfBatchedExtensions++;
 
-        if( downloads.count == 1 ) {
-            // Remove old progress
-            if( dlProgress != nil ) {
-                if( [download.notifyDelegate isKindOfClass:[IFProjectController class]] ) {
-                    [dlProgress stopProgress];
-                    [(IFProjectController*) download.notifyDelegate removeProgressIndicator: dlProgress];
-                }
-            }
-            // Create new progress
-            dlProgress = [[IFProgress alloc] initWithPriority: IFProgressPriorityExtensions
-                                             showsProgressBar: YES
-                                                    canCancel: YES];
+    if( downloads.count == 1 ) {
+        // Remove old progress
+        if( dlProgress != nil ) {
             if( [download.notifyDelegate isKindOfClass:[IFProjectController class]] ) {
-                [(IFProjectController*) download.notifyDelegate addProgressIndicator: dlProgress];
+                [dlProgress stopProgress];
+                [(IFProjectController*) download.notifyDelegate removeProgressIndicator: dlProgress];
             }
-            dlProgress.message = [IFUtility localizedString:@"Installing extension"];
-            [dlProgress startProgress];
-            [self startDownloadAndInstallNextInQueue];
         }
-        return YES;
+        // Create new progress
+        dlProgress = [[IFProgress alloc] initWithPriority: IFProgressPriorityExtensions
+                                         showsProgressBar: YES
+                                                canCancel: YES];
+        if( [download.notifyDelegate isKindOfClass:[IFProjectController class]] ) {
+            [(IFProjectController*) download.notifyDelegate addProgressIndicator: dlProgress];
+        }
+        dlProgress.message = [IFUtility localizedString:@"Installing extension"];
+        [dlProgress startProgress];
+        [self startDownloadAndInstallNextInQueue];
     }
-    return NO;
+    return YES;
 }
 
 -(void) reportDownloadResults: (IFExtensionDownload*) download {
