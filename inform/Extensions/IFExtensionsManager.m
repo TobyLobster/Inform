@@ -35,10 +35,6 @@ static int maxErrorMessagesToDisplay = 3;
     /// Number of extension dictionaries that are 'installed' to ~/Library/Inform rather than internal to the Inform app bundle resources (i.e. one)
     int           userLibraryCount;
 
-    // Update extensions
-    /// Set to \c YES if an update is pending
-    BOOL          updatingExtensions;
-
     BOOL _rebuildAvailableExtensionsCache;
     BOOL _rebuildExtensionDictionaryCache;
     BOOL _cacheChanged;
@@ -204,33 +200,6 @@ static int maxErrorMessagesToDisplay = 3;
         count++;
     }
     return NO;
-}
-
--(BOOL) isFileInstalled:(NSString*) fullPath {
-	for( NSString* extnDir in extensionCollectionDirectories ) {
-        if( [fullPath startsWith: extnDir] ) {
-            return YES;
-        }
-    }
-    return NO;
-}
-
--(NSString*) removeBracketedSection: (NSString *) string {
-    NSString* result = string;
-    NSError* error;
-    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern: @"(.*)\\((.*)\\)(.*)"
-                                                                           options: 0
-                                                                             error: &error];
-    NSTextCheckingResult *match = [regex firstMatchInString: string
-                                                    options: 0
-                                                      range: NSMakeRange(0, string.length)];
-    if (match) {
-        NSString* first  = [string substringWithRange: [match rangeAtIndex:1]];
-        NSString* third  = [string substringWithRange: [match rangeAtIndex:3]];
-
-        result = [NSString stringWithFormat:@"%@%@", first, third];
-    }
-    return result.stringByTrimmingWhitespace;
 }
 
 -(NSMutableArray*) parseExtensionsList: (NSString*) jsonString {
@@ -443,52 +412,6 @@ static int maxErrorMessagesToDisplay = 3;
 
     // Sort
 	NSMutableArray* result = [resultDict.allValues mutableCopy];
-	[result sortUsingSelector: @selector(caseInsensitiveCompare:)];
-
-	return [result copy];
-}
-
-// Returns full filepaths for files we can open in the given extension directory (author) name
-- (NSArray*) sourceFilesInExtensionWithName: (NSString*) name {
-	NSFileManager* manager = [NSFileManager defaultManager];
-
-	// Filter for valid source files
-	NSMutableArray* result = [NSMutableArray array];
-
-	NSArray* files = [self filesInExtensionWithName: name];
-	for(NSString* file in files) {
-		// File must exist and not be a directory
-		BOOL exists;
-        BOOL isDir;
-
-		exists = [manager fileExistsAtPath: file
-							   isDirectory: &isDir];
-		if (!exists || isDir) {
-            continue;
-        }
-
-		// File must not begin with a '.'
-		if ([file.lastPathComponent characterAtIndex: 0] == '.') {
-            continue;
-        }
-
-		// File must have a suitable extension
-		NSString* extn = file.pathExtension.lowercaseString;
-        BOOL isOpenable = [extn isEqualToString: @""]    ||
-                          [extn isEqualToString: @"i7x"] ||
-                          [extn isEqualToString: @"txt"] ||
-                          [extn isEqualToString: @"rtf"] ||
-                          [extn isEqualToString: @"rtfd"] ||
-                          [extn isEqualToString: @"inf"] ||
-                          [extn isEqualToString: @"h"]   ||
-                          [extn isEqualToString: @"i6"];
-		if (isOpenable) {
-			// Add to the result
-			[result addObject: file];
-		}
-	}
-
-    // Sort alphabetically
 	[result sortUsingSelector: @selector(caseInsensitiveCompare:)];
 
 	return [result copy];

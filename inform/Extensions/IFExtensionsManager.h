@@ -33,7 +33,7 @@ typedef NS_ENUM(int, IFExtensionResult) {
 /// This class can be used as a delegate for NSSave/Open panel delegates to only allow valid extensions
 /// to be selected.
 ///
-@interface IFExtensionsManager : NSObject<NSTableViewDataSource, NSOpenSavePanelDelegate>
+@interface IFExtensionsManager : NSObject<NSOpenSavePanelDelegate>
 
 @property (atomic) BOOL rebuildAvailableExtensionsCache;
 @property (atomic) BOOL rebuildExtensionDictionaryCache;
@@ -57,13 +57,9 @@ typedef NS_ENUM(int, IFExtensionResult) {
 - (NSArray<IFExtensionInfo*>*) availableExtensionsByAuthor: (NSString*) author
                                        withCompilerVersion: (NSString*) compilerVersion;
 
-- (BOOL) isFileInstalled:(NSString*) fullPath;
-
 // ... and the list of files within a given extension (full paths)
 /// Complete list of files in the given extension
 - (NSArray<NSString*>*) filesInExtensionWithName: (NSString*) name;
-/// Complete list of source files in the given extension
-- (NSArray<NSString*>*) sourceFilesInExtensionWithName: (NSString*) name;
 
 /// From a file potentially containing a natural inform extension, works out the author, title, version information.
 /// Each piece given a place to go is set, to \c nil if it isn't found (the version is \c nil if there isn't one).
