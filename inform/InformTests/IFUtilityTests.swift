@@ -211,6 +211,88 @@ final class IFUtilityTests: XCTestCase {
         }
     }
 
+    // MARK: - Paths
+    //
+    // Like the tests above, these expect the Advanced preferences not to use an external Inform
+    // Core folder or a local copy of the Public Library, as tests mustn't change preferences.
+
+    private var macOSFolder: String {
+        return Bundle.main.executableURL!.deletingLastPathComponent().path
+    }
+
+    /// Inform's folder in the Library folder, which is in the tests' own home
+    func testExternalPathsAreInInformsLibraryFolder() {
+        let library = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)[0]
+        XCTAssertTrue(library.hasPrefix(NSHomeDirectory()), library)
+        XCTAssertEqual(IFUtility.pathForInformExternalAppSupport(), library + "/Inform")
+        XCTAssertEqual(IFUtility.pathForInformExternalExtensions(), library + "/Inform/Extensions")
+        XCTAssertEqual(IFUtility.pathForInformExternalLibraries(), library + "/Inform/Libraries")
+        XCTAssertEqual(IFUtility.pathForInformExternalDocumentation(), library + "/Inform/Documentation")
+    }
+
+    func testInternalPathsForTheCurrentVersion() {
+        let internalFolder = Bundle.main.resourcePath! + "/Internal"
+        for version in ["****", "", "10.1"] {
+            XCTAssertEqual(IFUtility.path(forInformInternalAppSupport: version), internalFolder, version)
+            XCTAssertEqual(IFUtility.path(forInformInternalExtensions: version), internalFolder + "/Extensions", version)
+            XCTAssertEqual(IFUtility.path(forInformInternalLibraries: version), internalFolder + "/Libraries", version)
+            XCTAssertEqual(IFUtility.path(forInformInternalDocumentation: version), internalFolder + "/Documentation", version)
+        }
+    }
+
+    func testInternalPathsForOlderVersions() {
+        let retrospective = Bundle.main.resourcePath! + "/retrospective/6M62"
+        XCTAssertEqual(IFUtility.path(forInformInternalAppSupport: "6M62"), retrospective)
+        XCTAssertEqual(IFUtility.path(forInformInternalExtensions: "6M62"), retrospective + "/Extensions")
+        XCTAssertEqual(IFUtility.path(forInformInternalLibraries: "6M62"), retrospective + "/Libraries")
+        XCTAssertEqual(IFUtility.path(forInformInternalDocumentation: "6M62"), retrospective + "/Documentation")
+    }
+
+    /// Without an external Inform Core folder, each tool is the app's own, whatever the version.
+    func testExecutablesAreTheAppsOwn() {
+        for tool in ["ni", "inbuild", "inform6", "cBlorb", "intest", "glulxe", "dumb-frotz"] {
+            for version in ["****", "6M62"] {
+                XCTAssertEqual(IFUtility.path(forInformExecutable: tool, version: version), macOSFolder + "/" + tool,
+                               "\(tool) \(version)")
+            }
+        }
+        XCTAssertNil(IFUtility.path(forInformExecutable: "NoSuchTool", version: "****"))
+    }
+
+    /// Versions up to 6M62 have their own ni, even one the app doesn't have.
+    func testCompilerPaths() {
+        XCTAssertEqual(IFUtility.path(forCompiler: "****"), macOSFolder + "/ni")
+        XCTAssertEqual(IFUtility.path(forCompiler: "10.1"), macOSFolder + "/ni")
+        XCTAssertEqual(IFUtility.path(forCompiler: "6L38"), macOSFolder + "/6L38/ni")
+        XCTAssertEqual(IFUtility.path(forCompiler: "5Z71"), macOSFolder + "/5Z71/ni")
+    }
+
+    /// One new folder in the temporary folder, the same each time
+    func testTemporaryDirectory() {
+        let url = IFUtility.temporaryDirectoryURL()
+        XCTAssertEqual(IFUtility.temporaryDirectoryURL(), url)
+        XCTAssertEqual(url.deletingLastPathComponent().path, URL(fileURLWithPath: NSTemporaryDirectory()).path)
+        var isDirectory: ObjCBool = false
+        XCTAssertTrue(FileManager.default.fileExists(atPath: url.path, isDirectory: &isDirectory))
+        XCTAssertTrue(isDirectory.boolValue)
+    }
+
+    func testPublicLibraryURL() {
+        XCTAssertEqual(IFUtility.publicLibraryURL(), URL(string: "https://ganelson.github.io/inform-public-library/v11/"))
+    }
+
+    /// A Debug build uses the address in ~/redirect_inform.txt instead, if there's one.
+    func testDebugBuildsCanRedirectThePublicLibrary() throws {
+        let redirect = (NSHomeDirectory() as NSString).appendingPathComponent("redirect_inform.txt")
+        try XCTSkipUnless(NSHomeDirectory().hasSuffix("/TestHome"), "Only writes in the tests' own home")
+        try XCTSkipIf(FileManager.default.fileExists(atPath: redirect), "Leaves an existing redirect alone")
+
+        try FileManager.default.createDirectory(atPath: NSHomeDirectory(), withIntermediateDirectories: true)
+        try "  http://localhost:8000/index.html\n".write(toFile: redirect, atomically: true, encoding: .utf8)
+        defer { try? FileManager.default.removeItem(atPath: redirect) }
+        XCTAssertEqual(IFUtility.publicLibraryURL(), URL(string: "http://localhost:8000/index.html"))
+    }
+
     // MARK: - URL schemes
 
     /// The file, test case and line number of a source: link, as strings

@@ -88,41 +88,6 @@ CGFloat easeOutCubic(CGFloat t);
 + (BOOL) isSandboxed;
 @property (class, readonly, atomic, getter=isSandboxed) BOOL sandboxed;
 
-/// Paths to common resources
-+ (nullable NSURL*) publicLibraryURL;
-
-+ (NSString*) informSupportPath: (nullable NSString *)firstString, ... NS_REQUIRES_NIL_TERMINATION;
-
-// External directories within Application Support or Sandboxed container
-+ (NSString*) pathForInformExternalAppSupport;
-+ (NSString*) pathForInformExternalExtensions;
-+ (NSString*) pathForInformExternalLibraries;
-+ (NSString*) pathForInformExternalDocumentation;
-
-/// The documentation page Inform writes for an extension a project uses, in the project's
-/// materials folder: Extensions/Reserved/Documentation/<author>/<title>-v<version>/index.html.
-/// Nil if there is none.
-+ (nullable NSString*) documentationPageForExtensionTitled: (NSString*) title
-                                           author: (NSString*) author
-                                  inMaterialsPath: (NSString*) materialsPath;
-
-// Internal directories within the bundle resources
-/// Path to the internal Inform 7 app support
-+ (NSString*) pathForInformInternalAppSupport: (NSString *)version;
-/// Path to the internal Inform 7 extensions
-+ (NSString*) pathForInformInternalExtensions: (NSString *)version;
-/// Path to the internal Inform 7 libraries
-+ (NSString*) pathForInformInternalLibraries: (NSString *)version;
-/// Path to the internal Inform 7 documentation
-+ (NSString*) pathForInformInternalDocumentation: (NSString *)version;
-/// Path to the inform executables (ni, inbuild, intest etc)
-+ (nullable NSString*) pathForInformExecutable: (NSString*) executableName version: (NSString*) compilerVersion;
-
-/// Path to the compiler
-+ (nullable NSString*) pathForCompiler: (NSString *)version;
-
-+ (NSURL*) temporaryDirectoryURL;
-
 // OS version checking
 + (BOOL) hasFullscreenSupportFeature;
 @property (class, readonly, atomic) BOOL hasFullscreenSupportFeature;
@@ -170,6 +135,43 @@ CGFloat easeOutCubic(CGFloat t);
 
 // Core build version
 @property (class, readonly, copy, nonatomic, nullable) NSString *coreBuildVersion;
+
+@end
+
+@interface IFUtility (Paths)
+
+/// Paths to common resources
++ (nullable NSURL*) publicLibraryURL;
+
+// External directories within Application Support or Sandboxed container
++ (NSString*) pathForInformExternalAppSupport;
++ (NSString*) pathForInformExternalExtensions;
++ (NSString*) pathForInformExternalLibraries;
++ (NSString*) pathForInformExternalDocumentation;
+
+/// The documentation page Inform writes for an extension a project uses, in the project's
+/// materials folder: Extensions/Reserved/Documentation/<author>/<title>-v<version>/index.html.
+/// Nil if there is none.
++ (nullable NSString*) documentationPageForExtensionTitled: (NSString*) title
+                                           author: (NSString*) author
+                                  inMaterialsPath: (NSString*) materialsPath;
+
+// Internal directories within the bundle resources
+/// Path to the internal Inform 7 app support
++ (NSString*) pathForInformInternalAppSupport: (NSString *)version;
+/// Path to the internal Inform 7 extensions
++ (NSString*) pathForInformInternalExtensions: (NSString *)version;
+/// Path to the internal Inform 7 libraries
++ (NSString*) pathForInformInternalLibraries: (NSString *)version;
+/// Path to the internal Inform 7 documentation
++ (NSString*) pathForInformInternalDocumentation: (NSString *)version;
+/// Path to the inform executables (ni, inbuild, intest etc)
++ (nullable NSString*) pathForInformExecutable: (NSString*) executableName version: (NSString*) compilerVersion;
+
+/// Path to the compiler
++ (nullable NSString*) pathForCompiler: (NSString *)version;
+
++ (NSURL*) temporaryDirectoryURL;
 
 @end
 
