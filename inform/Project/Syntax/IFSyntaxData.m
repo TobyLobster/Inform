@@ -835,7 +835,7 @@
 	NSInteger x;
 
     NSAssert(syntaxPos < charStyles.numCharStyles, @"index out of range");
-	for (x=syntaxPos-backtrackLength; x<syntaxPos; x++) {
+	for (x=(NSInteger)syntaxPos-backtrackLength; x<(NSInteger)syntaxPos; x++) {
         if (x >= 0) {
             [charStyles write:x value:newStyle];
         }

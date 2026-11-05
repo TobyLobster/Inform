@@ -157,4 +157,12 @@ final class IFHighlighterTests: XCTestCase {
                 ("light", .property),
             ])
     }
+
+    /// A keyword is coloured by going back over it once it's recognised, which mustn't stop at the start of the text.
+    func testInform6KeywordAtTheStartOfTheText() throws {
+        try assertStyles("Constant Story \"Heading\";\n", .inform6, [
+            ("Constant", .directive),
+            ("\"Heading\"", .string),
+        ])
+    }
 }
