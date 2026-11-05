@@ -198,25 +198,23 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
                                                      name: IFToolbar.ChangedVisibility
                                                    object: nil];
 
-        // Only 10.7 Lion or later has Full Screen support
-        if( [IFUtility hasFullscreenSupportFeature] ) {
-            [[NSNotificationCenter defaultCenter] addObserver: self
-                                                     selector: @selector(willEnterFullScreen:)
-                                                         name: NSWindowWillEnterFullScreenNotification
-                                                       object: nil];
-            [[NSNotificationCenter defaultCenter] addObserver: self
-                                                     selector: @selector(didEnterFullScreen:)
-                                                         name: NSWindowDidEnterFullScreenNotification
-                                                       object: nil];
-            [[NSNotificationCenter defaultCenter] addObserver: self
-                                                     selector: @selector(willExitFullScreen:)
-                                                         name: NSWindowWillExitFullScreenNotification
-                                                       object: nil];
-            [[NSNotificationCenter defaultCenter] addObserver: self
-                                                     selector: @selector(didExitFullScreen:)
-                                                         name: NSWindowDidExitFullScreenNotification
-                                                       object: nil];
-        }
+        // Full screen
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(willEnterFullScreen:)
+                                                     name: NSWindowWillEnterFullScreenNotification
+                                                   object: nil];
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(didEnterFullScreen:)
+                                                     name: NSWindowDidEnterFullScreenNotification
+                                                   object: nil];
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(willExitFullScreen:)
+                                                     name: NSWindowWillExitFullScreenNotification
+                                                   object: nil];
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(didExitFullScreen:)
+                                                     name: NSWindowDidExitFullScreenNotification
+                                                   object: nil];
     }
 
     return self;
@@ -276,21 +274,7 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 }
 
 -(NSView*) toolbarStatusViewParent {
-    // Support for 10.11 and above
-    if( [IFUtility hasUpdatedToolbarFeature] ) {
-        return [projectController.window standardWindowButton:NSWindowCloseButton].superview;
-    }
-
-    // Support for 10.6.8 to 10.10.X
-    // Find the parent view, the superview of our status view. Sadly, if window is in fullscreen
-    // mode, the parent view is different than normal mode.
-    // See http://stackoverflow.com/questions/6169255/is-it-possible-to-draw-in-the-label-area-of-nstoolbar
-    BOOL isFullscreen = (((projectController.window).styleMask & NSWindowStyleMaskFullScreen) == NSWindowStyleMaskFullScreen);
-    if( isFullscreen ) {
-        return toolbarView.superview;
-    }
-
-    return (projectController.window.contentView).superview;
+    return [projectController.window standardWindowButton:NSWindowCloseButton].superview;
 }
 
 // This function keeps the toolbar status view in the right place on the toolbar.

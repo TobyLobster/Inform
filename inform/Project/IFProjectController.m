@@ -260,10 +260,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
                                                object: [self.document compiler]];
 
     // Fullscreen mode
-    if( [IFUtility hasFullscreenSupportFeature] ) {
-        // Add fullscreen capability. Only available on Lion (10.7) or above
-        self.window.collectionBehavior = self.window.collectionBehavior | NSWindowCollectionBehaviorFullScreenPrimary;
-    }
+    self.window.collectionBehavior = self.window.collectionBehavior | NSWindowCollectionBehaviorFullScreenPrimary;
 
     // Create the toolbar view
     [toolbarManager setToolbar];

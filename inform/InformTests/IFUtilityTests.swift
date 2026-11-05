@@ -468,4 +468,125 @@ final class IFUtilityTests: XCTestCase {
     func testBadPatternMatchesNothing() {
         XCTAssertNil(IFUtility.findMatch("(unclosed", inText: "(unclosed"))
     }
+
+    // MARK: - Unique IDs
+
+    func testGeneratesIncreasingIDs() {
+        let first = IFUtility.generateID()
+        let second = IFUtility.generateID()
+        XCTAssertGreaterThanOrEqual(first, 1000)
+        XCTAssertGreaterThan(second, first)
+    }
+
+    /// IDs are unique even when they're made on several threads at once.
+    func testGeneratesUniqueIDsOnAnyThread() {
+        let lock = NSLock()
+        var ids = Set<UInt>()
+        DispatchQueue.concurrentPerform(iterations: 1000) { _ in
+            let id = IFUtility.generateID()
+            lock.lock()
+            ids.insert(id)
+            lock.unlock()
+        }
+        XCTAssertEqual(ids.count, 1000)
+    }
+
+    // MARK: - Unzipping
+
+    /// Zips files with the given contents, from a folder in the materials folder
+    private func makeZip(_ files: [String: String]) throws -> URL {
+        let source = materials.appendingPathComponent("Zip source")
+        for (path, contents) in files {
+            let file = source.appendingPathComponent(path)
+            try FileManager.default.createDirectory(at: file.deletingLastPathComponent(), withIntermediateDirectories: true)
+            try Data(contents.utf8).write(to: file)
+        }
+        let zip = materials.appendingPathComponent("Archive.zip")
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/usr/bin/zip")
+        process.currentDirectoryURL = source
+        process.arguments = ["-q", "-r", zip.path, "."]
+        try process.run()
+        process.waitUntilExit()
+        XCTAssertEqual(process.terminationStatus, 0)
+        return zip
+    }
+
+    private func contents(_ url: URL) throws -> String {
+        return try String(contentsOf: url, encoding: .utf8)
+    }
+
+    /// Unzips into the folder, making it, and leaves out what the Finder adds.
+    func testUnzips() throws {
+        let zip = try makeZip(["Story/story.ni": "\"Test\" by Me.",
+                               "Story/.DS_Store": "",
+                               "__MACOSX/Story/._story.ni": ""])
+        let target = materials.appendingPathComponent("Unzipped/Here")
+        XCTAssertTrue(IFUtility.unzip(zip, toDirectory: target))
+        XCTAssertEqual(try contents(target.appendingPathComponent("Story/story.ni")), "\"Test\" by Me.")
+        XCTAssertFalse(FileManager.default.fileExists(atPath: target.appendingPathComponent("Story/.DS_Store").path))
+        XCTAssertFalse(FileManager.default.fileExists(atPath: target.appendingPathComponent("__MACOSX").path))
+    }
+
+    func testUnzipOverwritesFiles() throws {
+        let zip = try makeZip(["story.ni": "New"])
+        let target = materials.appendingPathComponent("Unzipped")
+        try FileManager.default.createDirectory(at: target, withIntermediateDirectories: true)
+        try Data("Old".utf8).write(to: target.appendingPathComponent("story.ni"))
+        XCTAssertTrue(IFUtility.unzip(zip, toDirectory: target))
+        XCTAssertEqual(try contents(target.appendingPathComponent("story.ni")), "New")
+    }
+
+    func testUnzipFailsForAFileThatIsNotAZip() throws {
+        try FileManager.default.createDirectory(at: materials, withIntermediateDirectories: true)
+        let notZip = materials.appendingPathComponent("Not.zip")
+        try Data("Not a zip".utf8).write(to: notZip)
+        XCTAssertFalse(IFUtility.unzip(notZip, toDirectory: materials.appendingPathComponent("Unzipped")))
+    }
+
+    // MARK: - Sandboxing
+
+    func testIsSandboxedWhenThereIsASandboxContainer() {
+        XCTAssertEqual(IFUtility.isSandboxed, ProcessInfo.processInfo.environment["APP_SANDBOX_CONTAINER_ID"] != nil)
+    }
+
+    // MARK: - Performing selectors
+
+    private class Receiver: NSObject {
+        var calls = 0
+        @objc func ping() { calls += 1 }
+    }
+
+    func testPerformsASelectorTheObjectHas() {
+        let receiver = Receiver()
+        IFUtility.perform(#selector(Receiver.ping), object: receiver)
+        XCTAssertEqual(receiver.calls, 1)
+    }
+
+    func testIgnoresASelectorTheObjectDoesNotHave() {
+        let receiver = Receiver()
+        IFUtility.perform(NSSelectorFromString("pong"), object: receiver)
+        IFUtility.perform(#selector(Receiver.ping), object: nil)
+        XCTAssertEqual(receiver.calls, 0)
+    }
+
+    // MARK: - Font sizes
+
+    func testAdjustsTheFontSize() throws {
+        for name in ["Helvetica", "Helvetica-Bold"] {
+            let font = try XCTUnwrap(NSFont(name: name, size: 12))
+            let adjusted = IFUtility.adjustAttributesFontSize([.font: font, .foregroundColor: NSColor.red], size: 20)
+            let adjustedFont = try XCTUnwrap(adjusted[.font] as? NSFont)
+            XCTAssertEqual(adjustedFont.fontName, name)
+            XCTAssertEqual(adjustedFont.pointSize, 20)
+            XCTAssertEqual(adjusted[.foregroundColor] as? NSColor, NSColor.red)
+        }
+    }
+
+    /// Without a font, there's nothing to change.
+    func testAdjustingTheFontSizeWithoutAFont() {
+        let adjusted = IFUtility.adjustAttributesFontSize([.foregroundColor: NSColor.red], size: 20)
+        XCTAssertNil(adjusted[.font])
+        XCTAssertEqual(adjusted.count, 1)
+    }
 }
