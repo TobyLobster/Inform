@@ -131,6 +131,10 @@ static int maxErrorMessagesToDisplay = 3;
     return YES;
 }
 
+- (NSUInteger)hash {
+    return self.displayName.hash ^ self.filepath.hash ^ self.author.hash ^ self.version.hash ^ (NSUInteger) self.isBuiltIn;
+}
+
 @end
 
 // *******************************************************************************************

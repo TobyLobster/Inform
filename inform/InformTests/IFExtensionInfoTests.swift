@@ -98,4 +98,14 @@ final class IFExtensionInfoTests: XCTestCase {
         XCTAssertFalse(info().isEqual(nil))
         XCTAssertFalse(info().isEqual("Locksmith"))
     }
+
+    func testEqualInfosHashAlike() {
+        // Kept alive together, so that no two share an address
+        let locksmiths = (0..<20).map { _ in info() }
+        let unknowns = (0..<20).map { _ in info(filepath: nil, version: nil) }
+
+        XCTAssertEqual(Set(locksmiths.map(\.hash)).count, 1)
+        XCTAssertEqual(Set(unknowns.map(\.hash)).count, 1)
+        XCTAssertEqual(NSSet(array: locksmiths + unknowns + [info("Keys")]).count, 3)
+    }
 }
