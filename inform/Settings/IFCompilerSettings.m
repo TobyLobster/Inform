@@ -38,7 +38,6 @@ NSString* const IFSettingBasicInform          = @"IFSettingBasicInform";
 NSString* const IFSettingCompilerVersion      = @"IFSettingCompilerVersion";
 
 // Debug
-NSString* const IFSettingCompileNatOutput = @"IFSettingCompileNatOutput";
 NSString* const IFSettingAllowLegacyExtensionDirectory   = @"IFSettingAllowLegacyExtensionDirectory";
 
 // Compiler types
@@ -180,10 +179,6 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 }
 
 // == The command line ==
-- (NSArray*) commandLineArguments {
-	return [self commandLineArgumentsForRelease: NO forTesting: NO];
-}
-
 - (NSArray*) commandLineArgumentsForRelease: (BOOL) release
                                  forTesting: (BOOL) testing {
     NSMutableArray* result = [NSMutableArray array];
@@ -369,8 +364,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 }
 
 - (void) setUsingNaturalInform: (BOOL) setting {
-    //[self dictionaryForClass: [IFCompilerOptions class]][IFSettingNaturalInform] = @(setting);
-    //[self settingsHaveChanged];
+    // Projects are always Inform 7 now
 }
 
 - (BOOL) usingNaturalInform {
@@ -405,11 +399,6 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     } else {
         return NO;
     }
-}
-
-- (void) setDebug: (BOOL) setting {
-    [self dictionaryForClass: [IFMiscSettings class]][IFSettingDEBUG] = @(setting);
-    [self settingsHaveChanged];
 }
 
 - (BOOL) debug {

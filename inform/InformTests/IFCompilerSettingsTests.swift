@@ -127,29 +127,29 @@ final class IFCompilerSettingsTests: XCTestCase {
     /// The switches given to the Inform 6 compiler.
     func testInform6Switches() {
         let settings = IFCompilerSettings()
-        XCTAssertEqual(settings.commandLineArguments.first, "-kE2SDwG")
+        XCTAssertEqual(settings.commandLineArguments(forRelease: false, forTesting: false).first, "-kE2SDwG")
         XCTAssertEqual(settings.commandLineArguments(forRelease: true, forTesting: false).first, "-kE2~S~DwG")
 
         // Testing always checks strictly, and with debugging
         settings.strict = false
-        XCTAssertEqual(settings.commandLineArguments.first, "-kE2~SDwG")
+        XCTAssertEqual(settings.commandLineArguments(forRelease: false, forTesting: false).first, "-kE2~SDwG")
         XCTAssertEqual(settings.commandLineArguments(forRelease: true, forTesting: true).first, "-kE2SDwG")
 
         settings.strict = true
         settings.infix = true
         settings.zcodeVersion = 8
-        XCTAssertEqual(settings.commandLineArguments.first, "-kE2SXDwv8")
+        XCTAssertEqual(settings.commandLineArguments(forRelease: false, forTesting: false).first, "-kE2SXDwv8")
         XCTAssertEqual(settings.commandLineArguments(forRelease: true, forTesting: false).first, "-kE2~S~Dwv8")
 
-        XCTAssertEqual(settings.commandLineArguments.last?.hasPrefix("+include_path="), true)
-        XCTAssertEqual(settings.commandLineArguments.last?.hasSuffix(",.,../Source"), true)
+        XCTAssertEqual(settings.commandLineArguments(forRelease: false, forTesting: false).last?.hasPrefix("+include_path="), true)
+        XCTAssertEqual(settings.commandLineArguments(forRelease: false, forTesting: false).last?.hasSuffix(",.,../Source"), true)
     }
 
     /// A version of the Z-machine the compiler doesn't support is replaced by the default.
     func testUnsupportedStoryFormat() {
         let settings = IFCompilerSettings()
         settings.zcodeVersion = 2
-        XCTAssertEqual(settings.commandLineArguments.first, "-kE2SDwv5")
+        XCTAssertEqual(settings.commandLineArguments(forRelease: false, forTesting: false).first, "-kE2SDwv5")
     }
 
     /// The arguments given to the Inform 7 compiler (the current version).
