@@ -135,6 +135,82 @@ final class IFUtilityTests: XCTestCase {
         }
     }
 
+    /// The app's own compiler version, which has three parts (see above)
+    private var current: String { return IFUtility.coreBuildVersion! }
+
+    /// "" and "****" stand for the current version.
+    func testFullCompilerVersion() {
+        XCTAssertEqual(IFUtility.fullCompilerVersion(""), current)
+        XCTAssertEqual(IFUtility.fullCompilerVersion("****"), current)
+        XCTAssertEqual(IFUtility.fullCompilerVersion("6M62"), "6M62")
+        XCTAssertEqual(IFUtility.fullCompilerVersion("10.1"), "10.1")
+    }
+
+    /// A version with three or more parts is cut to two, and anything else is left alone.
+    func testMajorMinor() {
+        XCTAssertEqual(IFUtility.majorMinor("10.2.0"), "10.2")
+        XCTAssertEqual(IFUtility.majorMinor("1.2.3.4"), "1.2")
+        XCTAssertEqual(IFUtility.majorMinor("10.1"), "10.1")
+        XCTAssertEqual(IFUtility.majorMinor("6M62"), "6M62")
+    }
+
+    /// Only the current version, its major and minor version, and 10.1 use the current compiler.
+    func testLatestMajorMinorCompilerVersion() {
+        let parts = current.components(separatedBy: ".")
+        XCTAssertTrue(IFUtility.isLatestMajorMinorCompilerVersion("****"))
+        XCTAssertTrue(IFUtility.isLatestMajorMinorCompilerVersion(""))
+        XCTAssertTrue(IFUtility.isLatestMajorMinorCompilerVersion(current))
+        XCTAssertTrue(IFUtility.isLatestMajorMinorCompilerVersion("\(parts[0]).\(parts[1])"))
+        XCTAssertFalse(IFUtility.isLatestMajorMinorCompilerVersion("\(parts[0]).\(parts[1]).99"))
+        XCTAssertFalse(IFUtility.isLatestMajorMinorCompilerVersion("9.3"))
+        XCTAssertFalse(IFUtility.isLatestMajorMinorCompilerVersion("6M62"))
+    }
+
+    /// Dotted versions are later than build codes like 6M62.
+    func testComparesDottedVersionsWithBuildCodes() {
+        XCTAssertEqual(IFUtility.compilerVersionCompare("10.1", other: "6M62"), .orderedDescending)
+        XCTAssertEqual(IFUtility.compilerVersionCompare("6M62", other: "10.1"), .orderedAscending)
+        XCTAssertEqual(IFUtility.compilerVersionCompare("****", other: "6M62"), .orderedDescending)
+    }
+
+    /// Dotted versions compare by number, ignoring trailing ".0"s.
+    func testComparesDottedVersions() {
+        XCTAssertEqual(IFUtility.compilerVersionCompare("9.3", other: "10.1"), .orderedAscending)
+        XCTAssertEqual(IFUtility.compilerVersionCompare("10.1.10", other: "10.1.2"), .orderedDescending)
+        XCTAssertEqual(IFUtility.compilerVersionCompare("10.1", other: "10.1.0"), .orderedSame)
+        XCTAssertEqual(IFUtility.compilerVersionCompare("10.0", other: "10.0.0"), .orderedSame)
+        XCTAssertEqual(IFUtility.compilerVersionCompare("", other: current), .orderedSame)
+    }
+
+    /// Build codes compare as text, ignoring case.
+    func testComparesBuildCodes() {
+        XCTAssertEqual(IFUtility.compilerVersionCompare("6L02", other: "6L38"), .orderedAscending)
+        XCTAssertEqual(IFUtility.compilerVersionCompare("6M62", other: "6L38"), .orderedDescending)
+        XCTAssertEqual(IFUtility.compilerVersionCompare("6m62", other: "6M62"), .orderedSame)
+        XCTAssertEqual(IFUtility.compilerVersionCompare("5Z71", other: "6L02"), .orderedAscending)
+    }
+
+    func testCompilerVersionIsAfterAndNoLaterThan() {
+        XCTAssertTrue(IFUtility.compilerVersion("****", isAfter: "6M62"))
+        XCTAssertFalse(IFUtility.compilerVersion("6M62", isAfter: "6M62"))
+        XCTAssertFalse(IFUtility.compilerVersion("6L38", isAfter: "6M62"))
+        XCTAssertTrue(IFUtility.compilerVersion("6M62", isNoLaterThan: "6M62"))
+        XCTAssertTrue(IFUtility.compilerVersion("6L38", isNoLaterThan: "6M62"))
+        XCTAssertFalse(IFUtility.compilerVersion("10.1", isNoLaterThan: "6M62"))
+    }
+
+    /// Compilers up to 6L02 take -extension and -package, and later ones -format and -project.
+    func testCompilerParameterNames() {
+        for version in ["5Z71", "6L02"] {
+            XCTAssertEqual(IFUtility.compilerFormatParameterName(version), "extension", version)
+            XCTAssertEqual(IFUtility.compilerProjectParameterName(version), "package", version)
+        }
+        for version in ["6L38", "6M62", "10.1", "****"] {
+            XCTAssertEqual(IFUtility.compilerFormatParameterName(version), "format", version)
+            XCTAssertEqual(IFUtility.compilerProjectParameterName(version), "project", version)
+        }
+    }
+
     // MARK: - URL schemes
 
     /// The file, test case and line number of a source: link, as strings
