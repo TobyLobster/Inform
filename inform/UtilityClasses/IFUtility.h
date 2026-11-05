@@ -76,7 +76,6 @@ CGFloat easeOutCubic(CGFloat t);
 +(bool) unzip: (NSURL*) zipFilepath toDirectory:(NSURL*) targetDirectory;
 
 /// Sandboxing
-+ (BOOL) isSandboxed;
 @property (class, readonly, atomic, getter=isSandboxed) BOOL sandboxed;
 
 + (void) performSelector:(SEL) selector object:(nullable id) object;
