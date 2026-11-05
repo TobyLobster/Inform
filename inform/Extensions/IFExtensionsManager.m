@@ -159,9 +159,6 @@ static int maxErrorMessagesToDisplay = 3;
         self.receivedData   = [NSMutableData data];
         self.notifyDelegate = notifyDelegate;
         self.javascriptId   = javascriptId;
-        urlSession = [NSURLSession sessionWithConfiguration: NSURLSessionConfiguration.ephemeralSessionConfiguration
-                                                   delegate: self
-                                              delegateQueue: nil];
     }
 
     return self;
@@ -175,6 +172,11 @@ static int maxErrorMessagesToDisplay = 3;
     NSURLRequest *theRequest = [NSURLRequest requestWithURL: self.url
                                                 cachePolicy: NSURLRequestUseProtocolCachePolicy
                                             timeoutInterval: 10.0];
+
+    // The session keeps this download until it's invalidated, once the task is finished
+    urlSession = [NSURLSession sessionWithConfiguration: NSURLSessionConfiguration.ephemeralSessionConfiguration
+                                               delegate: self
+                                          delegateQueue: nil];
 
     // Create the connection with the request and start loading the data
     self.connection = [urlSession dataTaskWithRequest: theRequest];
@@ -320,6 +322,9 @@ didReceiveResponse: (NSURLResponse *)response
 {
     if (task == self.connection)
     {
+        // Let go of the session, so that it lets go of this download
+        [session finishTasksAndInvalidate];
+
         // Process the downloaded data on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
             [self downloadedTask: task error: error];

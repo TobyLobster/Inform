@@ -65,6 +65,14 @@ final class IFExtensionDownloadTests: XCTestCase {
         XCTAssertEqual(newDownload.receivedData, NSMutableData())
     }
 
+    func testANewDownloadIsntKeptAlive() {
+        weak var newDownload: IFExtensionDownload?
+        autoreleasepool {
+            newDownload = download(folder.appendingPathComponent("Locksmith.zip"))
+        }
+        XCTAssertNil(newDownload)
+    }
+
     func testReceivingData() throws {
         let newDownload = download(folder.appendingPathComponent("Locksmith.zip"))
         let dataTask = task(for: newDownload)
@@ -122,5 +130,22 @@ final class IFExtensionDownloadTests: XCTestCase {
         // With no project to install it in, it isn't installed
         XCTAssertFalse(NSDocumentController.shared.documents.contains { $0 is IFProject })
         XCTAssertEqual(newDownload.state, .installFailed)
+    }
+
+    func testAFinishedDownloadIsntKeptAlive() throws {
+        try XCTSkipUnless(NSHomeDirectory().hasSuffix("/TestHome"), "Only writes in the tests' own home")
+        let zipURL = folder.appendingPathComponent("Locksmith.zip")
+        try Data("Not really a zip file".utf8).write(to: zipURL)
+        weak var newDownload: IFExtensionDownload?
+
+        autoreleasepool {
+            let started = download(zipURL)
+            XCTAssertTrue(started.startAndInstall())
+            newDownload = started
+        }
+
+        // Once it has finished, nothing keeps it
+        let released = expectation(for: NSPredicate { _, _ in newDownload == nil }, evaluatedWith: nil)
+        wait(for: [released], timeout: 10)
     }
 }
