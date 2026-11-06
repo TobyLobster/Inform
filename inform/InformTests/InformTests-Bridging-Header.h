@@ -42,6 +42,7 @@
 #import "IFCompiler.h"
 #import "IFCompilerStyles.h"
 #import "IFProgress.h"
+#import "IFProjectMaterialsPresenter.h"
 #import "IFNaturalIntel.h"
 #import "IFIntelFile.h"
 #import "IFIntelSymbol.h"

@@ -101,12 +101,14 @@
 	}
     [self unregisterProjectTextStorage];
 
+    [materialsAccess close];
     materialsAccess = nil;
 
     [super close];
 }
 
 - (void) createMaterials {
+    [materialsAccess close];
     materialsAccess = [[IFProjectMaterialsPresenter alloc] initWithURL: self.fileURL];
 }
 
