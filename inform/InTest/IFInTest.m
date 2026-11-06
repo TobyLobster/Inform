@@ -298,9 +298,10 @@ NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
                           @"-to",
                           outputURL.path];
     [self executeInTestForExtension:extensionPathName withArgs:args];
+    int result = exitCode;
 
     [self tidyUp];
-    return exitCode;
+    return result;
 }
 
 - (int) generateCombinedReportForExtension: (NSString*) extensionPathName
@@ -320,9 +321,10 @@ NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
                           @"-to",
                           outputURL.path];
     [self executeInTestForExtension:extensionPathName withArgs:args];
+    int result = exitCode;
 
     [self tidyUp];
-    return exitCode;
+    return result;
 }
 
 -(int) adjustLine:(int) lineNumber forTestCase:(NSString*) testCase {

@@ -205,14 +205,15 @@ final class IFInTestTests: XCTestCase {
         let folder = try makeFolder()
         let report = folder.appendingPathComponent("Report-1.html")
 
-        _ = IFInTest().generateReport(forExtension: file,
-                                      testCase: "A",
-                                      errorCode: "maybe",
-                                      problemsURL: try makeProblemsPage(in: folder),
-                                      skeinNodeId: 0,
-                                      skeinNodes: 0,
-                                      outputURL: report)
+        let exitCode = IFInTest().generateReport(forExtension: file,
+                                                 testCase: "A",
+                                                 errorCode: "maybe",
+                                                 problemsURL: try makeProblemsPage(in: folder),
+                                                 skeinNodeId: 0,
+                                                 skeinNodes: 0,
+                                                 outputURL: report)
 
+        XCTAssertNotEqual(exitCode, 0)
         XCTAssertFalse(FileManager.default.fileExists(atPath: report.path))
     }
 
@@ -251,11 +252,12 @@ final class IFInTestTests: XCTestCase {
         let folder = try makeFolder()
         let combined = folder.appendingPathComponent("Combined.html")
 
-        _ = IFInTest().generateCombinedReport(forExtension: file,
-                                              baseInputURL: folder.appendingPathComponent("Inform-Report.html"),
-                                              numTests: 0,
-                                              outputURL: combined)
+        let exitCode = IFInTest().generateCombinedReport(forExtension: file,
+                                                         baseInputURL: folder.appendingPathComponent("Inform-Report.html"),
+                                                         numTests: 0,
+                                                         outputURL: combined)
 
+        XCTAssertNotEqual(exitCode, 0)
         XCTAssertFalse(FileManager.default.fileExists(atPath: combined.path))
     }
 
