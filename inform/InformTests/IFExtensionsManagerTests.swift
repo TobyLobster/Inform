@@ -396,16 +396,24 @@ final class IFExtensionsManagerTests: XCTestCase {
     }
 
     /// Find in Files searches a literate extension's sections, as well as its contents page
+    /// Writes a literate extension, with one section, as a folder in the extensions folder, and gives its contents page
+    @discardableResult
+    private func putLiterate(_ title: String, by author: String, of folder: String, saying text: String = "") throws -> String {
+        let extensionFolder = (folder as NSString).appendingPathComponent("\(author)/\(title)-v1.i7xd")
+        let contents = (extensionFolder as NSString).appendingPathComponent("Source/Contents.w")
+        let preamble = (extensionFolder as NSString).appendingPathComponent("Source/Sections/Preamble.w")
+        try FileManager.default.createDirectory(atPath: (preamble as NSString).deletingLastPathComponent, withIntermediateDirectories: true)
+        try #"{ "is": { "type": "extension", "title": "\#(title)", "author": "\#(author)", "version": "1" } }"#
+            .write(toFile: (extensionFolder as NSString).appendingPathComponent("extension_metadata.json"), atomically: true, encoding: .utf8)
+        try "Version 1 of \(title) by \(author)\n\nSections\n\tPreamble\n".write(toFile: contents, atomically: true, encoding: .utf8)
+        try "Preamble.\n\n@h \(title).\n\n=\n\(text)\n".write(toFile: preamble, atomically: true, encoding: .utf8)
+        return contents
+    }
+
     func testFindInFilesSearchesALiterateExtensionsSections() throws {
         let folder = try makeExtensionsFolder()
-        let lamps = (folder as NSString).appendingPathComponent("Emily Short/Lamps-v1.i7xd")
-        let contents = (lamps as NSString).appendingPathComponent("Source/Contents.w")
-        let preamble = (lamps as NSString).appendingPathComponent("Source/Sections/Preamble.w")
-        try FileManager.default.createDirectory(atPath: (preamble as NSString).deletingLastPathComponent, withIntermediateDirectories: true)
-        try #"{ "is": { "type": "extension", "title": "Lamps", "author": "Emily Short", "version": "1" } }"#
-            .write(toFile: (lamps as NSString).appendingPathComponent("extension_metadata.json"), atomically: true, encoding: .utf8)
-        try "Version 1 of Lamps by Emily Short\n\nSections\n\tPreamble\n".write(toFile: contents, atomically: true, encoding: .utf8)
-        try "Preamble.\n\n@h Lamps.\n\n=\nA lamp is a kind of thing.\n".write(toFile: preamble, atomically: true, encoding: .utf8)
+        let contents = try putLiterate("Lamps", by: "Emily Short", of: folder, saying: "A lamp is a kind of thing.")
+        let preamble = ((contents as NSString).deletingLastPathComponent as NSString).appendingPathComponent("Sections/Preamble.w")
         XCTAssertEqual(manager.availableExtensions(withCompilerVersion: "10.1"), [info("Lamps", contents, version: "v1")])
 
         let project = IFProject()
@@ -420,6 +428,42 @@ final class IFExtensionsManagerTests: XCTestCase {
         wait(for: [finished], timeout: 10)
 
         XCTAssertEqual(Set(finder.results.compactMap(\.filepath)), [contents, preamble])
+    }
+
+    /// The Extensions menu opens each extension, but only makes a project from one that's kept in one file
+    func testTheMenuMakesNoProjectFromALiterateExtension() throws {
+        let folder = try makeExtensionsFolder()
+        try put("Keys by Emily Short begins here.", "Keys.i7x", in: "Emily Short", of: folder)
+        try putLiterate("Lamps", by: "Emily Short", of: folder)
+        try putLiterate("Clock", by: "Jane Doe", of: folder)
+
+        let delegate = try XCTUnwrap(NSApp.delegate as? IFAppDelegate)
+        delegate.updateExtensionsMenu(forCompilerVersion: "10.1")
+
+        /// The items in the app's menus that do something
+        func items(_ action: String) -> [NSMenuItem] {
+            func found(in menu: NSMenu) -> [NSMenuItem] {
+                return menu.items.flatMap { item in
+                    (item.action == Selector((action)) ? [item] : []) + (item.submenu.map(found(in:)) ?? [])
+                }
+            }
+            return NSApp.mainMenu.map(found(in:)) ?? []
+        }
+        /// The extensions in some items, by the author whose menu they're in
+        func extensions(_ items: [NSMenuItem]) -> [String: [String]] {
+            return Dictionary(grouping: items, by: { $0.menu?.title ?? "" }).mapValues { items in
+                items.map { String(($0.attributedTitle?.string ?? "").prefix { $0 != "\t" }) }
+            }
+        }
+
+        XCTAssertEqual(extensions(items("openExtension:")), ["Emily Short": ["Keys", "Lamps"], "Jane Doe": ["Clock"]])
+        let newProjectItems = items("newExtensionProject:")
+        XCTAssertEqual(extensions(newProjectItems.filter { $0.tag >= 0 }), ["Emily Short": ["Keys"]])
+
+        // An author with only literate extensions has no menu for making a project
+        let newExtension = try XCTUnwrap(newProjectItems.first { $0.tag == -1 })
+        let createFromInstalled = try XCTUnwrap(newExtension.menu?.items.compactMap(\.submenu).first)
+        XCTAssertEqual(createFromInstalled.items.map(\.title), ["Emily Short"])
     }
 
     /// Projects for 6M62 and earlier, and later ones, each get their own list, whichever asks first
