@@ -211,7 +211,8 @@
                 NSAttributedString* res = nil;
                 NSString* extn = filename.pathExtension.lowercaseString;
 
-                // .inf, .h, .ni, .i7, .txt and those with no extension are treated as text files
+                // .inf, .h, .ni, .i7, .i7x, .w (a literate extension's contents and sections), .txt and those with
+                // no extension are treated as text files
                 // .rtf or .rtfd are opened as RTF files
                 // .html or .htm are opened as HTML files
                 // all other file types are not searched
@@ -222,6 +223,7 @@
                     [extn isEqualToString: @"i7"] ||
                     [extn isEqualToString: @"inf"] ||
                     [extn isEqualToString: @"i7x"] ||
+                    [extn isEqualToString: @"w"] ||
                     [extn isEqualToString: @"txt"]) {
                     NSError* error;
                     NSString* fileContents = [NSString stringWithContentsOfFile: filename
@@ -457,8 +459,10 @@
     IFExtensionsManager* manager = [IFExtensionsManager sharedNaturalInformExtensionsManager];
 
 	for( IFExtensionInfo* info in [manager availableExtensionsWithCompilerVersion: (project.settings).compilerVersion] ) {
-        [self addSearchFile: info.filepath
-               withLocation: IFFindExtensions];
+        for( NSString* file in info.sourceFiles ) {
+            [self addSearchFile: file
+                   withLocation: IFFindExtensions];
+        }
     }
 }
 

@@ -91,6 +91,42 @@ extension IFExtensionInfo {
         return result
     }
 
+    var isLiterate: Bool {
+        guard let filepath else {
+            return false
+        }
+        let file = filepath as NSString
+        return file.lastPathComponent == "Contents.w" &&
+               (file.deletingLastPathComponent as NSString).lastPathComponent == "Source"
+    }
+
+    var sourceFiles: [String] {
+        guard let filepath else {
+            return []
+        }
+        guard isLiterate else {
+            return [filepath]
+        }
+
+        // The sections are the other .w files in the source folder and its folders, leaving out hidden ones
+        let source = (filepath as NSString).deletingLastPathComponent
+        guard let enumerator = FileManager.default.enumerator(atPath: source) else {
+            return [filepath]
+        }
+        var sections: [String] = []
+        for case let path as String in enumerator {
+            let isFile = enumerator.fileAttributes?[.type] as? FileAttributeType == .typeRegular
+            if isFile &&
+               path != "Contents.w" &&
+               (path as NSString).pathExtension.lowercased() == "w" &&
+               !path.split(separator: "/").contains(where: { $0.hasPrefix(".") }) {
+                sections.append(path)
+            }
+        }
+        sections.sort { $0.caseInsensitiveCompare($1) == .orderedAscending }
+        return [filepath] + sections.map { (source as NSString).appendingPathComponent($0) }
+    }
+
     private final func stringEqual(_ string1: String?, to string2: String?) -> Bool {
         guard let string1, let string2 else {
             return string1 == string2

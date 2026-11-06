@@ -395,6 +395,33 @@ final class IFExtensionsManagerTests: XCTestCase {
                        [info("Locksmith", locksmith, version: "v3"), info("Keys", keys, version: ""), info("Doors", doors, version: "v2")])
     }
 
+    /// Find in Files searches a literate extension's sections, as well as its contents page
+    func testFindInFilesSearchesALiterateExtensionsSections() throws {
+        let folder = try makeExtensionsFolder()
+        let lamps = (folder as NSString).appendingPathComponent("Emily Short/Lamps-v1.i7xd")
+        let contents = (lamps as NSString).appendingPathComponent("Source/Contents.w")
+        let preamble = (lamps as NSString).appendingPathComponent("Source/Sections/Preamble.w")
+        try FileManager.default.createDirectory(atPath: (preamble as NSString).deletingLastPathComponent, withIntermediateDirectories: true)
+        try #"{ "is": { "type": "extension", "title": "Lamps", "author": "Emily Short", "version": "1" } }"#
+            .write(toFile: (lamps as NSString).appendingPathComponent("extension_metadata.json"), atomically: true, encoding: .utf8)
+        try "Version 1 of Lamps by Emily Short\n\nSections\n\tPreamble\n".write(toFile: contents, atomically: true, encoding: .utf8)
+        try "Preamble.\n\n@h Lamps.\n\n=\nA lamp is a kind of thing.\n".write(toFile: preamble, atomically: true, encoding: .utf8)
+        XCTAssertEqual(manager.availableExtensions(withCompilerVersion: "10.1"), [info("Lamps", contents, version: "v1")])
+
+        let project = IFProject()
+        project.settings.compilerVersion = "10.1"
+        let finder = IFFindInFiles()
+        let finished = expectation(description: "The search finishes")
+        finder.start(withPhrase: "Lamp", withSearch: .contains, from: project, withLocations: .extensions) { num, total, _ in
+            if num == total {
+                finished.fulfill()
+            }
+        }
+        wait(for: [finished], timeout: 10)
+
+        XCTAssertEqual(Set(finder.results.compactMap(\.filepath)), [contents, preamble])
+    }
+
     /// Projects for 6M62 and earlier, and later ones, each get their own list, whichever asks first
     func testKeepsAListForEachKindOfProject() throws {
         let folder = try makeExtensionsFolder()
