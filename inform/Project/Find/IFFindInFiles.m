@@ -297,20 +297,22 @@
                         IFCodeInfo* cdInfo  = [self codeInfoForRange: matchRange];
                         IFCodeInfo* dfInfo  = [self definitionInfoForRange: matchRange];
 
-                        // Check if we have already found a result in this segment...
+                        // Check if we have already found a result in this segment... Matches in code and
+                        // definitions are all listed, so they don't count.
+                        BOOL isInText = (cdInfo == nil) && (dfInfo == nil);
                         if( info != nil ) {
                             //
                             // The match is inside an example
                             //
                             alreadyFound = ( lastFoundInExample != nil ) && ([lastFoundInExample compare:info.name] == NSOrderedSame);
-                            lastFoundInExample = info.name;
+                            if( isInText ) lastFoundInExample = info.name;
                         }
                         else {
                             //
                             // The match is outside any examples
                             //
                             alreadyFound = foundOutsideExample;
-                            foundOutsideExample = true;
+                            if( isInText ) foundOutsideExample = true;
                         }
                         
                         // Should we ignore this match?

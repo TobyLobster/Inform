@@ -181,6 +181,18 @@ final class IFFindInFilesTests: XCTestCase {
         }
     }
 
+    /// A match in code doesn't use up the one result for the page's text, whether or not code is searched
+    func testAMatchInCodeLeavesThePagesTextToBeFound() {
+        let text = search("Bodleian", .documentationBasic).results
+        XCTAssertEqual(text.map(\.context), ["This will ordinarily result in a room description of the Bodleian Library "
+                                              + "being printed up, but that might not always be desirable. For instance:"])
+        XCTAssertEqual(text.first?.documentDisplayName, "8.9: Moving the player")
+        XCTAssertNil(text.first?.codeAnchorTag)
+
+        let textAndCode = search("Bodleian", [.documentationBasic, .documentationSource]).results
+        XCTAssertEqual(textAndCode.map { $0.codeAnchorTag ?? "" }.sorted(), ["", "c1869", "c1869"])
+    }
+
     /// ...and in its definitions of phrases, which the text leaves to them
     func testFindsEveryMatchInTheDocumentationsDefinitions() {
         let results = search("arccosine", .documentationDefinitions).results
