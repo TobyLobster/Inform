@@ -355,6 +355,14 @@ final class IFProjectTests: XCTestCase {
         XCTAssertNil(project.storage(forFile: nil))
     }
 
+    func testGivesTheTextOfASourceFileThatHasGoneFromDisk() throws {
+        let project = try open(makeProject(source: ["story.ni": Data("Story".utf8)]))
+        try FileManager.default.removeItem(at: fileURL("Source/story.ni", in: project))
+
+        let story = try XCTUnwrap(project.sourceFiles?["story.ni"])
+        XCTAssertIdentical(project.storage(forFile: "story.ni"), story)
+    }
+
     func testGivesNoTextForAFileOutsideItsSourceFolder() throws {
         let project = try open(makeProject(source: ["story.ni": Data()]))
         let outside = try XCTUnwrap(project.fileURL).deletingLastPathComponent().appendingPathComponent("Outside.ni")

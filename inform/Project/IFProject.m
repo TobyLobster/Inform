@@ -770,7 +770,7 @@
 
 			if (![[NSFileManager defaultManager] fileExistsAtPath: sourceFile]) {
 				// If neither exists, use project/Source/whatever by default
-				sourceFile = [sourceDir stringByAppendingPathComponent: sourceFile];
+				sourceFile = [sourceDir stringByAppendingPathComponent: originalSourceFile];
                 sourceFile = sourceFile.stringByStandardizingPath;
 			}
 		}
