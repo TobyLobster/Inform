@@ -84,6 +84,13 @@ final class IFFindInFilesTests: XCTestCase {
         XCTAssertEqual(found.range, NSRange(location: 19, length: 8))
     }
 
+    /// A match ending in whitespace that runs to the end of its line keeps that whitespace
+    func testTheContextHoldsAMatchEndingInWhitespace() {
+        let found = context(of: "Lab. ", in: "A beaker is in the Lab. \nThe end")
+        XCTAssertEqual(found.context, "A beaker is in the Lab. ")
+        XCTAssertEqual(found.range, NSRange(location: 19, length: 5))
+    }
+
     // MARK: - Searching a project's source
 
     /// Every match in the source is a result, with where it is, its line, and the file's name

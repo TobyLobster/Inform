@@ -117,12 +117,13 @@
     NSUInteger highContext = (endRange.location == NSNotFound) ? textString.length - 1 : endRange.location;
     
     
-    // Skip past whitespace / newlines at either end
+    // Skip past whitespace / newlines at either end, but not into the match, which may end with some
     NSCharacterSet* whiteSet = [NSCharacterSet characterSetWithCharactersInString:@"\n\r \t"];
     while ( (lowContext < location) && [whiteSet characterIsMember:[textString characterAtIndex:lowContext]] ) {
         lowContext++;
     }
-    while ( (highContext > location) && [whiteSet characterIsMember:[textString characterAtIndex:highContext]] ) {
+    while ( (highContext > location) && (highContext >= location + matchLength) &&
+            [whiteSet characterIsMember:[textString characterAtIndex:highContext]] ) {
         highContext--;
     }
 
