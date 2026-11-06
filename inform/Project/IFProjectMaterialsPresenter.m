@@ -42,10 +42,8 @@
     return self;
 }
 
--(void) dealloc {
-    if( [IFUtility isSandboxed] ) {
-        [NSFileCoordinator removeFilePresenter: self];
-    }
+- (void) close {
+    [NSFileCoordinator removeFilePresenter: self];
 }
 
 - (NSURL *) presentedItemURL {

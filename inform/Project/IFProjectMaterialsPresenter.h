@@ -19,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype) init NS_UNAVAILABLE;
 - (instancetype) initWithURL:(nullable NSURL*) mainURL NS_DESIGNATED_INITIALIZER;
 
+/// Stops presenting the materials folder. NSFileCoordinator keeps the presenters it has alive, so
+/// this must be called before letting go of one.
+- (void) close;
+
 @end
 
 NS_ASSUME_NONNULL_END

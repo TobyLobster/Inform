@@ -125,6 +125,32 @@ final class IFProjectMaterialsPresenterTests: XCTestCase {
         }
     }
 
+    func testCloseLetsGoOfTheRegisteredPresenter() throws {
+        let folder = try makeFolder()
+        weak var weakPresenter: IFProjectMaterialsPresenter?
+        autoreleasepool {
+            let presenter = IFProjectMaterialsPresenter(url: folder.appendingPathComponent("Lighthouse.inform"))
+            NSFileCoordinator.addFilePresenter(presenter)       // As it is in the sandbox
+            weakPresenter = presenter
+        }
+        autoreleasepool {
+            XCTAssertNotNil(weakPresenter, "NSFileCoordinator keeps its presenters")
+            weakPresenter?.close()
+        }
+
+        XCTAssertNil(weakPresenter)
+    }
+
+    func testCloseIsHarmlessWhenNotRegistered() throws {
+        let folder = try makeFolder()
+        let presenter = IFProjectMaterialsPresenter(url: folder.appendingPathComponent("Lighthouse.inform"))
+
+        presenter.close()
+        presenter.close()
+
+        XCTAssertTrue(isFolder(folder.appendingPathComponent("Lighthouse.materials")))
+    }
+
     func testRegistersOnlyInTheSandbox() throws {
         try XCTSkipIf(IFUtility.isSandboxed, "The tests expect an app that isn't sandboxed")
         let folder = try makeFolder()
