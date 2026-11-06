@@ -38,6 +38,7 @@
 #import "IFMaintenanceTask.h"
 #import "IFNewExtensionsManager.h"
 #import "IFInBuild.h"
+#import "IFInTest.h"
 #import "IFNaturalIntel.h"
 #import "IFIntelFile.h"
 #import "IFIntelSymbol.h"
