@@ -13,14 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^IFFindInFilesProgressBlock)(int num, int total, int found);
 
-@class IFExampleInfo;
-
 ///
 /// NSTextView category that supports the new find dialog
 ///
 @interface IFFindInFiles : NSObject
 
-@property (atomic, getter=isSearching, readonly) BOOL searching;
 @property (atomic, readonly) int resultsCount;
 @property (atomic, readonly, copy) NSArray<IFFindResult*> *results;
 @property (atomic, readonly, strong) NSObject *searchResultsLock;
@@ -30,8 +27,6 @@ typedef void (^IFFindInFilesProgressBlock)(int num, int total, int found);
                         fromProject: (IFProject*)                   project
                       withLocations: (IFFindLocation)               locations
                   withProgressBlock: (IFFindInFilesProgressBlock)   progressBlock;
-
-- (nullable IFExampleInfo*) exampleInfoForRange:(NSRange) range;
 
 // Utility functions
 + (NSString*) getContextFromText: (NSString*) textString

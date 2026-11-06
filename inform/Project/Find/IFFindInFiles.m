@@ -6,19 +6,15 @@
 //
 
 #import "IFFindInFiles.h"
-#import "IFFindController.h"
 #import "IFFindResult.h"
-#import "IFAppDelegate.h"
 #import "IFExtensionsManager.h"
 #import "IFDocParser.h"
 #import "IFScanner.h"
 #import "IFCompilerSettings.h"
 
-#include <wctype.h>
-
 @interface IFSearchItem : NSObject
 
--(instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
+-(instancetype) init NS_UNAVAILABLE;
 -(instancetype) initWithText: (NSString*) textString
       withFilePath: (NSString*) filepathString
       withLocation: (IFFindLocation) locationType NS_DESIGNATED_INITIALIZER;
@@ -31,8 +27,6 @@
     NSString*       filepath;
     IFFindLocation  location;
 }
-
--(instancetype) init { self = [super init]; return self; }
 
 -(instancetype) initWithText: (NSString*) textString
       withFilePath: (NSString*) filepathString
@@ -51,7 +45,6 @@
 @end
 
 @implementation IFFindInFiles {
-    BOOL            searching;
     NSMutableArray* searchItems;
     NSMutableArray* results;
     NSDictionary*   exampleInfo;
@@ -133,7 +126,6 @@
         highContext--;
     }
 
-    NSAssert(lowContext >= 0, @"Bad context range");
     NSAssert(highContext < [textString length], @"Bad context range (high)");
     NSAssert(lowContext <= highContext, @"Bad context range (swapped)");
     
@@ -380,10 +372,6 @@
                 }
                 while(matchRange.location != NSNotFound);
             }
-             filename = nil;
-             displayName = nil;
-             sortKey = nil;
-             storage = nil;
              exampleInfo = nil;
              codeInfo = nil;
              definitionInfo = nil;
@@ -407,8 +395,6 @@
         dispatch_async(main, ^ {
             progressBlock(totalSearchItems + 1, totalSearchItems + 1, resultCount);
         });
-
-        searching = NO;
     }
 
     // clean up
@@ -479,10 +465,6 @@
 	}
 }
 
-- (BOOL) isSearching {
-    return searching;
-}
-
 - (int) resultsCount {
     @synchronized (searchResultsLock) {
         return (int) results.count;
@@ -517,8 +499,6 @@
                       withLocations: (IFFindLocation)  locations
                   withProgressBlock: (IFFindInFilesProgressBlock)   progressBlock
 {
-    searching = YES;
-
     @synchronized(searchLock)
     {
         @synchronized( searchItemsLock )
