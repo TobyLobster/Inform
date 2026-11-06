@@ -467,8 +467,7 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     [self prepareNext];
 
     // Launch it
-    [self sendTaskDetails: theTask];
-    [theTask launch];
+    [self launch];
     return YES;
 }
 

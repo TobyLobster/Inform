@@ -538,6 +538,8 @@ final class IFCompilerTests: XCTestCase {
                          "-workspace", workspace,
                          "-test", "A"]
         let intest = IFUtility.path(forInformExecutable: "intest", version: "") ?? ""
+        XCTAssertEqual(posted.first?.name, .IFCompilerStarting)
+        XCTAssertEqual(posted.filter { $0.name == .IFCompilerStarting }.count, 1)
         XCTAssertEqual(launches(posted), ["Launching: \(quoted(intest))" + arguments.map { " \\\n    \(quoted($0))" }.joined() + "\n"])
         XCTAssertTrue(FileManager.default.fileExists(atPath: workspace))
         XCTAssertEqual(compiler.outputFile, results)
