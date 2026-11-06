@@ -527,8 +527,6 @@
     // Create an object to represent the bundle files
     projectFile = [[IFProjectFile alloc] initWithFileWrapper: fileWrapper];
 
-    // Refresh the settings
-    settings = projectFile.settings;
     _projectFileType = fileType;
 
     // Create materials folder, if necessary
@@ -565,7 +563,8 @@
         sourceFiles[key] = text;
     }
 
-    // Re-create the settings as required
+    // Refresh the settings, or create them as required
+    settings = projectFile.settings;
     if (settings == nil) {
         settings = [[IFCompilerSettings alloc] init];
     }

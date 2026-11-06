@@ -279,6 +279,17 @@ final class IFProjectTests: XCTestCase {
         XCTAssertThrowsError(try IFProject().read(from: wrapper, ofType: projectType)) { assertIsUnknownFileError($0) }
     }
 
+    func testKeepsItsSettingsWhenItCantReadAProject() {
+        let project = IFProject()
+        let settings = project.settings
+        let wrapper = FileWrapper(directoryWithFileWrappers: ["Source": FileWrapper(regularFileWithContents: Data())])
+
+        XCTAssertThrowsError(try project.read(from: wrapper, ofType: projectType))
+
+        // (Read with KVC, as Swift takes the settings to be there)
+        XCTAssertIdentical(project.value(forKey: "settings") as AnyObject?, settings)
+    }
+
     func testCantReadOtherDocumentTypes() {
         let wrapper = FileWrapper(directoryWithFileWrappers: ["Source": FileWrapper(directoryWithFileWrappers: [:])])
         for typeName in ["org.inform-fiction.source.inform7", "org.inform-fiction.source.inform6",
