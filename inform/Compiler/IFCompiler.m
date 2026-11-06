@@ -20,12 +20,6 @@
 
 static unsigned int mod = 0;
 
-NSString* const IFCompilerClearConsoleNotification = @"IFCompilerClearConsoleNotification";
-NSString* const IFCompilerStartingNotification     = @"IFCompilerStartingNotification";
-NSString* const IFCompilerStdoutNotification       = @"IFCompilerStdoutNotification";
-NSString* const IFCompilerStderrNotification       = @"IFCompilerStderrNotification";
-NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotification";
-
 @implementation IFCompiler {
     // The task
     /// Task where the compiler is running
