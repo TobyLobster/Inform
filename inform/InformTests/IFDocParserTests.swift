@@ -88,6 +88,15 @@ final class IFDocParserTests: XCTestCase {
         XCTAssertEqual(parser.attributes[.sort] as? String, "000-011-003-000")
     }
 
+    /// A marker without the quoted text it should have is passed over.
+    func testPassesOverAMarkerWithoutItsText() {
+        let parser = IFDocParser(html: #"a<!--START CODE-->b<!--END CODE--><!--START PHRASE-->c<!--SEARCH TITLE "-->d"#
+                                     + #"<!--START EXAMPLE "-->e<!--SEARCH SECTION "-->"#)
+        XCTAssertEqual(parser.plainText, "a b c d e ")
+        XCTAssertNil(parser.attributes[.title])
+        XCTAssertNil(parser.attributes[.section])
+    }
+
     // MARK: - Examples, code and definitions
 
     /// An example's name, anchor and range in the text; the first of a name is kept.

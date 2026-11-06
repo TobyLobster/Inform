@@ -117,6 +117,15 @@ static NSDictionary<NSString*,NSString*>* entities = nil;
     return value;
 }
 
+/// The quoted text of a marker comment, after the prefix that ends with its opening quote and without its
+/// closing quote (nil if the comment is too short to have them)
++ (nullable NSString*) textOfMarker: (NSString*) comment afterPrefix: (NSUInteger) prefixLength {
+    if (comment.length < prefixLength + 1) {
+        return nil;
+    }
+    return [comment substringWithRange: NSMakeRange(prefixLength, comment.length - (prefixLength + 1))];
+}
+
 typedef NS_ENUM(unsigned int, ParseState) {
 	PlainText,
 	HtmlTagOrComment,
@@ -404,7 +413,7 @@ typedef NS_ENUM(unsigned int, ParseState) {
 							if ([comment hasPrefix: @"START EXAMPLE \""]) {
 								int prefixLen = (int) (@"START EXAMPLE \"").length;
                                 // Remember the name, anchor id and location of the Example
-								NSString* postfix = [comment substringWithRange: NSMakeRange(prefixLen, comment.length-(prefixLen+1))];
+								NSString* postfix = [IFDocParser textOfMarker: comment afterPrefix: prefixLen];
                                 NSArray*  array   = [postfix componentsSeparatedByString:@"\" \""];
 
                                 if( array.count == 2 ) {
@@ -425,7 +434,7 @@ typedef NS_ENUM(unsigned int, ParseState) {
 							} else if ([comment hasPrefix: @"START CODE"]) {
 								int prefixLen = (int) (@"START CODE \"").length;
                                 // Remember the anchor id
-								NSString* postfix = [comment substringWithRange: NSMakeRange(prefixLen, comment.length-(prefixLen+1))];
+								NSString* postfix = [IFDocParser textOfMarker: comment afterPrefix: prefixLen];
                                 NSArray*  array   = [postfix componentsSeparatedByString:@"\" \""];
                                 
                                 if( array.count == 1 ) {
@@ -442,7 +451,7 @@ typedef NS_ENUM(unsigned int, ParseState) {
 							} else if ([comment hasPrefix: @"START PHRASE"]) {
 								int prefixLen = (int) (@"START PHRASE \"").length;
                                 // Remember the anchor id
-								NSString* postfix = [comment substringWithRange: NSMakeRange(prefixLen, comment.length-(prefixLen+1))];
+								NSString* postfix = [IFDocParser textOfMarker: comment afterPrefix: prefixLen];
                                 NSArray*  array   = [postfix componentsSeparatedByString:@"\" \""];
                                 
                                 if( array.count == 1 ) {
@@ -462,19 +471,25 @@ typedef NS_ENUM(unsigned int, ParseState) {
                                 ignoreSection = false;
 							} else if ([comment hasPrefix: @"SEARCH TITLE \""]) {
 								int prefixLen = (int) (@"SEARCH TITLE \"").length;
-								comment = [comment substringWithRange: NSMakeRange(prefixLen, comment.length-(prefixLen+1))];
+								comment = [IFDocParser textOfMarker: comment afterPrefix: prefixLen];
 								
-								attr[IFDocAttributeTitle] = comment;
+								if (comment != nil) {
+									attr[IFDocAttributeTitle] = comment;
+								}
 							} else if ([comment hasPrefix: @"SEARCH SECTION \""]) {
 								int prefixLen = (int) (@"SEARCH SECTION \"").length;
-								comment = [comment substringWithRange: NSMakeRange(prefixLen, comment.length-(prefixLen+1))];
+								comment = [IFDocParser textOfMarker: comment afterPrefix: prefixLen];
 								
-								attr[IFDocAttributeSection] = comment;
+								if (comment != nil) {
+									attr[IFDocAttributeSection] = comment;
+								}
 							} else if ([comment hasPrefix: @"SEARCH SORT \""]) {
 								int prefixLen = (int) (@"SEARCH SORT \"").length;
-								comment = [comment substringWithRange: NSMakeRange(prefixLen, comment.length-(prefixLen+1))];
+								comment = [IFDocParser textOfMarker: comment afterPrefix: prefixLen];
 								
-								attr[IFDocAttributeSort] = comment;
+								if (comment != nil) {
+									attr[IFDocAttributeSort] = comment;
+								}
 							}
                         }
 						break;
