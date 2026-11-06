@@ -207,6 +207,17 @@ final class IFProjectFileTests: XCTestCase {
         XCTAssertEqual(settings.zcodeVersion, 256)
     }
 
+    /// No settings are written as an empty file, which gives the defaults
+    func testWritesNoSettingsAsAnEmptyFile() throws {
+        let wrapper = project()
+        let projectFile = try XCTUnwrap(IFProjectFile(fileWrapper: wrapper))
+
+        projectFile.settings = nil
+
+        XCTAssertEqual(wrapper.fileWrappers?["Settings.plist"]?.regularFileContents, Data())
+        XCTAssertEqual(try XCTUnwrap(projectFile.settings).zcodeVersion, 256)
+    }
+
     /// Before Settings.plist, settings were archived with NSArchiver in a Settings file, after
     /// the name of the app that wrote them and a version number. These are archived as the
     /// settings archive themselves now, with a Z-code version of 8, and not strict.
