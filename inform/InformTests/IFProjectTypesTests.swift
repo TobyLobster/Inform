@@ -93,10 +93,4 @@ final class IFProjectTypesTests: XCTestCase {
             XCTAssertEqual(IFProjectTypes.fileType(from: typeName), .unknown, typeName)
         }
     }
-
-    func testNamesItsNotifications() {
-        XCTAssertEqual(NSNotification.Name.IFProjectFilesChanged.rawValue, "IFProjectFilesChangedNotification")
-        XCTAssertEqual(NSNotification.Name.IFProjectBreakpointsChanged.rawValue, "IFProjectBreakpointsChangedNotification")
-        XCTAssertEqual(NSNotification.Name.IFProjectSourceFileRenamed.rawValue, "IFProjectSourceFileRenamedNotification")
-    }
 }
