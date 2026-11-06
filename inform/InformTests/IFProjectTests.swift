@@ -215,6 +215,12 @@ final class IFProjectTests: XCTestCase {
         XCTAssertEqual(try open(makeProject(source: ["game.inf": Data()])).mainSourceFile, "game.inf")
     }
 
+    func testChoosesTheLastStoryInOrderOfName() throws {
+        let names = ["a.ni", "b.i7", "c.inf", "d.ni", "e.i7", "f.inf", "story.ni", "z.txt"]
+        let project = try open(makeProject(source: Dictionary(uniqueKeysWithValues: names.map { ($0, Data()) })))
+        XCTAssertEqual(project.mainSourceFile, "story.ni")
+    }
+
     func testHasNoMainSourceFileWithoutAStory() throws {
         // An extension isn't a project's main source file
         let project = try open(makeProject(source: ["Notes.txt": Data(), "extension.i7x": Data()]))

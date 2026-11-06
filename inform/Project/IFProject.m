@@ -209,7 +209,8 @@
 
     NSString* mainSource = nil;
 
-    for( NSString* key in source ) {
+    // In order of name, so that the choice doesn't change when there's more than one
+    for( NSString* key in [source.allKeys sortedArrayUsingSelector: @selector(compare:)] ) {
         if( self.projectFileType == IFFileTypeInform7ExtensionProject ) {
             if ([key.pathExtension isEqualTo: @"i7x"]) {
                 mainSource = [key copy];
