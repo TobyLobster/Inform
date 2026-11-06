@@ -16,7 +16,6 @@
 @implementation IFProjectFile {
     NSFileWrapper* bundleDirectory;
     NSFileWrapper* sourceDirectory;
-    NSFileWrapper* buildDirectory;
 }
 
 -(void) createUUID {
@@ -45,17 +44,11 @@
         bldDir.preferredFilename = @"Build";
         indexDir.preferredFilename = @"Index";
 
-        if (srcDir == nil || bldDir == nil) {
-            
-            return nil;
-        }
-        
         bundleDirectory = [ [NSFileWrapper alloc] initDirectoryWithFileWrappers:
                                 @{@"Source": srcDir,
                                   @"Build": bldDir,
                                   @"Index": indexDir} ];
         sourceDirectory = srcDir;
-        buildDirectory  = bldDir;
 
         [self createUUID];
     }
@@ -72,7 +65,7 @@
 
         bundleDirectory = fileWrapper;
         sourceDirectory = fileWrapper.fileWrappers[@"Source"];
-        buildDirectory =  fileWrapper.fileWrappers[@"Build"];
+        NSFileWrapper* buildDirectory = fileWrapper.fileWrappers[@"Build"];
         if( !sourceDirectory ) {
             sourceDirectory = [[NSFileWrapper alloc] initDirectoryWithFileWrappers: @{}];
             sourceDirectory.preferredFilename = @"Source";
@@ -89,20 +82,11 @@
             sourceDirectory = nil;
         }
 
-        if( !buildDirectory.directory ) {
-            buildDirectory = nil;
-        }
-
         [self createUUID];
     }
     return self;
 }
 
-
-- (void) addSourceFile: (NSString*) filename {
-    [sourceDirectory addRegularFileWithContents: [NSData data]
-                              preferredFilename: filename];
-}
 
 - (void) addSourceFile: (NSString*) filename
           withContents: (NSData*) contents {
@@ -170,21 +154,8 @@
 	}
 }
 
-- (void) clearIndex {
-	// Delete the contents of the index file wrapper
-	NSFileWrapper* index = bundleDirectory.fileWrappers[@"Index"];
-	
-	for(NSString* file in [index.fileWrappers copy]) {
-		[index removeFileWrapper: index.fileWrappers[file]];
-	}
-}
-
 - (NSFileWrapper*) sourceDirectory {
     return sourceDirectory;
-}
-
-- (NSFileWrapper*) syntaxDirectory {
-    return bundleDirectory.fileWrappers[@"Syntax"];
 }
 
 // Load the notes (if present)
@@ -301,10 +272,6 @@
         return uuidString;
     }
     return nil;
-}
-
--(void) setPreferredFilename:(NSString*) name {
-    bundleDirectory.preferredFilename = name;
 }
 
 -(void) replaceSourceDirectoryWrapper: (NSFileWrapper*) newWrapper {
@@ -438,8 +405,6 @@
 }
 
 -(BOOL) write {
-    // Should use
-    // - (BOOL)writeToURL:(NSURL *)url options:(NSFileWrapperWritingOptions)options originalContentsURL:(nullable NSURL *)originalContentsURL error:(NSError **)outError
     NSError *error;
     NSURL* writeToURL = [[NSURL alloc] initFileURLWithPath: self.filename];
 
@@ -447,33 +412,6 @@
                                options: NSFileWrapperWritingAtomic | NSFileWrapperWritingWithNameUpdating
                    originalContentsURL: nil
                                  error: &error];
-}
-
-- (void) DEBUGverifyWrapper: (NSDictionary*) dict
-                   filepath: (NSString*) filepath {
-    for( NSString* key in dict) {
-        NSString* fullPath = [filepath stringByAppendingPathComponent: key];
-        //NSLog(@"key=%@\n", fullPath);
-        NSFileWrapper* wrapper = dict[key];
-        if( wrapper.directory ) {
-            [self DEBUGverifyWrapper: wrapper.fileWrappers
-                            filepath: fullPath];
-        }
-        else {
-            NSData* data = wrapper.regularFileContents;
-            if( data == nil ) {
-                NSLog(@"Error loading %@\n", fullPath);
-            }
-        }
-    }
-}
-
-- (void) DEBUGverifyWrapper {
-    [self DEBUGverifyWrapper: bundleDirectory.fileWrappers filepath: bundleDirectory.filename];
-}
-
--(NSFileWrapper*) buildWrapper {
-    return bundleDirectory.fileWrappers[@"Build"];
 }
 
 @end

@@ -1179,17 +1179,6 @@
     [projectFile replaceSourceDirectoryWrapper: wrapper];
 }
 
-- (NSFileWrapper*) buildWrapper {
-    return projectFile.buildWrapper;
-}
-
-- (void) DEBUGverifyWrapper {
-    // Nothing to do if this is a single file
-    if (singleFile) return;
-
-    [projectFile DEBUGverifyWrapper];
-}
-
 - (BOOL) editingExtension {
 	return editingExtension;
 }

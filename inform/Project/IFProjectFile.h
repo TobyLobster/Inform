@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 // Each of these is nil if the project doesn't have it
 @property (atomic, strong, nullable)            IFCompilerSettings *    settings;
 @property (atomic, readonly, strong, nullable)  NSFileWrapper *         sourceDirectory;
-@property (atomic, readonly, strong, nullable)  NSFileWrapper *         syntaxDirectory;
 @property (atomic, readonly, copy, nullable)    NSTextStorage *         loadNotes;
 @property (atomic, readonly, copy, nullable)    NSMutableArray *        loadWatchpoints;
 @property (atomic, readonly, copy, nullable)    NSMutableArray *        loadBreakpoints;
@@ -36,10 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// nil if the file wrapper isn't a folder
 - (nullable instancetype) initWithFileWrapper: (NSFileWrapper*) fileWrapper NS_DESIGNATED_INITIALIZER;
 
-- (void) addSourceFile: (NSString*) filename;
 - (void) addSourceFile: (NSString*) filename
           withContents: (NSData*)   contents;
-- (void) clearIndex;
 
 // Read
 -(void) loadIntoSkeins: (NSMutableArray<IFSkein*> *) skeins
@@ -47,7 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
     isExtensionProject: (BOOL) isExtensionProject;
 
 // Write
--(void) setPreferredFilename:(NSString*) name;
 -(void) replaceSourceDirectoryWrapper:(nullable NSFileWrapper*) newWrapper;
 -(void) replaceIndexDirectoryWrapper: (nullable NSFileWrapper*) newWrapper;
 -(void) replaceWrapper: (nullable NSFileWrapper*) newWrapper;
@@ -58,10 +54,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Clean
 - (void) cleanOutUnnecessaryFiles: (BOOL) alsoCleanIndex NS_SWIFT_NAME(cleanOutUnnecessaryFiles(alsoCleanIndex:));
-
-
-- (void) DEBUGverifyWrapper;
-@property (NS_NONATOMIC_IOSONLY, readonly, strong, nullable) NSFileWrapper *buildWrapper;
 
 @end
 
