@@ -198,20 +198,72 @@ final class IFExtensionsManagerTests: XCTestCase {
                                info("Keys", "/Extensions/Emily Short/Keys.i7x", version: "")])
     }
 
-    func testReadsACensusEntryWithNothingInIt() {
-        XCTAssertEqual(census(#"{ "inspection": [ { "resource": { "type": "extension" } } ] }"#),
-                       [IFExtensionInfo(displayName: "", filepath: nil, author: "", version: "", isBuiltIn: false)])
+    func testReadsACensusEntryWithNothingButItsFileInIt() {
+        XCTAssertEqual(census(#"{ "inspection": [ { "resource": { "type": "extension" }, "location-file": "/Extension.i7x" } ] }"#),
+                       [IFExtensionInfo(displayName: "", filepath: "/Extension.i7x", author: "", version: "", isBuiltIn: false)])
     }
 
-    /// inbuild gives an extension that's a folder by its folder, which isn't kept
-    func testAnExtensionThatsAFolderHasNoFile() {
-        let infos = census("""
-            { "inspection": [ {
-                "resource": { "type": "extension", "title": "Keys", "author": "Emily Short", "version": "1" },
-                "location-directory": "/Extensions/Emily Short/Keys-v1.i7xd"
-            } ] }
-            """)
-        XCTAssertEqual(infos, [info("Keys", nil, version: "v1")])
+    /// Makes an empty file, and the folders it's in
+    @discardableResult
+    private func make(_ path: String, in folder: URL) throws -> String {
+        let file = folder.appendingPathComponent(path)
+        try FileManager.default.createDirectory(at: file.deletingLastPathComponent(), withIntermediateDirectories: true)
+        try Data().write(to: file)
+        return file.path
+    }
+
+    /// The census of an extension that's a folder, as inbuild gives it: by its folder, not by a file
+    private func census(ofFolder folder: URL, title: String) throws -> [IFExtensionInfo] {
+        let entry: [String: Any] = ["resource": ["type": "extension", "title": title, "author": "Emily Short", "version": "1"],
+                                    "location-directory": folder.path]
+        let json = try JSONSerialization.data(withJSONObject: ["inspection": [entry]])
+        return census(String(data: json, encoding: .utf8))
+    }
+
+    /// An extension that's a folder has the file inbuild reads, named after its title, whatever the folder is called
+    func testAnExtensionThatsAFolderHasItsTitlesFile() throws {
+        let folder = try makeFolder().appendingPathComponent("Keys-v1.i7xd")
+        let keys = try make("Source/Keys.i7x", in: folder)
+        try make("Source/Contents.w", in: folder)
+        try make("Source/Another.i7x", in: folder)
+        try make("Documentation/Documentation.md", in: folder)
+
+        XCTAssertEqual(try census(ofFolder: folder, title: "Keys"), [info("Keys", keys, version: "v1")])
+    }
+
+    /// A literate extension has its contents, as its sections are read from there
+    func testALiterateExtensionHasItsContents() throws {
+        let folder = try makeFolder().appendingPathComponent("Keys-v1.i7xd")
+        let contents = try make("Source/Contents.w", in: folder)
+        try make("Source/Sections/Preamble.w", in: folder)
+        try make("Source/Another.i7x", in: folder)
+
+        XCTAssertEqual(try census(ofFolder: folder, title: "Keys"), [info("Keys", contents, version: "v1")])
+    }
+
+    /// Failing those, inbuild reads the first extension file in the source folder, without case mattering
+    func testOtherwiseAFolderExtensionHasItsFirstFile() throws {
+        let folder = try makeFolder().appendingPathComponent("Keys-v1.i7xd")
+        try make("Source/b.i7x", in: folder)
+        let first = try make("Source/A Name.I7X", in: folder)
+        try make("Source/C.i7x", in: folder)
+        try make("Source/.Hidden.i7x", in: folder)
+        try make("Source/0 Notes.txt", in: folder)
+        try make("Source/0 Folder.i7x/Inside.i7x", in: folder)
+
+        XCTAssertEqual(try census(ofFolder: folder, title: "Keys"), [info("Keys", first, version: "v1")])
+    }
+
+    /// There's nothing to open or search in an extension with no file, so it isn't listed
+    func testAnExtensionWithNoFileIsLeftOut() throws {
+        let folder = try makeFolder().appendingPathComponent("Keys-v1.i7xd")
+        XCTAssertEqual(try census(ofFolder: folder, title: "Keys"), [])
+        try make("extension_metadata.json", in: folder)
+        try make("Source/Sections/Preamble.w", in: folder)
+        try make("Source/Notes.txt", in: folder)
+        XCTAssertEqual(try census(ofFolder: folder, title: "Keys"), [])
+
+        XCTAssertEqual(census(#"{ "inspection": [ { "resource": { "type": "extension", "title": "Keys" } } ] }"#), [])
     }
 
     func testACensusItCantReadIsEmpty() {
@@ -333,9 +385,85 @@ final class IFExtensionsManagerTests: XCTestCase {
         let folder = try makeExtensionsFolder()
         let locksmith = try put("Version 3 of Locksmith by Emily Short begins here.", "Locksmith.i7x", in: "Emily Short", of: folder)
         let keys = try put("Keys by Emily Short begins here.", "Keys.i7x", in: "Emily Short", of: folder)
+        // An extension that's a folder, which inbuild gives by its folder
+        let doors = try put("Version 2 of Doors by Emily Short begins here.", "Doors.i7x", in: "Emily Short/Doors-v2.i7xd/Source", of: folder)
+        try #"{ "is": { "type": "extension", "title": "Doors", "author": "Emily Short", "version": "2" } }"#
+            .write(toFile: (folder as NSString).appendingPathComponent("Emily Short/Doors-v2.i7xd/extension_metadata.json"),
+                   atomically: true, encoding: .utf8)
 
         XCTAssertEqual(Set(manager.availableExtensions(withCompilerVersion: "10.1")),
-                       [info("Locksmith", locksmith, version: "v3"), info("Keys", keys, version: "")])
+                       [info("Locksmith", locksmith, version: "v3"), info("Keys", keys, version: ""), info("Doors", doors, version: "v2")])
+    }
+
+    /// Find in Files searches a literate extension's sections, as well as its contents page
+    /// Writes a literate extension, with one section, as a folder in the extensions folder, and gives its contents page
+    @discardableResult
+    private func putLiterate(_ title: String, by author: String, of folder: String, saying text: String = "") throws -> String {
+        let extensionFolder = (folder as NSString).appendingPathComponent("\(author)/\(title)-v1.i7xd")
+        let contents = (extensionFolder as NSString).appendingPathComponent("Source/Contents.w")
+        let preamble = (extensionFolder as NSString).appendingPathComponent("Source/Sections/Preamble.w")
+        try FileManager.default.createDirectory(atPath: (preamble as NSString).deletingLastPathComponent, withIntermediateDirectories: true)
+        try #"{ "is": { "type": "extension", "title": "\#(title)", "author": "\#(author)", "version": "1" } }"#
+            .write(toFile: (extensionFolder as NSString).appendingPathComponent("extension_metadata.json"), atomically: true, encoding: .utf8)
+        try "Version 1 of \(title) by \(author)\n\nSections\n\tPreamble\n".write(toFile: contents, atomically: true, encoding: .utf8)
+        try "Preamble.\n\n@h \(title).\n\n=\n\(text)\n".write(toFile: preamble, atomically: true, encoding: .utf8)
+        return contents
+    }
+
+    func testFindInFilesSearchesALiterateExtensionsSections() throws {
+        let folder = try makeExtensionsFolder()
+        let contents = try putLiterate("Lamps", by: "Emily Short", of: folder, saying: "A lamp is a kind of thing.")
+        let preamble = ((contents as NSString).deletingLastPathComponent as NSString).appendingPathComponent("Sections/Preamble.w")
+        XCTAssertEqual(manager.availableExtensions(withCompilerVersion: "10.1"), [info("Lamps", contents, version: "v1")])
+
+        let project = IFProject()
+        project.settings.compilerVersion = "10.1"
+        let finder = IFFindInFiles()
+        let finished = expectation(description: "The search finishes")
+        finder.start(withPhrase: "Lamp", withSearch: .contains, from: project, withLocations: .extensions) { num, total, _ in
+            if num == total {
+                finished.fulfill()
+            }
+        }
+        wait(for: [finished], timeout: 10)
+
+        XCTAssertEqual(Set(finder.results.compactMap(\.filepath)), [contents, preamble])
+    }
+
+    /// The Extensions menu opens each extension, but only makes a project from one that's kept in one file
+    func testTheMenuMakesNoProjectFromALiterateExtension() throws {
+        let folder = try makeExtensionsFolder()
+        try put("Keys by Emily Short begins here.", "Keys.i7x", in: "Emily Short", of: folder)
+        try putLiterate("Lamps", by: "Emily Short", of: folder)
+        try putLiterate("Clock", by: "Jane Doe", of: folder)
+
+        let delegate = try XCTUnwrap(NSApp.delegate as? IFAppDelegate)
+        delegate.updateExtensionsMenu(forCompilerVersion: "10.1")
+
+        /// The items in the app's menus that do something
+        func items(_ action: String) -> [NSMenuItem] {
+            func found(in menu: NSMenu) -> [NSMenuItem] {
+                return menu.items.flatMap { item in
+                    (item.action == Selector((action)) ? [item] : []) + (item.submenu.map(found(in:)) ?? [])
+                }
+            }
+            return NSApp.mainMenu.map(found(in:)) ?? []
+        }
+        /// The extensions in some items, by the author whose menu they're in
+        func extensions(_ items: [NSMenuItem]) -> [String: [String]] {
+            return Dictionary(grouping: items, by: { $0.menu?.title ?? "" }).mapValues { items in
+                items.map { String(($0.attributedTitle?.string ?? "").prefix { $0 != "\t" }) }
+            }
+        }
+
+        XCTAssertEqual(extensions(items("openExtension:")), ["Emily Short": ["Keys", "Lamps"], "Jane Doe": ["Clock"]])
+        let newProjectItems = items("newExtensionProject:")
+        XCTAssertEqual(extensions(newProjectItems.filter { $0.tag >= 0 }), ["Emily Short": ["Keys"]])
+
+        // An author with only literate extensions has no menu for making a project
+        let newExtension = try XCTUnwrap(newProjectItems.first { $0.tag == -1 })
+        let createFromInstalled = try XCTUnwrap(newExtension.menu?.items.compactMap(\.submenu).first)
+        XCTAssertEqual(createFromInstalled.items.map(\.title), ["Emily Short"])
     }
 
     /// Projects for 6M62 and earlier, and later ones, each get their own list, whichever asks first

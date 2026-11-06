@@ -50,6 +50,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Updates extensions menu
 - (void) updateExtensionsMenu;
+/// Updates the extensions menus with the extensions installed for a version of the compiler
+- (void) updateExtensionsMenuForCompilerVersion: (NSString*) compilerVersion;
 - (void) createNewProject: (NSString*) title
                     story: (NSString*) story;
 - (IBAction) installLegacyExtension: (nullable id) sender;

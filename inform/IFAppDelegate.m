@@ -500,8 +500,9 @@ static BOOL IFIsHostingUnitTests(void) {
                 [openAuthorMenu addItem: openItem];
             }
 
-            // Create menu for each extension, for the 'New Extension Project' menu
-            {
+            // Create menu for each extension, for the 'New Extension Project' menu. A project keeps
+            // its extension in one file, so there's none for a literate extension, which has sections.
+            if (!info.isLiterate) {
                 NSMenuItem* newExItem = [[NSMenuItem alloc] init];
                 newExItem.attributedTitle = attributedTitle;
                 newExItem.target = self;
@@ -516,7 +517,9 @@ static BOOL IFIsHostingUnitTests(void) {
             [extensionSources addObject: info.filepath];
         }
         [openExtensionMenu.submenu addItem: openAuthorItem];
-        [newMenu addItem: newExAuthorItem];
+        if (newExAuthorMenu.numberOfItems > 0) {
+            [newMenu addItem: newExAuthorItem];
+        }
 	}
 }
 

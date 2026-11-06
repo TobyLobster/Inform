@@ -29,6 +29,7 @@ NSString* const IFProjectSourceFileRenamedNotification    = @"IFProjectSourceFil
     if ( [extn isEqualToString: @"ni"] ||
          [extn isEqualToString: @"i7"] ||
          [extn isEqualToString: @"i7x"] ||
+         [extn isEqualToString: @"w"] ||
          [extn isEqualToString: @"html"] ||
          [extn isEqualToString: @"htm"] ||
          [extn isEqualToString: @""] ) {

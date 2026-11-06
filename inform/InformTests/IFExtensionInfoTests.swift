@@ -108,4 +108,58 @@ final class IFExtensionInfoTests: XCTestCase {
         XCTAssertEqual(Set(unknowns.map(\.hash)).count, 1)
         XCTAssertEqual(NSSet(array: locksmiths + unknowns + [info("Keys")]).count, 3)
     }
+
+    // MARK: - Its source
+
+    /// A new temporary folder, removed after the test
+    private func makeFolder() throws -> URL {
+        let folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        addTeardownBlock { try? FileManager.default.removeItem(at: folder) }
+        return folder
+    }
+
+    /// Makes an empty file, and the folders it's in
+    @discardableResult
+    private func make(_ path: String, in folder: URL) throws -> String {
+        let file = folder.appendingPathComponent(path)
+        try FileManager.default.createDirectory(at: file.deletingLastPathComponent(), withIntermediateDirectories: true)
+        try Data().write(to: file)
+        return file.path
+    }
+
+    func testAnExtensionsSourceIsItsFile() {
+        XCTAssertFalse(info().isLiterate)
+        XCTAssertEqual(info().sourceFiles, ["/Extensions/Emily Short/Locksmith.i7x"])
+
+        let folderExtension = info(filepath: "/Extensions/Emily Short/Locksmith-v12.i7xd/Source/Locksmith.i7x")
+        XCTAssertFalse(folderExtension.isLiterate)
+        XCTAssertEqual(folderExtension.sourceFiles, ["/Extensions/Emily Short/Locksmith-v12.i7xd/Source/Locksmith.i7x"])
+
+        // Only a folder extension's contents page makes it literate
+        XCTAssertFalse(info(filepath: "/Extensions/Emily Short/Contents.w").isLiterate)
+
+        XCTAssertFalse(info(filepath: nil).isLiterate)
+        XCTAssertEqual(info(filepath: nil).sourceFiles, [])
+    }
+
+    /// A literate extension's source is its contents page and its sections, which Find in Files searches
+    func testALiterateExtensionsSourceIsItsContentsAndSections() throws {
+        let folder = try makeFolder().appendingPathComponent("Locksmith-v12.i7xd")
+        let contents = try make("Source/Contents.w", in: folder)
+        let preamble = try make("Source/Sections/Preamble.w", in: folder)
+        let actions = try make("Source/Sections/actions.w", in: folder)
+        let doors = try make("Source/Chapter 2/Doors.w", in: folder)
+
+        // None of these is part of it
+        try make("Source/Sections/.Hidden.w", in: folder)
+        try make("Source/.Hidden/Hidden.w", in: folder)
+        try make("Source/Sections/Notes.txt", in: folder)
+        try make("Source/Folder.w/Inside.txt", in: folder)
+        try make("Documentation/Documentation.w", in: folder)
+
+        let locksmith = info(filepath: contents)
+        XCTAssertTrue(locksmith.isLiterate)
+        XCTAssertEqual(locksmith.sourceFiles, [contents, doors, actions, preamble])
+    }
 }

@@ -35,6 +35,11 @@ NS_ASSUME_NONNULL_BEGIN
 +(NSString*) canonicalTitle:(NSString*) displayName;
 @property (atomic, readonly, copy) NSString *safeVersion;
 @property (atomic, readonly, copy) IFSemVer *semver;
+/// Whether it's a literate extension: one that's a folder, whose file is the contents page (\c Source/Contents.w) of its sections
+@property (atomic, readonly) BOOL isLiterate;
+/// The files its source is in: for a literate extension, its contents page and then its sections (the other \c .w files
+/// in its source folder, by name), and otherwise its file (none if it has no file)
+@property (atomic, readonly, copy) NSArray<NSString*>* sourceFiles;
 -(BOOL) isEqual: (nullable id) other;
 
 @end

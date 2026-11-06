@@ -156,7 +156,6 @@ extension IFExtensionsManager {
                     guard let entry = entryObject as? [String: Any] else {
                         continue
                     }
-                    let fullFilepath = entry["location-file"] as? String
                     guard let resource = entry["resource"] as? [String: Any] else {
                         continue
                     }
@@ -173,6 +172,13 @@ extension IFExtensionsManager {
                         version = "v" + version
                     }
 
+                    // An extension that's a folder (.i7xd, Inform 10's usual form) is given by its folder,
+                    // and its file is the one inbuild reads. One with no file to open or search is left out.
+                    guard let fullFilepath = entry["location-file"] as? String ??
+                            (entry["location-directory"] as? String).flatMap({ sourceFile(ofFolderExtension: $0, title: title) }) else {
+                        continue
+                    }
+
                     let info = IFExtensionInfo(displayName: title,
                                                filepath: fullFilepath,
                                                author: author,
@@ -185,6 +191,33 @@ extension IFExtensionsManager {
 
         return result
     }
+}
+
+/// The file that inbuild reads an extension that's a folder from, worked out as inbuild's
+/// `Extensions::main_source_file` and `Extensions::alternative_source_file` do: `Source/<title>.i7x`,
+/// or else `Source/Contents.w` (a literate extension, whose sections are in the same folder), or else
+/// the first `.i7x` file in `Source`, by name without case mattering. Hidden files, such as those
+/// macOS leaves on other volumes, aren't taken.
+private func sourceFile(ofFolderExtension folder: String, title: String) -> String? {
+    let fileManager = FileManager.default
+    let source = (folder as NSString).appendingPathComponent("Source")
+
+    func isFile(_ name: String) -> Bool {
+        var isDir: ObjCBool = false
+        return fileManager.fileExists(atPath: (source as NSString).appendingPathComponent(name), isDirectory: &isDir) &&
+               !isDir.boolValue
+    }
+
+    for name in [title + ".i7x", "Contents.w"] where isFile(name) {
+        return (source as NSString).appendingPathComponent(name)
+    }
+
+    let names = (try? fileManager.contentsOfDirectory(atPath: source)) ?? []
+    let sourceFiles = names.filter { !$0.hasPrefix(".") && ($0 as NSString).pathExtension.lowercased() == "i7x" && isFile($0) }
+    guard let first = sourceFiles.min(by: { $0.caseInsensitiveCompare($1) == .orderedAscending }) else {
+        return nil
+    }
+    return (source as NSString).appendingPathComponent(first)
 }
 
 // *******************************************************************************************
