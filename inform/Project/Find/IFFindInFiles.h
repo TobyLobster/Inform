@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^IFFindInFilesProgressBlock)(int num, int total, int found);
 
 ///
-/// NSTextView category that supports the new find dialog
+/// Find in Files: searches a project's source, the extensions and the documentation, on another thread
 ///
 @interface IFFindInFiles : NSObject
 
