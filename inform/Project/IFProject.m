@@ -46,7 +46,6 @@
 
     NSTextStorage*          notes;
 
-    BOOL                    singleFile;
     NSRange                 initialSelectionRange;
 
     NSMutableArray*         watchExpressions;
@@ -70,7 +69,6 @@
         projectFile             = nil;
         sourceFiles             = nil;
         mainSource              = nil;
-        singleFile              = YES;
         initialSelectionRange   = NSMakeRange(0, 0);
 
         _currentSkein           = [[IFSkein alloc] initWithProject: self];
@@ -208,8 +206,6 @@
 
 // == useful file paths ==
 - (NSString*) mainSourceFile {
-    if (singleFile) return mainSource;
-
     NSFileWrapper* sourceDir = projectFile.sourceDirectory;
     NSDictionary* source     = sourceDir.fileWrappers;
 
@@ -244,14 +240,6 @@
         return nil;
     }
     return self.mainSourceFileURL.path;
-}
-
-- (NSString*) singleInputPathName {
-    return self.fileURL.path;
-}
-
-- (NSString*) singleBuildDirectoryPath {
-    return (self.fileURL).URLByDeletingLastPathComponent.path;
 }
 
 - (NSString*) pathForSourceFile: (NSString*) file {
@@ -606,8 +594,6 @@
         }
     }
 
-    singleFile = NO;
-
     // Load the notes (if present)
     notes = projectFile.loadNotes;
 
@@ -632,47 +618,6 @@
     return YES;
 }
 
--(BOOL) readSourceFile: (NSFileWrapper*) fileWrapper
-                 error: (NSError*__autoreleasing*) outError {
-    // No project file
-    projectFile = nil;
-    
-    [self unregisterProjectTextStorage];
-    sourceFiles = nil;
-    
-    // Default settings
-    settings = [[IFCompilerSettings alloc] init];
-    
-    NSString* filename = fileWrapper.filename;
-
-    if( [IFProjectTypes informVersionForFilename: filename] ) {
-		[settings setUsingNaturalInform: YES];
-    }
-
-    // Load the single file
-    NSData* data = fileWrapper.regularFileContents;
-
-    NSString* theFile = [[NSString alloc] initWithData: data
-                                              encoding: [IFProjectTypes encodingForFilename:filename]];
-
-    NSTextStorage* text = [[NSTextStorage alloc] initWithString: theFile];
-
-    [IFSyntaxManager registerTextStorage: text
-                                    name: filename
-                                    type: [IFProjectTypes highlighterTypeForFilename: filename]
-                            intelligence: [IFProjectTypes intelligenceForFilename: filename]
-                             undoManager: self.undoManager];
-
-    sourceFiles = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                   text,
-                   filename.lastPathComponent, nil];
-
-    mainSource = [filename.lastPathComponent copy];
-
-    singleFile = YES;
-    return YES;
-}
-
 - (BOOL)readFromFileWrapper: (NSFileWrapper *) fileWrapper
                      ofType: (NSString *) typeName
                       error: (NSError *__autoreleasing*) outError {
@@ -686,18 +631,6 @@
             return [self readProject: fileWrapper
                             fileType: fileType
                                error: outError];
-        }
-
-        // Inform 6 source file
-        case IFFileTypeInform6SourceFile: {
-            return [self readSourceFile: fileWrapper
-                                  error: outError];
-        }
-
-        // Inform 7 source file
-        case IFFileTypeInform7SourceFile: {
-            return [self readSourceFile: fileWrapper
-                                  error: outError];
         }
 
         // Unknown
@@ -810,27 +743,6 @@
             return [self writeProject: outError];
         }
 
-        // Inform 6 source file
-        case IFFileTypeInform6SourceFile: {
-            NSTextStorage* theFile = [self storageForFile: self.mainSourceFile];
-            if (theFile == nil) {
-                NSLog(@"Bug: no file storage found");
-                return nil;
-            }
-            
-            NSData *textData = [theFile.string dataUsingEncoding: NSISOLatin1StringEncoding];
-            
-            [self.documentFileWrapper addRegularFileWithContents: textData
-                                                 preferredFilename: self.mainSourceFile.lastPathComponent];
-            return self.documentFileWrapper;
-        }
-
-        // Inform 7 source file
-        case IFFileTypeInform7SourceFile: {
-            NSAssert(false, @"Should never get to here");
-            return nil;
-        }
-
         // Unknown
         case IFFileTypeUnknown:
         default: {
@@ -859,13 +771,6 @@
 	NSTextStorage*  storage;
 	NSString*       originalSourceFile  = sourceFile;
 	NSString*       sourceDir           = self.sourceDirectoryURL.path;
-
-	if (projectFile == nil && [sourceFile.lastPathComponent isEqualToString: self.fileURL.lastPathComponent]) {
-		if (!sourceFile.absolutePath) {
-			// Special case: when we're editing an individual file, then we always use that filename if possible
-			sourceFile = self.fileURL.path;
-		}
-	}
 
 	// Refuse to return storage for files outside the project directory
 	if (sourceDir && sourceFile.absolutePath) {
@@ -925,9 +830,6 @@
 }
 
 - (void) reloadIndexDirectory {
-	// Nothing to do if this is a single file
-	if (singleFile) return;
-	
     // Get a new index wrapper
     NSFileWrapper*	indexWrapper	= nil;
     NSString*		indexPath		= self.indexDirectoryURL.path;
@@ -944,9 +846,6 @@
 }
 
 - (void) reloadDirectory {
-    // Nothing to do if this is a single file
-    if (singleFile) return;
-
     // Get a new wrapper
     NSFileWrapper*	wrapper	= nil;
 
@@ -961,9 +860,6 @@
 }
 
 - (void) reloadSourceDirectory {
-    // Nothing to do if this is a single file
-    if (singleFile) return;
-
     // Get a new wrapper
     NSFileWrapper*	wrapper	= nil;
     NSString*		path    = self.sourceDirectoryURL.path;
@@ -1125,12 +1021,8 @@
     // Work out where the materials folder is located
     NSString* materialsPath = self.materialsDirectoryURL.path;
 
-    // Create the folder if necessary
-    if (!singleFile) {
-
-        // Create materials folder, in a sandbox friendly way, with an icon
-        [self createMaterials];
-    }
+    // Create materials folder if necessary, in a sandbox friendly way, with an icon
+    [self createMaterials];
 
     // Open the folder if it exists
     BOOL isDir;
@@ -1214,27 +1106,22 @@
                               refreshOnly: (BOOL) onlyRefresh
                                  testCase: (NSString*) testCase {
     // Set up the compiler
-    BOOL buildBlorb = release && !singleFile && [self buildBlorbSetting];
+    BOOL buildBlorb = release && [self buildBlorbSetting];
 
     IFCompiler* theCompiler = self.compiler;
     [theCompiler setBuildForRelease: release
                          forTesting: releaseForTesting];
     theCompiler.settings = self.settings;
 
-    if (!singleFile) {
-        // Create <projectname>.materials folder, in a sandbox friendly way
-        [self createMaterials];
+    // Create <projectname>.materials folder, in a sandbox friendly way
+    [self createMaterials];
 
-        // If necessary, copy the extension from an extension project to <projectname>.materials/Extensions/Author/Extension.i7x
-        [self copyProjectExtensionSourceToMaterialsExtensions];
+    // If necessary, copy the extension from an extension project to <projectname>.materials/Extensions/Author/Extension.i7x
+    [self copyProjectExtensionSourceToMaterialsExtensions];
 
-        theCompiler.outputFile = self.buildOutputFileURL.path;
-        theCompiler.inputFile = [self projectInputPathName];
-        theCompiler.directory = self.buildDirectoryURL.path;
-    } else {
-        theCompiler.inputFile = [self singleInputPathName];
-        theCompiler.directory = [self singleBuildDirectoryPath];
-    }
+    theCompiler.outputFile = self.buildOutputFileURL.path;
+    theCompiler.inputFile = [self projectInputPathName];
+    theCompiler.directory = self.buildDirectoryURL.path;
 
     if (onlyRefresh) {
         [theCompiler addNaturalInformStageUsingTestCase: testCase];
