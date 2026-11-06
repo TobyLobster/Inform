@@ -747,6 +747,37 @@ final class IFExtensionsManagerTests: XCTestCase {
         XCTAssertEqual(controller.updated, ["1", "2"])
     }
 
+    /// Downloads the file for the controller, cancelling the progress so that nothing is reported in an alert,
+    /// and gives the progress's last message
+    private func download(_ url: URL, for controller: ProjectControllerSpy) throws -> String? {
+        XCTAssertTrue(manager.downloadAndInstallExtension(url, window: nil, notifyDelegate: controller, javascriptId: "1"))
+        try XCTUnwrap(controller.shown.first).cancel()
+        waitForTheProgressToGo(from: controller)
+        XCTAssertEqual(controller.installing, [])
+        XCTAssertEqual(controller.updated, [])
+        return controller.removed.first?.message
+    }
+
+    /// A download for a project that's been closed can't be installed, and is a failure
+    func testADownloadForAClosedProjectFails() throws {
+        try XCTSkipUnless(NSHomeDirectory().hasSuffix("/TestHome"), "Only writes in the tests' own home")
+        let folder = try makeFolder()
+        // A closed project's controller has no document
+        let controller = makeController()
+
+        XCTAssertEqual(try download(try zipOfExtension("Locksmith", in: folder), for: controller), installed(0, of: 1, failed: 1))
+    }
+
+    /// So is a download that can't be unzipped
+    func testADownloadThatCantBeUnzippedFails() throws {
+        try XCTSkipUnless(NSHomeDirectory().hasSuffix("/TestHome"), "Only writes in the tests' own home")
+        let folder = try makeFolder()
+        let zipURL = folder.appendingPathComponent("Locksmith.zip")
+        try Data("Not really a zip file".utf8).write(to: zipURL)
+
+        XCTAssertEqual(try download(zipURL, for: makeController(ofProjectIn: folder)), installed(0, of: 1, failed: 1))
+    }
+
     /// Cancelling the progress stops the downloads still to come, and nothing is reported
     func testCancellingStopsTheDownloads() throws {
         try XCTSkipUnless(NSHomeDirectory().hasSuffix("/TestHome"), "Only writes in the tests' own home")
