@@ -8,12 +8,6 @@
 #import "IFInTest.h"
 #import "IFUtility.h"
 
-NSString* const IFInTestStartingNotification = @"IFInTestStartingNotification";
-NSString* const IFInTestStdoutNotification   = @"IFInTestStdoutNotification";
-NSString* const IFInTestStderrNotification   = @"IFInTestStderrNotification";
-NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
-
-
 @interface ConcordancePair : NSObject
 @end
 
