@@ -233,17 +233,20 @@ NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
         NSArray* lines = [stdOut componentsSeparatedByString:@"\n"];
         for( NSString* line in lines ) {
             if( [line startsWith: @"extension "] ) {
+                unichar buffer[2];
+                buffer[0] = 'A' + testCases.count;
+                buffer[1] = 0;
+                NSString* key = [NSString stringWithCharacters: buffer length:1];
+
+                // intest gives no title for an example whose source doesn't start with one
+                NSString* title = [NSString stringWithFormat: @"Example %@", key];
                 NSInteger equalsIndex = [line indexOf: @"="];
                 if( equalsIndex != NSNotFound )
                 {
-                    unichar buffer[2];
-                    buffer[0] = 'A' + testCases.count;
-                    buffer[1] = 0;
-                    NSString* key = [NSString stringWithCharacters: buffer length:1];
-                    NSString* title = [line substringFromIndex: equalsIndex + 1].stringByTrimmingWhitespace;
-                    [testCases addObject: @{ @"testKey": key,
-                                             @"testTitle": title }];
+                    title = [line substringFromIndex: equalsIndex + 1].stringByTrimmingWhitespace;
                 }
+                [testCases addObject: @{ @"testKey": key,
+                                         @"testTitle": title }];
             }
         }
     }

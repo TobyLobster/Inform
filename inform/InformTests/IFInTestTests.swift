@@ -97,6 +97,27 @@ final class IFInTestTests: XCTestCase {
         XCTAssertEqual(testCases.map { $0["testTitle"] as? String }, ["Lighthouse", "Café"])
     }
 
+    func testListsAnExampleWithoutAStoryTitle() throws {
+        // intest gives no title for an example whose source doesn't start with one
+        let shed = """
+            Example: * Shed - A lamp in a shed.
+
+            \t*: Include Lamplighting by Jane Doe.
+
+            \tThe Shed is a room.
+
+            \tTest me with "look".
+
+
+            """
+        let file = try makeExtensionProject(examples: [lighthouse, shed, cafe])
+
+        let testCases = IFInTest().refreshExtensionCatalogue(file)
+
+        XCTAssertEqual(testCases.map { $0["testKey"] as? String }, ["A", "B", "C"])
+        XCTAssertEqual(testCases.map { $0["testTitle"] as? String }, ["Lighthouse", "Example B", "Café"])
+    }
+
     func testListsNoTestCasesForAnExtensionWithoutExamples() throws {
         let file = try makeExtensionProject(examples: [])
 
