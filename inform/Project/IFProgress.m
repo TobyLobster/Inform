@@ -17,7 +17,6 @@
     // Current state
     CGFloat percentage;
     NSString* message;
-    BOOL storyActive;
     BOOL inProgress;
 
     BOOL cancelled;
@@ -37,14 +36,8 @@
 	
 	if (self) {
         priority = aPriority;
-		percentage = 0.0f;
-		message = nil;
-        cancelled = NO;
-        inProgress = NO;
         showsProgressBar = aShowsProgressBar;
         canCancel = aCanCancel;
-		
-		delegate = nil;
 	}
 	
 	return self;
@@ -73,14 +66,12 @@
 }
 
 - (void) startStory {
-    storyActive = YES;
 	if ([delegate respondsToSelector: @selector(progressIndicatorStartStory:)]) {
 		[delegate progressIndicatorStartStory: self];
 	}
 }
 
 - (void) stopStory {
-    storyActive = NO;
 	if ([delegate respondsToSelector: @selector(progressIndicatorStopStory:)]) {
 		[delegate progressIndicatorStopStory: self];
 	}
@@ -101,8 +92,6 @@
 		[delegate progressIndicatorStopProgress: self];
 	}
 }
-
-@synthesize storyActive;
 
 #pragma mark - Setting the delegate
 
