@@ -53,6 +53,20 @@ final class IFScannerTests: XCTestCase {
         XCTAssertEqual(groups, ["ab", "a", "", "b"])
     }
 
+    /// Find Previous gives the groups of the match it found, and none when it finds nothing.
+    func testFindPreviousGivesTheGroupsOfItsMatch() {
+        var groups: NSArray? = nil
+        let range = IFScanner.findPreviousMatch(#"(a)(\d)"#, storage: "a1 a2 a3", position: 4,
+                                                options: regexp(), regexFoundGroups: &groups)
+        XCTAssertEqual(range, NSRange(location: 3, length: 2))
+        XCTAssertEqual(groups as? [String], ["a2", "a", "2"])
+
+        let none = IFScanner.findPreviousMatch("(b)", storage: "ab", position: 0,
+                                               options: regexp(), regexFoundGroups: &groups)
+        XCTAssertEqual(none, notFound)
+        XCTAssertNil(groups)
+    }
+
     func testIgnoresCaseOnlyWhenAsked() {
         XCTAssertEqual(next("TWO", in: "one two", caseInsensitive: true), NSRange(location: 4, length: 3))
         XCTAssertEqual(next("TWO", in: "one two"), notFound)

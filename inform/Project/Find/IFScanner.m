@@ -193,28 +193,33 @@
                      options: (IFFindType) searchType
             regexFoundGroups: (NSArray<NSString*>*__strong*) foundGroupsOut {
     NSRange lastResult = NSMakeRange(NSNotFound, 0);
+    NSArray<NSString*>* lastGroups = nil;
     NSRange result;
     NSUInteger currentPosition = 0;
-    if( foundGroupsOut != nil ) {
-        *foundGroupsOut = nil;
-    }
 
     // Brute force: search from the start until we reach our search position, then use the last match found
     do {
+        NSArray<NSString*>* groups = nil;
         result = [self findNextMatch: phrase
                              storage: storage
                             position: currentPosition
                              options: searchType
-                    regexFoundGroups: foundGroupsOut];
+                    regexFoundGroups: (foundGroupsOut != nil) ? &groups : nil];
 
         if( (result.location == NSNotFound) || (result.location > searchPosition) ) {
             break;
         }
         lastResult = result;
+        lastGroups = groups;
         NSAssert(result.location == NSNotFound || result.length > 0, @"Found match of length zero");
         currentPosition = result.location + 1;
     }
     while( true );
+
+    // The groups of the match found, not of the one after it
+    if( foundGroupsOut != nil ) {
+        *foundGroupsOut = lastGroups;
+    }
 
     NSAssert(lastResult.location == NSNotFound || lastResult.length > 0, @"Found match of length zero");
     return lastResult;
