@@ -39,7 +39,7 @@
                    exampleAnchorTag: (NSString*)       aExampleAnchorTag
                       codeAnchorTag: (NSString*)       aCodeAnchorTag
                 definitionAnchorTag: (NSString*)       aDefinitionAnchorTag
-                   regexFoundGroups: (NSArray*)        aRegexFoundGroups {
+                   regexFoundGroups: (NSArray<NSString*>*) aRegexFoundGroups {
 
 	self = [super init];
 	

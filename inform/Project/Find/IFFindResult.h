@@ -84,7 +84,7 @@ typedef NS_OPTIONS(unsigned int, IFFindLocation) {
                   exampleAnchorTag: (nullable NSString*)   aExampleAnchorTag
                      codeAnchorTag: (nullable NSString*)   aCodeAnchorTag
                definitionAnchorTag: (nullable NSString*)   aDefinitionAnchorTag
-                  regexFoundGroups: (nullable NSArray*)    aRegexFoundGroups NS_DESIGNATED_INITIALIZER;
+                  regexFoundGroups: (nullable NSArray<NSString*>*) aRegexFoundGroups NS_DESIGNATED_INITIALIZER;
 
 
 - (void)            setError:(BOOL) hasError;
