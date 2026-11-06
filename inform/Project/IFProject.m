@@ -1163,6 +1163,14 @@
         }
     }
 
+    // The last line needn't end with a newline
+    if (lineStart < len) {
+        if (len - lineStart > 50) return nil;
+        if (lines.count >= 10000) return nil;
+
+        [lines addObject: [fileString substringWithRange: NSMakeRange(lineStart, len-lineStart)]];
+    }
+
     // Must be at least one line in the file
     if (lines.count < 1) return nil;
 

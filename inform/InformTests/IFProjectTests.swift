@@ -712,6 +712,15 @@ final class IFProjectTests: XCTestCase {
         }
     }
 
+    func testReadsARecordingsLastCommandWithoutALineBreak() throws {
+        let project = IFProject()
+
+        XCTAssertEqual(commands(try XCTUnwrap(project.skein(fromRecording: recording("look\nwait")))), ["look", "wait"])
+        XCTAssertEqual(commands(try XCTUnwrap(project.skein(fromRecording: recording("look")))), ["look"])
+        // As long as it's no longer than any other
+        XCTAssertNil(project.skein(fromRecording: try recording("look\n" + String(repeating: "a", count: 51))))
+    }
+
     func testMakesNoSkeinFromWhatIsntARecording() throws {
         let project = IFProject()
 
