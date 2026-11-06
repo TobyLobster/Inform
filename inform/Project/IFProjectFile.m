@@ -12,6 +12,7 @@
 #import "IFSkein.h"
 #import "IFSkeinItem.h"
 #import "IFCompilerSettings.h"
+#import "IFCompilerSettings+OldStyle.h"
 
 @implementation IFProjectFile {
     NSFileWrapper* bundleDirectory;
@@ -117,33 +118,7 @@
 			return [[IFCompilerSettings alloc] init];
 		}
 
-		NSData* settingsData = settingsFile.regularFileContents;
-		NSString* creator = nil;
-		int version = -1;
-		IFCompilerSettings* settings = nil;
-
-		@try {
-			// It was written with NSArchiver, which is deprecated, but only NSUnarchiver can read it
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-			NSUnarchiver* theCoder = [[NSUnarchiver alloc] initForReadingWithData: settingsData];
-#pragma clang diagnostic pop
-
-			// Decode the file
-			creator = [theCoder decodeObject];
-			[theCoder decodeValueOfObjCType: @encode(int) at: &version size:sizeof(int)];
-			settings = [theCoder decodeObject];
-		} @catch (NSException* exception) {
-			// A damaged archive raises
-			NSLog(@"Could not read old-style settings: %@", exception.reason);
-		}
-
-		if (creator == nil || version != 1 || settings == nil) {
-			// We don't understand this file
-			return [[IFCompilerSettings alloc] init];       
-		}
-
-        return settings;
+		return [IFCompilerSettings settingsFromOldStyleData: settingsFile.regularFileContents];
 	} else {
 		// New-style loading
 		IFCompilerSettings* newSettings = [[IFCompilerSettings alloc] init];
