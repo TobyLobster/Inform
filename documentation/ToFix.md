@@ -30,6 +30,7 @@ Each says how it was found, and none has been seen in the app unless it says so.
 - **Uncommenting two comments leaves brackets.** Uncommenting a selection of two comments with source between them, such as `[a] b [c]`, takes away only the first and last brackets, leaving `a] b [c`. Found with the comment helpers' tests (5 November 2026).
 - **A heading numbered in words stops the numbering.** A heading whose number is a word, such as "Chapter Two", has no number as far as numbering is concerned, so a heading typed after it isn't numbered. Found with the `IFNaturalIntel` tests (5 November 2026).
 - **Pasted source can lose the start of a comment.** `IFUtility`'s `unescapeString:`, which decodes code pasted from the documentation, runs an escape to the next `=]`, so pasted source with a comment starting `[=`, as in `[=== Notes ===]`, gets a `?` in its place. Inform's documentation only uses `[=0x....=]` escapes. Found with the `IFUtility` tests (5 November 2026).
+- **An Inform 6 header opened on its own isn't highlighted.** A `.h` file opened on its own has the document type `public.c-header`, which `IFProjectTypes`' `fileTypeFromString:` takes for an Inform 6 ICL file, so `IFSingleFile` shows it as Latin-1 with no highlighting. Yet `highlighterTypeForFilename:` gives `.h` files Inform 6 highlighting, as in a project. The code pairs the two on purpose, so it may be meant. Found by reading (6 November 2026).
 
 ## Skein
 
