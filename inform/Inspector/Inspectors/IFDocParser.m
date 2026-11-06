@@ -85,8 +85,36 @@ static NSDictionary<NSString*,NSString*>* entities = nil;
 		entities = @{@"lt": @"<",
 			@"gt": @">",
 			@"quot": @"\"",
+			@"amp": @"&",
 			@"nbsp": @" "};
 	}
+}
+
+/// The value of an entity (without its & and ;): one of the named ones above, or a character given by its
+/// number, such as #160 or #x2318 (nil if it's neither)
++ (nullable NSString*) valueOfEntity: (NSString*) entity {
+    NSString* value = entities[entity];
+    if (value == nil && [entity hasPrefix: @"#"]) {
+        BOOL hex = [entity hasPrefix: @"#x"];
+        NSScanner* scanner = [NSScanner scannerWithString: [entity substringFromIndex: hex ? 2 : 1]];
+        unsigned long long code = 0;
+        BOOL scanned = hex ? [scanner scanHexLongLong: &code] : [scanner scanUnsignedLongLong: &code];
+        if (scanned && scanner.isAtEnd && code > 0 && code <= 0x10FFFF && (code < 0xD800 || code > 0xDFFF)) {
+            if (code == 0xA0) {
+                // A non-breaking space is a space, as &nbsp; is
+                value = @" ";
+            } else {
+                unichar characters[2];
+                if (CFStringGetSurrogatePairForLongCharacter((UTF32Char) code, characters)) {
+                    value = [NSString stringWithCharacters: characters length: 2];
+                } else {
+                    characters[0] = (unichar) code;
+                    value = [NSString stringWithCharacters: characters length: 1];
+                }
+            }
+        }
+    }
+    return value;
 }
 
 typedef NS_ENUM(unsigned int, ParseState) {
@@ -208,22 +236,22 @@ typedef NS_ENUM(unsigned int, ParseState) {
 							NSString* entity = [NSString stringWithCharacters: chrs + tagStart+1
 																	   length: x - (tagStart+1)];
 							entity = entity.lowercaseString;
-							NSString* entityValue = entities[entity];
+							NSString* entityValue = [IFDocParser valueOfEntity: entity];
 
-							// End of this entity
+							// End of this entity (whose value is no longer than it, so it fits)
 							state = PlainText;
 							if (inTitle) {
 								whitespace = NO;
-								if (entityValue != nil) {
-									title[titleLength++] = [entityValue characterAtIndex: 0];
+								for (NSUInteger index = 0; index < entityValue.length; index++) {
+									title[titleLength++] = [entityValue characterAtIndex: index];
 								}
 							}
 							if (ignoreCount) break;
                             if (ignoreSection) break;
-							
+
 							whitespace = NO;
-							if (entityValue != nil) {
-								result[resultLength++] = [entityValue characterAtIndex: 0];
+							for (NSUInteger index = 0; index < entityValue.length; index++) {
+								result[resultLength++] = [entityValue characterAtIndex: index];
 							}
 							break;
 						}

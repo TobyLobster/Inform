@@ -44,6 +44,16 @@ final class IFDocParserTests: XCTestCase {
         XCTAssertEqual(text("&lt;a&gt; &quot;b&quot;&nbsp;c &LT;"), "<a> \"b\" c <")
     }
 
+    /// An ampersand, and a character given by its number in decimal or hex, as in the documentation.
+    /// A numbered non-breaking space is a space, as &nbsp; is.
+    func testDecodesAmpersandsAndNumberedCharacters() {
+        XCTAssertEqual(text("US News &amp; World Report"), "US News & World Report")
+        XCTAssertEqual(text("A&#38;E &#x2318;-R &#X41;"), "A&E \u{2318}-R A")
+        XCTAssertEqual(text("&#160;&#160;say"), "  say")
+        XCTAssertEqual(text("&#128512;!"), "\u{1F600}!")
+        XCTAssertEqual(text("a&#0;&#xD800;&#x110000;&#12z;b"), "ab")
+    }
+
     /// The marked parts that the search leaves out.
     func testLeavesOutIgnoredSections() {
         XCTAssertEqual(text("a<!--START IGNORE-->b<br>c<!--END IGNORE-->d"), "a d")
@@ -119,13 +129,13 @@ final class IFDocParserTests: XCTestCase {
 
         XCTAssertEqual(parser.exampleInfo.keys.sorted(), ["169: Ahem", "170: Ferragamo Again"])
         XCTAssertEqual(parser.exampleInfo["169: Ahem"]?.anchorTag, "e12")
-        XCTAssertEqual(parser.exampleInfo["169: Ahem"]?.range, NSRange(location: 3915, length: 1494))
+        XCTAssertEqual(parser.exampleInfo["169: Ahem"]?.range, NSRange(location: 3939, length: 1526))
 
         XCTAssertEqual(parser.codeInfo.count, 39)
         XCTAssertEqual(parser.definitionInfo.count, 0)
         let firstCode = try XCTUnwrap(parser.codeInfo.first)
         XCTAssertEqual(firstCode.anchorTag, "c2817")
         XCTAssertEqual((parser.plainText as NSString).substring(with: firstCode.range),
-                       "\nTo admire (item - an object): \nsay \"You take a long look at [item].\". \n")
+                       "\nTo admire (item - an object): \n    say \"You take a long look at [item].\". \n")
     }
 }
