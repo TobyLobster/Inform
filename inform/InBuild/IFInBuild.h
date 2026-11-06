@@ -10,11 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSNotificationName const IFInBuildStartingNotification;
-extern NSNotificationName const IFInBuildStdoutNotification;
-extern NSNotificationName const IFInBuildStderrNotification;
-extern NSNotificationName const IFInBuildFinishedNotification;
-
 //
 // Class that handles actually running InBuild
 //
