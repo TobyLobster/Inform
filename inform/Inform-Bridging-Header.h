@@ -23,6 +23,8 @@
 #import "IFProjectPane.h"
 #import "IFProject.h"
 #import "IFCompiler.h"
+#import "IFCompilerStyles.h"
+#import "IFProgress.h"
 #import "IFCollapsableView.h"
 #import "IFCompilerSettings.h"
 #import "IFSetting.h"

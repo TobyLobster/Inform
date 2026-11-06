@@ -12,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class IFCompilerSettings;
 @class IFProgress;
-@protocol IFCompilerDelegate;
 
 extern NSNotificationName const IFCompilerClearConsoleNotification;
 extern NSNotificationName const IFCompilerStartingNotification;
@@ -47,7 +46,6 @@ typedef NS_ENUM(int, ECompilerProblemType) {
 ///
 @interface IFCompiler : NSObject
 
-//+ (NSString*) compilerExecutable;
 /// If set, debug options will be turned off while building
 - (void) setBuildForRelease: (BOOL) willRelease forTesting: (BOOL) testing NS_SWIFT_NAME(setBuild(forRelease:forTesting:));
 /// The input file name; nil until it's set.
@@ -85,12 +83,6 @@ typedef NS_ENUM(int, ECompilerProblemType) {
 @property (atomic, copy, null_resettable) NSString *outputFile;
 /// URL of the file that should be shown in the 'Problems' tab; nil if we should use the standard problems.html file
 @property (atomic, readonly, copy, nullable) NSURL *problemsURL;
-/// If YES, the output is deleted when the compiler is deallocated
-@property (atomic) BOOL deletesOutput;
-
-/// The delegate object, which is not retained.
-@property (atomic, weak, nullable) id<IFCompilerDelegate> delegate;
-
 /// Clears the console
 - (void) clearConsole;
 /// Fires off the compiler task.
@@ -104,21 +96,6 @@ typedef NS_ENUM(int, ECompilerProblemType) {
 @property (atomic, readonly, strong) IFProgress *progress;
 
 @property (atomic, readwrite, copy, nullable) NSString *endTextString;
-
-@end
-
-///
-/// Delegate method prototypes
-///
-@protocol IFCompilerDelegate<NSObject>
-@optional
-
-/// Called when every stage has completed, or when a stage fails (ie, when compiling has finished for whatever reason)
-- (void) taskFinished:       (int) exitCode;
-/// Called when some data arrives on stdout from the compiler
-- (void) receivedFromStdOut: (NSString*) data;
-/// Called when some data arrives on stderr from the compiler
-- (void) receivedFromStdErr: (NSString*) data;
 
 @end
 
