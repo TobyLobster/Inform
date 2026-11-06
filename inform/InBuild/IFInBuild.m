@@ -118,10 +118,8 @@
 
     if (settings.allowLegacyExtensionDirectory) {
         NSString* externalPath = [IFUtility pathForInformExternalAppSupport];
-        if (externalPath != nil) {
-            [mutableArgs addObject: @"-deprecated-external"];
-            [mutableArgs addObject: externalPath];
-        }
+        [mutableArgs addObject: @"-deprecated-external"];
+        [mutableArgs addObject: externalPath];
     }
 
     if (confirmed) {
@@ -159,9 +157,6 @@
     }
 
     NSString* externalPath = [IFUtility pathForInformExternalAppSupport];
-    if (externalPath == nil) {
-        return 0;
-    }
     externalPath = [externalPath stringByAppendingPathComponent: @"Extensions"];
 
     NSString* internalPath = [IFUtility pathForInformInternalAppSupport:@""];
