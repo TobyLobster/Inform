@@ -140,6 +140,27 @@ final class IFFindInFilesTests: XCTestCase {
         XCTAssertEqual(search("fragile", .source, in: project, with: finder).results.map(\.phrase), ["fragile"])
     }
 
+    /// The source is searched as it was when the search started, though that's done later, on another thread
+    func testSearchesTheSourceAsItWasWhenTheSearchStarted() throws {
+        let project = try openProject(source: ["story.ni": "A beaker. A beaker."])
+        let storage = try XCTUnwrap(project.sourceFiles?["story.ni"])
+        let finder = IFFindInFiles()
+        let finished = expectation(description: "The search finishes")
+
+        // Holding the results' lock keeps the search from recording a match until the text has changed
+        _ = objc_sync_enter(finder.searchResultsLock)
+        finder.start(withPhrase: "beaker", withSearch: .contains, from: project, withLocations: .source) { num, total, _ in
+            if num == total {
+                finished.fulfill()
+            }
+        }
+        storage.replaceCharacters(in: NSRange(location: 0, length: storage.length), with: "Nothing.")
+        _ = objc_sync_exit(finder.searchResultsLock)
+        wait(for: [finished], timeout: 10)
+
+        XCTAssertEqual(finder.results.map(\.context), ["A beaker. A beaker.", "A beaker. A beaker."])
+    }
+
     func testFindsNothingWhereItIsNotLooking() throws {
         let project = try openProject(source: ["story.ni": "SYBIL is a woman."])
         let (results, progress) = search("SYBIL", [], in: project)

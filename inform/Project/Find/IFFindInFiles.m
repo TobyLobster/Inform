@@ -462,7 +462,9 @@
     for( NSString* filepath in sourceFiles) {
 		NSTextStorage* file = sourceFiles[filepath];
 		
-		[self addSearchText: file.string
+        // A copy, as it's searched on another thread, and could be edited meanwhile. (The copy shares the
+        // text until it's next edited, so it's quick.)
+		[self addSearchText: [file.string copy]
                withFilePath: filepath
                withLocation: IFFindSource];
 	}
