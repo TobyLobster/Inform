@@ -53,5 +53,6 @@
 #import "IFFindInFiles.h"
 #import "IFAppDelegate.h"
 #import "IFScanner.h"
+#import "IFDocParser.h"
 #import "IFDiffer.h"
 #import "NSBundle+IFBundleExtensions.h"

@@ -22,7 +22,7 @@ extern IFDocAttributeKey const IFDocAttributeSort;
 ///
 @interface IFExampleInfo : NSObject
 
-- (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
+- (instancetype) init NS_UNAVAILABLE;
 - (instancetype) initWithName:(NSString*) aName anchorTag:(NSString*) aAnchorTag range:(NSRange)aRange NS_DESIGNATED_INITIALIZER;
 @property (atomic, readonly, copy) NSString *name;
 @property (atomic, readonly, copy) NSString *anchorTag;
@@ -32,10 +32,9 @@ extern IFDocAttributeKey const IFDocAttributeSort;
 
 @interface IFCodeInfo : NSObject
 
-- (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
-- (instancetype) initWithAnchorTag:(nullable NSString*) aAnchorTag range:(NSRange)aRange NS_DESIGNATED_INITIALIZER;
-/// The anchor tag of the section (nil if the document ends a section it didn't start)
-@property (atomic, readonly, copy, nullable) NSString *anchorTag;
+- (instancetype) init NS_UNAVAILABLE;
+- (instancetype) initWithAnchorTag:(NSString*) aAnchorTag range:(NSRange)aRange NS_DESIGNATED_INITIALIZER;
+@property (atomic, readonly, copy) NSString *anchorTag;
 @property (atomic, readonly) NSRange range;
 
 @end
@@ -46,7 +45,7 @@ extern IFDocAttributeKey const IFDocAttributeSort;
 ///
 @interface IFDocParser : NSObject
 
-- (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
+- (instancetype) init NS_UNAVAILABLE;
 /// Parses the specified HTML, extracting attributes and the plain text version
 - (instancetype) initWithHtml: (NSString*) html NS_DESIGNATED_INITIALIZER;
 
