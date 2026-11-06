@@ -602,6 +602,26 @@ final class IFExtensionsManagerTests: XCTestCase {
         XCTAssertEqual(manager.availableExtensions(withCompilerVersion: "6M62"), [])
     }
 
+    /// Installing a legacy extension takes the census, which documents the installed extensions
+    /// in Inform's Application Support, where a 6M62 project's Extensions page reads them
+    func testInstallingALegacyExtensionDocumentsIt() throws {
+        _ = try makeExtensionsFolder()
+        let documentation = IFUtility.pathForInformExternalDocumentation() as NSString
+        addTeardownBlock {
+            try? FileManager.default.removeItem(atPath: documentation as String)
+        }
+        let file = try write(firstLine: "Lamplighting by Jane Doe begins here.")
+
+        // The census runs in the background, and says when it's finished
+        let finished = expectation(forNotification: .IFCensusFinishedButDontUpdateExtensionsWebPage, object: nil)
+        XCTAssertEqual(install(file.path).result, .success)
+        wait(for: [finished], timeout: 30)
+
+        let installed = try String(contentsOfFile: documentation.appendingPathComponent("Extensions.html"), encoding: .utf8)
+        XCTAssertTrue(installed.contains("Lamplighting by Jane Doe"))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: documentation.appendingPathComponent("Extensions/Jane Doe/Lamplighting.html")))
+    }
+
     // MARK: - Downloading extensions
 
     /// Stands in for a project's controller, which shows the manager's progress, and is told of each extension installed
