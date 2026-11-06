@@ -174,19 +174,6 @@
     return [self.fileURL URLByAppendingPathComponent: @"Metadata.ifiction"];
 }
 
--(NSURL*) currentSkeinURL {
-    if( self.isExtensionProject ) {
-        NSUInteger index = [self.skeins indexOfObject: self.currentSkein];
-        if( index == NSNotFound ) {
-            return nil;
-        }
-
-        NSString* filename = [NSString stringWithFormat:@"Skein%c.skein", 'A' + (int) index];
-        return [self.fileURL URLByAppendingPathComponent: filename];
-    }
-    return [self.fileURL URLByAppendingPathComponent: @"Skein.skein"];
-}
-
 -(NSURL*) normalProblemsURL {
     return [self.buildDirectoryURL URLByAppendingPathComponent: @"Problems.html"];
 }
@@ -423,7 +410,6 @@
 
 - (BOOL) generateReportForTestCase: (NSString*) testCase
                          errorCode: (NSString*) errorCode
-                          skeinURL: (NSURL*) skeinURL
                        skeinNodeId: (unsigned long) skeinNodeId
                         skeinNodes: (int) skeinNodes
                          outputURL: (NSURL*) outputURL {
@@ -431,7 +417,6 @@
                                               testCase: testCase
                                              errorCode: errorCode
                                            problemsURL: self.normalProblemsURL
-                                              skeinURL: skeinURL
                                            skeinNodeId: skeinNodeId
                                             skeinNodes: skeinNodes
                                              outputURL: outputURL];

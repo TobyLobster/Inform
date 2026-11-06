@@ -54,8 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Useful URLs
 // These are nil for a project with no file URL, such as one that has never been saved.
-// currentSkeinURL is also nil if the current skein isn't one of the project's, and the
-// report URLs are nil if this isn't an extension project.
+// The report URLs are also nil if this isn't an extension project.
 @property (atomic, readonly, copy, nullable) NSURL *buildDirectoryURL;
 @property (atomic, readonly, copy, nullable) NSURL *materialsDirectoryURL;
 @property (atomic, readonly, copy, nullable) NSURL *mainSourceFileURL;
@@ -63,7 +62,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, readonly, copy, nullable) NSURL *buildIndexFileURL;
 @property (atomic, readonly, copy, nullable) NSURL *settingsFileURL;
 @property (atomic, readonly, copy, nullable) NSURL *indexDirectoryURL;
-@property (atomic, readonly, copy, nullable) NSURL *currentSkeinURL;
 @property (atomic, readonly, copy, nullable) NSURL *currentReportURL;
 @property (atomic, readonly, copy, nullable) NSURL *normalProblemsURL;
 @property (atomic, readonly, copy, nullable) NSURL *extensionReportURL;
@@ -113,7 +111,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(nullable NSArray<NSString*>*) testCommandsForExtensionTestCase: (NSString*) testCase;
 - (BOOL) generateReportForTestCase: (NSString*) testCase
                          errorCode: (NSString*) errorCode
-                          skeinURL: (nullable NSURL*) skeinURL
                        skeinNodeId: (unsigned long) skeinNodeId
                         skeinNodes: (int) skeinNodes
                          outputURL: (NSURL*) outputURL;

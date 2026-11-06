@@ -1116,7 +1116,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
             [self.document generateReportForTestCase: [self currentTestCase]
                                              errorCode: intestCode
-                                              skeinURL: [self.document currentSkeinURL]
                                            skeinNodeId: 0
                                             skeinNodes: 0
                                              outputURL: reportURL];
@@ -2336,7 +2335,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
         NSURL* reportURL = [self.document currentReportURL];
         [self.document generateReportForTestCase: [self currentTestCase]
                                          errorCode: intestCode
-                                          skeinURL: [self.document currentSkeinURL]
                                        skeinNodeId: skeinNodeId
                                         skeinNodes: skeinNodes
                                          outputURL: reportURL];
