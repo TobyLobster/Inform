@@ -49,3 +49,4 @@
 #import "IFInTest.h"
 #import "IFScanner.h"
 #import "IFDocParser.h"
+#import "IFFindInFiles.h"
