@@ -89,7 +89,6 @@
         //
 		IFProject* doc = (self.parent).document;
 		textStorage = [doc storageForFile: doc.mainSourceFile];
-        NSAssert(textStorage != nil, @"BUG: no main file!");
         if (textStorage == nil) {
 			textStorage = [[NSTextStorage alloc] init];
         }

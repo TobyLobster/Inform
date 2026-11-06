@@ -349,6 +349,12 @@ final class IFProjectTests: XCTestCase {
         XCTAssertNil(project.storage(forFile: "Missing.ni"))
     }
 
+    func testGivesNoTextForNoFile() throws {
+        // As for a project without a story file
+        let project = try open(makeProject(source: ["story.ni": Data()]))
+        XCTAssertNil(project.storage(forFile: nil))
+    }
+
     func testGivesNoTextForAFileOutsideItsSourceFolder() throws {
         let project = try open(makeProject(source: ["story.ni": Data()]))
         let outside = try XCTUnwrap(project.fileURL).deletingLastPathComponent().appendingPathComponent("Outside.ni")

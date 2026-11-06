@@ -748,6 +748,9 @@
 	NSString*       originalSourceFile  = sourceFile;
 	NSString*       sourceDir           = self.sourceDirectoryURL.path;
 
+	// No file has no text (as for a project without a story file)
+	if (sourceFile == nil) return nil;
+
 	// Refuse to return storage for files outside the project directory
 	if (sourceDir && sourceFile.absolutePath) {
 		if (![sourceFile.stringByStandardizingPath hasPrefix: sourceDir]) {
