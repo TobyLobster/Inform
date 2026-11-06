@@ -67,7 +67,7 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     /// File handle for stdout
     NSFileHandle* stdOutH;
 
-    /// When =3, notify the delegate that the task is dead
+    /// When =3, the task has finished: its stdout and stderr have ended, and it has terminated
     int finishCount;
 
     // Progress
@@ -75,9 +75,6 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     IFProgress* progress;
     /// Message to show at end of tasks
     NSString* endTextString;
-
-    // Delegate
-    __weak id<IFCompilerDelegate> delegate;	
 }
 
 #pragma mark - Initialisation, etc
@@ -86,16 +83,6 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     self = [super init];
 
     if (self) {
-        settings            = nil;
-        inputFile           = nil;
-        theTask             = nil;
-        stdOut              = nil;
-        stdErr              = nil;
-        delegate            = nil;
-        workingDirectory    = nil;
-		release             = NO;
-        releaseForTesting   = NO;
-		
 		progress = [[IFProgress alloc] initWithPriority: IFProgressPriorityCompiler
                                        showsProgressBar: YES
                                               canCancel: NO];
@@ -109,9 +96,6 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 
 - (void) dealloc {
     if (deleteOutputFile) [self deleteOutput];
-
-    theTask = nil;
-    endTextString = nil;
 
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 }
@@ -230,8 +214,6 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     NSMutableArray* args = [[settings commandLineArgumentsForRelease: release
                                                           forTesting: releaseForTesting] mutableCopy];
 
-    // [args addObject: @"-x"];
-   
     [args addObject: [self.currentStageInput copy]];
     [args addObject: [outputFile copy]];
 
@@ -512,8 +494,6 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     deleteOutputFile = NO;
 }
 
-@synthesize deletesOutput = deleteOutputFile;
-@synthesize delegate;
 @synthesize directory = workingDirectory;
 
 - (void) taskHasReallyFinished {
@@ -541,10 +521,6 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 			}
 		}
 
-        if ([delegate respondsToSelector: @selector(taskFinished:)]) {
-            [delegate taskFinished: exitCode];
-        }
-
 		[progress stopProgress];
         
         // Show final message from compiler
@@ -564,10 +540,6 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 			}
 			
             // The task failed
-            if (delegate &&
-                [delegate respondsToSelector: @selector(taskFinished:)]) {
-                [delegate taskFinished: exitCode];
-            }
             [progress stopProgress];
             
             // Show final message from compiler
@@ -614,10 +586,6 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 
 - (void) sendStdOut: (NSString*) data
           withStyle: (NSString*) style {
-	if ([delegate respondsToSelector: @selector(receivedFromStdOut:)]) {
-		[delegate receivedFromStdOut: data]; 
-	}
-	
 	NSDictionary* uiDict = @{
         @"string": data,
         @"style": style
@@ -656,10 +624,6 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     if (inData.length) {
         NSString* newStr = [[NSString alloc] initWithData:inData
                                                   encoding:NSISOLatin1StringEncoding];
-        if ([delegate respondsToSelector: @selector(receivedFromStdErr:)]) {
-            [delegate receivedFromStdErr: newStr];
-        }
-
         NSDictionary* uiDict = @{@"string": newStr};
         [[NSNotificationCenter defaultCenter] postNotificationName: IFCompilerStderrNotification
                                                             object: self
