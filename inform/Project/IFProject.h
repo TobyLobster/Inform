@@ -70,6 +70,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Extension projects
 @property (atomic, readonly) BOOL isExtensionProject;
 - (void) selectSkein: (int) index;
+/// Saves an extension project, then asks where to save a copy of its extension
+- (void) exportExtension: (NSWindow*) window;
 
 @property (NS_NONATOMIC_IOSONLY, readonly) bool useNewExtensions;
 
