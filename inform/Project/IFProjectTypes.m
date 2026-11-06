@@ -8,10 +8,6 @@
 #import "IFProjectTypes.h"
 #import "IFPreferences.h"
 
-NSString* const IFProjectFilesChangedNotification         = @"IFProjectFilesChangedNotification";
-NSString* const IFProjectBreakpointsChangedNotification   = @"IFProjectBreakpointsChangedNotification";
-NSString* const IFProjectSourceFileRenamedNotification    = @"IFProjectSourceFileRenamedNotification";
-
 @implementation IFProjectTypes
 
 +(NSStringEncoding) encodingForFilename: (NSString*) filename {
