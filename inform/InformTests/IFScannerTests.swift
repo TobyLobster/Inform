@@ -177,6 +177,15 @@ final class IFScannerTests: XCTestCase {
         XCTAssertEqual(find("cat", in: "cats", type: .completeWord), notFound)
     }
 
+    /// Letters that aren't ASCII, and accents on their own, are part of a word too.
+    func testWordsCanHaveLettersThatAreNotASCII() {
+        XCTAssertEqual(find("caf", in: "caf\u{E9}", type: .completeWord), notFound)
+        XCTAssertEqual(find("cafe", in: "cafe\u{301}", type: .completeWord), notFound)
+        XCTAssertEqual(find("t", in: "\u{E9}t\u{E9}", type: .beginsWith), notFound)
+        XCTAssertEqual(find("\u{3B2}", in: "\u{3B1}\u{3B2} \u{3B2}", type: .beginsWith), NSRange(location: 3, length: 1))
+        XCTAssertEqual(find("\u{E9}t\u{E9}", in: "un \u{E9}t\u{E9}.", type: .completeWord), NSRange(location: 3, length: 3))
+    }
+
     /// Nothing is found from the end of the text or past it, nor for an empty phrase.
     func testFindsNothingFromTheEnd() {
         XCTAssertEqual(find("c", in: "abc", from: 2), NSRange(location: 2, length: 1))

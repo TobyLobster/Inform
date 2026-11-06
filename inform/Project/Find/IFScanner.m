@@ -6,7 +6,6 @@
 //
 
 #import "IFScanner.h"
-#include <wctype.h>
 
 @implementation IFScanner
 
@@ -129,8 +128,8 @@
                     if (range.location != 0) {
                         unichar chr = [storage characterAtIndex: range.location-1];
                         
-                        if (!iswalnum(chr)) {
-                            // Is preceded by non-alphabetic character, so is a word
+                        if (![[NSCharacterSet alphanumericCharacterSet] characterIsMember: chr]) {
+                            // Is preceded by a character that is not a letter, accent or digit, so is a word
                             startOfWord = true;
                         }
                     } else {
@@ -151,8 +150,8 @@
                         if((range.location + range.length) < storageLength) {
                             unichar chr = [storage characterAtIndex: range.location + range.length];
                             
-                            if (!iswalnum(chr)) {
-                                // Is followed by non-alphabetic character, so is a word
+                            if (![[NSCharacterSet alphanumericCharacterSet] characterIsMember: chr]) {
+                                // Is followed by a character that is not a letter, accent or digit, so is a word
                                 endOfWord = true;
                             }
                         }
