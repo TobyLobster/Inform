@@ -10,14 +10,11 @@ final class IFProjectTests: XCTestCase {
     private let lines = ["\"Line Endings\" by Inform.", "", "The Kitchen is a room."]
 
     /// The text of a source file, as Inform shows it once the file is opened on its own.
+    /// (The file's document unregisters its text when it goes.)
     private func openedSourceFile(_ contents: String) throws -> String {
-        let wrapper = FileWrapper(regularFileWithContents: Data(contents.utf8))
-        wrapper.filename = "story.ni"
-        let project = IFProject()
-        try project.read(from: wrapper, ofType: "org.inform-fiction.source.inform7")
-        let storage = try XCTUnwrap(project.sourceFiles?["story.ni"])
-        IFSyntaxManager.unregisterTextStorage(storage)
-        return storage.string
+        let file = IFSingleFile()
+        try file.read(from: Data(contents.utf8), ofType: "org.inform-fiction.source.inform7")
+        return file.storage.string
     }
 
     /// The text of a project's source file, as Inform shows it once the project is opened.
