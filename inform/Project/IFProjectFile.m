@@ -124,17 +124,26 @@
 		}
 
 		NSData* settingsData = settingsFile.regularFileContents;
-        NSError* error;
-        NSKeyedUnarchiver* theCoder = [[NSKeyedUnarchiver alloc] initForReadingFromData: settingsData
-                                                                                  error: &error];
-
-		// Decode the file
-		NSString* creator = [theCoder decodeObject];
+		NSString* creator = nil;
 		int version = -1;
-		[theCoder decodeValueOfObjCType: @encode(int) at: &version size:sizeof(int)];
-		IFCompilerSettings* settings = [theCoder decodeObject];
+		IFCompilerSettings* settings = nil;
 
-		// Release the decoder
+		@try {
+			// It was written with NSArchiver, which is deprecated, but only NSUnarchiver can read it
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+			NSUnarchiver* theCoder = [[NSUnarchiver alloc] initForReadingWithData: settingsData];
+#pragma clang diagnostic pop
+
+			// Decode the file
+			creator = [theCoder decodeObject];
+			[theCoder decodeValueOfObjCType: @encode(int) at: &version size:sizeof(int)];
+			settings = [theCoder decodeObject];
+		} @catch (NSException* exception) {
+			// A damaged archive raises
+			NSLog(@"Could not read old-style settings: %@", exception.reason);
+		}
+
 		if (creator == nil || version != 1 || settings == nil) {
 			// We don't understand this file
 			return [[IFCompilerSettings alloc] init];       

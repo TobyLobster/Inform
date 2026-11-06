@@ -207,19 +207,30 @@ final class IFProjectFileTests: XCTestCase {
         XCTAssertEqual(settings.zcodeVersion, 256)
     }
 
-    /// Before Settings.plist, settings were archived with the name of the app that made them
-    /// and a version number, with NSArchiver. They're now read with NSKeyedUnarchiver, which
-    /// can't read those, and which requires secure coding, so it can't read a keyed archive either.
-    func testDoesntReadAnOldArchivedSettingsFile() throws {
-        let old = IFCompilerSettings()
-        old.zcodeVersion = 8
-        let archiver = NSKeyedArchiver(requiringSecureCoding: false)
-        archiver.encode("Inform")
-        var version: Int32 = 1
-        archiver.encodeValue(ofObjCType: "i", at: &version)
-        archiver.encode(old)
-        archiver.finishEncoding()
-        let projectFile = try XCTUnwrap(IFProjectFile(fileWrapper: project(["Settings": FileWrapper(regularFileWithContents: archiver.encodedData)])))
+    /// Before Settings.plist, settings were archived with NSArchiver in a Settings file, after
+    /// the name of the app that wrote them and a version number. These are archived as the
+    /// settings archive themselves now, with a Z-code version of 8, and not strict.
+    private let oldSettings = """
+        BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACFhAErBkluZm9ybYaEAWkBkoSEhBJJRkNvbXBp\
+        bGVyU2V0dGluZ3MAlJKEhIQTTlNNdXRhYmxlRGljdGlvbmFyeQCEhAxOU0RpY3Rpb25hcnkAlJYCkoSTlQ5JRk1pc2NTZXR0\
+        aW5nc4aShJiWAZKEk5UPSUZTZXR0aW5nU3RyaWN0hpKEhIQITlNOdW1iZXIAhIQHTlNWYWx1ZQCUhAEqhIQBY50AhoaShJOV\
+        EElGT3V0cHV0U2V0dGluZ3OGkoSYlgGShJOVFUlGU2V0dGluZ1pDb2RlVmVyc2lvboaShJ6chJaWCIaGhoY=
+        """
+
+    func testReadsAnOldSettingsFile() throws {
+        let data = try XCTUnwrap(Data(base64Encoded: oldSettings))
+        let projectFile = try XCTUnwrap(IFProjectFile(fileWrapper: project(["Settings": FileWrapper(regularFileWithContents: data)])))
+
+        let settings = try XCTUnwrap(projectFile.settings)
+
+        XCTAssertEqual(settings.zcodeVersion, 8)
+        XCTAssertFalse(settings.strict)
+    }
+
+    func testADamagedOldSettingsFileGivesTheDefaults() throws {
+        let data = try XCTUnwrap(Data(base64Encoded: oldSettings))
+        let damaged = FileWrapper(regularFileWithContents: data.prefix(data.count / 2))
+        let projectFile = try XCTUnwrap(IFProjectFile(fileWrapper: project(["Settings": damaged])))
 
         let settings = try XCTUnwrap(projectFile.settings)
 
