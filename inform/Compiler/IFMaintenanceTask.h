@@ -11,7 +11,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSNotificationName const IFMaintenanceTasksStarted;
-extern NSNotificationName const IFMaintenanceTasksFinished;
 
 ///
 /// Class that deals with background maintenance tasks (particularly ni -census)
@@ -25,11 +24,6 @@ extern NSNotificationName const IFMaintenanceTasksFinished;
 - (void) queueTask: (NSString*) command
 	 withArguments: (NSArray<NSString*>*) arguments
         notifyType: (NSNotificationName) notifyType;
-
-/// Queues a task to run the given command (with arguments)
-- (void) queueTaskAtURL: (NSURL*) command
-          withArguments: (NSArray<NSString*>*) arguments
-             notifyType: (NSNotificationName) notifyType;
 
 @end
 
