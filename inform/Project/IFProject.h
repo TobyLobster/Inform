@@ -13,28 +13,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class IFCompiler;
 @class IFCompilerSettings;
-@class IFProjectFile;
-@class IFInTest;
 @class IFInBuild;
-@class IFSyntaxTypes;
-@class IFProjectMaterialsPresenter;
 @class IFSkein;
 @class IFSkeinItem;
 
 @interface IFProject : NSDocument<NSTextStorageDelegate>
 
-/// The project's file wrapper; a new, empty one when none is set
-@property (atomic, strong, null_resettable) NSFileWrapper *documentFileWrapper;
-
 #pragma mark - Properties
 // The files and settings associated with the project
-@property (atomic, readonly, strong, nullable)  IFProjectFile *       projectFile;            // nil for a single file
 @property (atomic, readonly, copy, nullable)    NSDictionary<NSString*, NSTextStorage*> * sourceFiles;   // nil until a file is read
 @property (atomic, readonly, strong)            IFCompilerSettings *  settings;
 @property (atomic, readonly, strong)            IFCompiler *          compiler;
 @property (atomic)                              NSRange               initialSelectionRange;
 @property (atomic)                              IFFileType            projectFileType;
-@property (atomic, readonly)                    BOOL                  singleFile;
 @property (atomic, readonly, copy, nullable)    NSString *            mainSourceFile;         // nil if there's no story file
 @property (atomic, readonly, copy, nullable)    NSString *            mainSourcePathName;     // Full pathname
 @property (atomic, readonly, strong, nullable)  NSArray<NSDictionary<NSString*, id>*> * testCases;   // nil until a project is read
@@ -56,7 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, readonly, copy, nullable) NSURL *settingsFileURL;
 @property (atomic, readonly, copy, nullable) NSURL *indexDirectoryURL;
 @property (atomic, readonly, copy, nullable) NSURL *currentReportURL;
-@property (atomic, readonly, copy, nullable) NSURL *normalProblemsURL;
 @property (atomic, readonly, copy, nullable) NSURL *extensionReportURL;
 @property (atomic, readonly, copy, nullable) NSURL *baseReportURL;
 @property (atomic, readonly, copy, nullable) NSURL *combinedReportURL;
@@ -77,20 +67,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) saveDocumentWithoutUserInteraction;
 - (void) saveCompilerOutputWithWindow:(NSWindow*) window;
 
-/// Removes compiler-generated files that are less useful to keep around
-- (void) cleanOutUnnecessaryFiles: (BOOL) alsoCleanIndex NS_SWIFT_NAME(cleanOutUnnecessaryFiles(alsoCleanIndex:));
-
-- (void) unregisterProjectTextStorage;
-
 #pragma mark - Extension projects
 @property (atomic, readonly) BOOL isExtensionProject;
-@property (NS_NONATOMIC_IOSONLY, readonly) BOOL copyProjectExtensionSourceToMaterialsExtensions;
 - (void) selectSkein: (int) index;
 
 @property (NS_NONATOMIC_IOSONLY, readonly) bool useNewExtensions;
 
 #pragma mark - InTest support
-@property (atomic) IFInTest* inTest;
 /// update the array of test cases
 -(void) refreshTestCases;
 /// Get the source text for a test case

@@ -25,6 +25,14 @@
 #import "IFSkein.h"
 #import "IFSkeinItem.h"
 
+@interface IFProject ()
+
+/// The project's file wrapper; a new, empty one when none is set
+@property (atomic, strong, null_resettable) NSFileWrapper *documentFileWrapper;
+@property (atomic, readonly, copy, nullable) NSURL *normalProblemsURL;
+@property (atomic, readonly, strong) IFInTest *inTest;
+
+@end
 
 @implementation IFProject {
     // The data for this project
@@ -847,10 +855,6 @@
     return compiler;
 }
 
-- (BOOL) singleFile {
-    return singleFile;
-}
-
 - (NSTextStorage*) storageForFile: (NSString*) sourceFile {
 	NSTextStorage*  storage;
 	NSString*       originalSourceFile  = sourceFile;
@@ -914,10 +918,6 @@
 	}
 
     return sourceFiles[sourceFile];
-}
-
-- (IFProjectFile*) projectFile {
-    return projectFile;
 }
 
 - (NSDictionary*) sourceFiles {
@@ -1126,7 +1126,7 @@
     NSString* materialsPath = self.materialsDirectoryURL.path;
 
     // Create the folder if necessary
-    if (!self.singleFile) {
+    if (!singleFile) {
 
         // Create materials folder, in a sandbox friendly way, with an icon
         [self createMaterials];
@@ -1214,14 +1214,14 @@
                               refreshOnly: (BOOL) onlyRefresh
                                  testCase: (NSString*) testCase {
     // Set up the compiler
-    BOOL buildBlorb = release && !self.singleFile && [self buildBlorbSetting];
+    BOOL buildBlorb = release && !singleFile && [self buildBlorbSetting];
 
     IFCompiler* theCompiler = self.compiler;
     [theCompiler setBuildForRelease: release
                          forTesting: releaseForTesting];
     theCompiler.settings = self.settings;
 
-    if (!self.singleFile) {
+    if (!singleFile) {
         // Create <projectname>.materials folder, in a sandbox friendly way
         [self createMaterials];
 
