@@ -65,6 +65,12 @@ final class IFDocParserTests: XCTestCase {
         XCTAssertNil(IFDocParser(html: "text").attributes[.title])
     }
 
+    /// So is the key that Find in Files sorts the pages by.
+    func testReadsTheSortKey() {
+        let parser = IFDocParser(html: #"<!--SEARCH SORT "000-011-003-000"-->text"#)
+        XCTAssertEqual(parser.attributes[.sort] as? String, "000-011-003-000")
+    }
+
     // MARK: - Examples, code and definitions
 
     /// An example's name, anchor and range in the text; the first of a name is kept.
@@ -101,6 +107,7 @@ final class IFDocParserTests: XCTestCase {
         XCTAssertEqual(parser.attributes[.htmlTitle] as? String, "11.3. Pattern matching")
         XCTAssertEqual(parser.attributes[.title] as? String, "Pattern matching")
         XCTAssertEqual(parser.attributes[.section] as? String, "11.3")
+        XCTAssertEqual(parser.attributes[.sort] as? String, "000-011-003-000")
         XCTAssertFalse(parser.plainText.contains("<"))
 
         XCTAssertEqual(parser.exampleInfo.keys.sorted(), ["169: Ahem", "170: Ferragamo Again"])

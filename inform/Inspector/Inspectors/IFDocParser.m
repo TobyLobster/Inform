@@ -442,7 +442,7 @@ typedef NS_ENUM(unsigned int, ParseState) {
 								attr[IFDocAttributeSection] = comment;
 							} else if ([comment hasPrefix: @"SEARCH SORT \""]) {
 								int prefixLen = (int) (@"SEARCH SORT \"").length;
-								comment = [comment substringWithRange: NSMakeRange(prefixLen, comment.length-(prefixLen+2))];
+								comment = [comment substringWithRange: NSMakeRange(prefixLen, comment.length-(prefixLen+1))];
 								
 								attr[IFDocAttributeSort] = comment;
 							}
