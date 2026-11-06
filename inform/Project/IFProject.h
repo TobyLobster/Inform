@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Useful URLs
 // These are nil for a project with no file URL, such as one that has never been saved.
-// The report URLs are also nil if this isn't an extension project.
+// Only an extension project has the current, base and combined report URLs: asking another project for them is a bug.
 @property (atomic, readonly, copy, nullable) NSURL *buildDirectoryURL;
 @property (atomic, readonly, copy, nullable) NSURL *materialsDirectoryURL;
 @property (atomic, readonly, copy, nullable) NSURL *mainSourceFileURL;
