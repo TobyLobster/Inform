@@ -25,6 +25,7 @@
 #import "IFCompiler.h"
 #import "IFCompilerStyles.h"
 #import "IFProgress.h"
+#import "IFProjectMaterialsPresenter.h"
 #import "IFCollapsableView.h"
 #import "IFCompilerSettings.h"
 #import "IFSetting.h"
