@@ -390,6 +390,24 @@ final class IFProjectFileTests: XCTestCase {
         XCTAssertTrue(wrapper.fileWrappers?["Source"] === source)
     }
 
+    /// After the Source folder or the whole project is reloaded, its Source folder is the new one.
+    func testItsSourceFolderIsTheOneItHasNow() throws {
+        let wrapper = project(["Source": folder(["story.ni": file("old")])])
+        let projectFile = try XCTUnwrap(IFProjectFile(fileWrapper: wrapper))
+        let source = folder(["story.ni": file("new")])
+        source.preferredFilename = "Source"
+
+        projectFile.replaceSourceDirectoryWrapper(source)
+        XCTAssertTrue(projectFile.sourceDirectory === source)
+
+        let reloaded = folder(["story.ni": file("reloaded")])
+        projectFile.replace(folder(["Source": reloaded]))
+        XCTAssertTrue(projectFile.sourceDirectory === reloaded)
+
+        projectFile.replaceSourceDirectoryWrapper(nil)
+        XCTAssertNil(projectFile.sourceDirectory)
+    }
+
     func testReplacesTheIndexFolder() throws {
         let wrapper = project(["Index": folder(["Welcome.html": file("old")])])
         let projectFile = try XCTUnwrap(IFProjectFile(fileWrapper: wrapper))

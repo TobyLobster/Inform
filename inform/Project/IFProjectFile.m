@@ -15,7 +15,6 @@
 
 @implementation IFProjectFile {
     NSFileWrapper* bundleDirectory;
-    NSFileWrapper* sourceDirectory;
 }
 
 -(void) createUUID {
@@ -48,7 +47,6 @@
                                 @{@"Source": srcDir,
                                   @"Build": bldDir,
                                   @"Index": indexDir} ];
-        sourceDirectory = srcDir;
 
         [self createUUID];
     }
@@ -64,7 +62,7 @@
         }
 
         bundleDirectory = fileWrapper;
-        sourceDirectory = fileWrapper.fileWrappers[@"Source"];
+        NSFileWrapper* sourceDirectory = fileWrapper.fileWrappers[@"Source"];
         NSFileWrapper* buildDirectory = fileWrapper.fileWrappers[@"Build"];
         if( !sourceDirectory ) {
             sourceDirectory = [[NSFileWrapper alloc] initDirectoryWithFileWrappers: @{}];
@@ -78,10 +76,6 @@
         [bundleDirectory addFileWrapper:sourceDirectory];
         [bundleDirectory addFileWrapper:buildDirectory];
 
-        if( !sourceDirectory.directory ) {
-            sourceDirectory = nil;
-        }
-
         [self createUUID];
     }
     return self;
@@ -90,8 +84,8 @@
 
 - (void) addSourceFile: (NSString*) filename
           withContents: (NSData*) contents {
-    [sourceDirectory addRegularFileWithContents: contents
-                              preferredFilename: filename];
+    [self.sourceDirectory addRegularFileWithContents: contents
+                                   preferredFilename: filename];
 }
 
 - (void) setSettings: (IFCompilerSettings*) settings {
@@ -164,7 +158,9 @@
 }
 
 - (NSFileWrapper*) sourceDirectory {
-    return sourceDirectory;
+    // The project's Source folder now, which reloading may have replaced
+    NSFileWrapper* sourceDirectory = bundleDirectory.fileWrappers[@"Source"];
+    return sourceDirectory.directory ? sourceDirectory : nil;
 }
 
 // Load the notes (if present)
