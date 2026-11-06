@@ -41,3 +41,4 @@
 #import "IFExtensionsManager.h"
 #import "IFMaintenanceTask.h"
 #import "IFInBuild.h"
+#import "IFInTest.h"
