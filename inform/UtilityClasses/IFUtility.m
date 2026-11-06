@@ -42,6 +42,11 @@ CGFloat easeOutCubic(CGFloat t) {
 #pragma mark - "IFUtility"
 @implementation IFUtility
 
+#pragma mark - Hosting the unit tests
++ (BOOL) isHostingUnitTests {
+    return NSProcessInfo.processInfo.environment[@"XCTestConfigurationFilePath"] != nil;
+}
+
 #pragma mark - Alert dialogs
 + (void) runAlertWarningWindow: (NSWindow*) window
                          title: (NSString*) title

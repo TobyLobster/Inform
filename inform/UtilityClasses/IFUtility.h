@@ -26,6 +26,10 @@ CGFloat easeOutCubic(CGFloat t);
 
 @interface IFUtility : NSObject
 
+/// When the app is hosting the unit tests, it skips start-up work that would touch the user's Inform
+/// (the Glk hub's name), their extensions (the census) or the screen (the welcome window).
+@property (class, readonly, atomic, getter=isHostingUnitTests) BOOL hostingUnitTests;
+
 // Convenience methods for alerts
 + (void) runAlertInformationWindow: (nullable NSWindow*) window
                              title: (NSString*) title
