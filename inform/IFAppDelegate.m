@@ -83,12 +83,6 @@ static NSRunLoop* mainRunLoop = nil;
     return YES;
 }
 
-/// When the app is hosting the unit tests, it skips start-up work that would touch the user's Inform
-/// (the Glk hub's name), their extensions (the census) or the screen (the welcome window).
-static BOOL IFIsHostingUnitTests(void) {
-    return NSProcessInfo.processInfo.environment[@"XCTestConfigurationFilePath"] != nil;
-}
-
 - (void) applicationWillFinishLaunching: (NSNotification*) not {
 	mainRunLoop = [NSRunLoop currentRunLoop];
 
@@ -114,7 +108,7 @@ static BOOL IFIsHostingUnitTests(void) {
     [IFSettingsController addStandardSettingsClass: [IFAdvancedSettings class]];
 
 	// Glk hub
-    if (!IFIsHostingUnitTests()) {
+    if (![IFUtility isHostingUnitTests]) {
         [[GlkHub sharedGlkHub] setRandomHubCookie];
         [GlkHub sharedGlkHub].hubName = @"GlkInform";
     }
@@ -134,7 +128,7 @@ static BOOL IFIsHostingUnitTests(void) {
 	[[PreferenceController sharedPreferenceController] addPreferencePane: [[IFAdvancedPreferences alloc] init]];
 
 	// Finish setting up
-    if (!IFIsHostingUnitTests()) {
+    if (![IFUtility isHostingUnitTests]) {
         [self updateExtensionsMenuForCompilerVersion: @""];
     }
 
@@ -153,7 +147,7 @@ static BOOL IFIsHostingUnitTests(void) {
     // Set dark mode if necessary
     [self darkModeChanged];
 
-    if (IFIsHostingUnitTests()) {
+    if ([IFUtility isHostingUnitTests]) {
         return;
     }
 
@@ -206,7 +200,7 @@ static BOOL IFIsHostingUnitTests(void) {
 }
 
 - (BOOL) applicationShouldOpenUntitledFile: (NSApplication*) sender {
-    if (!IFIsHostingUnitTests()) {
+    if (![IFUtility isHostingUnitTests]) {
         [IFWelcomeWindow showWelcomeWindow];
     }
 

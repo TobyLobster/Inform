@@ -26,6 +26,11 @@ CGFloat easeOutCubic(CGFloat t);
 
 @interface IFUtility : NSObject
 
+/// When the app is hosting the unit tests, it skips start-up work that would touch the user's Inform
+/// (the Glk hub's name), their extensions (the census) or the screen (the welcome window), and doesn't
+/// run an alert that has no window.
+@property (class, readonly, atomic, getter=isHostingUnitTests) BOOL hostingUnitTests;
+
 // Convenience methods for alerts
 + (void) runAlertInformationWindow: (nullable NSWindow*) window
                              title: (NSString*) title
@@ -47,6 +52,12 @@ CGFloat easeOutCubic(CGFloat t);
                 warning: (BOOL) warningStyle
                   title: (NSString*) title
                 message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(5,6);
+
+/// Shows the alert in a sheet on the window, or with no window runs it app-modally. While the app is
+/// hosting the unit tests an alert with no window is only logged, and ends at once with NSModalResponseAbort.
++ (void) showAlert: (NSAlert*) alert
+         forWindow: (nullable NSWindow*) window
+ completionHandler: (void (^)(NSModalResponse response)) handler;
 
 + (void) runAlertYesNoWindow: (nullable NSWindow*) window
                        title: (NSString*) title

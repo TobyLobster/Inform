@@ -589,4 +589,100 @@ final class IFUtilityTests: XCTestCase {
         XCTAssertNil(adjusted[.font])
         XCTAssertEqual(adjusted.count, 1)
     }
+
+    // MARK: - Alerts
+
+    /// An alert that records how it's shown, instead of showing it
+    private final class AlertSpy: NSAlert {
+        var ranModally = false
+        var sheetWindow: NSWindow?
+
+        override func runModal() -> NSApplication.ModalResponse {
+            ranModally = true
+            return .alertSecondButtonReturn
+        }
+
+        override func beginSheetModal(for sheetWindow: NSWindow,
+                                      completionHandler handler: ((NSApplication.ModalResponse) -> Void)? = nil) {
+            self.sheetWindow = sheetWindow
+            handler?(.alertFirstButtonReturn)
+        }
+    }
+
+    /// IFUtility as it is when the app isn't hosting the unit tests
+    private final class AppUtility: IFUtility {
+        override class var isHostingUnitTests: Bool {
+            return false
+        }
+    }
+
+    /// IFUtility, recording the alerts it's asked to show instead of showing them
+    private final class AlertRecorder: IFUtility {
+        static var shown: [(alert: NSAlert, window: NSWindow?)] = []
+
+        override class func show(_ alert: NSAlert, for window: NSWindow?,
+                                 completionHandler handler: @escaping (NSApplication.ModalResponse) -> Void) {
+            shown.append((alert, window))
+        }
+    }
+
+    /// A window that's never on screen
+    private func makeWindow() -> NSWindow {
+        return NSWindow(contentRect: NSRect(x: 0, y: 0, width: 400, height: 300), styleMask: [.titled],
+                        backing: .buffered, defer: true)
+    }
+
+    func testAnAlertWithAWindowIsASheetOnIt() {
+        let window = makeWindow()
+        let alert = AlertSpy()
+        var responses: [NSApplication.ModalResponse] = []
+
+        AppUtility.show(alert, for: window) { responses.append($0) }
+
+        XCTAssertTrue(alert.sheetWindow === window)
+        XCTAssertFalse(alert.ranModally)
+        XCTAssertEqual(responses, [.alertFirstButtonReturn])
+    }
+
+    /// A sheet on no window doesn't appear, so an alert with no window is run modally
+    func testAnAlertWithNoWindowIsRunModally() {
+        let alert = AlertSpy()
+        var responses: [NSApplication.ModalResponse] = []
+
+        AppUtility.show(alert, for: nil) { responses.append($0) }
+
+        XCTAssertTrue(alert.ranModally)
+        XCTAssertNil(alert.sheetWindow)
+        XCTAssertEqual(responses, [.alertSecondButtonReturn])
+    }
+
+    /// ...but not while the app is hosting the unit tests, as nobody would be there to close it
+    func testAnAlertWithNoWindowIsntRunInTheUnitTests() {
+        XCTAssertTrue(IFUtility.isHostingUnitTests)
+        let alert = AlertSpy()
+        var responses: [NSApplication.ModalResponse] = []
+
+        IFUtility.show(alert, for: nil) { responses.append($0) }
+
+        XCTAssertFalse(alert.ranModally)
+        XCTAssertNil(alert.sheetWindow)
+        XCTAssertEqual(responses, [.abort])
+    }
+
+    /// A warning is shown on the window it's given, or with none
+    func testAWarningIsShownWithItsWindowOrNone() throws {
+        AlertRecorder.shown = []
+        defer { AlertRecorder.shown = [] }
+        let window = makeWindow()
+
+        AlertRecorder.runAlertWarning(window, localizedTitle: "On a window", informativeText: "Text")
+        AlertRecorder.runAlertWarning(nil, localizedTitle: "On no window", informativeText: "Text")
+
+        XCTAssertEqual(AlertRecorder.shown.map(\.alert.messageText), ["On a window", "On no window"])
+        XCTAssertEqual(AlertRecorder.shown.map(\.alert.alertStyle), [.warning, .warning])
+        let windows = AlertRecorder.shown.map(\.window)
+        XCTAssertEqual(windows.count, 2)
+        XCTAssertTrue(try XCTUnwrap(windows.first) === window)
+        XCTAssertNil(try XCTUnwrap(windows.last))
+    }
 }

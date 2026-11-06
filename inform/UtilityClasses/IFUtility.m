@@ -42,6 +42,11 @@ CGFloat easeOutCubic(CGFloat t) {
 #pragma mark - "IFUtility"
 @implementation IFUtility
 
+#pragma mark - Hosting the unit tests
++ (BOOL) isHostingUnitTests {
+    return NSProcessInfo.processInfo.environment[@"XCTestConfigurationFilePath"] != nil;
+}
+
 #pragma mark - Alert dialogs
 + (void) runAlertWarningWindow: (NSWindow*) window
                          title: (NSString*) title
@@ -111,9 +116,28 @@ CGFloat easeOutCubic(CGFloat t) {
     alert.informativeText = contents;
     alert.alertStyle = warningStyle ? NSAlertStyleWarning : NSAlertStyleInformational;
 
-    [alert beginSheetModalForWindow: window completionHandler:^(NSModalResponse returnCode) {
-        
+    [self showAlert: alert
+          forWindow: window
+  completionHandler: ^(NSModalResponse returnCode) {
+
     }];
+}
+
++ (void) showAlert: (NSAlert*) alert
+         forWindow: (NSWindow*) window
+ completionHandler: (void (^)(NSModalResponse response)) handler {
+    if (window != nil) {
+        [alert beginSheetModalForWindow: window completionHandler: handler];
+        return;
+    }
+
+    // A sheet on no window doesn't appear, so the alert is run modally, unless nobody is there to close it
+    if ([self isHostingUnitTests]) {
+        NSLog(@"Alert not shown while hosting the unit tests: %@ %@", alert.messageText, alert.informativeText);
+        handler(NSModalResponseAbort);
+        return;
+    }
+    handler([alert runModal]);
 }
 
 + (void) runAlertYesNoWindow: (NSWindow*) window
@@ -151,17 +175,9 @@ CGFloat easeOutCubic(CGFloat t) {
         }
     }
 
-    if (window == nil) {
-        NSModalResponse response = [alert runModal];
-        [self modalYesNoResponse: response
-                          window: window
-                   modalDelegate: modalDelegate
-                  didEndSelector: alertDidEndSelector
-                     contextInfo: contextInfo];
-        return;
-    }
-
-    [alert beginSheetModalForWindow: window completionHandler: ^(NSModalResponse response) {
+    [self showAlert: alert
+          forWindow: window
+  completionHandler: ^(NSModalResponse response) {
         [self modalYesNoResponse: response
                           window: window
                    modalDelegate: modalDelegate
