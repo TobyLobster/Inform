@@ -36,7 +36,7 @@ typedef NS_OPTIONS(unsigned int, IFFindLocation) {
 ///
 /// Result for the 'Find All' pane
 ///
-@interface IFFindResult : NSObject<NSCopying>
+@interface IFFindResult : NSObject
 
 // Data
 /// The filepath of the file in which the result was found
@@ -65,8 +65,6 @@ typedef NS_OPTIONS(unsigned int, IFFindLocation) {
 @property (atomic, readonly, copy)           NSString *   phrase;
 /// Array of strings for the found regex groups
 @property (atomic, readonly, copy, nullable) NSArray<NSString*> * regexFoundGroups;
-/// Is the result found in the WritingWithInform documentation?
-@property (atomic, getter=isWritingWithInformResult, readonly) bool writingWithInformResult;
 /// Is the result found in the Recipe Book documentation?
 @property (atomic, getter=isRecipeBookResult, readonly) bool recipeBookResult;
 
@@ -86,7 +84,7 @@ typedef NS_OPTIONS(unsigned int, IFFindLocation) {
                   exampleAnchorTag: (nullable NSString*)   aExampleAnchorTag
                      codeAnchorTag: (nullable NSString*)   aCodeAnchorTag
                definitionAnchorTag: (nullable NSString*)   aDefinitionAnchorTag
-                  regexFoundGroups: (nullable NSArray*)    aRegexFoundGroups NS_DESIGNATED_INITIALIZER;
+                  regexFoundGroups: (nullable NSArray<NSString*>*) aRegexFoundGroups NS_DESIGNATED_INITIALIZER;
 
 
 - (void)            setError:(BOOL) hasError;
