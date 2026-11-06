@@ -14,8 +14,6 @@ extern NSNotificationName const IFInTestStdoutNotification;
 extern NSNotificationName const IFInTestStderrNotification;
 extern NSNotificationName const IFInTestFinishedNotification;
 
-@class IFProgress;
-
 //
 // Class that handles actually running InTest
 //

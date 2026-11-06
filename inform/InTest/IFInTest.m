@@ -77,7 +77,6 @@ NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
     self = [super init];
 
     if (self) {
-        [self tidyUp];
         testCaseData = [[NSMutableDictionary alloc] init];
     }
 
@@ -96,10 +95,6 @@ NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
 }
 
 #pragma mark - Setup
-
-- (BOOL) isRunning {
-	return theTask!=nil?theTask.running:NO;
-}
 
 -(void) executeInTestForExtension: (NSString*)extensionPathName
                          withArgs: (NSArray*) args {
@@ -132,19 +127,6 @@ NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
     theTask.arguments = mutableArgs;
     theTask.launchPath = command;
     theTask.currentDirectoryPath = NSTemporaryDirectory();
-
-    NSMutableString* message = [[NSMutableString alloc] init];
-    [message appendFormat:@"Current Directory: %@\n", NSTemporaryDirectory()];
-    [message appendFormat:@"Command: %@\n", command];
-    [message appendString:@"Args: "];
-    for(NSString* arg in mutableArgs) {
-        bool hasSpaces = ( [arg indexOf:@" "] != NSNotFound );
-        if( hasSpaces ) [message appendString: @"'"];
-        [message appendString: arg];
-        if( hasSpaces ) [message appendString: @"'"];
-        [message appendString: @"\n      "];
-    }
-    //NSLog(@"%@", message);
 
     // Prepare the task's IO
     stdErrPipe = [[NSPipe alloc] init];
