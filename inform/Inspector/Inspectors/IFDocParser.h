@@ -33,9 +33,8 @@ extern IFDocAttributeKey const IFDocAttributeSort;
 @interface IFCodeInfo : NSObject
 
 - (instancetype) init NS_UNAVAILABLE;
-- (instancetype) initWithAnchorTag:(nullable NSString*) aAnchorTag range:(NSRange)aRange NS_DESIGNATED_INITIALIZER;
-/// The anchor tag of the section (nil if the document ends a section it didn't start)
-@property (atomic, readonly, copy, nullable) NSString *anchorTag;
+- (instancetype) initWithAnchorTag:(NSString*) aAnchorTag range:(NSRange)aRange NS_DESIGNATED_INITIALIZER;
+@property (atomic, readonly, copy) NSString *anchorTag;
 @property (atomic, readonly) NSRange range;
 
 @end

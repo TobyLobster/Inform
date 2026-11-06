@@ -39,10 +39,10 @@ extension IFExampleInfo {
 
 @objc @implementation
 extension IFCodeInfo {
-    let anchorTag: String?
+    let anchorTag: String
     let range: NSRange
 
-    init(anchorTag aAnchorTag: String?, range aRange: NSRange) {
+    init(anchorTag aAnchorTag: String, range aRange: NSRange) {
         anchorTag = aAnchorTag
         range     = aRange
 
