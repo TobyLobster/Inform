@@ -8,8 +8,6 @@
 
 #import "IFMaintenanceTask.h"
 
-NSString* const IFMaintenanceTasksStarted = @"IFMaintenanceTasksStarted";
-
 @implementation IFMaintenanceTask {
     /// The task that's currently running
     NSTask* activeTask;
