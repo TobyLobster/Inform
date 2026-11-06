@@ -159,6 +159,37 @@ final class IFCompilerTests: XCTestCase {
         XCTAssertNil(compiler.problemsURL)
     }
 
+    func testReadsWhatAStageWritesAsUTF8() {
+        let compiler = makeCompiler()
+        addShellStage(to: compiler, "printf 'Caf\\303\\251\\n'; printf 'Caf\\303\\251\\n' >&2")
+
+        let posted = launch(compiler)
+
+        XCTAssertEqual(output(posted), "Café\n")
+        XCTAssertEqual(errors(posted), "Café\n")
+    }
+
+    func testReadsACharacterSplitBetweenReads() {
+        let compiler = makeCompiler()
+        addShellStage(to: compiler, "printf 'Caf\\303'; printf 'Caf\\303' >&2; sleep 0.3; printf '\\251\\n'; printf '\\251\\n' >&2")
+
+        let posted = launch(compiler)
+
+        XCTAssertEqual(output(posted), "Café\n")
+        XCTAssertEqual(errors(posted), "Café\n")
+    }
+
+    func testReadsWhatIsntUTF8AsLatin1() {
+        let compiler = makeCompiler()
+        // The second ends with what would start a character in UTF-8
+        addShellStage(to: compiler, "printf 'Caf\\351\\n'; printf 'Caf\\303' >&2")
+
+        let posted = launch(compiler)
+
+        XCTAssertEqual(output(posted), "Café\n")
+        XCTAssertEqual(errors(posted), "Caf\u{C3}")
+    }
+
     func testTellsWhileAStageIsRunning() {
         let compiler = makeCompiler()
         addShellStage(to: compiler, "sleep 0.5", named: "Sleeping")

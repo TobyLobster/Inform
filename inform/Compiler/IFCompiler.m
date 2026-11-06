@@ -67,6 +67,11 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     /// File handle for stdout
     NSFileHandle* stdOutH;
 
+    /// The start of a character at the end of what was read from stderr, kept until the rest arrives
+    NSMutableData* stdErrPending;
+    /// The start of a character at the end of what was read from stdout, kept until the rest arrives
+    NSMutableData* stdOutPending;
+
     /// When =3, the task has finished: its stdout and stderr have ended, and it has terminated
     int finishCount;
 
@@ -289,6 +294,9 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 
     stdErrH = stdErr.fileHandleForReading;
     stdOutH = stdOut.fileHandleForReading;
+
+    stdErrPending = [[NSMutableData alloc] init];
+    stdOutPending = [[NSMutableData alloc] init];
 
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(stdOutWaiting:)
@@ -595,17 +603,60 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 													  userInfo: uiDict];
 }
 
+/// Turns what a stage wrote into text. It's read as UTF-8, keeping back the start of a character
+/// at the end until the rest of it arrives, or as Latin-1 if it isn't UTF-8. Empty data, at the end
+/// of the output, gives what was kept back.
+- (NSString*) stringFromData: (NSData*) data pending: (NSMutableData*) pending {
+    [pending appendData: data];
+
+    NSUInteger complete = pending.length;
+    if (data.length > 0) {
+        // Find the last character's first byte, after at most three continuation bytes
+        const unsigned char* bytes = pending.bytes;
+        NSUInteger start = complete;
+        while (start > 0 && complete - start < 3 && (bytes[start - 1] & 0xC0) == 0x80) {
+            start--;
+        }
+
+        if (start > 0) {
+            unsigned char first = bytes[start - 1];
+            NSUInteger size = 1;
+            if ((first & 0xE0) == 0xC0) size = 2;
+            else if ((first & 0xF0) == 0xE0) size = 3;
+            else if ((first & 0xF8) == 0xF0) size = 4;
+
+            // Keep it back if it's incomplete
+            if (complete - (start - 1) < size) complete = start - 1;
+        }
+    }
+
+    if (complete == 0) return nil;
+
+    NSString* result = [[NSString alloc] initWithData: [pending subdataWithRange: NSMakeRange(0, complete)]
+                                             encoding: NSUTF8StringEncoding];
+    if (result == nil) {
+        // It isn't UTF-8, so read all of it as Latin-1
+        result = [[NSString alloc] initWithData: pending
+                                       encoding: NSISOLatin1StringEncoding];
+        complete = pending.length;
+    }
+
+    [pending replaceBytesInRange: NSMakeRange(0, complete) withBytes: NULL length: 0];
+    return result;
+}
+
 - (void) stdOutWaiting: (NSNotification*) not {
 	if (finishCount >= 3) return;
 
     NSData* inData = stdOutH.availableData;
 
-    if (inData.length) {
-        NSString* newStr = [[NSString alloc] initWithData: inData
-                                                 encoding: NSISOLatin1StringEncoding];
+    NSString* newStr = [self stringFromData: inData pending: stdOutPending];
+    if (newStr.length) {
 		[self sendStdOut: newStr
                withStyle: IFStyleBase];
+    }
 
+    if (inData.length) {
         [stdOutH waitForDataInBackgroundAndNotify];
     } else {
         finishCount++;
@@ -621,14 +672,15 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 	
     NSData* inData = stdErrH.availableData;
 
-    if (inData.length) {
-        NSString* newStr = [[NSString alloc] initWithData:inData
-                                                  encoding:NSISOLatin1StringEncoding];
+    NSString* newStr = [self stringFromData: inData pending: stdErrPending];
+    if (newStr.length) {
         NSDictionary* uiDict = @{@"string": newStr};
         [[NSNotificationCenter defaultCenter] postNotificationName: IFCompilerStderrNotification
                                                             object: self
                                                           userInfo: uiDict];
-        
+    }
+
+    if (inData.length) {
         [stdErrH waitForDataInBackgroundAndNotify];
     } else {
         finishCount++;
