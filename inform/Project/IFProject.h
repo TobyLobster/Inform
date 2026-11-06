@@ -32,7 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, readonly, copy, nullable)    NSDictionary<NSString*, NSTextStorage*> * sourceFiles;   // nil until a file is read
 @property (atomic, readonly, strong)            IFCompilerSettings *  settings;
 @property (atomic, readonly, strong)            IFCompiler *          compiler;
-@property (atomic, readonly)                    BOOL                  editingExtension;
 @property (atomic)                              NSRange               initialSelectionRange;
 @property (atomic)                              IFFileType            projectFileType;
 @property (atomic, readonly)                    BOOL                  singleFile;
@@ -41,16 +40,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, readonly, strong, nullable)  NSArray<NSDictionary<NSString*, id>*> * testCases;   // nil until a project is read
 
 // 'Subsidiary' files
-@property (atomic, readonly, copy, nullable)    NSTextStorage *       notes;                  // nil if the project has none
 @property (atomic, readonly, strong, nullable)  IFSkein *             currentSkein;
 @property (atomic, readonly, strong)            NSMutableArray<IFSkein*> * skeins;
 
 #pragma mark - File Handling
 - (nullable NSTextStorage*) storageForFile: (nullable NSString*) sourceFile;
-- (BOOL) addFile: (NSString*) newFile;
-- (BOOL) removeFile: (NSString*) oldFile;
-- (BOOL) renameFile: (NSString*) oldFile 
-		withNewName: (NSString*) newFile;
 
 #pragma mark - Useful URLs
 // These are nil for a project with no file URL, such as one that has never been saved.
@@ -59,7 +53,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, readonly, copy, nullable) NSURL *materialsDirectoryURL;
 @property (atomic, readonly, copy, nullable) NSURL *mainSourceFileURL;
 @property (atomic, readonly, copy, nullable) NSURL *buildOutputFileURL;
-@property (atomic, readonly, copy, nullable) NSURL *buildIndexFileURL;
 @property (atomic, readonly, copy, nullable) NSURL *settingsFileURL;
 @property (atomic, readonly, copy, nullable) NSURL *indexDirectoryURL;
 @property (atomic, readonly, copy, nullable) NSURL *currentReportURL;
@@ -69,7 +62,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, readonly, copy, nullable) NSURL *combinedReportURL;
 
 - (nullable NSString*) pathForSourceFile: (nullable NSString*) file;
-@property (atomic, readonly, copy, nullable) NSString *projectOutputPathName;
 
 #pragma mark - Materials folder
 - (void) createMaterials;
@@ -95,7 +87,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL copyProjectExtensionSourceToMaterialsExtensions;
 - (void) selectSkein: (int) index;
 
--(NSMutableURLRequest*) makeURLRequestFromURL: (NSURL*) url;
 @property (NS_NONATOMIC_IOSONLY, readonly) bool useNewExtensions;
 
 #pragma mark - InTest support

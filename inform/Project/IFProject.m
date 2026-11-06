@@ -38,16 +38,11 @@
 
     NSTextStorage*          notes;
 
-    BOOL                    editingExtension;
     BOOL                    singleFile;
     NSRange                 initialSelectionRange;
 
     NSMutableArray*         watchExpressions;
     NSMutableArray*         breakpoints;
-    NSString*               uuid;
-
-    NSLock*                 matcherLock;
-    int                     syntaxBuildCount;
 
     IFProjectMaterialsPresenter* materialsAccess;
 
@@ -63,7 +58,6 @@
     self = [super init];
 
     if (self) {
-        uuid                    = nil;
         settings                = [[IFCompilerSettings alloc] init];
         projectFile             = nil;
         sourceFiles             = nil;
@@ -127,10 +121,6 @@
                                     URLByAppendingPathExtension: self.settings.fileExtension];
 }
 
-- (NSURL*) buildIndexFileURL {
-    return [self.buildDirectoryURL URLByAppendingPathComponent: @"index.html"];
-}
-
 - (NSURL*) mainSourceFileURL {
     if( self.mainSourceFile == nil ) {
         return nil;
@@ -158,13 +148,6 @@
     pathURL                 = [pathURL URLByAppendingPathExtension: @"materials"];
 
     return pathURL;
-}
-
--(NSMutableURLRequest*) makeURLRequestFromURL: (NSURL*) url {
-    NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL: url];
-    urlRequest.cachePolicy = NSURLRequestReloadIgnoringLocalAndRemoteCacheData;
-
-    return urlRequest;
 }
 
 -(bool) useNewExtensions {
@@ -217,7 +200,7 @@
 
 // == useful file paths ==
 - (NSString*) mainSourceFile {
-    if (singleFile || editingExtension) return mainSource;
+    if (singleFile) return mainSource;
 
     NSFileWrapper* sourceDir = projectFile.sourceDirectory;
     NSDictionary* source     = sourceDir.fileWrappers;
@@ -248,10 +231,6 @@
     return self.fileURL.path;
 }
 
-- (NSString*) projectOutputPathName {
-    return self.buildOutputFileURL.path;
-}
-
 - (NSString*) mainSourcePathName {
     if( self.mainSourceFileURL == nil ) {
         return nil;
@@ -267,20 +246,11 @@
     return (self.fileURL).URLByDeletingLastPathComponent.path;
 }
 
--(NSURL*) directoryURLToFindSourceFiles {
-    if (editingExtension) {
-        // Special case: we're editing an extension, so source files are in the root directory
-        return self.fileURL;
-    }
-    return self.sourceDirectoryURL;
-
-}
-
 - (NSString*) pathForSourceFile: (NSString*) file {
     if( file == nil ) return nil;
     if (file.absolutePath) return file.stringByStandardizingPath;
 
-    return [[self directoryURLToFindSourceFiles] URLByAppendingPathComponent: file].path;
+    return [self.sourceDirectoryURL URLByAppendingPathComponent: file].path;
 }
 
 
@@ -401,13 +371,6 @@
         return (self.currentSkein).nodeToReport;
     }
     return nil;
-}
-
--(NSString*) reportStateForSkein {
-    if( self.currentSkein != nil ) {
-        return (self.currentSkein).reportStateForSkein;
-    }
-    return @"";
 }
 
 - (BOOL) generateReportForTestCase: (NSString*) testCase
@@ -657,11 +620,7 @@
     if( breakpoints == nil ) {
 		breakpoints = [[NSMutableArray alloc] init];
     }
-    
-    // Load UUID, if present
-    uuid = projectFile.loadUUID;
 
-    [self breakpointsHaveChanged];
     return YES;
 }
 
@@ -706,65 +665,6 @@
     return YES;
 }
 
--(BOOL) readExtension: (NSFileWrapper*) fileWrapper
-                error: (NSError*__autoreleasing*) outError {
-    // Check we have a directory... Inform extension projects are directories.
-    if (!fileWrapper.directory) {
-        if( outError ) {
-            *outError = [NSError errorWithDomain: NSCocoaErrorDomain
-                                            code: NSFileReadUnknownError
-                                        userInfo: nil];
-        }
-        return NO;
-    }
-
-    // Opening a plain ole extension
-    editingExtension = YES;
-    singleFile = NO;
-
-    projectFile = [[IFProjectFile alloc] initWithFileWrapper: fileWrapper];
-
-    // Turn the source directory into NSTextStorages
-    [self unregisterProjectTextStorage];
-    mainSource = nil;
-
-    sourceFiles = [[NSMutableDictionary alloc] init];
-    NSDictionary* source = fileWrapper.fileWrappers;
-
-    // Load all the source files
-    for( NSString* key in source ) {
-        NSTextStorage* text;
-
-        if ([key characterAtIndex: 0] == '.') {
-            continue;
-        }
-        if (![source[key] isRegularFile]) {
-            continue;
-        }
-
-        NSData* regularFileContents = [source[key] regularFileContents];
-        text = [self storageWithData: regularFileContents
-                         forFilename: key];
-
-        sourceFiles[key] = text;
-
-        if ([key.pathExtension isEqualTo: @"inf"] ||
-            [key.pathExtension isEqualTo: @"ni"] ||
-            [key.pathExtension isEqualTo: @"i7"] ||
-            [key.pathExtension isEqualTo: @""]) {
-            mainSource = [key copy];
-        }
-    }
-
-    // Create an 'Untitled' file if there's no mainSource
-    if (!mainSource) {
-        mainSource = @"Untitled";
-        sourceFiles[mainSource] = [self storageWithString: @""
-                                            forFilename: @"Untitled"];
-    }
-    return YES;
-}
-
 - (BOOL)readFromFileWrapper: (NSFileWrapper *) fileWrapper
                      ofType: (NSString *) typeName
                       error: (NSError *__autoreleasing*) outError {
@@ -790,12 +690,6 @@
         case IFFileTypeInform7SourceFile: {
             return [self readSourceFile: fileWrapper
                                   error: outError];
-        }
-        
-        // Inform 6 Extension project
-        case IFFileTypeInform6ExtensionProject: {
-            return [self readExtension: fileWrapper
-                                 error: outError];
         }
 
         // Unknown
@@ -854,11 +748,6 @@
 - (NSFileWrapper *) documentFileWrapper {
     if (_documentFileWrapper == nil) {
         _documentFileWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers: @{}];
-        if( uuid != nil )
-        {
-            NSData *textData = [uuid dataUsingEncoding: NSUTF8StringEncoding];
-            [_documentFileWrapper addRegularFileWithContents:textData preferredFilename:@"uuid.txt"];
-        }
     }
 
     return _documentFileWrapper;
@@ -866,25 +755,6 @@
 
 - (void) setDocumentFileWrapper:(NSFileWrapper *) theDocumentFileWrapper {
     _documentFileWrapper = theDocumentFileWrapper;
-}
-
--(NSFileWrapper *) writeExtensionProject: (NSError*__autoreleasing*) outError {
-    [self writeBegin];
-
-    // Create 'Source' directory to hold the extension files?
-    NSFileWrapper* source = [[NSFileWrapper alloc] initDirectoryWithFileWrappers: @{}];
-    source.preferredFilename = @"Source";
-    source.filename = @"Source";
-
-    // Write out all source files
-	if( ![self writeAllSourceFiles: source
-                             error: outError] ) {
-        return nil;
-    }
-
-    // Add to document for writing
-    [self.documentFileWrapper addFileWrapper: source];
-    return self.documentFileWrapper;
 }
 
 -(NSFileWrapper *) writeProject: (NSError*__autoreleasing*) outError {
@@ -952,12 +822,6 @@
             NSAssert(false, @"Should never get to here");
             return nil;
         }
-        
-        // Inform 6 Extension project
-        case IFFileTypeInform6ExtensionProject: {
-            NSError* error;
-            return [self writeExtensionProject: &error];
-        }
 
         // Unknown
         case IFFileTypeUnknown:
@@ -968,67 +832,7 @@
     }
 }
 
-- (BOOL) addFile: (NSString*) newFile {
-    if (sourceFiles[newFile] != nil) return NO;
-    if (singleFile) return NO;
-	    
-    sourceFiles[newFile] = [self storageWithString: @""
-										forFilename: newFile];
-
-    // Write out new file to disk
-    NSData* data = [self dataForSourceFileWithKey: newFile];
-    NSURL* destinationURL = [[self sourceDirectoryURL] URLByAppendingPathComponent: newFile];
-
-    NSFileWrapper* newFileWrapper = [[NSFileWrapper alloc] initRegularFileWithContents: data];
-    newFileWrapper.preferredFilename = newFile;
-    newFileWrapper.filename = newFile;
-    [newFileWrapper writeToURL: destinationURL
-                       options: NSFileWrapperWritingWithNameUpdating
-           originalContentsURL: nil
-                         error: NULL];
-
-	[[NSNotificationCenter defaultCenter] postNotificationName: IFProjectFilesChangedNotification
-														object: self];
-    return YES;
-}
-
-- (BOOL) removeFile: (NSString*) oldFile {
-	if (sourceFiles[oldFile] == nil) return YES; // Deleting a non-existant file always succeeds
-	if (singleFile) return NO;
-	
-    [IFSyntaxManager unregisterTextStorage: sourceFiles[oldFile]];
-	[sourceFiles removeObjectForKey: oldFile];
-
-	[[NSNotificationCenter defaultCenter] postNotificationName: IFProjectFilesChangedNotification
-														object: self];
-	return YES;
-}
-
-- (BOOL) renameFile: (NSString*) oldFile 
-		withNewName: (NSString*) newFile {
-	if (sourceFiles[oldFile] == nil) return NO;
-	if (sourceFiles[newFile] != nil) return NO;
-	if (singleFile) return NO;
-	
-	NSTextStorage* oldFileStorage = sourceFiles[oldFile];
-
-	[sourceFiles removeObjectForKey: oldFile];
-	sourceFiles[[newFile copy]] = oldFileStorage;
-	
-	[[NSNotificationCenter defaultCenter] postNotificationName: IFProjectSourceFileRenamedNotification
-														object: self
-													  userInfo: @{@"OldFilename": [oldFile copy],
-														          @"NewFilename": [newFile copy]}];
-	[[NSNotificationCenter defaultCenter] postNotificationName: IFProjectFilesChangedNotification
-														object: self];
-	return YES;
-}
-
 // == General housekeeping ==
-- (void)windowControllerDidLoadNib:(NSWindowController *) aController {
-    [super windowControllerDidLoadNib:aController];
-}
-
 - (void)makeWindowControllers {
     IFProjectController *aController = [[IFProjectController alloc] init];
     [self addWindowController:aController];
@@ -1050,7 +854,7 @@
 - (NSTextStorage*) storageForFile: (NSString*) sourceFile {
 	NSTextStorage*  storage;
 	NSString*       originalSourceFile  = sourceFile;
-	NSString*       sourceDir           = [self directoryURLToFindSourceFiles].path;
+	NSString*       sourceDir           = self.sourceDirectoryURL.path;
 
 	if (projectFile == nil && [sourceFile.lastPathComponent isEqualToString: self.fileURL.lastPathComponent]) {
 		if (!sourceFile.absolutePath) {
@@ -1120,10 +924,6 @@
     return sourceFiles;
 }
 
-- (NSTextStorage*) notes {
-	return notes;
-}
-
 - (void) reloadIndexDirectory {
 	// Nothing to do if this is a single file
 	if (singleFile) return;
@@ -1179,10 +979,6 @@
     [projectFile replaceSourceDirectoryWrapper: wrapper];
 }
 
-- (BOOL) editingExtension {
-	return editingExtension;
-}
-
 - (void) setInitialSelectionRange:(NSRange) range {
     initialSelectionRange = range;
 }
@@ -1191,92 +987,10 @@
     return initialSelectionRange;
 }
 
-#pragma mark - Watch expressions
-
-- (void) addWatchExpression: (NSString*) expression {
-	[watchExpressions addObject: [expression copy]];
-}
-
-- (void) replaceWatchExpressionAtIndex: (NSInteger) index
-						withExpression: (NSString*) expression {
-	watchExpressions[index] = [expression copy];
-}
-
-- (void) removeWatchExpressionAtIndex: (NSInteger) index {
-	[watchExpressions removeObjectAtIndex: index];
-}
-
-- (NSString*) watchExpressionAtIndex: (NSInteger) index {
-	return watchExpressions[index];
-}
-
-- (NSInteger) watchExpressionCount {
-	return watchExpressions.count;
-}
-
-// Breakpoints
-
-- (void) breakpointsHaveChanged {
-	[[NSNotificationCenter defaultCenter] postNotificationName: IFProjectBreakpointsChangedNotification
-														object: self];
-}
-
-- (void) addBreakpointAtLine: (int) line
-					  inFile: (NSString*) filename {
-	[breakpoints addObject: @[@(line), [filename copy]]];
-	
-	[self breakpointsHaveChanged];
-}
-
-- (void) replaceBreakpointAtIndex: (NSInteger) index
-			 withBreakpointAtLine: (int) line
-						   inFile: (NSString*) filename {
-	breakpoints[index] = @[@(line), [filename copy]];
-	
-	[self breakpointsHaveChanged];
-}
-
-- (int) lineForBreakpointAtIndex: (NSInteger) index {
-	return [breakpoints[index][0] intValue];
-}
-
-- (NSString*) fileForBreakpointAtIndex: (NSInteger) index {
-	return breakpoints[index][1];
-}
-
-- (NSInteger) breakpointCount {
-	return breakpoints.count;
-}
-
-- (void) removeBreakpointAtIndex: (NSInteger) index {
-	[breakpoints removeObjectAtIndex: index];
-	
-	[self breakpointsHaveChanged];
-}
-
-- (void) removeBreakpointAtLine: (NSInteger) line
-						 inFile: (NSString*) file {
-	NSArray* bp =  @[@(line), [file copy]];
-	NSUInteger index = [breakpoints indexOfObject: bp];
-	
-	if (index == NSNotFound) {
-        NSLog(@"Attempt to remove nonexistant breakpoint %@:%li", file, (long)line);
-		return;
-	}
-	
-	[self removeBreakpointAtIndex: index];
-}
-
 #pragma mark - Cleaning
 
 - (void) cleanOutUnnecessaryFiles: (BOOL) alsoCleanIndex {
     [projectFile cleanOutUnnecessaryFiles: alsoCleanIndex];
-}
-
-- (BOOL)canAsynchronouslyWriteToURL:(NSURL *)url
-                             ofType:(NSString *)typeName
-                   forSaveOperation:(NSSaveOperationType)saveOperation {
-    return NO;
 }
 
 -(BOOL) isExtensionProject {

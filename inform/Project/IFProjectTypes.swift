@@ -2,8 +2,7 @@
 //  IFProjectTypes.swift
 //  Inform
 //
-//  Translated from Objective-C in November 2026. The interface is still IFProjectTypes.h, and the
-//  notification names are defined in IFProjectTypesConstants.m.
+//  Translated from Objective-C in November 2026. The interface is still IFProjectTypes.h.
 //
 
 import Foundation

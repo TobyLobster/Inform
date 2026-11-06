@@ -148,14 +148,6 @@
 		openSourceFilepath = doc.mainSourceFile;
         
         //
-		// Monitor for file renaming events
-        //
-		[[NSNotificationCenter defaultCenter] addObserver: self
-												 selector: @selector(sourceFileRenamed:)
-													 name: IFProjectSourceFileRenamedNotification
-												   object: (self.parent).document];
-		
-        //
         // Sanity check - make sure Undo is set up correctly
         //
 		NSAssert([textView undoManager] == [[self.parent document] undoManager], @"Oops: undo manager broken");
@@ -239,23 +231,6 @@
 	[textView replaceCharactersInRange: currentRange
                             withString: sourceCode];
 	[self selectRange: NSMakeRange(currentRange.location, sourceCode.length)];
-}
-
-- (void) sourceFileRenamed: (NSNotification*) not {
-	// Called when a source file is renamed in the document. We need to do nothing, unless the source file
-	// is the one we're displaying, in which we need to update the name of the source file we're displaying
-	NSDictionary* dict = not.userInfo;
-	NSString* oldName = dict[@"OldFilename"];
-	NSString* newName = dict[@"NewFilename"];
-	
-	if ([oldName.lowercaseString isEqualToString: openSourceFilepath.lastPathComponent.lowercaseString]) {
-		// The file being renamed is the one currently being displayed
-		NSString* newSourceFile = [[(self.parent).document pathForSourceFile: newName] copy];
-		
-		if (newSourceFile) {
-			openSourceFilepath = newSourceFile;
-		}
-	}
 }
 
 #pragma mark - Compiling

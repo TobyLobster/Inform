@@ -11,10 +11,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSNotificationName const IFProjectFilesChangedNotification;
-extern NSNotificationName const IFProjectBreakpointsChangedNotification;
-extern NSNotificationName const IFProjectSourceFileRenamedNotification;
-
 typedef NS_ENUM(unsigned int, IFInformVersion) {
     IFInformVersion6,
     IFInformVersion7,
