@@ -81,4 +81,73 @@ final class IFRuntimeErrorParserTests: XCTestCase {
                         "*** Run-time problems are rare.\n",
                         "Run-time problem P10: no stars\n"], [])
     }
+
+    /// A line is only checked once it has ended.
+    func testWaitsForTheEndOfTheLine() {
+        let recorder = Recorder()
+        let parser = IFRuntimeErrorParser()
+        parser.delegate = recorder
+
+        parser.outputText("*** Run-time problem P10")
+        XCTAssertEqual(recorder.problems, [])
+
+        parser.outputText(": oops\n")
+        XCTAssertEqual(recorder.problems, ["P10"])
+    }
+
+    /// Text from any of Glk's windows counts.
+    func testReadsTheTextOfEveryGlkWindow() {
+        let recorder = Recorder()
+        let parser = IFRuntimeErrorParser()
+        parser.delegate = recorder
+
+        parser.receivedCharacters("*** Run-time problem ", window: 3, from: nil)
+        parser.receivedCharacters("P10\n", window: 1, from: nil)
+
+        XCTAssertEqual(recorder.problems, ["P10"])
+    }
+
+    /// What the player types, and Glk's other automation calls, aren't the story's output.
+    func testIgnoresGlksOtherAutomationCalls() {
+        let recorder = Recorder()
+        let parser = IFRuntimeErrorParser()
+        parser.delegate = recorder
+
+        parser.receivedCharacters("You wait.\n", window: 0, from: nil)
+        parser.userTyped("*** Run-time problem P10", window: 0, lineInput: true, from: nil)
+        parser.userClicked(atXPos: 10, ypos: 20, window: 0, from: nil)
+        parser.viewWaiting(nil)
+        parser.viewIsWaiting(forInput: nil)
+        parser.receivedCharacters("\n", window: 0, from: nil)
+
+        XCTAssertEqual(recorder.problems, [])
+    }
+
+    func testWorksWithADelegateThatImplementsNothing() {
+        final class SilentDelegate: NSObject, IFRuntimeErrorParserDelegate {
+        }
+        let delegate = SilentDelegate()
+        let parser = IFRuntimeErrorParser()
+        parser.delegate = delegate
+
+        parser.outputText("*** Run-time problem P10\n")
+
+        XCTAssertTrue(parser.delegate === delegate)
+    }
+
+    func testHoldsItsDelegateWeakly() {
+        let parser = IFRuntimeErrorParser()
+        weak var weakRecorder: Recorder?
+
+        autoreleasepool {
+            let recorder = Recorder()
+            weakRecorder = recorder
+            parser.delegate = recorder
+        }
+
+        XCTAssertNil(weakRecorder)
+        XCTAssertNil(parser.delegate)
+        // With no delegate, a problem is told to nobody
+        parser.outputText("*** Run-time problem P10\n")
+    }
 }
