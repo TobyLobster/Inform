@@ -69,6 +69,9 @@ typedef NS_ENUM(int, IFExtensionResult) {
                     showWarningPrompts: (BOOL) showWarningPrompts
                                 notify: (BOOL) notify;
 
+/// Runs 6M62's census in the background, which documents the installed extensions in Inform's Application
+/// Support for 6M62 projects. Posts \c IFCensusFinishedNotification when it's done, or if \c notify is NO,
+/// \c IFCensusFinishedButDontUpdateExtensionsWebPageNotification.
 -(void) startLegacyCensus:(NSNumber*) notify;
 
 #pragma mark - Download and Install

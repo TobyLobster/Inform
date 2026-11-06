@@ -541,8 +541,8 @@ extension IFExtensionsManager {
     }
 
     func startLegacyCensus(_ notify: NSNumber) {
-        // Re-run the maintenance tasks
-        if let compilerPath = IFUtility.path(forCompiler: "") {
+        // Re-run the maintenance tasks. The census is 6M62's, as later versions of ni ignore -census.
+        if let compilerPath = IFUtility.path(forCompiler: "6M62") {
             let notifyType: NSNotification.Name
             if notify.boolValue {
                 notifyType = .IFCensusFinished
@@ -553,7 +553,7 @@ extension IFExtensionsManager {
             let externalPath = IFUtility.pathForInformExternalAppSupport()
             let arguments = ["-census",
                              "-internal",
-                             IFUtility.path(forInformInternalAppSupport: ""),
+                             IFUtility.path(forInformInternalAppSupport: "6M62"),
                              "-external",
                              externalPath]
 
