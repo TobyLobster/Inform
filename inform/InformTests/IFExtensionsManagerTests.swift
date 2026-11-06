@@ -634,6 +634,15 @@ final class IFExtensionsManagerTests: XCTestCase {
         /// The project, which the controller doesn't keep
         var project: IFProject?
 
+        /// No window, so that a project's isn't loaded, as its toolbar manager asks for it whenever any window resizes
+        override var window: NSWindow? {
+            get {
+                return nil
+            }
+            set {
+            }
+        }
+
         override func addProgressIndicator(_ indicator: IFProgress) {
             shown.append(indicator)
         }
@@ -819,5 +828,37 @@ final class IFExtensionsManagerTests: XCTestCase {
         XCTAssertEqual(server.requests, 1)
         XCTAssertEqual(controller.removed.count, 1)
         XCTAssertEqual(controller.removed.first?.message, installed(0, of: 1, failed: 1))
+    }
+
+    /// A failure is reported in a sheet on the window of the page that started the download, but not once
+    /// that's closed with its project, as the sheet would open it again
+    func testAFailureIsntReportedOnAClosedWindow() throws {
+        try XCTSkipUnless(NSHomeDirectory().hasSuffix("/TestHome"), "Only writes in the tests' own home")
+        let folder = try makeFolder()
+        // A window that was on screen, and has been closed, as a closed project's has
+        let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 400, height: 300), styleMask: [.titled],
+                              backing: .buffered, defer: false)
+        window.isReleasedWhenClosed = false
+        addTeardownBlock {
+            if let sheet = window.attachedSheet {
+                window.endSheet(sheet)
+            }
+            window.orderOut(nil)
+        }
+        window.orderFrontRegardless()
+        window.close()
+        let controller = makeController()
+
+        XCTAssertTrue(manager.downloadAndInstallExtension(folder.appendingPathComponent("Missing.zip"),
+                                                          window: window, notifyDelegate: controller, javascriptId: "1"))
+        waitForTheProgressToGo(from: controller)
+        XCTAssertEqual(controller.removed.first?.message, installed(0, of: 1, failed: 1))
+
+        // Give a sheet time to appear
+        let waited = expectation(description: "Waited")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { waited.fulfill() }
+        wait(for: [waited], timeout: 5)
+        XCTAssertNil(window.attachedSheet)
+        XCTAssertFalse(window.isVisible)
     }
 }
