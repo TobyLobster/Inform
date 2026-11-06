@@ -93,13 +93,6 @@ NSString* const IFProjectSourceFileRenamedNotification    = @"IFProjectSourceFil
     }
 
     //
-    // Inform 6 Extension Project
-    //
-    if ([typeName isEqualTo: @"inform extension Directory"]) {
-        return IFFileTypeInform6ExtensionProject;
-    }
-
-    //
     // Inform 6 ICL file
     //
 	if ([typeName isEqualTo: @"inform control language file"] ||
