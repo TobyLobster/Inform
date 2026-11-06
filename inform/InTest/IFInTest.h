@@ -36,7 +36,6 @@ extern NSNotificationName const IFInTestFinishedNotification;
                           testCase: (NSString*) testCase
                          errorCode: (NSString*) errorCode
                        problemsURL: (NSURL*) problemsURL
-                          skeinURL: (nullable NSURL*) skeinURL
                        skeinNodeId: (unsigned long) skeinNodeId
                         skeinNodes: (int) skeinNodes
                          outputURL: (NSURL*) outputURL;

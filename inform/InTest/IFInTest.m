@@ -279,7 +279,6 @@ NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
                           testCase: (NSString*) testCase
                          errorCode: (NSString*) errorCode
                        problemsURL: (NSURL*) problemsURL
-                          skeinURL: (NSURL*) skeinURL
                        skeinNodeId: (unsigned long) skeinNodeId
                         skeinNodes: (int) skeinNodes
                          outputURL: (NSURL*) outputURL
