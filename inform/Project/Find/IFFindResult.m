@@ -82,17 +82,9 @@
 @synthesize definitionAnchorTag;
 @synthesize regexFoundGroups;
 
-- (NSString*) foundMatchString {
-    return [context substringWithRange:contextRange];
-}
-
-- (bool) isWritingWithInformResult {
+- (bool) isRecipeBookResult {
     // sort name starts with 000 for Writing With Inform
     // sort name starts with 001 for The Inform Recipe Book
-    return [documentSortName hasPrefix:@"000"];
-}
-
-- (bool) isRecipeBookResult {
     return [documentSortName hasPrefix:@"001"];
 }
 
@@ -226,12 +218,6 @@
     [result endEditing];
 
 	return result;
-}
-
-#pragma mark - Copying
-
-- (id) copyWithZone: (NSZone*) zone {
-	return self;
 }
 
 @end
