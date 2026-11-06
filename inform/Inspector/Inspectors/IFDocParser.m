@@ -15,8 +15,6 @@
     NSRange     range;
 }
 
--(instancetype) init { self = [super init]; return self; }
-
 -(instancetype) initWithName:(NSString*) aName anchorTag:(NSString*) aAnchorTag range:(NSRange)aRange {
 	self = [super init];
 	
@@ -38,8 +36,6 @@
     NSString*   anchorTag;
     NSRange     range;
 }
-
--(instancetype) init { self = [super init]; return self; }
 
 -(instancetype) initWithAnchorTag:(NSString*) aAnchorTag range:(NSRange)aRange {
 	self = [super init];
@@ -105,8 +101,6 @@ typedef NS_ENUM(unsigned int, ParseState) {
 	HtmlCommentEnd2,
 	HtmlEntity
 };
-
--(instancetype) init { self = [super init]; return self; }
 
 - (instancetype) initWithHtml: (NSString*) html {
 	self = [super init];
