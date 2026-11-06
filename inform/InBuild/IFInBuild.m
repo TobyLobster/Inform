@@ -9,12 +9,6 @@
 #import "IFUtility.h"
 #import "IFCompilerSettings.h"
 
-NSString* const IFInBuildStartingNotification = @"IFInTestStartingNotification";
-NSString* const IFInBuildStdoutNotification   = @"IFInTestStdoutNotification";
-NSString* const IFInBuildStderrNotification   = @"IFInTestStderrNotification";
-NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
-
-
 @implementation IFInBuild {
     // The task
     /// Task where InBuild is running
@@ -31,44 +25,13 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
     /// File handle for stdout
     NSFileHandle*   stdOutH;
 
-    // Results
-    //NSMutableString* stdOut;
-    //NSMutableString* stdErr;
-
     int             exitCode;
 }
 
 @synthesize stdOut;
 @synthesize stdErr;
 
-// == Initialisation, etc ==
-
-- (instancetype) init {
-    self = [super init];
-
-    if (self) {
-        [self tidyUp];
-    }
-
-    return self;
-}
-
--(void) tidyUp {
-    theTask     = nil;
-    stdOutPipe  = nil;
-    stdErrPipe  = nil;
-    stdErrH     = nil;
-    stdOutH     = nil;
-    exitCode    = 0;
-    stdErr      = nil;
-    stdOut      = nil;
-}
-
 #pragma mark - Setup
-
-- (BOOL) isRunning {
-    return (theTask != nil) ? theTask.running : NO;
-}
 
 -(NSString*) executeCommandLine: (NSString*) command
                            args: (NSArray*) args {
