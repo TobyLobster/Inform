@@ -102,6 +102,12 @@ final class IFFindResultTests: XCTestCase {
         XCTAssertEqual(expand(#"a\x41b\x7e"#), "aAb~")
     }
 
+    /// \x without two hex digits is left as typed.
+    func testLeavesAHexEscapeWithoutTwoHexDigits() {
+        XCTAssertEqual(expand(#"\xZZ"#), #"\xZZ"#)
+        XCTAssertEqual(expand(#"\x4g!"#), #"\x4g!"#)
+    }
+
     /// \\ is a backslash, which escapes nothing.
     func testExpandsADoubleBackslash() {
         XCTAssertEqual(expand(#"a\\b"#), #"a\b"#)

@@ -146,7 +146,10 @@
                 [mutReplace replaceCharactersInRange:NSMakeRange(i-1, 2) withString:unicharString];
                 i--;    // Carry on after the character we've inserted
             } else if (c == 'x') {
-                if( i < (mutReplace.length - 2)) {
+                NSCharacterSet* hexDigits = [NSCharacterSet characterSetWithCharactersInString: @"0123456789abcdefABCDEF"];
+                if( i < (mutReplace.length - 2)
+                    && [hexDigits characterIsMember: [mutReplace characterAtIndex: i+1]]
+                    && [hexDigits characterIsMember: [mutReplace characterAtIndex: i+2]]) {
                     unsigned int hexInt;
                     NSScanner* scanner = [NSScanner scannerWithString:[mutReplace substringWithRange:NSMakeRange(i+1, 2)]];
                     
