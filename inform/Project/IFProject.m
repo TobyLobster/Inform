@@ -42,7 +42,6 @@
     IFCompiler*             compiler;
 
     NSMutableDictionary*    sourceFiles;
-    NSString*               mainSource;
 
     NSTextStorage*          notes;
 
@@ -68,7 +67,6 @@
         settings                = [[IFCompilerSettings alloc] init];
         projectFile             = nil;
         sourceFiles             = nil;
-        mainSource              = nil;
         initialSelectionRange   = NSMakeRange(0, 0);
 
         _currentSkein           = [[IFSkein alloc] initWithProject: self];
@@ -209,7 +207,7 @@
     NSFileWrapper* sourceDir = projectFile.sourceDirectory;
     NSDictionary* source     = sourceDir.fileWrappers;
 
-    mainSource = nil;
+    NSString* mainSource = nil;
 
     for( NSString* key in source ) {
         if( self.projectFileType == IFFileTypeInform7ExtensionProject ) {
@@ -565,33 +563,11 @@
                                         forFilename: key];
 
         sourceFiles[key] = text;
-
-        NSString* pathExtension = key.pathExtension;
-        if( fileType == IFFileTypeInform7ExtensionProject )
-        {
-            if ([pathExtension isEqualTo: @"i7x"]) {
-                mainSource = [key copy];
-            }
-        }
-        else
-        {
-            if ([pathExtension isEqualTo: @"inf"] ||
-                [pathExtension isEqualTo: @"ni"] ||
-                [pathExtension isEqualTo: @"i7"]) {
-                mainSource = [key copy];
-            }
-        }
     }
 
     // Re-create the settings as required
     if (settings == nil) {
         settings = [[IFCompilerSettings alloc] init];
-        
-        if ([mainSource.pathExtension isEqualTo: @"ni"] ||
-            [mainSource.pathExtension isEqualTo: @"i7"] ||
-            [mainSource.pathExtension isEqualTo: @"i7x"]) {
-            [settings setUsingNaturalInform: YES];
-        }
     }
 
     // Load the notes (if present)
