@@ -892,4 +892,10 @@ final class IFExtensionsManagerTests: XCTestCase {
         XCTAssertNil(window.attachedSheet)
         XCTAssertFalse(window.isVisible)
     }
+
+    /// The alert's title when some of the downloads failed
+    func testTheTitleWhenSomeDownloadsFailed() {
+        XCTAssertEqual(String(format: IFUtility.localizedString("%d extensions installed successfully, %d failed"), Int32(2), Int32(1)),
+                       "2 extensions installed successfully, 1 failed")
+    }
 }
