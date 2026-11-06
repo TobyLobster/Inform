@@ -8,7 +8,6 @@
 
 #import "IFExtensionsPage.h"
 #import "IFPreferences.h"
-#import "IFMaintenanceTask.h"
 #import "IFAppDelegate.h"
 #import "IFUtility.h"
 #import "IFExtensionsManager.h"

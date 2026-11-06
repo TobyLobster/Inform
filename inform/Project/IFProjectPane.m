@@ -24,7 +24,6 @@
 #import "IFPreferences.h"
 
 #import "IFRuntimeErrorParser.h"
-#import "IFMaintenanceTask.h"
 
 #import "IFGlkResources.h"
 

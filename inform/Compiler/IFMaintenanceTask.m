@@ -9,7 +9,6 @@
 #import "IFMaintenanceTask.h"
 
 NSString* const IFMaintenanceTasksStarted = @"IFMaintenanceTasksStarted";
-NSString* const IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
 
 @implementation IFMaintenanceTask {
     /// The task that's currently running
@@ -66,9 +65,7 @@ NSString* const IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
 	activeTask.executableURL = newTask[0];
 	activeTask.arguments = newTask[1];
     activeTaskNotificationType = newTask[2];
-	
-    // NSLog(@"About to launch task '%@' with arguments '%@'", [newTask objectAtIndex: 0], [newTask objectAtIndex: 1]);
-    
+
 	// Register for notifications
 	[[NSNotificationCenter defaultCenter] addObserver: self
 											 selector: @selector(taskFinished:)
@@ -113,14 +110,7 @@ NSString* const IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
 - (void) queueTask: (NSString*) command
 	 withArguments: (NSArray<NSString*>*) arguments
         notifyType: (NSNotificationName) notifyType {
-    [self queueTaskAtURL: [NSURL fileURLWithPath: command]
-           withArguments: arguments
-              notifyType: notifyType];
-}
-
-- (void) queueTaskAtURL: (NSURL*) command
-          withArguments: (NSArray<NSString*>*) arguments
-             notifyType: (NSNotificationName) notifyType {
+    NSURL* commandURL = [NSURL fileURLWithPath: command];
 
     // Check if the previous item on the queue is exactly the same command, skip if so.
     if( pendingTasks.count > 0 ) {
@@ -139,16 +129,15 @@ NSString* const IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
                 }
                 i++;
             }
-            if( [lastCommand isEqual: command] &&
+            if( [lastCommand isEqual: commandURL] &&
                 argsEqual &&
                 [lastNotifyType isEqualToString: notifyType] ) {
-                //NSLog(@"Skipping, already added to queue");
                 return;
             }
         }
     }
-    
-	[pendingTasks addObject: @[command, arguments, notifyType]];
+
+	[pendingTasks addObject: @[commandURL, arguments, notifyType]];
 
 	[self startNextTask];
 }

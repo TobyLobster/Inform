@@ -13,7 +13,6 @@
 #import "IFWelcomeWindow.h"
 #import "IFFindController.h"
 #import "IFFindInFilesController.h"
-#import "IFMaintenanceTask.h"
 
 #import "IFProject.h"
 #import "IFProjectController.h"
