@@ -39,6 +39,9 @@ CGFloat easeOutCubic(CGFloat t);
                          title: (NSString*) title
                        message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(3,4);
 /// The same, for Swift, which can't call the methods taking a format
++ (void) runAlertInformationWindow: (nullable NSWindow*) window
+                             title: (NSString*) title
+                   informativeText: (NSString*) text;
 + (void) runAlertWarningWindow: (nullable NSWindow*) window
                          title: (NSString*) title
                informativeText: (NSString*) text;

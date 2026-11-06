@@ -73,7 +73,7 @@
                                                                      moveURL.lastPathComponent, secondaryURL.lastPathComponent];
                     [IFUtility runAlertInformationWindow: nil
                                                    title: @"Materials folder has been renamed"
-                                                 message: @"%@", message];
+                                         informativeText: message];
                 }
             }
         }

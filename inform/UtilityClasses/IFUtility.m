@@ -98,6 +98,14 @@ CGFloat easeOutCubic(CGFloat t) {
                          message: @"%@", contents];
 }
 
++ (void) runAlertInformationWindow: (NSWindow*) window
+                             title: (NSString*) title
+                   informativeText: (NSString*) text {
+    [self runAlertInformationWindow: window
+                              title: title
+                            message: @"%@", text];
+}
+
 
 + (void) runAlertWindow: (NSWindow*) window
               localized: (BOOL) alreadyLocalized
