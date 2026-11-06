@@ -138,9 +138,6 @@ NS_ASSUME_NONNULL_BEGIN
                               refreshOnly: (BOOL) onlyRefresh
                                  testCase: (nullable NSString*) testCase;
 
-- (void) DEBUGverifyWrapper;
-@property (NS_NONATOMIC_IOSONLY, readonly, strong, nullable) NSFileWrapper *buildWrapper;
-
 @end
 
 NS_ASSUME_NONNULL_END
