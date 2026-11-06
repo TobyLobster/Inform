@@ -53,6 +53,13 @@ final class IFScannerTests: XCTestCase {
         XCTAssertEqual(groups, ["ab", "a", "", "b"])
     }
 
+    /// Nothing found gives no groups, though matches of no characters were passed over on the way.
+    func testFindingNothingGivesNoGroups() {
+        let (range, groups) = nextWithGroups("x*", in: "ab")
+        XCTAssertEqual(range, notFound)
+        XCTAssertNil(groups)
+    }
+
     /// Find Previous gives the groups of the match it found, and none when it finds nothing.
     func testFindPreviousGivesTheGroupsOfItsMatch() {
         var groups: NSArray? = nil

@@ -183,6 +183,11 @@
         NSAssert(searchPosition <= storageLength, @"Parsed too far in storage for search?");
     }
 
+    // Not the groups of a match of no characters passed over on the way
+    if( (foundGroupsOut != nil) && (range.location == NSNotFound) ) {
+        *foundGroupsOut = nil;
+    }
+
     NSAssert(range.location == NSNotFound || range.length > 0, @"Found match of length zero");
     return range;
 }
