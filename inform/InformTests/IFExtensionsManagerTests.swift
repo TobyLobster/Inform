@@ -198,20 +198,72 @@ final class IFExtensionsManagerTests: XCTestCase {
                                info("Keys", "/Extensions/Emily Short/Keys.i7x", version: "")])
     }
 
-    func testReadsACensusEntryWithNothingInIt() {
-        XCTAssertEqual(census(#"{ "inspection": [ { "resource": { "type": "extension" } } ] }"#),
-                       [IFExtensionInfo(displayName: "", filepath: nil, author: "", version: "", isBuiltIn: false)])
+    func testReadsACensusEntryWithNothingButItsFileInIt() {
+        XCTAssertEqual(census(#"{ "inspection": [ { "resource": { "type": "extension" }, "location-file": "/Extension.i7x" } ] }"#),
+                       [IFExtensionInfo(displayName: "", filepath: "/Extension.i7x", author: "", version: "", isBuiltIn: false)])
     }
 
-    /// inbuild gives an extension that's a folder by its folder, which isn't kept
-    func testAnExtensionThatsAFolderHasNoFile() {
-        let infos = census("""
-            { "inspection": [ {
-                "resource": { "type": "extension", "title": "Keys", "author": "Emily Short", "version": "1" },
-                "location-directory": "/Extensions/Emily Short/Keys-v1.i7xd"
-            } ] }
-            """)
-        XCTAssertEqual(infos, [info("Keys", nil, version: "v1")])
+    /// Makes an empty file, and the folders it's in
+    @discardableResult
+    private func make(_ path: String, in folder: URL) throws -> String {
+        let file = folder.appendingPathComponent(path)
+        try FileManager.default.createDirectory(at: file.deletingLastPathComponent(), withIntermediateDirectories: true)
+        try Data().write(to: file)
+        return file.path
+    }
+
+    /// The census of an extension that's a folder, as inbuild gives it: by its folder, not by a file
+    private func census(ofFolder folder: URL, title: String) throws -> [IFExtensionInfo] {
+        let entry: [String: Any] = ["resource": ["type": "extension", "title": title, "author": "Emily Short", "version": "1"],
+                                    "location-directory": folder.path]
+        let json = try JSONSerialization.data(withJSONObject: ["inspection": [entry]])
+        return census(String(data: json, encoding: .utf8))
+    }
+
+    /// An extension that's a folder has the file inbuild reads, named after its title, whatever the folder is called
+    func testAnExtensionThatsAFolderHasItsTitlesFile() throws {
+        let folder = try makeFolder().appendingPathComponent("Keys-v1.i7xd")
+        let keys = try make("Source/Keys.i7x", in: folder)
+        try make("Source/Contents.w", in: folder)
+        try make("Source/Another.i7x", in: folder)
+        try make("Documentation/Documentation.md", in: folder)
+
+        XCTAssertEqual(try census(ofFolder: folder, title: "Keys"), [info("Keys", keys, version: "v1")])
+    }
+
+    /// A literate extension has its contents, as its sections are read from there
+    func testALiterateExtensionHasItsContents() throws {
+        let folder = try makeFolder().appendingPathComponent("Keys-v1.i7xd")
+        let contents = try make("Source/Contents.w", in: folder)
+        try make("Source/Sections/Preamble.w", in: folder)
+        try make("Source/Another.i7x", in: folder)
+
+        XCTAssertEqual(try census(ofFolder: folder, title: "Keys"), [info("Keys", contents, version: "v1")])
+    }
+
+    /// Failing those, inbuild reads the first extension file in the source folder, without case mattering
+    func testOtherwiseAFolderExtensionHasItsFirstFile() throws {
+        let folder = try makeFolder().appendingPathComponent("Keys-v1.i7xd")
+        try make("Source/b.i7x", in: folder)
+        let first = try make("Source/A Name.I7X", in: folder)
+        try make("Source/C.i7x", in: folder)
+        try make("Source/.Hidden.i7x", in: folder)
+        try make("Source/0 Notes.txt", in: folder)
+        try make("Source/0 Folder.i7x/Inside.i7x", in: folder)
+
+        XCTAssertEqual(try census(ofFolder: folder, title: "Keys"), [info("Keys", first, version: "v1")])
+    }
+
+    /// There's nothing to open or search in an extension with no file, so it isn't listed
+    func testAnExtensionWithNoFileIsLeftOut() throws {
+        let folder = try makeFolder().appendingPathComponent("Keys-v1.i7xd")
+        XCTAssertEqual(try census(ofFolder: folder, title: "Keys"), [])
+        try make("extension_metadata.json", in: folder)
+        try make("Source/Sections/Preamble.w", in: folder)
+        try make("Source/Notes.txt", in: folder)
+        XCTAssertEqual(try census(ofFolder: folder, title: "Keys"), [])
+
+        XCTAssertEqual(census(#"{ "inspection": [ { "resource": { "type": "extension", "title": "Keys" } } ] }"#), [])
     }
 
     func testACensusItCantReadIsEmpty() {
@@ -333,9 +385,14 @@ final class IFExtensionsManagerTests: XCTestCase {
         let folder = try makeExtensionsFolder()
         let locksmith = try put("Version 3 of Locksmith by Emily Short begins here.", "Locksmith.i7x", in: "Emily Short", of: folder)
         let keys = try put("Keys by Emily Short begins here.", "Keys.i7x", in: "Emily Short", of: folder)
+        // An extension that's a folder, which inbuild gives by its folder
+        let doors = try put("Version 2 of Doors by Emily Short begins here.", "Doors.i7x", in: "Emily Short/Doors-v2.i7xd/Source", of: folder)
+        try #"{ "is": { "type": "extension", "title": "Doors", "author": "Emily Short", "version": "2" } }"#
+            .write(toFile: (folder as NSString).appendingPathComponent("Emily Short/Doors-v2.i7xd/extension_metadata.json"),
+                   atomically: true, encoding: .utf8)
 
         XCTAssertEqual(Set(manager.availableExtensions(withCompilerVersion: "10.1")),
-                       [info("Locksmith", locksmith, version: "v3"), info("Keys", keys, version: "")])
+                       [info("Locksmith", locksmith, version: "v3"), info("Keys", keys, version: ""), info("Doors", doors, version: "v2")])
     }
 
     /// Projects for 6M62 and earlier, and later ones, each get their own list, whichever asks first

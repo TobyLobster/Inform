@@ -96,7 +96,8 @@ typedef NS_ENUM(int, IFExtensionResult) {
                                               title: (NSString* _Nullable __strong* _Nullable) titleOut
                                             version: (NSString* _Nullable __strong* _Nullable) versionOut;
 
-/// The extensions in inbuild's census, given as JSON (none if there's no census, or it can't be read)
+/// The extensions in inbuild's census, given as JSON (none if there's no census, or it can't be read).
+/// An extension that's a folder gets the file inbuild reads it from, and one with no file is left out.
 - (NSMutableArray<IFExtensionInfo*>*) parseExtensionsList: (nullable NSString*) jsonString;
 
 @end
