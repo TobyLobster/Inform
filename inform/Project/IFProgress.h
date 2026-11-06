@@ -36,7 +36,6 @@ static const int IFProgressPrioritySyntax     = 10;
 
 @property (nonatomic) CGFloat percentage;
 @property (nonatomic, copy, nullable) NSString *message;
-@property (atomic, readonly) BOOL storyActive;
 @property (atomic, getter=isInProgress, readonly) BOOL inProgress;
 
 // Constants
