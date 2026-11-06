@@ -631,6 +631,12 @@ extension IFExtensionsManager {
         if !(dlProgress?.isCancelled ?? false) {
             // Were there errors? Report them if so.
             if numberOfErrors > 0 {
+                // In a sheet on the window of the page that started the download, unless that's been closed
+                // with its project, as the sheet would open it again
+                var window = download.window
+                if let downloadWindow = window, !downloadWindow.isVisible, !downloadWindow.isMiniaturized {
+                    window = NSApp.mainWindow
+                }
                 if numberOfErrors < numberOfBatchedExtensions {
                     let messageKey: String
 
@@ -639,16 +645,16 @@ extension IFExtensionsManager {
                     } else {
                         messageKey = String(format: IFUtility.localizedString("%d extensions installed successfully, %d failed"), numberOfBatchedExtensions - numberOfErrors, numberOfErrors)
                     }
-                    IFUtility.runAlertWarning(download.window,
+                    IFUtility.runAlertWarning(window,
                                               localizedTitle: messageKey,
                                               informativeText: errorString as String)
                 } else {
                     if numberOfBatchedExtensions > 1 {
-                        IFUtility.runAlertWarning(download.window,
+                        IFUtility.runAlertWarning(window,
                                                   localizedTitle: String(format: IFUtility.localizedString("Failed to install %d extensions"), numberOfErrors),
                                                   informativeText: errorString as String)
                     } else {
-                        IFUtility.runAlertWarning(download.window,
+                        IFUtility.runAlertWarning(window,
                                                   localizedTitle: IFUtility.localizedString("Failed to install extension"),
                                                   informativeText: errorString as String)
                     }

@@ -106,20 +106,26 @@ extension IFExtensionDownload {
             // Save the data to a temporary file
             if receivedData?.write(toFile: filename,
                                    atomically: true) == true {
-                // Install this extension
+                // Install this extension in the project it was downloaded for, whose page started the download
                 let url = URL(fileURLWithPath: filename, isDirectory: false)
-                let appDelegate = NSApp.delegate as? IFAppDelegate
-                let projectController = appDelegate?.frontmostProjectController
+                let projectController = notifyDelegate as? IFProjectController
                 var installing = false
-                if let projectController, let project = projectController.document as? IFProject,
-                   let name = task.originalRequest?.url?.lastPathComponent {
-                    if let extensionURL = IFNewExtensionsManager.shared.copy(withUnzip: url,
+                if let projectController, let project = projectController.document as? IFProject {
+                    if let name = task.originalRequest?.url?.lastPathComponent,
+                       let extensionURL = IFNewExtensionsManager.shared.copy(withUnzip: url,
                                                                              toProjectTemporary: project,
                                                                              extensionName: name) {
                         // Call inbuild to check it's a valid extension and install
                         projectController.installExtensionURL(extensionURL)
                         installing = true
+                    } else {
+                        let message = String(format: IFUtility.localizedString("Failed to Install Extension Explanation - Could not unzip '%@'"),
+                                             self.url.lastPathComponent)
+                        mgr.addError(message)
                     }
+                } else {
+                    // The project has been closed
+                    mgr.addError(IFUtility.localizedString("Failed to Install Extension Explanation - No project"))
                 }
 
                 // Remove temporary file
