@@ -248,6 +248,9 @@
                                                           options: NSPropertyListImmutable
                                                                     format: &format
                                                           error: &propError];
+        if (![array isKindOfClass: [NSArray class]]) {
+            return nil;
+        }
         return [array mutableCopy];
     }
     return nil;
@@ -263,6 +266,9 @@
                                                                    options: NSPropertyListImmutable
                                                                     format: &format
                                                                      error: &propError];
+        if (![array isKindOfClass: [NSArray class]]) {
+            return nil;
+        }
         return [array mutableCopy];
     }
     return nil;

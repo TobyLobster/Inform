@@ -316,6 +316,17 @@ final class IFProjectFileTests: XCTestCase {
         XCTAssertNil(projectFile.loadBreakpoints)
     }
 
+    func testIgnoresWatchpointsAndBreakpointsThatArentLists() throws {
+        let notAList = try PropertyListSerialization.data(fromPropertyList: ["lamp": "lit"], format: .xml, options: 0)
+        let projectFile = try XCTUnwrap(IFProjectFile(fileWrapper: project([
+            "Watchpoints.plist": FileWrapper(regularFileWithContents: notAList),
+            "Breakpoints.plist": FileWrapper(regularFileWithContents: notAList),
+        ])))
+
+        XCTAssertNil(projectFile.loadWatchpoints)
+        XCTAssertNil(projectFile.loadBreakpoints)
+    }
+
     // MARK: - Skeins
 
     func testWritesAndReadsASkein() throws {
