@@ -118,6 +118,26 @@ final class IFInBuildTests: XCTestCase {
         XCTAssertFalse(page.contains("-confirmed"))
     }
 
+    func testTheErrorPageShowsWhatLooksLikeMarkupAsWritten() throws {
+        let folder = try makeFolder()
+        let results = folder.appendingPathComponent("Report.html")
+        let html = folder.appendingPathComponent("Error.html")
+
+        XCTAssertNotEqual(try install(in: folder.appendingPathComponent("<b> & Missing.inform"),
+                                      confirmed: false, results: results), 0)
+        var page = try String(contentsOf: results, encoding: .utf8)
+        XCTAssertTrue(page.contains("&lt;b&gt; &amp; Missing.inform"))
+        XCTAssertFalse(page.contains("<b>"))
+
+        XCTAssertNotEqual(IFInBuild().execute(forConvertingMarkdown: folder.appendingPathComponent("<i>Missing.md").path,
+                                              toHTML: html.path,
+                                              withInternal: internalURL,
+                                              settings: IFCompilerSettings()), 0)
+        page = try String(contentsOf: html, encoding: .utf8)
+        XCTAssertTrue(page.contains("&lt;i&gt;Missing.md"))
+        XCTAssertFalse(page.contains("<i>"))
+    }
+
     func testTakesTheCensus() throws {
         let inBuild = IFInBuild()
 

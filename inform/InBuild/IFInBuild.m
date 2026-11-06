@@ -9,6 +9,13 @@
 #import "IFUtility.h"
 #import "IFCompilerSettings.h"
 
+/// The text with the characters that HTML takes as markup escaped, so that an error page shows it as written
+static NSString* escapedForHTML(NSString* text) {
+    NSString* escaped = [text stringByReplacingOccurrencesOfString: @"&" withString: @"&amp;"];
+    escaped = [escaped stringByReplacingOccurrencesOfString: @"<" withString: @"&lt;"];
+    return [escaped stringByReplacingOccurrencesOfString: @">" withString: @"&gt;"];
+}
+
 @implementation IFInBuild {
     // The task
     /// Task where InBuild is running
@@ -135,7 +142,7 @@
         // Write error messaging as HTML page to resultsURL
         NSString * errorHTML = [NSString stringWithFormat:
                                 @"<HTML><head><meta charset=\"UTF-8\"></head><body>There was an error running inbuild:<br><pre>%@\nstdout: %@\nstderr: %@exit code: %d</pre></body></html>",
-                                message, stdOut, stdErr, exitCode];
+                                escapedForHTML(message), escapedForHTML(stdOut), escapedForHTML(stdErr), exitCode];
 
         [errorHTML writeToFile: resultsURL.path
                     atomically: NO
@@ -218,7 +225,7 @@
         // Write error messaging as HTML page to resultsURL
         NSString * errorHTML = [NSString stringWithFormat:
                                 @"<HTML><head><meta charset=\"UTF-8\"></head><body>There was an error running inbuild:<br><pre>%@\nstdout: %@\nstderr: %@exit code: %d</pre></body></html>",
-                                message, stdOut, stdErr, exitCode];
+                                escapedForHTML(message), escapedForHTML(stdOut), escapedForHTML(stdErr), exitCode];
 
         [errorHTML writeToFile: htmlFilepath
                     atomically: NO
