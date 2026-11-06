@@ -65,11 +65,6 @@
     NSArray<IFCodeInfo*>*        definitionInfo;
 }
 
-NSString* const IFDocAttributeHtmlTitle = @"IFDocHtmlTitle";
-NSString* const IFDocAttributeTitle = @"IFDocTitle";
-NSString* const IFDocAttributeSection = @"IFDocSection";
-NSString* const IFDocAttributeSort = @"IFDocSort";
-
 #pragma mark - Static dictionaries
 
 static NSSet<NSString*>* ignoreTags = nil;
