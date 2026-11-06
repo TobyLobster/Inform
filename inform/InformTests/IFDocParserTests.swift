@@ -57,6 +57,13 @@ final class IFDocParserTests: XCTestCase {
         XCTAssertEqual(IFDocParser(html: "text").attributes[.htmlTitle] as? String, "")
     }
 
+    /// An entity it doesn't know is left out of the title, as it is from the text.
+    func testLeavesAnEntityItDoesNotKnowOutOfTheTitle() {
+        let parser = IFDocParser(html: "<head><title>a&bull;b</title></head>a&bull;b")
+        XCTAssertEqual(parser.attributes[.htmlTitle] as? String, "ab")
+        XCTAssertEqual(parser.plainText, "ab")
+    }
+
     /// The search title and section are given in comments.
     func testReadsTheSearchTitleAndSection() {
         let parser = IFDocParser(html: #"<!--SEARCH TITLE "Pattern matching"--><!--SEARCH SECTION "11.3"-->text"#)

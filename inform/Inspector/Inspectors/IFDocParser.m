@@ -214,7 +214,9 @@ typedef NS_ENUM(unsigned int, ParseState) {
 							state = PlainText;
 							if (inTitle) {
 								whitespace = NO;
-								title[titleLength++] = [entityValue characterAtIndex: 0];
+								if (entityValue != nil) {
+									title[titleLength++] = [entityValue characterAtIndex: 0];
+								}
 							}
 							if (ignoreCount) break;
                             if (ignoreSection) break;
