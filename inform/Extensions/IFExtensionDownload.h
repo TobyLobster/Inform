@@ -25,6 +25,7 @@ typedef NS_ENUM(int, IFExtensionDownloadState) {
 @property (atomic, strong, nullable) NSMutableData*   receivedData;
 @property (atomic, strong, nullable) NSWindow*        window;
 @property (atomic, strong, nullable) NSString*        javascriptId;
+/// The controller of the project whose page started the download, which the extension is installed in
 @property (atomic, strong, nullable) NSObject*        notifyDelegate;
 @property (atomic, strong) NSURL*           url;
 

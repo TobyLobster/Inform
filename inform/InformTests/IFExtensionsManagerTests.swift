@@ -624,11 +624,15 @@ final class IFExtensionsManagerTests: XCTestCase {
 
     // MARK: - Downloading extensions
 
-    /// Stands in for a project's controller, which shows the manager's progress, and is told of each extension installed
+    /// Stands in for a project's controller, which shows the manager's progress, is given each extension
+    /// downloaded for its project to install, and is told of each extension installed
     private final class ProjectControllerSpy: IFProjectController {
         var shown: [IFProgress] = []
         var removed: [(progress: IFProgress, message: String?)] = []
+        var installing: [URL] = []
         var updated: [String?] = []
+        /// The project, which the controller doesn't keep
+        var project: IFProject?
 
         override func addProgressIndicator(_ indicator: IFProgress) {
             shown.append(indicator)
@@ -641,6 +645,10 @@ final class IFExtensionsManagerTests: XCTestCase {
             }
         }
 
+        override func installExtensionURL(_ extensionURL: URL) {
+            installing.append(extensionURL)
+        }
+
         override func extensionUpdated(_ javascriptId: String?) {
             updated.append(javascriptId)
         }
@@ -651,6 +659,32 @@ final class IFExtensionsManagerTests: XCTestCase {
         let controller = ProjectControllerSpy()
         NotificationCenter.default.removeObserver(controller)
         return controller
+    }
+
+    /// The controller of a project in the folder, which isn't open
+    private func makeController(ofProjectIn folder: URL) -> ProjectControllerSpy {
+        let controller = makeController()
+        let project = IFProject()
+        project.fileURL = folder.appendingPathComponent("Test.inform")
+        controller.project = project
+        controller.document = project
+        return controller
+    }
+
+    /// A zip of an extension folder named after it, as the Public Library's are
+    private func zipOfExtension(_ title: String, in folder: URL) throws -> URL {
+        let source = folder.appendingPathComponent(title + ".i7xd/Source", isDirectory: true)
+        try FileManager.default.createDirectory(at: source, withIntermediateDirectories: true)
+        try Data("\(title) by Emily Short begins here.\n".utf8).write(to: source.appendingPathComponent(title + ".i7x"))
+        let zipURL = folder.appendingPathComponent(title + ".zip")
+        let zip = Process()
+        zip.executableURL = URL(fileURLWithPath: "/usr/bin/zip")
+        zip.currentDirectoryURL = folder
+        zip.arguments = ["-q", "-r", zipURL.path, title + ".i7xd"]
+        try zip.run()
+        zip.waitUntilExit()
+        XCTAssertEqual(zip.terminationStatus, 0)
+        return zipURL
     }
 
     private func waitForTheProgressToGo(from controller: ProjectControllerSpy) {
@@ -673,16 +707,15 @@ final class IFExtensionsManagerTests: XCTestCase {
         return String(format: IFUtility.localizedString("Installed %d of %d (%d failed)"), done, total, failed)
     }
 
-    /// Downloads go one at a time, under one progress. Without a project open, none can be installed.
+    /// Downloads go one at a time, under one progress, and each is installed in the project it was downloaded for
     func testDownloadsOneAfterAnother() throws {
         try XCTSkipUnless(NSHomeDirectory().hasSuffix("/TestHome"), "Only writes in the tests' own home")
+        // No project is open, so none is in front
         XCTAssertFalse(NSDocumentController.shared.documents.contains { $0 is IFProject })
         let folder = try makeFolder()
-        let locksmith = folder.appendingPathComponent("Locksmith.zip")
-        let keys = folder.appendingPathComponent("Keys.zip")
-        try Data("Not really a zip file".utf8).write(to: locksmith)
-        try Data("Nor this".utf8).write(to: keys)
-        let controller = makeController()
+        let locksmith = try zipOfExtension("Locksmith", in: folder)
+        let keys = try zipOfExtension("Keys", in: folder)
+        let controller = makeController(ofProjectIn: folder)
 
         XCTAssertTrue(manager.downloadAndInstallExtension(locksmith, window: nil, notifyDelegate: controller, javascriptId: "1"))
         XCTAssertTrue(manager.downloadAndInstallExtension(keys, window: nil, notifyDelegate: controller, javascriptId: "2"))
@@ -697,7 +730,12 @@ final class IFExtensionsManagerTests: XCTestCase {
         XCTAssertTrue(controller.removed.first?.progress === progress)
         XCTAssertEqual(controller.removed.first?.message, installed(2, of: 2))
         XCTAssertFalse(progress.isInProgress)
-        XCTAssertEqual(controller.updated, [])
+        // Each is unzipped in the project's materials, and given to its controller to install
+        let temporary = folder.appendingPathComponent("Test.materials/Extensions/Reserved/Temporary")
+        XCTAssertEqual(controller.installing.map(\.standardizedFileURL),
+                       [temporary.appendingPathComponent("Locksmith.i7xd").standardizedFileURL,
+                        temporary.appendingPathComponent("Keys.i7xd").standardizedFileURL])
+        XCTAssertEqual(controller.updated, ["1", "2"])
     }
 
     /// Cancelling the progress stops the downloads still to come, and nothing is reported

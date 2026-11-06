@@ -106,10 +106,9 @@ extension IFExtensionDownload {
             // Save the data to a temporary file
             if receivedData?.write(toFile: filename,
                                    atomically: true) == true {
-                // Install this extension
+                // Install this extension in the project it was downloaded for, whose page started the download
                 let url = URL(fileURLWithPath: filename, isDirectory: false)
-                let appDelegate = NSApp.delegate as? IFAppDelegate
-                let projectController = appDelegate?.frontmostProjectController
+                let projectController = notifyDelegate as? IFProjectController
                 var installing = false
                 if let projectController, let project = projectController.document as? IFProject,
                    let name = task.originalRequest?.url?.lastPathComponent {
