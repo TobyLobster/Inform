@@ -36,6 +36,19 @@ final class IFProjectMaterialsPresenterTests: XCTestCase {
         XCTAssertEqual(presenter.primaryPresentedItemURL, project)
     }
 
+    func testWorksWithAProjectURLEndingInASlash() throws {
+        let folder = try makeFolder()
+        try write("lamp", to: folder.appendingPathComponent("Old Lighthouse Materials/Figures/Lamp.png"))
+        let project = folder.appendingPathComponent("Old Lighthouse.inform", isDirectory: true)
+
+        let presenter = IFProjectMaterialsPresenter(url: project)
+
+        let figure = folder.appendingPathComponent("Old Lighthouse.materials/Figures/Lamp.png")
+        XCTAssertEqual(presenter.presentedItemURL?.path, folder.appendingPathComponent("Old Lighthouse.materials").path)
+        XCTAssertEqual(presenter.primaryPresentedItemURL, project)
+        XCTAssertEqual(try String(contentsOf: figure, encoding: .utf8), "lamp")
+    }
+
     func testHasItsOwnOperationQueue() throws {
         let folder = try makeFolder()
         let project = folder.appendingPathComponent("Lighthouse.inform")
