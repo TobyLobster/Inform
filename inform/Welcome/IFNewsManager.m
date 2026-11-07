@@ -8,11 +8,24 @@
 #import <Foundation/Foundation.h>
 #import "IFNewsManager.h"
 
-@implementation IFNewsManager
+@implementation IFNewsManager {
+    /// Where the news is kept, with when it was downloaded
+    NSUserDefaults* defaults;
+    /// What downloads the news
+    NSURLSession* session;
+}
 
 -(instancetype) init {
+    return [self initWithDefaults: [NSUserDefaults standardUserDefaults]
+                          session: [NSURLSession sharedSession]];
+}
+
+-(instancetype) initWithDefaults: (NSUserDefaults*) newDefaults
+                         session: (NSURLSession*) newSession {
     self = [super init];
     if( self ) {
+        defaults = newDefaults;
+        session = newSession;
         self.newsSchemeHandler = [[IFNewsCustomSchemeHandler alloc] init];
     }
     return self;
@@ -25,7 +38,7 @@
 
     // Do we have a recent cached news?
     // Step 1: Get timestamp of previous news
-    NSDate* newsTimestamp = [[NSUserDefaults standardUserDefaults] objectForKey: @"newsTimestamp"];
+    NSDate* newsTimestamp = [defaults objectForKey: @"newsTimestamp"];
     if (newsTimestamp != nil) {
         // Step 2: Check that it was recent
         NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -41,7 +54,7 @@
         NSComparisonResult result = [nowDate compare:cachedDate];
         if (result == NSOrderedSame) {
             // Step 3: Get cached news
-            latestNews = [[NSUserDefaults standardUserDefaults] stringForKey: @"newsString"];
+            latestNews = [defaults stringForKey: @"newsString"];
             [self gotNews: latestNews completionHandler: completionHandler response: nil error: nil];
             return;
         }
@@ -50,8 +63,8 @@
     // No - download latest news
     NSURL* url = [NSURL URLWithString:@"https://iftechfoundation.org/calendar/cal.txt"];
 
-    NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithURL: url
-                                                             completionHandler: ^(NSData* data, NSURLResponse* response, NSError* error) {
+    NSURLSessionDataTask* task = [session dataTaskWithURL: url
+                                        completionHandler: ^(NSData* data, NSURLResponse* response, NSError* error) {
         if (data != nil) {
             latestNews = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             if (latestNews == nil) {
@@ -59,8 +72,8 @@
             }
 
             // Save latest news in cache
-            [[NSUserDefaults standardUserDefaults] setObject: now forKey:@"newsTimestamp"];
-            [[NSUserDefaults standardUserDefaults] setObject: latestNews forKey:@"newsString"];
+            [self->defaults setObject: now forKey:@"newsTimestamp"];
+            [self->defaults setObject: latestNews forKey:@"newsString"];
 
             [self gotNews: latestNews completionHandler: completionHandler response: response error: error];
         }
