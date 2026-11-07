@@ -138,6 +138,21 @@ final class IFSourceSharedActionsTests: XCTestCase {
         XCTAssertEqual(textView.string, "a\nb\nc\n")
     }
 
+    func testUndoingAShiftKeepsItsName() {
+        let textView = makeView("«\ta\n\tb»\n")
+        shiftRight(textView)
+        undo.undo()
+        XCTAssertEqual(undo.redoActionName, "Shift Right")
+        undo.redo()
+        XCTAssertEqual(undo.undoActionName, "Shift Right")
+
+        shiftLeft(textView)
+        undo.undo()
+        XCTAssertEqual(undo.redoActionName, "Shift Left")
+        undo.redo()
+        XCTAssertEqual(undo.undoActionName, "Shift Left")
+    }
+
     // MARK: - Comment Out and Uncomment Selection
 
     func testCommentOut() {

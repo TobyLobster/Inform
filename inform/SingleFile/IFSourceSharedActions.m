@@ -88,7 +88,6 @@
 	// This works because the undo manager for the text view will always be the same as the undo manager for this controller
 	// If this ever changes, you will need to rewrite this somehow
 	NSUndoManager* undo = document.undoManager;
-	[undo setActionName: [IFUtility localizedString: @"Shift Left"]];
 	NSRange newRange = [self shiftRange: range
 							  inStorage: textStorage
 							   tabStops: -1];
@@ -110,7 +109,6 @@
 	// This works because the undo manager for the text view will always be the same as the undo manager for this controller
 	// If this ever changes, you will need to rewrite this somehow
 	NSUndoManager* undo = document.undoManager;
-	[undo setActionName: [IFUtility localizedString: @"Shift Right"]];
 	NSRange newRange = [self shiftRange: range
 							  inStorage: textStorage
 							   tabStops: 1];
@@ -132,6 +130,8 @@
         return;
     }
 	
+	// The change is named here, not as it's made, as undoing it makes the opposite shift, and Redo keeps this name
+	[document.undoManager setActionName: [IFUtility localizedString: @"Shift Left"]];
 	NSRange newRange = [self shiftRangeLeftInDocument: document
                                                 range: selRange
                                               storage: storage];
@@ -148,6 +148,8 @@
         return;
     }
 	
+	// The change is named here, not as it's made, as undoing it makes the opposite shift, and Redo keeps this name
+	[document.undoManager setActionName: [IFUtility localizedString: @"Shift Right"]];
 	NSRange newRange = [self shiftRangeRightInDocument: document
                                                  range: selRange
                                                storage: storage];
