@@ -82,6 +82,11 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
 /// The shared preference object
 @property (class, atomic, readonly, strong) IFPreferences *sharedPreferences;
 
+/// Preferences kept in the standard user defaults, as the shared ones are
+- (instancetype) init;
+/// Preferences kept in the given user defaults, under \c IFPreferencesDefault (the tests give their own)
+- (instancetype) initWithUserDefaults: (NSUserDefaults*) userDefaults NS_DESIGNATED_INITIALIZER;
+
 // Preferences
 /// Generates a notification that preferences have changed
 - (void) preferencesHaveChanged;

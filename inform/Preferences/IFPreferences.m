@@ -26,6 +26,8 @@ static NSString* const IFPreferencesQuotedText        = @"QuotedText";
 static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 @implementation IFPreferences {
+    /// Where the preferences dictionary is kept
+    NSUserDefaults* userDefaults;
     /// The preferences dictionary
     NSMutableDictionary* preferences;
 
@@ -68,10 +70,15 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 }
 
 - (instancetype) init {
+    return [self initWithUserDefaults: [NSUserDefaults standardUserDefaults]];
+}
+
+- (instancetype) initWithUserDefaults: (NSUserDefaults*) theUserDefaults {
 	self = [super init];
 	
 	if (self) {
-		preferences = [[[NSUserDefaults standardUserDefaults] objectForKey: IFPreferencesDefault] mutableCopy];
+        userDefaults = theUserDefaults;
+		preferences = [[userDefaults objectForKey: IFPreferencesDefault] mutableCopy];
 		
 		if (!preferences || ![preferences isKindOfClass: [NSMutableDictionary class]]) {
 			preferences = [[NSMutableDictionary alloc] init];
@@ -100,8 +107,8 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 - (void) preferencesHaveChanged {
     if ( !batchEditingPreferences ) {
         // Update the user defaults
-        [[NSUserDefaults standardUserDefaults] setObject: [preferences copy]
-                                                  forKey: IFPreferencesDefault];
+        [userDefaults setObject: [preferences copy]
+                         forKey: IFPreferencesDefault];
         [self recalculateStyles];
 
         // Send a notification
