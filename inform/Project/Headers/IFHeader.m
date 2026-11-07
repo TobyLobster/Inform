@@ -8,8 +8,6 @@
 
 #import "IFHeader.h"
 
-NSString* const IFHeaderChangedNotification = @"IFHeaderChangedNotification";
-
 @implementation IFHeader {
     /// The name of this header
     NSString* headingName;
@@ -22,12 +20,6 @@ NSString* const IFHeaderChangedNotification = @"IFHeaderChangedNotification";
 }
 
 // Initialisation
-
-- (instancetype) init {
-	return [self initWithName: @""
-					   parent: nil
-					 children: nil];
-}
 
 - (instancetype) initWithName: (NSString*) name
                        parent: (IFHeader*) newParent
@@ -54,18 +46,7 @@ NSString* const IFHeaderChangedNotification = @"IFHeaderChangedNotification";
 	return self;
 }
 
-- (void) dealloc {
-    for(IFHeader* child in children) {
-		[child setParent: nil];
-	}
-}
-
 // Accessing values
-
-- (void) hasChanged {
-	[[NSNotificationCenter defaultCenter] postNotificationName: IFHeaderChangedNotification
-														object: self];
-}
 
 @synthesize headingName;
 @synthesize parent;
@@ -76,36 +57,17 @@ NSString* const IFHeaderChangedNotification = @"IFHeaderChangedNotification";
 
 @synthesize symbol;
 
-- (void) setHeadingName: (NSString*) newName {
-	headingName = [newName copy];
-	
-	[self hasChanged];
-}
-
-- (void) setParent: (IFHeader*) newParent {
-	if (newParent == parent) return;
-	
-	parent = newParent;
-	[self hasChanged];
-}
-
 - (void) setChildren: (NSArray*) newChildren {
     for(IFHeader* child in children) {
 		[child setParent: nil];
 	}
 
-	if (newChildren) {
-		children = [[NSMutableArray alloc] initWithArray: newChildren
-											   copyItems: NO];
-	} else {
-		children = [[NSMutableArray alloc] init];
-	}
+	children = [[NSMutableArray alloc] initWithArray: newChildren
+										   copyItems: NO];
 	
     for(IFHeader* child in children) {
 		child.parent = self;
 	}
-	
-	[self hasChanged];
 }
 
 @end
