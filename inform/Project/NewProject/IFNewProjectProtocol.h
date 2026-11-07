@@ -49,8 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol IFNewProjectSetupView <NSObject>
 
-/// The view that's displayed for this projects custom settings
-@property (NS_NONATOMIC_IOSONLY, readonly, strong) NSView *view;
+/// The view that's displayed for this projects custom settings (nil until it's loaded from its nib)
+@property (NS_NONATOMIC_IOSONLY, readonly, strong, nullable) NSView *view;
 
 @end
 

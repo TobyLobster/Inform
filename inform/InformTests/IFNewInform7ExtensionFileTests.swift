@@ -68,7 +68,7 @@ final class IFNewInform7ExtensionFileTests: XCTestCase {
 
     /// The options' two text fields, found by what they show
     private func fields(_ options: IFNewInform7ExtensionView) throws -> (author: NSTextField, title: NSTextField) {
-        let editable = options.view.subviews.compactMap { $0 as? NSTextField }.filter { $0.isEditable }
+        let editable = (options.view?.subviews ?? []).compactMap { $0 as? NSTextField }.filter { $0.isEditable }
         XCTAssertEqual(editable.count, 2)
         let author = try XCTUnwrap(editable.first { $0.stringValue == options.authorName })
         let title = try XCTUnwrap(editable.first { $0.stringValue == options.extensionName })
@@ -167,7 +167,7 @@ final class IFNewInform7ExtensionFileTests: XCTestCase {
         let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 600, height: 300), styleMask: [.titled],
                               backing: .buffered, defer: true)
         window.isReleasedWhenClosed = false
-        window.contentView?.addSubview(options.view)
+        window.contentView?.addSubview(try XCTUnwrap(options.view))
         type.setInitialFocus(window)
 
         // A text field being edited hands the keyboard to the window's field editor

@@ -1,5 +1,5 @@
 //
-//  IFNewInform7Extension.m
+//  IFNewInform7ExtensionFile.m
 //  Inform
 //
 //  Created by Andrew Hunter on 18/11/2004.
@@ -160,10 +160,10 @@
 
 
 @implementation IFNewInform7ExtensionView {
-    IBOutlet NSView* view;
+    IBOutlet NSView* optionsView;
 
-    IBOutlet NSTextField* name;
-    IBOutlet NSTextField* extensionName;
+    IBOutlet NSTextField* authorNameField;
+    IBOutlet NSTextField* extensionNameField;
 
     /// Where the author's name comes from
     IFPreferences* preferences;
@@ -180,7 +180,7 @@
 }
 
 - (NSView*) view {
-	return view;
+	return optionsView;
 }
 
 - (void) setupControls {
@@ -195,20 +195,20 @@
 	
 	if (needQuotes) longuserName = [NSString stringWithFormat: @"\"%@\"", longuserName];
 	
-	name.stringValue = longuserName;
-	extensionName.stringValue = [IFUtility localizedString: @"New Extension"];
+	authorNameField.stringValue = longuserName;
+	extensionNameField.stringValue = [IFUtility localizedString: @"New Extension"];
 }
 
 - (NSString*) authorName {
-	return name.stringValue;
+	return authorNameField.stringValue;
 }
 
 - (NSString*) extensionName {
-	return extensionName.stringValue;
+	return extensionNameField.stringValue;
 }
 
 - (void) setInitialFocus: (NSWindow*) window {
-    [window makeFirstResponder: extensionName];
+    [window makeFirstResponder: extensionNameField];
 }
 
 @end
