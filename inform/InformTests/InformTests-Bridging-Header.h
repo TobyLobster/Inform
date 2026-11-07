@@ -59,6 +59,7 @@
 #import "IFHeader.h"
 #import "IFHeaderController.h"
 #import "IFAppDelegate.h"
+#import "IFNewsCustomSchemeHandler.h"
 #import "IFScanner.h"
 #import "IFDocParser.h"
 #import "IFDiffer.h"
