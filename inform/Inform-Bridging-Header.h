@@ -26,6 +26,7 @@
 #import "IFNewsManager.h"
 #import "IFInformProtocol.h"
 #import "IFNewInform7Project.h"
+#import "IFNewInform7ExtensionProject.h"
 #import "IFNaturalIntel.h"
 #import "IFSyntaxStyles.h"
 #import "IFInform7MutableString.h"
