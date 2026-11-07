@@ -62,6 +62,7 @@
 #import "IFNewsCustomSchemeHandler.h"
 #import "IFNewsManager.h"
 #import "IFInformProtocol.h"
+#import "IFNewInform7Project.h"
 #import "IFScanner.h"
 #import "IFDocParser.h"
 #import "IFDiffer.h"

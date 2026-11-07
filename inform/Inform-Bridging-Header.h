@@ -25,6 +25,7 @@
 #import "IFNewsCustomSchemeHandler.h"
 #import "IFNewsManager.h"
 #import "IFInformProtocol.h"
+#import "IFNewInform7Project.h"
 #import "IFNaturalIntel.h"
 #import "IFSyntaxStyles.h"
 #import "IFInform7MutableString.h"
