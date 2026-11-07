@@ -26,7 +26,6 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
     // Notification flag
     BOOL batchEditingPreferences;
-    BOOL batchEditingDirty;
     NSMutableArray* batchNotificationTypes;
     NSString* notificationString;
 
