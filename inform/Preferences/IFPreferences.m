@@ -178,8 +178,25 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 -(NSString*) getPreferenceString: (NSString*) key
                          default: (NSString*) defaultValue {
-    return (NSString*) [self getPreference: key
-                                   default: defaultValue];
+    NSObject* value = [self getPreference: key
+                                  default: defaultValue];
+    if (![value isKindOfClass: [NSString class]]) {
+        // From a damaged preferences file
+        return defaultValue;
+    }
+    return (NSString*) value;
+}
+
+/// A number, or text as \c defaults \c write writes it: both answer intValue, doubleValue and boolValue
+-(id) getPreferenceNumber: (NSString*) key
+                  default: (NSNumber*) defaultValue {
+    NSObject* value = [self getPreference: key
+                                  default: defaultValue];
+    if (![value isKindOfClass: [NSNumber class]] && ![value isKindOfClass: [NSString class]]) {
+        // From a damaged preferences file
+        return defaultValue;
+    }
+    return value;
 }
 
 -(void) setPreferenceInt: (NSString*) key
@@ -192,9 +209,8 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 -(int) getPreferenceInt: (NSString*) key
                 default: (int) defaultValue {
-    NSNumber* number = (NSNumber*)[self getPreference: key
-                                              default: @(defaultValue)];
-    return number.intValue;
+    return [[self getPreferenceNumber: key
+                              default: @(defaultValue)] intValue];
 }
 
 
@@ -208,9 +224,8 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 -(double) getPreferenceDouble: (NSString*) key
                       default: (double) defaultValue {
-    NSNumber* number = (NSNumber*)[self getPreference: key
-                                              default: @(defaultValue)];
-    return number.doubleValue;
+    return [[self getPreferenceNumber: key
+                              default: @(defaultValue)] doubleValue];
 }
 
 
@@ -385,9 +400,8 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 -(BOOL) getPreferenceBool: (NSString*) key
                   default: (BOOL) defaultValue {
-    NSNumber* number = (NSNumber*)[self getPreference: key
-                                              default: @(defaultValue)];
-    return number.boolValue;
+    return [[self getPreferenceNumber: key
+                              default: @(defaultValue)] boolValue];
 }
 
 -(NSColor*) byteColourR: (int) red G: (int) green B: (int) blue {
@@ -888,7 +902,8 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 }
 
 - (NSString*) freshGameAuthorName {
-	NSString* value = preferences[@"newGameAuthorName"];
+	NSString* value = [self getPreferenceString: @"newGameAuthorName"
+                                        default: @""];
 	
 	value = [value stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
 	
@@ -952,7 +967,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 - (NSString*) glulxInterpreter {
 	NSString* value = preferences[@"glulxInterpreter"];
 	
-	if (value) {
+	if ([value isKindOfClass: [NSString class]]) {
 		return [value copy];
 	} else {
 		// Work out the default client to use

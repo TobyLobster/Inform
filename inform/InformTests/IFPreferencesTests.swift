@@ -165,6 +165,30 @@ final class IFPreferencesTests: XCTestCase {
         XCTAssertTrue(prefs.sourceUnderline(for: .mainText))
     }
 
+    /// A preference of the wrong type, which only a damaged preferences file could have, reads as its default
+    func testAPreferenceOfTheWrongTypeReadsAsItsDefault() {
+        let data = Data([1, 2, 3])
+        let (prefs, _) = makePreferences(["sourceFontFamily": 12, "currentThemeName": 12, "externalInformCoreDirectory": data,
+                                          "newGameAuthorName": 12, "glulxInterpreter": 12,
+                                          "appFontSizeMultiplierFineEnum": data, "sourceFontStyle0": data,
+                                          "sourceFontSize": data, "tabWidth": data, "PreferencesWindowX": data,
+                                          "cleanProjectOnClose": data, "sourceUnderline0": data])
+        let userName = NSFullUserName().isEmpty ? NSUserName() : NSFullUserName()
+
+        XCTAssertEqual(prefs.sourceFontFamily, "Lucida Grande")
+        XCTAssertEqual(prefs.currentThemeName, "Light Mode")
+        XCTAssertEqual(prefs.externalInformCoreDirectory, "")
+        XCTAssertEqual(prefs.freshGameAuthorName, userName)
+        XCTAssertEqual(prefs.glulxInterpreter, "glulxe")
+        XCTAssertEqual(prefs.appFontSizeMultiplierEnum, .normal)
+        XCTAssertEqual(prefs.sourceFontStyle(for: .headings), .regular)
+        XCTAssertEqual(prefs.sourceFontSize, 12)
+        XCTAssertEqual(prefs.tabWidth, 24)
+        XCTAssertEqual(prefs.preferencesTopLeftPosition, NSPoint(x: 50, y: 50))
+        XCTAssertTrue(prefs.cleanProjectOnClose)
+        XCTAssertTrue(prefs.sourceUnderline(for: .headings))
+    }
+
     /// Preferences in the user defaults that aren't a dictionary are ignored
     func testPreferencesThatArentADictionaryAreIgnored() {
         let defaults = MemoryDefaults([IFPreferencesDefault: "Not a dictionary"])
