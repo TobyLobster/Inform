@@ -121,7 +121,8 @@
         }
 
 		NSTextStorage* storage = [IFSyntaxManager registeredStorageForTextView: (NSTextView*)responder];
-		if (storage == nil || [IFSyntaxManager intelligenceDataForStorage: storage] == nil) return NO;
+		// Text with no intelligence, such as Inform 6, still has intelligence data, with no headings in it
+		if (storage == nil || [IFSyntaxManager dataForStorage: storage].intelligence == nil) return NO;
 	}
 	
 	return YES;

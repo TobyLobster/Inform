@@ -168,6 +168,20 @@ final class IFSingleControllerTests: XCTestCase {
         }
     }
 
+    /// Only text with intelligence, which finds its headings, can have its sections renumbered
+    func testRenumberingNeedsIntelligence() throws {
+        for name in ["Lamps.inf", "Lamps.h"] {
+            let (controller, window, textView) = try open(try document("! Lamps\n", name: name))
+            window.makeFirstResponder(textView)
+            XCTAssertFalse(controller.validateMenuItem(item(renumberSections)), name)
+        }
+        for name in ["Lamps.ni", "Lamps.i7x"] {
+            let (controller, window, textView) = try open(try document("Section 1 - Lamps\n", name: name))
+            window.makeFirstResponder(textView)
+            XCTAssertTrue(controller.validateMenuItem(item(renumberSections)), name)
+        }
+    }
+
     /// The commands act on the text with the focus, and do nothing without it
     func testTheSourceCommands() throws {
         let file = try document("a\nb\n", name: "Lamps.ni")
