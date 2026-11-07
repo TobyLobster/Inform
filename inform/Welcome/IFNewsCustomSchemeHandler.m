@@ -21,6 +21,10 @@
     if ([scheme isEqualToString:@"inform"]) {
         // Might as well load the whole file at once
         NSString* urlPath = urlSchemeTask.request.URL.path;
+        if (urlPath == nil) {
+            // A URL with no path, such as "inform:", or "inform:file.html" with no slash, asks for the resources
+            urlPath = @"";
+        }
         NSString* path = nil;
 
         // Note: first character will always be '/', hence the 'substring' thing

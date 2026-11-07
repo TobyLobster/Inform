@@ -135,6 +135,10 @@ final class IFNewsCustomSchemeHandlerTests: XCTestCase {
     /// With no path, it's the resources folder itself
     func testNoPath() {
         XCTAssertEqual(load("inform:/").errorCode, NSURLErrorFileIsDirectory)
+
+        // NSURL gives these no path at all
+        XCTAssertEqual(load("inform:").errorCode, NSURLErrorFileIsDirectory)
+        XCTAssertEqual(load("inform:AdviceCredits.html").errorCode, NSURLErrorFileIsDirectory)
     }
 
     /// Another scheme gets no answer at all
