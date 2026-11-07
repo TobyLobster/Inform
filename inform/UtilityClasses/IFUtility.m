@@ -267,6 +267,24 @@ CGFloat easeOutCubic(CGFloat t) {
     va_end(args);
 }
 
++ (void) runAlertYesNoWindow: (NSWindow*) window
+                       title: (NSString*) title
+                         yes: (NSString*) yes
+                          no: (NSString*) no
+               modalDelegate: (id) modalDelegate
+              didEndSelector: (SEL) alertDidEndSelector
+                 contextInfo: (void *) contextInfo
+             informativeText: (NSString*) text {
+    [self runAlertYesNoWindow: window
+                        title: title
+                          yes: yes
+                           no: no
+                modalDelegate: modalDelegate
+               didEndSelector: alertDidEndSelector
+                  contextInfo: contextInfo
+                      message: @"%@", text];
+}
+
 + (void) showExtensionError: (IFExtensionResult) result
                  withWindow: (NSWindow*) window {
     // TODO: Do we want to customise the error message depending on the IFExtensionResult?

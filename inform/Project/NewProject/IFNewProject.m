@@ -154,7 +154,7 @@
                              modalDelegate: self
                             didEndSelector: @selector(confirmDidEnd:returnCode:contextInfo:)
                                contextInfo: nil
-                                   message: @"%@", confirm];
+                           informativeText: confirm];
             return NO;
         }
     }

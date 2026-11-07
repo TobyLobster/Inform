@@ -685,4 +685,22 @@ final class IFUtilityTests: XCTestCase {
         XCTAssertTrue(try XCTUnwrap(windows.first) === window)
         XCTAssertNil(try XCTUnwrap(windows.last))
     }
+
+    /// A yes/no alert for Swift shows its text as it is, not as a format
+    func testAYesNoAlertForSwiftShowsItsText() throws {
+        AlertRecorder.shown = []
+        defer { AlertRecorder.shown = [] }
+        let window = makeWindow()
+
+        AlertRecorder.runAlertYesNoWindow(window, title: "Are you sure?", yes: "Create", no: "Cancel",
+                                          modalDelegate: nil, didEnd: nil, contextInfo: nil,
+                                          informativeText: "100% sure")
+
+        XCTAssertEqual(AlertRecorder.shown.count, 1)
+        let shown = try XCTUnwrap(AlertRecorder.shown.first)
+        XCTAssertTrue(shown.window === window)
+        XCTAssertEqual(shown.alert.messageText, "Are you sure?")
+        XCTAssertEqual(shown.alert.informativeText, "100% sure")
+        XCTAssertEqual(shown.alert.buttons.map(\.title), ["Create", "Cancel"])
+    }
 }

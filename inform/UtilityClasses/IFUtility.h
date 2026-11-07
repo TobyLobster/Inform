@@ -80,6 +80,15 @@ CGFloat easeOutCubic(CGFloat t);
                  contextInfo: (nullable void *) contextInfo
             destructiveIndex: (NSInteger) desIdx
                      message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(9,10);
+/// The same, for Swift, which can't call the methods taking a format
++ (void) runAlertYesNoWindow: (nullable NSWindow*) window
+                       title: (NSString*) title
+                         yes: (NSString*) yes
+                          no: (NSString*) no
+               modalDelegate: (nullable id) modalDelegate
+              didEndSelector: (nullable SEL) alertDidEndSelector
+                 contextInfo: (nullable void *) contextInfo
+             informativeText: (NSString*) text;
 
 /// Show an error for an operation on an extension (e.g. error while installing an extension)
 + (void) showExtensionError: (IFExtensionResult) result
