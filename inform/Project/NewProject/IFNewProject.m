@@ -5,14 +5,9 @@
 //  Created by Andrew Hunter on Fri Sep 12 2003.
 //  Copyright (c) 2003 Andrew Hunter. All rights reserved.
 //
-// List of projects
-// Inform 7 Project:        IFEmptyNaturalProject
-// Inform 7 Extension:      IFNaturalExtensionProject
 
-#import <Foundation/Foundation.h>
 #import "IFNewProject.h"
 #import "IFProjectFile.h"
-#import "IFProject.h"
 
 #import "IFNewInform7Project.h"
 #import "IFNewInform7ExtensionProject.h"
@@ -32,23 +27,14 @@
     NSURL*                              projectExtensionURL;
     NSString*                           projectDefaultFilename;
     IFNewProjectFlow                    projectFlow;
-    __weak IFProject*                   project;
 
     NSURL*                              projectLocation;    // Location of extension file or extension project
 }
 
 #pragma mark - Initialisation
 
-+ (void) initialize {
-}
-
 - (instancetype) init {
-    self = [super initWithWindowNibName: @"NewProject"];
-
-    if (self) {
-    }
-
-    return self;
+    return [super initWithWindowNibName: @"NewProject"];
 }
 
 
@@ -183,16 +169,11 @@
 
     [panel setAccessoryView: nil];
     panel.allowedContentTypes = [IFUtility contentTypesForFilenameExtensions: projectFileTypes];
-    panel.delegate = self;
     panel.prompt = projectPrompt;
     [panel setTreatsFilePackagesAsDirectories: NO];
     if( projectDefaultFilename != nil ) {
         panel.nameFieldStringValue = projectDefaultFilename;
     }
-
-    //NSArray* urls = [[NSFileManager defaultManager] URLsForDirectory: NSDocumentDirectory
-    //                                                       inDomains: NSUserDomainMask];
-    //[panel setDirectoryURL:[urls objectAtIndex:0]];
 
     // Use any currently visible window
     NSWindow* win = nil;
@@ -223,9 +204,7 @@
     if (projectFlow & IFNewProjectLocation ) {
         [self chooseLocation];
     } else {
-        if( [self validate] ) {
-            [self close];
-        }
+        [self validate];
     }
 }
 
@@ -314,7 +293,6 @@
     projectStory     = nil;
     projectExtensionURL    = nil;
     projectDefaultFilename = nil;
-    project          = theProject;
 
     [self startFlow];
 }
