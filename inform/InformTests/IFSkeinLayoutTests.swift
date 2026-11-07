@@ -238,6 +238,19 @@ final class IFSkeinLayoutTests: XCTestCase {
         }
     }
 
+    func testTheReportsRoomGoesWithTheSelection() {
+        let knots = makeSkein()
+        let neverSelected = layOut().size
+
+        let layout = layOut(selecting: knots.look)
+        XCTAssertGreaterThan(layout.size.width, neverSelected.width)
+
+        layout.selectedItem = nil
+        layout.layoutSkein()
+        layout.update(withReportDetails: [])
+        XCTAssertEqual(layout.size, neverSelected)
+    }
+
     // MARK: - Finding knots
 
     func testFindingTheKnotAtAPoint() {

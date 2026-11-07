@@ -447,6 +447,8 @@
     }
 
     // We move the tree that exists to the right of the selected line further right to make room for the report
+    // (none if there's no selected line)
+    shiftRightForReportOffsetX = 0.0f;
 
     // Find the right position for the report frame
     if( treeRoot.onSelectedLine ) {
@@ -467,7 +469,6 @@
         // Traverse the tree, looking for the item furthest left on the right hand side of the selected line
         CGFloat selectedLineX = treeRoot.centreX;
         IFSkeinLayoutItem* bestItem = [self itemClosestBeyondX: selectedLineX root: treeRoot];
-        shiftRightForReportOffsetX = 0.0f;
         if( bestItem != nil ) {
             CGFloat closestBeyondX = NSMinX(bestItem.boundingRect);
             shiftRightForReportOffsetX = _reportPosition.x - closestBeyondX;
