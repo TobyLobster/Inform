@@ -30,6 +30,7 @@
 #import "IFNewInform7ExtensionFile.h"
 #import "IFSingleFile.h"
 #import "IFSingleController.h"
+#import "IFSourceSharedActions.h"
 #import "IFNaturalIntel.h"
 #import "IFSyntaxStyles.h"
 #import "IFInform7MutableString.h"
