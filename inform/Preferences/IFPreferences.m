@@ -26,65 +26,6 @@ static NSString* const IFPreferencesComments          = @"Comments";
 static NSString* const IFPreferencesQuotedText        = @"QuotedText";
 static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
-
-
-
-
-@implementation IFSyntaxColouringOption
-
--(instancetype)init
-{
-    self = [self initWithColour:[NSColor blackColor]];
-    return self;
-}
-
--(instancetype) initWithColour:(NSColor*) defaultColour {
-    self = [super init];
-    if( self ) {
-        assert(defaultColour != nil);
-        self.colour           = [defaultColour copy];
-        self.defaultColour    = [defaultColour copy];
-    }
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)encoder {
-    assert(self.colour != nil);
-    assert(self.defaultColour != nil);
-
-    [encoder encodeObject: (NSColor*) self.colour forKey: @"colour"];
-    [encoder encodeObject: (NSColor*) self.defaultColour forKey: @"defaultColour"];
-}
-
-- (instancetype)initWithCoder:(NSCoder *)decoder {
-    self = [self init]; // Call the designated initialiser first
-
-    self.colour = [[decoder decodeObjectOfClass:[NSColor class] forKey: @"colour"] copy];
-    assert(self.colour != nil);
-    self.defaultColour = [[decoder decodeObjectOfClass:[NSColor class] forKey: @"defaultColour"] copy];
-    assert(self.defaultColour != nil);
-
-    return self;
-}
-
-+(BOOL) supportsSecureCoding {
-    return YES;
-}
-
-- (id)copyWithZone:(NSZone *)zone {
-    IFSyntaxColouringOption* result = [[[self class] alloc] init];
-    if (result) {
-        result.colour = [self.colour copy];
-        result.defaultColour = [self.defaultColour copy];
-    }
-    return result;
-}
-
-@end
-
-
-
-
 @implementation IFPreferences {
     /// The preferences dictionary
     NSMutableDictionary* preferences;
