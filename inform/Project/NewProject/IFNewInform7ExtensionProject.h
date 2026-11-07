@@ -10,9 +10,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 ///
-/// Project type that creates an empty Natural Inform project
-///
-/// (Actually, we use the file and the current user name to generate an initial heading for the game)
+/// Project type that creates an extension project, whose extension is a copy of the extension given, or empty if
+/// none is given or it can't be read
 ///
 @interface IFNewInform7ExtensionProject : NSObject<IFNewProjectProtocol>
 
