@@ -17,11 +17,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark Retrieving document data
 /// The contents of the file
-@property (atomic, readonly, copy) NSTextStorage *storage;
+@property (nonatomic, readonly, strong) NSTextStorage *storage;
 /// \c YES if this file is read-only
-@property (atomic, getter=isReadOnly, readonly) BOOL readOnly;
+@property (nonatomic, getter=isReadOnly, readonly) BOOL readOnly;
 
-@property (atomic) NSRange initialSelectionRange;
+/// The range to select when the file's window is made
+@property (nonatomic) NSRange initialSelectionRange;
 
 
 @end
