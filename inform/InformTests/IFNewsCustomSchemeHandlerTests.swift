@@ -128,6 +128,11 @@ final class IFNewsCustomSchemeHandlerTests: XCTestCase {
 
     // MARK: - Failures
 
+    func testAMissingFile() {
+        XCTAssertEqual(load("inform:/NoSuchFile.html").errorCode, NSURLErrorFileDoesNotExist)
+        XCTAssertEqual(load("inform:/App/NoSuchFile.html").errorCode, NSURLErrorFileDoesNotExist)
+    }
+
     func testAFolder() {
         XCTAssertEqual(load("inform:/bg_images").errorCode, NSURLErrorFileIsDirectory)
     }

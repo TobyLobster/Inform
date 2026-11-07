@@ -81,16 +81,16 @@
         BOOL isDir = YES;
         fileExists = [[NSFileManager defaultManager] fileExistsAtPath: path
                                                           isDirectory: &isDir];
-        if (isDir) {
+        if (!fileExists) {
             [urlSchemeTask didFailWithError: [NSError errorWithDomain: NSURLErrorDomain
-                                                                 code: NSURLErrorFileIsDirectory
+                                                                 code: NSURLErrorFileDoesNotExist
                                                              userInfo: nil]];
             return;
         }
 
-        if (!fileExists) {
+        if (isDir) {
             [urlSchemeTask didFailWithError: [NSError errorWithDomain: NSURLErrorDomain
-                                                                 code: NSURLErrorFileDoesNotExist
+                                                                 code: NSURLErrorFileIsDirectory
                                                              userInfo: nil]];
             return;
         }
