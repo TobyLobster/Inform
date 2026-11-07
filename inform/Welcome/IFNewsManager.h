@@ -14,11 +14,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IFNewsManager : NSObject
 
-/// The news download (nil until one starts)
-@property (atomic, readwrite, copy, nullable) NSURLSessionDataTask* task;
-@property (atomic, readwrite) IFNewsCustomSchemeHandler* newsSchemeHandler;
+/// A news manager that keeps the news in the user's defaults, and downloads it with the shared session
+-(instancetype) init;
+/// A news manager that keeps the news in the given defaults, and downloads it with the given session
+-(instancetype) initWithDefaults: (NSUserDefaults*) defaults
+                         session: (NSURLSession*) session NS_DESIGNATED_INITIALIZER;
 
--(void)     getNewsWithCompletionHandler: (void (^)(NSString * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)) completionHandler;
+/// What gives the news page the app's resources
+@property (nonatomic, readonly, strong) IFNewsCustomSchemeHandler* newsSchemeHandler;
+
+/// Gives today's news, downloading it if it hasn't been today, on another thread
+-(void)     getNewsWithCompletionHandler: (void (^)(NSString * _Nullable news, NSURLResponse * _Nullable response, NSError * _Nullable error)) completionHandler;
 
 @end
 
