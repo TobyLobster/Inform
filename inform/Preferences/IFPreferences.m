@@ -59,10 +59,14 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [self init]; // Call the designated initialiser first
 
-    self.colour = [[decoder decodeObjectOfClass:[NSColor class] forKey: @"colour"] copy];
-    assert(self.colour != nil);
-    self.defaultColour = [[decoder decodeObjectOfClass:[NSColor class] forKey: @"defaultColour"] copy];
-    assert(self.defaultColour != nil);
+    NSColor* colour = [decoder decodeObjectOfClass:[NSColor class] forKey: @"colour"];
+    NSColor* defaultColour = [decoder decodeObjectOfClass:[NSColor class] forKey: @"defaultColour"];
+    if ((colour == nil) || (defaultColour == nil)) {
+        // A damaged archive: read as nothing, so that the theme it's in can be left out
+        return nil;
+    }
+    self.colour = [colour copy];
+    self.defaultColour = [defaultColour copy];
 
     return self;
 }

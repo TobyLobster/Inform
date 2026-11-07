@@ -5,13 +5,41 @@
 
 import XCTest
 
+/// Archived under IFSyntaxColouringOption's name with only the colours given, to make a damaged archive
+@objc(IFSyntaxColouringOptionTestsPartialOption)
+private final class PartialOption: NSObject, NSSecureCoding {
+    static var supportsSecureCoding: Bool { true }
+
+    private let colours: [String: NSColor]
+
+    init(_ colours: [String: NSColor]) {
+        self.colours = colours
+    }
+
+    func encode(with coder: NSCoder) {
+        for (key, colour) in colours {
+            coder.encode(colour, forKey: key)
+        }
+    }
+
+    init?(coder: NSCoder) {
+        return nil
+    }
+}
+
 final class IFSyntaxColouringOptionTests: XCTestCase {
 
     private let red = NSColor(deviceRed: 0.9, green: 0.2, blue: 0.3, alpha: 1.0)
     private let blue = NSColor(deviceRed: 0.1, green: 0.4, blue: 0.9, alpha: 1.0)
 
-    private func archive(_ object: Any) throws -> Data {
-        return try NSKeyedArchiver.archivedData(withRootObject: object, requiringSecureCoding: true)
+    private func archive(_ object: Any, as className: String? = nil) throws -> Data {
+        let archiver = NSKeyedArchiver(requiringSecureCoding: true)
+        if let className {
+            archiver.setClassName(className, for: PartialOption.self)
+        }
+        archiver.encode(object, forKey: NSKeyedArchiveRootObjectKey)
+        archiver.finishEncoding()
+        return archiver.encodedData
     }
 
     private func unarchive(_ data: Data) throws -> IFSyntaxColouringOption? {
@@ -60,5 +88,13 @@ final class IFSyntaxColouringOptionTests: XCTestCase {
         XCTAssertEqual(read.colour, blue)
         XCTAssertEqual(read.defaultColour, red)
         XCTAssertTrue(IFSyntaxColouringOption.supportsSecureCoding)
+    }
+
+    /// An archived option with a colour missing reads as nothing, rather than stopping the app, so that a damaged
+    /// theme in the preferences can be left out, as the preferences leave out a theme with no paper colour. (At the
+    /// top of an archive, nothing is an error.)
+    func testAnArchivedOptionWithAColourMissingReadsAsNothing() throws {
+        XCTAssertNil(try? unarchive(try archive(PartialOption(["defaultColour": red]), as: "IFSyntaxColouringOption")))
+        XCTAssertNil(try? unarchive(try archive(PartialOption(["colour": red]), as: "IFSyntaxColouringOption")))
     }
 }
