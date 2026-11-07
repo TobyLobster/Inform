@@ -64,6 +64,7 @@
 #import "IFInformProtocol.h"
 #import "IFNewInform7Project.h"
 #import "IFNewInform7ExtensionProject.h"
+#import "IFNewInform7ExtensionFile.h"
 #import "IFScanner.h"
 #import "IFDocParser.h"
 #import "IFDiffer.h"
