@@ -63,7 +63,7 @@
 			// Delete them
 			[string deleteCharactersInRange: NSMakeRange(range.location+x, nTabs)];
 			
-			range.length += tabStops;	// String is shorter
+			range.length -= nTabs;		// String is shorter
 		}
 		
 		// Find the next line

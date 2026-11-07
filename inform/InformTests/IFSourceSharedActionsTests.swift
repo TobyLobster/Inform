@@ -122,6 +122,12 @@ final class IFSourceSharedActionsTests: XCTestCase {
         XCTAssertEqual(undo.undoActionName, "Shift Left")
     }
 
+    func testShiftLeftGoesOnPastALineWithoutATab() {
+        let textView = makeView("«a\nb\n\tc»\n")
+        shiftLeft(textView)
+        XCTAssertEqual(marked(textView), "«a\nb\nc»\n")
+    }
+
     func testUndoingShiftLeft() {
         let textView = makeView("«\ta\n\tb»\nc\n")
         shiftLeft(textView)
