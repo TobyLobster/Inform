@@ -9,14 +9,13 @@
 #import "IFPreferences.h"
 #import "IFEditingPreferencesSet.h"
 #import "IFColourTheme.h"
-#import "IFProjectPane.h"
+#import "IFSyntaxTypes.h"
 #import "NSString+IFStringExtensions.h"
 
 NSString* const IFPreferencesAuthorDidChangeNotification      = @"IFPreferencesAuthorDidChangeNotification";
 NSString* const IFPreferencesEditingDidChangeNotification     = @"IFPreferencesEditingDidChangeNotification";
 NSString* const IFPreferencesAdvancedDidChangeNotification    = @"IFPreferencesAdvancedDidChangeNotification";
 NSString* const IFPreferencesAppFontSizeDidChangeNotification = @"IFPreferencesAppFontSizeDidChangeNotification";
-NSString* const IFPreferencesSkeinDidChangeNotification       = @"IFPreferencesSkeinDidChangeNotification";
 
 NSString* const IFPreferencesDefault                  = @"IFApplicationPreferences";
 
@@ -41,8 +40,6 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
     NSMutableDictionary* cacheFontSet;
     /// Maps styles to fonts
     NSMutableArray* cacheFontStyles;
-    /// Choice of colours
-    NSMutableArray* cacheColourSet;
     /// Maps styles to colours
     NSMutableArray* cacheColours;
     /// Maps styles to underlines
@@ -59,10 +56,6 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 }
 
 #pragma mark - Constructing the object
-
-+ (void) initialize {
-	[[NSUserDefaults standardUserDefaults] registerDefaults: @{IFPreferencesDefault: @{}}];
-}
 
 + (IFPreferences*) sharedPreferences {
 	static IFPreferences* sharedPrefs = nil;
@@ -100,18 +93,6 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 	}
 	
 	return self;
-}
-
-- (void) dealloc {
-    defaultEditingPreferences = nil;
-    preferences = nil;
-
-    styles = nil;
-    cacheFontSet = nil;
-    cacheFontStyles = nil;
-    cacheColourSet = nil;
-    cacheColours = nil;
-    cacheUnderlines = nil;
 }
 
 #pragma mark - Preference change notifications
@@ -208,14 +189,6 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 }
 
 
--(void) setPreferenceFloat: (NSString*) key
-                     value: (float) value
-              notification: (NSString*) notification {
-    [self setPreference: key
-                  value: @(value)
-           notification: notification];
-}
-
 -(void) setPreferenceDouble: (NSString*) key
                       value: (double) value
                notification: (NSString*) notification {
@@ -224,43 +197,11 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
            notification: (NSString*) notification];
 }
 
--(float) getPreferenceFloat: (NSString*) key
-                    default: (float) defaultValue {
-    NSNumber* number = (NSNumber*)[self getPreference: key
-                                              default: @(defaultValue)];
-    return number.floatValue;
-}
-
 -(double) getPreferenceDouble: (NSString*) key
                       default: (double) defaultValue {
     NSNumber* number = (NSNumber*)[self getPreference: key
                                               default: @(defaultValue)];
     return number.doubleValue;
-}
-
-
--(void) setPreferenceColour: (NSString*) key
-                      value: (NSColor*) value
-               notification: (NSString*) notification {
-    NSData *theData = [NSKeyedArchiver archivedDataWithRootObject: value
-                                            requiringSecureCoding: YES
-                                                            error: NULL];
-    [self setPreference: key
-                  value: theData
-           notification: notification];
-}
-
--(NSColor*) getPreferenceColour: (NSString*) key
-                        default: (NSColor*) defaultValue {
-    NSData *theData = (NSData *) [self getPreference: key
-                                             default: nil];
-    if (theData != nil) {
-        NSColor *col = [NSKeyedUnarchiver unarchivedObjectOfClass: [NSColor class] fromData: theData error: NULL];
-        if (col) {
-            return col;
-        }
-    }
-    return defaultValue;
 }
 
 
@@ -304,10 +245,6 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
     if (theData != nil) {
         @try {
             NSError * error;
-
-            //NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:theData error:&error];
-            //[unarchiver setRequiresSecureCoding:NO];
-            //NSArray* array = [unarchiver decodeObjectForKey: @"themes"];
 
             NSSet *classesSet = [NSSet setWithObjects:
                                  [NSString class],
@@ -407,7 +344,6 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
         // Not deletable
         return false;
     }
-    theme = nil;
 
     [themes removeObjectAtIndex:index];
     notificationString = IFPreferencesEditingDidChangeNotification;
@@ -469,10 +405,6 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
     for(int i = 0; i < light.options.count; i++) {
         light.options[i].defaultColour = [light.options[i].colour copy];
     }
-
-    //for(int i = 0; i < light.options.count; i++) {
-    //    NSLog(@"resetDefaultThemes light new option %d is %@", i, light.options[i].defaultColour);
-    //}
 
     [themes addObject: light];
 
@@ -708,17 +640,6 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
                notification: IFPreferencesEditingDidChangeNotification];
 }
 
-- (BOOL) indentWrappedLines {
-	return [self getPreferenceBool:@"indentWrappedLines"
-                           default:true];
-}
-
-- (void) setIndentWrappedLines: (BOOL) value {
-    [self setPreferenceBool: @"indentWrappedLines"
-                      value: value
-               notification: IFPreferencesEditingDidChangeNotification];
-}
-
 - (BOOL) elasticTabs {
     return [self getPreferenceBool: @"elasticTabs"
                            default: defaultEditingPreferences.autoSpaceTableColumns];
@@ -836,8 +757,6 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 	NSInteger x;
 	
 	// Deallocate the caches if they're currently allocated
-	cacheColourSet	= nil;
-
 	styles			= [[NSMutableArray alloc] init];
 	
     // Cache of fonts we will use
@@ -1028,9 +947,6 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 		// Work out the default client to use
 		NSString*		clientName = @"glulxe";
 		NSDictionary*	configSettings = [NSBundle mainBundle].infoDictionary[@"InformConfiguration"];
-		if (!configSettings) {
-			configSettings = [NSBundle mainBundle].infoDictionary[@"InformConfiguration"];
-		}
 		if (configSettings) {
 			clientName = (NSString*)configSettings[@"GlulxInterpreter"];
 		}
