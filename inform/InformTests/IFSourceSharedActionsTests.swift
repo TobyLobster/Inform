@@ -138,6 +138,30 @@ final class IFSourceSharedActionsTests: XCTestCase {
         XCTAssertEqual(textView.string, "a\nb\nc\n")
     }
 
+    func testUndoingShiftLeftLeavesLinesWithoutATab() {
+        let textView = makeView("«a\n\tb»\n")
+        shiftLeft(textView)
+
+        undo.undo()
+        XCTAssertEqual(textView.string, "a\n\tb\n")
+        undo.redo()
+        XCTAssertEqual(textView.string, "a\nb\n")
+    }
+
+    func testShiftingAnEmptyLastLine() {
+        let textView = makeView("a\n«»")
+        shiftLeft(textView)
+        undo.undo()
+        XCTAssertEqual(textView.string, "a\n")
+
+        shiftRight(textView)
+        XCTAssertEqual(textView.string, "a\n\t")
+        undo.undo()
+        XCTAssertEqual(textView.string, "a\n")
+        undo.redo()
+        XCTAssertEqual(textView.string, "a\n\t")
+    }
+
     func testUndoingAShiftKeepsItsName() {
         let textView = makeView("«\ta\n\tb»\n")
         shiftRight(textView)

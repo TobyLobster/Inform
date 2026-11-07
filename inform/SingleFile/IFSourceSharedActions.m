@@ -76,6 +76,11 @@
 		if (range.location+x >= string.length) break;
 	}
 	
+	// On an empty last line, the range goes past the end of the text
+	if (NSMaxRange(range) > string.length) {
+		range.length = string.length - range.location;
+	}
+	
 	return range;
 }
 
@@ -88,12 +93,17 @@
 	// This works because the undo manager for the text view will always be the same as the undo manager for this controller
 	// If this ever changes, you will need to rewrite this somehow
 	NSUndoManager* undo = document.undoManager;
+	
+	// Lines without a tab are left as they are, so shifting right wouldn't undo this: undoing it puts back the text
+	NSString* original = [textStorage.string copy];
 	NSRange newRange = [self shiftRange: range
 							  inStorage: textStorage
 							   tabStops: -1];
-	[[undo prepareWithInvocationTarget: self] shiftRangeRightInDocument: document
-                                                                  range: newRange
-                                                                storage: textStorage];
+	NSRange originalRange = NSMakeRange(newRange.location, newRange.length + original.length - textStorage.length);
+	[[undo prepareWithInvocationTarget: self] restoreTextInDocument: document
+                                                              range: newRange
+                                                     originalString: [original substringWithRange: originalRange]
+                                                          inStorage: textStorage];
 	[textStorage endEditing];
 	
 	return newRange;
