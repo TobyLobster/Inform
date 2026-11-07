@@ -17,7 +17,6 @@
     BOOL            recentlyPlayed;
     CGFloat         subtreeWidth;
     int             level;
-    int             depth;
 }
 
 @synthesize parent;
@@ -27,7 +26,6 @@
 @synthesize item;
 @synthesize subtreeWidth;
 @synthesize level;
-@synthesize depth;
 @synthesize onSelectedLine;
 @synthesize recentlyPlayed;
 
@@ -42,7 +40,6 @@
 		item = newItem;
 		subtreeWidth = newSubtreeWidth;
 		level = newLevel;
-		depth = 0;
         commandWidth = [IFSkeinItemView commandSize: self].width;
 	}
 	
@@ -56,17 +53,6 @@
 }
 
 #pragma mark -  Setting properties
-
-- (void) setChildren: (NSArray*) newChildren {
-	children = [newChildren copy];
-	
-	int maxDepth = -1;
-    for( IFSkeinLayoutItem* child in children ) {
-		maxDepth = MAX(maxDepth, [child depth]);
-	}
-
-	depth = maxDepth+1;
-}
 
 - (void) moveRightBy: (CGFloat) deltaX
          recursively: (BOOL) recursively {

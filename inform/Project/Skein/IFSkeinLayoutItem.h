@@ -35,7 +35,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic)                     int                 level;
 @property (atomic)                     BOOL                onSelectedLine;
 @property (atomic)                     BOOL                recentlyPlayed;
-@property (atomic, readonly)           int                 depth;
 @property (atomic, readonly)           CGFloat             centreX;
 @property (atomic, readonly)           NSRect              lozengeRect;
 @property (atomic, readonly)           NSRect              localSpaceLozengeRect;
