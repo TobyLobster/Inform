@@ -135,8 +135,11 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
 
 /// Regenerate the array of attribute dictionaries that make up the styles
 - (void) recalculateStyles;
-/// Retrieves an array of attribute dictionaries that describe how the styles should be displayed
-@property (nonatomic, readonly, copy) NSArray<NSDictionary<NSAttributedStringKey, id>*> *styles;
+/// Retrieves an array of attribute dictionaries that describe how the styles should be displayed.
+/// The dictionaries are the preferences' own, so don't change them. They're typed as mutable because Swift
+/// makes an array of \c NSDictionary an array of Swift dictionaries, and when Swift gives one to Objective-C,
+/// reading one dictionary converts all 256. An array of \c NSMutableDictionary is given as it is.
+@property (nonatomic, readonly, copy) NSArray<NSMutableDictionary<NSAttributedStringKey, id>*> *styles;
 
 // Intelligence preferences
 @property (nonatomic) BOOL enableSyntaxHighlighting;		// YES if source code should be displayed with syntax highlighting

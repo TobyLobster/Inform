@@ -95,7 +95,7 @@ final class IFPreferencesTests: XCTestCase {
     }
 
     private func style(_ prefs: IFPreferences, _ style: IFSyntaxStyle) -> [NSAttributedString.Key: Any] {
-        return prefs.styles[Int(style.rawValue)]
+        return prefs.styles[Int(style.rawValue)] as! [NSAttributedString.Key: Any]
     }
 
     // MARK: - Reading and writing
@@ -675,7 +675,7 @@ final class IFPreferencesTests: XCTestCase {
 
         prefs.enableSyntaxColouring = false
 
-        XCTAssertNotNil(styles[Int(IFSyntaxStyle.heading.rawValue)][.foregroundColor])
+        XCTAssertNotNil(styles[Int(IFSyntaxStyle.heading.rawValue)][NSAttributedString.Key.foregroundColor])
         XCTAssertNil(style(prefs, .heading)[.foregroundColor])
     }
 }
