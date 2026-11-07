@@ -26,7 +26,7 @@
     if( self ) {
         defaults = newDefaults;
         session = newSession;
-        self.newsSchemeHandler = [[IFNewsCustomSchemeHandler alloc] init];
+        _newsSchemeHandler = [[IFNewsCustomSchemeHandler alloc] init];
     }
     return self;
 }

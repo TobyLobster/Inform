@@ -20,9 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 -(instancetype) initWithDefaults: (NSUserDefaults*) defaults
                          session: (NSURLSession*) session NS_DESIGNATED_INITIALIZER;
 
-@property (atomic, readwrite) IFNewsCustomSchemeHandler* newsSchemeHandler;
+/// What gives the news page the app's resources
+@property (nonatomic, readonly, strong) IFNewsCustomSchemeHandler* newsSchemeHandler;
 
--(void)     getNewsWithCompletionHandler: (void (^)(NSString * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)) completionHandler;
+/// Gives today's news, downloading it if it hasn't been today, on another thread
+-(void)     getNewsWithCompletionHandler: (void (^)(NSString * _Nullable news, NSURLResponse * _Nullable response, NSError * _Nullable error)) completionHandler;
 
 @end
 
