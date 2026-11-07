@@ -247,4 +247,31 @@ final class IFColourThemeTests: XCTestCase {
 
         XCTAssertEqual(read.options.count, 0)
     }
+
+    /// An archived theme with an option it can't read reads with no options, so that the preferences leave out just
+    /// that theme, as they leave out one with no paper colour. (Reading as nothing, as the option does, would lose
+    /// the themes archived with it too.)
+    func testAnArchivedThemeWithAnOptionItCantReadReadsWithNone() throws {
+        var options = themeOptions()
+        options[2] = PartialOption(["defaultColour": red])
+
+        let read = try unarchive(archive(PartialTheme(themeValues(), options: options)))
+
+        XCTAssertEqual(read.options.count, 0)
+    }
+
+    /// ...and the themes archived with it are still read
+    func testThemesArchivedWithOneWithAnOptionItCantReadAreStillRead() throws {
+        var options = themeOptions()
+        options[2] = PartialOption(["colour": red])
+        let data = archive([makeTheme(), PartialTheme(themeValues(), options: options)])
+
+        let read = try XCTUnwrap(try NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, IFColourTheme.self],
+                                                                         from: data) as? [IFColourTheme])
+
+        XCTAssertEqual(read.count, 2)
+        XCTAssertEqual(read.first?.themeName, "Mine")
+        XCTAssertEqual(read.first?.options.count, types.count)
+        XCTAssertEqual(read.last?.options.count, 0)
+    }
 }

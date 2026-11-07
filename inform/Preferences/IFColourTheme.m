@@ -62,6 +62,11 @@
     for(int i = 0; i < optionsCount; i++) {
         NSString* keyName = [NSString stringWithFormat: @"option%d", i];
         IFSyntaxColouringOption* option = [decoder decodeObjectOfClass:[IFSyntaxColouringOption class] forKey: keyName];
+        if (option == nil) {
+            // A damaged option: read the theme with no options, so that it can be left out
+            [self.options removeAllObjects];
+            break;
+        }
         [self.options addObject: option];
     }
 
