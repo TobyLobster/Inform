@@ -240,10 +240,10 @@
 
 #pragma mark Commenting out source
 
-- (void) undoCommentOutInDocument: (NSDocument*) document
-                            range: (NSRange) range
-                   originalString: (NSString*) original
-                        inStorage: (NSTextStorage*) storage {
+- (void) restoreTextInDocument: (NSDocument*) document
+                         range: (NSRange) range
+                originalString: (NSString*) original
+                     inStorage: (NSTextStorage*) storage {
 	// Fetch the string that now occupies the specified range
 	NSString* replacing = [storage.string substringWithRange: range];
 	
@@ -253,10 +253,10 @@
 	
 	// Generate a new undo action
 	NSUndoManager* undo = document.undoManager;
-	[[undo prepareWithInvocationTarget: self] undoCommentOutInDocument: document
-                                                                 range: NSMakeRange(range.location, original.length)
-                                                        originalString: replacing
-                                                             inStorage: storage];
+	[[undo prepareWithInvocationTarget: self] restoreTextInDocument: document
+                                                              range: NSMakeRange(range.location, original.length)
+                                                     originalString: replacing
+                                                          inStorage: storage];
 }
 
 - (void) commentOutSelectionInDocument: (NSDocument*) document
@@ -274,10 +274,10 @@
         
         // Generate an undo action
         NSUndoManager* undo = document.undoManager;
-        [[undo prepareWithInvocationTarget: self] undoCommentOutInDocument: document
-                                                                     range: commentRange
-                                                            originalString: original
-                                                                 inStorage: storage];
+        [[undo prepareWithInvocationTarget: self] restoreTextInDocument: document
+                                                                  range: commentRange
+                                                         originalString: original
+                                                              inStorage: storage];
     }
 }
 
@@ -296,10 +296,10 @@
 
         // Generate an undo action
         NSUndoManager* undo = document.undoManager;
-        [[undo prepareWithInvocationTarget: self] undoCommentOutInDocument: document
-                                                                     range: commentRange
-                                                            originalString: original
-                                                                 inStorage: storage];
+        [[undo prepareWithInvocationTarget: self] restoreTextInDocument: document
+                                                                  range: commentRange
+                                                         originalString: original
+                                                              inStorage: storage];
     }
 }
 
