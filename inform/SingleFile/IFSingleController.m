@@ -42,11 +42,6 @@
 - (void) dealloc {
     // Notification
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-
-	// Unset the view's text storage
-	if (fileView != nil) {
-		[[self.document storage] removeLayoutManager: fileView.layoutManager];
-	}
 }
 
 - (void)windowDidLoad {
