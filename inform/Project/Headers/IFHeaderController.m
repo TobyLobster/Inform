@@ -8,14 +8,11 @@
 
 #import "IFHeaderController.h"
 #import "IFUtility.h"
-#import "IFSyntaxTypes.h"
 #import "IFIntelSymbol.h"
 
 @implementation IFHeaderController {
     /// The root of the headers being managed by this object
     IFHeader* rootHeader;
-    /// The header that the user has most recently selected
-    IFHeader* selectedHeader;
     /// The most recent intel file object
     IFIntelFile* intelFile;
 
@@ -42,19 +39,6 @@
 	for( NSObject<IFHeaderView>* headerView in headerViews ) {
 		if ([headerView respondsToSelector: @selector(refreshHeaders:)]) {
 			[headerView refreshHeaders: self];
-		}
-	}
-}
-
-- (void) setSelectedHeader: (IFHeader*) newSelectedHeader {
-	// Update the currently selected header
-	selectedHeader = newSelectedHeader;
-	
-	// Send the setSelectedHeader message to all of the views that support it
-	for( NSObject<IFHeaderView>* headerView in headerViews ) {
-		if ([headerView respondsToSelector: @selector(refreshHeaders:)]) {
-			[headerView setSelectedHeader: newSelectedHeader
-							   controller: self];
 		}
 	}
 }
@@ -157,16 +141,11 @@
 }
 
 @synthesize rootHeader;
-@synthesize selectedHeader;
 @synthesize intelFile;
 
 #pragma mark - Managing the views being controlled
 
 - (void) addHeaderView: (NSView<IFHeaderView>*) newHeaderView {
-	if (!newHeaderView) {
-		return;
-	}
-	
 	if ([headerViews indexOfObjectIdenticalTo: newHeaderView] != NSNotFound) {
 		// Do nothing if this view has already been added to this controller
 		return;
@@ -182,9 +161,6 @@
 }
 
 - (void) removeHeaderView: (NSView<IFHeaderView>*) oldHeaderView {
-	// Ensure that we don't accidentally self destruct a header view that's in use
-	//[[oldHeaderView retain] autorelease];
-	
 	// Remove the old header view from the list of headers
 	[headerViews removeObjectIdenticalTo: oldHeaderView];
 }
