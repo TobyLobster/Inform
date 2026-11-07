@@ -17,13 +17,25 @@
 @implementation IFNewInform7ExtensionFile {
     IFNewInform7ExtensionView* vw;
     __weak IFProject *         project;
+    /// Where the author's name comes from
+    IFPreferences*             preferences;
+    /// Where to put the insertion point in the new extension, once it's written
+    NSRange                    initialSelectionRange;
 }
 
 - (instancetype) initWithProject: (IFProject*) theProject {
+    return [self initWithProject: theProject
+                     preferences: [IFPreferences sharedPreferences]];
+}
+
+- (instancetype) initWithProject: (IFProject*) theProject
+                     preferences: (IFPreferences*) thePreferences {
     self = [super init];
 
     if (self) {
         project = theProject;
+        preferences = thePreferences;
+        initialSelectionRange = NSMakeRange(0, 0);
     }
 
     return self;
@@ -31,7 +43,7 @@
 
 - (NSObject<IFNewProjectSetupView>*) configView {
 	if (!vw) {
-		vw = [[IFNewInform7ExtensionView alloc] init];
+		vw = [[IFNewInform7ExtensionView alloc] initWithPreferences: preferences];
 		[NSBundle customLoadNib: @"NaturalExtensionOptions"
                           owner: vw];
 	}
@@ -83,7 +95,7 @@
                                                     error: &error];
 }
 
-- (BOOL) createAndOpenDocument: (NSURL*) fileURL {
+- (BOOL) writeExtension: (NSURL*) fileURL {
 	NSString* contents1 = [NSString stringWithFormat: @"%@ by %@ begins here.\n\n", vw.extensionName, vw.authorName];
 	NSString* contents2 = [NSString stringWithFormat: @"\n\n%@ ends here.\n", vw.extensionName];
 	NSString* contents = [NSString stringWithFormat: @"%@%@", contents1, contents2];
@@ -106,12 +118,21 @@
 		return NO;
 	}
 
+    initialSelectionRange = range;
+    return YES;
+}
+
+- (BOOL) createAndOpenDocument: (NSURL*) fileURL {
+    if (![self writeExtension: fileURL]) {
+        return NO;
+    }
+
 	// Open the file
     NSError* error;
 	IFSingleFile* newDoc = [[IFSingleFile alloc] initWithContentsOfURL: fileURL
                                                                  ofType: @"Inform 7 extension"
                                                                   error: &error];
-	newDoc.initialSelectionRange = range;
+	newDoc.initialSelectionRange = initialSelectionRange;
 	[[NSDocumentController sharedDocumentController] addDocument: newDoc];
 	[newDoc makeWindowControllers];
 	[newDoc showWindows];
@@ -124,8 +145,7 @@
 }
 
 -(NSRange) initialSelectionRange {
-    // Not used. createAndOpenDocument sets the initial range directly.
-    return NSMakeRange(0, 0);
+    return initialSelectionRange;
 }
 
 -(NSString*) typeName {
@@ -140,6 +160,19 @@
 
     IBOutlet NSTextField* name;
     IBOutlet NSTextField* extensionName;
+
+    /// Where the author's name comes from
+    IFPreferences* preferences;
+}
+
+- (instancetype) initWithPreferences: (IFPreferences*) thePreferences {
+    self = [super init];
+
+    if (self) {
+        preferences = thePreferences;
+    }
+
+    return self;
 }
 
 - (NSView*) view {
@@ -147,7 +180,7 @@
 }
 
 - (void) setupControls {
-	NSString* longuserName = [IFPreferences sharedPreferences].freshGameAuthorName;
+	NSString* longuserName = preferences.freshGameAuthorName;
 
 	// If longuserName contains a '.', then we have to enclose it in quotes
 	BOOL needQuotes = NO;
