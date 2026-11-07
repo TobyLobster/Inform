@@ -6,7 +6,6 @@
 //  Copyright (c) 2003 Andrew Hunter. All rights reserved.
 //
 
-#import <AppKit/AppKit.h>
 #import "IFIntelSymbol.h"
 #import "IFIntelFile.h"
 #import "IFSyntaxManager.h"
@@ -14,27 +13,7 @@
 #import "IFSourceSharedActions.h"
 #import "IFUtility.h"
 
-#pragma mark Preferences
-
 @implementation IFSourceSharedActions
-
-+ (void) initialize {
-	// Register our preferences
-}
-
-#pragma mark - Initialistion
-
-- (instancetype) init {
-    self = [super init];
-
-    if (self) {
-    }
-
-    return self;
-}
-
-
-#pragma mark - View selection functions
 
 #pragma mark Menu options
 
