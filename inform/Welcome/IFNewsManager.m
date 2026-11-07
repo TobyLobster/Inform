@@ -42,7 +42,7 @@
         if (result == NSOrderedSame) {
             // Step 3: Get cached news
             latestNews = [[NSUserDefaults standardUserDefaults] stringForKey: @"newsString"];
-            [self gotNews: latestNews now:now completionHandler: completionHandler response: nil error: nil];
+            [self gotNews: latestNews completionHandler: completionHandler response: nil error: nil];
             return;
         }
     }
@@ -50,8 +50,8 @@
     // No - download latest news
     NSURL* url = [NSURL URLWithString:@"https://iftechfoundation.org/calendar/cal.txt"];
 
-    self.task = [[NSURLSession sharedSession] dataTaskWithURL: url
-                                            completionHandler: ^(NSData* data, NSURLResponse* response, NSError* error) {
+    NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithURL: url
+                                                             completionHandler: ^(NSData* data, NSURLResponse* response, NSError* error) {
         if (data != nil) {
             latestNews = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             if (latestNews == nil) {
@@ -62,7 +62,7 @@
             [[NSUserDefaults standardUserDefaults] setObject: now forKey:@"newsTimestamp"];
             [[NSUserDefaults standardUserDefaults] setObject: latestNews forKey:@"newsString"];
 
-            [self gotNews: latestNews now:now completionHandler: completionHandler response: response error: error];
+            [self gotNews: latestNews completionHandler: completionHandler response: response error: error];
         }
         else {
             // log but basically ignore any error downloading the news
@@ -71,15 +71,14 @@
             return;
         }
     }];
-    [self.task resume];
+    [task resume];
 }
 
 -(void)     gotNews: (NSString*) latestNews
-                now: (NSDate*) now
   completionHandler: (void (^)(NSString * _Nullable news, NSURLResponse * _Nullable response, NSError * _Nullable error)) completionHandler
            response: (NSURLResponse*) response
               error: (NSError*) error {
-    // Call the completion handler on the UI thread
+    // Call the completion handler on another thread, as the download's is
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue,
     ^{

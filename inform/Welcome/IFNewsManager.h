@@ -14,8 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IFNewsManager : NSObject
 
-/// The news download (nil until one starts)
-@property (atomic, readwrite, copy, nullable) NSURLSessionDataTask* task;
 @property (atomic, readwrite) IFNewsCustomSchemeHandler* newsSchemeHandler;
 
 -(void)     getNewsWithCompletionHandler: (void (^)(NSString * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)) completionHandler;
