@@ -61,6 +61,7 @@
 #import "IFAppDelegate.h"
 #import "IFNewsCustomSchemeHandler.h"
 #import "IFNewsManager.h"
+#import "IFInformProtocol.h"
 #import "IFScanner.h"
 #import "IFDocParser.h"
 #import "IFDiffer.h"
