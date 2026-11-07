@@ -8,11 +8,6 @@
 #import "IFPreferences.h"
 #import "IFColourTheme.h"
 
-#import "IFSyntaxManager.h"
-#import "IFNaturalHighlighter.h"
-
-#import "IFPreferences.h"
-
 @implementation IFColourTheme
 
 -(instancetype) init {
@@ -83,7 +78,6 @@
 
     for(int i = 0; i < self.options.count; i++) {
         self.options[i].colour = [self.options[i].defaultColour copy];
-    //    NSLog(@"resetSettings New option %d is %@", i, self.options[i].defaultColour);
     }
 }
 
@@ -144,40 +138,6 @@
     return rgb1 && rgb2 && [rgb1 isEqual:rgb2];
 }
 
--(BOOL) isEqualToTheme:(IFColourTheme*) set {
-    if( ![self isEqualToColor: self.sourcePaper.colour
-                         with: set.sourcePaper.colour] ) {
-        return NO;
-    }
-    if( ![self isEqualToColor: self.sourcePaper.defaultColour
-                         with: set.sourcePaper.defaultColour] ) {
-        return NO;
-    }
-    if( ![self isEqualToColor: self.extensionPaper.colour
-                         with: set.extensionPaper.colour] ) {
-        return NO;
-    }
-    if( ![self isEqualToColor: self.extensionPaper.defaultColour
-                         with: set.extensionPaper.defaultColour] ) {
-        return NO;
-    }
-    for( int optionIndex = IFSHOptionHeadings; optionIndex < IFSHOptionCount; optionIndex++ ) {
-        IFSyntaxColouringOption * option1 = (self.options)[optionIndex];
-        IFSyntaxColouringOption * option2 = (set.options)[optionIndex];
-
-        if( ![self isEqualToColor: option1.colour
-                             with: option2.colour] ) {
-            return NO;
-        }
-        if( ![self isEqualToColor: option1.defaultColour
-                             with: option2.defaultColour] ) {
-            return NO;
-        }
-    }
-
-    return YES;
-}
-
 -(BOOL) isEqualToDefault {
     if( ![self isEqualToColor: self.sourcePaper.colour
                          with: self.sourcePaper.defaultColour] ) {
@@ -194,19 +154,6 @@
                             with: option.defaultColour]) {
             return NO;
         }
-    }
-    return YES;
-}
-
--(BOOL) isEqual:(id)object {
-    if (self == object) {
-        return YES;
-    }
-    if (![object isKindOfClass:[IFColourTheme class]]) {
-        return NO;
-    }
-    if (![self isEqualToTheme:(IFColourTheme *)object]) {
-        return NO;
     }
     return YES;
 }

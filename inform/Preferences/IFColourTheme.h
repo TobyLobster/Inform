@@ -26,7 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) updateSetFromAppPreferences;
 - (IFSyntaxColouringOption*) optionOfType:(IFSyntaxHighlightingOptionType) type;
 @property (NS_NONATOMIC_IOSONLY, getter=isEqualToDefault, readonly) BOOL equalToDefault;
--(BOOL) isEqual:(nullable id)object;
 -(void) resetSettings;
 -(IFColourTheme*) createDuplicateSet;
 
