@@ -25,29 +25,28 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Setting/getting properties
 
-@property (atomic, strong)             IFSkeinItem *       item;
-@property (atomic)                     CGFloat             commandWidth;   // Width of the command
-@property (atomic)                     CGFloat             subtreeWidth;   // Combined visible width of all the subtree from this item down
-@property (atomic, readonly)           CGFloat             visibleWidth;   // Visible lozenge width
-@property (atomic)                     NSRect              boundingRect;
-@property (atomic, weak, nullable)     IFSkeinLayoutItem * parent;         // nil for the root
+@property (nonatomic, strong)          IFSkeinItem *       item;
+@property (nonatomic)                  CGFloat             commandWidth;   // Width of the command
+@property (nonatomic)                  CGFloat             subtreeWidth;   // Combined visible width of all the subtree from this item down
+@property (nonatomic, readonly)        CGFloat             visibleWidth;   // Visible lozenge width
+@property (nonatomic)                  NSRect              boundingRect;
+@property (nonatomic, weak, nullable)  IFSkeinLayoutItem * parent;         // nil for the root
 @property (nonatomic, copy, nullable)  NSArray<IFSkeinLayoutItem*> * children;   // nil until the layout sets them
-@property (atomic)                     int                 level;
-@property (atomic)                     BOOL                onSelectedLine;
-@property (atomic)                     BOOL                recentlyPlayed;
-@property (atomic, readonly)           int                 depth;
-@property (atomic, readonly)           CGFloat             centreX;
-@property (atomic, readonly)           NSRect              lozengeRect;
-@property (atomic, readonly)           NSRect              localSpaceLozengeRect;
-@property (atomic, readonly)           NSRect              textRect;
+@property (nonatomic)                  int                 level;
+@property (nonatomic)                  BOOL                onSelectedLine;
+@property (nonatomic)                  BOOL                recentlyPlayed;
+@property (nonatomic, readonly)        CGFloat             centreX;
+@property (nonatomic, readonly)        NSRect              lozengeRect;
+@property (nonatomic, readonly)        NSRect              localSpaceLozengeRect;
+@property (nonatomic, readonly)        NSRect              textRect;
 
 - (void) moveRightBy: (CGFloat) deltaX
          recursively: (BOOL) recursively;
 
-@property (NS_NONATOMIC_IOSONLY, readonly, strong, nullable) IFSkeinLayoutItem *selectedLineChild;
-@property (NS_NONATOMIC_IOSONLY, readonly, strong, nullable) IFSkeinLayoutItem *leafSelectedLineItem;
+@property (nonatomic, readonly, strong, nullable)IFSkeinLayoutItem *selectedLineChild;
+@property (nonatomic, readonly, strong, nullable)IFSkeinLayoutItem *leafSelectedLineItem;
 
-@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger drawStateHash;
+@property (nonatomic, readonly) NSUInteger drawStateHash;
 
 @end
 
