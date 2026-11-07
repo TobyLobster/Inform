@@ -31,6 +31,7 @@
 #import "IFProjectFile.h"
 #import "IFProjectController.h"
 #import "IFSingleFile.h"
+#import "IFSingleController.h"
 #import "IFWebViewHelper.h"
 #import "IFRuntimeErrorParser.h"
 #import "IFCompilerSettings.h"
