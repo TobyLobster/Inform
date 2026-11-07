@@ -110,6 +110,13 @@
 		return NO;
 	}
 
+    // Read again, as by Revert To Saved: the window shows this storage, so it's given the new text
+    if ([IFSyntaxManager isRegistered: fileStorage]) {
+        [fileStorage replaceCharactersInRange: NSMakeRange(0, fileStorage.length)
+                                   withString: fileString];
+        return YES;
+    }
+
     // Update fileStorage
 	fileStorage = [[NSTextStorage alloc] initWithString: fileString];
     [IFSyntaxManager registerTextStorage: fileStorage

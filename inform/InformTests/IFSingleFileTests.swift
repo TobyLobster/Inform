@@ -128,6 +128,45 @@ final class IFSingleFileTests: XCTestCase {
                        "Lamps by Emily Short begins here.\n\nLamps ends here.\n")
     }
 
+    // MARK: - Reverting
+
+    /// Revert To Saved gives the text the window shows the saved text, so what's edited after it is what's saved
+    func testRevertingToSaved() throws {
+        let url = try makeFolder().appendingPathComponent("Lamps.i7x")
+        try Data("Lamps by Emily Short begins here.\n".utf8).write(to: url)
+
+        let file = try IFSingleFile(contentsOf: url, ofType: inform7ExtensionType)
+        let shown = file.storage
+        shown.replaceCharacters(in: NSRange(location: 0, length: shown.length), with: "Not saved.\n")
+
+        try file.revert(toContentsOf: url, ofType: inform7ExtensionType)
+        XCTAssertTrue(file.storage === shown)
+        XCTAssertEqual(shown.string, "Lamps by Emily Short begins here.\n")
+        XCTAssertEqual(try syntaxData(file).type, .inform7)
+
+        shown.replaceCharacters(in: NSRange(location: shown.length, length: 0), with: "\nLamps ends here.\n")
+        XCTAssertEqual(try file.data(ofType: inform7ExtensionType),
+                       Data("Lamps by Emily Short begins here.\n\nLamps ends here.\n".utf8))
+    }
+
+    /// Reverting to a file changed on disk reads it as a file is first read: its line endings are made Unix ones,
+    /// and one that isn't UTF-8 is read, and written, as Latin-1
+    func testRevertingToAChangedFile() throws {
+        let url = try makeFolder().appendingPathComponent("Lamps.i7x")
+        try Data("Lamps by Emily Short begins here.\n".utf8).write(to: url)
+        let file = try IFSingleFile(contentsOf: url, ofType: inform7ExtensionType)
+        let shown = file.storage
+
+        try Data("Lamps by Emily Short begins here.\r\n\r\nLamps ends here.\r\n".utf8).write(to: url)
+        try file.revert(toContentsOf: url, ofType: inform7ExtensionType)
+        XCTAssertEqual(shown.string, "Lamps by Emily Short begins here.\n\nLamps ends here.\n")
+
+        try Data([0x43, 0x61, 0x66, 0xE9]).write(to: url)  // "Café" in Latin-1
+        try file.revert(toContentsOf: url, ofType: inform7ExtensionType)
+        XCTAssertEqual(shown.string, "Café")
+        XCTAssertEqual(try file.data(ofType: inform7ExtensionType), Data([0x43, 0x61, 0x66, 0xE9]))
+    }
+
     // MARK: - Letting go
 
     /// The file's text storage stops being highlighted when the file is let go
