@@ -12,13 +12,6 @@
 #import "IFSyntaxTypes.h"
 #import "NSString+IFStringExtensions.h"
 
-NSString* const IFPreferencesAuthorDidChangeNotification      = @"IFPreferencesAuthorDidChangeNotification";
-NSString* const IFPreferencesEditingDidChangeNotification     = @"IFPreferencesEditingDidChangeNotification";
-NSString* const IFPreferencesAdvancedDidChangeNotification    = @"IFPreferencesAdvancedDidChangeNotification";
-NSString* const IFPreferencesAppFontSizeDidChangeNotification = @"IFPreferencesAppFontSizeDidChangeNotification";
-
-NSString* const IFPreferencesDefault                  = @"IFApplicationPreferences";
-
 static NSString* const IFPreferencesHeadings          = @"Headings";
 static NSString* const IFPreferencesMainText          = @"MainText";
 static NSString* const IFPreferencesComments          = @"Comments";
