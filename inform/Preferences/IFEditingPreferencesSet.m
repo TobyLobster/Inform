@@ -5,10 +5,7 @@
 //  Created by Toby Nelson in 2014
 //
 
-#import "IFEditingPreferences.h"
-
-#import "IFSyntaxManager.h"
-#import "IFNaturalHighlighter.h"
+#import "IFEditingPreferencesSet.h"
 
 #import "IFPreferences.h"
 
@@ -151,15 +148,6 @@
     return (self.options)[(NSInteger) type];
 }
 
--(BOOL) isEqualToColor: (NSColor*) color1
-                  with: (NSColor*) color2 {
-    NSColor *rgb1 = [color1
-                     colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]];
-    NSColor *rgb2 = [color2
-                     colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]];
-    return rgb1 && rgb2 && [rgb1 isEqual:rgb2];
-}
-
 -(BOOL) isEqualToPreferenceSet:(IFEditingPreferencesSet*) set {
     if( ![self.fontFamily isEqualTo: set.fontFamily] ) {
         return NO;
@@ -197,19 +185,6 @@
         return NO;
     }
 
-    return YES;
-}
-
--(BOOL) isEqual:(id)object {
-    if (self == object) {
-        return YES;
-    }
-    if (![object isKindOfClass:[IFEditingPreferencesSet class]]) {
-        return NO;
-    }
-    if (![self isEqualToPreferenceSet:(IFEditingPreferencesSet *)object]) {
-        return NO;
-    }
     return YES;
 }
 

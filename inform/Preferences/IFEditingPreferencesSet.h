@@ -40,7 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) updateSetFromAppPreferences;
 - (IFSyntaxHighlightingOption*) optionOfType:(IFSyntaxHighlightingOptionType) type;
 -(BOOL) isEqualToPreferenceSet:(IFEditingPreferencesSet*) set;
--(BOOL) isEqual:(nullable id)object;
 -(void) resetSettings;
 
 @end
