@@ -48,7 +48,15 @@
 }
 
 - (NSData *)dataOfType: (NSString*) type error:(NSError *__autoreleasing  _Nullable * _Nullable)outError {
-    return [fileStorage.string dataUsingEncoding: fileEncoding];
+    NSData* data = [fileStorage.string dataUsingEncoding: fileEncoding];
+
+    // The text has characters the file's encoding can't hold
+    if (data == nil && outError) {
+        *outError = [NSError errorWithDomain: NSCocoaErrorDomain
+                                        code: NSFileWriteInapplicableStringEncodingError
+                                    userInfo: @{NSStringEncodingErrorKey: @(fileEncoding)}];
+    }
+    return data;
 }
 
 - (BOOL)readFromData: (NSData*) data

@@ -128,6 +128,25 @@ final class IFSingleFileTests: XCTestCase {
                        "Lamps by Emily Short begins here.\n\nLamps ends here.\n")
     }
 
+    /// Text the file's encoding can't hold, such as an emoji in Inform 6 source, can't be saved, and the error says
+    /// so, where there was none; the file on disk is left as it was
+    func testSavingWhatTheEncodingCantHold() throws {
+        let url = try makeFolder().appendingPathComponent("Café.inf")
+        try Data([0x43, 0x61, 0x66, 0xE9]).write(to: url)  // "Café" in Latin-1
+        let file = try IFSingleFile(contentsOf: url, ofType: inform6SourceType)
+        file.storage.replaceCharacters(in: NSRange(location: 4, length: 0), with: " 🪔")
+
+        let isEncodingError = { (error: Error) in
+            let error = error as NSError
+            XCTAssertEqual(error.domain, NSCocoaErrorDomain)
+            XCTAssertEqual(error.code, NSFileWriteInapplicableStringEncodingError)
+            XCTAssertEqual(error.userInfo[NSStringEncodingErrorKey] as? UInt, String.Encoding.isoLatin1.rawValue)
+        }
+        XCTAssertThrowsError(try file.data(ofType: inform6SourceType), "", isEncodingError)
+        XCTAssertThrowsError(try file.write(to: url, ofType: inform6SourceType), "", isEncodingError)
+        XCTAssertEqual(try Data(contentsOf: url), Data([0x43, 0x61, 0x66, 0xE9]))
+    }
+
     // MARK: - Reverting
 
     /// Revert To Saved gives the text the window shows the saved text, so what's edited after it is what's saved
