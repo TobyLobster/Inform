@@ -5,22 +5,10 @@
 //  Created by Toby Nelson in 2015
 
 #import "IFNewInform7ExtensionProject.h"
-#import "IFPreferences.h"
-#import "IFUtility.h"
 #import "IFProjectFile.h"
 #import "IFCompilerSettings.h"
 
-@implementation IFNewInform7ExtensionProject {
-    NSRange initialSelectionRange;
-}
-
-- (instancetype) init {
-    self = [super init];
-    if( self != nil ) {
-        initialSelectionRange = NSMakeRange(0, 0);
-    }
-    return self;
-}
+@implementation IFNewInform7ExtensionProject
 
 - (NSObject<IFNewProjectSetupView>*) configView {
     return nil;
@@ -50,7 +38,7 @@
 }
 
 -(NSRange) initialSelectionRange {
-    return initialSelectionRange;
+    return NSMakeRange(0, 0);
 }
 
 -(NSString*) typeName {
