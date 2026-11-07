@@ -210,6 +210,21 @@ final class IFNewsManagerTests: XCTestCase {
         XCTAssertEqual(keptDate, twoDaysAgo)
     }
 
+    /// A server's error page isn't news: it gives none, and keeps what there was, so the news is asked for again
+    func testAServerError() {
+        let twoDaysAgo = Date(timeIntervalSinceNow: -days(2))
+        keep("Two days ago", from: twoDaysAgo)
+        FakeNewsServer.answer = .success((404, Data("<html>Not Found</html>".utf8)))
+
+        let result = getNews()
+        XCTAssertEqual(result.news, "")
+        XCTAssertEqual((result.response as? HTTPURLResponse)?.statusCode, 404)
+        XCTAssertNil(result.error)
+        XCTAssertFalse(result.onMainThread)
+        XCTAssertEqual(keptNews, "Two days ago")
+        XCTAssertEqual(keptDate, twoDaysAgo)
+    }
+
     /// News that isn't UTF-8 is no news, and that's kept for the day
     func testNewsThatIsntUTF8() {
         FakeNewsServer.answer = .success((200, Data([0x4E, 0x65, 0xFF, 0x77, 0x73])))

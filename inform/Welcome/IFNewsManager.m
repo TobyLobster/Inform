@@ -65,7 +65,14 @@
 
     NSURLSessionDataTask* task = [session dataTaskWithURL: url
                                         completionHandler: ^(NSData* data, NSURLResponse* response, NSError* error) {
-        if (data != nil) {
+        // A server's error page isn't news
+        BOOL serverFailed = NO;
+        if ([response isKindOfClass: [NSHTTPURLResponse class]]) {
+            NSInteger status = ((NSHTTPURLResponse*) response).statusCode;
+            serverFailed = (status < 200) || (status >= 300);
+        }
+
+        if (data != nil && !serverFailed) {
             latestNews = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             if (latestNews == nil) {
                 latestNews = @"";
@@ -79,7 +86,7 @@
         }
         else {
             // log but basically ignore any error downloading the news
-            NSLog(@"%@", error);
+            NSLog(@"%@", error ?: response);
             completionHandler(@"", response, error);
             return;
         }
