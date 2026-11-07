@@ -11,20 +11,7 @@
 #import "NSString+IFStringExtensions.h"
 #import "IFNewsCustomSchemeHandler.h"
 
-@implementation IFNewsCustomSchemeHandler {
-}
-
--(instancetype) init {
-    self = [super init];
-
-    if (self) {
-    }
-    return self;
-}
-
--(void) loadFromURLSchemeTask:(id<WKURLSchemeTask>)urlSchemeTask  {
-}
-
+@implementation IFNewsCustomSchemeHandler
 
 - (void)    webView:(WKWebView *)webView
  startURLSchemeTask:(id<WKURLSchemeTask>)urlSchemeTask {
@@ -34,15 +21,12 @@
     if ([scheme isEqualToString:@"inform"]) {
         // Might as well load the whole file at once
         NSString* urlPath = urlSchemeTask.request.URL.path;
-        //NSString* host = urlSchemeTask.request.URL.host;
         NSString* path = nil;
 
         // Note: first character will always be '/', hence the 'substring' thing
         if (urlPath.length > 0) {
             urlPath = [urlPath substringFromIndex: 1];
         }
-
-        // NSArray* components = [urlPath pathComponents];
 
         // Try using pathForResource:ofType:
         // Advantage of this is that it will allow for localisation at some point in the future

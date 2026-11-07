@@ -12,11 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface IFNewsCustomSchemeHandler : NSObject<WKURLSchemeHandler> {
-
-}
-
--(instancetype) init;
+@interface IFNewsCustomSchemeHandler : NSObject<WKURLSchemeHandler>
 
 @end
 
