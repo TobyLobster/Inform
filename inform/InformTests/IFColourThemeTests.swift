@@ -234,6 +234,17 @@ final class IFColourThemeTests: XCTestCase {
         XCTAssertEqual(read.options.count, types.count)
     }
 
+    /// ...as it does one without flags
+    func testAnArchivedThemeWithoutFlagsReadsWithout() throws {
+        var values = themeValues()
+        values["flags"] = nil
+
+        let read = try unarchive(archive(PartialTheme(values, options: themeOptions())))
+
+        XCTAssertNil(read.flags)
+        XCTAssertEqual(read.themeName, "Damaged")
+    }
+
     /// An archived theme with fewer options reads with fewer, and the preferences leave it out
     func testAnArchivedThemeWithFewerOptionsReadsWithFewer() throws {
         let read = try unarchive(archive(PartialTheme(themeValues(), options: Array(themeOptions().prefix(3)))))

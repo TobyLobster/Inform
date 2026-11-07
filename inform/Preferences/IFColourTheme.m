@@ -13,14 +13,15 @@
 -(instancetype) init {
     self = [super init];
     if( self ) {
-        self.options = [[NSMutableArray alloc] init];
+        NSMutableArray<IFSyntaxColouringOption*>* options = [[NSMutableArray alloc] init];
         self.flags = @0;
 
-        [self.options insertObject: [[IFSyntaxColouringOption alloc] init] atIndex: IFSHOptionHeadings];
-        [self.options insertObject: [[IFSyntaxColouringOption alloc] init] atIndex: IFSHOptionMainText];
-        [self.options insertObject: [[IFSyntaxColouringOption alloc] init] atIndex: IFSHOptionComments];
-        [self.options insertObject: [[IFSyntaxColouringOption alloc] init] atIndex: IFSHOptionQuotedText];
-        [self.options insertObject: [[IFSyntaxColouringOption alloc] init] atIndex: IFSHOptionTextSubstitutions];
+        [options insertObject: [[IFSyntaxColouringOption alloc] init] atIndex: IFSHOptionHeadings];
+        [options insertObject: [[IFSyntaxColouringOption alloc] init] atIndex: IFSHOptionMainText];
+        [options insertObject: [[IFSyntaxColouringOption alloc] init] atIndex: IFSHOptionComments];
+        [options insertObject: [[IFSyntaxColouringOption alloc] init] atIndex: IFSHOptionQuotedText];
+        [options insertObject: [[IFSyntaxColouringOption alloc] init] atIndex: IFSHOptionTextSubstitutions];
+        self.options = options;
 
         [self resetSettings];
     }
@@ -57,18 +58,19 @@
     self.sourcePaper         = [decoder decodeObjectOfClass: [IFSyntaxColouringOption class] forKey: @"sourcePaper"];
     self.extensionPaper      = [decoder decodeObjectOfClass: [IFSyntaxColouringOption class] forKey: @"extensionPaper"];
 
-    self.options             = [[NSMutableArray alloc] init];
+    NSMutableArray<IFSyntaxColouringOption*>* options = [[NSMutableArray alloc] init];
     int optionsCount = [decoder decodeIntForKey: @"optionsCount"];
     for(int i = 0; i < optionsCount; i++) {
         NSString* keyName = [NSString stringWithFormat: @"option%d", i];
         IFSyntaxColouringOption* option = [decoder decodeObjectOfClass:[IFSyntaxColouringOption class] forKey: keyName];
         if (option == nil) {
             // A damaged option: read the theme with no options, so that it can be left out
-            [self.options removeAllObjects];
+            [options removeAllObjects];
             break;
         }
-        [self.options addObject: option];
+        [options addObject: option];
     }
+    self.options             = options;
 
     return self;
 }
@@ -94,10 +96,11 @@
     result.sourcePaper = [self.sourcePaper copy];
     result.flags = [self.flags copy];
 
-    [result.options removeAllObjects];
+    NSMutableArray<IFSyntaxColouringOption*>* options = [[NSMutableArray alloc] init];
     for (int i = 0; i < (self.options).count; i++) {
-        [result.options addObject: [((IFSyntaxColouringOption *) self.options[i]) copy]];
+        [options addObject: [((IFSyntaxColouringOption *) self.options[i]) copy]];
     }
+    result.options = options;
     return result;
 }
 

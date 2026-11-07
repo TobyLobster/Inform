@@ -13,19 +13,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IFColourTheme : NSObject<NSSecureCoding>
 
-@property (atomic) NSNumber*                                  flags;
-@property (atomic, copy, nullable) NSString*                  themeName;          // nil until it's set
-@property (atomic, copy, nullable) IFSyntaxColouringOption*   sourcePaper;        // likewise
-@property (atomic, copy, nullable) IFSyntaxColouringOption*   extensionPaper;     // likewise
+@property (nonatomic, nullable) NSNumber*                     flags;              // nil if it couldn't be read
+@property (nonatomic, copy, nullable) NSString*               themeName;          // nil until it's set
+@property (nonatomic, copy, nullable) IFSyntaxColouringOption* sourcePaper;       // likewise
+@property (nonatomic, copy, nullable) IFSyntaxColouringOption* extensionPaper;    // likewise
 
-/// Array of IFSyntaxColouringOptions
-@property (atomic, strong) NSMutableArray<IFSyntaxColouringOption*>* options;
+/// One option for each type, in order (fewer, or none, if they couldn't all be read)
+@property (nonatomic, copy) NSArray<IFSyntaxColouringOption*>* options;
 
 - (instancetype) init NS_DESIGNATED_INITIALIZER;
 - (void) updateAppPreferencesFromSetWithEnable: (BOOL) enable;
 - (void) updateSetFromAppPreferences;
 - (IFSyntaxColouringOption*) optionOfType:(IFSyntaxHighlightingOptionType) type;
-@property (NS_NONATOMIC_IOSONLY, getter=isEqualToDefault, readonly) BOOL equalToDefault;
+@property (nonatomic, getter=isEqualToDefault, readonly) BOOL equalToDefault;
 -(void) resetSettings;
 -(IFColourTheme*) createDuplicateSet;
 
