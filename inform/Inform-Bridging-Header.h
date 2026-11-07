@@ -31,6 +31,8 @@
 #import "IFSingleFile.h"
 #import "IFSingleController.h"
 #import "IFSourceSharedActions.h"
+#import "IFSourceFileView.h"
+#import "IFWelcomeWindow.h"
 #import "IFNaturalIntel.h"
 #import "IFSyntaxStyles.h"
 #import "IFInform7MutableString.h"
