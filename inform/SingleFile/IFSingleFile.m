@@ -11,10 +11,7 @@
 #import "IFProjectTypes.h"
 
 #import "IFSyntaxManager.h"
-#import "IFNaturalHighlighter.h"
 #import "IFNaturalIntel.h"
-#import "IFPreferences.h"
-#import "IFCompilerSettings.h"
 #import "IFUtility.h"
 
 @implementation IFSingleFile {
@@ -41,8 +38,6 @@
 
 - (void) dealloc {
     [IFSyntaxManager unregisterTextStorage: fileStorage];
-
-    fileStorage = nil;
 }
 
 #pragma mark - Data
