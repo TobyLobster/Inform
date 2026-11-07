@@ -519,6 +519,8 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
         case IFAppFontSizePlus75:   return 0.625 + 0.75 * 7 / 8;
         case IFAppFontSizePlus100:  return 0.625 + 0.75 * 8 / 8;
     }
+    // A size that isn't one of them, from a damaged preferences file, is the normal size
+    return 0.625 + 0.75 * 4 / 8;
 }
 
 - (IFAppFontSize) appFontSizeMultiplierEnum {

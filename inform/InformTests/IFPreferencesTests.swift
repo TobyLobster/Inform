@@ -313,6 +313,15 @@ final class IFPreferencesTests: XCTestCase {
         }
     }
 
+    /// A font size that isn't one of them, which only a damaged preferences file could have, is the normal size
+    func testAnUnknownAppFontSizeIsTheNormalSize() {
+        for size in [-1, 9, 42] {
+            let (prefs, _) = makePreferences(["appFontSizeMultiplierFineEnum": size])
+
+            XCTAssertEqual(prefs.appFontSizeMultiplier, 1.0, "\(size)")
+        }
+    }
+
     // MARK: - The author's name
 
     /// With no name chosen, new projects are by the user
