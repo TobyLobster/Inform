@@ -23,9 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, strong, nullable) IFSkeinItem *        selectedItem;
 
 // Layout equivalents
-@property (atomic, strong, nullable) IFSkeinLayoutItem *  rootLayoutItem;       // nil until the skein is laid out
-@property (atomic, strong, nullable) IFSkeinLayoutItem *  activeLayoutItem;
-@property (atomic, strong, nullable) IFSkeinLayoutItem *  selectedLayoutItem;
+@property (atomic, readonly, strong, nullable) IFSkeinLayoutItem *  rootLayoutItem;       // nil until the skein is laid out
+@property (atomic, readonly, strong, nullable) IFSkeinLayoutItem *  selectedLayoutItem;
 
 @property (atomic, readonly)         NSPoint              reportPosition;
 
@@ -33,13 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) layoutSkein;
 
 // Getting layout data
-@property (atomic, readonly) int      levels;
 @property (atomic, readonly) NSSize   size;
 
 - (nullable IFSkeinItem*) itemAtPoint: (NSPoint) point;
-
-- (NSRange) rangeOfLevelsBetweenMinViewY: (CGFloat) minY
-                             andMaxViewY: (CGFloat) maxY;
 
 - (void) updateLayoutWithReportDetails: (NSArray<NSNumber*>*) array;
 

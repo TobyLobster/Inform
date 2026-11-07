@@ -7,7 +7,6 @@
 
 #import "IFSkeinLayout.h"
 #import "IFSkeinItem.h"
-#import "IFSkeinItemView.h"
 #import "IFSkeinLayoutItem.h"
 #import "IFSkeinConstants.h"
 
@@ -18,6 +17,7 @@
     NSMutableArray*         levelWidths;
     NSMutableArray*         levelYs;
     NSMutableArray *        levelArray;
+    IFSkeinLayoutItem*      _activeLayoutItem;
 
     CGFloat                 shiftRightForReportOffsetX;
 }
@@ -26,7 +26,6 @@
 @synthesize activeItem          = _activeItem;
 @synthesize selectedItem        = _selectedItem;
 @synthesize rootLayoutItem      = _rootLayoutItem;
-@synthesize activeLayoutItem    = _activeLayoutItem;
 @synthesize selectedLayoutItem  = _selectedLayoutItem;
 
 #pragma mark - Initialisation
@@ -94,12 +93,6 @@
 	}
 }
 
-#pragma mark - Getting layout data
-
-- (int) levels {
-	return (int) levels.count;
-}
-
 #pragma mark - Item positioning data
 
 - (int) levelAtViewPosY: (CGFloat) viewPosY {
@@ -111,25 +104,6 @@
         }
     }
     return (int) levels.count;
-}
-
-- (NSRange) rangeOfLevelsBetweenMinViewY: (CGFloat) minY
-                             andMaxViewY: (CGFloat) maxY {
-    // Which levels (rows) do we need to look through?
-    int startLevel = [self levelAtViewPosY:minY] - 1;
-    int endLevel = [self levelAtViewPosY:maxY];
-
-    // Bound the start and end levels
-    startLevel = MAX(0, startLevel);
-    endLevel   = MIN(endLevel, self.levels-1);
-
-    // Sanity check
-    if( endLevel < startLevel ) {
-        NSAssert(false, @"rangeOfLevelsBetweenMinViewY:andMaxViewY: bad range of levels");
-        endLevel = startLevel;
-    }
-
-    return NSMakeRange(startLevel, endLevel-startLevel);
 }
 
 
@@ -217,8 +191,6 @@
     IFSkeinLayoutItem* result = [[IFSkeinLayoutItem alloc] initWithItem: item
                                                            subtreeWidth: 1.0f
                                                                   level: level];
-    result.commandWidth = [IFSkeinItemView commandSize: result].width;
-    result.parent = nil;
 
     if( item == _activeItem ) {
         _activeLayoutItem = result;
