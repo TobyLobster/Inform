@@ -700,19 +700,6 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 
 
-- (NSFont*) fontWithName: (NSString*) name
-					size: (CGFloat) size {
-	NSFont* result = [NSFont fontWithName: name
-									 size: size];
-	
-	if (result == nil) {
-		result = [NSFont systemFontOfSize: size];
-		NSLog(@"Warning: could not find font '%@'", name);
-	}
-	
-	return result;
-}
-
 - (NSFont*) fontWithFamily: (NSString*) family
 					traits: (NSFontTraitMask) traits
 					weight: (int) weight
