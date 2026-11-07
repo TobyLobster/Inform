@@ -141,8 +141,6 @@ static NSRunLoop* mainRunLoop = nil;
 												 name: IFCensusFinishedNotification
 											   object: nil];
 
-	[NSURLProtocol registerClass: [IFInformProtocol class]];
-
     // Set dark mode if necessary
     [self darkModeChanged];
 

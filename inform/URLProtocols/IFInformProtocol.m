@@ -8,19 +8,9 @@
 
 #import "IFInformProtocol.h"
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
-#import "IFAppDelegate.h"
 #import "IFUtility.h"
-#import "IFProjectController.h"
-#import "IFProject.h"
 
-@implementation IFInformProtocol {
-    /// The URL request we're supposed to be processing
-    NSURLRequest* theURLRequest;
-    /// The associated cached response
-    NSCachedURLResponse* theCachedResponse;
-    /// The client we're talking to
-    id<NSURLProtocolClient> theClient;
-}
+@implementation IFInformProtocol
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
 	// We respond to 'inform:///Foo' style URLs
@@ -37,34 +27,10 @@
 	return request;
 }
 
--(instancetype)initWithRequest:(NSURLRequest *)request 
-                cachedResponse:(NSCachedURLResponse *)cachedResponse
-                        client:(id <NSURLProtocolClient>)client {
-	self = [super initWithRequest: request
-				   cachedResponse: cachedResponse
-						   client: client];
-	if (self) {
-		theURLRequest = request;
-		theCachedResponse = cachedResponse;
-		theClient = client;
-	}
-	
-	return self;
-}
-
-
--(NSCachedURLResponse *)cachedResponse {
-	return theCachedResponse;
-}
-
--(id <NSURLProtocolClient>)client {
-	return theClient;
-}
-
 - (void) startLoading {
 	// Might as well load the whole file at once
-	NSString* urlPath = theURLRequest.URL.path;
-	NSString* host = theURLRequest.URL.host;
+	NSString* urlPath = self.request.URL.path;
+	NSString* host = self.request.URL.host;
 	NSString* path = nil;
 	
 	// Note: first character will always be '/', hence the 'substring' thing
@@ -97,23 +63,6 @@
         if (![[NSFileManager defaultManager] fileExistsAtPath: path]) {
             path = nil;
         }
-
-		// Try the ExtnDocs resources directory
-        /*
-		if (path == nil) {
-			componentEnum = [components objectEnumerator];
-			
-			path = @"ExtnDocs";
-			for (x=0; x<skip; x++) [componentEnum nextObject];
-			while ((pathComponent = [componentEnum nextObject])) {
-				path = [path stringByAppendingPathComponent: pathComponent];
-			}
-
-			path = [[NSBundle mainBundle] pathForResource: [[path lastPathComponent] stringByDeletingPathExtension]
-												   ofType: [path pathExtension]
-											  inDirectory: [path stringByDeletingLastPathComponent]];
-		}
-        */
 	} else {
 		// Try using pathForResource:ofType:
 		// Advantage of this is that it will allow for localisation at some point in the future
@@ -136,21 +85,21 @@
         NSString *ourType = @"image/tiff";
         
         // Create the response
-        NSURLResponse* response = [[NSURLResponse alloc] initWithURL: theURLRequest.URL
+        NSURLResponse* response = [[NSURLResponse alloc] initWithURL: self.request.URL
                                                             MIMEType: ourType
                                                expectedContentLength: urlData.length
                                                     textEncodingName: nil];
         
-        [theClient URLProtocol: self
+        [self.client URLProtocol: self
             didReceiveResponse: response
             cacheStoragePolicy: NSURLCacheStorageAllowedInMemoryOnly];
         
         // We loaded the data
-        [theClient URLProtocol: self
+        [self.client URLProtocol: self
                    didLoadData: urlData];
         
         // We finished loading
-        [theClient URLProtocolDidFinishLoading: self];
+        [self.client URLProtocolDidFinishLoading: self];
         return;
     }
 
@@ -159,10 +108,9 @@
 		path = [[[NSBundle mainBundle].resourcePath stringByAppendingString: @"/"] stringByAppendingString: urlPath];
 	}
 
-	// Check that this is the right kind of URL for us
-	if (path == nil || ![theURLRequest.URL.scheme isEqualToString: @"inform"]) {
+	if (path == nil) {
 		// Doh - not a valid inform: URL
-		[theClient URLProtocol: self
+		[self.client URLProtocol: self
 			  didFailWithError: [NSError errorWithDomain: NSURLErrorDomain
 													code: NSURLErrorBadURL
 												userInfo: nil]];
@@ -178,7 +126,7 @@
 	
 	if (isDir) {
 		// Will also happen if the file doesn't exist: see above
-		[theClient URLProtocol: self
+		[self.client URLProtocol: self
 			  didFailWithError: [NSError errorWithDomain: NSURLErrorDomain
 													code: NSURLErrorFileDoesNotExist
 												userInfo: nil]];
@@ -191,7 +139,7 @@
 	NSData* urlData = [NSData dataWithContentsOfFile: path];
 	if (urlData == nil) {
 		// Failed to load for some other reason
-		[theClient URLProtocol: self
+		[self.client URLProtocol: self
 			  didFailWithError: [NSError errorWithDomain: NSURLErrorDomain
 													code: NSURLErrorCannotOpenFile
 												userInfo: nil]];
@@ -218,21 +166,21 @@
     }
 
 	// Create the response
-	NSURLResponse* response = [[NSURLResponse alloc] initWithURL: theURLRequest.URL
+	NSURLResponse* response = [[NSURLResponse alloc] initWithURL: self.request.URL
 														MIMEType: ourType
 										   expectedContentLength: urlData.length
 												textEncodingName: nil];
 	
-	[theClient URLProtocol: self
+	[self.client URLProtocol: self
 		didReceiveResponse: response
 		cacheStoragePolicy: NSURLCacheStorageAllowedInMemoryOnly];
 	
 	// We loaded the data
-	[theClient URLProtocol: self
+	[self.client URLProtocol: self
 			   didLoadData: urlData];
 	
 	// We finished loading
-	[theClient URLProtocolDidFinishLoading: self];
+	[self.client URLProtocolDidFinishLoading: self];
 }
 
 - (void) stopLoading {
