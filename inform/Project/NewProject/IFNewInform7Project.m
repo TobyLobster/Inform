@@ -9,7 +9,6 @@
 #import "IFNewInform7Project.h"
 #import "IFProjectFile.h"
 #import "IFPreferences.h"
-#import "IFUtility.h"
 #import "IFCompilerSettings.h"
 
 @implementation IFNewInform7Project {
@@ -47,7 +46,7 @@
 	// Default file content
     if( !story ) {
         NSString* name = file.filename.lastPathComponent.stringByDeletingPathExtension;
-        if (name.length == 0 || name == nil) name = @"Untitled";
+        if (name.length == 0) name = @"Untitled";
         
         NSString* longuserName = [IFPreferences sharedPreferences].freshGameAuthorName;
 
