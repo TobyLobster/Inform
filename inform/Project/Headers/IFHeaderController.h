@@ -40,9 +40,9 @@ NS_SWIFT_NAME(IFHeaderViewProtocol)
 - (void) updateFromIntelligence: (nullable IFIntelFile*) intel;
 /// The root header for this controller (ie, the header that the view should display at the top level), or nil
 /// before there are any headers
-@property (atomic, readonly, strong, nullable) IFHeader *rootHeader;
+@property (nonatomic, readonly, strong, nullable) IFHeader *rootHeader;
 /// The intel file that is in use by this controller (nil before the first update, or if it was given none)
-@property (atomic, readonly, strong, nullable) IFIntelFile *intelFile;
+@property (nonatomic, readonly, strong, nullable) IFIntelFile *intelFile;
 
 // Managing the views being controlled
 
