@@ -78,11 +78,13 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 	
 	if (self) {
         userDefaults = theUserDefaults;
-		preferences = [[userDefaults objectForKey: IFPreferencesDefault] mutableCopy];
-		
-		if (!preferences || ![preferences isKindOfClass: [NSMutableDictionary class]]) {
-			preferences = [[NSMutableDictionary alloc] init];
-		}
+        NSDictionary* stored = [userDefaults objectForKey: IFPreferencesDefault];
+        if ([stored isKindOfClass: [NSDictionary class]]) {
+            preferences = [stored mutableCopy];
+        } else {
+            // None, or damaged
+            preferences = [[NSMutableDictionary alloc] init];
+        }
 		
         batchEditingPreferences = NO;
         batchNotificationTypes = [[NSMutableArray alloc] init];

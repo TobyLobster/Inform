@@ -174,6 +174,15 @@ final class IFPreferencesTests: XCTestCase {
         XCTAssertEqual(prefs.themeNames, standardThemes)
     }
 
+    /// ...as are preferences that are a number, which can't be copied to change
+    func testPreferencesThatAreANumberAreIgnored() {
+        let defaults = MemoryDefaults([IFPreferencesDefault: 5])
+        let prefs = IFPreferences(userDefaults: defaults)
+
+        XCTAssertEqual(prefs.sourceFontFamily, "Lucida Grande")
+        XCTAssertEqual(prefs.themeNames, standardThemes)
+    }
+
     /// Each preference is written under its own key, as a number of its own type, and tells those watching it
     func testEachPreferenceIsWrittenUnderItsKeyWithItsNotification() {
         let editing = NSNotification.Name.IFPreferencesEditingDidChange
