@@ -17,6 +17,7 @@
 #import "IFSkeinView.h"
 #import "IFSkeinItemView.h"
 #import "IFSkeinLayoutItem.h"
+#import "IFSkeinLayout.h"
 #import "IFIntelFile.h"
 #import "IFIntelSymbol.h"
 #import "IFHeader.h"
