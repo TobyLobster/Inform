@@ -133,6 +133,16 @@ final class IFNewsCustomSchemeHandlerTests: XCTestCase {
         XCTAssertEqual(load("inform:/App/NoSuchFile.html").errorCode, NSURLErrorFileDoesNotExist)
     }
 
+    /// A path that goes up out of the resources folder, as NSURL gives for a percent-encoded slash, gets nothing
+    func testNothingOutsideTheResources() {
+        XCTAssertEqual(load("inform:/..%2FInfo.plist").errorCode, NSURLErrorNoPermissionsToReadFile)
+        XCTAssertEqual(load("inform:/App%2F..%2F..%2FInfo.plist").errorCode, NSURLErrorNoPermissionsToReadFile)
+        XCTAssertEqual(load("inform:/../Info.plist").errorCode, NSURLErrorNoPermissionsToReadFile)
+
+        // Going up and back down again is refused too
+        XCTAssertEqual(load("inform:/App%2F..%2FAdviceCredits.html").errorCode, NSURLErrorNoPermissionsToReadFile)
+    }
+
     func testAFolder() {
         XCTAssertEqual(load("inform:/bg_images").errorCode, NSURLErrorFileIsDirectory)
     }

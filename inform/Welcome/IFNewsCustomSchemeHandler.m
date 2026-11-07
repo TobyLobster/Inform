@@ -32,6 +32,14 @@
             urlPath = [urlPath substringFromIndex: 1];
         }
 
+        // Give nothing outside the resources folder (a URL's path can go up out of it, as NSURL decodes "..%2F")
+        if ([urlPath.pathComponents containsObject: @".."]) {
+            [urlSchemeTask didFailWithError: [NSError errorWithDomain: NSURLErrorDomain
+                                                                 code: NSURLErrorNoPermissionsToReadFile
+                                                             userInfo: nil]];
+            return;
+        }
+
         // Try using pathForResource:ofType:
         // Advantage of this is that it will allow for localisation at some point in the future
         path = [[NSBundle mainBundle] pathForResource: urlPath.lastPathComponent.stringByDeletingPathExtension
