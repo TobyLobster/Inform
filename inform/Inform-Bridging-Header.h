@@ -5,6 +5,7 @@
 #import "IFPreferencePane.h"
 #import "IFPreferences.h"
 #import "IFColourTheme.h"
+#import "IFEditingPreferencesSet.h"
 #import "IFUtility.h"
 #import "NSString+IFStringExtensions.h"
 #import "NSBundle+IFBundleExtensions.h"
