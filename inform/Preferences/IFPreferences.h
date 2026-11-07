@@ -60,8 +60,8 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
 
 @interface IFSyntaxColouringOption : NSObject<NSSecureCoding, NSCopying>
 
-@property (atomic, copy) NSColor*       colour;
-@property (atomic, copy) NSColor*       defaultColour;
+@property (nonatomic, copy) NSColor*    colour;
+@property (nonatomic, copy) NSColor*    defaultColour;
 
 -(instancetype) initWithColour:(NSColor*) defaultColour NS_DESIGNATED_INITIALIZER;
 - (id)copyWithZone:(nullable NSZone *)zone;
