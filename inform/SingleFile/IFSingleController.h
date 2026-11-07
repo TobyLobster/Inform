@@ -22,7 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Spelling
 - (void) setSourceSpellChecking: (BOOL) spellChecking;
-- (void) setContinuousSpelling:(BOOL) continuousSpelling;
 
 @end
 

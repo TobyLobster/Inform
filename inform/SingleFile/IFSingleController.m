@@ -10,20 +10,13 @@
 #import "IFSingleController.h"
 #import "IFWelcomeWindow.h"
 #import "IFPreferences.h"
-#import "IFExtensionsManager.h"
 #import "IFAppDelegate.h"
-#import "IFProjectController.h"
 #import "IFSyntaxManager.h"
-#import "IFUtility.h"
+#import "IFProjectTypes.h"
 #import "IFSourceFileView.h"
-
-@interface IFSingleController(PrivateMethods)
-
-@end
 
 @implementation IFSingleController {
     IBOutlet IFSourceFileView*	fileView;						// The textview used to display the document itself
-    IBOutlet NSView*			mainView;						// The 'main view' that fills the window when the install warning is hidden
     BOOL                        isExtension;
     BOOL                        isInform7;
     NSRange                     initialSelectionRange;
@@ -55,8 +48,6 @@
 	if (fileView != nil) {
 		[[self.document storage] removeLayoutManager: fileView.layoutManager];
 	}
-
-    sharedActions = nil;
 }
 
 - (void)windowDidLoad {
@@ -191,8 +182,6 @@
     }
 }
 
-#pragma mark - Showing/hiding the installation prompt
-
 #pragma mark - Highlighting lines
 
 - (void) highlightSourceFileLine: (NSInteger) line
@@ -266,10 +255,6 @@
     else {
         fileView.backgroundColor = [IFPreferences sharedPreferences].sourcePaper.colour;
     }
-}
-
-- (void) setContinuousSpelling:(BOOL) continuousSpelling {
-    fileView.continuousSpellCheckingEnabled = continuousSpelling;
 }
 
 - (void) preferencesChanged: (NSNotification*) not {
