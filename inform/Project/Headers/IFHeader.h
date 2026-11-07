@@ -12,9 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class IFIntelSymbol;
 
-/// Notification send when this heading has changed
-extern NSNotificationName const IFHeaderChangedNotification;
-
 ///
 /// Model class representing a header in the header browser.
 ///
@@ -24,8 +21,7 @@ extern NSNotificationName const IFHeaderChangedNotification;
 
 // Initialisation
 
-/// Constructs a new, blank header object
-- (instancetype) init;
+- (instancetype) init NS_UNAVAILABLE;
 
 /// Constructs a new header object
 - (instancetype) initWithName: (NSString*) name
@@ -35,10 +31,10 @@ extern NSNotificationName const IFHeaderChangedNotification;
 // Accessing values
 /// The name of this header
 @property (nonatomic, copy) NSString *headingName;
-/// The parent of this header
-@property (nonatomic, weak) IFHeader *parent;
+/// The parent of this header, which it doesn't keep; nil for the headers at the top
+@property (nonatomic, weak, nullable) IFHeader *parent;
 /// The headings 'beneath' this one
-@property (atomic, copy, null_resettable) NSArray<IFHeader*> *children;
+@property (atomic, copy) NSArray<IFHeader*> *children;
 /// The symbol for this heading
 @property (atomic, strong, nullable) IFIntelSymbol *symbol;
 
