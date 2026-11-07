@@ -41,8 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, readonly, copy, nullable) NSString *errorMessage;
 /// If showFinalPage is NO, this is the filename to create (nil if it can't be worked out)
 @property (atomic, readonly, copy, nullable) NSString *saveFilename;
-/// If present, the file type to open this project as
-@property (atomic, readonly, copy) NSString *openAsType;
 
 /// If present, creates and opens the document associated with this view
 - (BOOL) createAndOpenDocument: (NSURL*) fileURL;
@@ -51,8 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol IFNewProjectSetupView <NSObject>
 
-/// The view that's displayed for this projects custom settings
-@property (NS_NONATOMIC_IOSONLY, readonly, strong) NSView *view;
+/// The view that's displayed for this projects custom settings (nil until it's loaded from its nib)
+@property (NS_NONATOMIC_IOSONLY, readonly, strong, nullable) NSView *view;
 
 @end
 
