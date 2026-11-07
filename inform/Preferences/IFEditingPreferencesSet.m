@@ -28,13 +28,14 @@
 -(instancetype) init {
     self = [super init];
     if( self ) {
-        self.options = [[NSMutableArray alloc] init];
+        NSMutableArray<IFSyntaxHighlightingOption*>* options = [[NSMutableArray alloc] init];
 
-        [self.options insertObject: [[IFSyntaxHighlightingOption alloc] init] atIndex: IFSHOptionHeadings];
-        [self.options insertObject: [[IFSyntaxHighlightingOption alloc] init] atIndex: IFSHOptionMainText];
-        [self.options insertObject: [[IFSyntaxHighlightingOption alloc] init] atIndex: IFSHOptionComments];
-        [self.options insertObject: [[IFSyntaxHighlightingOption alloc] init] atIndex: IFSHOptionQuotedText];
-        [self.options insertObject: [[IFSyntaxHighlightingOption alloc] init] atIndex: IFSHOptionTextSubstitutions];
+        [options insertObject: [[IFSyntaxHighlightingOption alloc] init] atIndex: IFSHOptionHeadings];
+        [options insertObject: [[IFSyntaxHighlightingOption alloc] init] atIndex: IFSHOptionMainText];
+        [options insertObject: [[IFSyntaxHighlightingOption alloc] init] atIndex: IFSHOptionComments];
+        [options insertObject: [[IFSyntaxHighlightingOption alloc] init] atIndex: IFSHOptionQuotedText];
+        [options insertObject: [[IFSyntaxHighlightingOption alloc] init] atIndex: IFSHOptionTextSubstitutions];
+        self.options = options;
 
         [self resetSettings];
     }

@@ -13,9 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IFSyntaxHighlightingOption : NSObject
 
-@property (atomic) IFFontStyle          fontStyle;
-@property (atomic) bool                 underline;
-@property (atomic) IFRelativeFontSize   relativeFontSize;
+@property (nonatomic) IFFontStyle          fontStyle;
+@property (nonatomic) bool                 underline;
+@property (nonatomic) IFRelativeFontSize   relativeFontSize;
 
 -(instancetype) init NS_DESIGNATED_INITIALIZER;
 
@@ -23,17 +23,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IFEditingPreferencesSet : NSObject
 
-@property (atomic) bool                 enableSyntaxHighlighting;
-@property (atomic, copy) NSString*      fontFamily;
-@property (atomic) int                  fontSize;
+@property (nonatomic) bool                 enableSyntaxHighlighting;
+@property (nonatomic, copy) NSString*      fontFamily;
+@property (nonatomic) int                  fontSize;
 
-/// Array of IFSyntaxHighlightingOptions
-@property (atomic, strong) NSMutableArray<IFSyntaxHighlightingOption*>* options;
+/// One option for each type, in order
+@property (nonatomic, copy) NSArray<IFSyntaxHighlightingOption*>* options;
 
-@property (atomic) CGFloat              tabWidth;
-@property (atomic) bool                 autoIndentAfterNewline;
-@property (atomic) bool                 autoSpaceTableColumns;
-@property (atomic) bool                 autoNumberSections;
+@property (nonatomic) CGFloat              tabWidth;
+@property (nonatomic) bool                 autoIndentAfterNewline;
+@property (nonatomic) bool                 autoSpaceTableColumns;
+@property (nonatomic) bool                 autoNumberSections;
 
 - (instancetype) init NS_DESIGNATED_INITIALIZER;
 - (void) updateAppPreferencesFromSet;
