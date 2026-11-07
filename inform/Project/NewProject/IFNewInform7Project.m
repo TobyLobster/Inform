@@ -12,12 +12,19 @@
 #import "IFCompilerSettings.h"
 
 @implementation IFNewInform7Project {
+    /// Where the author's name comes from
+    IFPreferences* preferences;
     NSRange initialSelectionRange;
 }
 
 - (instancetype) init {
+    return [self initWithPreferences: [IFPreferences sharedPreferences]];
+}
+
+- (instancetype) initWithPreferences: (IFPreferences*) newPreferences {
     self = [super init];
     if( self != nil ) {
+        preferences = newPreferences;
         initialSelectionRange = NSMakeRange(0, 0);
     }
     return self;
@@ -48,7 +55,7 @@
         NSString* name = file.filename.lastPathComponent.stringByDeletingPathExtension;
         if (name.length == 0) name = @"Untitled";
         
-        NSString* longuserName = [IFPreferences sharedPreferences].freshGameAuthorName;
+        NSString* longuserName = preferences.freshGameAuthorName;
 
         // If longusername contains a '.', then we have to enclose it in quotes
         BOOL needQuotes = NO;
