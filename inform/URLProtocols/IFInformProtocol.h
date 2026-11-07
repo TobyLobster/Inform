@@ -7,15 +7,15 @@
 //
 
 #import <AppKit/AppKit.h>
-#import <WebKit/WebKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 ///
-/// Inform protocol: refers to files within the Inform application bundle
-/// Grr, Apple's docs on how to write these is VERY sparse and unhelpful
-/// Maybe could write this as a policy delegate, but there's a header file
-/// error there.
+/// Inform protocol: refers to files within the Inform application bundle, or in
+/// Inform's documentation folder for an extensions URL. It answers for Foundation's
+/// URL loading, as when the welcome window and the skein page read their templates.
+/// Web views don't ask an NSURLProtocol; IFWebViewHelper and IFNewsCustomSchemeHandler
+/// answer theirs.
 ///
 @interface IFInformProtocol : NSURLProtocol
 
