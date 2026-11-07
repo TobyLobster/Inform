@@ -8,10 +8,9 @@
 
 #import "IFNewInform7ExtensionFile.h"
 #import "IFSingleFile.h"
-#import "IFExtensionsManager.h"
+#import "IFProject.h"
 #import "IFPreferences.h"
 
-#import "IFAppDelegate.h"
 #import "IFUtility.h"
 #import "NSBundle+IFBundleExtensions.h"
 
@@ -68,16 +67,11 @@
 }
 
 - (NSString*) saveFilename {
-	// OLD: NSString* extnDir = [IFUtility pathForInformExternalExtensions];
     NSString* materialsPath  = (project.materialsDirectoryURL).path;
     NSString* extnDir = [materialsPath stringByAppendingPathComponent: @"Extensions"];
     extnDir = [extnDir stringByAppendingPathComponent: vw.authorName];
     extnDir = [extnDir stringByAppendingPathComponent: [vw.extensionName stringByAppendingPathExtension: @"i7x"]];
     return extnDir;
-}
-
-- (NSString*) openAsType {
-	return @"Inform Extension Directory";
 }
 
 - (void) createDeepDirectory: (NSURL*) deepDirectory {
