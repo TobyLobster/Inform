@@ -27,6 +27,8 @@
 #import "IFInformProtocol.h"
 #import "IFNewInform7Project.h"
 #import "IFNewInform7ExtensionProject.h"
+#import "IFNewInform7ExtensionFile.h"
+#import "IFSingleFile.h"
 #import "IFNaturalIntel.h"
 #import "IFSyntaxStyles.h"
 #import "IFInform7MutableString.h"
