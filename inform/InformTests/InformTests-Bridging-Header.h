@@ -12,6 +12,7 @@
 #import "IFSkein.h"
 #import "IFSkeinItem.h"
 #import "IFSkeinView.h"
+#import "IFSkeinLayout.h"
 #import "IFSkeinLayoutItem.h"
 #import "IFSkeinItemView.h"
 #import "IFSkeinReportView.h"

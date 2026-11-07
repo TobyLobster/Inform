@@ -39,6 +39,17 @@ import Cocoa
         }
     }
 
+    /// The children, for Swift. Swift reaches children through Objective-C, which converts the array to an NSArray
+    /// and back each time.
+    final var childItems: [IFSkeinLayoutItem]? {
+        get {
+            return _children
+        }
+        set {
+            _children = newValue
+        }
+    }
+
     // MARK: - Initialisation
 
     init(item newItem: IFSkeinItem,
