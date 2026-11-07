@@ -35,12 +35,14 @@ NS_SWIFT_NAME(IFHeaderViewProtocol)
 
 // Managing the list of headers
 
-/// Updates the headers being managed by this controller from the specified intelligence object
-- (void) updateFromIntelligence: (IFIntelFile*) intel;
-/// The root header for this controller (ie, the header that the view should display at the top level)
-@property (atomic, readonly, strong) IFHeader *rootHeader;
-/// The intel file that is in use by this controller
-@property (atomic, readonly, strong) IFIntelFile *intelFile;
+/// Updates the headers being managed by this controller from the specified intelligence object. With no
+/// intelligence, or none with symbols, the headers stay as they were.
+- (void) updateFromIntelligence: (nullable IFIntelFile*) intel;
+/// The root header for this controller (ie, the header that the view should display at the top level), or nil
+/// before there are any headers
+@property (atomic, readonly, strong, nullable) IFHeader *rootHeader;
+/// The intel file that is in use by this controller (nil before the first update, or if it was given none)
+@property (atomic, readonly, strong, nullable) IFIntelFile *intelFile;
 
 // Managing the views being controlled
 
