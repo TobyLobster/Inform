@@ -80,7 +80,7 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
 
 // Constructing the object
 /// The shared preference object
-@property (class, atomic, readonly, strong) IFPreferences *sharedPreferences;
+@property (class, nonatomic, readonly, strong) IFPreferences *sharedPreferences;
 
 /// Preferences kept in the standard user defaults, as the shared ones are
 - (instancetype) init;
@@ -95,14 +95,14 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
 -(void) endBatchEditing;
 
 // Editing preferences
-@property (atomic, copy) NSString *sourceFontFamily;
-@property (atomic) CGFloat sourceFontSize;
-@property (atomic, readonly) CGFloat appFontSizeMultiplier;
-@property (atomic) IFAppFontSize appFontSizeMultiplierEnum;
-@property (atomic) CGFloat tabWidth;
+@property (nonatomic, copy) NSString *sourceFontFamily;
+@property (nonatomic) CGFloat sourceFontSize;
+@property (nonatomic, readonly) CGFloat appFontSizeMultiplier;
+@property (nonatomic) IFAppFontSize appFontSizeMultiplierEnum;
+@property (nonatomic) CGFloat tabWidth;
 
 -(IFColourTheme*) getCurrentTheme;
-@property (NS_NONATOMIC_IOSONLY, getter=getCurrentThemeName, copy) NSString *currentThemeName;
+@property (nonatomic, copy) NSString *currentThemeName;
 
 -(IFFontStyle) sourceFontStyleForOptionType:(IFSyntaxHighlightingOptionType) optionType;
 -(void) setSourceFontStyle: (IFFontStyle) style
@@ -117,57 +117,57 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
              forOptionType: (IFSyntaxHighlightingOptionType) optionType;
 
 -(bool) setCurrentTheme: (NSString*) name;
-@property (NS_NONATOMIC_IOSONLY, getter=getThemeNames, readonly, copy) NSArray<NSString*> *themeNames;
+@property (nonatomic, readonly, copy) NSArray<NSString*> *themeNames;
 -(bool) addTheme: (IFColourTheme*) theme;
 -(bool) removeTheme: (NSString*) themeName;
 
 -(void) setDarkMode: (bool) isDarkMode;
 
-@property (NS_NONATOMIC_IOSONLY, getter=getSourcePaper, copy) IFSyntaxColouringOption *sourcePaper;
-@property (NS_NONATOMIC_IOSONLY, getter=getExtensionPaper, copy) IFSyntaxColouringOption *extensionPaper;
+@property (nonatomic, copy) IFSyntaxColouringOption *sourcePaper;
+@property (nonatomic, copy) IFSyntaxColouringOption *extensionPaper;
 
 -(IFSyntaxColouringOption*) sourcePaperForOptionType:(IFSyntaxHighlightingOptionType) optionType;
 -(void) setSourceColour: (NSColor*) colour
           forOptionType: (IFSyntaxHighlightingOptionType) optionType;
 
-@property (NS_NONATOMIC_IOSONLY) BOOL useExternalInformCoreDirectory;
-@property (NS_NONATOMIC_IOSONLY, copy) NSString *externalInformCoreDirectory;
+@property (nonatomic) BOOL useExternalInformCoreDirectory;
+@property (nonatomic, copy) NSString *externalInformCoreDirectory;
 
 /// Regenerate the array of attribute dictionaries that make up the styles
 - (void) recalculateStyles;
 /// Retrieves an array of attribute dictionaries that describe how the styles should be displayed
-@property (atomic, readonly, copy) NSArray<NSDictionary<NSAttributedStringKey, id>*> *styles;
+@property (nonatomic, readonly, copy) NSArray<NSDictionary<NSAttributedStringKey, id>*> *styles;
 
 // Intelligence preferences
-@property (atomic) BOOL enableSyntaxHighlighting;		// YES if source code should be displayed with syntax highlighting
-@property (atomic) BOOL enableSyntaxColouring;          // YES if source code should be displayed with syntax colouring
-@property (atomic) BOOL elasticTabs;					// ... and elastic tabs
-@property (atomic) BOOL indentAfterNewline;				// ... which is used to generate indentation
-@property (atomic) BOOL autoNumberSections;				// ... which is used to auto-type section numbers
+@property (nonatomic) BOOL enableSyntaxHighlighting;		// YES if source code should be displayed with syntax highlighting
+@property (nonatomic) BOOL enableSyntaxColouring;          // YES if source code should be displayed with syntax colouring
+@property (nonatomic) BOOL elasticTabs;					// ... and elastic tabs
+@property (nonatomic) BOOL indentAfterNewline;				// ... which is used to generate indentation
+@property (nonatomic) BOOL autoNumberSections;				// ... which is used to auto-type section numbers
 /// The default author to use for new Inform 7 games (nil goes back to the user's own name)
-@property (atomic, copy, null_resettable) NSString *freshGameAuthorName;
+@property (nonatomic, copy, null_resettable) NSString *freshGameAuthorName;
 
 // Advanced preferences
 /// \c YES if we should run the build.sh shell script to rebuild Inform 7
-@property (atomic) BOOL runBuildSh;
+@property (nonatomic) BOOL runBuildSh;
 /// \c YES if we should always compile the source (no make-style dependency checking)
-@property (atomic) BOOL alwaysCompile;
+@property (nonatomic) BOOL alwaysCompile;
 /// \c YES if we should show the Inform 7 debugging logs + generated Inform 6 source code
-@property (atomic) BOOL showDebuggingLogs;
+@property (nonatomic) BOOL showDebuggingLogs;
 /// \c YES if we want to see the console output during a build
-@property (atomic) BOOL showConsoleDuringBuilds;
+@property (nonatomic) BOOL showConsoleDuringBuilds;
 /// \c YES if we want to debug the public library
-@property (atomic) BOOL publicLibraryDebug;
+@property (nonatomic) BOOL publicLibraryDebug;
 /// \c YES if we should clean the project when we close it (or when saving)
-@property (atomic) BOOL cleanProjectOnClose;
+@property (nonatomic) BOOL cleanProjectOnClose;
 /// \c YES if we should additionally clean out the index files
-@property (atomic) BOOL alsoCleanIndexFiles;
+@property (nonatomic) BOOL alsoCleanIndexFiles;
 /// The preferred glulx interpreter
-@property (atomic, copy) NSString *glulxInterpreter;
+@property (nonatomic, copy) NSString *glulxInterpreter;
 
 
 /// Position of preferences window
-@property (atomic) NSPoint preferencesTopLeftPosition;
+@property (nonatomic) NSPoint preferencesTopLeftPosition;
 
 @end
 

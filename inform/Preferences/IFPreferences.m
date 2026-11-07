@@ -328,7 +328,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
     return true;
 }
 
--(NSArray*) getThemeNames {
+-(NSArray*) themeNames {
     NSMutableArray* array = [[NSMutableArray alloc] init];
 
     for(int i = 0; i < themes.count; i++) {
@@ -479,7 +479,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 }
 
 
--(NSString*) getCurrentThemeName {
+-(NSString*) currentThemeName {
     return [self getPreferenceString: @"currentThemeName"
                              default: @"Light Mode"];
 }
@@ -594,12 +594,12 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
     [self setPreferenceThemesWithNotification:IFPreferencesEditingDidChangeNotification];
 }
 
--(IFSyntaxColouringOption*) getSourcePaper {
+-(IFSyntaxColouringOption*) sourcePaper {
     IFColourTheme * theme = [self getCurrentTheme];
     return theme.sourcePaper;
 }
 
--(IFSyntaxColouringOption*) getExtensionPaper {
+-(IFSyntaxColouringOption*) extensionPaper {
     IFColourTheme * theme = [self getCurrentTheme];
     return theme.extensionPaper;
 }
