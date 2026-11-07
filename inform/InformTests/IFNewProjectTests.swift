@@ -81,6 +81,24 @@ final class IFNewProjectTests: XCTestCase {
             .appendingPathComponent(title + ".i7x")
     }
 
+    /// Answers yes to the question the window asked, as the alert would if it could be shown
+    private func answerYes() {
+        let selector = NSSelectorFromString("confirmDidEnd:returnCode:contextInfo:")
+        XCTAssertTrue(controller.responds(to: selector))
+        typealias Answer = @convention(c) (AnyObject, Selector, NSWindow?, Int, UnsafeMutableRawPointer?) -> Void
+        let answer = unsafeBitCast(controller.method(for: selector), to: Answer.self)
+        answer(controller, selector, nil, NSApplication.ModalResponse.alertFirstButtonReturn.rawValue, nil)
+    }
+
+    /// Writes an extension with this title and author into the project, and gives its text
+    private func writeExtension(title: String, author: String) throws -> String {
+        let url = extensionURL(title: title, author: author)
+        try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+        let text = "\(title) by \(author) begins here.\n\nA lamp is a kind of device.\n\n\(title) ends here.\n"
+        try text.write(to: url, atomically: true, encoding: .utf8)
+        return text
+    }
+
     /// Everything in the test's folder, as paths inside it
     private func everythingInFolder() throws -> [String] {
         let enumerator = try XCTUnwrap(FileManager.default.enumerator(atPath: folder.path))
@@ -149,15 +167,28 @@ final class IFNewProjectTests: XCTestCase {
     }
 
     func testCreateOverAnExtensionAsksFirst() throws {
-        let existing = extensionURL(title: "Lamps", author: "Emily Short")
-        try FileManager.default.createDirectory(at: existing.deletingLastPathComponent(), withIntermediateDirectories: true)
-        let oldText = "Lamps by Emily Short begins here.\n\nA lamp is a kind of device.\n\nLamps ends here.\n"
-        try oldText.write(to: existing, atomically: true, encoding: .utf8)
+        let oldText = try writeExtension(title: "Lamps", author: "Emily Short")
         try newExtension(title: "Lamps", author: "Emily Short")
 
         controller.okButtonClicked(nil)
 
         // Asked, and not answered yes, so the extension is as it was, and the options stay
+        let existing = extensionURL(title: "Lamps", author: "Emily Short")
+        XCTAssertEqual(try String(contentsOf: existing, encoding: .utf8), oldText)
+        XCTAssertEqual(try editableFields().count, 2)
+    }
+
+    func testCreateOverAnExtensionAfterTheProjectHasGoneWritesNothing() throws {
+        let oldText = try writeExtension(title: "Lamps", author: "Emily Short")
+        try newExtension(title: "Lamps", author: "Emily Short")
+        controller.okButtonClicked(nil)
+
+        // The project goes while the window asks, as when it's closed
+        project.fileURL = nil
+        answerYes()
+
+        // The error is shown, and the options stay
+        let existing = extensionURL(title: "Lamps", author: "Emily Short")
         XCTAssertEqual(try String(contentsOf: existing, encoding: .utf8), oldText)
         XCTAssertEqual(try editableFields().count, 2)
     }

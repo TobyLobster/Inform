@@ -121,18 +121,26 @@
     return nil;
 }
 
-- (BOOL) validate {
-    NSWindow* win = [self visibleWindow];
-
+/// Shows what's wrong with the way things are set up, if anything, and gives whether there was something
+- (BOOL) showError {
     if( [projectType respondsToSelector: @selector(errorMessage)]) {
         NSString* error = projectType.errorMessage;
 
         if( error != nil ) {
-            [IFUtility runAlertWarningWindow: win
+            [IFUtility runAlertWarningWindow: [self visibleWindow]
                                        title: @"Error"
                                      message: @"%@", error];
-            return NO;
+            return YES;
         }
+    }
+    return NO;
+}
+
+- (BOOL) validate {
+    NSWindow* win = [self visibleWindow];
+
+    if( [self showError] ) {
+        return NO;
     }
 
     if( [projectType respondsToSelector: @selector(confirmationMessage)]) {
@@ -158,6 +166,10 @@
 
 - (void) confirmDidEnd:(NSWindow *)sheet returnCode:(NSModalResponse)returnCode contextInfo:(void *)contextInfo {
 	if (returnCode == NSAlertFirstButtonReturn) {
+        // Something may have gone wrong while the user was asked, such as the project closing
+        if( [self showError] ) {
+            return;
+        }
 		[self createItem];
         [self close];
 	}
