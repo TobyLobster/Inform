@@ -22,6 +22,7 @@
 #import "IFIntelSymbol.h"
 #import "IFHeader.h"
 #import "IFHeaderController.h"
+#import "IFNewsCustomSchemeHandler.h"
 #import "IFNaturalIntel.h"
 #import "IFSyntaxStyles.h"
 #import "IFInform7MutableString.h"
