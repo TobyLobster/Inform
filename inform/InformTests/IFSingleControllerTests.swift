@@ -19,12 +19,13 @@ final class IFSingleControllerTests: XCTestCase {
         }
     }
 
-    private let save = Selector(("saveDocument:"))
-    private let shiftLeft = Selector(("shiftLeft:"))
-    private let shiftRight = Selector(("shiftRight:"))
-    private let renumberSections = Selector(("renumberSections:"))
-    private let commentOutSelection = Selector(("commentOutSelection:"))
-    private let uncommentSelection = Selector(("uncommentSelection:"))
+    // The menus' actions, which the project controller's header declares too
+    private let save = #selector(NSDocument.save(_:))
+    private let shiftLeft = #selector(IFProjectController.shiftLeft(_:))
+    private let shiftRight = #selector(IFProjectController.shiftRight(_:))
+    private let renumberSections = #selector(IFProjectController.renumberSections(_:))
+    private let commentOutSelection = #selector(IFProjectController.commentOutSelection(_:))
+    private let uncommentSelection = #selector(IFProjectController.uncommentSelection(_:))
 
     /// Where the files would be: nothing is written there
     private let folder = FileManager.default.temporaryDirectory.appendingPathComponent("IFSingleControllerTests").path
