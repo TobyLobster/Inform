@@ -190,6 +190,42 @@ final class IFNewInform7ExtensionFileTests: XCTestCase {
         XCTAssertEqual(try filledIn(title: "", author: "").errorMessage, missingAuthor)
     }
 
+    /// With its project gone, as when it's closed while the New Extension window is open, the extension has nowhere to
+    /// go, so Create says so, where it raised
+    func testAProjectThatsGone() throws {
+        let noProject = IFUtility.localizedString("NoProjectForExtension")
+        XCTAssertNotEqual(noProject, "NoProjectForExtension")
+
+        var type: IFNewInform7ExtensionFile!
+        weak var gone: IFProject?
+        try autoreleasepool {
+            let closed = IFProject()
+            closed.fileURL = folder.appendingPathComponent("Closed.inform")
+            gone = closed
+            type = IFNewInform7ExtensionFile(project: closed, preferences: preferences(author: "Emily Short"))
+            _ = try options(type)
+            closed.close()
+        }
+
+        // A closed project is let go once the run loop has turned
+        let freed = expectation(for: NSPredicate { _, _ in gone == nil }, evaluatedWith: nil)
+        wait(for: [freed], timeout: 5)
+
+        XCTAssertNil(type.saveFilename)
+        XCTAssertEqual(type.errorMessage, noProject)
+    }
+
+    /// A project that has never been saved has nowhere to put the extension either
+    func testAProjectNeverSaved() throws {
+        let unsaved = IFProject()
+        defer { unsaved.close() }
+        let type = IFNewInform7ExtensionFile(project: unsaved, preferences: preferences(author: "Emily Short"))
+        _ = try options(type)
+
+        XCTAssertNil(type.saveFilename)
+        XCTAssertEqual(type.errorMessage, IFUtility.localizedString("NoProjectForExtension"))
+    }
+
     /// The extension goes in the project's materials folder, in a folder for its author
     func testWhereTheExtensionGoes() throws {
         let type = try filledIn(title: "Lamps", author: "Emily Short")

@@ -60,6 +60,10 @@
 }
 
 - (NSString*) errorMessage {
+    // With the project gone, or never saved, there's nowhere to put the extension
+    if (project.materialsDirectoryURL == nil) {
+        return [IFUtility localizedString: @"NoProjectForExtension"];
+    }
 	if (!vw.authorName || [vw.authorName isEqualToString: @""]) {
 		return [IFUtility localizedString: @"BadExtensionAuthor"];
 	}
