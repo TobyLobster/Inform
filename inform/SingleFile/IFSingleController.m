@@ -12,7 +12,6 @@
 #import "IFPreferences.h"
 #import "IFAppDelegate.h"
 #import "IFSyntaxManager.h"
-#import "IFProjectTypes.h"
 #import "IFSourceFileView.h"
 
 @implementation IFSingleController {

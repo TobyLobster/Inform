@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "IFSourceSharedActions.h"
+#import "IFProjectTypes.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,6 +20,12 @@ NS_ASSUME_NONNULL_BEGIN
 -(instancetype) initWithInitialSelectionRange: (NSRange) initialRange;
 
 - (void) indicateRange: (NSRange) rangeToHighlight;
+
+/// Selects and shows a line of the file. The project controller asks this of a file's windows for a line in
+/// that file, when the file is open on its own.
+- (void) highlightSourceFileLine: (NSInteger) line
+                          inFile: (NSString*) file
+                           style: (IFLineStyle) style;
 
 // Spelling
 - (void) setSourceSpellChecking: (BOOL) spellChecking;
