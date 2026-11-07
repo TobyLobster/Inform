@@ -51,6 +51,7 @@
 #import "IFGamePage.h"
 #import "IFFindResult.h"
 #import "IFFindInFiles.h"
+#import "IFHeader.h"
 #import "IFAppDelegate.h"
 #import "IFScanner.h"
 #import "IFDocParser.h"
