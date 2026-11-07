@@ -15,24 +15,26 @@ NS_ASSUME_NONNULL_BEGIN
 @interface IFSkeinLayout : NSObject
 
 // Initialisation
+/// A layout with no root item
+- (instancetype) init;
 - (instancetype) initWithRootItem: (nullable IFSkeinItem*) rootItem NS_DESIGNATED_INITIALIZER;
 
 // Setting skein data
-@property (atomic, strong, nullable) IFSkeinItem *        rootItem;
-@property (atomic, strong, nullable) IFSkeinItem *        activeItem;
-@property (atomic, strong, nullable) IFSkeinItem *        selectedItem;
+@property (nonatomic, strong, nullable) IFSkeinItem *               rootItem;
+@property (nonatomic, strong, nullable) IFSkeinItem *               activeItem;
+@property (nonatomic, strong, nullable) IFSkeinItem *               selectedItem;
 
 // Layout equivalents
-@property (atomic, readonly, strong, nullable) IFSkeinLayoutItem *  rootLayoutItem;       // nil until the skein is laid out
-@property (atomic, readonly, strong, nullable) IFSkeinLayoutItem *  selectedLayoutItem;
+@property (nonatomic, readonly, strong, nullable) IFSkeinLayoutItem * rootLayoutItem;       // nil until the skein is laid out
+@property (nonatomic, readonly, strong, nullable) IFSkeinLayoutItem * selectedLayoutItem;
 
-@property (atomic, readonly)         NSPoint              reportPosition;
+@property (nonatomic, readonly)                   NSPoint             reportPosition;
 
 // Performing the layout
 - (void) layoutSkein;
 
 // Getting layout data
-@property (atomic, readonly) NSSize   size;
+@property (nonatomic, readonly) NSSize size;
 
 - (nullable IFSkeinItem*) itemAtPoint: (NSPoint) point;
 
