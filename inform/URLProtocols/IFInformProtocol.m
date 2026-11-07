@@ -40,6 +40,15 @@
 	
 	NSArray* components = urlPath.pathComponents;
 	
+	// Give nothing outside the resources or the documentation folder (a URL's path can go up out of them, as NSURL decodes "..%2F")
+	if ([components containsObject: @".."]) {
+		[self.client URLProtocol: self
+			    didFailWithError: [NSError errorWithDomain: NSURLErrorDomain
+			                                          code: NSURLErrorNoPermissionsToReadFile
+			                                      userInfo: nil]];
+		return;
+	}
+	
 	// Accept either the host or the path specifier containing 'extensions'
 	if ([host.lowercaseString isEqualToString: @"extensions"] ||
 			(components != nil && components.count > 1 && 

@@ -67,8 +67,15 @@ final class IFInformProtocolTests: XCTestCase {
             .appendingPathComponent("IFInformProtocolTests")
     }
 
+    /// A file of the tests' own in Inform's folder, above the documentation folder
+    private var appSupportFile: URL {
+        return URL(fileURLWithPath: IFUtility.pathForInformExternalAppSupport())
+            .appendingPathComponent("IFInformProtocolTests.html")
+    }
+
     override func tearDown() {
         try? FileManager.default.removeItem(at: documentationFolder)
+        try? FileManager.default.removeItem(at: appSupportFile)
         super.tearDown()
     }
 
@@ -227,6 +234,25 @@ final class IFInformProtocolTests: XCTestCase {
         XCTAssertEqual(load("inform:/NoSuchFile.html").client.errorCode, NSURLErrorFileDoesNotExist)
         XCTAssertEqual(load("inform:/App/NoSuchFile.html").client.errorCode, NSURLErrorFileDoesNotExist)
         XCTAssertEqual(load("inform://Extensions/NoSuchFile.html").client.errorCode, NSURLErrorFileDoesNotExist)
+    }
+
+    /// A path that goes up out of the resources folder, as NSURL gives for a percent-encoded slash, gets nothing
+    func testNothingOutsideTheResources() {
+        XCTAssertEqual(load("inform:/..%2FInfo.plist").client.errorCode, NSURLErrorNoPermissionsToReadFile)
+        XCTAssertEqual(load("inform:/App%2F..%2F..%2FInfo.plist").client.errorCode, NSURLErrorNoPermissionsToReadFile)
+        XCTAssertEqual(load("inform:/../Info.plist").client.errorCode, NSURLErrorNoPermissionsToReadFile)
+
+        // Going up and back down again is refused too
+        XCTAssertEqual(load("inform:/App%2F..%2FInformCoreVersion.txt").client.errorCode, NSURLErrorNoPermissionsToReadFile)
+    }
+
+    /// Nor does a path that goes up out of the documentation folder
+    func testNothingOutsideTheDocumentation() throws {
+        _ = try write("<p>Above</p>", to: appSupportFile)
+        XCTAssertEqual(load("inform://Extensions/..%2FIFInformProtocolTests.html").client.errorCode,
+                       NSURLErrorNoPermissionsToReadFile)
+        XCTAssertEqual(load("inform:/Extensions/..%2FIFInformProtocolTests.html").client.errorCode,
+                       NSURLErrorNoPermissionsToReadFile)
     }
 
     /// A folder is reported as missing too
