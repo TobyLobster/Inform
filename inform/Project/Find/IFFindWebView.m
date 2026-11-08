@@ -11,8 +11,6 @@
 
 @implementation WKWebView(IFFindWebView)
 
-#pragma mark - Basic interface
-
 # pragma mark - Find
 
 - (void) findNextMatch: (NSString*) match
@@ -20,25 +18,18 @@
      completionHandler: (void (^)(bool result))completionHandler {
     BOOL insensitive = (type&IFFindCaseInsensitive)!=0;
 
-    if (@available(macOS 11.0, *)) {
-        WKFindConfiguration *configuration = [[WKFindConfiguration alloc] init];
-        configuration.backwards = false;
-        configuration.caseSensitive = !insensitive;
-        configuration.wraps = true;
+    WKFindConfiguration *configuration = [[WKFindConfiguration alloc] init];
+    configuration.backwards = false;
+    configuration.caseSensitive = !insensitive;
+    configuration.wraps = true;
 
-        [self      findString: match
-             withConfiguration: configuration
-             completionHandler: ^(WKFindResult *result) {
-            if (completionHandler != nil) {
-                completionHandler(result.matchFound);
-            }
-        }];
-    } else {
-        // Fallback on earlier versions
+    [self      findString: match
+         withConfiguration: configuration
+         completionHandler: ^(WKFindResult *result) {
         if (completionHandler != nil) {
-            completionHandler(false);
+            completionHandler(result.matchFound);
         }
-    }
+    }];
 }
 
 - (void) findPreviousMatch: (NSString*) match
@@ -46,25 +37,18 @@
          completionHandler: (void (^)(bool result))completionHandler {
     BOOL insensitive = (type&IFFindCaseInsensitive)!=0;
 
-    if (@available(macOS 11.0, *)) {
-        WKFindConfiguration *configuration = [[WKFindConfiguration alloc] init];
-        configuration.backwards = true;
-        configuration.caseSensitive = !insensitive;
-        configuration.wraps = true;
+    WKFindConfiguration *configuration = [[WKFindConfiguration alloc] init];
+    configuration.backwards = true;
+    configuration.caseSensitive = !insensitive;
+    configuration.wraps = true;
 
-        [self      findString: match
-             withConfiguration: configuration
-             completionHandler: ^(WKFindResult *result) {
-            if (completionHandler != nil) {
-                completionHandler(result.matchFound);
-            }
-        }];
-    } else {
-        // Fallback on earlier versions
+    [self      findString: match
+         withConfiguration: configuration
+         completionHandler: ^(WKFindResult *result) {
         if (completionHandler != nil) {
-            completionHandler(false);
+            completionHandler(result.matchFound);
         }
-    }
+    }];
 }
 
 - (BOOL) canUseFindType: (IFFindType) find {
