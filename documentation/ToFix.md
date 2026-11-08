@@ -41,6 +41,7 @@ Each says how it was found, and none has been seen in the app unless it says so.
 
 ## Preferences
 
+- **"Also clean out index files" does nothing.** The Advanced preferences keep it, but `IFProject` always cleans with `cleanOutUnnecessaryFiles(false)`, both when a project closes and whenever it writes the project, so the Index folder is never emptied, whatever the preference. It has been so since the first version in git. `IFProjectFile`'s `cleanOutUnnecessaryFiles(alsoCleanIndex:)` would empty it if asked. Either the project should pass the preference, or the check box should go. Found while testing `IFAdvancedPreferences` (8 November 2026).
 - **Restoring the defaults re-highlights each source view many times.** In a batch, `IFPreferences` keeps a notification for each change, duplicates and all, and when the batch ends, each one writes the preferences, recalculates the styles and posts its notification, and each Editing notification re-highlights every open source view. So Restore in the editing preferences, which sets 22 preferences, can re-highlight each source view up to 22 times, and Restore in the colour preferences up to 8. Choosing a colour theme re-highlights twice, as `setCurrentTheme:` posts after setting `currentThemeName`, which has already posted, and adding or removing a theme writes the preferences and recalculates the styles twice. Found with the `IFPreferences` tests (7 November 2026).
 
 ## Documentation
