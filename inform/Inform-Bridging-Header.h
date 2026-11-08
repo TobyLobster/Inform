@@ -79,3 +79,5 @@
 #import "IFScanner.h"
 #import "IFDocParser.h"
 #import "IFFindInFiles.h"
+#import "IFFindController.h"
+#import "IFNotifyingWindow.h"
