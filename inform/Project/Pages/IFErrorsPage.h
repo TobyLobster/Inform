@@ -16,9 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 @class IFCompilerController;
 
 ///
-/// The 'errors' page
+/// The 'errors' page, the delegate of its compiler controller (which its nib connects), and so of the
+/// controller's web views' navigation
 ///
-@interface IFErrorsPage : IFPage<WKNavigationDelegate>
+@interface IFErrorsPage : IFPage<IFCompilerControllerDelegate>
 
 // Getting information about this page
 /// The compiler controller for this page
