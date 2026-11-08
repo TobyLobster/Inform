@@ -286,6 +286,13 @@ final class IFWelcomeWindowTests: XCTestCase {
         XCTAssertEqual(try newsRows("2026-11-14\tsoon\tMeet-up\thttps://example.com/"), row)
     }
 
+    func testAnEventWhoseStartDateCantBeReadIsLeftOut() throws {
+        let news = "soon\t2026-11-16\tMystery\thttps://example.com/mystery\n"
+            + "2026-11-14\t\tMeet-up\thttps://example.com/"
+        XCTAssertEqual(try newsRows(news),
+                       "<tr><td>\(try dates("2026-11-14", "2026-11-14"))</td><td><a href=\"https://example.com/\">Meet-up</a></td></tr>\n")
+    }
+
     func testAnEventWithNoLinkLinksToNothing() throws {
         XCTAssertEqual(try newsRows("2026-11-14\t2026-11-14\tMeet-up"),
                        "<tr><td>\(try dates("2026-11-14", "2026-11-14"))</td><td><a href=\"\">Meet-up</a></td></tr>\n")

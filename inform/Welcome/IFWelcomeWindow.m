@@ -204,8 +204,12 @@ static IFWelcomeWindow* sharedWindow = nil;
                     endDate = [startDate copy];
                 }
 
-                // Use the output formatter to generate the string.
-                NSString* dateStr = [outputFormatter stringFromDate:startDate toDate:endDate];
+                // Use the output formatter to generate the string. It raises if there's no date, so an
+                // event whose start date can't be read is left out.
+                NSString* dateStr = nil;
+                if (startDate != nil) {
+                    dateStr = [outputFormatter stringFromDate:startDate toDate:endDate];
+                }
                 if ((dateStr != nil) && (headline != nil)) {
                     //        <tr><td>17th June 2022</td><td><a href="http://www.inform7.com">News Item 1</a></td></tr>
                     str = [str stringByAppendingFormat:@"<tr><td>%@</td><td><a href=\"%@\">%@</a></td></tr>\n", dateStr, link, headline];
