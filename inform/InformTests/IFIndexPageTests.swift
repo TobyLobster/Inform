@@ -439,14 +439,12 @@ final class IFIndexPageTests: XCTestCase {
         let shown = try makePageShowingTheIndex(recorder: recorder)
         let asked = recorder.timesAsked
 
-        // Not in the header, as the history's proxy reaches it
-        let openHistoricalURL = NSSelectorFromString("openHistoricalURL:")
         expectNoNavigation(shown.watcher) {
-            _ = shown.page.perform(openHistoricalURL, with: nil)
+            shown.page.openHistoricalURL(nil)
         }
         let scenes = try indexURL("Scenes.html")
         waitForNavigation(shown.watcher) {
-            _ = shown.page.perform(openHistoricalURL, with: scenes)
+            shown.page.openHistoricalURL(scenes)
         }
         XCTAssertEqual(shown.webView.url, try indexURL("Scenes.html"))
         XCTAssertEqual(highlightedTabs(shown), [Int(IFIndexTabType.scenes.rawValue)])
