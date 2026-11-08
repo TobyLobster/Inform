@@ -19,6 +19,7 @@
 #import "IFToolbarManager.h"
 #import "IFSkeinReportItemView.h"
 #import "IFSkeinBlessButton.h"
+#import "IFSkeinArrowView.h"
 #import "IFSkeinConstants.h"
 #import "IFPreferences.h"
 #import "IFPreferencePane.h"
