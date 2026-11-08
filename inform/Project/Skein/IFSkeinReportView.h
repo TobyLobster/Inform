@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (atomic, strong)           NSMutableArray<NSNumber*>* reportDetails;
 @property (atomic, strong, nullable) IFSkeinLayoutItem*         rootTree;
-@property (atomic, strong, nullable) id<IFSkeinReportBlessDelegate> delegate;
+@property (atomic, weak, nullable)   id<IFSkeinReportBlessDelegate> delegate;
 @property (atomic)                   BOOL                       forceResizeDueToFontSizeChange;
 
 
