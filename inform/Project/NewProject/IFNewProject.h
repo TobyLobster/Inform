@@ -12,7 +12,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(int, IFNewProjectFlow) {
+/// The steps of making a new project: showing its options, then choosing where it goes
+typedef NS_OPTIONS(NSUInteger, IFNewProjectFlow) {
     IFNewProjectNone     = 0,
     IFNewProjectOptions  = 1,
     IFNewProjectLocation = 2,
