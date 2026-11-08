@@ -14,8 +14,8 @@ static const CGFloat kBlessButtonHeight = 13.0f;
 
 @implementation IFSkeinReportItemView
 
-- (instancetype)init {
-    self = [super init];
+- (instancetype) initWithFrame: (NSRect) frame {
+    self = [super initWithFrame: frame];
 	
     if (self) {
         _blessButton = [[IFSkeinBlessButton alloc] init];
