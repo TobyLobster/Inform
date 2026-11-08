@@ -76,10 +76,8 @@ final class IFColourPreferencesTests: XCTestCase {
     private let standardThemes = ["Light Mode", "Dark Mode", "Seven Seas", "Traditional"]
     private let types: [IFSyntaxHighlightingOptionType] = [.headings, .mainText, .comments, .quotedText, .textSubstitutions]
 
-    /// A pane for preferences kept in memory, which start with the values given. Whether to colour syntax is saved,
-    /// as it is once its check box has been used.
+    /// A pane for preferences kept in memory, which start with the values given
     private func makePane(_ stored: [String: Any] = [:]) throws -> (IFColourPreferences, IFPreferences, MemoryDefaults, Controls) {
-        let stored = ["enableSyntaxColouring": true].merging(stored) { $1 }
         let defaults = MemoryDefaults([IFPreferencesDefault: stored])
         let preferences = IFPreferences(userDefaults: defaults)
         let pane = IFColourPreferences(preferences: preferences)
@@ -251,6 +249,20 @@ final class IFColourPreferencesTests: XCTestCase {
             XCTAssertNotNil(written(defaults)["themes"], name)
             XCTAssertEqual(preferences.currentThemeName, "Dark Mode", name)
         }
+    }
+
+    /// A text colour is kept when whether to colour syntax hasn't been saved, as it isn't until its check box is
+    /// used: saving that while copying the theme to the preferences reloaded the pane's theme from them before its
+    /// text colours were copied
+    func testATextColourIsKeptBeforeSyntaxColouringIsSaved() throws {
+        let (_, preferences, defaults, controls) = try makePane()
+        XCTAssertNil(written(defaults)["enableSyntaxColouring"])
+
+        change(controls.headingsColour, to: mauve)
+
+        assertSameColour(preferences.sourcePaper(for: .headings).colour, mauve)
+        assertSameColour(controls.headingsColour.color, mauve)
+        XCTAssertTrue(controls.restoreSettings.isEnabled)
     }
 
     /// Changing a colour of a theme leaves the other themes alone
