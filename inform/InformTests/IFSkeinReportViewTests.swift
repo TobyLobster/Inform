@@ -422,6 +422,20 @@ final class IFSkeinReportViewTests: XCTestCase {
         XCTAssertEqual(recorder.blessed.count, 0)
     }
 
+    /// The report doesn't keep its delegate, which keeps the report
+    func testTheDelegateIsntKept() {
+        let report = IFSkeinReportView()
+        weak var weakRecorder: Recorder?
+        autoreleasepool {
+            let recorder = Recorder()
+            report.delegate = recorder
+            weakRecorder = recorder
+            XCTAssertIdentical(report.delegate, recorder)
+        }
+        XCTAssertNil(weakRecorder)
+        XCTAssertNil(report.delegate)
+    }
+
     // MARK: - The font size
 
     /// The text is the report's size, times the app's font size multiplier
