@@ -479,6 +479,22 @@ final class IFIndexPageTests: XCTestCase {
         XCTAssertEqual(shown.webView.url, try tabURL("Phrasebook.html"))
     }
 
+    /// Switching to the page before it has shown anything highlights no cell. That happens after a project's first
+    /// translation, when the page reloads nothing, as it had nothing to show before (see ToFix).
+    func testSwitchingToThePageBeforeItShowsAnything() throws {
+        let shown = try makePage()
+        shown.page.updateIndexView()
+        try writeIndex(indexPages.map { $0.file })
+        expectNoNavigation(shown.watcher) {
+            shown.page.updateIndexView()
+        }
+        XCTAssertEqual(shown.page.toolbarCells.count, 8)
+        XCTAssertNil(shown.webView.url)
+
+        shown.page.didSwitchToPage()
+        XCTAssertEqual(highlightedTabs(shown), [])
+    }
+
     /// When the app's font size changes, the page is zoomed to it
     func testTheFontSize() throws {
         let shown = try makePageShowingTheIndex()

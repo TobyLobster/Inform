@@ -269,6 +269,9 @@
         cell.state = NSControlStateValueOff;
     }
 
+    // With no URL, nothing is shown, so no cell is highlighted
+    if (lowerURL == nil) return;
+
     for(NSString *tabName in tabDictionary.keyEnumerator) {
         // is the string we are looking for
         if( [lowerURL rangeOfString:tabName].location != NSNotFound ) {
