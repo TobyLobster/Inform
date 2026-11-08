@@ -65,6 +65,7 @@
 #import "IFHeader.h"
 #import "IFHeaderController.h"
 #import "IFHeaderNode.h"
+#import "IFHeaderView.h"
 #import "IFAppDelegate.h"
 #import "IFNewsCustomSchemeHandler.h"
 #import "IFNewsManager.h"
