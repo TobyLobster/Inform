@@ -273,7 +273,7 @@ static const CGFloat webViewHeight = 250.0f;
 
 - (void) didResizeSplitView: (NSNotification*) not {
     if( !settingDividerProgrammatically ) {
-        if( [splitView isSubviewCollapsed: webView] ) {
+        if( [splitView isSubviewCollapsed: webViewParent] ) {
             [self setTestingTabHelpShownTitleControl: NO];
             [self setTestingTabHelpShownSetting: NO];
         }
@@ -285,7 +285,7 @@ static const CGFloat webViewHeight = 250.0f;
 }
 
 - (BOOL) isTestingTabSplitControlShowingHelp {
-    return ![splitView isSubviewCollapsed: webView];
+    return ![splitView isSubviewCollapsed: webViewParent];
 }
 
 - (void) setTestingTabSplitControlShowingHelp:(BOOL) showHelp {

@@ -224,6 +224,47 @@ final class IFSkeinPageTests: XCTestCase {
         XCTAssertFalse(shown.project.settings.testingTabHelpShown)
     }
 
+    /// The help cell hides the help, and shows it again, keeping the project's settings in step
+    func testTogglingTheHelp() throws {
+        let shown = try makePage()
+
+        try toggleHelp(shown)
+        XCTAssertTrue(shown.splitView.isSubviewCollapsed(shown.helpView))
+        XCTAssertEqual(shown.toggleHelpCell.title, "Show Help")
+        XCTAssertFalse(shown.project.settings.testingTabHelpShown)
+
+        try toggleHelp(shown)
+        XCTAssertFalse(shown.splitView.isSubviewCollapsed(shown.helpView))
+        XCTAssertEqual(shown.toggleHelpCell.title, "Hide Help")
+        XCTAssertTrue(shown.project.settings.testingTabHelpShown)
+        XCTAssertEqual(shown.splitView.subviews[0].frame.height, shown.splitView.bounds.height - helpHeight)
+    }
+
+    /// Moving the divider to hide the help, or to show it again, changes the cell and the project's settings
+    func testMovingTheDivider() throws {
+        let shown = try makePage()
+        let height = shown.splitView.bounds.height
+
+        shown.splitView.setPosition(height, ofDividerAt: 0)
+        XCTAssertTrue(shown.splitView.isSubviewCollapsed(shown.helpView))
+        XCTAssertEqual(shown.toggleHelpCell.title, "Show Help")
+        XCTAssertFalse(shown.project.settings.testingTabHelpShown)
+
+        shown.splitView.setPosition(height - helpHeight, ofDividerAt: 0)
+        XCTAssertFalse(shown.splitView.isSubviewCollapsed(shown.helpView))
+        XCTAssertEqual(shown.toggleHelpCell.title, "Hide Help")
+        XCTAssertTrue(shown.project.settings.testingTabHelpShown)
+    }
+
+    /// Another split view resizing doesn't change the cell or the project's settings
+    func testAnotherSplitViewResizing() throws {
+        let shown = try makePage(helpShown: false)
+        NotificationCenter.default.post(name: NSSplitView.didResizeSubviewsNotification, object: NSSplitView())
+        XCTAssertTrue(shown.splitView.isSubviewCollapsed(shown.helpView))
+        XCTAssertEqual(shown.toggleHelpCell.title, "Show Help")
+        XCTAssertFalse(shown.project.settings.testingTabHelpShown)
+    }
+
     /// Switching to the page counts it in the project's settings, and shows the help for what the skein shows: for a
     /// new project, its title, its grey and blue knots, and that knots appear as turns are played, with a welcome for
     /// the first ten times
