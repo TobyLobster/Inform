@@ -307,6 +307,28 @@ final class IFFindTextViewTests: XCTestCase {
         XCTAssertEqual(newResults.map { $0 != nil }, [true, false, true])
     }
 
+    // MARK: - AppKit's own set-up
+
+    /// Nothing replaces NSTextView's own +initialize, which sets up its kill ring among other things
+    func testNSTextViewKeepsItsOwnInitialize() throws {
+        var count: UInt32 = 0
+        let methods = try XCTUnwrap(class_copyMethodList(object_getClass(NSTextView.self), &count))
+        defer { free(methods) }
+        let initializers = (0..<Int(count)).filter { method_getName(methods[$0]) == NSSelectorFromString("initialize") }
+        XCTAssertEqual(initializers.count, 1)
+    }
+
+    /// Control-K kills to the end of the paragraph, and Control-Y yanks it back
+    func testKillingAndYanking() {
+        let textView = makeTextView("hello world")
+        textView.setSelectedRange(range(5, 0))
+        textView.deleteToEndOfParagraph(nil)
+        XCTAssertEqual(textView.string, "hello")
+        textView.setSelectedRange(range(0, 0))
+        textView.yank(nil)
+        XCTAssertEqual(textView.string, " worldhello")
+    }
+
     // MARK: - The find controller
 
     /// The find controller takes anything that responds to findNextMatch:ofType:completionHandler: as a delegate,

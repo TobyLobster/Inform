@@ -17,10 +17,6 @@ static NSArray* lastFoundGroups;
 
 @implementation NSTextView(IFFindTextView)
 
-+(void)initialize {
-    lastFoundGroups = nil;
-}
-
 - (NSRange) find: (NSString*) phrase
 			type: (IFFindType) type
 	   direction: (int) direction 
