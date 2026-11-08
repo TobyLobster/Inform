@@ -31,17 +31,15 @@ typedef NS_ENUM(int, IFIndexTabType) {
 @interface IFIndexPage : IFPage<WKNavigationDelegate>
 
 // The index view
-/// \c YES if the index tab is available
-@property (atomic, readonly) BOOL indexAvailable;
-
 /// Updates the index view with the current files in the index subdirectory
 - (void) updateIndexView;
 /// Returns \c YES if we can select a specific tab in the index pane
 - (BOOL) canSelectIndexTab: (int) whichTab;
 /// Chooses a specific tab
 - (void) switchToTab: (int) tabIdentifier;
-/// Switches to the page specified by the given cell
-- (IBAction) switchToCell: (nullable id) sender;
+/// Opens a URL from the history, without recording it in the history again. The page records it in the history
+/// by sending it to the history's proxy, which Swift can only do with a method declared here.
+- (void) openHistoricalURL: (nullable NSURL*) url;
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller withPane: (IFProjectPane*) pane NS_DESIGNATED_INITIALIZER;
 
