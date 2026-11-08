@@ -20,6 +20,7 @@
 #import "IFSkeinReportItemView.h"
 #import "IFSkeinBlessButton.h"
 #import "IFSkeinArrowView.h"
+#import "IFFindWebView.h"
 #import "IFSkeinConstants.h"
 #import "IFPreferences.h"
 #import "IFPreferencePane.h"
