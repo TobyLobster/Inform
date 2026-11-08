@@ -5,16 +5,13 @@
 //  Created by Toby Nelson in 2015
 //
 
-#import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import "IFSkeinViewChildren.h"
-#import "IFSkein.h"
 #import "IFSkeinItem.h"
 #import "IFSkeinLayout.h"
 #import "IFSkeinLayoutItem.h"
 #import "IFSkeinItemView.h"
 #import "IFSkeinArrowView.h"
-#import "IFSkeinReportView.h"
 #import "IFSkeinView.h"
 #import "IFUtility.h"
 #import "IFSkeinConstants.h"
@@ -88,8 +85,7 @@ static const CGFloat  kPositionEpsilon            = 0.01f;
 }
 
 -(void) createLinkViewFromLayoutItem: (IFSkeinLayoutItem*) layoutItem
-                                 key: (NSNumber*) key
-                              layout: (IFSkeinLayout*) layout {
+                                 key: (NSNumber*) key {
     if( layoutItem.item.parent == nil ) {
         return;
     }
@@ -98,7 +94,6 @@ static const CGFloat  kPositionEpsilon            = 0.01f;
     linkViews[key] = newLink;     // Add link to dictionary
 
     [self updateLinkView: newLink
-                  layout: layout
           fromLayoutItem: layoutItem
                  animate: NO
                   fadeIn: YES];
@@ -183,7 +178,6 @@ static const CGFloat  kPositionEpsilon            = 0.01f;
 }
 
 -(void) updateLinkView: (IFSkeinLinkView*) linkView
-                layout: (IFSkeinLayout*) layout
         fromLayoutItem: (IFSkeinLayoutItem*) layoutItem
                animate: (BOOL) animate
                 fadeIn: (BOOL) fadeIn {
@@ -501,34 +495,16 @@ static NSComparisonResult compareViewOrder(id viewA, id viewB, void *context)
         if( itemViews[key] == nil ) {
             // Create new view
             [self createItemViewFromLayoutItem: layoutItem key: key];
-            [self createLinkViewFromLayoutItem: layoutItem key: key layout: layout];
+            [self createLinkViewFromLayoutItem: layoutItem key: key];
             [self createArrowViewFromLayoutItem:layoutItem key: key layout: layout];
         }
         else {
             // Update view based on layout item
             [self updateItemView: itemViews[key] fromLayoutItem: layoutItem animate: animate fadeIn: NO];
-            [self updateLinkView: linkViews[key] layout: layout fromLayoutItem: layoutItem animate: animate fadeIn: NO];
+            [self updateLinkView: linkViews[key] fromLayoutItem: layoutItem animate: animate fadeIn: NO];
             [self updateArrowView: arrowViews[key] layout: layout fromLayoutItem: layoutItem animate: animate];
         }
     }
-
-    /*
-    BOOL debugCheck = ([layoutItems count] == ([linkViews count]+1) || (([layoutItems count] == 0) && ([linkViews count]==0)));
-    if( !debugCheck ) {
-        NSLog(@"Found %lu Layout Items: ", (unsigned long)[layoutItems count]);
-        for (NSNumber* key in layoutItems) {
-            IFSkeinLayoutItem* layoutItem = layoutItems[key];
-            NSLog(@"    Layout Item %d, %lu (command '%@')", [key intValue], layoutItem.item.uniqueId, layoutItem.item.command);
-        }
-        NSLog(@"Found %lu Link Views: ", (unsigned long)[linkViews count]);
-        [linkViews enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-
-        }];
-        for (NSNumber* key in linkViews) {
-            NSLog(@"    Link View %d", key.intValue);
-        }
-    }
-    */
 
     NSAssert([layoutItems count] == [itemViews count],     @"updateChildrenWithLayout failed to match items");
     NSAssert([layoutItems count] == ([linkViews count]+1) ||
