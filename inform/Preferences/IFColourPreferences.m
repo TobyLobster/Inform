@@ -8,7 +8,6 @@
 #import "IFColourPreferences.h"
 
 #import "IFSyntaxManager.h"
-#import "IFNaturalHighlighter.h"
 
 #import "IFPreferences.h"
 #import "IFUtility.h"
@@ -20,7 +19,6 @@
 
     // Styles
     IBOutlet NSPopUpButton* styleButton;
-    IBOutlet NSButton*      newStyleButton;
     IBOutlet NSButton*      deleteStyleButton;
 
     // Colours
@@ -43,7 +41,6 @@
 
     // Data
     bool                    enableSyntaxColouring;
-    NSString*               currentThemeName;
     IFColourTheme*          currentSet;
 }
 
@@ -156,7 +153,6 @@
 
         }
     }];
-    //[NSApp runModalForWindow: [self.sheet]];
 }
 
 - (IBAction) deleteStyle: (id) sender {
@@ -187,7 +183,7 @@
 
     if (selectedItem != nil) {
         // Set the new name
-        currentThemeName = selectedItem.title;
+        NSString* currentThemeName = selectedItem.title;
 
         // Get the theme from the preferences
         IFPreferences* prefs = [IFPreferences sharedPreferences];
@@ -225,7 +221,6 @@
 - (void) reflectCurrentPreferences {
     // Get current theme settings from preferences
     IFPreferences* prefs = [IFPreferences sharedPreferences];
-    currentThemeName = prefs.currentThemeName;
     NSArray* names = prefs.themeNames;
     [styleButton removeAllItems];
     [styleButton addItemsWithTitles: names];
