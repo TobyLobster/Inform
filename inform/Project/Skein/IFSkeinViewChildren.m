@@ -37,7 +37,8 @@ static const CGFloat  kPositionEpsilon            = 0.01f;
     NSMutableDictionary*    linkViews;
     /// Dictionary of 'IFSkeinArrowView's keyed on item's uniqueId.
     NSMutableDictionary*    arrowViews;
-    IFSkeinView*            skeinView;
+    /// The skein view, which keeps the children
+    __weak IFSkeinView*     skeinView;
     IFSkeinReportView*      reportView;
     CFTimeInterval          currentTimeInterval;
 }

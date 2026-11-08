@@ -116,6 +116,24 @@ final class IFSkeinViewChildrenTests: XCTestCase {
         XCTAssertEqual(children.rect(for: skein.rootItem), .zero)
     }
 
+    /// The children don't keep their skein view, which keeps them, so a skein view is freed once nothing else keeps
+    /// it, with its knots' views
+    func testTheSkeinViewIsntKept() {
+        let (_, north, _) = makeSkein()
+        weak var weakView: IFSkeinView?
+        weak var weakItemView: IFSkeinItemView?
+        autoreleasepool {
+            let view = IFSkeinView(frame: NSRect(x: 0, y: 0, width: 700, height: 500))
+            view.skein = skein
+            view.select(north, withAnimation: false)
+            weakView = view
+            weakItemView = view.subviews.compactMap { $0 as? IFSkeinItemView }.first
+            XCTAssertNotNil(weakItemView)
+        }
+        XCTAssertNil(weakView)
+        XCTAssertNil(weakItemView)
+    }
+
     // MARK: - The knots' views
 
     /// Each knot has a view where its layout item is, a link to its parent (but for the start) and an arrow
