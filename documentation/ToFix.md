@@ -55,6 +55,7 @@ Each says how it was found, and none has been seen in the app unless it says so.
 
 - **A "test me" knot's made-up transcript is lost.** A "test me" knot with no blessed transcript is written with one made of its commands' headings, such as `[1] jump`, which the app reads back as none. Found with the `IFSkein` tests (5 November 2026).
 - **Knots once couldn't be clicked or dragged** (seen in the app on 5 November 2026, in a build of `phase5/swift-utility-rest`), then could again in the same run. Not reproduced. The branch `debug/skein-clicks` logs the skein's mouse events, tagged "SKEIN", to read with `log show`. An idea, not checked: the knots' tracking areas use `NSTrackingActiveInKeyWindow`, so if the window wasn't key, a knot under the pointer might never be marked as inside, and a click only acts on a knot that is.
+- **A project's skein view is never freed.** `IFSkeinView` keeps its `IFSkeinViewChildren`, which keeps the skein view (its `skeinView` instance variable is strong), so when a project's window closes neither is freed, nor the views they hold: the knots, their links and arrows, and the report. The skein view only observes its own skein, so the cost is memory. A weak `skeinView` would do. Found with the `IFSkeinReportView` tests (8 November 2026), which also found the report keeping its delegate, the children, in the same way (fixed, 47efdc82).
 
 ## Web pages
 
