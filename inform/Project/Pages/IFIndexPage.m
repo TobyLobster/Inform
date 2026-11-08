@@ -239,11 +239,12 @@
             }
 		}
     }
-    [self toolbarCellsHaveUpdated];
-
     // Sort tabs by ID
     NSSortDescriptor *sort=[NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:NO];
     [indexCells sortUsingDescriptors:@[sort]];
+
+    // Once they're in order, as the page bar copies them
+    [self toolbarCellsHaveUpdated];
 
     [webView reload: self];
 }
@@ -267,6 +268,7 @@
     for (IFPageBarCell*cell in indexCells) {
         cell.state = NSControlStateValueOff;
     }
+
     for(NSString *tabName in tabDictionary.keyEnumerator) {
         // is the string we are looking for
         if( [lowerURL rangeOfString:tabName].location != NSNotFound ) {

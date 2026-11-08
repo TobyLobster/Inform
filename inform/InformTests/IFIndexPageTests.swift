@@ -307,6 +307,21 @@ final class IFIndexPageTests: XCTestCase {
         XCTAssertFalse(shown.page.canSelectIndexTab(9))
     }
 
+    /// When the page tells the page bar its cells have changed, they're already in order
+    func testTheCellsAreInOrderWhenThePageBarIsTold() throws {
+        try writeIndex(indexPages.map { $0.file })
+        let shown = try makePage()
+
+        var told: [[Int]] = []
+        let observer = NotificationCenter.default.addObserver(forName: .IFUpdatePageBarCells, object: shown.page, queue: nil) { _ in
+            told.append(shown.page.toolbarCells.compactMap { ($0.identifier as? NSNumber)?.intValue })
+        }
+        shown.page.updateIndexView()
+        NotificationCenter.default.removeObserver(observer)
+
+        XCTAssertEqual(told, [Array((1...8).reversed())])
+    }
+
     /// Without some of its pages, the index has only the cells for the pages it has, and can only show those tabs
     func testAPartIndex() throws {
         try writeIndex(["Welcome.html", "Contents.html"])
