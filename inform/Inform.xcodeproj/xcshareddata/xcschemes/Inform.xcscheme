@@ -27,6 +27,24 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "NO">
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Remove the tests&apos; home folder"
+               scriptText = "# The Test action&apos;s CFFIXED_USER_HOME gives the tests their own home folder. While it doesn&apos;t exist,&#10;# CFPreferences cuts the test host off from the user&apos;s preferences, so the tests can neither&#10;# read nor write them. The tests make it as they run, so remove the one an earlier run left.&#10;rm -rf &quot;${PROJECT_TEMP_DIR:?}/TestHome&quot;&#10;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "4BD959F3055EE949008DEFF4"
+                     BuildableName = "Inform.app"
+                     BlueprintName = "Inform"
+                     ReferencedContainer = "container:Inform.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
