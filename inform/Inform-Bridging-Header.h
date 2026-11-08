@@ -34,6 +34,7 @@
 #import "IFSourceSharedActions.h"
 #import "IFSourceFileView.h"
 #import "IFWelcomeWindow.h"
+#import "IFWebViewHelper.h"
 #import "IFNaturalIntel.h"
 #import "IFSyntaxStyles.h"
 #import "IFInform7MutableString.h"

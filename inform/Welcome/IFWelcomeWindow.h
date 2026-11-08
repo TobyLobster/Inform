@@ -23,6 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) hideWebView;
 - (void) showWebView;
 
+/// The news page for the given news, which has a line for each event: its start date, its end date, its
+/// headline and its link, separated by tabs. Nil if the page's template can't be read.
+- (nullable NSString*) newsPageForNews: (nullable NSString*) latestNews;
+
 - (IBAction) clickImage:(nullable id) sender;
 
 @end
