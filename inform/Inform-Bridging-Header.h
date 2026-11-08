@@ -25,6 +25,7 @@
 #import "IFIntelSymbol.h"
 #import "IFHeader.h"
 #import "IFHeaderController.h"
+#import "IFHeaderNode.h"
 #import "IFNewsCustomSchemeHandler.h"
 #import "IFNewsManager.h"
 #import "IFInformProtocol.h"
