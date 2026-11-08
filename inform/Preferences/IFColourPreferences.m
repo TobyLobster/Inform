@@ -15,6 +15,9 @@
 #import "Inform-Swift.h"
 
 @implementation IFColourPreferences {
+    /// The preferences the pane shows and sets
+    IFPreferences* preferences;
+
     IBOutlet NSButton*      enableSyntaxColouringButton;
 
     // Styles
@@ -46,16 +49,21 @@
 
 
 - (instancetype) init {
+	return [self initWithPreferences: [IFPreferences sharedPreferences]];
+}
+
+- (instancetype) initWithPreferences: (IFPreferences*) thePreferences {
 	self = [super initWithNibName: @"ColourPreferences"];
 
 	if (self) {
+        preferences = thePreferences;
         currentSet = [[IFColourTheme alloc] init];
-        [currentSet updateSetFromAppPreferences];
+        [currentSet updateSetFromPreferences: preferences];
 
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(reflectCurrentPreferences)
 													 name: IFPreferencesEditingDidChangeNotification
-												   object: [IFPreferences sharedPreferences]];
+												   object: preferences];
 
 		// Create the preview
 		NSTextStorage* oldStorage = previewView.textStorage;
@@ -130,29 +138,36 @@
     [window beginSheet:self->sheet completionHandler:^(NSModalResponse returnCode) {
         if (returnCode == NSModalResponseOK) {
             NSString * name = self->sheet.themeName;
-            IFPreferences* prefs = [IFPreferences sharedPreferences];
 
-            // Try to add the theme
-            IFColourTheme* newTheme = [self->currentSet createDuplicateSet];
-            newTheme.themeName = name;
-
-            // HACK: Set as deletable
-            newTheme.flags = @(newTheme.flags.intValue | 1);
-
-            if (![prefs addTheme: newTheme]) {
+            if (![self addThemeNamed: name]) {
                 [IFUtility runAlertWarningWindow: window
                                            title: [IFUtility localizedString:@"Name already used"]
                                          message: @"%@", [IFUtility localizedString:@"The name you have chosen is already used. Try another name."]];
-            } else {
-                // Select theme
-                [prefs setCurrentTheme: newTheme.themeName];
-
-                // Update from the preferences based on the new theme
-                [self reflectCurrentPreferences];
             }
-
         }
     }];
+}
+
+- (BOOL) addThemeNamed: (NSString*) name {
+    IFPreferences* prefs = preferences;
+
+    // Try to add the theme
+    IFColourTheme* newTheme = [currentSet createDuplicateSet];
+    newTheme.themeName = name;
+
+    // HACK: Set as deletable
+    newTheme.flags = @(newTheme.flags.intValue | 1);
+
+    if (![prefs addTheme: newTheme]) {
+        return NO;
+    }
+
+    // Select theme
+    [prefs setCurrentTheme: newTheme.themeName];
+
+    // Update from the preferences based on the new theme
+    [self reflectCurrentPreferences];
+    return YES;
 }
 
 - (IBAction) deleteStyle: (id) sender {
@@ -170,10 +185,14 @@
 
 - (void) confirmDidEnd:(NSWindow *)sheet returnCode:(NSModalResponse)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == NSAlertFirstButtonReturn) {
-        IFPreferences* prefs = [IFPreferences sharedPreferences];
-        if ([prefs removeTheme: prefs.currentThemeName]) {
-            [prefs setCurrentTheme: @"Light Mode"];
-        }
+        [self deleteCurrentTheme];
+    }
+}
+
+- (void) deleteCurrentTheme {
+    IFPreferences* prefs = preferences;
+    if ([prefs removeTheme: prefs.currentThemeName]) {
+        [prefs setCurrentTheme: @"Light Mode"];
     }
 }
 
@@ -186,7 +205,7 @@
         NSString* currentThemeName = selectedItem.title;
 
         // Get the theme from the preferences
-        IFPreferences* prefs = [IFPreferences sharedPreferences];
+        IFPreferences* prefs = preferences;
         [prefs setCurrentTheme: currentThemeName];
 
         // Update from the preferences based on the new theme
@@ -215,12 +234,12 @@
     }
 
     // Update application's preferences from currentSet
-    [currentSet updateAppPreferencesFromSetWithEnable: enableSyntaxColouring];
+    [currentSet updatePreferences: preferences fromSetWithEnable: enableSyntaxColouring];
 }
 
 - (void) reflectCurrentPreferences {
     // Get current theme settings from preferences
-    IFPreferences* prefs = [IFPreferences sharedPreferences];
+    IFPreferences* prefs = preferences;
     NSArray* names = prefs.themeNames;
     [styleButton removeAllItems];
     [styleButton addItemsWithTitles: names];
@@ -229,7 +248,7 @@
     enableSyntaxColouring = prefs.enableSyntaxColouring;
 
     // Update currentSet based on application's current preferences
-    [currentSet updateSetFromAppPreferences];
+    [currentSet updateSetFromPreferences: preferences];
 
     // Update preference pane UI elements from currentSet
 
@@ -273,16 +292,20 @@
     alert.alertStyle = NSAlertStyleWarning;
 
     if ([alert runModal] == NSAlertFirstButtonReturn ) {
-        [currentSet resetSettings];
-
-        enableSyntaxColouring = true;
-
-        [[IFPreferences sharedPreferences] startBatchEditing];
-        [currentSet updateAppPreferencesFromSetWithEnable: true];
-        [[IFPreferences sharedPreferences] endBatchEditing];
-
-        [self reflectCurrentPreferences];
+        [self restoreDefaults];
     }
+}
+
+- (void) restoreDefaults {
+    [currentSet resetSettings];
+
+    enableSyntaxColouring = true;
+
+    [preferences startBatchEditing];
+    [currentSet updatePreferences: preferences fromSetWithEnable: true];
+    [preferences endBatchEditing];
+
+    [self reflectCurrentPreferences];
 }
 
 @end
