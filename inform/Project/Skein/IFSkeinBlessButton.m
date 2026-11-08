@@ -6,7 +6,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <QuartzCore/QuartzCore.h>
 #import "IFSkeinBlessButton.h"
 
 static NSImage* blessImage;
@@ -35,7 +34,6 @@ static NSImage* curseOverImage;
         self.bordered   = NO;
         self.wantsLayer = YES;
         self.blessState = YES;
-        inside = NO;
     }
     return self;
 }
