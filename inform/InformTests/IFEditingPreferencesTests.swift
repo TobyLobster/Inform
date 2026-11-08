@@ -459,6 +459,34 @@ final class IFEditingPreferencesTests: XCTestCase {
         XCTAssertEqual(preferences.sourceFontSize, 12)
     }
 
+    /// Changing only the size in the Font panel keeps the font: the pane converted a bold system font, rather than
+    /// the one the panel was given, so the font became the system font
+    func testChangingOnlyTheFontsSizeKeepsTheFont() throws {
+        let (pane, preferences, _, controls) = try makePane()
+        let fontManager = NSFontManager.shared
+        let panelExisted = NSFontPanel.sharedFontPanelExists
+        let (target, action) = (fontManager.target, fontManager.action)
+        defer {
+            fontManager.target = target
+            fontManager.action = action
+        }
+        // As showFontPicker: does, without showing the Font panel
+        fontManager.target = pane
+        fontManager.action = Selector(("selectFont:"))
+
+        // As the Font panel does when its user changes only the size, but by one point, without the panel
+        let bigger = NSMenuItem()
+        bigger.tag = Int(NSFontAction.sizeUpFontAction.rawValue)
+        fontManager.modifyFont(bigger)
+
+        XCTAssertEqual(preferences.sourceFontFamily, "Lucida Grande")
+        XCTAssertEqual(preferences.sourceFontSize, 13)
+        XCTAssertEqual(controls.fontFamily.stringValue, "Lucida Grande - 13")
+        if !panelExisted {
+            XCTAssertFalse(NSFontPanel.sharedFontPanelExists)
+        }
+    }
+
     /// Restoring the defaults puts back every editing preference, and leaves the text size alone
     func testRestoringTheDefaults() throws {
         let (pane, preferences, _, controls) = try makePane { preferences in

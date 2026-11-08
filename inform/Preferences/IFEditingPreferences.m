@@ -361,6 +361,12 @@
 	tabStopSlider.maxValue = tabStopSlider.bounds.size.width-12;
 }
 
+/// The font shown, or the system font of its size if its family isn't installed, as the source then uses
+-(NSFont*) currentFont {
+    NSFont* font = [NSFont fontWithName:currentSet.fontFamily size:currentSet.fontSize];
+    return font ?: [NSFont systemFontOfSize:currentSet.fontSize];
+}
+
 - (IBAction) showFontPicker:(id) sender {
     NSFontPanel* fontPanel = [NSFontPanel sharedFontPanel];
     NSFontManager *fontManager = [NSFontManager sharedFontManager];
@@ -368,14 +374,13 @@
     fontManager.target = self;
     [fontManager orderFrontFontPanel: fontPanel];
 
-    NSFont* font = [NSFont fontWithName:currentSet.fontFamily size:currentSet.fontSize];
-    [fontManager setSelectedFont:font isMultiple:NO];
+    [fontManager setSelectedFont:[self currentFont] isMultiple:NO];
 }
 
 -(void) selectFont:(id) sender {
     NSFontManager *fontManager = [NSFontManager sharedFontManager];
-    NSFont* originalFont = [NSFont boldSystemFontOfSize:12];
-    NSFont* selectedFont = [fontManager convertFont:originalFont];
+    // Convert the font the Font panel was given, so that what wasn't changed in the panel is kept
+    NSFont* selectedFont = [fontManager convertFont:[self currentFont]];
 
     [self setFontFamilyUI: selectedFont.familyName fontSize: selectedFont.pointSize];
     [self styleSetHasChanged: fontFamily];
