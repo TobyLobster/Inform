@@ -5,19 +5,13 @@
 //  Created by Toby Nelson in 2015
 //
 
-#import <Cocoa/Cocoa.h>
 #import "IFSkeinItemView.h"
 #import "IFSkeinLayoutItem.h"
-#import "IFSkeinLayout.h"
 #import "IFSkein.h"
 #import "IFSkeinItem.h"
 #import "IFSkeinView.h"
 #import "IFSkeinConstants.h"
 #import "IFUtility.h"
-#import "IFPreferences.h"
-#import "IFDiffer.h"
-
-#define SELECTION_OPTION_1    1
 
 /// Visible size of the menu image
 static const CGFloat kMenuVisibleWidth        = 21.0;
@@ -40,8 +34,6 @@ static NSImage* unselected;
 static NSImage* differsBadge;
 /// Winning item
 static NSImage* starBadge;
-/// No blessed transcript to test against
-static NSImage* untestedBadge;
 /// Active item
 static NSImage* activeMenu;
 /// Selected item
@@ -62,46 +54,6 @@ static NSDictionary* itemTestMeTextUnselectedAttributes = nil;
 static NSDictionary* itemTextRootActiveAttributes       = nil;
 static NSDictionary* itemTextRootSelectedAttributes     = nil;
 static NSDictionary* itemTextRootUnselectedAttributes   = nil;
-
-#if defined(DEBUG_EXPORT_HELP_IMAGES)
-
-@interface NSImage (SSWPNGAdditions)
-- (BOOL)writePNGToURL:(NSURL*)URL outputSizeInPixels:(NSSize)outputSizePx error:(NSError*__autoreleasing*)error;
-@end
-
-@implementation NSImage (SSWPNGAdditions)
-- (BOOL)writePNGToURL:(NSURL*)URL outputSizeInPixels:(NSSize)outputSizePx error:(NSError*__autoreleasing*)error
-{
-    BOOL result = YES;
-    NSImage* scalingImage = [NSImage imageWithSize:[self size] flipped:NO drawingHandler:^BOOL(NSRect dstRect) {
-        [self drawAtPoint:NSMakePoint(0.0, 0.0) fromRect:dstRect operation:NSCompositingOperationSourceOver fraction:1.0];
-        return YES;
-    }];
-    NSRect proposedRect = NSMakeRect(0.0, 0.0, outputSizePx.width, outputSizePx.height);
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
-    CGContextRef cgContext = CGBitmapContextCreate(NULL, proposedRect.size.width, proposedRect.size.height, 8, 4*proposedRect.size.width, colorSpace, kCGBitmapByteOrderDefault|kCGImageAlphaPremultipliedLast);
-    CGColorSpaceRelease(colorSpace);
-    NSGraphicsContext* context = [NSGraphicsContext graphicsContextWithGraphicsPort:cgContext flipped:NO];
-    CGContextRelease(cgContext);
-    CGImageRef cgImage = [scalingImage CGImageForProposedRect:&proposedRect context:context hints:nil];
-    CGImageDestinationRef destination = CGImageDestinationCreateWithURL((__bridge CFURLRef)(URL), kUTTypePNG, 1, NULL);
-    CGImageDestinationAddImage(destination, cgImage, nil);
-    if(!CGImageDestinationFinalize(destination))
-    {
-        if( error ) {
-            NSDictionary* details = @{NSLocalizedDescriptionKey:@"Error writing PNG image"};
-            [details setValue:@"ran out of money" forKey:NSLocalizedDescriptionKey];
-            *error = [NSError errorWithDomain:@"SSWPNGAdditionsErrorDomain" code:10 userInfo:details];
-        }
-        result = NO;
-    }
-    CFRelease(destination);
-    return result;
-}
-@end
-
-#endif // defined(DEBUG_EXPORT_HELP_IMAGES)
-
 
 @implementation IFSkeinItemView {
     NSTrackingArea * menuTrackingArea;
@@ -129,18 +81,6 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
     unselectedMenu  = [NSImage imageNamed: @"App/Skein/Skein-unselected-menu"];
     overMenu        = [NSImage imageNamed: @"App/Skein/Skein-over-menu"];
 
-//    NSColor* selectedColor = [NSColor colorWithCalibratedRed:  43.0/255.0
-//                                                       green: 123.0/255.0
-//                                                        blue: 156.0/255.0
-//                                                       alpha:   1.0];
-//    NSColor* activeColor = [NSColor colorWithCalibratedRed: 120.0/255.0
-//                                                     green:  74.0/255.0
-//                                                      blue: 145.0/255.0
-//                                                     alpha:   1.0];
-//    NSColor* unselectedColor = [NSColor colorWithCalibratedRed: 93.0/255.0
-//                                                         green: 93.0/255.0
-//                                                          blue: 93.0/255.0
-//                                                         alpha:  1.0];
     NSColor* testMeTextColor = [NSColor colorWithCalibratedRed: 0.8
                                                          green: 0.8
                                                           blue: 0.8
@@ -153,19 +93,16 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
     // Standard attributes
     if (!itemTextSelectedAttributes) {
         itemTextSelectedAttributes = @{ NSFontAttributeName:            standardFont,
-//                                        NSBackgroundColorAttributeName: selectedColor,
                                         NSForegroundColorAttributeName: [NSColor whiteColor] };
     }
 
     if (!itemTextActiveAttributes) {
         itemTextActiveAttributes = @{ NSFontAttributeName:            standardFont,
-//                                      NSBackgroundColorAttributeName: activeColor,
                                       NSForegroundColorAttributeName: [NSColor whiteColor] };
     }
 
     if (!itemTextUnselectedAttributes) {
         itemTextUnselectedAttributes = @{ NSFontAttributeName:            standardFont,
-//                                          NSBackgroundColorAttributeName: unselectedColor,
                                           NSForegroundColorAttributeName: [NSColor whiteColor] };
     }
 
@@ -173,21 +110,18 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
     if (!itemTestMeTextSelectedAttributes) {
         itemTestMeTextSelectedAttributes = @{ NSFontAttributeName:        testMeFont,
                                               NSObliquenessAttributeName:     @(0.2),
-//                                              NSBackgroundColorAttributeName: selectedColor,
                                               NSForegroundColorAttributeName: testMeTextColor };
     }
 
     if (!itemTestMeTextActiveAttributes) {
         itemTestMeTextActiveAttributes = @{ NSFontAttributeName:            testMeFont,
                                             NSObliquenessAttributeName:     @(0.2),
-//                                            NSBackgroundColorAttributeName: activeColor,
                                             NSForegroundColorAttributeName: testMeTextColor };
     }
 
     if (!itemTestMeTextUnselectedAttributes) {
         itemTestMeTextUnselectedAttributes = @{ NSFontAttributeName:            testMeFont,
                                                 NSObliquenessAttributeName:     @(0.2),
-//                                                NSBackgroundColorAttributeName: unselectedColor,
                                                 NSForegroundColorAttributeName: testMeTextColor };
     }
     
@@ -195,19 +129,16 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
     // Root attributes
     if (!itemTextRootSelectedAttributes) {
         itemTextRootSelectedAttributes = @{ NSFontAttributeName:            rootFont,
-//                                            NSBackgroundColorAttributeName: selectedColor,
                                             NSForegroundColorAttributeName: [NSColor whiteColor] };
     }
 
     if (!itemTextRootActiveAttributes) {
         itemTextRootActiveAttributes = @{ NSFontAttributeName:              rootFont,
-//                                          NSBackgroundColorAttributeName:   activeColor,
                                           NSForegroundColorAttributeName:   [NSColor whiteColor] };
     }
 
     if (!itemTextRootUnselectedAttributes) {
         itemTextRootUnselectedAttributes = @{ NSFontAttributeName:              rootFont,
-//                                              NSBackgroundColorAttributeName:   unselectedColor,
                                               NSForegroundColorAttributeName:   [NSColor whiteColor] };
     }
 }
@@ -245,8 +176,7 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
 }
 
 
-+(NSDictionary*) attributesForLayoutItem: (IFSkeinLayoutItem*) layoutItem
-                                    size: (CGFloat) fontSize {
++(NSDictionary*) attributesForLayoutItem: (IFSkeinLayoutItem*) layoutItem {
     int index = 0;
 
     // Unselected, selected, active
@@ -341,7 +271,7 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
     if ([(self.skeinView).skein isTheWinningItem: layoutItem.item]) {
         float height = starBadge.size.height/2;
         float width = starBadge.size.width/2;
-        [starBadge drawInRect: NSMakeRect(0.0, 0.0 /*floor(self.frame.size.height) - height - 9*/,
+        [starBadge drawInRect: NSMakeRect(0.0, 0.0,
                                           width, height)
                      fromRect: NSZeroRect
                     operation: NSCompositingOperationSourceOver
@@ -368,8 +298,7 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
     }
 
     // Draw the text
-    NSDictionary* sizedTextAttributes = [[self class] attributesForLayoutItem: layoutItem
-                                                                         size: [IFSkeinView fontSize]];
+    NSDictionary* sizedTextAttributes = [[self class] attributesForLayoutItem: layoutItem];
 
 
     [layoutItem.item.command drawAtPoint: NSMakePoint(floor(commandX), floor(commandY))
@@ -384,107 +313,7 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
                          fraction: 1.0];
     }
     drawnStateHash = layoutItem.drawStateHash;
-
-    /*
-    [[NSColor colorWithCalibratedRed:1.0f green:0.0f blue:0.0f alpha:0.5f] set];
-    NSRect menuAreaRect = NSMakeRect(commandX + commandSize.width + kDrawMenuOffsetX,
-                                     self.frame.size.height - kMenuVisibleHeight,
-                                     kMenuVisibleWidth, kMenuVisibleHeight);
-    NSRectFillUsingOperation(menuAreaRect, NSCompositingOperationSourceOver);
-
-    [[NSColor colorWithCalibratedRed:0.0f green:1.0f blue:0.0f alpha:0.5f] set];
-    NSRect localLozengeRect = [layoutItem localSpaceLozengeRect];
-    NSRectFillUsingOperation(localLozengeRect, NSCompositingOperationSourceOver);
-    */
 }
-
-+(void) drawHelpItem: (NSString*) title
-    isRecentlyPlayed: (BOOL) recentlyPlayed
-      isSelectedLine: (BOOL) selectedLine
-            isBadged: (BOOL) badge
-              isRoot: (BOOL) root
-          isTestItem: (BOOL) testItem
-            showMenu: (BOOL) showMenu
-          insideMenu: (BOOL) insideMenu
-               width: (int) width
-              height: (int) height {
-    [[NSColor colorWithCalibratedRed:0.0f green:0.0f blue:0.0f alpha:1.0f] set];
-
-    NSImage* background;
-    NSImage* backgroundMenu;
-    int textAttributesIndex = 0;
-
-    // Played / Selected / Unselected
-    if( recentlyPlayed ) {
-        background = active;
-        backgroundMenu = activeMenu;
-        textAttributesIndex = 2;
-    }
-    else if( selectedLine ) {
-        background = selected;
-        backgroundMenu = selectedMenu;
-        textAttributesIndex = 1;
-    }
-    else {
-        background = unselected;
-        backgroundMenu = unselectedMenu;
-    }
-
-    // Root / Standard / Test Me
-    if (testItem) {
-        textAttributesIndex += 6;
-    }
-    else if( !root ) {
-        textAttributesIndex += 3;
-    }
-
-    // Draw the background
-    NSDictionary* attributes = root ? itemTextRootActiveAttributes : itemTextActiveAttributes;
-    NSSize commandSize       = [title sizeWithAttributes: attributes];
-    CGFloat commandX         = kSkeinItemImageCommandLeftBorder;
-
-    CGFloat imageHeight = background.size.height;
-    CGFloat commandY = floor((imageHeight - commandSize.height) / 2.0 + 1.0);
-
-    // Draw the lozenge
-    [[self class] drawLozengeImage: background
-                           atPoint: NSMakePoint(0, 0)
-                         withWidth: commandSize.width];
-
-    // Draw the menu if necessary
-    if( showMenu ) {
-        NSPoint drawPoint = NSMakePoint(floor(commandX + commandSize.width + kDrawMenuOffsetX),
-                                        floor(height) - backgroundMenu.size.height);
-        [backgroundMenu drawAtPoint: drawPoint
-                           fromRect: NSZeroRect
-                          operation: NSCompositingOperationSourceOver
-                           fraction: 1.0];
-        if( insideMenu ) {
-            [overMenu   drawAtPoint: drawPoint
-                           fromRect: NSZeroRect
-                          operation: NSCompositingOperationSourceOver
-                           fraction: 1.0];
-        }
-    }
-
-    // Draw the text
-    NSDictionary* sizedTextAttributes =  @[itemTextRootUnselectedAttributes,  itemTextRootSelectedAttributes, itemTextRootActiveAttributes,
-                                 itemTextUnselectedAttributes,      itemTextSelectedAttributes,     itemTextActiveAttributes,
-                                 itemTestMeTextUnselectedAttributes,itemTestMeTextSelectedAttributes, itemTestMeTextActiveAttributes
-                                ][textAttributesIndex];
-
-    [title drawAtPoint: NSMakePoint(floor(commandX), floor(commandY))
-        withAttributes: sizedTextAttributes];
-
-    // Draw the badge if necessary
-    if (badge) {
-        [differsBadge drawAtPoint: NSMakePoint(0.0, floor(height) - differsBadge.size.height)
-                         fromRect: NSZeroRect
-                        operation: NSCompositingOperationSourceOver
-                         fraction: 1.0];
-    }
-}
-
 
 -(IFSkeinView*) skeinView {
     if( [self.superview isKindOfClass: [IFSkeinView class]] ) {
@@ -526,56 +355,6 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
 
     return img;
 }
-
-#if defined(DEBUG_EXPORT_HELP_IMAGES)
-+ (void)  exportHelpTo:(NSString*) pngFile
-                  text:(NSString*) text
-      isRecentlyPlayed:(BOOL) isRecentlyPlayed
-        isSelectedLine:(BOOL) isSelectedLine
-              isBadged:(BOOL) isBadged
-                isRoot:(BOOL) isRoot
-            isTestItem:(BOOL) isTestItem
-              showMenu:(BOOL) showMenu
-            insideMenu:(BOOL) insideMenu
-                 width:(int) width
-                height:(int) height {
-
-    NSRect imgRect;
-
-    imgRect.origin = NSMakePoint(0,0);
-    imgRect.size = NSMakeSize(width, height);
-
-    NSImage* img = [[NSImage alloc] initWithSize: imgRect.size];
-
-    // Draw image
-    [img lockFocus];
-    [[NSColor clearColor] set];
-    NSRectFill(imgRect);
-    [IFSkeinItemView drawHelpItem: text
-                 isRecentlyPlayed: isRecentlyPlayed
-                   isSelectedLine: isSelectedLine
-                         isBadged: isBadged
-                           isRoot: isRoot
-                       isTestItem: isTestItem
-                         showMenu: showMenu
-                       insideMenu: insideMenu
-                            width: width
-                           height: height];
-    [img unlockFocus];
-
-    NSError* error;
-    [img writePNGToURL: [NSURL URLWithString:pngFile] outputSizeInPixels: imgRect.size error: &error];
-}
-
-+ (void) exportHelpImages {
-    [self exportHelpTo:@"file:///Users/tobynelson/HelpStoryTitle.png"     text:@"Story Title" isRecentlyPlayed:NO  isSelectedLine:NO  isBadged:NO  isRoot:YES isTestItem:NO showMenu:NO  insideMenu: NO width:100 height:30];
-    [self exportHelpTo:@"file:///Users/tobynelson/HelpBadgedBlueKnot.png" text:@"Command"     isRecentlyPlayed:NO  isSelectedLine:YES isBadged:YES isRoot:NO  isTestItem:NO showMenu:NO  insideMenu: NO width:100 height:30];
-    [self exportHelpTo:@"file:///Users/tobynelson/HelpBlueKnot.png"       text:@"Command"     isRecentlyPlayed:NO  isSelectedLine:YES isBadged:NO  isRoot:NO  isTestItem:NO showMenu:NO  insideMenu: NO width:100 height:30];
-    [self exportHelpTo:@"file:///Users/tobynelson/HelpGreyKnot.png"       text:@"Command"     isRecentlyPlayed:NO  isSelectedLine:NO  isBadged:NO  isRoot:NO  isTestItem:NO showMenu:NO  insideMenu: NO width:100 height:30];
-    [self exportHelpTo:@"file:///Users/tobynelson/HelpGreyKnotMenu.png"   text:@"Command"     isRecentlyPlayed:NO  isSelectedLine:NO  isBadged:NO  isRoot:NO  isTestItem:NO showMenu:YES insideMenu: NO width:100 height:30];
-    [self exportHelpTo:@"file:///Users/tobynelson/HelpPurpleKnot.png"     text:@"Command"     isRecentlyPlayed:YES isSelectedLine:YES isBadged:NO  isRoot:NO  isTestItem:NO showMenu:NO  insideMenu: NO width:100 height:30];
-}
-#endif // defined(DEBUG_EXPORT_HELP_IMAGES)
 
 -(BOOL) canClickItem {
     if( !layoutItem.item.isTestSubItem ) return YES;
@@ -636,7 +415,6 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
 
         NSTrackingArea* trackingArea = [[NSTrackingArea alloc] initWithRect: areaRect
                                                                     options: NSTrackingMouseEnteredAndExited |
-                                                                             /*NSTrackingCursorUpdate |*/
                                                                              NSTrackingActiveInKeyWindow | options
                                                                       owner: self
                                                                    userInfo: nil];
@@ -736,18 +514,10 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
         if( !layoutItem.onSelectedLine ) {
             // Select an item not currently on the selected line
             [self.skeinView selectItem: layoutItem.item withAnimation:YES];
-        } else
-#ifdef SELECTION_OPTION_1
+        } else {
+            // Clear the selection if clicking an item on the selected line
             [self.skeinView selectItem: nil withAnimation:YES];
-#else
-        if (layoutItem.parent == nil ) {
-            // Clear selection if clicking the (selected) root item
-            [self.skeinView selectItem: nil withAnimation:YES];
-        } else if ([event clickCount] == 1) {
-            // Play to point if clicking on a selected item that's not the root
-            [self.skeinView playToPoint: layoutItem.item];
         }
-#endif
         return;
     }
     [super mouseUp: event];
@@ -786,12 +556,6 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
         dragCanMove = ![layoutItem.item hasDescendant: self.skein.activeItem];
 
         NSDraggingItem *dragItem = [[NSDraggingItem alloc] initWithPasteboardWriter: layoutItem.item];
-//        [dragItem setImageComponentsProvider:^NSArray<NSDraggingImageComponent *> * _Nonnull{
-//            NSDraggingImageComponent *dragImage = [[NSDraggingImageComponent alloc] initWithKey: NSDraggingImageComponentIconKey];
-//            dragImage.contents = itemImage;
-//
-//            return @[dragImage];
-//        }];
         [dragItem setDraggingFrame:(NSRect){NSZeroPoint, itemImage.size} contents:itemImage];
 
         [self beginDraggingSessionWithItems: @[dragItem] event:event source:self];
