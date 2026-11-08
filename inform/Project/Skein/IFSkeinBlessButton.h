@@ -5,7 +5,7 @@
 //  Created by Toby Nelson in 2015
 //
 
-#import <Foundation/Foundation.h>
+#import <AppKit/AppKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
