@@ -8,7 +8,6 @@
 #import "IFEditingPreferences.h"
 
 #import "IFSyntaxManager.h"
-#import "IFNaturalHighlighter.h"
 
 #import "IFPreferences.h"
 #import "IFUtility.h"
@@ -16,7 +15,6 @@
 @implementation IFEditingPreferences {
     // Text section
     IBOutlet NSTextField* fontFamily;
-    IBOutlet NSPopUpButton* selectFont;
     IBOutlet NSSlider* appTextSize;
 
     // Syntax highlighting section
@@ -115,8 +113,6 @@
 												 selector: @selector(viewWidthChanged:)
 													 name: NSViewFrameDidChangeNotification
 												   object: self.preferenceView];
-		tabStopSlider.maxValue = tabStopSlider.bounds.size.width-12;
-
 
 		[self reflectCurrentPreferences];
      }
