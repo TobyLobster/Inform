@@ -307,6 +307,19 @@ final class IFFindTextViewTests: XCTestCase {
         XCTAssertEqual(newResults.map { $0 != nil }, [true, false, true])
     }
 
+    /// Replacing a result with something shorter can move a later one that overlapped it to before the start of
+    /// the text, which isn't replaced
+    func testReplacingAllOverlappingMatchesAtTheStart() throws {
+        let textView = makeTextView("  x")
+        let results = try XCTUnwrap(textView.findAllMatches(" +", of: .regexp, in: .currentPage,
+                                                            in: findController, withIdentifier: 1))
+        XCTAssertEqual(results.map(\.fileRange), [range(0, 2), range(1, 1)])
+        let (newResults, offset) = replaceAll(results, with: "", in: textView)
+        XCTAssertEqual(textView.string, "x")
+        XCTAssertEqual(newResults.map { $0 != nil }, [true, false])
+        XCTAssertEqual(offset, -2)
+    }
+
     // MARK: - AppKit's own set-up
 
     /// Nothing replaces NSTextView's own +initialize, which sets up its kill ring among other things

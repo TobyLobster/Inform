@@ -298,6 +298,11 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
 								offset: (int*) offset {
 	// Get the original match
 	NSRange matchRange = result.fileRange;
+
+	// Replacing an earlier match with something shorter can move one that overlapped it to before the start
+	if ((NSInteger) matchRange.location + *offset < 0) {
+		return nil;
+	}
 	matchRange.location += *offset;
 	NSString* originalMatch = [result.context substringWithRange: result.contextRange];
 	
