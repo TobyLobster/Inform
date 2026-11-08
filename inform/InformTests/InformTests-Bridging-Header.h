@@ -21,6 +21,7 @@
 #import "IFSkeinBlessButton.h"
 #import "IFSkeinArrowView.h"
 #import "IFFindWebView.h"
+#import "IFFindTextView.h"
 #import "IFSkeinConstants.h"
 #import "IFPreferences.h"
 #import "IFPreferencePane.h"
