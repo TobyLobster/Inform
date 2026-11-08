@@ -7,16 +7,13 @@
 
 #import "IFSkeinReportView.h"
 #import "IFSkeinReportItemView.h"
-#import "IFSkein.h"
 #import "IFSkeinItem.h"
 #import "IFSkeinConstants.h"
-#import "IFSkeinLayout.h"
 #import "IFSkeinLayoutItem.h"
 #import "IFSkeinBlessButton.h"
 #import "IFPreferences.h"
 #import "IFUtility.h"
 #import "IFDiffer.h"
-#import "NSString+IFStringExtensions.h"
 
 
 @implementation IFSkeinReportView {
@@ -63,7 +60,6 @@ static NSDictionary* deleteAttr = nil;
     self = [super init];
 	
     if (self) {
-		rootTree      = nil;
         reportDetails = [[NSMutableArray alloc] init];
         itemViews     = [[NSMutableArray alloc] init];
         treeHash      = 0;
