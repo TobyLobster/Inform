@@ -61,10 +61,14 @@ static NSMutableArray* standardSettingsClasses = nil;
 #pragma mark - Initialisation, etc
 
 - (instancetype) init {
+    return [self initWithSettings: [[self class] makeStandardSettings]];
+}
+
+- (instancetype) initWithSettings: (NSArray<IFSetting*>*) theSettings {
 	self = [super init];
 	
 	if (self) {
-		settings = [[self class] makeStandardSettings];
+		settings = [theSettings mutableCopy];
 		
 		settingsChanging = NO;
 	}
