@@ -8,11 +8,7 @@
 
 #import "IFErrorsPage.h"
 #import "IFUtility.h"
-#import "IFDocumentationPage.h"
 #import "IFProjectController.h"
-#import "IFProjectPane.h"
-#import "IFPreferences.h"
-#import "IFCompilerSettings.h"
 #import "IFCompilerController.h"
 #import "IFPageBarCell.h"
 #import "IFPageBarView.h"
@@ -21,7 +17,6 @@
     /// The compiler controller object
     IFCompilerController* compilerController;
     int inhibitAddToHistory;
-    IFProjectPane * pane;
 
     /// Cells used to select the pages in the compiler controller
     NSMutableArray* pageCells;
@@ -35,13 +30,7 @@
 				projectController: controller];
 	
 	if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver: self
-                                                 selector: @selector(fontSizePreferenceChanged:)
-                                                     name: IFPreferencesAppFontSizeDidChangeNotification
-                                                   object: [IFPreferences sharedPreferences]];
-
         inhibitAddToHistory = 0;
-        self->pane = thePane;
 	}
 	
 	return self;
@@ -52,12 +41,6 @@
 - (NSString*) title {
 	return [IFUtility localizedString: @"Errors Page Title"
                               default: @"Errors"];
-}
-
-#pragma mark - Preferences
-
-- (void) fontSizePreferenceChanged: (NSNotification*) not {
-    // TODO
 }
 
 #pragma mark - IFCompilerController delegate methods
@@ -92,9 +75,6 @@
 	}
 	
 	// Rebuild the set of cells for this compiler
-	//int selectedIndex = [compilerController viewIndex];
-	//int currentIndex = [tabs count]-1;
-
 	for( IFCompilerTab* tab in [tabs reverseObjectEnumerator] ) {
 		// Create the cell for this name
 		IFPageBarCell* newCell = [[IFPageBarCell alloc] initTextCell: tab.name];
@@ -172,9 +152,6 @@
 - (void)                webView:(WKWebView *)webView
   didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation {
 
-    // Highlight appropriate tab
-    //[self highlightTabForURL: webView.URL.absoluteString];
-
     // Add to history...
     // ... except when reloading after the census
     // ... except on initial load
@@ -226,11 +203,6 @@
 - (NSArray*) toolbarCells {
 	if (pageCells == nil) return @[];
 	return pageCells;
-}
-
-- (BOOL)splitView:(NSSplitView *)splitView shouldHideDividerAtIndex:(NSInteger)dividerIndex
-{
-    return YES;
 }
 
 @end
