@@ -6,7 +6,6 @@
 //
 
 #import "IFSkeinReportItemView.h"
-#import "IFSkein.h"
 #import "IFSkeinBlessButton.h"
 #import "IFSkeinConstants.h"
 
@@ -34,9 +33,6 @@ static const CGFloat kBlessButtonHeight = 13.0f;
                                                              1.0f);
         [self addSubview: _textView];
         [self addSubview: _blessButton];
-
-        _textHeight = 0.0f;
-        _uniqueId = 0;
     }
     return self;
 }
