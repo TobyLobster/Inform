@@ -10,7 +10,6 @@
 #import "IFUtility.h"
 #import "IFPreferences.h"
 #import "IFColourTheme.h"
-#import "IFHeaderController.h"
 
 @implementation IFHeaderView {
     /// The display depth for this view
@@ -250,8 +249,6 @@
     // Set up the editor storage again
     [editStorage setAttributedString: node.attributedTitle];
     [editor.layoutManager replaceTextStorage: editStorage];
-
-    // [[editor textStorage] setAttributedString: [node attributedTitle]];
 
     if (mouseDown) [editor mouseDown: mouseDown];
 }
