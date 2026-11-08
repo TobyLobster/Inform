@@ -28,6 +28,7 @@
 #import "IFPageBarCell.h"
 #import "IFDocumentationPage.h"
 #import "IFErrorsPage.h"
+#import "IFExtensionsPage.h"
 #import "IFSkeinConstants.h"
 #import "IFPreferences.h"
 #import "IFPreferencePane.h"
