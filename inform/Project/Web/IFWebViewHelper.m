@@ -55,6 +55,11 @@
     // First the configuration:
     WKWebViewConfiguration* config = [[WKWebViewConfiguration alloc] init];
 
+    // The unit tests' web views keep their website data in memory, not in the user's Library
+    if ([IFUtility isHostingUnitTests]) {
+        config.websiteDataStore = [WKWebsiteDataStore nonPersistentDataStore];
+    }
+
     // Handle 'inform:' scheme
     [config setURLSchemeHandler: self
                    forURLScheme: @"inform"];

@@ -45,4 +45,11 @@ final class IFWebViewHelperTests: XCTestCase {
             XCTAssertFalse(task.data.isEmpty, page)
         }
     }
+
+    /// The tests' web views keep their website data in memory, not in the user's Library.
+    func testWebViewsKeepTheirDataInMemory() {
+        let helper: IFWebViewHelper = IFWebViewHelper(projectController: nil, with: nil)
+        let webView = helper.createWebView(withFrame: .zero)
+        XCTAssertFalse(webView.configuration.websiteDataStore.isPersistent)
+    }
 }
