@@ -220,8 +220,11 @@ final class IFWelcomeWindowTests: XCTestCase {
     func testEachRowShowsItsTitleAndImage() throws {
         let tables = try lists()
         for table in [tables.recent, tables.create, tables.samples] {
+            let column = try XCTUnwrap(table.tableColumns.first)
             for (index, row) in try rows(of: table).enumerated() {
-                let cell = try XCTUnwrap(table.preparedCell(atColumn: 0, row: index))
+                // A copy of the column's cell, which the delegate fills in, as the table has it do before drawing
+                let cell = try XCTUnwrap((column.dataCell as? NSCell)?.copy() as? NSCell)
+                table.delegate?.tableView?(table, willDisplayCell: cell, for: column, row: index)
                 XCTAssertEqual(cell.title, row.title)
                 XCTAssertNotNil(cell.image, row.title ?? "")
             }
