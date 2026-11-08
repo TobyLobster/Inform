@@ -145,7 +145,7 @@ final class IFSettingsPageTests: XCTestCase {
 
         var updates = counting.updates
         project.settings.settingsHaveChanged()
-        XCTAssertGreaterThanOrEqual(counting.updates, updates + 1)
+        XCTAssertEqual(counting.updates, updates + 1)
 
         updates = counting.updates
         IFProject().settings.settingsHaveChanged()

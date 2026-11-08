@@ -26,19 +26,10 @@
 				projectController: controller];
 	
 	if (self) {
-		[[NSNotificationCenter defaultCenter] addObserver: self
-												 selector: @selector(updateSettings)
-													 name: IFSettingNotification
-												   object: [(self.parent).document settings]];
-		
 		[self updateSettings];
 	}
 	
 	return self;
-}
-
-- (void) dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
 #pragma mark - Details about this view
