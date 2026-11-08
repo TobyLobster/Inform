@@ -12,12 +12,9 @@
 #import "IFProjectController.h"
 #import "IFProject.h"
 #import "IFCompilerSettings.h"
-#import "Inform-Swift.h"
 
 @implementation IFSettingsPage {
     // Settings
-    /// The settings view
-    IBOutlet IFSettingsView*        settingsView;
     /// The settings controller
     IFSettingsController*  settingsController;
 }
