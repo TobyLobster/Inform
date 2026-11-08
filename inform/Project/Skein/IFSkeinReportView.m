@@ -56,8 +56,8 @@ static NSDictionary* deleteAttr = nil;
     deleteAttr  = [IFUtility adjustAttributesFontSize: deleteAttr  size: fontSize];
 }
 
--(instancetype) init {
-    self = [super init];
+-(instancetype) initWithFrame: (NSRect) frame {
+    self = [super initWithFrame: frame];
 	
     if (self) {
         reportDetails = [[NSMutableArray alloc] init];
