@@ -30,11 +30,22 @@
 
 #pragma mark - Initialisation
 
+/// A root header node for the root header given, or for no headers when that's nil
+- (IFHeaderNode*) rootNodeWithHeader: (IFHeader*) header {
+    if (!header) header = [[IFHeader alloc] initWithName: @""
+                                                  parent: nil
+                                                children: nil];
+    return [[IFHeaderNode alloc] initWithHeader: header
+                                       position: NSMakePoint(0,0)
+                                          depth: 0];
+}
+
 - (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         displayDepth = 5;
         backgroundColour = [[NSColor whiteColor] copy];
+        rootHeaderNode = [self rootNodeWithHeader: nil];
     }
     return self;
 }
@@ -63,9 +74,7 @@
 
 - (void) updateFromRoot {
     // Replace the root header node
-    rootHeaderNode = [[IFHeaderNode alloc] initWithHeader: rootHeader
-                                                 position: NSMakePoint(0,0)
-                                                    depth: 0];
+    rootHeaderNode = [self rootNodeWithHeader: rootHeader];
     int populateToDepth = displayDepth;
     // HACK: If on level 5, include level 6 (examples)
     if( populateToDepth == 5 ) populateToDepth++;
@@ -314,8 +323,8 @@
     // Get the new text for this node
     NSString* newText = [editNode freshValueForEditedTitle: editStorage.string];
 
-    // Tell the delegate to update the source text
-    if ([delegate respondsToSelector: @selector(headerView:updateNode:withNewTitle:)]) {
+    // Tell the delegate to update the source text, if a node was being edited
+    if (editNode && [delegate respondsToSelector: @selector(headerView:updateNode:withNewTitle:)]) {
         [delegate headerView: self
                   updateNode: editNode
                 withNewTitle: newText];

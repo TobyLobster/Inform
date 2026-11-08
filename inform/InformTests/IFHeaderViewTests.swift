@@ -151,6 +151,10 @@ final class IFHeaderViewTests: XCTestCase {
         XCTAssertNil(view.message)
         XCTAssertTrue(view.isFlipped)
         XCTAssertTrue(view.acceptsFirstResponder)
+        // A root node for no headers
+        XCTAssertEqual(view.rootHeaderNode.header.headingName, "")
+        XCTAssertNil(view.rootHeaderNode.children)
+        XCTAssertEqual(view.rootHeaderNode.frame, .zero)
     }
 
     /// The header page sets a new view's depth before there are any headers to show
