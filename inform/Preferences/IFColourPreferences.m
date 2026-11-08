@@ -97,7 +97,7 @@
 }
 
 - (NSString*) tooltip {
-	return [IFUtility localizedString: @"Color preferences tooltip"];
+	return [IFUtility localizedString: @"Colour preferences tooltip"];
 }
 
 - (CGFloat) maxHeight {

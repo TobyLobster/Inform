@@ -123,6 +123,14 @@ final class IFColourPreferencesTests: XCTestCase {
         XCTAssertNotNil(pane.toolbarImage)
     }
 
+    /// The tooltip is the one in the localised strings, not its key
+    func testThePanesTooltipIsLocalised() throws {
+        let (pane, _, _, _) = try makePane()
+        XCTAssertEqual(pane.tooltip, IFUtility.localizedString("Colour preferences tooltip"))
+        XCTAssertNotEqual(pane.tooltip, "Colour preferences tooltip")
+        XCTAssertNotEqual(pane.tooltip, "Color preferences tooltip")
+    }
+
     /// The pane can be as tall as the window allows, so that its preview grows
     func testThePaneCanBeAnyHeightAboveItsSmallest() throws {
         let (pane, _, _, _) = try makePane()
