@@ -8,7 +8,6 @@
 
 #import "IFPage.h"
 #import "NSBundle+IFBundleExtensions.h"
-#import "IFProjectFile.h"
 #import "IFProjectPane.h"
 #import "IFHistoryEvent.h"
 
@@ -21,10 +20,6 @@ NSString* const IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotific
 
     /// \c YES if this page is currently displayed
     BOOL pageIsVisible;
-    /// YES if the view has been set using setView: and should be released
-    BOOL releaseView;
-    /// All top level objects for the nib loaded (so they can be released)
-    NSArray *topLevelObjects;
 }
 
 @synthesize view;
@@ -64,7 +59,6 @@ NSString* const IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotific
 
 - (void) setView: (NSView*) newView {
 	view = newView;
-	releaseView = YES;
 }
 
 - (NSString*) identifier {
