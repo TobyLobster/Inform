@@ -272,8 +272,8 @@ static IFWelcomeWindow* sharedWindow = nil;
     [recentDocumentsTableView reloadData];
 }
 
-- (instancetype) initWithWindowNibName: (NSString*) nib {
-	self = [super initWithWindowNibName: nib];
+- (instancetype) initWithWindow: (NSWindow*) window {
+	self = [super initWithWindow: window];
 	
 	if (self) {
 		[[NSNotificationCenter defaultCenter] addObserver: self
