@@ -17,14 +17,9 @@
     NSMutableArray* views;
     /// Titles of views to display (one-to-one mapping with views)
     NSMutableArray* titles;
-    /// Booleans, indicating if each view is shown or not. (UNUSED)
-    NSMutableArray* states;
 
     /// YES if a rearrangement is in progress
     BOOL rearranging;
-    /// Set to \c YES to stop resizing that occurs while rearranging from causing infinite recursion
-    /// (delays resizes if \c YES ). Useful if we have, for example, auto-hiding scrollbars
-    BOOL reiterate;
 }
 
 #define BORDER 8.0
@@ -37,15 +32,10 @@
     if (self) {
 		views = [[NSMutableArray alloc] init];
 		titles = [[NSMutableArray alloc] init];
-		states = [[NSMutableArray alloc] init];
 		
 		rearranging = NO;
 	}
     return self;
-}
-
-- (void) dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
 #pragma mark - Drawing
@@ -78,7 +68,6 @@
 	for (int x=0; x<views.count; x++) {
 		NSView* thisView = views[x];
 		NSString* thisTitle = titles[x];
-		//BOOL visible = [[states objectAtIndex: x] boolValue];
 		
 		NSSize titleSize = [thisTitle sizeWithAttributes: titleAttributes];
 		NSRect thisFrame = thisView.frame;
@@ -92,8 +81,6 @@
                                        floor(thisFrame.size.height + (titleSize.height * 1.2)));
 		[frameColour set];
 		[NSBezierPath strokeRect: borderRect];
-		
-		// IMPLEMENT ME: draw the show/hide triangle (or maybe add this as a view?)
 		
 		// Draw the title
 		[thisTitle drawAtPoint: NSMakePoint(BORDER*2, ypos + 2 + titleSize.height * 0.1)
@@ -114,14 +101,12 @@
 
 	[views removeAllObjects];
 	[titles removeAllObjects];
-	[states removeAllObjects];	
 }
 
 - (void) addSubview: (NSView*) subview
 		  withTitle: (NSString*) title {
 	[views addObject: subview];
 	[titles addObject: title];
-	[states addObject: @YES];
 	
     [self addSubview: subview];
     subview.autoresizingMask = NSViewMaxYMargin | NSViewMaxXMargin;
@@ -132,10 +117,8 @@
 }
 
 - (void) rearrangeSubviews {
-	reiterate = YES;
 	if (rearranging) return;
 	rearranging = YES;
-	reiterate = NO;
 	
 	NSRect oldBounds;
 	NSRect newBounds = self.bounds;
