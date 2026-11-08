@@ -280,6 +280,13 @@ final class IFWelcomeWindowTests: XCTestCase {
                        + "<td><a href=\"https://example.com/speed\">Speed IF</a></td></tr>\n")
     }
 
+    func testEventsAreOnTheCalendarsDaysWestOfGreenwich() throws {
+        NSTimeZone.default = try XCTUnwrap(TimeZone(identifier: "America/Los_Angeles"))
+        XCTAssertEqual(try newsRows("2026-11-14\t2026-11-16\tIFComp results\thttps://ifcomp.org/"),
+                       "<tr><td>\(try dates("2026-11-14", "2026-11-16"))</td>"
+                       + "<td><a href=\"https://ifcomp.org/\">IFComp results</a></td></tr>\n")
+    }
+
     func testAnEventWithNoEndDateIsOnItsStartDate() throws {
         let row = "<tr><td>\(try dates("2026-11-14", "2026-11-14"))</td><td><a href=\"https://example.com/\">Meet-up</a></td></tr>\n"
         XCTAssertEqual(try newsRows("2026-11-14\t\tMeet-up\thttps://example.com/"), row)

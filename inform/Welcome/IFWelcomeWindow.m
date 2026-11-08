@@ -178,6 +178,8 @@ static IFWelcomeWindow* sharedWindow = nil;
         NSDateIntervalFormatter* outputFormatter = [[NSDateIntervalFormatter alloc] init];
         outputFormatter.dateStyle = NSDateIntervalFormatterMediumStyle;
         outputFormatter.timeStyle = NSDateIntervalFormatterNoStyle;
+        // The calendar's dates are read as midnight GMT, so they're shown in GMT, or west of it they'd be the day before
+        outputFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT: 0];
 
         // parse data
         NSISO8601DateFormatter* format = [[NSISO8601DateFormatter alloc] init];
