@@ -83,4 +83,5 @@
 #import "IFDocParser.h"
 #import "IFFindInFiles.h"
 #import "IFFindController.h"
+#import "IFFindWebView.h"
 #import "IFNotifyingWindow.h"
