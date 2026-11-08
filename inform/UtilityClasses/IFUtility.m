@@ -148,6 +148,12 @@ CGFloat easeOutCubic(CGFloat t) {
     handler([alert runModal]);
 }
 
++ (void) beginSavePanel: (NSSavePanel*) panel
+              forWindow: (NSWindow*) window
+      completionHandler: (void (^)(NSModalResponse result)) handler {
+    [panel beginSheetModalForWindow: window completionHandler: handler];
+}
+
 + (void) runAlertYesNoWindow: (NSWindow*) window
                        title: (NSString*) title
                          yes: (NSString*) yes

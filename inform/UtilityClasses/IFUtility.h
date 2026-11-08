@@ -62,6 +62,12 @@ CGFloat easeOutCubic(CGFloat t);
          forWindow: (nullable NSWindow*) window
  completionHandler: (void (^)(NSModalResponse response)) handler;
 
+/// Begins the save panel in a sheet on the window, or with no window as an app-modal panel that doesn't wait,
+/// which is what AppKit makes of a sheet on no window. For Swift, which can't begin a sheet on no window.
++ (void) beginSavePanel: (NSSavePanel*) panel
+              forWindow: (nullable NSWindow*) window
+      completionHandler: (void (^)(NSModalResponse result)) handler;
+
 + (void) runAlertYesNoWindow: (nullable NSWindow*) window
                        title: (NSString*) title
                          yes: (NSString*) yes

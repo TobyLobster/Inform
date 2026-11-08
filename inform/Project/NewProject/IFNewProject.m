@@ -194,8 +194,9 @@
     }
 
     // Show it
-    [panel beginSheetModalForWindow: win
-                  completionHandler: ^(NSInteger result)
+    [IFUtility beginSavePanel: panel
+                    forWindow: win
+            completionHandler: ^(NSInteger result)
      {
          if (result == NSModalResponseOK) {
              self->projectLocation = panel.URL;
