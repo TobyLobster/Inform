@@ -8,7 +8,6 @@
 
 #import "IFHeaderPage.h"
 #import "NSBundle+IFBundleExtensions.h"
-#import "IFHeaderController.h"
 #import "IFPreferences.h"
 
 #pragma mark Preferences
@@ -28,9 +27,6 @@
 }
 
 #pragma mark - Initialisation
-
-+ (void) initialize {
-}
 
 - (instancetype) init {
 	self = [super init];
@@ -64,7 +60,6 @@
 	if (controller) {
 		if (headerView) [controller removeHeaderView: headerView];
 	}
-	[headerView setDelegate: nil];
 }
 
 - (void) setColours {
