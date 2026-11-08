@@ -12,20 +12,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class IFSkeinView;
-
 ///
 /// The 'skein' page
 ///
 @interface IFSkeinPage : IFPage<NSSplitViewDelegate, WKNavigationDelegate>
 
-/// The skein view
-@property (atomic, readonly, strong) IFSkeinView *skeinView;
-
 - (instancetype) initWithProjectController: (IFProjectController*) controller
                                   withPane: (IFProjectPane*) pane NS_DESIGNATED_INITIALIZER;
 
-- (void) selectActiveSkeinItem;
 -(BOOL) selectSkeinItemWithNodeId:(unsigned long) skeinItemNodeId;
 
 @end

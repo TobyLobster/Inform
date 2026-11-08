@@ -200,7 +200,7 @@ static const CGFloat webViewHeight = 250.0f;
 
 - (void) fontSizePreferenceChanged: (NSNotification*) not {
     [helper fontSizePreferenceChanged: webView];
-    [self.skeinView fontSizePreferenceChanged: not];
+    [skeinView fontSizePreferenceChanged: not];
 }
 
 
@@ -211,10 +211,6 @@ static const CGFloat webViewHeight = 250.0f;
 }
 
 #pragma mark - The skein view
-
-- (IFSkeinView*) skeinView {
-	return skeinView;
-}
 
 - (void) skeinSelectionDidChange: (NSNotification*) not {
     BOOL enableSaveTranscript = skeinView.selectedItem != nil;
@@ -252,14 +248,6 @@ static const CGFloat webViewHeight = 250.0f;
 	return @[playAllCell, saveTranscript, toggleHelp];
 }
 
-- (void) selectActiveSkeinItem {
-    if( skeinView &&
-       skeinView.skein &&
-       skeinView.skein.activeItem) {
-        [skeinView selectItem: skeinView.skein.activeItem withAnimation: YES];
-    }
-}
-
 -(BOOL) selectSkeinItemWithNodeId:(unsigned long) skeinItemNodeId {
     if( skeinView ) {
         return [skeinView selectItemWithNodeId: skeinItemNodeId];
@@ -281,7 +269,6 @@ static const CGFloat webViewHeight = 250.0f;
     IFProject* doc = (self.parent).document;
 
     doc.settings.testingTabHelpShown = helpIsShown;
-    //[[doc settings] settingsHaveChanged];
 }
 
 - (void) didResizeSplitView: (NSNotification*) not {
