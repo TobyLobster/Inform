@@ -8,11 +8,6 @@
 
 #import "IFNotifyingWindow.h"
 #import "IFFindController.h"
-#import "IFProjectController.h"
-
-@protocol IFFirstResponder <NSObject>
-- (void) changeFirstResponder: (NSResponder*) first;
-@end
 
 @implementation IFNotifyingWindow
 
@@ -25,7 +20,7 @@
 		// For convenience's sake, we assume that the delegate implements our changeFirstResponder: method
 		// (this is bad practice in general, but saves a lot of hassle in this case as we aren't planning
 		// to reuse this class)
-		[(id<IFFirstResponder>)self.delegate changeFirstResponder: aResponder];
+		[(NSObject*)self.delegate changeFirstResponder: aResponder];
 	}
 
 	[[IFFindController sharedFindController] updateFromFirstResponder];
