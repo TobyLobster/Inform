@@ -185,13 +185,9 @@ static NSMutableArray* standardSettingsClasses = nil;
 	[settings makeObjectsPerformSelector: @selector(setCompilerSettings:)
 							  withObject: compilerSettings];
 	[compilerSettings reloadAllSettings];
-	[self repopulateSettings];
 
-	// Update ourselves when the compiler settings change
-	[[NSNotificationCenter defaultCenter] addObserver: self
-											 selector: @selector(updateAllSettings)
-												 name: IFSettingNotification
-											   object: self.compilerSettings];
+	// Show the settings, and update ourselves when the compiler settings change
+	[self repopulateSettings];
 }
 
 - (void) updateAllSettings {

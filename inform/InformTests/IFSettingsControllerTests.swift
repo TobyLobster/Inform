@@ -184,16 +184,17 @@ final class IFSettingsControllerTests: XCTestCase {
 
     // MARK: - Changes
 
-    /// A controller for three settings, the last not shown, with compiler settings and a view
+    /// A controller for three settings, the last not shown, with a view and then compiler settings, as the Settings
+    /// page gives them
     private func controllerWithSettings() throws -> (IFSettingsController, IFCompilerSettings, RecordingSetting,
                                                      RecordingSetting, RecordingSetting) {
         let a = RecordingSetting("A")
         let b = OtherSetting("B")
         let hidden = RecordingSetting("Hidden", enabled: false)
         let controller = IFSettingsController(settings: [a, b, hidden])
+        give(try settingsView(), to: controller)
         let compilerSettings = IFCompilerSettings()
         controller.compilerSettings = compilerSettings
-        give(try settingsView(), to: controller)
         return (controller, compilerSettings, a, b, hidden)
     }
 
@@ -208,9 +209,8 @@ final class IFSettingsControllerTests: XCTestCase {
         XCTAssertEqual(a.sets, 1)
         XCTAssertEqual(b.sets, 0)
         XCTAssertEqual(hidden.sets, 0)
-        XCTAssertGreaterThan(a.updates, updates[0])
-        XCTAssertGreaterThan(b.updates, updates[1])
-        XCTAssertGreaterThan(hidden.updates, updates[2])
+        // Once when the setting has set them, and once for the change to them
+        XCTAssertEqual([a.updates, b.updates, hidden.updates], updates.map { $0 + 2 })
         XCTAssertEqual(posted, 1)
 
         // A setting that isn't shown isn't heard
@@ -248,15 +248,13 @@ final class IFSettingsControllerTests: XCTestCase {
         XCTAssertEqual([a.sets, b.sets, hidden.sets], [2, 2, 2])
     }
 
-    /// The settings show changes to the controller's compiler settings, and no others
+    /// The settings show changes to the controller's compiler settings, once each, and no others
     func testTheCompilerSettingsChanging() throws {
         let (controller, compilerSettings, a, b, hidden) = try controllerWithSettings()
         var updates = [a.updates, b.updates, hidden.updates]
 
         compilerSettings.settingsHaveChanged()
-        XCTAssertGreaterThan(a.updates, updates[0])
-        XCTAssertGreaterThan(b.updates, updates[1])
-        XCTAssertGreaterThan(hidden.updates, updates[2])
+        XCTAssertEqual([a.updates, b.updates, hidden.updates], updates.map { $0 + 1 })
 
         updates = [a.updates, b.updates, hidden.updates]
         IFCompilerSettings().settingsHaveChanged()
@@ -269,7 +267,7 @@ final class IFSettingsControllerTests: XCTestCase {
         compilerSettings.settingsHaveChanged()
         XCTAssertEqual([a.updates, b.updates, hidden.updates], updates)
         others.settingsHaveChanged()
-        XCTAssertGreaterThan(a.updates, updates[0])
+        XCTAssertEqual([a.updates, b.updates, hidden.updates], updates.map { $0 + 1 })
     }
 
     /// A standard setting changed in its view, as its user would, changes the compiler settings. The Settings page
