@@ -57,6 +57,28 @@ private final class PartialTheme: NSObject, NSSecureCoding {
     }
 }
 
+/// User defaults kept in memory, so that the tests never read or write the user's own
+private final class MemoryDefaults: UserDefaults {
+    var values: [String: Any]
+
+    init(_ values: [String: Any] = [:]) {
+        self.values = values
+        super.init(suiteName: "IFColourThemeTests.never-written")!
+    }
+
+    override func object(forKey defaultName: String) -> Any? {
+        return values[defaultName]
+    }
+
+    override func set(_ value: Any?, forKey defaultName: String) {
+        values[defaultName] = value
+    }
+
+    override func removeObject(forKey defaultName: String) {
+        values[defaultName] = nil
+    }
+}
+
 final class IFColourThemeTests: XCTestCase {
 
     private let red = NSColor(deviceRed: 0.9, green: 0.2, blue: 0.3, alpha: 1.0)
@@ -197,6 +219,53 @@ final class IFColourThemeTests: XCTestCase {
         }
         duplicate.option(of: .comments).colour = red
         XCTAssertEqual(theme.option(of: .comments).colour, green)
+    }
+
+    /// Preferences kept in memory, whose current theme is the one named
+    private func makePreferences(currentTheme: String) -> IFPreferences {
+        return IFPreferences(userDefaults: MemoryDefaults([IFPreferencesDefault: ["currentThemeName": currentTheme]]))
+    }
+
+    /// The Colour preferences copy the current theme from the preferences, default colours and flags too
+    func testAThemeIsUpdatedFromThePreferencesCurrentTheme() {
+        let preferences = makePreferences(currentTheme: "Dark Mode")
+        preferences.setSourceColour(red, for: .headings)
+        let current = preferences.getCurrentTheme()
+        let theme = makeTheme()
+
+        theme.updateSet(from: preferences)
+
+        XCTAssertEqual(theme.themeName, "Mine")
+        XCTAssertEqual(theme.flags, current.flags)
+        XCTAssertEqual(theme.sourcePaper?.colour, current.sourcePaper?.colour)
+        XCTAssertEqual(theme.extensionPaper?.colour, current.extensionPaper?.colour)
+        XCTAssertNotIdentical(theme.sourcePaper, current.sourcePaper)
+        for type in types {
+            XCTAssertEqual(theme.option(of: type).colour, current.option(of: type).colour)
+            XCTAssertEqual(theme.option(of: type).defaultColour, current.option(of: type).defaultColour)
+        }
+        XCTAssertEqual(theme.option(of: .headings).colour, red)
+        XCTAssertNotEqual(theme.option(of: .headings).defaultColour, red)
+    }
+
+    /// ...and copy their changes back to it, with whether to colour syntax
+    func testAThemeUpdatesThePreferencesCurrentTheme() {
+        let preferences = makePreferences(currentTheme: "Seven Seas")
+        let theme = makeTheme()
+        theme.option(of: .comments).colour = blue
+
+        theme.update(preferences, fromSetWithEnable: false)
+
+        XCTAssertEqual(preferences.currentThemeName, "Seven Seas")
+        XCTAssertEqual(preferences.sourcePaper.colour, red)
+        XCTAssertEqual(preferences.extensionPaper.colour, green)
+        XCTAssertEqual(preferences.sourcePaper(for: .comments).colour, blue)
+        XCTAssertEqual(preferences.sourcePaper(for: .headings).colour, NSColor.black)
+        XCTAssertFalse(preferences.enableSyntaxColouring)
+        XCTAssertNotEqual(preferences.getCurrentTheme().themeName, "Mine")
+
+        XCTAssertTrue(preferences.setCurrentTheme("Light Mode"))
+        XCTAssertNotEqual(preferences.sourcePaper(for: .comments).colour, blue)
     }
 
     /// Themes are kept in the preferences as a secure archive
