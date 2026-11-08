@@ -26,6 +26,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// Makes an array of settings objects using the classes added by addStandardSettingsClass:
 + (NSMutableArray<IFSetting*>*) makeStandardSettings;
 
+/// A controller for the standard settings
+- (instancetype) init;
+/// A controller for the settings given
+- (instancetype) initWithSettings: (NSArray<IFSetting*>*) settings NS_DESIGNATED_INITIALIZER;
+
 // User interface
 /// Change/retrieve the settings view (\c nil until one is set)
 @property (nonatomic, strong, nullable) IBOutlet IFSettingsView *settingsView;
@@ -39,10 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Gets every setting view to update its settings
 - (void) updateAllSettings;
-
-// The settings to display
-/// Adds a new settings object to the set managed by this controller
-- (void) addSettingsObject: (IFSetting*) setting;
 
 @end
 
