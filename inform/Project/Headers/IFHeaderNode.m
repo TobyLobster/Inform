@@ -26,7 +26,22 @@ static NSString* const IFHeaderIndent		= @"IFHeaderIndent";
 static NSString* const IFHeaderGap		    = @"IFHeaderGap";
 static NSString* const IFHeaderCorner		= @"IFHeaderCorner";
 
-static CGFloat pointSize = 11.0;
+/// Registers the defaults for laying out nodes, and makes their fonts, once, when the first node is made
+static void setUpHeaderNodes(void) {
+	static dispatch_once_t setUp;
+	dispatch_once(&setUp, ^{
+		[[NSUserDefaults standardUserDefaults] registerDefaults: 
+			@{IFHeaderPointSize: @([NSFont smallSystemFontSize]),
+				IFHeaderMargin: @5.0,
+				IFHeaderIndent: @12.0,
+				IFHeaderGap: @8.0,
+				IFHeaderCorner: @5.0}];
+		
+		CGFloat pointSize = [[[NSUserDefaults standardUserDefaults] objectForKey: IFHeaderPointSize] floatValue];
+		headerNodeFont		= [NSFont systemFontOfSize: pointSize];
+		boldHeaderNodeFont	= [NSFont boldSystemFontOfSize: pointSize];
+	});
+}
 
 @implementation IFHeaderNode {
     /// The position of this node
@@ -58,20 +73,6 @@ static CGFloat pointSize = 11.0;
     CGFloat corner;
 }
 
-
-#pragma mark - Class initialization
-
-+ (void) initialize {
-	// Register the preferences for this class
-	[[NSUserDefaults standardUserDefaults] registerDefaults: 
-		@{IFHeaderPointSize: @([NSFont smallSystemFontSize]),
-			IFHeaderMargin: @5.0,
-			IFHeaderIndent: @12.0,
-			IFHeaderGap: @8.0,
-			IFHeaderCorner: @5.0}];
-	
-	pointSize = [[[NSUserDefaults standardUserDefaults] objectForKey: IFHeaderPointSize] floatValue];
-}
 
 #pragma mark - Utilities used to help lay out this node
 
@@ -134,10 +135,9 @@ static CGFloat pointSize = 11.0;
 	self = [super init];
 	
 	if (self) {
-		// If the fonts don't exist, then update them
-		if (!headerNodeFont)		headerNodeFont		= [NSFont systemFontOfSize: pointSize];
-		if (!boldHeaderNodeFont)	boldHeaderNodeFont	= [NSFont boldSystemFontOfSize: pointSize];
-        
+		// If this is the first node, register the defaults and make the fonts
+		setUpHeaderNodes();
+		
 		// Update the contents of this node
 		header = newHeader;
 		depth = newDepth;
