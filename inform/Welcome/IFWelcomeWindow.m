@@ -199,7 +199,7 @@ static IFWelcomeWindow* sharedWindow = nil;
                 NSString* link = @"";
 
                 if (lineParts.count >= 4) {
-                    link = lineParts[3];
+                    link = [self encodeForHTML:lineParts[3]];
                 }
 
                 if (endDate == nil) {

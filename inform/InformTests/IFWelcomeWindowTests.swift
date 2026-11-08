@@ -319,4 +319,10 @@ final class IFWelcomeWindowTests: XCTestCase {
                        "<tr><td>\(try dates("2026-11-14", "2026-11-14"))</td><td><a href=\"https://example.com/\">"
                        + "Tom &amp; Jerry&#39;s &quot;&lt;b&gt;Show&lt;/b&gt;&quot;</a></td></tr>\n")
     }
+
+    func testLinksAreEscaped() throws {
+        XCTAssertEqual(try newsRows("2026-11-14\t\tMeet-up\thttps://example.com/?a=1&b=\"x\" onclick=\"alert(1)"),
+                       "<tr><td>\(try dates("2026-11-14", "2026-11-14"))</td>"
+                       + "<td><a href=\"https://example.com/?a=1&amp;b=&quot;x&quot; onclick=&quot;alert(1)\">Meet-up</a></td></tr>\n")
+    }
 }
