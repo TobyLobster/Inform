@@ -194,6 +194,20 @@ final class IFHeaderNodeTests: XCTestCase {
         }
     }
 
+    /// A node's frame takes in its children's headings, which are indented further than its own
+    func testANodeIsWideEnoughForItsChildren() {
+        let root = rootNode()
+        for node in flattened(root) {
+            guard let children = node.children else {
+                continue
+            }
+            // The top node's heading has no bullet
+            let own = width((node === root ? "" : " • ") + node.header.headingName, node)
+            let widest = children.map { $0.frame.maxX + indent }.max()!
+            XCTAssertEqual(node.frame.width, max(own, widest) - node.frame.minX, name(node)!)
+        }
+    }
+
     // MARK: - How a node looks
 
     func testFonts() {
@@ -336,6 +350,21 @@ final class IFHeaderNodeTests: XCTestCase {
         editable = true
         XCTAssertNil(root.atPoint(NSPoint(x: margin + 1, y: root.frame.maxY + 1), editableOut: &editable))
         XCTAssertFalse(editable)
+    }
+
+    /// The end of the widest heading, which is indented further than the headings it's below, can be clicked
+    func testTheEndOfTheWidestHeadingCanBeClicked() {
+        let root = rootNode()
+        let chapter = node("Chapter 2", in: root)!
+        for node in flattened(root) where node !== chapter {
+            XCTAssertLessThan(width(node.header.headingName, node), width(chapter.header.headingName, chapter),
+                              name(node)!)
+        }
+
+        let title = chapter.headerTitleRect
+        var editable = false
+        XCTAssertIdentical(root.atPoint(NSPoint(x: title.maxX - 1, y: title.midY), editableOut: &editable), chapter)
+        XCTAssertTrue(editable)
     }
 
     /// The source page asks for the node for the lines it shows, counting them from 1, as `IFIntelFile` counts

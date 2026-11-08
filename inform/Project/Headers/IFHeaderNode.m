@@ -109,11 +109,11 @@ static CGFloat pointSize = 11.0;
 	
 	// The total height is different if there are children for this item (depending on the y position of the final child)
 	if (children && children.count > 0) {
-		// The width is that of the widest child element
+		// The width is that of the widest child element, which is indented further than this node
         CGFloat maxX = NSMaxX(frame);
 		
 		for( IFHeaderNode* child in children ) {
-            CGFloat childMaxX = NSMaxX(child.frame);
+            CGFloat childMaxX = NSMaxX(child.frame) + indent;
 			if (childMaxX > maxX) maxX = childMaxX;
 		}
 		
