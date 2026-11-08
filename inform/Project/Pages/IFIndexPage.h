@@ -31,17 +31,12 @@ typedef NS_ENUM(int, IFIndexTabType) {
 @interface IFIndexPage : IFPage<WKNavigationDelegate>
 
 // The index view
-/// \c YES if the index tab is available
-@property (atomic, readonly) BOOL indexAvailable;
-
 /// Updates the index view with the current files in the index subdirectory
 - (void) updateIndexView;
 /// Returns \c YES if we can select a specific tab in the index pane
 - (BOOL) canSelectIndexTab: (int) whichTab;
 /// Chooses a specific tab
 - (void) switchToTab: (int) tabIdentifier;
-/// Switches to the page specified by the given cell
-- (IBAction) switchToCell: (nullable id) sender;
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller withPane: (IFProjectPane*) pane NS_DESIGNATED_INITIALIZER;
 

@@ -8,23 +8,17 @@
 
 #import "IFIndexPage.h"
 #import "IFPreferences.h"
-
-#import "IFAppDelegate.h"
 #import "IFUtility.h"
 #import "IFProjectController.h"
 #import "IFProject.h"
 #import "IFPageBarCell.h"
 #import "IFPageBarView.h"
-#import "IFExtensionsManager.h"
 #import "IFWebViewHelper.h"
 
 
 @implementation IFIndexPage {
     /// \c YES if the index tab should be active
     BOOL indexAvailable;
-
-    /// A reference count - number of 'machine' operations that might be affecting the index tab selection
-    int indexMachineSelection;
 
     /// IFPageBarCells used to select index pages
     NSMutableArray<IFPageBarCell*>* indexCells;
@@ -95,8 +89,6 @@
 
 #pragma mark - Page validation
 
-@synthesize indexAvailable;
-
 - (BOOL) shouldShowPage {
 	return indexAvailable;
 }
@@ -157,9 +149,7 @@
     if (!isDir) return NO;
 
     NSURLRequest* aRequest = [[NSURLRequest alloc] initWithURL: fullFileURL];
-    //NSLog(@"self %@ Index page -requestRelativePath about to request a load of %@", self, aRequest.URL.absoluteString);
     [webView loadRequest: aRequest];
-    //NSLog(@"self %@ Index page -requestRelativePath has requested a load of %@", self, aRequest.URL.absoluteString);
 
     return YES;
 }
@@ -171,14 +161,11 @@
     inhibitAddToHistory++;
 
     NSURLRequest* aRequest = [[NSURLRequest alloc] initWithURL:url];
-    //NSLog(@"self %@ Index page -requestURL about to request a load of %@", self, url.absoluteString);
     [webView loadRequest: aRequest];
-    //NSLog(@"self %@ Index page -requestURL has requested a load of %@", self, url.absoluteString);
 }
 
 - (void) switchToTab: (int) tabIdentifier {
 	NSUInteger tabIndex = [self indexOfItemWithTabId:tabIdentifier];
-    //NSLog(@"IFIndexPage -switchToTab with tabIdentifier=%d and tabIndex=%d", tabIdentifier, tabIndex);
 	if (tabIndex != NSNotFound) {
         // Set a URL request going
         NSString* filename =[self filenameOfItemWithTabId:tabIdentifier];
@@ -212,17 +199,12 @@
 	indexCells = [[NSMutableArray alloc] init];
 	
 	// Check that it exists and is a directory
-	if (indexPath == nil) return;
 	if (![[NSFileManager defaultManager] fileExistsAtPath: indexPath
 											  isDirectory: &isDir]) return;
 	if (!isDir) return;		
 
-	// Create the tab view that will eventually go into the main view
-	indexMachineSelection++;
-
 	// Iterate through the files
-    NSError* error;
-	NSArray* files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:indexPath error: &error];
+	NSArray* files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:indexPath error: nil];
 	files = [files sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
 	for( NSString* theFile in files ) {
 		NSString* extension = theFile.pathExtension.lowercaseString;
@@ -263,21 +245,10 @@
     NSSortDescriptor *sort=[NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:NO];
     [indexCells sortUsingDescriptors:@[sort]];
 
-	indexMachineSelection--;
-
     [webView reload: self];
 }
 
-#pragma mark - Utility functions
-
 #pragma mark - Switching cells
-
-- (IBAction) switchToCell: (id) sender {
-	if ([sender isKindOfClass: [IFPageBarCell class]]) {
-        IFPageBarCell* cell = sender;
-        [self switchToTab:[cell.identifier intValue]];
-    }
-}
 
 - (void) didSwitchToPage {
     NSURL* url = webView.URL;
@@ -299,8 +270,6 @@
     for(NSString *tabName in tabDictionary.keyEnumerator) {
         // is the string we are looking for
         if( [lowerURL rangeOfString:tabName].location != NSNotFound ) {
-            //NSLog(@"Found tab %@", tabName);
-
             // Highlight the appropriate tab
             int tabIdentifier = (tabDictionary[tabName]).intValue;
             NSUInteger tabIndex = [self indexOfItemWithTabId:tabIdentifier];
