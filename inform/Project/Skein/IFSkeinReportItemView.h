@@ -13,11 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IFSkeinReportItemView : NSView
 
-@property (atomic) NSTextView*           textView;
-@property (atomic) unsigned long         uniqueId;
-@property (atomic) CGFloat               textHeight;
-@property (atomic) CGFloat               topBorderHeight;
-@property (atomic) IFSkeinBlessButton*   blessButton;
+@property (atomic, readonly) NSTextView*           textView;
+@property (atomic) unsigned long                   uniqueId;
+@property (atomic, readonly) CGFloat               textHeight;
+@property (atomic) CGFloat                         topBorderHeight;
+@property (atomic, readonly) IFSkeinBlessButton*   blessButton;
 
 
 -(void) setAttributedString: (NSAttributedString*) string
