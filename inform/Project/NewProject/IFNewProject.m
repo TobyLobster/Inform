@@ -136,11 +136,11 @@
     return NO;
 }
 
-- (BOOL) validate {
+- (void) validate {
     NSWindow* win = [self visibleWindow];
 
     if( [self showError] ) {
-        return NO;
+        return;
     }
 
     if( [projectType respondsToSelector: @selector(confirmationMessage)]) {
@@ -155,13 +155,12 @@
                             didEndSelector: @selector(confirmDidEnd:returnCode:contextInfo:)
                                contextInfo: nil
                            informativeText: confirm];
-            return NO;
+            return;
         }
     }
 
     [self createItem];
     [self close];
-    return YES;
 }
 
 - (void) confirmDidEnd:(NSWindow *)sheet returnCode:(NSModalResponse)returnCode contextInfo:(void *)contextInfo {
