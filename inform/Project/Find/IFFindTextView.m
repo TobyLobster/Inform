@@ -9,12 +9,9 @@
 #import "IFFindTextView.h"
 #import "IFFindController.h"
 #import "IFFindResult.h"
-#import "IFAppDelegate.h"
 #import "IFFindInFiles.h"
 #import "IFScanner.h"
 #import "IFUtility.h"
-
-#include <wctype.h>
 
 static NSArray* lastFoundGroups;
 
