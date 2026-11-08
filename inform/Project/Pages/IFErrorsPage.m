@@ -12,7 +12,6 @@
 #import "IFProjectController.h"
 #import "IFProjectPane.h"
 #import "IFPreferences.h"
-#import "IFSettingsController.h"
 #import "IFCompilerSettings.h"
 #import "IFCompilerController.h"
 #import "IFPageBarCell.h"

@@ -40,10 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// Gets every setting view to update its settings
 - (void) updateAllSettings;
 
-// The settings to display
-/// Adds a new settings object to the set managed by this controller
-- (void) addSettingsObject: (IFSetting*) setting;
-
 @end
 
 NS_ASSUME_NONNULL_END
