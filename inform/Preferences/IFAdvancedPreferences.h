@@ -10,6 +10,8 @@
 
 #import "IFPreferencePane.h"
 
+@class IFPreferences;
+
 NS_ASSUME_NONNULL_BEGIN
 
 
@@ -17,6 +19,12 @@ NS_ASSUME_NONNULL_BEGIN
 // Preference pane that contains options mainly intended for use by Inform 7 maintainers
 //
 @interface IFAdvancedPreferences : IFPreferencePane
+
+/// The pane for the shared preferences
+- (instancetype) init;
+- (instancetype) initWithNibName: (NSString*) nibName NS_UNAVAILABLE;
+/// The pane for the preferences given
+- (instancetype) initWithPreferences: (IFPreferences*) preferences NS_DESIGNATED_INITIALIZER;
 
 // Actions
 - (IBAction) setPreference: (nullable id) sender;		// Causes this view to update its preferences based on the values of the buttons

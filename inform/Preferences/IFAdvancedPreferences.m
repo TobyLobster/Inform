@@ -11,6 +11,9 @@
 #import "IFUtility.h"
 
 @implementation IFAdvancedPreferences {
+    /// The preferences the pane shows and sets
+    IFPreferences* preferences;
+
     /// If checked, show the Inform 6 source and Inform 7 debugging logs
     IBOutlet NSButton* showDebugLogs;
     /// Causes the Inform 7 build process to be run
@@ -42,15 +45,20 @@
 #pragma mark - Initialisation
 
 - (instancetype) init {
+	return [self initWithPreferences: [IFPreferences sharedPreferences]];
+}
+
+- (instancetype) initWithPreferences: (IFPreferences*) thePreferences {
 	self = [super initWithNibName: @"AdvancedPreferences"];
 	
 	if (self) {
+		preferences = thePreferences;
 		[self reflectCurrentPreferences];
 		
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(reflectCurrentPreferences)
 													 name: IFPreferencesAdvancedDidChangeNotification
-												   object: [IFPreferences sharedPreferences]];
+												   object: preferences];
 	}
 	
 	return self;
@@ -86,17 +94,17 @@
     BOOL useInformCore          = useExternalInformCore.state==NSControlStateValueOn;
     NSString* informCoreDirectory = externalInformCoreDirectory.stringValue;
 
-	// Set the shared preferences to suitable values
-	[IFPreferences sharedPreferences].runBuildSh = willBuildSh;
-    [IFPreferences sharedPreferences].alwaysCompile = willAlwaysCompile;
-	[IFPreferences sharedPreferences].showDebuggingLogs = willDebug;
-	[IFPreferences sharedPreferences].showConsoleDuringBuilds = willShowConsole;
-  	[IFPreferences sharedPreferences].publicLibraryDebug = willPublicLibraryDebug;
-	[IFPreferences sharedPreferences].cleanProjectOnClose = willCleanBuild;
-	[IFPreferences sharedPreferences].alsoCleanIndexFiles = willAlsoCleanIndex;
-	[IFPreferences sharedPreferences].glulxInterpreter = interpreter;
-    [IFPreferences sharedPreferences].useExternalInformCoreDirectory = useInformCore;
-    [IFPreferences sharedPreferences].externalInformCoreDirectory = informCoreDirectory;
+	// Set the preferences to suitable values
+	preferences.runBuildSh = willBuildSh;
+    preferences.alwaysCompile = willAlwaysCompile;
+	preferences.showDebuggingLogs = willDebug;
+	preferences.showConsoleDuringBuilds = willShowConsole;
+  	preferences.publicLibraryDebug = willPublicLibraryDebug;
+	preferences.cleanProjectOnClose = willCleanBuild;
+	preferences.alsoCleanIndexFiles = willAlsoCleanIndex;
+	preferences.glulxInterpreter = interpreter;
+    preferences.useExternalInformCoreDirectory = useInformCore;
+    preferences.externalInformCoreDirectory = informCoreDirectory;
 }
 
 - (IBAction) toggleUseExternalDirectory: (id) sender {
@@ -148,7 +156,7 @@
 														 action: nil
 												  keyEquivalent: @""];
 		newItem.tag = terpMenu.numberOfItems;
-		if ([terp isEqualToString: [IFPreferences sharedPreferences].glulxInterpreter]) {
+		if ([terp isEqualToString: preferences.glulxInterpreter]) {
 			selIndex = (int)terpMenu.numberOfItems;
 		}
 		
@@ -165,16 +173,16 @@
     publicLibraryDebug.hidden = [IFUtility isSandboxed];
 
 	// Set the buttons according to the current state of the preferences
-	runBuildSh.state = [IFPreferences sharedPreferences].runBuildSh              ? NSControlStateValueOn : NSControlStateValueOff;
-    alwaysCompile.state = [IFPreferences sharedPreferences].alwaysCompile           ? NSControlStateValueOn : NSControlStateValueOff;
-	showDebugLogs.state = [IFPreferences sharedPreferences].showDebuggingLogs       ? NSControlStateValueOn : NSControlStateValueOff;
-    showConsole.state = [IFPreferences sharedPreferences].showConsoleDuringBuilds ? NSControlStateValueOn : NSControlStateValueOff;
-    publicLibraryDebug.state = [IFPreferences sharedPreferences].publicLibraryDebug      ? NSControlStateValueOn : NSControlStateValueOff;
+	runBuildSh.state = preferences.runBuildSh              ? NSControlStateValueOn : NSControlStateValueOff;
+    alwaysCompile.state = preferences.alwaysCompile           ? NSControlStateValueOn : NSControlStateValueOff;
+	showDebugLogs.state = preferences.showDebuggingLogs       ? NSControlStateValueOn : NSControlStateValueOff;
+    showConsole.state = preferences.showConsoleDuringBuilds ? NSControlStateValueOn : NSControlStateValueOff;
+    publicLibraryDebug.state = preferences.publicLibraryDebug      ? NSControlStateValueOn : NSControlStateValueOff;
 
-	cleanBuildFiles.state = [IFPreferences sharedPreferences].cleanProjectOnClose         ? NSControlStateValueOn : NSControlStateValueOff;
+	cleanBuildFiles.state = preferences.cleanProjectOnClose         ? NSControlStateValueOn : NSControlStateValueOff;
 	
-	if ([IFPreferences sharedPreferences].cleanProjectOnClose) {
-		alsoCleanIndexFiles.state = [IFPreferences sharedPreferences].alsoCleanIndexFiles ? NSControlStateValueOn : NSControlStateValueOff;
+	if (preferences.cleanProjectOnClose) {
+		alsoCleanIndexFiles.state = preferences.alsoCleanIndexFiles ? NSControlStateValueOn : NSControlStateValueOff;
 		[alsoCleanIndexFiles setEnabled: YES];
 	} else {
 		alsoCleanIndexFiles.state = NSControlStateValueOff;
@@ -182,11 +190,11 @@
 	}
 
     // External inform core
-    useExternalInformCore.state = [IFPreferences sharedPreferences].useExternalInformCoreDirectory ? NSControlStateValueOn : NSControlStateValueOff;
-    externalInformCoreDirectory.stringValue = [IFPreferences sharedPreferences].externalInformCoreDirectory;
+    useExternalInformCore.state = preferences.useExternalInformCoreDirectory ? NSControlStateValueOn : NSControlStateValueOff;
+    externalInformCoreDirectory.stringValue = preferences.externalInformCoreDirectory;
 
     // Set text colour of label, based on if the 'Use Inform Core directory' is checked.
-    BOOL use = [IFPreferences sharedPreferences].useExternalInformCoreDirectory;
+    BOOL use = preferences.useExternalInformCoreDirectory;
     if (!use) {
         externalInformCoreDirectory.textColor = [NSColor disabledControlTextColor];
     } else {
