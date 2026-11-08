@@ -95,6 +95,16 @@ CGFloat easeOutCubic(CGFloat t);
               didEndSelector: (nullable SEL) alertDidEndSelector
                  contextInfo: (nullable void *) contextInfo
              informativeText: (NSString*) text;
+/// The same, with the button at the index given (0 or 1) marked as destructive, for Swift
++ (void) runAlertYesNoWindow: (nullable NSWindow*) window
+                       title: (NSString*) title
+                         yes: (NSString*) yes
+                          no: (NSString*) no
+               modalDelegate: (nullable id) modalDelegate
+              didEndSelector: (nullable SEL) alertDidEndSelector
+                 contextInfo: (nullable void *) contextInfo
+            destructiveIndex: (NSInteger) desIdx
+             informativeText: (NSString*) text;
 
 /// Show an error for an operation on an extension (e.g. error while installing an extension)
 + (void) showExtensionError: (IFExtensionResult) result

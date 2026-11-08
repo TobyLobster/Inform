@@ -22,8 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSArray<IFSyntaxColouringOption*>* options;
 
 - (instancetype) init NS_DESIGNATED_INITIALIZER;
-- (void) updateAppPreferencesFromSetWithEnable: (BOOL) enable;
-- (void) updateSetFromAppPreferences;
+/// Copies the theme's colours, and whether to colour syntax, to the current theme of the preferences given
+- (void) updatePreferences: (IFPreferences*) preferences fromSetWithEnable: (BOOL) enable;
+/// Copies the colours of the current theme of the preferences given, and its flags, to the theme
+- (void) updateSetFromPreferences: (IFPreferences*) preferences;
 - (IFSyntaxColouringOption*) optionOfType:(IFSyntaxHighlightingOptionType) type;
 @property (nonatomic, getter=isEqualToDefault, readonly) BOOL equalToDefault;
 -(void) resetSettings;

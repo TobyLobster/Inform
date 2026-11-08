@@ -22,6 +22,7 @@
 #import "IFPreferencePane.h"
 #import "IFAdvancedPreferences.h"
 #import "IFColourTheme.h"
+#import "IFColourPreferences.h"
 #import "IFEditingPreferencesSet.h"
 #import "IFSyntaxManager.h"
 #import "IFSyntaxData.h"

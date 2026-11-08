@@ -99,8 +99,8 @@ import Cocoa
         return result
     }
 
-    func updateAppPreferencesFromSet(withEnable enable: Bool) {
-        let prefs = IFPreferences.shared
+    @objc(updatePreferences:fromSetWithEnable:)
+    func update(_ prefs: IFPreferences, fromSetWithEnable enable: Bool) {
 
         prefs.sourcePaper = sourcePaper!
         prefs.extensionPaper = extensionPaper!
@@ -112,8 +112,8 @@ import Cocoa
         }
     }
 
-    func updateSetFromAppPreferences() {
-        let prefs = IFPreferences.shared
+    @objc(updateSetFromPreferences:)
+    func updateSet(from prefs: IFPreferences) {
 
         sourcePaper    = (prefs.sourcePaper.copy() as! IFSyntaxColouringOption)
         extensionPaper = (prefs.extensionPaper.copy() as! IFSyntaxColouringOption)

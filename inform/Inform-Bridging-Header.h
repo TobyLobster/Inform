@@ -4,6 +4,7 @@
 
 #import "IFPreferencePane.h"
 #import "IFAdvancedPreferences.h"
+#import "IFColourPreferences.h"
 #import "IFPreferences.h"
 #import "IFColourTheme.h"
 #import "IFEditingPreferencesSet.h"
