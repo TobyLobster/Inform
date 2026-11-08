@@ -89,6 +89,7 @@
 #import "IFDocumentationPage.h"
 #import "IFErrorsPage.h"
 #import "IFIndexPage.h"
+#import "IFSkeinPage.h"
 #import "IFExtensionsPage.h"
 #import "IFPageBarCell.h"
 #import "IFPageBarView.h"
