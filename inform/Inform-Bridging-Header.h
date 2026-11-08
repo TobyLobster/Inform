@@ -25,6 +25,7 @@
 #import "IFSkeinArrowView.h"
 #import "IFSkeinReportItemView.h"
 #import "IFSkeinReportView.h"
+#import "IFSkeinViewChildren.h"
 #import "IFIntelFile.h"
 #import "IFIntelSymbol.h"
 #import "IFHeader.h"
