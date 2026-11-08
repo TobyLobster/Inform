@@ -87,6 +87,8 @@
 #import "IFFindTextView.h"
 #import "IFPage.h"
 #import "IFDocumentationPage.h"
+#import "IFErrorsPage.h"
 #import "IFPageBarCell.h"
+#import "IFPageBarView.h"
 #import "IFHistoryEvent.h"
 #import "IFNotifyingWindow.h"

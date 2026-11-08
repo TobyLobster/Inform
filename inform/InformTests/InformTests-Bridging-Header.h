@@ -27,6 +27,7 @@
 #import "IFHistoryEvent.h"
 #import "IFPageBarCell.h"
 #import "IFDocumentationPage.h"
+#import "IFErrorsPage.h"
 #import "IFSkeinConstants.h"
 #import "IFPreferences.h"
 #import "IFPreferencePane.h"
