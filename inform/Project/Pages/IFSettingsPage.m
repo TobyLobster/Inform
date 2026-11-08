@@ -16,7 +16,7 @@
 @implementation IFSettingsPage {
     // Settings
     /// The settings controller
-    IFSettingsController*  settingsController;
+    IBOutlet IFSettingsController*  settingsController;
 }
 
 #pragma mark - Initialisation
@@ -49,8 +49,6 @@
 }
 
 #pragma mark - Settings
-
-@synthesize settingsController;
 
 - (void) updateSettings {
 	if (!self.parent) {
