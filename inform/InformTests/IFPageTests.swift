@@ -183,7 +183,9 @@ final class IFPageTests: XCTestCase {
     func testTheRecorderIsWeak() {
         let page = makePage()
         autoreleasepool {
-            page.recorder = Recorder()
+            let recorder = Recorder()
+            page.recorder = recorder
+            XCTAssertTrue(page.recorder === recorder)
         }
         XCTAssertNil(page.recorder)
     }
