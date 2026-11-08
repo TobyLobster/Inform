@@ -86,6 +86,7 @@
 #import "IFFindWebView.h"
 #import "IFFindTextView.h"
 #import "IFPage.h"
+#import "IFDocumentationPage.h"
 #import "IFPageBarCell.h"
 #import "IFHistoryEvent.h"
 #import "IFNotifyingWindow.h"
