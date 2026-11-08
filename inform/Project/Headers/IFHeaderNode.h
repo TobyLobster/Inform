@@ -29,10 +29,11 @@ typedef NS_ENUM(int, IFHeaderNodeSelectionStyle) {
 @interface IFHeaderNode : NSObject
 // Constructing this node
 
+- (instancetype) init NS_UNAVAILABLE;
 /// Constructs a new header node
 - (instancetype) initWithHeader: (IFHeader*) header
                        position: (NSPoint) position
-                          depth: (int) depth;
+                          depth: (int) depth NS_DESIGNATED_INITIALIZER;
 /// Populates this node to the specified depth
 - (void) populateToDepth: (int) maxDepth;
 

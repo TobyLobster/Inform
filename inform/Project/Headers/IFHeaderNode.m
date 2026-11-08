@@ -7,7 +7,6 @@
 //
 
 #import "IFHeaderNode.h"
-#import "IFUtility.h"
 #import "IFIntelFile.h"
 #import "IFIntelSymbol.h"
 #import "IFPreferences.h"
@@ -132,7 +131,7 @@ static CGFloat pointSize = 11.0;
 - (instancetype) initWithHeader: (IFHeader*) newHeader
 			 position: (NSPoint) newPosition
 				depth: (int) newDepth {
-	self = [self init];
+	self = [super init];
 	
 	if (self) {
 		// If the fonts don't exist, then update them
