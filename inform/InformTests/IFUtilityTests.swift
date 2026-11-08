@@ -703,4 +703,23 @@ final class IFUtilityTests: XCTestCase {
         XCTAssertEqual(shown.alert.informativeText, "100% sure")
         XCTAssertEqual(shown.alert.buttons.map(\.title), ["Create", "Cancel"])
     }
+
+    /// ...and can mark a button as destructive
+    func testAYesNoAlertForSwiftCanHaveADestructiveButton() throws {
+        AlertRecorder.shown = []
+        defer { AlertRecorder.shown = [] }
+        let window = makeWindow()
+
+        AlertRecorder.runAlertYesNoWindow(window, title: "Are you sure?", yes: "Delete", no: "Cancel",
+                                          modalDelegate: nil, didEnd: nil, contextInfo: nil,
+                                          destructiveIndex: 0, informativeText: "100% sure")
+
+        XCTAssertEqual(AlertRecorder.shown.count, 1)
+        let shown = try XCTUnwrap(AlertRecorder.shown.first)
+        XCTAssertTrue(shown.window === window)
+        XCTAssertEqual(shown.alert.messageText, "Are you sure?")
+        XCTAssertEqual(shown.alert.informativeText, "100% sure")
+        XCTAssertEqual(shown.alert.buttons.map(\.title), ["Delete", "Cancel"])
+        XCTAssertEqual(shown.alert.buttons.map(\.hasDestructiveAction), [true, false])
+    }
 }
