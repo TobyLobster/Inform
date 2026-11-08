@@ -28,6 +28,7 @@
 #import "IFNewInform7Project.h"
 #import "IFNewInform7ExtensionProject.h"
 #import "IFNewInform7ExtensionFile.h"
+#import "IFNewProject.h"
 #import "IFSingleFile.h"
 #import "IFSingleController.h"
 #import "IFSourceSharedActions.h"

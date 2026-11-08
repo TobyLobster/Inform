@@ -12,9 +12,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class IFProjectType;
-
-typedef NS_ENUM(int, IFNewProjectFlow) {
+/// The steps of making a new project: showing its options, then choosing where it goes
+typedef NS_OPTIONS(NSUInteger, IFNewProjectFlow) {
     IFNewProjectNone     = 0,
     IFNewProjectOptions  = 1,
     IFNewProjectLocation = 2,
@@ -23,7 +22,7 @@ typedef NS_ENUM(int, IFNewProjectFlow) {
 ///
 /// Window controller for the 'new project' window
 ///
-@interface IFNewProject : NSWindowController<NSOpenSavePanelDelegate>
+@interface IFNewProject : NSWindowController
 
 -(IBAction) cancelButtonClicked: (nullable id) sender;
 -(IBAction) okButtonClicked: (nullable id) sender;

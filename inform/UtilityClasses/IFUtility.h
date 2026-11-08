@@ -62,6 +62,12 @@ CGFloat easeOutCubic(CGFloat t);
          forWindow: (nullable NSWindow*) window
  completionHandler: (void (^)(NSModalResponse response)) handler;
 
+/// Begins the save panel in a sheet on the window, or with no window as an app-modal panel that doesn't wait,
+/// which is what AppKit makes of a sheet on no window. For Swift, which can't begin a sheet on no window.
++ (void) beginSavePanel: (NSSavePanel*) panel
+              forWindow: (nullable NSWindow*) window
+      completionHandler: (void (^)(NSModalResponse result)) handler;
+
 + (void) runAlertYesNoWindow: (nullable NSWindow*) window
                        title: (NSString*) title
                          yes: (NSString*) yes
@@ -80,6 +86,15 @@ CGFloat easeOutCubic(CGFloat t);
                  contextInfo: (nullable void *) contextInfo
             destructiveIndex: (NSInteger) desIdx
                      message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(9,10);
+/// The same, for Swift, which can't call the methods taking a format
++ (void) runAlertYesNoWindow: (nullable NSWindow*) window
+                       title: (NSString*) title
+                         yes: (NSString*) yes
+                          no: (NSString*) no
+               modalDelegate: (nullable id) modalDelegate
+              didEndSelector: (nullable SEL) alertDidEndSelector
+                 contextInfo: (nullable void *) contextInfo
+             informativeText: (NSString*) text;
 
 /// Show an error for an operation on an extension (e.g. error while installing an extension)
 + (void) showExtensionError: (IFExtensionResult) result
