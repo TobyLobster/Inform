@@ -262,6 +262,12 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
 }
 
 - (void) replaceFoundWith: (NSString*) match {
+	// Text that can't be edited isn't replaced
+	if (!self.isEditable) {
+		NSBeep();
+		return;
+	}
+
 	NSRange selected = [self selectedRange];
 	[self replaceFoundWith: match
 					 range: selected];
@@ -296,6 +302,11 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
 - (IFFindResult*) replaceFindAllResult: (IFFindResult*) result
 							withString: (NSString*) replacement 
 								offset: (int*) offset {
+	// Text that can't be edited isn't replaced
+	if (!self.isEditable) {
+		return nil;
+	}
+
 	// Get the original match
 	NSRange matchRange = result.fileRange;
 

@@ -320,6 +320,23 @@ final class IFFindTextViewTests: XCTestCase {
         XCTAssertEqual(offset, -2)
     }
 
+    /// Text that can't be edited, such as the compiler's output on the Errors page, isn't replaced
+    func testReplacingTextThatCantBeEdited() throws {
+        let textView = makeTextView("one two one")
+        textView.isEditable = false
+        textView.setSelectedRange(range(0, 3))
+        textView.replaceFound(with: "1")
+        XCTAssertEqual(textView.string, "one two one")
+        XCTAssertEqual(textView.selectedRange(), range(0, 3))
+
+        let results = try XCTUnwrap(textView.findAllMatches("one", of: .contains, in: .currentPage,
+                                                            in: findController, withIdentifier: 1))
+        let (newResults, offset) = replaceAll(results, with: "1", in: textView)
+        XCTAssertEqual(textView.string, "one two one")
+        XCTAssertEqual(newResults.map { $0 == nil }, [true, true])
+        XCTAssertEqual(offset, 0)
+    }
+
     // MARK: - AppKit's own set-up
 
     /// Nothing replaces NSTextView's own +initialize, which sets up its kill ring among other things
