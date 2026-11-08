@@ -272,8 +272,11 @@
         [self updateDependentUIElements];
     }
 
-    // Update application's preferences from currentSet
+    // Update application's preferences from currentSet, in a batch, so that the preferences only say they've
+    // changed, which reloads currentSet from them, once all of it has been copied
+    [preferences startBatchEditing];
     [currentSet updatePreferences: preferences];
+    [preferences endBatchEditing];
 }
 
 -(void) setFontFamilyUI:(NSString*) fontFamilyName fontSize:(int) points {

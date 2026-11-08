@@ -98,8 +98,6 @@ final class IFEditingPreferencesTests: XCTestCase {
     private func makePane(_ setUp: (IFPreferences) -> Void = { _ in }) throws -> (IFEditingPreferences, IFPreferences, MemoryDefaults, Controls) {
         let defaults = MemoryDefaults()
         let preferences = IFPreferences(userDefaults: defaults)
-        // The editing preferences are saved, as they are once the pane has set any
-        IFEditingPreferencesSet().update(preferences)
         setUp(preferences)
         let pane = IFEditingPreferences(preferences: preferences)
         return (pane, preferences, defaults, try Controls(pane))
@@ -363,6 +361,20 @@ final class IFEditingPreferencesTests: XCTestCase {
         }
     }
 
+    /// A change is kept before the editing preferences have been saved, as they aren't until the pane first sets
+    /// them: saving the font family, which is copied first, reloaded the pane's settings from the preferences before
+    /// the change was copied
+    func testTheFirstChangeIsKeptBeforeThePreferencesAreSaved() throws {
+        let (_, preferences, defaults, controls) = try makePane()
+        XCTAssertNil(written(defaults)["sourceFontFamily"])
+
+        set(controls.row(.comments).underline, true)
+
+        XCTAssertTrue(preferences.sourceUnderline(for: .comments))
+        XCTAssertEqual(controls.row(.comments).underline.state, .on)
+        XCTAssertTrue(controls.restoreSettings.isEnabled)
+    }
+
     func testTheTabSliderSetsTheTabWidth() throws {
         let (_, preferences, defaults, controls) = try makePane()
 
@@ -421,6 +433,19 @@ final class IFEditingPreferencesTests: XCTestCase {
         XCTAssertEqual(preferences.sourceFontFamily, "American Typewriter")
         XCTAssertEqual(preferences.sourceFontSize, 12)
         XCTAssertTrue(controls.restoreSettings.isEnabled)
+    }
+
+    /// A new family and size are both set: setting the family reloaded the pane's settings from the preferences
+    /// before the size was copied
+    func testANewFamilyAndSizeAreBothSet() throws {
+        let (pane, preferences, _, controls) = try makePane()
+
+        controls.fontFamily.stringValue = "Menlo - 15"
+        pane.styleSetHasChanged(controls.fontFamily)
+
+        XCTAssertEqual(preferences.sourceFontFamily, "Menlo")
+        XCTAssertEqual(preferences.sourceFontSize, 15)
+        XCTAssertEqual(controls.fontFamily.stringValue, "Menlo - 15")
     }
 
     /// Text that isn't a family and a size sets neither
