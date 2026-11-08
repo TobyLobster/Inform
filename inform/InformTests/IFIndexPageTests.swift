@@ -495,6 +495,19 @@ final class IFIndexPageTests: XCTestCase {
         XCTAssertEqual(highlightedTabs(shown), [])
     }
 
+    /// A page of the index with no cell highlights none
+    func testAPageWithNoCell() throws {
+        try writeIndex(["Welcome.html", "Contents.html"])
+        let shown = try makePage()
+        shown.page.updateIndexView()
+
+        tellPageNavigationStarted(try indexURL("Contents.html"), in: shown)
+        XCTAssertEqual(highlightedTabs(shown), [Int(IFIndexTabType.contents.rawValue)])
+
+        tellPageNavigationStarted(try indexURL("Rules.html"), in: shown)
+        XCTAssertEqual(highlightedTabs(shown), [])
+    }
+
     /// When the app's font size changes, the page is zoomed to it
     func testTheFontSize() throws {
         let shown = try makePageShowingTheIndex()

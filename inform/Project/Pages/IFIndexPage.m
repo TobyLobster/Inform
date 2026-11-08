@@ -275,11 +275,13 @@
     for(NSString *tabName in tabDictionary.keyEnumerator) {
         // is the string we are looking for
         if( [lowerURL rangeOfString:tabName].location != NSNotFound ) {
-            // Highlight the appropriate tab
+            // Highlight the appropriate tab, if it has a cell
             int tabIdentifier = (tabDictionary[tabName]).intValue;
             NSUInteger tabIndex = [self indexOfItemWithTabId:tabIdentifier];
 
-            ((NSCell*)indexCells[tabIndex]).state = NSControlStateValueOn;
+            if (tabIndex != NSNotFound) {
+                ((NSCell*)indexCells[tabIndex]).state = NSControlStateValueOn;
+            }
         }
     }
 }
