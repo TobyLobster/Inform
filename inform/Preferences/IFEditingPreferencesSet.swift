@@ -105,8 +105,8 @@ import Cocoa
         option.underline = false
     }
 
-    func updateAppPreferencesFromSet() {
-        let prefs = IFPreferences.shared
+    @objc(updatePreferences:)
+    func update(_ prefs: IFPreferences) {
 
         // Text section
         prefs.sourceFontFamily = fontFamily
@@ -134,9 +134,8 @@ import Cocoa
         prefs.autoNumberSections = autoNumberSections
     }
 
-    @objc(updateSetFromAppPreferences)
-    func updateFromAppPreferences() {
-        let prefs = IFPreferences.shared
+    @objc(updateSetFromPreferences:)
+    func updateSet(from prefs: IFPreferences) {
 
         // Text section
         fontFamily          = prefs.sourceFontFamily

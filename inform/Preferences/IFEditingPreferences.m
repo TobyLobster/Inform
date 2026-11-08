@@ -13,6 +13,9 @@
 #import "IFUtility.h"
 
 @implementation IFEditingPreferences {
+    /// The preferences the pane shows and sets
+    IFPreferences* preferences;
+
     // Text section
     IBOutlet NSTextField* fontFamily;
     IBOutlet NSSlider* appTextSize;
@@ -72,16 +75,21 @@
 
 
 - (instancetype) init {
+	return [self initWithPreferences: [IFPreferences sharedPreferences]];
+}
+
+- (instancetype) initWithPreferences: (IFPreferences*) thePreferences {
 	self = [super initWithNibName: @"EditingPreferences"];
 	
 	if (self) {
+        preferences = thePreferences;
         defaultSet = [[IFEditingPreferencesSet alloc] init];
         currentSet = [[IFEditingPreferencesSet alloc] init];
 
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(reflectCurrentPreferences)
 													 name: IFPreferencesEditingDidChangeNotification
-												   object: [IFPreferences sharedPreferences]];
+												   object: preferences];
 
 		// Create the preview
 		NSTextStorage* oldStorage = previewView.textStorage;
@@ -207,7 +215,7 @@
 - (IBAction) styleSetHasChanged: (id) sender {
     // Update currentSet from preference pane controls
     {
-        IFPreferences* prefs = [IFPreferences sharedPreferences];
+        IFPreferences* prefs = preferences;
 
         if (sender == fontFamily) {
             NSError* error;
@@ -265,7 +273,7 @@
     }
 
     // Update application's preferences from currentSet
-    [currentSet updateAppPreferencesFromSet];
+    [currentSet updatePreferences: preferences];
 }
 
 -(void) setFontFamilyUI:(NSString*) fontFamilyName fontSize:(int) points {
@@ -280,10 +288,10 @@
 }
 
 - (void) reflectCurrentPreferences {
-	IFPreferences* prefs = [IFPreferences sharedPreferences];
+	IFPreferences* prefs = preferences;
 	
     // Update currentSet based on application's current preferences
-    [currentSet updateSetFromAppPreferences];
+    [currentSet updateSetFromPreferences: preferences];
 
     // Update preference pane UI elements from currentSet
     
@@ -379,14 +387,18 @@
     alert.alertStyle = NSAlertStyleWarning;
 
     if ([alert runModal] == NSAlertFirstButtonReturn ) {
-        [currentSet resetSettings];
-        
-        [[IFPreferences sharedPreferences] startBatchEditing];
-        [currentSet updateAppPreferencesFromSet];
-        [[IFPreferences sharedPreferences] endBatchEditing];
-
-        [self reflectCurrentPreferences];
+        [self restoreDefaults];
     }
+}
+
+- (void) restoreDefaults {
+    [currentSet resetSettings];
+
+    [preferences startBatchEditing];
+    [currentSet updatePreferences: preferences];
+    [preferences endBatchEditing];
+
+    [self reflectCurrentPreferences];
 }
 
 @end

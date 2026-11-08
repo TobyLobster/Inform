@@ -17,6 +17,15 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 @interface IFEditingPreferences : IFPreferencePane
 
+/// The pane for the shared preferences
+- (instancetype) init;
+- (instancetype) initWithNibName: (NSString*) nibName NS_UNAVAILABLE;
+/// The pane for the preferences given
+- (instancetype) initWithPreferences: (IFPreferences*) preferences NS_DESIGNATED_INITIALIZER;
+
+/// Puts back the default editing preferences, apart from the text size
+- (void) restoreDefaults;
+
 // Receiving data from/updating the interface
 - (IBAction) styleSetHasChanged: (nullable id) sender;
 - (void) reflectCurrentPreferences;
