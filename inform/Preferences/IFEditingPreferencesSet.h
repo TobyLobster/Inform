@@ -36,8 +36,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) bool                 autoNumberSections;
 
 - (instancetype) init NS_DESIGNATED_INITIALIZER;
-- (void) updateAppPreferencesFromSet;
-- (void) updateSetFromAppPreferences;
+/// Copies the set to the editing preferences given
+- (void) updatePreferences: (IFPreferences*) preferences;
+/// Copies the editing preferences given to the set
+- (void) updateSetFromPreferences: (IFPreferences*) preferences NS_SWIFT_NAME(updateSet(from:));
 - (IFSyntaxHighlightingOption*) optionOfType:(IFSyntaxHighlightingOptionType) type;
 -(BOOL) isEqualToPreferenceSet:(IFEditingPreferencesSet*) set;
 -(void) resetSettings;

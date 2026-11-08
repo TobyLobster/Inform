@@ -5,6 +5,27 @@
 
 import XCTest
 
+/// User defaults kept in memory, so that the tests never read or write the user's own
+private final class MemoryDefaults: UserDefaults {
+    var values: [String: Any] = [:]
+
+    init() {
+        super.init(suiteName: "IFEditingPreferencesSetTests.never-written")!
+    }
+
+    override func object(forKey defaultName: String) -> Any? {
+        return values[defaultName]
+    }
+
+    override func set(_ value: Any?, forKey defaultName: String) {
+        values[defaultName] = value
+    }
+
+    override func removeObject(forKey defaultName: String) {
+        values[defaultName] = nil
+    }
+}
+
 final class IFEditingPreferencesSetTests: XCTestCase {
 
     private let types: [IFSyntaxHighlightingOptionType] = [.headings, .mainText, .comments, .quotedText, .textSubstitutions]
@@ -131,5 +152,38 @@ final class IFEditingPreferencesSetTests: XCTestCase {
             XCTAssertFalse(set.isEqual(toPreferenceSet: IFEditingPreferencesSet()), name)
             XCTAssertFalse(IFEditingPreferencesSet().isEqual(toPreferenceSet: set), name)
         }
+    }
+
+    /// A set is copied to each of the editing preferences given
+    func testASetIsCopiedToThePreferences() {
+        let preferences = IFPreferences(userDefaults: MemoryDefaults())
+
+        makeChangedSet().update(preferences)
+
+        XCTAssertEqual(preferences.sourceFontFamily, "Menlo")
+        XCTAssertEqual(preferences.sourceFontSize, 15)
+        XCTAssertFalse(preferences.enableSyntaxHighlighting)
+        XCTAssertEqual(preferences.tabWidth, 40)
+        XCTAssertFalse(preferences.indentAfterNewline)
+        XCTAssertFalse(preferences.elasticTabs)
+        XCTAssertFalse(preferences.autoNumberSections)
+        for type in types {
+            XCTAssertEqual(preferences.sourceFontStyle(for: type), .boldItalic, "\(type.rawValue)")
+            XCTAssertEqual(preferences.sourceUnderline(for: type), type != .headings, "\(type.rawValue)")
+            XCTAssertEqual(preferences.sourceRelativeFontSize(for: type), .fontSizeMinus20, "\(type.rawValue)")
+        }
+    }
+
+    /// ...and the editing preferences given are copied to a set
+    func testASetIsCopiedFromThePreferences() {
+        let preferences = IFPreferences(userDefaults: MemoryDefaults())
+        let set = makeChangedSet()
+
+        set.updateSet(from: preferences)
+        XCTAssertTrue(set.isEqual(toPreferenceSet: IFEditingPreferencesSet()))
+
+        makeChangedSet().update(preferences)
+        set.updateSet(from: preferences)
+        XCTAssertTrue(set.isEqual(toPreferenceSet: makeChangedSet()))
     }
 }
