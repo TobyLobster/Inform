@@ -10,6 +10,8 @@
 
 #import "IFHeaderView.h"
 
+@class IFPreferences;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol IFHeaderPageDelegate;
@@ -18,6 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// Controller object that manages the headers page
 ///
 @interface IFHeaderPage : NSObject <IFHeaderViewDelegate>
+
+/// The page for the shared preferences
+- (instancetype) init;
+/// The page for the preferences given, whose colours it shows
+- (instancetype) initWithPreferences: (IFPreferences*) preferences NS_DESIGNATED_INITIALIZER;
 
 // The controller and view
 

@@ -24,14 +24,22 @@
     NSRange highlightLines;
     /// The currently selected header node
     IFHeaderNode* selectedNode;
+    /// The preferences whose colours the page shows
+    IFPreferences* preferences;
 }
 
 #pragma mark - Initialisation
 
 - (instancetype) init {
+    return [self initWithPreferences: [IFPreferences sharedPreferences]];
+}
+
+- (instancetype) initWithPreferences: (IFPreferences*) thePreferences {
 	self = [super init];
 	
 	if (self) {
+        preferences = thePreferences;
+
 		// Load the nib file
 		[NSBundle customLoadNib: @"Headers"
                           owner: self];
@@ -42,7 +50,7 @@
         [[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(preferencesChanged:)
                                                      name: IFPreferencesEditingDidChangeNotification
-                                                   object: [IFPreferences sharedPreferences]];
+                                                   object: preferences];
 
         [self setColours];
 
@@ -63,9 +71,9 @@
 }
 
 - (void) setColours {
-    scrollView.backgroundColor = [IFPreferences sharedPreferences].extensionPaper.colour;
+    scrollView.backgroundColor = preferences.extensionPaper.colour;
     [scrollView setNeedsDisplay:YES];
-    [headerView setColours: [IFPreferences sharedPreferences].extensionPaper.colour];
+    [headerView setColours: preferences.extensionPaper.colour];
     [headerView setNeedsDisplay:YES];
 }
 
