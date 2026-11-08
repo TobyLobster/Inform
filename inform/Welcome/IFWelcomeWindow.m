@@ -168,12 +168,7 @@ static IFWelcomeWindow* sharedWindow = nil;
      stringByReplacingOccurrencesOfString: @"<" withString: @"&lt;"];
 }
 
-- (void) refreshNews: (NSString*) latestNews {
-    if (newsWebView == nil) {
-        // Early out if no web view to change
-        return;
-    }
-
+- (NSString*) newsPageForNews: (NSString*) latestNews {
     // Load template file
     NSError* error;
     NSString *news = [NSString stringWithContentsOfURL: [NSURL URLWithString: @"inform:/NewsTemplate.html"]
@@ -220,11 +215,22 @@ static IFWelcomeWindow* sharedWindow = nil;
 
         // replace <!-- CONTENT HERE -->
         news = [news stringByReplacingOccurrencesOfString:@"<!-- CONTENT HERE -->" withString:str];
-
-        [newsWebView loadHTMLString: news
-                            baseURL: [NSURL URLWithString: @"inform:/"]];
     } else {
         NSLog(@"%@", error);
+    }
+    return news;
+}
+
+- (void) refreshNews: (NSString*) latestNews {
+    if (newsWebView == nil) {
+        // Early out if no web view to change
+        return;
+    }
+
+    NSString* news = [self newsPageForNews: latestNews];
+    if (news != nil) {
+        [newsWebView loadHTMLString: news
+                            baseURL: [NSURL URLWithString: @"inform:/"]];
     }
 }
 
