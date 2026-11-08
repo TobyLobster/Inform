@@ -19,6 +19,7 @@
 #import "IFToolbarManager.h"
 #import "IFSkeinReportItemView.h"
 #import "IFPreferences.h"
+#import "IFPreferencePane.h"
 #import "IFColourTheme.h"
 #import "IFEditingPreferencesSet.h"
 #import "IFSyntaxManager.h"

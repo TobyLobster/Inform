@@ -22,18 +22,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Information about the preference window
 /// The image that should show up in the toolbar
-@property (atomic, readonly, copy, nullable) NSImage *toolbarImage;
+@property (nonatomic, readonly, copy, nullable) NSImage *toolbarImage;
 /// The name of this pane (appears under the toolbar item)
-@property (atomic, readonly, copy) NSString *preferenceName;
+@property (nonatomic, readonly, copy) NSString *preferenceName;
 /// The unique identifier for this pane (subclasses don't need to override this)
-@property (atomic, readonly, copy) NSToolbarItemIdentifier identifier;
+@property (nonatomic, readonly, copy) NSToolbarItemIdentifier identifier;
 /// The tooltip for this preference
-@property (atomic, readonly, copy, nullable) NSString *tooltip;
+@property (nonatomic, readonly, copy, nullable) NSString *tooltip;
 /// The view that describes the UI for this preference pane (nil until the nib is loaded)
-@property (atomic, readwrite, strong, nullable) IBOutlet NSView *preferenceView;
+@property (nonatomic, readwrite, strong, nullable) IBOutlet NSView *preferenceView;
 
-@property (atomic, readonly) CGFloat maxHeight;
-@property (atomic, readonly) CGFloat minHeight;
+@property (nonatomic, readonly) CGFloat maxHeight;
+@property (nonatomic, readonly) CGFloat minHeight;
 
 @end
 
