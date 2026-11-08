@@ -11,9 +11,6 @@
 #import "IFProjectPane.h"
 #import "IFHistoryEvent.h"
 
-NSString* const IFSwitchToPageNotification = @"IFSwitchToPageNotification";
-NSString* const IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotification";
-
 @implementation IFPage {
     /// Object used for recording any history events for this object
     __weak id<IFHistoryRecorder> recorder;
