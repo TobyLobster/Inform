@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 // The documentation view
 /// Tells the documentation view to open a specific URL
 - (void) openURL: (NSURL*) url;
+/// Opens a URL from the history, without recording it in the history again. The page records it in the history
+/// by sending it to the history's proxy, which Swift can only do with a method declared here.
+- (void) openHistoricalURL: (nullable NSURL*) url;
 /// Opens the table of contents
 - (IBAction) showToc: (nullable id) sender;
 
