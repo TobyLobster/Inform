@@ -63,6 +63,7 @@
 #import "IFAppDelegate.h"
 #import "IFNewsCustomSchemeHandler.h"
 #import "IFNewsManager.h"
+#import "IFWelcomeWindow.h"
 #import "IFInformProtocol.h"
 #import "IFNewInform7Project.h"
 #import "IFNewInform7ExtensionProject.h"
