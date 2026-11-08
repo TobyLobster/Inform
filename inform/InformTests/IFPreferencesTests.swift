@@ -678,4 +678,21 @@ final class IFPreferencesTests: XCTestCase {
         XCTAssertNotNil(styles[Int(IFSyntaxStyle.heading.rawValue)][NSAttributedString.Key.foregroundColor])
         XCTAssertNil(style(prefs, .heading)[.foregroundColor])
     }
+
+    // MARK: - The test host's preferences
+
+    /// The test host started without its home folder, so it can't read or write the user's preferences. The scheme's
+    /// Test action gives it a home folder (CFFIXED_USER_HOME) and removes that folder before each run, and while the
+    /// folder doesn't exist CFPreferences cuts the app off from the user's preferences (the log says the "home directory
+    /// is inaccessible"). The app's own preferences then start empty and its writes stay in memory.
+    func testTheTestHostStartedWithoutItsHomeFolder() throws {
+        let home = NSHomeDirectory()
+        XCTAssertEqual((home as NSString).lastPathComponent, "TestHome", "Not the tests' own home folder")
+
+        // Tests make the folder as they run, which is fine once the app has started without it
+        if let made = try? FileManager.default.attributesOfItem(atPath: home)[.creationDate] as? Date {
+            let started = try XCTUnwrap(NSRunningApplication.current.launchDate)
+            XCTAssertGreaterThan(made, started, "The tests' home folder was there when the test host started")
+        }
+    }
 }
