@@ -70,6 +70,7 @@
 #import "IFCollapsableView.h"
 #import "IFSettingsController.h"
 #import "IFSettingsPage.h"
+#import "IFNotifyingWindow.h"
 #import "IFAppDelegate.h"
 #import "IFNewsCustomSchemeHandler.h"
 #import "IFNewsManager.h"

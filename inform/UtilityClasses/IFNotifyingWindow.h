@@ -14,9 +14,7 @@
 ///
 NS_ASSUME_NONNULL_BEGIN
 
-@interface IFNotifyingWindow : NSWindow {
-
-}
+@interface IFNotifyingWindow : NSWindow
 
 @end
 
