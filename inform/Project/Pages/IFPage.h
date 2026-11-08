@@ -38,8 +38,8 @@ extern NSNotificationName const IFUpdatePageBarCellsNotification;
 ///
 @interface IFPage : NSObject
 
-/// The project controller that 'owns' this page
-@property (atomic, readonly, weak, nullable) IFProjectController* parent;
+/// The project controller that 'owns' this page, which the page doesn't keep
+@property (atomic, readonly, nullable) IFProjectController* parent;
 /// The pane that is opposite to this one (or nil)
 @property (atomic, readwrite, weak, nullable) IFProjectPane* otherPane;
 /// The pane for this page
