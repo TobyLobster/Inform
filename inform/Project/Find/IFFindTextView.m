@@ -118,9 +118,13 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
     if( [self selectedRange].location > 0 ) {
         matchPos = [self selectedRange].location - 1;
     }
-    else {
+    else if( self.textStorage.string.length > 0 ) {
         // If we have just moved before the start of the text, start searching at the end
         matchPos = self.textStorage.string.length - 1;
+    }
+    else {
+        // There's no text to search
+        matchPos = 0;
     }
 
     bool hasLooped;
