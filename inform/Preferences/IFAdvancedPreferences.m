@@ -51,7 +51,6 @@
 												 selector: @selector(reflectCurrentPreferences)
 													 name: IFPreferencesAdvancedDidChangeNotification
 												   object: [IFPreferences sharedPreferences]];
-        openInformCorePanel = nil;
 	}
 	
 	return self;
@@ -115,18 +114,14 @@
     }
     panel = openInformCorePanel;
 
-    [panel setAccessoryView: nil];
     [panel setCanChooseFiles: NO];
     [panel setCanChooseDirectories: YES];
     [panel setResolvesAliases: YES];
     [panel setAllowsMultipleSelection: NO];
     panel.title = [IFUtility localizedString:@"Choose Inform Core directory"];
-    //[panel setDelegate: self];    // Extensions manager determines which file types are valid to choose (panel:shouldShowFilename:)
 
     [panel beginWithCompletionHandler:^(NSInteger result)
     {
-        [panel setDelegate: nil];
-
         if (result != NSModalResponseOK) return;
 
         self->externalInformCoreDirectory.stringValue = panel.URL.path;
