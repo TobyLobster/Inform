@@ -8,7 +8,6 @@
 
 #import "IFExtensionsPage.h"
 #import "IFPreferences.h"
-#import "IFAppDelegate.h"
 #import "IFUtility.h"
 #import "IFExtensionsManager.h"
 #import "IFProjectController.h"
@@ -97,10 +96,6 @@
 
 - (void) dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-	
-    wView = nil;
-	
-    
 }
 
 #pragma mark - Details about this view
@@ -193,9 +188,6 @@
                     decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     // Allow everything for now
     decisionHandler(WKNavigationActionPolicyAllow);
-
-    //NSURL *u1 = webView.URL;
-    //NSURL *u2 = navigationAction.request.URL; //If changing URLs this one will be different
 }
 
 - (void)                webView:(WKWebView *)webView
@@ -245,7 +237,6 @@
     NSLog(@"didFail for webview %@, wView:%@, url:%@", webView, wView, urlString);
 
     if (error.code == NSURLErrorCancelled) {
-        //NSLog(@"IFExtensionsPage: load of URL %@ was cancelled", urlString);
         loadingFailureWebPage = false;
         return;
     }
@@ -268,7 +259,6 @@
     }
 
     if (error.code == NSURLErrorCancelled) {
-        //NSLog(@"IFExtensionsPage: load of URL %@ was cancelled", urlString);
         loadingFailureWebPage = false;
         return;
     }
@@ -326,7 +316,6 @@
 
 - (void) extensionUpdated:(NSString*) javascriptId {
     NSString* js = [NSString stringWithFormat:@"window.downloadSucceeded(%@);", javascriptId];
-    //NSLog(@"Calling javascript: %@", js);
     [wView evaluateJavaScript: js completionHandler:nil];
 }
 
