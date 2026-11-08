@@ -16,7 +16,6 @@
 #import "IFMaintenanceTask.h"
 #import "IFUtility.h"
 #import "IFExtensionsManager.h"
-#import "IFPreferences.h"
 #import "IFWebViewHelper.h"
 
 #import "Inform-Swift.h"
@@ -30,20 +29,12 @@
     IBOutlet NSView*                newsWebParent;
     WKWebViewConfiguration *        newsWebConfiguration;
 
-    /// Recent document scroll view
-    IBOutlet NSScrollView*          recentDocumentsScrollView;
     /// Recent document Table View
     IBOutlet NSTableView*           recentDocumentsTableView;
-    /// Create document scroll view
-    IBOutlet NSScrollView*          createDocumentsScrollView;
     /// Create document Table View
     IBOutlet NSTableView*           createDocumentsTableView;
-    /// Sample document scroll view
-    IBOutlet NSScrollView*          sampleDocumentsScrollView;
     /// Sample document Table View
     IBOutlet NSTableView*           sampleDocumentsTableView;
-    /// Parent
-    IBOutlet NSView*                parentView;
     /// Show a web page (for advice)
     IBOutlet NSView*                webViewParent;
     /// Web View Helper for advice
@@ -60,10 +51,7 @@
     NSMutableArray*                 createInfoArray;
     /// Array of sample file info
     NSMutableArray*                 sampleInfoArray;
-    /// Array of news info
-    NSMutableArray*                 newsArray;
 
-    WKNavigation *                  newsNav;
     WKWebView *                     adviceWebView;
 }
 
@@ -103,9 +91,6 @@ static IFWelcomeWindow* sharedWindow = nil;
     // Show window
     [self showWindow: self];
     [self.window orderFront: self];
-
-    //NSLog(@"FRAME = %@", recentDocumentsTableView.frame);
-    //NSLog(@"bounds = %@", recentDocumentsTableView.bounds);
 
     if (@available(macOS 11.0, *)) {
         recentDocumentsTableView.style = NSTableViewStylePlain;
@@ -235,10 +220,9 @@ static IFWelcomeWindow* sharedWindow = nil;
 
         // replace <!-- CONTENT HERE -->
         news = [news stringByReplacingOccurrencesOfString:@"<!-- CONTENT HERE -->" withString:str];
-        //NSLog(@"%@", news);
 
-        newsNav = [newsWebView loadHTMLString: news
-                                      baseURL: [NSURL URLWithString: @"inform:/"]];
+        [newsWebView loadHTMLString: news
+                            baseURL: [NSURL URLWithString: @"inform:/"]];
     } else {
         NSLog(@"%@", error);
     }
@@ -389,7 +373,6 @@ static IFWelcomeWindow* sharedWindow = nil;
 }
 
 -(IBAction)clickedWebLink:(id)sender {
-    //NSLog(@"Found tag %d", [sender tag]);
     NSArray* linkArray = @[@"http://www.inform7.com",
                            @"http://ifdb.tads.org/search?sortby=ratu&newSortBy.x=0&newSortBy.y=0&searchfor=system%3AInform+7",
                            @"http://www.intfiction.org/forum",
