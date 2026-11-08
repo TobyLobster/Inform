@@ -60,6 +60,7 @@
 #import "IFCompilerSettings+OldStyle.h"
 #import "IFSetting.h"
 #import "IFSettingsController.h"
+#import "IFSettingsPage.h"
 #import "IFMiscSettings.h"
 #import "IFOutputSettings.h"
 #import "IFI7OutputSettings.h"

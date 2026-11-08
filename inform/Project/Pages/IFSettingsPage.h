@@ -11,8 +11,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class IFSettingsController;
-
 ///
 /// The 'settings' page
 ///
@@ -23,9 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) updateSettings;
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller NS_DESIGNATED_INITIALIZER;
-
-/// The settings controller
-@property (atomic, strong) IBOutlet IFSettingsController*  settingsController;
 
 @end
 
