@@ -192,7 +192,7 @@ final class IFSkeinViewChildrenTests: XCTestCase {
 
         let hidden = try arrowViews().filter { try opacity($0) == 0 }
         XCTAssertEqual(hidden.count, 1)
-        XCTAssertEqual(hidden.first?.frame, .zero, "the arrow for \(wait.command) was never placed")
+        XCTAssertEqual(hidden.first?.frame, .zero, "the arrow for wait was never placed")
 
         // Selecting another line moves the arrows
         layOut(selecting: wait)
