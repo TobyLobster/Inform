@@ -6,15 +6,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <QuartzCore/QuartzCore.h>
 #import "IFSkeinArrowView.h"
 #import "IFSkeinConstants.h"
 
 static const CGFloat kSkeinArrowHeadHalfHeight = kSkeinArrowHeadHeight * 0.5f;
 
 @implementation IFSkeinArrowView
-
-@synthesize forceRedraw;
 
 #pragma mark - Initialisation
 
@@ -24,7 +21,6 @@ static const CGFloat kSkeinArrowHeadHalfHeight = kSkeinArrowHeadHeight * 0.5f;
     if (self) {
         [self setWantsLayer: YES];
         self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
-        forceRedraw = YES;
     }
 
     return self;
@@ -90,8 +86,6 @@ static const CGFloat kSkeinArrowHeadHalfHeight = kSkeinArrowHeadHeight * 0.5f;
                                                                                     green: 0.25f
                                                                                      blue: 0.25f
                                                                                     alpha: 1.0f]];
-
-    forceRedraw = NO;
 }
 
 @end
