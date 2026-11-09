@@ -20,6 +20,7 @@
 #import "IFSkein.h"
 #import "IFSkeinItem.h"
 #import "IFSkeinPlayAll.h"
+#import "IFSourceHighlights.h"
 #import "IFInBuild.h"
 
 
@@ -86,9 +87,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
     /// The active project pane
     IFProjectPane*          currentPane;
 
-    // Source highlighting (indexed by file)
-    NSMutableDictionary*    lineHighlighting;
-    BOOL                    temporaryHighlights;
+    // Source highlighting
+    IFSourceHighlights*     highlights;
 
     // Compiling
     /// Action after a compile has finished
@@ -133,7 +133,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
     if (self) {
         projectPanes     = [[NSMutableArray alloc] init];
         splitViews       = [[NSMutableArray alloc] init];
-        lineHighlighting = [[NSMutableDictionary alloc] init];
+        highlights       = [[IFSourceHighlights alloc] init];
 
         [self setShouldCloseDocument: NO];
 
@@ -1321,20 +1321,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
                         ofStyle: (IFLineStyle) style {
     file = [self.document pathForSourceFile: file];
 
-    NSMutableArray* lineHighlight = lineHighlighting[file];
-    if (lineHighlight == nil) return;
-
-    BOOL updated = NO;
-
-    // Loop through each highlight, and remove any of this style
-    int x;
-    for (x=0; x<lineHighlight.count; x++) {
-        if ([lineHighlight[x][1] intValue] == style) {
-            [lineHighlight removeObjectAtIndex: x];
-            updated = YES;
-            x--;
-        }
-    }
+    BOOL updated = [highlights removeHighlightsOfStyle: style
+                                                inFile: file];
 
     if (updated) {
         for( IFProjectPane* pane in projectPanes ) {
@@ -1347,14 +1335,14 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
 - (void) removeHighlightsOfStyle: (IFLineStyle) style {
     // Remove highlights in all files
-    for( NSString* file in lineHighlighting ) {
+    for( NSString* file in highlights.files ) {
         [self removeHighlightsInFile: file
                              ofStyle: style];
     }
 }
 
 - (void) removeAllTemporaryHighlights {
-    if (!temporaryHighlights) return;
+    if (!highlights.hasTemporaryHighlights) return;
 
     int style;
 
@@ -1362,7 +1350,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
         [self removeHighlightsOfStyle: style];
     }
 
-    temporaryHighlights = NO;
+    [highlights temporaryHighlightsWereRemoved];
 }
 
 - (void) highlightSourceFileLine: (NSInteger) line
@@ -1394,26 +1382,16 @@ static CGFloat const      minDividerWidth     = 75.0f;
         return;
     }
 
-    // Create a new line highlight for this file
-    NSMutableArray* lineHighlight = lineHighlighting[file];
-
-    if (lineHighlight == nil) {
-        lineHighlight = [NSMutableArray array];
-        lineHighlighting[file] = lineHighlight;
-    }
-
-    [lineHighlight addObject: @[@(line),
-                                @(style)]];
+    [highlights highlightLine: line
+                       inFile: file
+                        style: style];
 
     // Display the highlight
-    if (style >= IFLineStyle_Temporary && style < IFLineStyle_LastTemporary)
-        temporaryHighlights = YES;
-
     for( IFProjectPane* pane in projectPanes ) {
         if ([[self.document pathForSourceFile: pane.sourcePage.currentFile] isEqualToString: file]) {
             [pane.sourcePage updateHighlightedLines];
 
-            if (temporaryHighlights) {
+            if (highlights.hasTemporaryHighlights) {
                 [pane.sourcePage indicateLine: (int) line];
             }
         }
@@ -1423,7 +1401,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 - (NSArray*) highlightsForFile: (NSString*) file {
     file = [self.document pathForSourceFile: file];
 
-    return lineHighlighting[file];
+    return [highlights highlightsInFile: file];
 }
 
 #pragma mark - Debugging controls
