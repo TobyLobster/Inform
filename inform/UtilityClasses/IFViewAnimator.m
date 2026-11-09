@@ -56,27 +56,12 @@
 
 #pragma mark - Caching views
 
-+ (void) detrackView: (NSView*) view {
-	if ([view respondsToSelector: @selector(removeTrackingRects)]) {
-		[view removeTrackingRects];
-	}
-}
-
-+ (void) trackView: (NSView*) view {
-	if ([view respondsToSelector: @selector(setTrackingRects)]) {
-		[view setTrackingRects];
-	}
-}
-
 + (NSImage*) cacheView: (NSView*) view {
-    NSSize mySize = view.bounds.size;
-    NSSize imgSize = NSMakeSize( mySize.width, mySize.height );
+    NSSize imgSize = view.bounds.size;
 
     // Make sure the view is fully laid out and drawn before we snapshot it.
     // This replaces the old mid-animation "recache" hack in -drawRect:.
-    if ([view respondsToSelector: @selector(layoutSubtreeIfNeeded)]) {
-        [view layoutSubtreeIfNeeded];
-    }
+    [view layoutSubtreeIfNeeded];
     [view displayIfNeeded];
 
     NSBitmapImageRep *bir = [view bitmapImageRepForCachingDisplayInRect:view.bounds];
@@ -86,10 +71,6 @@
     NSImage* image = [[NSImage alloc]initWithSize:imgSize];
     [image addRepresentation:bir];
     return image;
-}
-
-- (void) cacheStartView: (NSView*) view {
-	startImage = [[self class] cacheView: view];
 }
 
 #pragma mark - Animating
@@ -118,7 +99,6 @@
 		}
 		[originalView setNeedsDisplay: YES];
         [originalView.window makeFirstResponder:originalFocusView];
-		[IFViewAnimator trackView: originalView];
 
 		 originalView = nil;
          originalFocusView = nil;
@@ -140,7 +120,7 @@
 	[self finishAnimation];
 
 	// Cache the initial view
-	[self cacheStartView: view];
+	startImage = [[self class] cacheView: view];
 
 	// Replace the specified view with the animating view (ie, this view)
 	originalView = view;
@@ -148,7 +128,6 @@
 	originalFrame = view.frame;
     originalFocusView = focusView;
 
-	[IFViewAnimator detrackView: originalView];
 	[originalView removeFromSuperviewWithoutNeedingDisplay];
 	self.frame = originalFrame;
 	[originalSuperview addSubview: self];
@@ -173,7 +152,6 @@
 	originalFrame = view.frame;
     originalFocusView = focusView;
 
-	[IFViewAnimator detrackView: originalView];
 	self.frame = originalFrame;
 	[originalSuperview addSubview: self];
 
@@ -204,7 +182,7 @@ static CGImageRef IFCGImageFromImage(NSImage* image) {
     NSRect bounds = self.bounds;
 
     // If we have nothing to draw, just finish immediately.
-    if (NSIsEmptyRect(bounds) || (startImage == nil && endImage == nil)) {
+    if (NSIsEmptyRect(bounds)) {
         [self finishAnimation];
         return;
     }
@@ -235,7 +213,6 @@ static CGImageRef IFCGImageFromImage(NSImage* image) {
     // not flipped), matching the geometry of the original -drawRect: code.
     CGPoint startTo = centre;   // old layer: centre -> off screen
     CGPoint endFrom = centre;   // new layer: off screen -> centre
-    BOOL crossFade = NO;
 
     switch (style) {
         case IFAnimateLeft:     // old exits left, new enters from right
@@ -254,14 +231,6 @@ static CGImageRef IFCGImageFromImage(NSImage* image) {
             startTo = CGPointMake(centre.x, centre.y - h);
             endFrom = CGPointMake(centre.x, centre.y + h);
             break;
-        case IFAnimateCrossFade:
-        case IFFloatIn:
-        case IFFloatOut:
-        default:
-            // These styles are not used by any current caller; fall back to a
-            // simple cross fade so the API keeps working.
-            crossFade = YES;
-            break;
     }
 
     CAMediaTimingFunction* timing =
@@ -274,33 +243,22 @@ static CGImageRef IFCGImageFromImage(NSImage* image) {
         [weakSelf finishAnimation];
     }];
 
-    if (crossFade) {
-        // Old layer fully opaque underneath, new layer fades in on top
-        endLayer.opacity = 1.0;
-        CABasicAnimation* fade = [CABasicAnimation animationWithKeyPath: @"opacity"];
-        fade.fromValue = @(0.0);
-        fade.toValue = @(1.0);
-        fade.duration = animationTime;
-        fade.timingFunction = timing;
-        [endLayer addAnimation: fade forKey: @"fade"];
-    } else {
-        // Slide the old layer out and the new layer in
-        startLayer.position = startTo;
-        CABasicAnimation* out = [CABasicAnimation animationWithKeyPath: @"position"];
-        out.fromValue = [NSValue valueWithPoint: NSPointFromCGPoint(centre)];
-        out.toValue = [NSValue valueWithPoint: NSPointFromCGPoint(startTo)];
-        out.duration = animationTime;
-        out.timingFunction = timing;
-        [startLayer addAnimation: out forKey: @"slide"];
+    // Slide the old layer out and the new layer in
+    startLayer.position = startTo;
+    CABasicAnimation* out = [CABasicAnimation animationWithKeyPath: @"position"];
+    out.fromValue = [NSValue valueWithPoint: NSPointFromCGPoint(centre)];
+    out.toValue = [NSValue valueWithPoint: NSPointFromCGPoint(startTo)];
+    out.duration = animationTime;
+    out.timingFunction = timing;
+    [startLayer addAnimation: out forKey: @"slide"];
 
-        endLayer.position = centre;
-        CABasicAnimation* in = [CABasicAnimation animationWithKeyPath: @"position"];
-        in.fromValue = [NSValue valueWithPoint: NSPointFromCGPoint(endFrom)];
-        in.toValue = [NSValue valueWithPoint: NSPointFromCGPoint(centre)];
-        in.duration = animationTime;
-        in.timingFunction = timing;
-        [endLayer addAnimation: in forKey: @"slide"];
-    }
+    endLayer.position = centre;
+    CABasicAnimation* in = [CABasicAnimation animationWithKeyPath: @"position"];
+    in.fromValue = [NSValue valueWithPoint: NSPointFromCGPoint(endFrom)];
+    in.toValue = [NSValue valueWithPoint: NSPointFromCGPoint(centre)];
+    in.duration = animationTime;
+    in.timingFunction = timing;
+    [endLayer addAnimation: in forKey: @"slide"];
 
     [CATransaction commit];
 }
