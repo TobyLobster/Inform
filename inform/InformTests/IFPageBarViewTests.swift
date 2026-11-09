@@ -235,6 +235,9 @@ final class IFPageBarViewTests: XCTestCase {
         click(at: rightEdge + 3)
         XCTAssertTrue(bar.lastTrackedCell === right)
 
+        click(at: rightEdge + 6)
+        XCTAssertNil(bar.lastTrackedCell, "No more than four points beyond the end")
+
         XCTAssertEqual(target.senders.count, 0)
     }
 

@@ -363,7 +363,7 @@ static const CGFloat leftMargin = 3.0;
 		return 0;
 	}
 	
-	if (point.x < NSMinX(bounds)-4 || point.y > NSMaxX(bounds)+4) {
+	if (point.x < NSMinX(bounds)-4 || point.x > NSMaxX(bounds)+4) {
 		return 0;
 	}
 	
