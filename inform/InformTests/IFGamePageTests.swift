@@ -277,6 +277,14 @@ final class IFGamePageTests: XCTestCase {
         XCTAssertNil(try glkDelegate(page).path?(forNamedFile: "scores"))
     }
 
+    /// A name that the extension can't be added to has no file, as with CocoaGlk's own default for an empty name
+    func testANamedFileWithNoName() throws {
+        let page = try makePage()
+        let delegate = try glkDelegate(page)
+        XCTAssertNil(delegate.path?(forNamedFile: ""))
+        XCTAssertNil(delegate.path?(forNamedFile: "/"))
+    }
+
     // MARK: - Z-machine stories
 
     /// When a Z-machine story starts, the page takes the test commands for its Zoom view to type, and asks to be

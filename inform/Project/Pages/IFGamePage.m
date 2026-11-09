@@ -350,6 +350,10 @@
 	// Append .glkdata if the name has no extension
 	name = name.lastPathComponent;
 	name = [name.stringByDeletingPathExtension stringByAppendingPathExtension: @"glkdata"];
+	if (name == nil) {
+		// There's no file for a name that the extension can't be added to, such as an empty one
+		return nil;
+	}
 
 	// Work out the location of the materials directory
 	NSURL* projectURL	= [(self.parent).document fileURL];
