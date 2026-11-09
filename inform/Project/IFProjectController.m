@@ -42,6 +42,7 @@
 
 #import "IFCompilerController.h"
 #import "IFCompilerSettings.h"
+#import "IFCompileCheck.h"
 
 #import "IFUtility.h"
 #import <ZoomView/ZoomView.h>
@@ -91,6 +92,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
     /// Action after a compile has finished
     SEL                     compileFinishedAction;
     BOOL                    isCompiling;
+    /// Decides whether the project needs compiling before its story is used
+    IFCompileCheck*         compileCheck;
 
     // The last file selected
     NSString*               lastFilename;
@@ -103,7 +106,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
     id<ZoomViewInputSource> glkInputSource;
 
     BOOL                    betweenWindowLoadedAndBecomingMain;
-    BOOL                    testCaseChangedSinceLastSuccessfulCompile;
     /// Current index of test cases to test
     int                     currentTestCaseIndex;
     /// Range of test cases to test
@@ -153,7 +155,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
         headerController = [[IFHeaderController alloc] init];
         betweenWindowLoadedAndBecomingMain = NO;
-        testCaseChangedSinceLastSuccessfulCompile = YES;
+        compileCheck = [[IFCompileCheck alloc] init];
 
         sharedActions = [[IFSourceSharedActions alloc] init];
         toolbarManager = [[IFToolbarManager alloc] initWithProjectController: self];
@@ -694,61 +696,17 @@ static CGFloat const      minDividerWidth     = 75.0f;
  }
  */
 
-- (BOOL) timestampsInChronologicalOrder: (NSURL*) first
-                                 second: (NSURL*) second {
-    // If the datestamps both exist, and the first timestamp is earlier or equal to the second.
-    NSDictionary*  firstAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath: first.path  error: NULL];
-    NSDictionary* secondAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath: second.path error: NULL];
-
-    if( firstAttributes && secondAttributes ) {
-        NSDate* firstDate  = firstAttributes[NSFileModificationDate];
-        NSDate* secondDate = secondAttributes[NSFileModificationDate];
-
-        // Note that datestamps are only recorded to the second.
-        if( [firstDate compare: secondDate] != NSOrderedDescending ) {
-            return YES;
-        }
-    }
-    return NO;
-}
-
 - (void) makeWithRelease: (BOOL) release
               forTesting: (BOOL) releaseForTesting
              refreshOnly: (BOOL) onlyRefresh
             forceCompile: (BOOL) forceCompile
                onSuccess: (SEL) onSuccess {
-    BOOL needsToCompile = forceCompile;
-
-    // If the debug setting to always compile is switched on, then always compile
-    if(( !needsToCompile) && [IFPreferences sharedPreferences].alwaysCompile) {
-        needsToCompile = YES;
-    }
-
-    // If the document has unsaved changes, always save and compile
-    if( !needsToCompile && [self.document hasUnautosavedChanges] ) {
-        needsToCompile = YES;
-    }
-
-    // If we have changed test case in an extension project, always save and compile
-    if( !needsToCompile && testCaseChangedSinceLastSuccessfulCompile ) {
-        needsToCompile = YES;
-    }
-
-    if( !needsToCompile ) {
-        NSURL* outputURL    = [self.document buildOutputFileURL];
-        NSURL* sourceURL    = [self.document mainSourceFileURL];
-        NSURL* settingsURL  = [self.document settingsFileURL];
-
-        // If the source timestamp is later than the output timestamp, then we need to compile
-        needsToCompile = ![self timestampsInChronologicalOrder: sourceURL
-                                                        second: outputURL];
-
-        if( !needsToCompile ) {
-            // If the settings timestamp is later than the output timestamp, then we need to compile
-            needsToCompile = ![self timestampsInChronologicalOrder: settingsURL
-                                                            second: outputURL];
-        }
-    }
+    BOOL needsToCompile = [compileCheck needsCompileForcing: forceCompile
+                                              alwaysCompile: [IFPreferences sharedPreferences].alwaysCompile
+                                             unsavedChanges: [self.document hasUnautosavedChanges]
+                                                  sourceURL: [self.document mainSourceFileURL]
+                                                settingsURL: [self.document settingsFileURL]
+                                                  outputURL: [self.document buildOutputFileURL]];
 
     if( needsToCompile ) {
         compileFinishedAction = onSuccess;
@@ -1119,7 +1077,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
     }
 
     if (exitCode == 0) {
-        testCaseChangedSinceLastSuccessfulCompile = NO;
+        [compileCheck compileDidSucceed];
         // Success!
         [IFUtility performSelector: compileFinishedAction object: self];
     }
@@ -1916,7 +1874,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
     {
         NSPopUpButton* button = sender;
         int selectedIndex = (int) button.indexOfSelectedItem;
-        testCaseChangedSinceLastSuccessfulCompile = YES;
+        [compileCheck testCaseDidChange];
 
         [self.document selectSkein: selectedIndex-1];
     }
