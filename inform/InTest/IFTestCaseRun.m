@@ -34,7 +34,7 @@
 }
 
 - (BOOL) isOnALaterTestCase {
-    return !(currentTestCaseIndex < 1);
+    return (currentTestCaseIndex != -1) && (currentTestCaseIndex > startTestCaseIndex);
 }
 
 - (BOOL) isPastTheLastTestCase {

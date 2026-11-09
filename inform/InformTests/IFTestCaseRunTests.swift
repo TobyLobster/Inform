@@ -65,6 +65,16 @@ final class IFTestCaseRunTests: XCTestCase {
         XCTAssertEqual(run.numberTested, 1)
     }
 
+    func testTheChosenTestCaseIsntALaterOne() {
+        // So its compile clears the console, as the first of Test All's does
+        let run = IFTestCaseRun()
+        run.chooseTestCases(from: 2, to: 2)
+
+        run.moveToNextTestCase()
+
+        XCTAssertFalse(run.isOnALaterTestCase)
+    }
+
     func testFinishingCountsTheTestCasesMovedPast() {
         // As when the run is cancelled while a test case compiles
         let run = IFTestCaseRun()
