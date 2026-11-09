@@ -254,6 +254,20 @@ final class IFAppDelegateTests: XCTestCase {
         XCTAssertNil(delegate.frontmostProjectController)
     }
 
+    /// The project in front is the one whose window is in front of the others
+    func testTheProjectInFrontIsTheOneWhoseWindowIsInFront() {
+        let (delegate, _) = makeDelegate()
+        let (first, firstWindow) = openProject()
+        let (second, secondWindow) = openProject()
+
+        firstWindow.orderFrontRegardless()
+        secondWindow.orderFrontRegardless()
+        XCTAssertTrue(delegate.frontmostProjectController === second)
+
+        firstWindow.orderFrontRegardless()
+        XCTAssertTrue(delegate.frontmostProjectController === first)
+    }
+
     /// A window in front that isn't a project's is passed over for the project's behind it
     func testAWindowInFrontThatIsntAProjectsIsPassedOver() {
         let (delegate, _) = makeDelegate()

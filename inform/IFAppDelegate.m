@@ -595,8 +595,7 @@ static IFNewProject* newProj = nil;
     NSArray*  windObjsArray = [NSApplication sharedApplication].windows;
     NSMutableArray* windowList = [[NSMutableArray alloc] init];
 
-    // first entry is not a useful window, start with i=1
-    for(int i = 1; i < windNumsArray.count; i++) {
+    for(int i = 0; i < windNumsArray.count; i++) {
         NSInteger windowNumber = [windNumsArray[i] integerValue];
         for (NSWindow* wind in windObjsArray) {
             if (wind.windowNumber == windowNumber) {
