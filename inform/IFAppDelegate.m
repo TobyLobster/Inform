@@ -741,7 +741,7 @@ static IFNewProject* newProj = nil;
     if( fileCopySource == nil ) {
         [IFUtility runAlertWarningWindow: nil
                                    title: @"Export failed"
-                                 message: [IFUtility localizedString:@"Export of %@ failed - could not find source."], fileCopySource];
+                                 message: [IFUtility localizedString:@"Export of %@ failed - could not find source."], resource];
         return NO;
     }
 
