@@ -30,6 +30,7 @@ final class IFSourceFileViewTests: XCTestCase {
     private var window: NSWindow!
     private var textView: IFSourceFileView!
     private var navigator: Navigator!
+    private var pasteboards: [NSPasteboard] = []
 
     private let topTearHeight = NSImage(named: "App/TornPages/torn_top")?.size.height ?? 0
     private let bottomTearHeight = NSImage(named: "App/TornPages/torn_bottom")?.size.height ?? 0
@@ -81,6 +82,10 @@ final class IFSourceFileViewTests: XCTestCase {
     }
 
     override func tearDown() {
+        for pasteboard in pasteboards {
+            pasteboard.releaseGlobally()
+        }
+        pasteboards = []
         textView.delegate = nil
         window.close()
         window = nil
@@ -112,6 +117,15 @@ final class IFSourceFileViewTests: XCTestCase {
 
     private func moveMouse(to point: NSPoint) {
         textView.mouseMoved(with: mouseEvent(.mouseMoved, at: point))
+    }
+
+    /// A pasteboard of the test's own, holding text, as the general pasteboard would when pasting
+    private func pasteboard(holding string: String) -> NSPasteboard {
+        let pasteboard = NSPasteboard.withUniqueName()
+        pasteboard.declareTypes([.string], owner: nil)
+        pasteboard.setString(string, forType: .string)
+        pasteboards.append(pasteboard)
+        return pasteboard
     }
 
     /// Where the text ends, below which the bottom tear is
@@ -373,6 +387,42 @@ final class IFSourceFileViewTests: XCTestCase {
         moveMouse(to: NSPoint(x: 250, y: endOfText + 5))
         XCTAssertNotIdentical(NSCursor.current, NSCursor.pointingHand)
         NSCursor.arrow.set()
+    }
+
+    // MARK: - Pasting
+
+    // Paste, dropping text and services read the pasteboard with readSelectionFromPasteboard:type:, which Paste
+    // reaches by readSelectionFromPasteboard:, as here, with the general pasteboard
+
+    func testPastingPutsTheTextAtTheSelection() {
+        textView.setSelectedRange(NSRange(location: 4, length: 3))
+
+        XCTAssertTrue(textView.readSelection(from: pasteboard(holding: "a\nb")))
+
+        XCTAssertEqual(textView.string, "one\na\nb\nthree")
+        XCTAssertEqual(textView.selectedRange(), NSRange(location: 7, length: 0))
+    }
+
+    func testPastingTextWithOtherLineEndingsPutsItAtTheSelectionWithNewlines() {
+        textView.setSelectedRange(NSRange(location: 4, length: 3))
+
+        XCTAssertTrue(textView.readSelection(from: pasteboard(holding: "a\r\nb\rc")))
+
+        XCTAssertEqual(textView.string, "one\na\nb\nc\nthree")
+        XCTAssertEqual(textView.selectedRange(), NSRange(location: 9, length: 0))
+    }
+
+    func testPastingTextWithOtherLineEndingsCanBeUndone() throws {
+        let undoManager = try XCTUnwrap(textView.undoManager)
+        undoManager.groupsByEvent = false
+        textView.setSelectedRange(NSRange(location: 4, length: 3))
+
+        undoManager.beginUndoGrouping()
+        XCTAssertTrue(textView.readSelection(from: pasteboard(holding: "a\r\nb\rc")))
+        undoManager.endUndoGrouping()
+        undoManager.undo()
+
+        XCTAssertEqual(textView.string, "one\ntwo\nthree")
     }
 
     // MARK: - Typing and the Touch Bar

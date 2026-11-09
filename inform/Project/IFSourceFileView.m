@@ -274,24 +274,30 @@ static NSImage* arrowNotPressed = nil;
 }
 
 //
-// Paste
+// Paste (and dropped text, and services)
 //
--(void)paste:(id)sender {
-    NSPasteboard *pb = [NSPasteboard generalPasteboard];
-    NSString *pbItem = [pb readObjectsForClasses: @[[NSString class],[NSAttributedString class]] options:nil].lastObject;
-    if ([pbItem isKindOfClass:[NSAttributedString class]])
-        pbItem = ((NSAttributedString *)pbItem).string;
-    
-    // Fix line endings
-    if ([pbItem rangeOfString:@"\r"].location != NSNotFound) {
-        pbItem = [pbItem stringByReplacingOccurrencesOfString:@"\r\n" withString:@"\n"];
-        pbItem = [pbItem stringByReplacingOccurrencesOfString:@"\r" withString:@"\n"];
-        
-        [self.textStorage.mutableString appendString:pbItem];
+- (BOOL) readSelectionFromPasteboard: (NSPasteboard*) pboard
+                                type: (NSPasteboardType) type {
+    // Plain text, which NSTextView asks for by its old name
+    if ([type isEqualToString: NSPasteboardTypeString] || [type isEqualToString: @"NSStringPboardType"]) {
+        NSString* string = [pboard stringForType: NSPasteboardTypeString];
+
+        // Fix line endings
+        if (string != nil && [string rangeOfString: @"\r"].location != NSNotFound) {
+            string = [string stringByReplacingOccurrencesOfString: @"\r\n" withString: @"\n"];
+            string = [string stringByReplacingOccurrencesOfString: @"\r" withString: @"\n"];
+
+            // Read the fixed text instead, as from the pasteboard
+            NSPasteboard* fixed = [NSPasteboard pasteboardWithUniqueName];
+            [fixed declareTypes: @[NSPasteboardTypeString] owner: nil];
+            [fixed setString: string forType: NSPasteboardTypeString];
+            BOOL result = [super readSelectionFromPasteboard: fixed type: type];
+            [fixed releaseGlobally];
+            return result;
+        }
     }
-    else {
-        [super paste:sender];
-    }
+
+    return [super readSelectionFromPasteboard: pboard type: type];
 }
 
 @end
