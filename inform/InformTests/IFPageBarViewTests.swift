@@ -308,6 +308,10 @@ final class IFPageBarViewTests: XCTestCase {
         click(at: leftMargin + 20)
         XCTAssertNil(bar.lastTrackedCell)
 
+        bar.setFrameSize(NSSize(width: leftMargin + 40 + 12 + rightMargin - 1, height: 22))
+        click(at: leftMargin + 20)
+        XCTAssertNil(bar.lastTrackedCell, "Just within twelve points")
+
         bar.setFrameSize(NSSize(width: leftMargin + 40 + 12 + rightMargin + 2, height: 22))
         click(at: leftMargin + 20)
         XCTAssertTrue(bar.lastTrackedCell === left)

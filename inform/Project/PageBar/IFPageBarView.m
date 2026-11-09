@@ -286,7 +286,7 @@ static const CGFloat leftMargin = 3.0;
 	}
 	
 	for( IFPageCellLayout* cellLayout in leftLayout ) {
-		if (NSMinY(bounds) + (cellLayout->position + cellLayout->width) >= NSMaxX(bounds)-12) {
+		if (NSMinX(bounds) + (cellLayout->position + cellLayout->width) >= NSMaxX(bounds)-12) {
 			cellLayout->hidden = YES;
 		} else {
 			cellLayout->hidden = NO;
