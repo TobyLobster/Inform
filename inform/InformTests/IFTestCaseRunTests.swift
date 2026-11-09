@@ -12,6 +12,7 @@ final class IFTestCaseRunTests: XCTestCase {
 
         XCTAssertEqual(run.currentIndex, -1)
         XCTAssertFalse(run.isOnALaterTestCase)
+        XCTAssertFalse(run.isOnTheLastTestCase)
         XCTAssertEqual(run.numberTested, 0)
     }
 
@@ -22,6 +23,7 @@ final class IFTestCaseRunTests: XCTestCase {
         run.moveToNextTestCase()
         XCTAssertEqual(run.currentIndex, 0)
         XCTAssertFalse(run.isOnALaterTestCase)
+        XCTAssertFalse(run.isOnTheLastTestCase)
         XCTAssertFalse(run.isPastTheLastTestCase)
         XCTAssertEqual(run.numberStarted, 1)
         XCTAssertEqual(run.numberInRun, 3)
@@ -30,15 +32,18 @@ final class IFTestCaseRunTests: XCTestCase {
         run.moveToNextTestCase()
         XCTAssertEqual(run.currentIndex, 1)
         XCTAssertTrue(run.isOnALaterTestCase)
+        XCTAssertFalse(run.isOnTheLastTestCase)
         XCTAssertEqual(run.numberStarted, 2)
         XCTAssertEqual(run.percentageStarted, 200.0 / 3.0, accuracy: 0.0001)
 
         run.moveToNextTestCase()
         XCTAssertEqual(run.currentIndex, 2)
+        XCTAssertTrue(run.isOnTheLastTestCase)
         XCTAssertFalse(run.isPastTheLastTestCase)
         XCTAssertEqual(run.percentageStarted, 100.0, accuracy: 0.0001)
 
         run.moveToNextTestCase()
+        XCTAssertFalse(run.isOnTheLastTestCase)
         XCTAssertTrue(run.isPastTheLastTestCase)
 
         run.finish()
@@ -52,6 +57,7 @@ final class IFTestCaseRunTests: XCTestCase {
 
         run.moveToNextTestCase()
         XCTAssertEqual(run.currentIndex, 2)
+        XCTAssertTrue(run.isOnTheLastTestCase)
         XCTAssertFalse(run.isPastTheLastTestCase)
         XCTAssertEqual(run.numberStarted, 1)
         XCTAssertEqual(run.numberInRun, 1)

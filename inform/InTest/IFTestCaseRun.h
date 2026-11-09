@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, readonly) int currentIndex;
 /// Whether the test case being tested comes after the first of the run. A compile clears the console unless it does.
 @property (atomic, readonly, getter=isOnALaterTestCase) BOOL onALaterTestCase;
+/// Whether the test case being tested is the run's last
+@property (atomic, readonly, getter=isOnTheLastTestCase) BOOL onTheLastTestCase;
 /// Whether the run has moved past its last test case
 @property (atomic, readonly, getter=isPastTheLastTestCase) BOOL pastTheLastTestCase;
 /// How many of the run's test cases have been started, counting the one being tested

@@ -2241,6 +2241,11 @@ static CGFloat const      minDividerWidth     = 75.0f;
         return NO;
     }
 
+    // After the last test case, finish now, so that the caller knows to make the report
+    if( testCaseRun.isOnTheLastTestCase ) {
+        return [self startNextTestCase];
+    }
+
     // Enforce a delay to let current task finish gracefully before starting another
     [NSTimer scheduledTimerWithTimeInterval: 0.0
                                      target: self
