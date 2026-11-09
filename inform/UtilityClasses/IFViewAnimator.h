@@ -14,22 +14,13 @@ typedef NS_ENUM(int, IFViewAnimationStyle) {
 	IFAnimateLeft,
 	IFAnimateRight,
 	IFAnimateUp,
-	IFAnimateDown,
-	IFAnimateCrossFade,
-	IFFloatIn,
-	IFFloatOut
+	IFAnimateDown
 };
 
 ///
 /// A class that can be used to perform various animations for a particular view
 ///
 @interface IFViewAnimator : NSView
-
-// Caching views
-/// Returns an image with the contents of the specified view
-+ (NSImage*) cacheView: (NSView*) view;
-/// Caches a specific image as the start of an animation
-- (void) cacheStartView: (NSView*) view;
 
 // Animating
 /// Set how long the animation should take
@@ -46,17 +37,6 @@ typedef NS_ENUM(int, IFViewAnimationStyle) {
 			 style: (IFViewAnimationStyle) style
 	   sendMessage: (nullable SEL) finishedMessage
 		  toObject: (nullable id) whenFinished;
-/// Abandons any running animation
-- (void) finishAnimation;
-
-@end
-
-@interface NSObject(IFViewAnimation)
-
-/// Optional method implemented by views that is a request from the animation view to remove any applicable tracking rectangles
-- (void) removeTrackingRects;
-/// Optional method implemented by views that is a request from the animation view to add any tracking rectangles back again
-- (void) setTrackingRects;
 
 @end
 
