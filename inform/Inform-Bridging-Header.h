@@ -99,3 +99,5 @@
 #import "IFNotifyingWindow.h"
 #import "IFViewAnimator.h"
 #import "IFSourcePage.h"
+#import "IFToolbarManager.h"
+#import "IFToolbarStatusView.h"
