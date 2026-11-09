@@ -44,8 +44,8 @@
             } else if ([directory startsWithCaseInsensitive:@"Materials/"]) {
                 markdownPath = [[materialsDirectory stringByAppendingPathComponent: [directory substringFromIndex: 10]] stringByAppendingPathComponent: errorFile];
             } else {
-                // Resolve to absolute path
-                markdownPath = directory;
+                // Otherwise the directory is given in full
+                markdownPath = [directory stringByAppendingPathComponent: errorFile];
             }
         }
     }

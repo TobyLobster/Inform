@@ -54,6 +54,13 @@ final class IFRuntimeProblemPageTests: XCTestCase {
         XCTAssertNil(page.appPageURL)
     }
 
+    func testAProblemInAFolderGivenInFullIsMadeFromItsMarkdownThere() {
+        let page = page("Problem", in: "/Users/Shared/Kits/LocksKit/RTPs")
+
+        XCTAssertEqual(page.markdownPath, "/Users/Shared/Kits/LocksKit/RTPs/Problem.md")
+        XCTAssertNil(page.appPageURL)
+    }
+
     func testAProblemInMaterialsHasNoPageWithoutAMaterialsFolder() {
         let page = IFRuntimeProblemPage(problem: "Problem",
                                         inDirectory: "MATERIALS/Kits/RTPs",
