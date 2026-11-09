@@ -262,7 +262,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
     // Create the toolbar view
     [toolbarManager setToolbar];
-    [toolbarManager setIsExtensionProject: [self isExtensionProject]];
 
     // Update the toolbar to reflect the test cases
     [toolbarManager setTestCases: [self.document testCases]];

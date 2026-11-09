@@ -45,7 +45,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(void) cancelProgress;
 
 // Extension projects
--(void) setIsExtensionProject:(BOOL) isExtensionProject;
 -(void) setTestCases:(nullable NSArray<NSDictionary<NSString*, id>*>*) testCasesArray;
 -(nullable NSString*) getTestCase:(int) index;
 @property (NS_NONATOMIC_IOSONLY, getter=getNumberOfTestCases, readonly) int numberOfTestCases;

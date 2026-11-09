@@ -716,10 +716,6 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
     [self adjustToolbarStatusView];
 }
 
--(void) setIsExtensionProject:(BOOL) isExtensionProject {
-    toolbarStatusView.isExtensionProject = isExtensionProject;
-}
-
 -(void) setTestCases:(NSArray*) testCasesArray {
     if( testCasesPopUpButton != nil ) {
         // Remember current selected item

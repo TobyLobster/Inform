@@ -27,14 +27,10 @@ static CGFloat gapWidthBetweenStoryAndCancel = 5.0f;
 static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
 
 @implementation IFToolbarStatusView {
-    NSString*                   title;
-    CGFloat                     progress;
-    CGFloat                     total;
     IFToolbarProgressIndicator* progressIndicator;
     BOOL                        isInProgress;
     BOOL                        isStoryActive;
     BOOL                        canCancel;
-    IFProjectController *       controller;
 
     NSTextField*                titleText;
     NSTextField*                storyText;
@@ -56,7 +52,6 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
 	
 	if (self) {
         delegate = nil;
-        _isExtensionProject = NO;
 
         NSString* buildString  = [NSString stringWithFormat: [IFUtility localizedString: @"Build %@"], [IFUtility coreBuildVersion]];
         NSString* informString = [IFUtility localizedString: @"Inform"];
@@ -233,10 +228,6 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
     CGFloat progressWidth               = self.frame.size.width - leftBorder - rightProgressBorder;
     CGFloat progressHeight              = 8.0f;
 
-    if( canCancel ) {
-        progressWidth -= (2.0f * leftBorder) - cancelWidth;
-    }
-    
     // Work out ideal titleText frame
     NSRect titleRect;
     titleRect.size.width  = self.frame.size.width;
@@ -312,9 +303,6 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
     NSGradient *kBackgroundGradient = [[NSGradient alloc] initWithColorsAndLocations:
                            [NSColor colorNamed:@"BackgroundGradientStart"], 0.0,
                            [NSColor colorNamed:@"BackgroundGradientEnd"], 1.0, nil];
-    NSGradient * kExtensionBackgroundGradient = [[NSGradient alloc] initWithColorsAndLocations:
-                                    [NSColor colorNamed:@"BackgroundGradientStart"], 0.0,
-                                    [NSColor colorNamed:@"BackgroundGradientEnd"], 1.0, nil];
     NSRect bounds = self.bounds;
     bounds.size.height -= 1.0;
     bounds.origin.y += 1.0;
@@ -332,16 +320,9 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
     }
 
     // Draw gradient
-    NSGradient* gradient;
-    if( _isExtensionProject ) {
-        gradient = kExtensionBackgroundGradient;
-    }
-    else {
-        gradient = kBackgroundGradient;
-    }
     {
-        [gradient drawInBezierPath: path
-                             angle: -90.0];
+        [kBackgroundGradient drawInBezierPath: path
+                                        angle: -90.0];
     }
 
     // Draw stroke
