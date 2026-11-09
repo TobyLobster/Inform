@@ -313,6 +313,17 @@
     }
     NSArray* components = urlPath.pathComponents;
 
+    // Give nothing outside the resources, the project's materials or the documentation folder (a URL's path can go up
+    // out of them, as NSURL decodes "..%2F")
+    if ([components containsObject: @".."]) {
+        if (error) {
+            *error = [NSError errorWithDomain: NSURLErrorDomain
+                                         code: NSURLErrorNoPermissionsToReadFile
+                                     userInfo: @{NSURLErrorFailingURLErrorKey: url}];
+        }
+        return nil;
+    }
+
     // Accept either the host or the path specifier containing 'extensions'
     bool hostIsExtensions = [host.lowercaseString isEqualToString: @"extensions"];
     bool firstComponentIsExtensions = (components != nil && components.count > 1 &&

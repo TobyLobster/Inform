@@ -478,6 +478,28 @@ final class IFWebViewHelperTests: XCTestCase {
                      domain: NSURLErrorDomain, code: NSURLErrorFileDoesNotExist)
     }
 
+    // MARK: - inform: URLs that go up
+
+    /// A URL's path can go up out of the folder it's looked for in, as NSURL decodes "..%2F"
+    func testGivesNothingAboveTheResources() {
+        for url in ["inform:/..%2FInfo.plist", "inform:/doc_images/..%2F..%2FInfo.plist", "inform:/%2E%2E/Info.plist"] {
+            assertFailed(load(url), domain: NSURLErrorDomain, code: NSURLErrorNoPermissionsToReadFile)
+        }
+    }
+
+    func testGivesNothingAboveTheProjectsExtensions() throws {
+        let project = try openProject()
+        controller.project = project
+        let materials = try XCTUnwrap(project.materialsDirectoryURL)
+        try write("<p>Notes</p>", to: materials.appendingPathComponent("Extensions/Jane Doe/Notes.html"))
+
+        for url in ["inform://Extensions/..%2F..%2FLighthouse.inform%2FSource%2Fstory.ni",
+                    "inform:/Extensions/..%2F..%2FLighthouse.inform%2FSource%2Fstory.ni"] {
+            assertFailed(load(url, helper: makeHelper()), domain: NSURLErrorDomain,
+                         code: NSURLErrorNoPermissionsToReadFile)
+        }
+    }
+
     // MARK: - source: and skein: links
 
     func testASourceLinkShowsItsLineInTheSource() throws {
