@@ -491,7 +491,16 @@
 
 - (void)userContentController: (WKUserContentController *) userContentController
       didReceiveScriptMessage: (WKScriptMessage *) message {
+    // Ignore a message that isn't a list of strings, which no page's script posts
+    if (![message.body isKindOfClass: [NSArray class]]) {
+        return;
+    }
     NSArray * list = (NSArray*) message.body;
+    for (id part in list) {
+        if (![part isKindOfClass: [NSString class]]) {
+            return;
+        }
+    }
 
     //NSLog(@"%@", list);
 

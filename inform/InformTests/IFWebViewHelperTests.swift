@@ -658,4 +658,20 @@ final class IFWebViewHelperTests: XCTestCase {
 
         XCTAssertEqual(controller.calls, [])
     }
+
+    /// No page's script posts anything but a list of strings
+    func testIgnoresAMessageThatIsntAListOfStrings() {
+        let helper = makeHelper()
+        let messages: [Any] = ["install", 4, ["install": "Locksmith by Emily Short"],
+                               ["selectView", 4], ["selectView", NSNull()], ["install", 4], ["confirmAction", 4],
+                               ["install", "Locksmith by Emily Short", NSNull()]]
+
+        for message in messages {
+            post(message, to: helper)
+        }
+
+        XCTAssertEqual(controller.calls, [])
+        XCTAssertEqual(sourcePane.selected, [])
+        XCTAssertEqual(pane.selected, [])
+    }
 }
