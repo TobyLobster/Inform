@@ -8,14 +8,11 @@
 
 #import "IFSourceFileView.h"
 #import "IFProjectController.h"
-#import "IFNaturalIntel.h"
 #import "IFSourcePage.h"
-#import "IFSyntaxManager.h"
 
 static NSImage* topTear			= nil;
 static NSImage* bottomTear		= nil;
 static NSImage* arrowNotPressed = nil;
-static NSImage* arrowPressed	= nil;
 
 @implementation IFSourceFileView {
     /// \c YES if we should draw a 'tear' at the top of the view
@@ -31,19 +28,7 @@ static NSImage* arrowPressed	= nil;
 	if (!bottomTear)		bottomTear		= [NSImage imageNamed: @"App/TornPages/torn_bottom"];
 	
 	if (!arrowNotPressed)	arrowNotPressed = [NSImage imageNamed: @"App/TornPages/TearArrow"];
-	if (!arrowPressed)		arrowPressed	= [NSImage imageNamed: @"App/TornPages/TearArrowPressed"];
 }
-
-- (instancetype)initWithFrame:(NSRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-		[self loadImages];
-        tornAtTop = NO;
-        tornAtBottom = NO;
-    }
-    return self;
-}
-
 
 - (void) keyDown: (NSEvent*) event {
 	IFProjectController* controller = self.window.windowController;
@@ -60,62 +45,6 @@ static NSImage* arrowPressed	= nil;
 
 - (NSTouchBar *)makeTouchBar {
   return nil;
-}
-
-- (void) removeRestriction {
-    if( [IFSyntaxManager isRestricted:self.textStorage forTextView:self] ) {
-		// Get the old restriction, and first visible character
-		NSLayoutManager* layout	= self.layoutManager;
-		NSRange oldRestriction	= [IFSyntaxManager restrictedRange: self.textStorage
-                                                       forTextView: self];
-		NSRange selected		= [self selectedRange];
-		NSRect visibleRect		= self.visibleRect;
-		
-		NSPoint containerOrigin = self.textContainerOrigin;
-		NSPoint containerLocation = NSMakePoint(NSMinX(visibleRect)-containerOrigin.x, NSMinY(visibleRect)-containerOrigin.y);
-		
-		NSUInteger characterIndex = NSNotFound;
-		NSUInteger glyphIndex = [layout glyphIndexForPoint: containerLocation
-                                           inTextContainer: (NSTextContainer * __nonnull) self.textContainer];
-		if (glyphIndex != NSNotFound) {
-			characterIndex = [layout characterIndexForGlyphAtIndex: glyphIndex];
-		}
-		
-		// Remove the storage restriction
-		BOOL wasTornAtTop = tornAtTop;
-		[IFSyntaxManager removeRestriction: self.textStorage forTextView:self];
-		[self setTornAtTop: NO];
-		[self setTornAtBottom: NO];
-		
-		// Reset the selection
-		selected.location += oldRestriction.location;
-		[self setSelectedRange: selected];
-		
-		// Scroll to the last visible character
-		if (characterIndex != NSNotFound) {
-			characterIndex += oldRestriction.location;
-			
-			// Scroll to the most recently visible character
-			NSRange glyphs = [layout glyphRangeForCharacterRange: NSMakeRange(characterIndex, 65536)
-											actualCharacterRange: nil];
-			NSPoint charPoint = [layout boundingRectForGlyphRange: glyphs
-												  inTextContainer: self.textContainer].origin;
-			charPoint.x = 0;
-			charPoint.y += containerOrigin.y;
-			
-			[self scrollPoint: charPoint];
-		} else {
-			// Scroll to the top of the restricted range
-			NSRange glyphs = [layout glyphRangeForCharacterRange: NSMakeRange(oldRestriction.location, 65536)
-											actualCharacterRange: nil];
-			NSPoint charPoint = [layout boundingRectForGlyphRange: glyphs
-												  inTextContainer: self.textContainer].origin;
-			charPoint.x = 0;
-			charPoint.y += containerOrigin.y - (wasTornAtTop?topTear.size.height:0);
-			
-			[self scrollPoint: charPoint];
-		}
-	}
 }
 
 - (void) mouseDown: (NSEvent*) event {
@@ -136,19 +65,11 @@ static NSImage* arrowPressed	= nil;
             deleg = (id<IFSourceNavigation>) self.delegate;
         }
         if ((tornAtTop && mousePoint.y < NSMinY(bounds)+topTear.size.height)) {
-            if (deleg) {
-                [deleg sourceFileShowPreviousSection: self];
-            } else {
-                [self removeRestriction];
-            }
+            [deleg sourceFileShowPreviousSection: self];
 
             return;
         } else if (tornAtBottom && mousePoint.y > NSMinY(bounds)+self.textContainerOrigin.y+NSMaxY(usedRect)) {
-            if (deleg) {
-                [deleg sourceFileShowNextSection: self];
-            } else {
-                [self removeRestriction];
-            }
+            [deleg sourceFileShowNextSection: self];
 
 			// Finished handling this event
 			return;
@@ -310,7 +231,6 @@ static NSImage* arrowPressed	= nil;
 			lastUsedRect = newUsedRect;
 			
             CGFloat minY = NSMinY(lastUsedRect);
-			if (NSMinY(newUsedRect) < minY) minY = NSMinY(newUsedRect);
 			
 			NSRect needsDisplay = NSMakeRect(NSMinX(bounds), minY, bounds.size.width, NSMaxY(bounds)-minY);
 			[super setNeedsDisplayInRect: needsDisplay];
@@ -326,15 +246,6 @@ static NSImage* arrowPressed	= nil;
 	[super setNeedsDisplayInRect: invalidRect];
 	[self checkForRedraw];
 }
-
-/*
-- (void) unlockFocus {
-	if ([self checkForRedraw]) {
-		[self displayIfNeeded];
-	}
-	[super unlockFocus];
-}
-*/
 
 - (NSPoint) textContainerOrigin {
 	// Calculate the origin
