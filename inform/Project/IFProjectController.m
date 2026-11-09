@@ -637,6 +637,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
             [theCompiler clearConsole];
         }
 
+        [compileCheck compileDidStartForRelease: release];
         [theCompiler launch];
         isCompiling = YES;
     }

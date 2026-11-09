@@ -100,6 +100,29 @@ final class IFCompileCheckTests: XCTestCase {
         XCTAssertFalse(needsCompile(check, files))
     }
 
+    func testAStoryMadeForReleaseIsntUsed() throws {
+        // Go! after Release would run a story without the debugging commands or fixed random numbers
+        let check = makeCompiledCheck()
+        let files = try makeUpToDateFiles()
+
+        check.compileDidStart(forRelease: true)
+        check.compileDidSucceed()
+        XCTAssertTrue(needsCompile(check, files))
+
+        check.compileDidStart(forRelease: false)
+        check.compileDidSucceed()
+        XCTAssertFalse(needsCompile(check, files))
+    }
+
+    func testAStoryLeftByAFailedReleaseIsntUsed() throws {
+        // A release that fails making its Blorb file has already written the story
+        let check = makeCompiledCheck()
+
+        check.compileDidStart(forRelease: true)
+
+        XCTAssertTrue(needsCompile(check, try makeUpToDateFiles()))
+    }
+
     func testAChangedSourceMeansACompileIsNeeded() throws {
         let files = try makeFiles(source: compiled + 1, settings: compiled - 120, output: compiled)
 

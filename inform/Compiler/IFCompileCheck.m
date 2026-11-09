@@ -9,6 +9,8 @@
 
 @implementation IFCompileCheck {
     BOOL testCaseChangedSinceLastSuccessfulCompile;
+    /// Whether the story was made by a compile for release
+    BOOL storyIsForRelease;
 }
 
 - (instancetype) init {
@@ -23,6 +25,10 @@
 
 - (void) testCaseDidChange {
     testCaseChangedSinceLastSuccessfulCompile = YES;
+}
+
+- (void) compileDidStartForRelease: (BOOL) release {
+    storyIsForRelease = release;
 }
 
 - (void) compileDidSucceed {
@@ -67,6 +73,11 @@
 
     // If we have changed test case in an extension project, always save and compile
     if( !needsToCompile && testCaseChangedSinceLastSuccessfulCompile ) {
+        needsToCompile = YES;
+    }
+
+    // A story made for release has no debugging commands and its random numbers aren't fixed, so don't use it
+    if( !needsToCompile && storyIsForRelease ) {
         needsToCompile = YES;
     }
 
