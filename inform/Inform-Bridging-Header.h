@@ -84,6 +84,7 @@
 #import "IFScanner.h"
 #import "IFDocParser.h"
 #import "IFFindInFiles.h"
+#import "IFFindInFilesController.h"
 #import "IFFindController.h"
 #import "IFFindWebView.h"
 #import "IFFindTextView.h"
