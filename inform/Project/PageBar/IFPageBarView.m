@@ -9,20 +9,6 @@
 #import "IFPageBarView.h"
 #import "IFPageBarCell.h"
 
-//
-// Notes (in no particular order)
-//
-// There are a maximum of three separate animations that can be occuring at any one
-// time:
-//
-// One or more cells can be animating between states
-// The background can animate between states (inactive -> active)
-// The left and right hand side can fade out when switching between cell sets
-//
-// Not sure if I'm going to implement all of these. The cell animations are presently
-// the most important, followed by the background animations.
-//
-
 ///
 /// Object used to represent the layout of an individual cell
 ///
@@ -40,13 +26,6 @@
     CGFloat width;
     /// If \c YES then this cell shouldn't be drawn
     BOOL hidden;
-
-    /// The image for this cell
-    NSImage* cellFirstImage;
-    /// The image for this cell
-    NSImage* cellImage;
-    /// The image to animate from
-    NSImage* animateFrom;
 }
 
 
@@ -62,8 +41,6 @@ static const CGFloat tabMargin =  0.0;
 static const CGFloat leftMargin = 3.0;
 
 @implementation IFPageBarView {
-    /// YES if we need to perform layout on the cells
-    BOOL cellsNeedLayout;
     /// YES if this page accepts keyboard input
     BOOL isActive;
 
@@ -83,57 +60,11 @@ static const CGFloat leftMargin = 3.0;
     NSRect trackingCellFrame;
 }
 
-#pragma mark - Images
-
-+ (NSImage*) backgroundImage {
-	static NSImage* image = nil;
-	
-	if (!image) {
-		image = [NSImage imageNamed: @"App/PageBar/BarBackground"];
-	}
-	
-	return image;
-}
-
-+ (NSImage*) normalImage {
-	static NSImage* image = nil;
-	
-	if (!image) {
-		image = [NSImage imageNamed: @"App/PageBar/BarNormal"];
-	}
-	
-	return image;
-}
-
-+ (NSImage*) inactiveImage {
-	static NSImage* image = nil;
-	
-	if (!image) {
-		image = [NSImage imageNamed: @"App/PageBar/BarInactive"];
-	}
-	
-	return image;
-}
-
-#pragma mark - Initialisation
-
-- (instancetype)initWithFrame:(NSRect)frame {
-    self = [super initWithFrame:frame];
-
-    if (self) {
-		cellsNeedLayout = YES;
-    }
-	
-    return self;
-}
-
-
 #pragma mark - Drawing
 
 + (void) drawOverlay: (NSColor*) overlay
 			  inRect: (NSRect) rect
-		 totalBounds: (NSRect) bounds
-			fraction: (CGFloat) fraction {
+		 totalBounds: (NSRect) bounds {
 	// Draws an overlay colour, given the bounds of this control and the area to draw
 	rect = NSIntersectionRect(rect, bounds);
 
@@ -158,8 +89,6 @@ static const CGFloat leftMargin = 3.0;
 	
 	// Set this cell to be owned by this view
 	if (cell.controlView != self) {
-		//[cell setControlView: self];
-		
 		// Note that this makes it hard to move a cell from the left to the right
 		if ([cell respondsToSelector: @selector(setIsRight:)]) {
 			[cell setIsRight: right];
@@ -225,23 +154,14 @@ static const CGFloat leftMargin = 3.0;
 	bounds.size.width -= leftMargin + tabMargin + rightMargin;
 	
     BOOL isFirst = YES;
-    NSImage* cellImage = nil;
 	while ((cell = [cellEnum nextObject]) && (layout = [layoutEnum nextObject])) {
 		if (layout->hidden) continue;
 		
-		// Redraw the cell's cached images if required
-        if( isFirst ) {
-            cellImage = layout->cellFirstImage;
-        }
-        else {
-            cellImage = layout->cellImage;
-		}
-        if (cellImage == nil) {
-            cellImage = [self renderCell: cell
-                               forLayout: layout
-                                 isRight: right
-                                 isFirst: isFirst];
-        }
+		// Draw the cell's image
+        NSImage* cellImage = [self renderCell: cell
+                                    forLayout: layout
+                                      isRight: right
+                                      isFirst: isFirst];
 
 		// Draw the cell itself
 		NSRect cellFrame = NSMakeRect(0,0, layout->width, bounds.size.height);
@@ -283,8 +203,6 @@ static const CGFloat leftMargin = 3.0;
     [[NSColor separatorColor] set];
     [NSBezierPath strokeLineFromPoint: NSMakePoint(3.0f, 0.5f)
                               toPoint: NSMakePoint(fullRect.size.width - 14.0f, 0.5f)];
-
-	return;
 }
 
 #pragma mark - Managing cells
@@ -293,7 +211,6 @@ static const CGFloat leftMargin = 3.0;
 	leftCells = [[NSMutableArray alloc] initWithArray: newLeftCells];
 	
 	 leftLayout = nil;
-	cellsNeedLayout = YES;
 	
 	[self setNeedsDisplay: YES];
 }
@@ -302,7 +219,6 @@ static const CGFloat leftMargin = 3.0;
 	rightCells = [[NSMutableArray alloc] initWithArray: newRightCells];
 	
 	 rightLayout = nil;
-	cellsNeedLayout = YES;
 	
 	[self setNeedsDisplay: YES];
 }
@@ -331,8 +247,6 @@ static const CGFloat leftMargin = 3.0;
 }
 
 - (void) layoutCells {
-	if (!cellsNeedLayout) return;
-	
 	 leftLayout = nil;
 	 rightLayout = nil;
 	
@@ -340,7 +254,6 @@ static const CGFloat leftMargin = 3.0;
 	rightLayout = [[NSMutableArray alloc] init];
 	
 	// First pass: add all cells to the left and right regardless of how wide they are
-	// TODO: preserve cell images if at all possible
 	[self addCells: leftCells
 		  toLayout: leftLayout];
 	[self addCells: rightCells
@@ -379,11 +292,6 @@ static const CGFloat leftMargin = 3.0;
 			cellLayout->hidden = NO;
 		}
 	}
-}
-
-- (void) setBounds: (NSRect) bounds {
-	cellsNeedLayout = YES;
-	super.bounds = bounds;
 }
 
 - (void) setState: (int) state
@@ -442,7 +350,7 @@ static const CGFloat leftMargin = 3.0;
 	// left-hand cell
 
 	// Update the cell layout
-	if (cellsNeedLayout) [self layoutCells];
+	[self layoutCells];
 
 	// Work out the bounds for the cells
 	NSRect bounds = self.bounds;
@@ -509,7 +417,7 @@ static const CGFloat leftMargin = 3.0;
 - (NSRect) boundsForCellAtIndex: (NSUInteger) index
 					  isOnRight: (BOOL) isRight {
 	// Update the cell layout
-	if (cellsNeedLayout) [self layoutCells];
+	[self layoutCells];
 	NSRect bounds = self.bounds;
 	
 	bounds.origin.x += leftMargin;
@@ -530,26 +438,20 @@ static const CGFloat leftMargin = 3.0;
 
 - (void) updateCell: (NSCell*) aCell {
 	// Update the cell layout
-	if (cellsNeedLayout) [self layoutCells];
+	[self layoutCells];
 	
 	NSUInteger cellIndex;
-	NSMutableArray* layout = leftLayout;
 	BOOL isRight = NO;
 	
 	// Find the cell in the left or right-hand collections
 	cellIndex = [leftCells indexOfObjectIdenticalTo: aCell];
 	if (cellIndex == NSNotFound) {
-		layout = rightLayout;
 		isRight = YES;
 		cellIndex  = [rightCells indexOfObjectIdenticalTo: aCell];
 	}
 	
 	// Do nothing if this cell is not part of this control
 	if (cellIndex == NSNotFound) return;
-	
-	// Mark this cell as needing an update
-	IFPageCellLayout* cellLayout = layout[cellIndex];
-	cellLayout->cellImage = nil;
 	
 	// Refresh this cell
 	NSRect bounds = [self boundsForCellAtIndex: cellIndex
