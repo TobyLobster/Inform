@@ -578,4 +578,14 @@ final class IFPageBarCellTests: XCTestCase {
         XCTAssertLessThan(middle.greenComponent, 0.1)
         XCTAssertLessThan(middle.blueComponent, 0.1)
     }
+
+    func testTheImageAndTextOfACellThatIsOnAreWhite() {
+        let cell = IFPageBarCell(textCell: "Source")
+        cell.image = square(.black, template: true)
+        cell.state = .on
+        let rep = picture(of: cell)
+
+        XCTAssertTrue(hasWhiteInk(rep))
+        XCTAssertFalse(hasBlackInk(rep))
+    }
 }

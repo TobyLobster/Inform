@@ -202,7 +202,7 @@
 				 fraction: 1.0];
         
         if (image.template) {
-            [NSColor.labelColor set];
+            [textColor set];
             NSRectFillUsingOperation(imageRect, NSCompositingOperationSourceAtop);
         }
         [layer unlockFocus];
@@ -220,7 +220,9 @@
 		NSRect textRect;
 		textRect.origin = textPoint;
 		textRect.size = textSize;
-		
+		NSMutableDictionary *mutDict = [text attributesAtIndex:0 effectiveRange:nil].mutableCopy;
+		mutDict[NSForegroundColorAttributeName] = textColor;
+		text = [[NSAttributedString alloc] initWithString:text.string attributes:mutDict];
 		[text drawInRect: NSIntegralRect(textRect)];
 	} else if (image) {
 		// Draw the image
