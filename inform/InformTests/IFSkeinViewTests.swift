@@ -200,7 +200,7 @@ final class IFSkeinViewTests: XCTestCase {
         let scrolledTo = skeinView.visibleRect.origin
         XCTAssertGreaterThan(scrolledTo.y, 0)
 
-        skeinView.layoutSkein(withAnimation: false)
+        skein.postChanged(withAnimate: false, keepActiveVisible: false)
         XCTAssertEqual(skeinView.visibleRect.origin, scrolledTo)
     }
 }

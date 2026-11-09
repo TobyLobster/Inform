@@ -6,7 +6,6 @@
 //
 
 #import <AppKit/AppKit.h>
-#import <QuartzCore/CAAnimation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-@interface IFSkeinView : NSView<NSTextViewDelegate, NSControlTextEditingDelegate>
+@interface IFSkeinView : NSView<NSTextViewDelegate>
 
 @property (nonatomic, strong, nullable)  IFSkein *           skein;
 @property (atomic, strong, readonly)     IFSkeinLayout*      layoutTree;
@@ -34,15 +33,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (atomic, weak, nullable) id<IFSkeinViewDelegate> delegate;
 
-- (void) layoutSkeinWithAnimation:(BOOL) animate;
-
 - (void) selectItem: (nullable IFSkeinItem*) item withAnimation:(BOOL) animate;
 - (BOOL) selectItemWithNodeId: (unsigned long) skeinItemNodeId;
-- (void) scrollViewToItem: (nullable IFSkeinItem*) scrollToItem;
 
-- (void) editItem: (IFSkeinItem*) skeinItem;
-
-- (void) playToPoint: (IFSkeinItem*) item;
 - (nullable IFSkeinItem*) itemAtPoint:(NSPoint) point;
 - (NSMenu *) menuForItem: (IFSkeinItem*) item;
 

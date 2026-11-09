@@ -37,7 +37,6 @@ static NSDictionary* itemTextAttributes;
     IFSkeinItem*    itemToEdit;
     NSScrollView*   fieldScroller;
     NSTextView*     fieldEditor;
-    NSTextStorage*  fieldStorage;
     
     // Context menu item
     IFSkeinItem*    contextItem;
@@ -63,8 +62,6 @@ static NSDictionary* itemTextAttributes;
 	
     if (self) {
         skein               = [[IFSkein alloc] initWithProject: nil];
-        viewTrackingArea    = nil;
-        selectedItem        = nil;
 
 		layoutTree = [[IFSkeinLayout alloc] init];
 		layoutTree.rootItem = skein.rootItem;
@@ -334,8 +331,6 @@ static NSDictionary* itemTextAttributes;
             if (itemToEdit == selectedItem) {
                 self.selectedItem = newItem;
             }
-
-            itemToEdit = newItem;
         }
         else {
             // Set the new command
@@ -366,10 +361,6 @@ static NSDictionary* itemTextAttributes;
     itemToEdit = nil;
 }
 
-- (void)controlTextDidEndEditing:(NSNotification *)aNotification {
-	[self finishEditing: self];
-}
-
 - (void) editItem: (IFSkeinItem*) skeinItem {
 	// Finish any existing editing
 	[self finishEditing: self];
@@ -381,12 +372,10 @@ static NSDictionary* itemTextAttributes;
 		return;
 	}
 
+	// Allows you to edit an item's command
     IFSkeinLayoutItem* layoutItem = [skeinViewChildren layoutItemForItem: skeinItem];
 
-	// Allows you to edit an item's command
-	IFSkeinLayoutItem* itemD = layoutItem;
-
-	if (itemD == nil) {
+	if (layoutItem == nil) {
 		NSLog(@"IFSkeinView: Item not found for editing");
 		return;
 	}
@@ -427,8 +416,8 @@ static NSDictionary* itemTextAttributes;
 	fieldEditor = (NSTextView*)[self.window fieldEditor: YES
 												forObject: self];
 
-	fieldStorage = [[NSTextStorage alloc] initWithString: itemText
-											  attributes: itemTextAttributes];	
+	NSTextStorage* fieldStorage = [[NSTextStorage alloc] initWithString: itemText
+                                                             attributes: itemTextAttributes];
 	[fieldEditor.textStorage setAttributedString: fieldStorage];
 
 	fieldEditor.delegate = self;
@@ -439,9 +428,7 @@ static NSDictionary* itemTextAttributes;
 	fieldEditor.font = itemTextAttributes[NSFontAttributeName];
 
 	[fieldEditor setRichText:NO];
-    if ([fieldEditor respondsToSelector: @selector(setAllowsDocumentBackgroundColorChange:)]) {
-        [fieldEditor setAllowsDocumentBackgroundColorChange:NO];
-    }
+	[fieldEditor setAllowsDocumentBackgroundColorChange:NO];
 	fieldEditor.backgroundColor = [NSColor whiteColor];
 
 	fieldEditor.textContainer.containerSize = NSMakeSize(itemFrame.size.width - 4.0f, 1e6);
@@ -458,18 +445,12 @@ static NSDictionary* itemTextAttributes;
 	[self.window makeFirstResponder: fieldEditor];
 }
 
-
-- (void) cancelAnyPerformSelectors {
-	[NSObject cancelPreviousPerformRequestsWithTarget: self];
-}
-
 #pragma mark - Playing the game
 
 - (void) playToPoint: (IFSkeinItem*) item {
     if( ![self canPlayToHere: item] ) {
         return;
     }
-    [self cancelAnyPerformSelectors];
 
     if (![delegate respondsToSelector: @selector(stopGame)] ||
 		![delegate respondsToSelector: @selector(playToPoint:fromPoint:)]) {
@@ -814,7 +795,6 @@ static NSDictionary* itemTextAttributes;
         IFSkeinItem* oldWinningItem = skein.winningItem;
         if (oldWinningItem == contextItem) {
             [skein setWinningItem: nil];
-            ((NSMenuItem*) sender).state = NSControlStateValueOff;
         } else {
             skein.winningItem = contextItem;
         }
