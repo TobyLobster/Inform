@@ -176,9 +176,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
 - (void) updateSettings {
     // Mark document as edited. This ensures a recompile happens on the next 'Go!', for example.
     [self.document updateChangeCount: NSChangeDone];
-
-    // Update toolbar
-    [toolbarManager updateSettings];
 }
 
 - (BOOL) safeToSwitchTabs {

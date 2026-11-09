@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype) init NS_DESIGNATED_INITIALIZER;
 
 - (instancetype) initWithProjectController:(IFProjectController*) pc NS_DESIGNATED_INITIALIZER;
-- (void) updateSettings;
 - (void) setToolbar;
 - (void) validateVisibleItems;
 - (void) windowDidResize: (NSNotification*) notification;
