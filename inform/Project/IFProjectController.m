@@ -19,6 +19,7 @@
 #import "IFToolbarManager.h"
 #import "IFSkein.h"
 #import "IFSkeinItem.h"
+#import "IFSkeinPlayAll.h"
 #import "IFInBuild.h"
 
 
@@ -99,9 +100,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
     // The last file selected
     NSString*               lastFilename;
 
-    // Stack of skein items
-    /// Used when running the entire skein (array of IFSkeinItem objects)
-    NSMutableArray<IFSkeinItem*>*         skeinNodeStack;
+    /// Used when running the entire skein
+    IFSkeinPlayAll*         playAll;
 
     // Glk automation
     id<ZoomViewInputSource> glkInputSource;
@@ -944,7 +944,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 }
 
 - (void) runCompilerOutputAndReplay {
-    skeinNodeStack = nil;
+    playAll = nil;
 
     [self.gamePage setSwitchToPage: YES];
     // The skein's previous commands are most recent first
@@ -2165,29 +2165,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
 #pragma mark - Running the entire skein
 
-- (void) fillNode: (IFSkeinItem*) item {
-    if( item.children.count > 0 ) {
-        for( IFSkeinItem* child in [item.children reverseObjectEnumerator] ) {
-            [self fillNode: child];
-        }
-        return;
-    }
-
-    // Add to the stack
-    while( item.isTestSubItem ) {
-        item = item.parent;
-    }
-    [skeinNodeStack addObject: item];
-}
-
-- (void) fillSkeinStack {
-	skeinNodeStack = [[NSMutableArray alloc] init];
-	
-	[self fillNode: [self.document currentSkein].rootItem];
-}
-
 - (void) runCompilerOutputAndEntireSkein {
-	[self fillSkeinStack];
+	playAll = [[IFSkeinPlayAll alloc] initWithRootItem: [self.document currentSkein].rootItem];
 	[self inputSourceHasFinished: nil];
 }
 
@@ -2267,13 +2246,13 @@ static CGFloat const      minDividerWidth     = 75.0f;
         skeinNodes++;
     }
 
-    if (skeinNodeStack != nil && skeinNodeStack.count > 0) {
+    if (playAll.nextItem != nil) {
         // We are testing the entire skein.
         // Run the next set of commands on the skein stack.
         [self.gamePage setSwitchToPage: NO];
-        [self.gamePage setPointToRunTo: skeinNodeStack.lastObject];
+        [self.gamePage setPointToRunTo: playAll.nextItem];
         [self runCompilerOutput];
-        [skeinNodeStack removeLastObject];
+        [playAll removeNextItem];
     }
     else if ( self.currentlyTesting ) {
         // Make a report

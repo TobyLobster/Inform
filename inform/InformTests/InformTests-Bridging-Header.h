@@ -11,6 +11,7 @@
 #import "IFUtility.h"
 #import "IFSkein.h"
 #import "IFSkeinItem.h"
+#import "IFSkeinPlayAll.h"
 #import "IFSkeinView.h"
 #import "IFSkeinViewChildren.h"
 #import "IFSkeinLayout.h"
