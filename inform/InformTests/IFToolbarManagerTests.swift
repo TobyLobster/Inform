@@ -470,6 +470,23 @@ final class IFToolbarManagerTests: XCTestCase {
         XCTAssertNil(manager.currentTestCase)
     }
 
+    func testExamplesWithTheSameTitleEachHaveAnItem() throws {
+        let popUp = try XCTUnwrap(item("testSelectorItem")?.view as? NSPopUpButton)
+        manager.setTestCases([["testKey": "A", "testTitle": "Lighthouse"],
+                              ["testKey": "B", "testTitle": "Café"],
+                              ["testKey": "C", "testTitle": "\"Lighthouse\""]])
+        XCTAssertEqual(popUp.itemTitles, [IFUtility.localizedString("Test All"), "Lighthouse", "Café", "Lighthouse"])
+
+        popUp.selectItem(at: 2)
+        XCTAssertEqual(manager.currentTestCase, "B")
+        popUp.selectItem(at: 3)
+        XCTAssertEqual(manager.currentTestCase, "C")
+
+        XCTAssertTrue(manager.selectTestCase("a"))
+        XCTAssertEqual(popUp.indexOfSelectedItem, 1)
+        XCTAssertEqual(manager.currentTestCase, "A")
+    }
+
     func testSelectingATestCaseByItsKeyChoosesItAndTellsTheProjectController() throws {
         let popUp = try XCTUnwrap(item("testSelectorItem")?.view as? NSPopUpButton)
         manager.setTestCases(testCases)

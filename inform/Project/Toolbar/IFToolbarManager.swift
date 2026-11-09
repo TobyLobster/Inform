@@ -546,7 +546,9 @@ private let toolbarStatusWidth: CGFloat = 300.0
             for item in testCasesArray ?? [] {
                 var title = item["testTitle"] as? String ?? ""
                 title = (title as NSString).trimmingCharacters(in: "\"")
-                testCasesPopUpButton.addItem(withTitle: title)
+                // Added to the menu, as the pop-up would remove an earlier item with the same title, and the
+                // items have to match the test cases one for one
+                testCasesPopUpButton.menu?.addItem(withTitle: title, action: nil, keyEquivalent: "")
             }
 
             if let selectedTitle {
