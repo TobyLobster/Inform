@@ -412,6 +412,15 @@ final class IFSourceFileViewTests: XCTestCase {
         XCTAssertEqual(textView.selectedRange(), NSRange(location: 9, length: 0))
     }
 
+    func testPastingTextWithOnlyWindowsLineEndings() {
+        // In Swift, "\r\n" is one Character, which isn't "\r"
+        textView.setSelectedRange(NSRange(location: 4, length: 3))
+
+        XCTAssertTrue(textView.readSelection(from: pasteboard(holding: "a\r\nb\r\n")))
+
+        XCTAssertEqual(textView.string, "one\na\nb\n\nthree")
+    }
+
     func testPastingTextWithOtherLineEndingsCanBeUndone() throws {
         let undoManager = try XCTUnwrap(textView.undoManager)
         undoManager.groupsByEvent = false
