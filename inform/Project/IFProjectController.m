@@ -21,6 +21,7 @@
 #import "IFSkeinItem.h"
 #import "IFSkeinPlayAll.h"
 #import "IFSourceHighlights.h"
+#import "IFRuntimeProblemPage.h"
 #import "IFInBuild.h"
 
 
@@ -1883,38 +1884,14 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
 - (void) runtimeError: (NSString*) error
           inDirectory: (NSString*) directory {
-    NSURL* errorURL = nil;
-    NSString* markdownPath = nil;
     IFProject *project = self.document;
 
-    if (directory == nil) {
-        // If no directory is present, then redirect using old method (looks for a regular resource within the App).
-
-        // The file that might contain the error
-        NSString* errorFile = [NSString stringWithFormat: @"RTP_%@", error];
-
-        // See if the file exists
-        if ([[NSBundle mainBundle] pathForResource: errorFile
-                                            ofType: @"html"] == nil) {
-            // The error file cannot be found: use a default
-            NSLog(@"Warning: run-time error file '%@.html' not found, using RTP_Unknown.html instead", errorFile);
-            errorFile = @"RTP_Unknown";
-        }
-
-        // This URL is where the error file will reside
-        errorURL = [NSURL URLWithString: [NSString stringWithFormat: @"inform:/%@.html", errorFile]];
-    } else {
-        NSString* errorFile = [NSString stringWithFormat: @"%@.md", error];
-        if ([directory startsWithCaseInsensitive:@"Internal/"]) {
-            // If directory starts with "Internal/" then resolve the path to inside the internal directory
-            markdownPath = [[[IFUtility pathForInformInternalAppSupport: @""] stringByAppendingPathComponent: [directory substringFromIndex: 9]] stringByAppendingPathComponent: errorFile];
-        } else if ([directory startsWithCaseInsensitive:@"Materials/"]) {
-            markdownPath = [[project.materialsDirectoryURL.path stringByAppendingPathComponent: [directory substringFromIndex: 10]] stringByAppendingPathComponent: errorFile];
-        } else {
-            // Resolve to absolute path
-            markdownPath = directory;
-        }
-    }
+    IFRuntimeProblemPage* page = [[IFRuntimeProblemPage alloc] initWithProblem: error
+                                                                   inDirectory: directory
+                                                            materialsDirectory: project.materialsDirectoryURL.path
+                                                             internalDirectory: [IFUtility pathForInformInternalAppSupport: @""]];
+    NSURL* errorURL = page.appPageURL;
+    NSString* markdownPath = page.markdownPath;
 
     if (markdownPath != nil) {
         // Run inbuild to convert the markdown file to HTML
