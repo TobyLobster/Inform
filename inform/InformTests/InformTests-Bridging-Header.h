@@ -58,6 +58,7 @@
 #import "IFNewProject.h"
 #import "IFWebViewHelper.h"
 #import "IFRuntimeErrorParser.h"
+#import "IFRuntimeProblemPage.h"
 #import "IFCompilerSettings.h"
 #import "IFSetting.h"
 #import "IFMiscSettings.h"
