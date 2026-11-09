@@ -68,4 +68,9 @@ final class IFExtensionFileFinderTests: XCTestCase {
         XCTAssertNil(file("Extensions/Emily Short/Locksmith.i7x"))
         XCTAssertEqual(manager.authorsAskedFor, [])
     }
+
+    func testAnEmptyNameIsNotFound() {
+        XCTAssertNil(file(""))
+        XCTAssertEqual(manager.authorsAskedFor, [])
+    }
 }

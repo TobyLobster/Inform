@@ -15,7 +15,7 @@
     // Get the author and extension name
     NSArray* components = filename.pathComponents;
     if (components.count != 2) {
-        if ([filename characterAtIndex: 0] == '/' && [[NSFileManager defaultManager] fileExistsAtPath: filename]) {
+        if ([filename hasPrefix: @"/"] && [[NSFileManager defaultManager] fileExistsAtPath: filename]) {
             return filename;
         }
         return nil;
