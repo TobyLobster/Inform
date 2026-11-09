@@ -316,7 +316,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 
     // Set options
     ignoreCase.state = (aType & IFFindCaseInsensitive) ? NSControlStateValueOn : NSControlStateValueOff;
-    switch ( aType ) {
+    switch ( aType & ~IFFindCaseInsensitive ) {
         case IFFindContains:     [searchType selectItem: containsItem]; break;
         case IFFindBeginsWith:   [searchType selectItem: beginsWithItem]; break;
         case IFFindCompleteWord: [searchType selectItem: completeWordItem]; break;

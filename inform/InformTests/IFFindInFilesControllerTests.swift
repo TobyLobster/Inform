@@ -432,6 +432,19 @@ final class IFFindInFilesControllerTests: XCTestCase {
         XCTAssertEqual(below(window), [.results])
     }
 
+    /// The type of search is chosen whether or not case is ignored
+    func testStartingASearchOfAnotherTypeThatIgnoresCase() throws {
+        let (controller, _, window) = try makeController()
+        controller.setProject(try openProject(source: ["story.ni": "A beaker."]))
+        controller.startFindInFilesSearch(withPhrase: "BEAK",
+                                          withLocationType: .source,
+                                          with: type(.beginsWith, ignoringCase: true))
+        XCTAssertEqual(searchType(window).titleOfSelectedItem, "Starts with")
+        XCTAssertEqual(button("Ignore Case", window).state, .on)
+        waitForTheSearch(window)
+        XCTAssertEqual(below(window), [.results])
+    }
+
     // MARK: - The results
 
     /// Clicking a result in the source shows the text that matched in the project
