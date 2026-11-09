@@ -150,8 +150,7 @@ import AppKit
 
             IFPageBarView.drawOverlay(backgroundColor,
                                       in: backgroundFrame,
-                                      totalBounds: backgroundBounds,
-                                      fraction: 1.0)
+                                      totalBounds: backgroundBounds)
         }
 
         var textColor: NSColor? = NSColor.labelColor

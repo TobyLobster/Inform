@@ -19,14 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Drawing
 
-/// The unselected background image
-+ (nullable NSImage*) normalImage;
-
 /// Draws (part of) the background image for this bar
 + (void) drawOverlay: (NSColor*) overlay
 			  inRect: (NSRect) rect
-		 totalBounds: (NSRect) bounds
-			fraction: (CGFloat) fraction;
+		 totalBounds: (NSRect) bounds;
 
 #pragma mark - Managing cells
 
