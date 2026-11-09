@@ -26,10 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// Update attributes to new font size
 + (void) adjustAttributesToFontSize;
 
-#if defined(DEBUG_EXPORT_HELP_IMAGES)
-+ (void) exportHelpImages;
-#endif // defined(DEBUG_EXPORT_HELP_IMAGES)
-
 @end
 
 NS_ASSUME_NONNULL_END

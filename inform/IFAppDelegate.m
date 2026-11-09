@@ -36,7 +36,6 @@
 #import "IFUtility.h"
 #import "IFCompilerSettings.h"
 
-#import "IFSkeinItemView.h"
 
 #import "IFSingleController.h"
 #import "IFNewsManager.h"
@@ -567,10 +566,6 @@ static NSRunLoop* mainRunLoop = nil;
 }
 
 - (IBAction) showPreferences: (id) sender {
-#if defined(DEBUG_EXPORT_HELP_IMAGES)
-    [IFSkeinItemView exportHelpImages];
-#endif // defined(DEBUG_EXPORT_HELP_IMAGES)
-
 	[[PreferenceController sharedPreferenceController] showWindow: self];
 }
 
