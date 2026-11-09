@@ -23,16 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) setTornAtTop: (BOOL) tornAtTop;
 /// Sets whether or not a 'tear' should appear at the bottom of the view
 - (void) setTornAtBottom: (BOOL) tornAtBottom;
--(bool) setMouseCursorWithPosition:(NSPoint) mousePoint;
-
-@end
-
-@interface NSObject(IFSourceFileViewDelegate)
-
-/// User clicked on the top tear
-- (void) sourceFileShowPreviousSection: (nullable id) sender;
-/// User clicked on the bottom tear
-- (void) sourceFileShowNextSection: (nullable id) sender;
 
 @end
 

@@ -99,3 +99,5 @@
 #import "IFDiffer.h"
 #import "NSBundle+IFBundleExtensions.h"
 #import "IFViewAnimator.h"
+#import "IFSourceFileView.h"
+#import "IFSourcePage.h"

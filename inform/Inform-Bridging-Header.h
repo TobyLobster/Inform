@@ -98,3 +98,4 @@
 #import "IFHistoryEvent.h"
 #import "IFNotifyingWindow.h"
 #import "IFViewAnimator.h"
+#import "IFSourcePage.h"
