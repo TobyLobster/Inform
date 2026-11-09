@@ -440,6 +440,19 @@ final class IFFindControllerTests: XCTestCase {
         XCTAssertEqual(defaults.object(forKey: "IFReplaceHistory") as? [String], ["The \\1"])
     }
 
+    /// With a regular expression, Replace puts what its groups matched for \1 and so on, as Replace & Find does
+    func testReplaceExpandsARegularExpressionsGroups() throws {
+        let (controller, defaults, window) = try makeController()
+        let textView = finder("A beaker. A flask.")
+        searchType(window).selectItem(withTitle: "Regular expression")
+        try type("A (\\w+)", with: controller)
+        replaceBox(window).stringValue = "The \\1"
+        controller.findNext(nil)
+        controller.replace(nil)
+        XCTAssertEqual(textView.string, "The beaker. A flask.")
+        XCTAssertEqual(defaults.object(forKey: "IFReplaceHistory") as? [String], ["The \\1"])
+    }
+
     /// Replace All replaces every match, and lists them
     func testReplaceAllReplacesEveryMatch() throws {
         let (controller, _, window) = try makeController()

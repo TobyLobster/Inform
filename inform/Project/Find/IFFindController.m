@@ -268,8 +268,16 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 
 - (IBAction) replace: (id) sender {
 	if ([activeDelegate respondsToSelector: @selector(replaceFoundWith:)]) {
+        NSString* replaceString;
+		if( ([self currentFindType] & 0xff) == IFFindRegexp ) {
+    		// The replace string has \1 \2 etc translated into actual string values using the last found regex groups
+            replaceString = [IFFindResult stringByReplacingGroups:replacePhrase.stringValue regexFoundGroups:activeDelegate.lastFoundGroups];
+        } else {
+            replaceString = replacePhrase.stringValue;
+        }
+
 		[self addPhraseToReplaceHistory: replacePhrase.stringValue];
-		[activeDelegate replaceFoundWith: replacePhrase.stringValue];
+		[activeDelegate replaceFoundWith: replaceString];
 	}
 }
 
