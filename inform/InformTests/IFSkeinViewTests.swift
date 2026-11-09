@@ -718,6 +718,19 @@ final class IFSkeinViewTests: XCTestCase {
         XCTAssertEqual(commands(skein.rootItem), ["look", "wait"])
     }
 
+    func testInsertPreviousCommandLeavesTheOtherThreads() throws {
+        let (skein, look, _, wait) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        try choose("Insert Previous Command", for: look, in: skeinView)
+        XCTAssertEqual(commands(skein.rootItem), ["", "wait"])
+        let inserted = try XCTUnwrap(skein.rootItem.children.first)
+        XCTAssertEqual(commands(inserted), ["look"])
+        XCTAssertIdentical(look.parent, inserted)
+        XCTAssertIdentical(wait.parent, skein.rootItem)
+    }
+
     func testInsertNextCommand() throws {
         let (skein, look, north, _) = makeSkein()
         let (window, skeinView) = makeSkeinView(skein)

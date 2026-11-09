@@ -676,21 +676,15 @@ static NSDictionary* itemTextAttributes;
     if( [self canInsertPreviousItem: contextItem] ) {
         // Get the parent item
         IFSkeinItem* parent = contextItem.parent;
-        
-        // Remove any child items (these will become children of the new item)
-        NSArray* children = [parent.children copy];
 
-        for( IFSkeinItem* child in children ) {
-            [child removeFromParent];
-        }
-        
+        // Remove the item (it will become the child of the new item)
+        [contextItem removeFromParent];
+
         // Add a new, blank item
         IFSkeinItem* newItem = [parent addChild: [[IFSkeinItem alloc] initWithSkein: skein command: @""]];
 
-        // Add the child items back in again
-        for( IFSkeinItem* child in children ) {
-            [newItem addChild: child];
-        }
+        // Add the item back in again
+        [newItem addChild: contextItem];
 
         // Update layout based on the changed skein
         [skein postSkeinChangedWithAnimate: YES
