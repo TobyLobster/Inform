@@ -101,3 +101,6 @@
 #import "IFSourcePage.h"
 #import "IFToolbarManager.h"
 #import "IFToolbarStatusView.h"
+#import "IFGamePage.h"
+#import "IFGlkResources.h"
+#import "IFRuntimeErrorParser.h"
