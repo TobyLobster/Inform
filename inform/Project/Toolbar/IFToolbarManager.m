@@ -18,9 +18,6 @@
 
 @end
 
- #pragma mark - Preferences
-
-
 // Limits the width of a toolbar item's view (replaces NSToolbarItem's deprecated minSize and maxSize)
 static void IFSetToolbarViewWidth(NSView* view, CGFloat minWidth, CGFloat maxWidth) {
     [view.widthAnchor constraintGreaterThanOrEqualToConstant: minWidth].active = YES;
@@ -31,7 +28,6 @@ static void IFSetToolbarViewWidth(NSView* view, CGFloat minWidth, CGFloat maxWid
     // The toolbar
     NSToolbar* toolbar;
     NSView*    toolbarView;
-    CGFloat    toolbarViewTitlebarHeight;
 
     IFToolbarStatusView* toolbarStatusView;
 
@@ -59,7 +55,6 @@ static NSToolbarItem* stopItem				= nil;
 
 static NSToolbarItem* searchDocsItem		= nil;
 static NSToolbarItem* searchProjectItem		= nil;
-static NSToolbarItem* toolbarStatusSpacingPaletteItem = nil;
 static NSToolbarItem*              toolbarStatusSpacingItem  = nil;
 static IFToolbarStatusSpacingView* toolbarStatusSpacingView  = nil;
 
@@ -83,8 +78,6 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 	searchDocsItem      = [[NSToolbarItem alloc] initWithItemIdentifier: @"searchDocsItem"];
 	searchProjectItem   = [[NSToolbarItem alloc] initWithItemIdentifier: @"searchProjectItem"];
 
-    toolbarStatusSpacingPaletteItem = [[NSToolbarItem alloc] initWithItemIdentifier: @"toolbarStatusSpacingPaletteItem"];
-    
     toolbarStatusSpacingItem = [[NSToolbarItem alloc] initWithItemIdentifier: @"toolbarStatusSpacingItem"];
     toolbarStatusSpacingView = [[IFToolbarStatusSpacingView alloc] initWithFrame:NSMakeRect(0, 0, 1, 30)];
     
@@ -99,8 +92,7 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
                         @"stopItem":                        stopItem,
                         @"searchDocsItem":                  searchDocsItem,
                         @"searchProjectItem":               searchProjectItem,
-                        @"toolbarStatusSpacingItem":        toolbarStatusSpacingItem,
-                        @"toolbarStatusSpacingPaletteItem": toolbarStatusSpacingPaletteItem };
+                        @"toolbarStatusSpacingItem":        toolbarStatusSpacingItem };
 
 	// Images
 	compileItem.image = [NSImage imageNamed: @"App/Toolbar/compile"];
@@ -112,8 +104,6 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 	refreshIndexItem.image = [NSImage imageNamed: @"App/Toolbar/refresh_index"];
 	
 	stopItem.image = [NSImage imageNamed: @"App/Toolbar/stop"];
-
-    toolbarStatusSpacingPaletteItem.image = [NSImage imageNamed: @"App/Toolbar/status"];
 
 	// Labels
     compileItem.label = [IFUtility localizedString: @"Compile"];
@@ -138,10 +128,6 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
     for(NSToolbarItem* item in [itemDictionary objectEnumerator]) {
         item.paletteLabel = item.label;
     }
-    
-    // Special case - this shows "Status" when on the customization palette
-    toolbarStatusSpacingPaletteItem.label = @"";
-    toolbarStatusSpacingPaletteItem.paletteLabel = [IFUtility localizedString: @"Status"];
 
 	// The tooltips
     compileItem.toolTip = [IFUtility localizedString: @"CompileTip"   default: nil];
@@ -180,7 +166,6 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
     self = [super init];
 
     if (self) {
-        toolbar = nil;
         projectController = pc;
         toolbarStatusView   = [[IFToolbarStatusView alloc] initWithFrame: NSMakeRect(0, 0, toolbarStatusWidth, 32)];
         toolbarStatusView.delegate = self;
@@ -252,25 +237,6 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 
 - (void) dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-
-	[progressObjects makeObjectsPerformSelector: @selector(setDelegate:)
-										withObject: nil];
-}
-
-- (void) updateSettings {
-	// Update the toolbar if required
-	NSString* toolbarIdentifier = self.toolbarIdentifier;
-	
-	if (![toolbar.identifier isEqualToString: toolbarIdentifier]) {
-		
-		toolbar = [[IFToolbar alloc] initWithIdentifier: toolbarIdentifier];
-
-		toolbar.delegate = self;
-		[toolbar setAllowsUserCustomization: YES];
-		[toolbar setAutosavesConfiguration: YES];
-
-		(projectController.window).toolbar = toolbar;
-	}
 }
 
 -(NSView*) toolbarStatusViewParent {
@@ -283,12 +249,6 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 //      (b) the window goes fullscreen or back, or
 //      (c) when the toolbar visibility changes.
 -(void) adjustToolbarStatusView {
-    //windowFrame = NSWindow.contentRectForFrameRect(self.frame, styleMask: self.styleMask)
-    //toolbarHeight = NSHeight(windowFrame) - NSHeight(self.contentView.frame)
-
-    // Default to 20 pixels
-    toolbarViewTitlebarHeight = 20.0f;
-
     // Find the toolbar view. The toolbar view isn't easily available. We have to search the
     // subviews of the content view to find it. Once we've found it, we remember it.
     if( toolbarView == nil ) {
@@ -296,7 +256,6 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
             // 10.9 and earlier? has an NSToolbarView
             if( [subview isKindOfClass: NSClassFromString(@"NSToolbarView")]) {
                 toolbarView = subview;
-                // toolbarViewTitlebarHeight = 0.0f;
                 break;
             }
 
@@ -319,7 +278,6 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
         // Calculate the ideal frame to centre the toolbar status view in the toolbar
         NSRect newFrame = toolbarRect;
         newFrame.origin.x = (toolbarRect.size.width / 2) - (toolbarStatusView.frame.size.width / 2);
-        newFrame.origin.y = newFrame.origin.y;
         float deltaHeight = -2.0f;
         newFrame.origin.y += 15.0f - deltaHeight/2;
         newFrame.size.width = toolbarStatusView.frame.size.width;
@@ -418,24 +376,6 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
      itemForItemIdentifier: (NSString *)  itemIdentifier
  willBeInsertedIntoToolbar: (BOOL)        flag {
     // NSToolbar items can't be shared between windows, so we create copies.
-
-    // Our custom spacing item ("Status") looks different on the customisation palette compared
-    // to the real toolbar. Swap out the item if needed so we get to see the "Status" image.
-    if ([itemIdentifier isEqualToString:@"toolbarStatusSpacingItem"]) {
-        // If this item is for the customisation palette...
-        if( flag == NO ) {
-            // ... then use the palette version
-            itemIdentifier = @"toolbarStatusSpacingPaletteItem";
-        }
-    }
-    
-    if ([itemIdentifier isEqualToString:@"toolbarStatusSpacingPaletteItem"]) {
-        // If this item is not for the customisation palette...
-        if( flag == YES ) {
-            // ... then use the normal version
-            itemIdentifier = @"toolbarStatusSpacingItem";
-        }
-    }
 
     // Make a copy of the item
 	NSToolbarItem* item = [itemDictionary[itemIdentifier] copy];
