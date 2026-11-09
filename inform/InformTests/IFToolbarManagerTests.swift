@@ -590,6 +590,27 @@ final class IFToolbarManagerTests: XCTestCase {
         XCTAssertNotNil(statusView(window))
     }
 
+    /// View ▸ Hide Toolbar and Show Toolbar set the toolbar's visibility, and the manager hears of it
+    func testHidingOrShowingTheToolbarIsPosted() throws {
+        let window = showToolbar()
+        let toolbar = try XCTUnwrap(window.toolbar)
+        var posted = 0
+        let observer = NotificationCenter.default.addObserver(forName: Notification.Name("IFToolbarChangedVisibility"),
+                                                              object: toolbar, queue: nil) { _ in
+            posted += 1
+        }
+        defer {
+            NotificationCenter.default.removeObserver(observer)
+        }
+
+        toolbar.isVisible = false
+        XCTAssertEqual(posted, 1)
+        XCTAssertNil(statusView(window))
+
+        toolbar.isVisible = true
+        XCTAssertEqual(posted, 2)
+    }
+
     func testMessagesGoToTheStatusView() throws {
         let window = showToolbar()
         let view = try XCTUnwrap(statusView(window))

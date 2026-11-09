@@ -11,9 +11,9 @@ import Foundation
 class IFToolbar: NSToolbar {
     @objc static let ChangedVisibility = Notification.Name("IFToolbarChangedVisibility")
 
-    func setVisible(shown:Bool) {
-        super.isVisible = shown
-
-        NotificationCenter.default.post(name: IFToolbar.ChangedVisibility, object: self)
+    override var isVisible: Bool {
+        didSet {
+            NotificationCenter.default.post(name: IFToolbar.ChangedVisibility, object: self)
+        }
     }
 }
