@@ -82,6 +82,7 @@
 #import "IFAppDelegate.h"
 #import "IFProjectController.h"
 #import "IFExtensionsManager.h"
+#import "IFExtensionFileFinder.h"
 #import "IFMaintenanceTask.h"
 #import "IFInBuild.h"
 #import "IFInTest.h"
