@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import "IFFindResult.h"
-#import "Inform-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,12 +18,14 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Controller for the find window
 ///
-@interface IFFindInFilesController : NSWindowController <IFFindClickableTableViewDelegate, NSControlTextEditingDelegate>
+@interface IFFindInFilesController : NSWindowController <NSControlTextEditingDelegate>
 
 // Initialisation
 
-/// The shared find window controller
+/// The shared find window controller, which keeps its find history in the user's defaults
 + (IFFindInFilesController*) sharedFindInFilesController;
+/// A find window controller that keeps its find history in the given defaults
+- (instancetype) initWithDefaults: (NSUserDefaults*) defaults;
 
 /// Set the project to use for the current search
 -(void) setProject: (IFProject*) aProject;
@@ -33,8 +34,6 @@ NS_ASSUME_NONNULL_BEGIN
 // Actions
 /// 'Find all' clicked
 - (IBAction) findAll: (nullable id) sender;
-/// 'Replace all' clicked
-- (IBAction) replaceAll: (nullable id) sender;
 /// The user has selected a new type of find (from contains, etc)
 - (IBAction) findTypeChanged: (nullable id) sender;
 /// The user hit enter in the 'find' combo box
@@ -45,36 +44,10 @@ NS_ASSUME_NONNULL_BEGIN
                          withLocationType: (IFFindLocation) aLocationType
                                  withType: (IFFindType) aType;
 
-@end
-
-///
-/// Delegate methods that can be used to enhance the find dialog (or provide it for new views or controllers)
-///
-@protocol IFFindInFilesDelegate <NSObject>
-@optional
-
-/// Allows delegates to specify which type of file they can search on
-- (BOOL) canUseFindType: (IFFindType) find;
-
-// 'Find all'
-/// Should return an array of IFFindResults, used to implement 'Find All' (nil if there's nothing to find)
-- (nullable NSArray<IFFindResult*>*) findAllMatches: (NSString*) match
-                                    ofType: (IFFindType) type
-                                inLocation: (IFFindLocation) location
-                   inFindInFilesController: (IFFindInFilesController*) controller
-                            withIdentifier: (id) identifier;
-/// The user has selected a find result, which should now be displayed
-- (void) highlightFindResult: (IFFindResult*) result;
-
-// 'Replace all'
-/// Indicates that a replace all operation is starting
-- (void) beginReplaceAll: (IFFindInFilesController*) sender;
-/// Request to replace a find all result as part of a replace all operation (nil if its text has changed)
-- (nullable IFFindResult*) replaceFindAllResult: (IFFindResult*) result
-							withString: (NSString*) replacement
-								offset: (int*) offset;
-/// The replace all operation has finished
-- (void) finishedReplaceAll: (IFFindInFilesController*) sender;
+/// A row of the results was clicked (IFFindClickableTableViewDelegate, which the class adopts in its implementation,
+/// as the protocol is in Swift)
+- (void)tableView: (NSTableView *)tableView
+      didClickRow: (NSInteger)rowIndex;
 
 @end
 
