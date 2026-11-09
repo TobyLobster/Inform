@@ -509,6 +509,16 @@ final class IFWebViewHelperTests: XCTestCase {
         assertFailedAsHandled(task)
     }
 
+    /// Inform only writes source links with a line
+    func testASourceLinkWithNoLineDoesNothing() {
+        controller.project = IFProject()
+
+        let task = load("source:story.ni", helper: makeHelper())
+
+        XCTAssertEqual(controller.calls, [])
+        assertFailedAsHandled(task)
+    }
+
     func testASkeinLinkShowsItsKnot() {
         let task = load("skein:1003?case=B", helper: makeHelper())
 

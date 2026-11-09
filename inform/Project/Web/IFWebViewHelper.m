@@ -177,6 +177,10 @@
     } else if ([customURL.scheme isEqualTo: @"source"]) {
         // Format is 'source file name#line number'
         NSArray* results = [IFUtility decodeSourceSchemeURL: customURL];
+        if( results == nil ) {
+            [task didFailWithError: genericError];
+            return;
+        }
         IFProject* project = projectController.document;
         results = [project redirectLinksToExtensionSourceCode: results];
         if( results == nil ) {
