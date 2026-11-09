@@ -362,4 +362,24 @@ final class IFViewAnimatorTests: XCTestCase {
         XCTAssertEqual(container.subviews, [red])
         XCTAssertEqual(red.frame, NSRect(x: 10, y: 20, width: 200, height: 100))
     }
+
+    func testSlidingBackBeforeTheFirstSlideEnds() {
+        // As the Source page does when Show Headings is chosen twice quickly: the first slide's view is the one the
+        // second slide takes away, so finishing the first slide mustn't put it back
+        let first = IFViewAnimator()
+        first.setTime(0.05)
+        first.prepare(toAnimate: red, focus: nil)
+        first.animate(to: blue, focus: nil, style: .animateRight, sendMessage: nil, to: nil)
+        let second = IFViewAnimator()
+        second.setTime(0.1)
+        second.prepare(toAnimate: blue, focus: nil)
+        second.animate(to: red, focus: nil, style: .animateLeft, sendMessage: nil, to: nil)
+
+        waitToFinish(first)
+        XCTAssertNil(blue.superview, "The first slide put back the view the second slide took")
+        waitToFinish(second)
+
+        XCTAssertEqual(container.subviews, [red])
+        XCTAssertNil(blue.superview)
+    }
 }

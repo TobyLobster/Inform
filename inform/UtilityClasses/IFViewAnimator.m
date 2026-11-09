@@ -29,6 +29,10 @@
     NSView* originalView;
     NSView* originalSuperview;
     NSView* originalFocusView;
+    // Whether the view has been put back to animate. Until then, the view is
+    // the one taken out to prepare, which finishing puts back; afterwards,
+    // another animator may have taken the view out, and it's left to that one.
+    BOOL viewPutBack;
 
     // The CoreAnimation layers holding the two snapshots while animating
     CALayer* startLayer;
@@ -94,7 +98,7 @@
 		frame.size = originalView.frame.size;
 
 		originalView.frame = frame;
-		if (originalView.superview != originalSuperview) {
+		if (!viewPutBack && originalView.superview != originalSuperview) {
 			[originalSuperview addSubview: originalView];
 		}
 		[originalView setNeedsDisplay: YES];
@@ -103,6 +107,7 @@
 		 originalView = nil;
          originalFocusView = nil;
 		 originalSuperview = nil;
+		viewPutBack = NO;
 
 		// Perform whichever action was requested at the end of the animation
 		if (finishedObject) {
@@ -162,6 +167,7 @@
 	[originalSuperview addSubview: originalView
 					   positioned: NSWindowBelow
 					   relativeTo: self];
+	viewPutBack = YES;
 
 	// Create the final image
 	endImage = [[self class] cacheView: view];
