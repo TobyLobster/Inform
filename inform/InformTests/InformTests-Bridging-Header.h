@@ -79,6 +79,7 @@
 #import "IFGamePage.h"
 #import "IFFindResult.h"
 #import "IFFindInFiles.h"
+#import "IFFindInFilesController.h"
 #import "IFHeader.h"
 #import "IFHeaderController.h"
 #import "IFHeaderNode.h"
