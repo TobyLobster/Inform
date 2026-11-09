@@ -10,9 +10,11 @@ final class IFSkeinViewTests: XCTestCase {
     /// A skein view in a 700 by 500 scroll view, in a window that isn't shown, far off the screen so that the mouse
     /// is never over it.
     private func makeSkeinView(_ skein: IFSkein) -> (NSWindow, IFSkeinView) {
-        let window = NSWindow(contentRect: NSRect(x: -20000, y: -20000, width: 700, height: 500),
+        let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 700, height: 500),
                               styleMask: [.titled], backing: .buffered, defer: false)
         window.isReleasedWhenClosed = false
+        // NSWindow moves a window made off the screen onto it, so it's moved off afterwards
+        window.setFrameOrigin(NSPoint(x: -20000, y: -20000))
         let scrollView = NSScrollView(frame: window.contentView!.bounds)
         scrollView.hasHorizontalScroller = true
         scrollView.hasVerticalScroller = true

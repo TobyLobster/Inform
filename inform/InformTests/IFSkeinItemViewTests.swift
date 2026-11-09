@@ -22,10 +22,12 @@ final class IFSkeinItemViewTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        // Far off the screen, so that the mouse is never over a knot
-        window = NSWindow(contentRect: NSRect(x: -20000, y: -20000, width: 700, height: 500),
+        // Far off the screen, so that the mouse is never over a knot. NSWindow moves a window made off the screen
+        // onto it, so it's moved off afterwards.
+        window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 700, height: 500),
                           styleMask: [.titled], backing: .buffered, defer: false)
         window.isReleasedWhenClosed = false
+        window.setFrameOrigin(NSPoint(x: -20000, y: -20000))
         skeinView = IFSkeinView(frame: NSRect(x: 0, y: 0, width: 700, height: 500))
         window.contentView?.addSubview(skeinView)
         pasteboard = NSPasteboard.withUniqueName()
