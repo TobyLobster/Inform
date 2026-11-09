@@ -428,6 +428,18 @@ final class IFFindControllerTests: XCTestCase {
         XCTAssertEqual(textView.selectedRange(), NSRange(location: 12, length: 7))
     }
 
+    /// ...and remembers the replacement as it was typed
+    func testReplaceAndFindRemembersTheReplacementAsTyped() throws {
+        let (controller, defaults, window) = try makeController()
+        _ = finder("A beaker. A flask.")
+        searchType(window).selectItem(withTitle: "Regular expression")
+        try type("A (\\w+)", with: controller)
+        replaceBox(window).stringValue = "The \\1"
+        controller.findNext(nil)
+        controller.replaceAndFind(nil)
+        XCTAssertEqual(defaults.object(forKey: "IFReplaceHistory") as? [String], ["The \\1"])
+    }
+
     /// Replace All replaces every match, and lists them
     func testReplaceAllReplacesEveryMatch() throws {
         let (controller, _, window) = try makeController()

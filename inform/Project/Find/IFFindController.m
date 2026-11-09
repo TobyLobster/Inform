@@ -258,7 +258,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
             replaceString = replacePhrase.stringValue;
         }
 
-		[self addPhraseToReplaceHistory: replaceString];
+		[self addPhraseToReplaceHistory: replacePhrase.stringValue];
 		[activeDelegate replaceFoundWith: replaceString];
 		[activeDelegate findNextMatch: findPhrase.stringValue
 							   ofType: [self currentFindType]
