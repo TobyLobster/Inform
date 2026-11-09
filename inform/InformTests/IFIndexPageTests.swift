@@ -259,7 +259,7 @@ final class IFIndexPageTests: XCTestCase {
 
     /// The tab of each cell that's on
     private func highlightedTabs(_ shown: Shown) -> [Int] {
-        return shown.page.toolbarCells.filter { $0.state == .on }.compactMap { ($0.identifier as? NSNumber)?.intValue }
+        return shown.page.toolbarCells.filter { $0.state == .on }.compactMap { ($0.representedObject as? NSNumber)?.intValue }
     }
 
     func testTheTitle() throws {
@@ -290,7 +290,7 @@ final class IFIndexPageTests: XCTestCase {
         shown.page.updateIndexView()
 
         let cells = shown.page.toolbarCells
-        XCTAssertEqual(cells.compactMap { ($0.identifier as? NSNumber)?.intValue }, Array((1...8).reversed()))
+        XCTAssertEqual(cells.compactMap { ($0.representedObject as? NSNumber)?.intValue }, Array((1...8).reversed()))
         XCTAssertEqual(cells.dropLast().map { $0.stringValue },
                        ["World", "Scenes", "Rules", "Phrasebook", "Kinds", "Actions", "Contents"])
         XCTAssertEqual(cells.last?.image?.name(), NSImage.homeTemplateName)
@@ -314,7 +314,7 @@ final class IFIndexPageTests: XCTestCase {
 
         var told: [[Int]] = []
         let observer = NotificationCenter.default.addObserver(forName: .IFUpdatePageBarCells, object: shown.page, queue: nil) { _ in
-            told.append(shown.page.toolbarCells.compactMap { ($0.identifier as? NSNumber)?.intValue })
+            told.append(shown.page.toolbarCells.compactMap { ($0.representedObject as? NSNumber)?.intValue })
         }
         shown.page.updateIndexView()
         NotificationCenter.default.removeObserver(observer)
@@ -328,7 +328,7 @@ final class IFIndexPageTests: XCTestCase {
         let shown = try makePage()
         shown.page.updateIndexView()
 
-        XCTAssertEqual(shown.page.toolbarCells.compactMap { ($0.identifier as? NSNumber)?.intValue }, [2, 1])
+        XCTAssertEqual(shown.page.toolbarCells.compactMap { ($0.representedObject as? NSNumber)?.intValue }, [2, 1])
         XCTAssertTrue(shown.page.canSelectIndexTab(IFIndexTabType.contents.rawValue))
         XCTAssertFalse(shown.page.canSelectIndexTab(IFIndexTabType.rules.rawValue))
         expectNoNavigation(shown.watcher) {
@@ -367,7 +367,7 @@ final class IFIndexPageTests: XCTestCase {
             waitForNavigation(shown.watcher) {
                 XCTAssertTrue(NSApp.sendAction(action, to: cell.target, from: cell))
             }
-            let tab = try XCTUnwrap(cell.identifier as? NSNumber).intValue
+            let tab = try XCTUnwrap(cell.representedObject as? NSNumber).intValue
             let file = try XCTUnwrap(indexPages.first { Int($0.tab.rawValue) == tab }).file
             XCTAssertEqual(shown.webView.url, try tabURL(file))
             XCTAssertEqual(cell.state, .on)

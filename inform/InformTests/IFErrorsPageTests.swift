@@ -212,7 +212,7 @@ final class IFErrorsPageTests: XCTestCase {
         XCTAssertEqual(posted.count, 2)
 
         XCTAssertEqual(titles(page), ["Inform 6", "Debugging", "Console"])
-        XCTAssertEqual(page.toolbarCells.map { $0.identifier as? Int }, [3, 2, 1])
+        XCTAssertEqual(page.toolbarCells.map { $0.representedObject as? Int }, [3, 2, 1])
         XCTAssertEqual(states(page), [.off, .off, .on])
         for cell in page.toolbarCells {
             XCTAssertTrue(cell.target === page)
