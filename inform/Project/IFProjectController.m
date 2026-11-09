@@ -43,6 +43,7 @@
 #import "IFCompilerController.h"
 #import "IFCompilerSettings.h"
 #import "IFCompileCheck.h"
+#import "IFTestCaseRun.h"
 
 #import "IFUtility.h"
 #import <ZoomView/ZoomView.h>
@@ -106,14 +107,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
     id<ZoomViewInputSource> glkInputSource;
 
     BOOL                    betweenWindowLoadedAndBecomingMain;
-    /// Current index of test cases to test
-    int                     currentTestCaseIndex;
-    /// Range of test cases to test
-    int                     startTestCaseIndex;
-    /// Range of test cases to test
-    int                     endTestCaseIndex;
-    /// Number of test cases tested
-    int                     numberOfTestCases;
+    /// Test's run through the test cases
+    IFTestCaseRun*          testCaseRun;
 
     /// Actions that can be shared between project and single controllers
     IFSourceSharedActions*  sharedActions;
@@ -160,8 +155,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
         sharedActions = [[IFSourceSharedActions alloc] init];
         toolbarManager = [[IFToolbarManager alloc] initWithProjectController: self];
 
-        currentTestCaseIndex = -1;
-        numberOfTestCases = 0;
+        testCaseRun = [[IFTestCaseRun alloc] init];
 
         testAllProgress = nil;
         extensionURL = nil;
@@ -590,8 +584,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
 -(NSString*) currentTestCase {
     if ([self isExtensionProject]) {
         // If we are doing "Test All", get the current test case based on index
-        if (currentTestCaseIndex >= 0) {
-            return [toolbarManager getTestCase: currentTestCaseIndex];
+        if (testCaseRun.currentIndex >= 0) {
+            return [toolbarManager getTestCase: testCaseRun.currentIndex];
         }
 
         // Get the currently selected test case from the toolbar
@@ -633,7 +627,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
         [theCompiler.progress startProgress];
 
         // Clear the console only on the first compilation of this run
-        if (currentTestCaseIndex < 1) {
+        if (!testCaseRun.isOnALaterTestCase) {
             [theCompiler clearConsole];
         }
 
@@ -779,17 +773,18 @@ static CGFloat const      minDividerWidth     = 75.0f;
     if( [self isExtensionProject] ) {
         if( [self isTestAllCasesSelected] ) {
             // Run all test cases
-            startTestCaseIndex = 0;
-            endTestCaseIndex = [self getNumberOfTestCases] - 1;
+            [testCaseRun chooseTestCasesFrom: 0
+                                          to: [self getNumberOfTestCases] - 1];
         }
         else {
             // Run a specific test only
-            startTestCaseIndex = toolbarManager.testCaseIndex;
-            endTestCaseIndex = startTestCaseIndex;
+            int testCaseIndex = toolbarManager.testCaseIndex;
+            [testCaseRun chooseTestCasesFrom: testCaseIndex
+                                          to: testCaseIndex];
         }
 
         // Compile and run each test case in turn
-        if( currentTestCaseIndex == -1 ) {
+        if( testCaseRun.currentIndex == -1 ) {
             // Create new progress
             testAllProgress = [[IFProgress alloc] initWithPriority: IFProgressPriorityTestAll
                                                   showsProgressBar: YES
@@ -823,8 +818,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
 - (void) testMeInternal {
     if( [self isExtensionProject] ) {
-        if (currentTestCaseIndex >= 0) {
-            [self.document selectSkein: currentTestCaseIndex];
+        if (testCaseRun.currentIndex >= 0) {
+            [self.document selectSkein: testCaseRun.currentIndex];
         }
     }
 
@@ -1097,7 +1092,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
         // Create a consolidated report and display it.
         if( !testAllProgress.isCancelled && (reportURL != nil) ) {
-            [self createAndShowReport: numberOfTestCases reportURL: reportURL];
+            [self createAndShowReport: testCaseRun.numberTested reportURL: reportURL];
         }
     }
 }
@@ -2211,8 +2206,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
     [self removeProgressIndicator: testAllProgress];
 
     // Reset variables
-    numberOfTestCases = currentTestCaseIndex - startTestCaseIndex;
-    currentTestCaseIndex = -1;
+    [testCaseRun finish];
 
     // Update toolbar
     [toolbarManager validateVisibleItems];
@@ -2222,27 +2216,19 @@ static CGFloat const      minDividerWidth     = 75.0f;
 }
 
 - (BOOL) startNextTestCase {
-    if( currentTestCaseIndex == -1 ) {
-        // Move to first test case
-        currentTestCaseIndex = startTestCaseIndex;
-    }
-    else {
-        // Move to next test case
-        currentTestCaseIndex++;
-    }
+    [testCaseRun moveToNextTestCase];
 
     // Did we reach the end of the test cases?
-    if(( (currentTestCaseIndex > endTestCaseIndex) || [self currentTestCase] == nil ) || (testAllProgress.isCancelled)) {
+    if(( testCaseRun.isPastTheLastTestCase || [self currentTestCase] == nil ) || (testAllProgress.isCancelled)) {
         [self finishRunningTestCases];
         return NO;
     }
 
-    int done  = currentTestCaseIndex - startTestCaseIndex + 1;
-    int total = 1 + (endTestCaseIndex - startTestCaseIndex);
-    CGFloat percentage = 100.0 * (CGFloat) done / (CGFloat) total;
+    int done  = testCaseRun.numberStarted;
+    int total = testCaseRun.numberInRun;
     NSString* message;
     message = [NSString stringWithFormat: [IFUtility localizedString:@"Testing %d of %d"], done, total];
-    testAllProgress.percentage = percentage;
+    testAllProgress.percentage = testCaseRun.percentageStarted;
     testAllProgress.message = message;
 
     [self testMeInternal];
@@ -2253,6 +2239,11 @@ static CGFloat const      minDividerWidth     = 75.0f;
     if(( [self currentTestCase] == nil ) || (testAllProgress.isCancelled)) {
         [self finishRunningTestCases];
         return NO;
+    }
+
+    // After the last test case, finish now, so that the caller knows to make the report
+    if( testCaseRun.isOnTheLastTestCase ) {
+        return [self startNextTestCase];
     }
 
     // Enforce a delay to let current task finish gracefully before starting another
@@ -2299,7 +2290,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
         // All test cases finished. Create a consolidated report and display it.
         if(!testAllProgress.isCancelled) {
-            [self createAndShowReport: numberOfTestCases reportURL: reportURL];
+            [self createAndShowReport: testCaseRun.numberTested reportURL: reportURL];
         }
     }
 }
