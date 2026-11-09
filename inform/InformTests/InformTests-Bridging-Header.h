@@ -67,6 +67,7 @@
 #import "IFCompilerOptions.h"
 #import "IFCompilerVersionSettings.h"
 #import "IFExtensionsManager.h"
+#import "IFExtensionFileFinder.h"
 #import "IFMaintenanceTask.h"
 #import "IFNewExtensionsManager.h"
 #import "IFInBuild.h"
