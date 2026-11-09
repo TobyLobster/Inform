@@ -22,7 +22,7 @@
 #import <GlkSound/GlkSound.h>
 #import "Inform-Swift.h"
 
-@interface IFGamePage () <GlkViewDelegate, ZoomViewOutputReceiver, ZoomViewDelegate>
+@interface IFGamePage () <GlkViewDelegate, ZoomViewDelegate>
 
 @end
 
@@ -49,8 +49,6 @@
     NSString*        gameToRun;
     /// \c YES to switch view to show the game page
     BOOL             switchToPage;
-    
-    GlkSoundHandler *soundHandler;
 
     /// The progress indicator (how much we've compiled, how the game is running, etc)
     IFProgress*      gameRunningProgress;
@@ -69,13 +67,6 @@
 				projectController: controller];
 	
 	if (self) {
-        zView           = nil;
-        gView           = nil;
-        gameToRun       = nil;
-        _isRunningGame  = NO;
-        testCommands    = nil;
-        switchToPage    = NO;
-
 		// Register for breakpoints updates
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(preferencesChanged:)
@@ -92,7 +83,6 @@
 	if (gameRunningProgress) {
         [gameRunningProgress stopProgress];
 		[self.parent removeProgressIndicator: gameRunningProgress];
-		gameRunningProgress = nil;
 	}
 		
     if (zView) {
@@ -104,10 +94,7 @@
         [gView removeFromSuperview];
 		[gView setDelegate: nil];
 		[gView terminateClient];
-		gView = nil;
 	}
-    _isRunningGame = NO;
-
 }
 
 #pragma mark - Details about this view
@@ -169,8 +156,6 @@
         [gameRunningProgress startProgress];
 	}
 
-	//[gameRunningProgress setMessage: [IFUtility localizedString: @"Loading story file"]];
-
 	if ([gameToRun.pathExtension isEqualToString: @"ulx"]) {
 		IFRuntimeErrorParser* runtimeErrors = [[IFRuntimeErrorParser alloc] init];
 		runtimeErrors.delegate = self.parent;
@@ -181,12 +166,10 @@
 		// Work out the default client to use
 		NSString*		clientName = [IFPreferences sharedPreferences].glulxInterpreter;
         clientName = [clientName stringByAppendingString:@"-client"];
-		//NSLog(@"Using glulx interpreter '%@'", clientName);
-		
+
 		// Start running as a glulxe task
-        soundHandler = [[GlkSoundHandler alloc] init];
 		gView = [[GlkView alloc] init];
-        gView.soundHandler = soundHandler;
+        gView.soundHandler = [[GlkSoundHandler alloc] init];
 		gView.delegate = self;
 		[gView addOutputReceiver: self.parent];
 		[gView addOutputReceiver: runtimeErrors];
@@ -202,7 +185,6 @@
         [gView setInputFileURL: [NSURL fileURLWithPath: fileName]];
         
         NSString * interpreterPath = [NSBundle.mainBundle pathForAuxiliaryExecutable: clientName];
-        //NSLog(@"Launching interpreter %@", interpreterPath);
 
 		[gView launchClientApplication: interpreterPath
 						 withArguments: nil];
@@ -253,21 +235,8 @@
     [self setTestCommands: [commands copy]];
 }
 
-- (void) setTestMe: (BOOL) testMe {
-    if( testMe ) {
-        [self setTestCommands: @[@"test me"]];
-    }
-    else {
-        [self setTestCommands: nil];
-    }
-}
-
 - (void) setTestCommands: (NSArray*) myTestCommands {
     testCommands = [myTestCommands copy];
-}
-
-- (BOOL) hasTestCommands {
-    return ( testCommands.count > 0 );
 }
 
 - (id<ZoomViewInputSource>) takeTestCommands {
