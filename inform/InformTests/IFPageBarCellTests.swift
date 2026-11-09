@@ -562,6 +562,13 @@ final class IFPageBarCellTests: XCTestCase {
         XCTAssertFalse(hasBlackInk(on))
     }
 
+    func testAnEmptyTextCellDrawsNothing() {
+        // As the Skein page makes its help cell, before giving it a title
+        let rep = picture(of: IFPageBarCell(textCell: ""))
+
+        XCTAssertTrue(colours(in: rep).allSatisfy { $0.alphaComponent == 0 })
+    }
+
     func testAnImageThatIsntATemplateKeepsItsColours() {
         let cell = IFPageBarCell(imageCell: square(.red))
         // In the middle of the cell

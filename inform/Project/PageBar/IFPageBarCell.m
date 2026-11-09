@@ -246,8 +246,8 @@
                   fromRect: NSZeroRect
                  operation: NSCompositingOperationSourceOver
                   fraction: 1];
-	} else if (text) {
-		// Draw the text
+	} else if (text.length > 0) {
+		// Draw the text (an empty string has no attributes to draw it with)
 		NSSize textSize = [text size];
 		NSPoint textPoint = NSMakePoint(cellFrame.origin.x + (cellFrame.size.width-textSize.width)/2,
 										cellFrame.origin.y + (cellFrame.size.height+2-textSize.height)/2);
