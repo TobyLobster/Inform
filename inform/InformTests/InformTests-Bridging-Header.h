@@ -18,6 +18,7 @@
 #import "IFSkeinItemView.h"
 #import "IFSkeinReportView.h"
 #import "IFToolbarManager.h"
+#import "IFToolbarStatusView.h"
 #import "IFSkeinReportItemView.h"
 #import "IFSkeinBlessButton.h"
 #import "IFSkeinArrowView.h"

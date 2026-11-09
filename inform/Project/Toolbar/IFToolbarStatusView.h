@@ -10,11 +10,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class IFToolbarManager;
-@class IFToolbarProgressIndicator;
 
 @interface IFToolbarStatusView : NSView
-
-@property (atomic) BOOL isExtensionProject;
 
 -(void) showMessage: (NSString*) title;
 
