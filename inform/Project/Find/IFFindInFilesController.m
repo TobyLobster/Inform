@@ -555,7 +555,8 @@ static const int FIND_HISTORY_LENGTH = 30;
 #pragma mark - Combo box delegate methods
 
 - (void) comboBoxEnterKeyPress: (id) sender {
-	if (sender == findPhrase) {
+	// Return in an empty find box does nothing, as Find All is disabled then
+	if (sender == findPhrase && findPhrase.stringValue.length > 0) {
 		[self findAll: self];
 	}
 }

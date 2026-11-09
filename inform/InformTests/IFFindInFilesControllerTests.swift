@@ -375,6 +375,17 @@ final class IFFindInFilesControllerTests: XCTestCase {
         XCTAssertEqual(below(window), [.results])
     }
 
+    /// Return in an empty find box does nothing, as Find All is disabled
+    func testReturnInAnEmptyFindBoxDoesNothing() throws {
+        let (controller, defaults, window) = try makeController()
+        controller.setProject(try openProject(source: ["story.ni": "A beaker."]))
+        controller.comboBoxEnterKeyPress(phraseBox(window))
+        XCTAssertTrue(progress(window).isHidden)
+        XCTAssertNil(defaults.object(forKey: "IFFindHistory"))
+        waitForTheSearch(window)
+        XCTAssertEqual(below(window), [])
+    }
+
     func testReturnInAnotherControlDoesNothing() throws {
         let (controller, defaults, window) = try makeController()
         phraseBox(window).stringValue = "beaker"
