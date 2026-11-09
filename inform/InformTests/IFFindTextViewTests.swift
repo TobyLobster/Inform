@@ -23,9 +23,10 @@ final class IFFindTextViewTests: XCTestCase {
         }
     }
 
-    /// For the methods that take a find controller, which don't use it. It stops watching for main windows at once.
+    /// For the methods that take a find controller, which don't use it. It stops watching for main windows at once,
+    /// and would keep its histories in defaults that are never written.
     private lazy var findController: IFFindController = {
-        let controller = IFFindController(windowNibName: "Find")
+        let controller = IFFindController(defaults: UserDefaults(suiteName: "IFFindTextViewTests.never-written")!)
         NotificationCenter.default.removeObserver(controller)
         return controller
     }()

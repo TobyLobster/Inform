@@ -18,7 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Initialisation
 
-+ (IFFindController*) sharedFindController;								// The shared find window controller
++ (IFFindController*) sharedFindController;								// The shared find window controller, which keeps its histories in the user's defaults
+- (instancetype) initWithDefaults: (NSUserDefaults*) defaults;			// A find window controller that keeps its find and replace histories in the given defaults
 
 // Actions
 - (IBAction) findNext: (nullable id) sender;							// 'Next' clicked

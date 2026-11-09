@@ -57,6 +57,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
     // Things we've searched for
     NSMutableArray*			replaceHistory;								// The 'replace' history
     NSMutableArray*			findHistory;								// The 'find' history
+    NSUserDefaults*         defaults;                                   // Where the histories are kept
     NSString*				lastSearch;									// The last phrase that was searched for
     NSMenuItem*             lastSearchType;                             // The last search type that was searched with
     BOOL                    lastSearchIgnoreCase;                       // The last searches 'ignore case' flag
@@ -81,16 +82,18 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 	static IFFindController* sharedController = nil;
 	
 	if (!sharedController) {
-		sharedController = [[IFFindController alloc] initWithWindowNibName: @"Find"];
+		sharedController = [[IFFindController alloc] initWithDefaults: [NSUserDefaults standardUserDefaults]];
 	}
 	
 	return sharedController;
 }
 
-- (instancetype) initWithWindowNibName: (NSString*) nibName {
-	self = [super initWithWindowNibName: (NSString*) nibName];
+- (instancetype) initWithDefaults: (NSUserDefaults*) theDefaults {
+	self = [super initWithWindowNibName: @"Find"];
 	
 	if (self) {
+		defaults = theDefaults;
+
 		// Get notifications about when the main window changes
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(mainWindowChanged:)
@@ -98,8 +101,8 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 												   object: nil];
 		
 		// Get the find/replace history
-		findHistory = [[[NSUserDefaults standardUserDefaults] objectForKey: IFFindHistoryPref] mutableCopy];
-		replaceHistory = [[[NSUserDefaults standardUserDefaults] objectForKey: IFReplaceHistoryPref] mutableCopy];
+		findHistory = [[defaults objectForKey: IFFindHistoryPref] mutableCopy];
+		replaceHistory = [[defaults objectForKey: IFReplaceHistoryPref] mutableCopy];
 		
 		if (!findHistory)		findHistory		= [[NSMutableArray alloc] init];
 		if (!replaceHistory)	replaceHistory	= [[NSMutableArray alloc] init];
@@ -134,8 +137,8 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 	}
 	
 	// Store in the user defaults
-	[[NSUserDefaults standardUserDefaults] setObject: [findHistory copy]
-											  forKey: IFFindHistoryPref];
+	[defaults setObject: [findHistory copy]
+				 forKey: IFFindHistoryPref];
 	
 	// Update the combo box
 	[findPhrase reloadData];
@@ -160,8 +163,8 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 	}
 	
 	// Store in the user defaults
-	[[NSUserDefaults standardUserDefaults] setObject: [replaceHistory copy]
-											  forKey: IFReplaceHistoryPref];
+	[defaults setObject: [replaceHistory copy]
+				 forKey: IFReplaceHistoryPref];
 	
 	// Update the combo box
 	[replacePhrase reloadData];
