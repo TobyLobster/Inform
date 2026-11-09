@@ -86,7 +86,7 @@ import WebKit
         let identifier = NSNumber(value: tabIdentifier)
         var index = 0
         for cell in indexCells ?? [] {
-            if let cellIdentifier = cell.identifier as? NSObject, cellIdentifier.isEqual(identifier) {
+            if let cellIdentifier = cell.representedObject as? NSObject, cellIdentifier.isEqual(identifier) {
                 return index
             }
             index += 1
@@ -177,7 +177,7 @@ import WebKit
             cell = sender.lastTrackedCell as? IFPageBarCell
         }
 
-        let tabIdentifier = (cell?.identifier as? NSNumber)?.int32Value ?? 0
+        let tabIdentifier = (cell?.representedObject as? NSNumber)?.int32Value ?? 0
         self.switch(toTab: tabIdentifier)
     }
 
@@ -229,7 +229,7 @@ import WebKit
                 }
 
                 if tabId != NSNotFound {
-                    newTab.identifier = NSNumber(value: tabId)
+                    newTab.representedObject = NSNumber(value: tabId)
                     newTab.target = self
                     newTab.action = #selector(switchToTab(withObject:))
 
@@ -241,7 +241,7 @@ import WebKit
         }
 
         // Sort tabs by ID
-        let sort = NSSortDescriptor(key: "identifier", ascending: false)
+        let sort = NSSortDescriptor(key: "representedObject", ascending: false)
         cells.sort(using: [sort])
         indexCells = cells as? [IFPageBarCell]
 

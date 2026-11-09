@@ -55,7 +55,7 @@ import WebKit
         }
 
         // Order the compiler controller to switch to the specified page
-        let tabId = IFCompilerTabId(rawValue: UInt32(bitPattern: (cell?.identifier as? NSNumber)?.int32Value ?? 0))!
+        let tabId = IFCompilerTabId(rawValue: UInt32(bitPattern: (cell?.representedObject as? NSNumber)?.int32Value ?? 0))!
         compilerController.switchToView(with: tabId)
     }
 
@@ -153,7 +153,7 @@ extension IFErrorsPage {
 
             newCell.target = self
             newCell.action = #selector(switchToErrorPage(_:))
-            newCell.identifier = NSNumber(value: Int32(bitPattern: tab.tabId.rawValue))
+            newCell.representedObject = NSNumber(value: Int32(bitPattern: tab.tabId.rawValue))
             newCell.radioGroup = 128
 
             if compilerController.selectedTabId == tab.tabId {
@@ -164,7 +164,7 @@ extension IFErrorsPage {
         }
 
         // Sort pageCells based on ids
-        let sort = NSSortDescriptor(key: "identifier", ascending: false)
+        let sort = NSSortDescriptor(key: "representedObject", ascending: false)
         cells.sort(using: [sort])
         pageCells = cells as? [IFPageBarCell]
 
@@ -190,7 +190,7 @@ extension IFErrorsPage {
         }
 
         for cell in pageCells {
-            let cellTabId = UInt32(bitPattern: (cell.identifier as? NSNumber)?.int32Value ?? 0)
+            let cellTabId = UInt32(bitPattern: (cell.representedObject as? NSNumber)?.int32Value ?? 0)
             if compilerController.selectedTabId.rawValue == cellTabId {
                 cell.state = .on
             }

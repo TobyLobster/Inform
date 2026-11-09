@@ -15,9 +15,6 @@
     /// The frame of this cell reported when the last mouse tracking started
     NSRect trackingFrame;
 
-    /// An identifier for this cell
-    id identifier;
-
     // Radio
     /// The radio group identifier for this cell
     int radioGroup;
@@ -67,8 +64,6 @@
 
 	return self;
 }
-
-@synthesize identifier;
 
 - (void) setStringValue: (NSString*) text {
 	NSAttributedString* attrText = [[NSAttributedString alloc] initWithString: text

@@ -19,9 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 @interface IFPageBarCell : NSActionCell
 
-/// Gets the identifier for this cell
-@property (atomic, strong, nullable) id identifier;
-
 /// Sets the key equivalent for this cell
 - (void) setKeyEquivalent: (NSString*) keyEquivalent;
 

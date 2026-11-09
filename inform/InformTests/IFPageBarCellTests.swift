@@ -214,11 +214,12 @@ final class IFPageBarCellTests: XCTestCase {
         XCTAssertEqual(attributes(of: cell)[.font] as? NSFont, NSFont.systemFont(ofSize: 11))
     }
 
-    func testTheIdentifier() {
+    func testTheIdentifierIsAppKits() {
+        // The pages keep their tabs' numbers in the represented object
         let cell = IFPageBarCell(textCell: "Contents")
-        cell.identifier = NSNumber(value: 3)
+        cell.identifier = NSUserInterfaceItemIdentifier("Contents")
 
-        XCTAssertEqual(cell.identifier as? NSNumber, NSNumber(value: 3))
+        XCTAssertEqual(cell.identifier, NSUserInterfaceItemIdentifier("Contents"))
     }
 
     // MARK: - Key equivalents
