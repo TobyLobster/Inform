@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import "IFFindResult.h"
-#import "Inform-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Controller for the find window
 ///
-@interface IFFindInFilesController : NSWindowController <IFFindClickableTableViewDelegate, NSControlTextEditingDelegate>
+@interface IFFindInFilesController : NSWindowController <NSControlTextEditingDelegate>
 
 // Initialisation
 
@@ -44,6 +43,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) startFindInFilesSearchWithPhrase: (NSString*) aPhrase
                          withLocationType: (IFFindLocation) aLocationType
                                  withType: (IFFindType) aType;
+
+/// A row of the results was clicked (IFFindClickableTableViewDelegate, which the class adopts in its implementation,
+/// as the protocol is in Swift)
+- (void)tableView: (NSTableView *)tableView
+      didClickRow: (NSInteger)rowIndex;
 
 @end
 

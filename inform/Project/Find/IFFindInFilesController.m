@@ -16,6 +16,9 @@ static NSString* const IFFindHistoryPref		= @"IFFindHistory";
 
 static const int FIND_HISTORY_LENGTH = 30;
 
+@interface IFFindInFilesController () <IFFindClickableTableViewDelegate>
+@end
+
 @implementation IFFindInFilesController {
     // The components of the find dialog
     IBOutlet NSComboBox*	findPhrase;									// The phrase to search for
