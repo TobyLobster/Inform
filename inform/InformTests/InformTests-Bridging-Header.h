@@ -12,6 +12,7 @@
 #import "IFSkein.h"
 #import "IFSkeinItem.h"
 #import "IFSkeinPlayAll.h"
+#import "IFSourceHighlights.h"
 #import "IFSkeinView.h"
 #import "IFSkeinViewChildren.h"
 #import "IFSkeinLayout.h"
