@@ -545,7 +545,11 @@ static NSDictionary* itemTextAttributes;
 }
 
 -(BOOL) canDeleteThread:(IFSkeinItem*) item {
-    return [self canDelete: item] || (item.parent == nil);
+    if( item.parent == nil ) {
+        // The threads from the start can go, unless the story has been played beyond the start
+        return (item == skein.activeItem) || ![item hasDescendant: skein.activeItem];
+    }
+    return [self canDelete: item];
 }
 
 -(BOOL) hasMenu:(IFSkeinItem*) item {

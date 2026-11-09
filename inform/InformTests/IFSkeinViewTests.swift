@@ -815,6 +815,26 @@ final class IFSkeinViewTests: XCTestCase {
         XCTAssertNil(skeinView.selectedItem)
     }
 
+    /// The thread being played can't be deleted from the start either, since the story's next command would be added
+    /// to a knot no longer in the skein
+    func testTheThreadBeingPlayedCantBeDeletedFromTheStart() throws {
+        let (skein, _, north, _) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        skein.activeItem = north
+        XCTAssertFalse(enabledActions(for: skein.rootItem, in: skeinView).contains("deleteItem:"))
+        try choose("Delete Threads from Here", for: skein.rootItem, in: skeinView)
+        XCTAssertEqual(commands(skein.rootItem), ["look", "wait"])
+        XCTAssertIdentical(north.skein, skein)
+
+        // Before the story has been played past the start, every thread can go
+        skein.activeItem = skein.rootItem
+        XCTAssertTrue(enabledActions(for: skein.rootItem, in: skeinView).contains("deleteItem:"))
+        try choose("Delete Threads from Here", for: skein.rootItem, in: skeinView)
+        XCTAssertEqual(commands(skein.rootItem), [])
+    }
+
     func testDeleteThreadsFromHereDeselectsWhenTheKnotBeforeHasThreadsLeft() throws {
         let (skein, look, north, _) = makeSkein()
         add("south", to: look, in: skein)
