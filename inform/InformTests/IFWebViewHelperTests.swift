@@ -427,6 +427,14 @@ final class IFWebViewHelperTests: XCTestCase {
         }
     }
 
+    /// With no path, it's the resources folder itself
+    func testFailsForNoPath() {
+        // NSURL gives the last two no path at all
+        for url in ["inform:/", "inform:", "inform:pl404.html"] {
+            assertFailed(load(url), domain: NSURLErrorDomain, code: NSURLErrorFileDoesNotExist)
+        }
+    }
+
     // MARK: - inform: URLs for extensions
 
     func testLoadsAFileInTheProjectsExtensions() throws {

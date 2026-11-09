@@ -304,6 +304,10 @@
               returningMimeType: (NSString* __autoreleasing *) mimeType
                  returningError: (NSError* __autoreleasing *) error {
     NSString* urlPath = url.path;
+    if (urlPath == nil) {
+        // A URL with no path, such as "inform:", or "inform:file.html" with no slash, asks for the resources
+        urlPath = @"";
+    }
     NSString* host    = url.host;
     NSString* path;
 
