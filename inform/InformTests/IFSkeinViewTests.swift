@@ -7,9 +7,10 @@ import XCTest
 
 final class IFSkeinViewTests: XCTestCase {
 
-    /// A skein view in a 700 by 500 scroll view, in a window that isn't shown.
+    /// A skein view in a 700 by 500 scroll view, in a window that isn't shown, far off the screen so that the mouse
+    /// is never over it.
     private func makeSkeinView(_ skein: IFSkein) -> (NSWindow, IFSkeinView) {
-        let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 700, height: 500),
+        let window = NSWindow(contentRect: NSRect(x: -20000, y: -20000, width: 700, height: 500),
                               styleMask: [.titled], backing: .buffered, defer: false)
         window.isReleasedWhenClosed = false
         let scrollView = NSScrollView(frame: window.contentView!.bounds)
@@ -202,5 +203,829 @@ final class IFSkeinViewTests: XCTestCase {
 
         skein.postChanged(withAnimate: false, keepActiveVisible: false)
         XCTAssertEqual(skeinView.visibleRect.origin, scrolledTo)
+    }
+
+    // MARK: - Helpers for the view's own work
+
+    @discardableResult
+    private func add(_ command: String, to parent: IFSkeinItem, in skein: IFSkein, actual: String = "",
+                     testSubItem: Bool = false) -> IFSkeinItem {
+        let item: IFSkeinItem = IFSkeinItem(skein: skein, command: command)
+        item.actual = actual
+        item.isTestSubItem = testSubItem
+        return parent.addChild(item)
+    }
+
+    /// A skein of three levels (a knot's children are in alphabetical order):
+    ///
+    ///     - start -
+    ///     ├── look
+    ///     │   └── north
+    ///     └── wait
+    private func makeSkein() -> (skein: IFSkein, look: IFSkeinItem, north: IFSkeinItem, wait: IFSkeinItem) {
+        let skein: IFSkein = IFSkein(project: nil)
+        skein.rootItem.actual = "Welcome\n>"
+        let look = add("look", to: skein.rootItem, in: skein, actual: "A room.\n>")
+        let north = add("north", to: look, in: skein, actual: "A hall.\n>")
+        let wait = add("wait", to: skein.rootItem, in: skein, actual: "Time passes.\n>")
+        return (skein, look, north, wait)
+    }
+
+    /// A skein wider and taller than the skein view: 25 branches from the start, one of them 30 knots long
+    private func makeLargeSkein() -> IFSkein {
+        let skein: IFSkein = IFSkein(project: nil)
+        for i in 1...25 {
+            let branch = add("branch \(i)", to: skein.rootItem, in: skein, actual: "Output for branch \(i).")
+            if i == 1 {
+                _ = addThread(to: branch, skein: skein, count: 30)
+            }
+        }
+        return skein
+    }
+
+    private func knot(_ item: IFSkeinItem, in skeinView: IFSkeinView) throws -> IFSkeinItemView {
+        return try XCTUnwrap(skeinView.subviews.compactMap { $0 as? IFSkeinItemView }
+                                               .first { $0.layoutItem?.item === item })
+    }
+
+    private func centre(of view: NSView) -> NSPoint {
+        return NSPoint(x: view.frame.midX, y: view.frame.midY)
+    }
+
+    private func commands(_ item: IFSkeinItem) -> [String] {
+        return item.children.map(\.command)
+    }
+
+    private func changes(of skein: IFSkein, _ block: () throws -> Void) rethrows -> Int {
+        var count = 0
+        let observer = NotificationCenter.default.addObserver(forName: .IFSkeinChanged, object: skein,
+                                                              queue: nil) { _ in count += 1 }
+        defer { NotificationCenter.default.removeObserver(observer) }
+        try block()
+        return count
+    }
+
+    private func selectionChanges(of skeinView: IFSkeinView, _ block: () throws -> Void) rethrows -> [Notification] {
+        var notifications: [Notification] = []
+        let observer = NotificationCenter.default.addObserver(forName: .IFSkeinSelectionChanged, object: skeinView,
+                                                              queue: nil) { notifications.append($0) }
+        defer { NotificationCenter.default.removeObserver(observer) }
+        try block()
+        return notifications
+    }
+
+    /// A mouse event at a point in the window
+    private func mouseEvent(_ type: NSEvent.EventType, at location: NSPoint, in window: NSWindow) throws -> NSEvent {
+        return try XCTUnwrap(NSEvent.mouseEvent(with: type, location: location, modifierFlags: [], timestamp: 0,
+                                                windowNumber: window.windowNumber, context: nil,
+                                                eventNumber: 0, clickCount: 1, pressure: 1))
+    }
+
+    // MARK: Menu helpers
+
+    private func menuItem(_ title: String, for item: IFSkeinItem, in skeinView: IFSkeinView) throws -> NSMenuItem {
+        return try XCTUnwrap(skeinView.menu(for: item).item(withTitle: IFUtility.localizedString(title)), title)
+    }
+
+    /// Chooses a command from a knot's menu, whether or not it's enabled
+    private func choose(_ title: String, for item: IFSkeinItem, in skeinView: IFSkeinView) throws {
+        let menuItem = try menuItem(title, for: item, in: skeinView)
+        let action = try XCTUnwrap(menuItem.action)
+        XCTAssertTrue(NSApp.sendAction(action, to: skeinView, from: menuItem))
+    }
+
+    /// The actions of the commands enabled in a knot's menu
+    private func enabledActions(for item: IFSkeinItem, in skeinView: IFSkeinView) -> [String] {
+        return skeinView.menu(for: item).items.filter { !$0.isSeparatorItem && $0.isEnabled }
+                                              .compactMap { $0.action.map(NSStringFromSelector) }
+    }
+
+    private let allActions = ["playToHere:", "insertPreviousItem:", "insertNextItem:", "deleteOneItem:",
+                              "editContextItem:", "setWinningCommandItem:", "addNewBranch:", "deleteItem:",
+                              "blessItem:", "blessToHere:"]
+
+    private func allActions(except excluded: [String]) -> [String] {
+        return allActions.filter { !excluded.contains($0) }
+    }
+
+    // MARK: Editing helpers
+
+    /// The field editor a command is being edited in
+    private func fieldEditor(in window: NSWindow) throws -> NSTextView {
+        let editor = try XCTUnwrap(window.firstResponder as? NSTextView)
+        XCTAssertTrue(editor.isFieldEditor)
+        return editor
+    }
+
+    /// Replaces the text of the command being edited, as typing would
+    private func typeText(_ text: String, in window: NSWindow) throws {
+        let editor = try fieldEditor(in: window)
+        editor.selectAll(nil)
+        editor.insertText(text, replacementRange: NSRange(location: NSNotFound, length: 0))
+    }
+
+    private func isEditing(_ skeinView: IFSkeinView) -> Bool {
+        return skeinView.subviews.contains { $0 is NSScrollView }
+    }
+
+    private final class Delegate: NSObject, IFSkeinViewDelegate {
+        var calls: [String] = []
+
+        private func name(_ item: IFSkeinItem) -> String {
+            return item.parent == nil ? "start" : item.command
+        }
+
+        func stopGame() {
+            calls.append("stop")
+        }
+
+        func play(toPoint point: IFSkeinItem, fromPoint currentPoint: IFSkeinItem) {
+            calls.append("play to \(name(point)) from \(name(currentPoint))")
+        }
+    }
+
+    // MARK: - A new view
+
+    func testANewView() {
+        let skeinView = IFSkeinView(frame: NSRect(x: 0, y: 0, width: 100, height: 100))
+        XCTAssertNotNil(skeinView.skein)
+        XCTAssertNotNil(skeinView.layoutTree.rootItem)
+        XCTAssertIdentical(skeinView.layoutTree.rootItem, skeinView.skein?.rootItem)
+        XCTAssertNil(skeinView.selectedItem)
+        XCTAssertNil(skeinView.delegate)
+        XCTAssertTrue(knotViews(skeinView).isEmpty)
+        XCTAssertTrue(skeinView.wantsLayer)
+        XCTAssertTrue(skeinView.isFlipped)
+        XCTAssertTrue(skeinView.acceptsFirstResponder)
+        XCTAssertTrue(skeinView.acceptsFirstMouse(for: nil))
+    }
+
+    // MARK: - The skein and the selection
+
+    func testSettingTheSkein() throws {
+        let (skein, look, north, _) = makeSkein()
+        skein.activeItem = north
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        // The skein is laid out, and nothing in it is active
+        XCTAssertNil(skein.activeItem)
+        XCTAssertIdentical(skeinView.layoutTree.rootItem, skein.rootItem)
+        XCTAssertEqual(knotViews(skeinView).count, 4)
+
+        // Setting the same skein again changes nothing
+        skeinView.select(look, withAnimation: false)
+        skein.activeItem = look
+        skeinView.skein = skein
+        XCTAssertIdentical(skeinView.selectedItem, look)
+        XCTAssertIdentical(skein.activeItem, look)
+
+        // Another skein: nothing in it is selected, and only its changes lay the view out
+        let other: IFSkein = IFSkein(project: nil)
+        let notifications = selectionChanges(of: skeinView) { skeinView.skein = other }
+        XCTAssertNil(skeinView.selectedItem)
+        XCTAssertTrue(notifications.isEmpty)
+        XCTAssertIdentical(skeinView.layoutTree.rootItem, other.rootItem)
+        XCTAssertEqual(knotViews(skeinView).count, 1)
+        add("east", to: skein.rootItem, in: skein)
+        skein.postChanged(withAnimate: false, keepActiveVisible: false)
+        XCTAssertEqual(knotViews(skeinView).count, 1)
+        add("east", to: other.rootItem, in: other)
+        other.postChanged(withAnimate: false, keepActiveVisible: false)
+        XCTAssertEqual(knotViews(skeinView).count, 2)
+
+        // No skein
+        skeinView.skein = nil
+        XCTAssertNil(skeinView.layoutTree.rootItem)
+        XCTAssertTrue(knotViews(skeinView).isEmpty)
+    }
+
+    func testSettingTheSelectionPostsTheChange() throws {
+        let (skein, look, _, _) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        var notifications = selectionChanges(of: skeinView) { skeinView.selectedItem = look }
+        XCTAssertEqual(notifications.count, 1)
+        XCTAssertIdentical(notifications.first?.userInfo?[IFSkeinSelectionChangedItemKey] as AnyObject?, look)
+
+        notifications = selectionChanges(of: skeinView) { skeinView.selectedItem = look }
+        XCTAssertTrue(notifications.isEmpty)
+
+        notifications = selectionChanges(of: skeinView) { skeinView.selectedItem = nil }
+        XCTAssertEqual(notifications.count, 1)
+        XCTAssertEqual(notifications.first?.userInfo?.count, 0)
+    }
+
+    func testSelectingAKnotLaysTheSkeinOutAgain() {
+        let (skein, _, north, _) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        skeinView.select(north, withAnimation: false)
+        XCTAssertIdentical(skeinView.selectedItem, north)
+        XCTAssertIdentical(skeinView.layoutTree.selectedItem, north)
+        XCTAssertTrue(skeinView.isReportVisible)
+
+        skeinView.select(nil, withAnimation: false)
+        XCTAssertNil(skeinView.selectedItem)
+        XCTAssertNil(skeinView.layoutTree.selectedItem)
+        XCTAssertFalse(skeinView.isReportVisible)
+    }
+
+    func testSelectingAKnotByItsId() {
+        let (skein, look, north, wait) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        XCTAssertTrue(skeinView.selectItem(withNodeId: north.uniqueId))
+        XCTAssertIdentical(skeinView.selectedItem, north)
+
+        let unused = [skein.rootItem, look, north, wait].map(\.uniqueId).max()! + 1000
+        XCTAssertFalse(skeinView.selectItem(withNodeId: unused))
+        XCTAssertIdentical(skeinView.selectedItem, north)
+    }
+
+    func testTheKnotAtAPoint() throws {
+        let (skein, look, _, _) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        XCTAssertIdentical(skeinView.item(at: centre(of: try knot(look, in: skeinView))), look)
+        XCTAssertNil(skeinView.item(at: NSPoint(x: 5, y: skeinView.bounds.maxY - 5)))
+    }
+
+    func testASelectedKnotThatsRemovedGivesWayToTheActiveKnot() {
+        let (skein, _, north, wait) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        skeinView.select(north, withAnimation: false)
+        skein.activeItem = wait
+        north.removeFromParent()
+        skein.postChanged(withAnimate: false, keepActiveVisible: false)
+        XCTAssertIdentical(skeinView.selectedItem, wait)
+
+        // ...or to nothing, if the active knot has gone too
+        wait.removeFromParent()
+        let notifications = selectionChanges(of: skeinView) {
+            skein.postChanged(withAnimate: false, keepActiveVisible: false)
+        }
+        XCTAssertNil(skeinView.selectedItem)
+        XCTAssertEqual(notifications.count, 1)
+    }
+
+    func testAChangeCanScrollToTheActiveKnot() throws {
+        let skein = makeLargeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        let rightmost = try XCTUnwrap(knotViews(skeinView).max { $0.frame.maxX < $1.frame.maxX })
+        XCTAssertFalse(skeinView.visibleRect.intersects(rightmost.frame))
+        skein.activeItem = try XCTUnwrap(skeinView.item(at: centre(of: rightmost)))
+
+        skein.postChanged(withAnimate: false, keepActiveVisible: false)
+        XCTAssertFalse(skeinView.visibleRect.intersects(rightmost.frame))
+
+        skein.postChanged(withAnimate: false, keepActiveVisible: true)
+        XCTAssertTrue(skeinView.visibleRect.intersects(rightmost.frame))
+    }
+
+    func testTheViewFillsItsScrollView() throws {
+        let small: IFSkein = IFSkein(project: nil)
+        let (window, skeinView) = makeSkeinView(small)
+        defer { window.close() }
+        let clipSize = try XCTUnwrap(skeinView.superview).frame.size
+        XCTAssertEqual(skeinView.frame.size, clipSize)
+
+        skeinView.skein = makeLargeSkein()
+        XCTAssertGreaterThan(skeinView.layoutTree.size.width, clipSize.width)
+        XCTAssertGreaterThan(skeinView.layoutTree.size.height, clipSize.height)
+        XCTAssertEqual(skeinView.frame.size, skeinView.layoutTree.size)
+    }
+
+    // MARK: - The mouse
+
+    func testTheTrackingArea() throws {
+        let (skein, _, _, _) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        skeinView.updateTrackingAreas()
+        XCTAssertEqual(skeinView.trackingAreas.count, 1)
+        let area = try XCTUnwrap(skeinView.trackingAreas.first)
+        XCTAssertEqual(area.rect, skeinView.visibleRect)
+        XCTAssertEqual(area.options, [.cursorUpdate, .activeInKeyWindow])
+        XCTAssertIdentical(area.owner as AnyObject?, skeinView)
+
+        // Updating it replaces it
+        skeinView.updateTrackingAreas()
+        XCTAssertEqual(skeinView.trackingAreas.count, 1)
+        XCTAssertNotIdentical(skeinView.trackingAreas.first, area)
+    }
+
+    func testDraggingTheBackgroundScrollsTheSkein() throws {
+        let skein = makeLargeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        skeinView.cursorUpdate(with: try mouseEvent(.mouseMoved, at: .zero, in: window))
+        XCTAssertEqual(NSCursor.current, NSCursor.openHand)
+
+        let start = skeinView.visibleRect
+        let location = skeinView.convert(NSPoint(x: start.midX, y: start.midY), to: nil)
+        skeinView.mouseDown(with: try mouseEvent(.leftMouseDown, at: location, in: window))
+        XCTAssertEqual(NSCursor.current, NSCursor.closedHand)
+
+        // Dragging left and up moves the skein with the mouse, showing more of it to the right and below
+        let moved = NSPoint(x: location.x - 100, y: location.y + 50)
+        skeinView.mouseDragged(with: try mouseEvent(.leftMouseDragged, at: moved, in: window))
+        XCTAssertEqual(skeinView.visibleRect.origin, NSPoint(x: start.minX + 100, y: start.minY + 50))
+        XCTAssertEqual(NSCursor.current, NSCursor.closedHand)
+
+        skeinView.mouseUp(with: try mouseEvent(.leftMouseUp, at: moved, in: window))
+        XCTAssertEqual(NSCursor.current, NSCursor.openHand)
+
+        // Once the mouse is up, a drag does nothing
+        skeinView.mouseDragged(with: try mouseEvent(.leftMouseDragged, at: location, in: window))
+        XCTAssertEqual(skeinView.visibleRect.origin, NSPoint(x: start.minX + 100, y: start.minY + 50))
+    }
+
+    func testTheSkeinDoesntBounce() throws {
+        let (skein, _, _, _) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+        let scrollView = try XCTUnwrap(skeinView.enclosingScrollView)
+        scrollView.horizontalScrollElasticity = .allowed
+        scrollView.verticalScrollElasticity = .allowed
+
+        skeinView.awakeFromNib()
+        XCTAssertEqual(scrollView.horizontalScrollElasticity, .none)
+        XCTAssertEqual(scrollView.verticalScrollElasticity, .none)
+    }
+
+    func testRightClickingAKnotShowsItsMenu() throws {
+        let (skein, look, _, _) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        let onKnot = skeinView.convert(centre(of: try knot(look, in: skeinView)), to: nil)
+        let menu = try XCTUnwrap(skeinView.menu(for: try mouseEvent(.rightMouseDown, at: onKnot, in: window)))
+        XCTAssertNotNil(menu.item(withTitle: IFUtility.localizedString("Play to Here")))
+
+        let offKnot = skeinView.convert(NSPoint(x: 5, y: skeinView.bounds.maxY - 5), to: nil)
+        XCTAssertNil(skeinView.menu(for: try mouseEvent(.rightMouseDown, at: offKnot, in: window)))
+    }
+
+    // MARK: - The menu
+
+    func testTheMenu() throws {
+        let (skein, look, _, wait) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        let menu = skeinView.menu(for: look)
+        XCTAssertFalse(menu.autoenablesItems)
+        let expected: [(title: String, action: String)?] = [
+            ("Play to Here", "playToHere:"),
+            nil,
+            ("Insert Previous Command", "insertPreviousItem:"),
+            ("Insert Next Command", "insertNextItem:"),
+            ("Delete Command", "deleteOneItem:"),
+            ("Edit Command", "editContextItem:"),
+            ("Set Winning Command", "setWinningCommandItem:"),
+            nil,
+            ("Split Thread", "addNewBranch:"),
+            ("Delete Threads from Here", "deleteItem:"),
+            nil,
+            ("Bless Command", "blessItem:"),
+            ("Bless all Commands to Here", "blessToHere:"),
+        ]
+        XCTAssertEqual(menu.items.count, expected.count)
+        for (menuItem, expected) in zip(menu.items, expected) {
+            guard let expected else {
+                XCTAssertTrue(menuItem.isSeparatorItem)
+                continue
+            }
+            XCTAssertEqual(menuItem.title, IFUtility.localizedString(expected.title))
+            XCTAssertEqual(menuItem.action.map(NSStringFromSelector), expected.action)
+            XCTAssertNil(menuItem.target)
+            XCTAssertEqual(menuItem.keyEquivalent, "")
+            XCTAssertTrue(menuItem.isEnabled, expected.title)
+            XCTAssertEqual(menuItem.state, .off, expected.title)
+        }
+
+        // The winning command is ticked
+        skein.winningItem = look
+        XCTAssertEqual(try menuItem("Set Winning Command", for: look, in: skeinView).state, .on)
+        XCTAssertEqual(try menuItem("Set Winning Command", for: wait, in: skeinView).state, .off)
+    }
+
+    func testWhatTheMenuAllows() {
+        let (skein, look, north, wait) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        XCTAssertEqual(enabledActions(for: look, in: skeinView), allActions)
+        XCTAssertEqual(enabledActions(for: north, in: skeinView), allActions)
+
+        // The start: nothing goes before it, it has more than one thread to go after it, and its command is fixed
+        XCTAssertEqual(enabledActions(for: skein.rootItem, in: skeinView),
+                       allActions(except: ["insertPreviousItem:", "insertNextItem:", "deleteOneItem:",
+                                           "editContextItem:", "setWinningCommandItem:"]))
+
+        // The thread being played can't be deleted
+        skein.activeItem = north
+        let notDeleted = allActions(except: ["deleteOneItem:", "deleteItem:"])
+        XCTAssertEqual(enabledActions(for: look, in: skeinView), notDeleted)
+        XCTAssertEqual(enabledActions(for: north, in: skeinView), notDeleted)
+        XCTAssertEqual(enabledActions(for: wait, in: skeinView), allActions)
+    }
+
+    func testWhatTheMenuAllowsForATestMeCommand() {
+        let (skein, _, _, _) = makeSkein()
+        let testMe = add("test me", to: skein.rootItem, in: skein)
+        let jump = add("jump", to: testMe, in: skein, testSubItem: true)
+        let sing = add("sing", to: jump, in: skein, testSubItem: true)
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        // Nothing can go between "test me" and its commands
+        XCTAssertEqual(enabledActions(for: testMe, in: skeinView),
+                       allActions(except: ["insertNextItem:", "addNewBranch:"]))
+        XCTAssertTrue(skeinView.hasMenu(testMe))
+
+        // Its commands have no menu, except the last, which can be played on from
+        XCTAssertFalse(skeinView.hasMenu(jump))
+        XCTAssertTrue(skeinView.hasMenu(sing))
+        XCTAssertEqual(enabledActions(for: sing, in: skeinView),
+                       ["insertNextItem:", "addNewBranch:", "blessItem:", "blessToHere:"])
+    }
+
+    // MARK: - The menu's commands
+
+    func testPlayToHere() throws {
+        let (skein, look, north, wait) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+        let delegate = Delegate()
+        skeinView.delegate = delegate
+        skein.activeItem = look
+
+        // From the knot being played, if the knot is further on
+        try choose("Play to Here", for: north, in: skeinView)
+        XCTAssertEqual(delegate.calls, ["play to north from look"])
+
+        // Otherwise from the start
+        delegate.calls = []
+        try choose("Play to Here", for: wait, in: skeinView)
+        XCTAssertEqual(delegate.calls, ["stop", "play to wait from start"])
+    }
+
+    func testPlayToHereNeedsADelegateAndACommandThatIsntPartOfTestMe() throws {
+        let (skein, _, north, _) = makeSkein()
+        let testMe = add("test me", to: skein.rootItem, in: skein)
+        let jump = add("jump", to: testMe, in: skein, testSubItem: true)
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        try choose("Play to Here", for: north, in: skeinView)
+
+        let delegate = Delegate()
+        skeinView.delegate = delegate
+        try choose("Play to Here", for: jump, in: skeinView)
+        XCTAssertEqual(delegate.calls, [])
+    }
+
+    func testInsertPreviousCommand() throws {
+        let (skein, look, north, _) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        let changes = try changes(of: skein) { try choose("Insert Previous Command", for: north, in: skeinView) }
+        XCTAssertEqual(changes, 1)
+        XCTAssertEqual(commands(look), [""])
+        let inserted = try XCTUnwrap(look.children.first)
+        XCTAssertEqual(commands(inserted), ["north"])
+        XCTAssertIdentical(north.parent, inserted)
+
+        // The new knot's command is being edited
+        XCTAssertEqual(try fieldEditor(in: window).string, "")
+
+        // Nothing goes before the start
+        try choose("Insert Previous Command", for: skein.rootItem, in: skeinView)
+        XCTAssertNil(skein.rootItem.parent)
+        XCTAssertEqual(commands(skein.rootItem), ["look", "wait"])
+    }
+
+    func testInsertNextCommand() throws {
+        let (skein, look, north, _) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        // After a knot with no thread after it
+        try choose("Insert Next Command", for: north, in: skeinView)
+        XCTAssertEqual(commands(north), [""])
+        XCTAssertEqual(try fieldEditor(in: window).string, "")
+
+        // Between a knot and the one knot after it
+        try choose("Insert Next Command", for: look, in: skeinView)
+        XCTAssertEqual(commands(look), [""])
+        let inserted = try XCTUnwrap(look.children.first)
+        XCTAssertNotIdentical(inserted, north)
+        XCTAssertIdentical(north.parent, inserted)
+
+        // Not after a knot with more than one thread after it
+        try choose("Insert Next Command", for: skein.rootItem, in: skeinView)
+        XCTAssertEqual(commands(skein.rootItem), ["look", "wait"])
+    }
+
+    func testSplitThread() throws {
+        let (skein, look, _, _) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        let changes = try changes(of: skein) { try choose("Split Thread", for: look, in: skeinView) }
+        XCTAssertEqual(changes, 1)
+        XCTAssertEqual(commands(look), ["", "north"])
+        XCTAssertEqual(try fieldEditor(in: window).string, "")
+
+        try typeText("east", in: window)
+        try fieldEditor(in: window).insertNewline(nil)
+        XCTAssertEqual(commands(look), ["east", "north"])
+    }
+
+    func testDeleteCommand() throws {
+        let (skein, look, north, wait) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        // The knots after it join the knot before it, and a selection that was after it goes
+        skeinView.select(north, withAnimation: false)
+        let changes = try changes(of: skein) { try choose("Delete Command", for: look, in: skeinView) }
+        XCTAssertEqual(changes, 1)
+        XCTAssertEqual(commands(skein.rootItem), ["north", "wait"])
+        XCTAssertIdentical(north.parent, skein.rootItem)
+        XCTAssertNil(look.parent)
+        XCTAssertNil(skeinView.selectedItem)
+
+        // A selection elsewhere stays
+        skeinView.select(wait, withAnimation: false)
+        try choose("Delete Command", for: north, in: skeinView)
+        XCTAssertEqual(commands(skein.rootItem), ["wait"])
+        XCTAssertIdentical(skeinView.selectedItem, wait)
+
+        // The start can't be deleted
+        try choose("Delete Command", for: skein.rootItem, in: skeinView)
+        XCTAssertEqual(commands(skein.rootItem), ["wait"])
+    }
+
+    func testDeletingTestMeDeletesItsCommands() throws {
+        let (skein, _, _, _) = makeSkein()
+        let testMe = add("test me", to: skein.rootItem, in: skein)
+        let jump = add("jump", to: testMe, in: skein, testSubItem: true)
+        let sing = add("sing", to: jump, in: skein, testSubItem: true)
+        let east = add("east", to: sing, in: skein)
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        try choose("Delete Command", for: testMe, in: skeinView)
+        XCTAssertEqual(commands(skein.rootItem), ["east", "look", "wait"])
+        XCTAssertIdentical(east.parent, skein.rootItem)
+        XCTAssertNil(testMe.parent)
+        XCTAssertIdentical(jump.parent, testMe)
+    }
+
+    func testDeleteThreadsFromHere() throws {
+        let (skein, look, north, _) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        // A selection that was in the threads goes to the knot before, if it has only one thread left
+        skeinView.select(north, withAnimation: false)
+        let changes = try changes(of: skein) { try choose("Delete Threads from Here", for: look, in: skeinView) }
+        XCTAssertEqual(changes, 1)
+        XCTAssertEqual(commands(skein.rootItem), ["wait"])
+        XCTAssertNil(look.parent)
+        XCTAssertIdentical(skeinView.selectedItem, skein.rootItem)
+
+        // From the start, every thread goes
+        try choose("Delete Threads from Here", for: skein.rootItem, in: skeinView)
+        XCTAssertEqual(commands(skein.rootItem), [])
+        XCTAssertNil(skeinView.selectedItem)
+    }
+
+    func testDeleteThreadsFromHereDeselectsWhenTheKnotBeforeHasThreadsLeft() throws {
+        let (skein, look, north, _) = makeSkein()
+        add("south", to: look, in: skein)
+        add("up", to: look, in: skein)
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        skeinView.select(north, withAnimation: false)
+        try choose("Delete Threads from Here", for: north, in: skeinView)
+        XCTAssertEqual(commands(look), ["south", "up"])
+        XCTAssertNil(skeinView.selectedItem)
+    }
+
+    func testSetWinningCommand() throws {
+        let (skein, look, _, wait) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        let changes = try changes(of: skein) { try choose("Set Winning Command", for: look, in: skeinView) }
+        XCTAssertEqual(changes, 1)
+        XCTAssertIdentical(skein.winningItem, look)
+
+        try choose("Set Winning Command", for: wait, in: skeinView)
+        XCTAssertIdentical(skein.winningItem, wait)
+
+        // Setting it again unsets it
+        try choose("Set Winning Command", for: wait, in: skeinView)
+        XCTAssertNil(skein.winningItem)
+
+        // The start can't win
+        try choose("Set Winning Command", for: skein.rootItem, in: skeinView)
+        XCTAssertNil(skein.winningItem)
+    }
+
+    func testBlessing() throws {
+        let (skein, look, north, wait) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        let changes = try changes(of: skein) { try choose("Bless Command", for: north, in: skeinView) }
+        XCTAssertEqual(changes, 1)
+        XCTAssertEqual(north.ideal, "A hall.\n>")
+        XCTAssertEqual(look.ideal, "")
+
+        try choose("Bless all Commands to Here", for: look, in: skeinView)
+        XCTAssertEqual(look.ideal, "A room.\n>")
+        XCTAssertEqual(skein.rootItem.ideal, "Welcome\n>")
+        XCTAssertEqual(wait.ideal, "")
+
+        // As the bless buttons in the report do
+        skeinView.setItemBlessed(north, bless: false)
+        XCTAssertEqual(north.ideal, "")
+        skeinView.setItemBlessed(wait, bless: true)
+        XCTAssertEqual(wait.ideal, "Time passes.\n>")
+    }
+
+    // MARK: - Editing a command
+
+    func testEditCommand() throws {
+        let (skein, _, north, _) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        try choose("Edit Command", for: north, in: skeinView)
+        let editor = try fieldEditor(in: window)
+        XCTAssertEqual(editor.string, "north")
+        XCTAssertIdentical(editor.delegate, skeinView)
+        XCTAssertIdentical(editor.enclosingScrollView?.superview, skeinView)
+        XCTAssertTrue(isEditing(skeinView))
+
+        // Return keeps the change
+        try typeText("south", in: window)
+        let changes = changes(of: skein) { editor.insertNewline(nil) }
+        XCTAssertEqual(changes, 1)
+        XCTAssertEqual(north.command, "south")
+        XCTAssertFalse(isEditing(skeinView))
+        XCTAssertIdentical(window.firstResponder, skeinView)
+
+        // The start's command can't be edited
+        try choose("Edit Command", for: skein.rootItem, in: skeinView)
+        XCTAssertFalse(isEditing(skeinView))
+    }
+
+    func testLeavingTheCommandCancelsTheEdit() throws {
+        let (skein, _, north, _) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        try choose("Edit Command", for: north, in: skeinView)
+        try typeText("south", in: window)
+        window.makeFirstResponder(skeinView)
+        XCTAssertEqual(north.command, "north")
+        XCTAssertFalse(isEditing(skeinView))
+    }
+
+    func testClickingTheSkeinKeepsTheEdit() throws {
+        let (skein, _, north, _) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        try choose("Edit Command", for: north, in: skeinView)
+        try typeText("south", in: window)
+        let location = skeinView.convert(NSPoint(x: 5, y: skeinView.bounds.maxY - 5), to: nil)
+        skeinView.mouseDown(with: try mouseEvent(.leftMouseDown, at: location, in: window))
+        skeinView.mouseUp(with: try mouseEvent(.leftMouseUp, at: location, in: window))
+        XCTAssertEqual(north.command, "south")
+        XCTAssertFalse(isEditing(skeinView))
+    }
+
+    /// Removing the view takes the first responder away from the field editor, which cancels the edit
+    func testRemovingTheViewCancelsTheEdit() throws {
+        let (skein, _, north, _) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        try choose("Edit Command", for: north, in: skeinView)
+        try typeText("south", in: window)
+        var movements: [Int?] = []
+        let observer = NotificationCenter.default.addObserver(forName: NSText.didEndEditingNotification,
+                                                              object: try fieldEditor(in: window), queue: nil) {
+            movements.append($0.userInfo?["NSTextMovement"] as? Int)
+        }
+        defer { NotificationCenter.default.removeObserver(observer) }
+
+        skeinView.removeFromSuperview()
+        XCTAssertEqual(movements, [NSTextMovement.other.rawValue])
+        XCTAssertEqual(north.command, "north")
+        XCTAssertFalse(isEditing(skeinView))
+    }
+
+    func testEditingACommandKeepsTheKnotsInOrder() throws {
+        let (skein, look, _, _) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        try choose("Edit Command", for: look, in: skeinView)
+        try typeText("xyzzy", in: window)
+        try fieldEditor(in: window).insertNewline(nil)
+        XCTAssertEqual(commands(skein.rootItem), ["wait", "xyzzy"])
+    }
+
+    func testEditingACommandToAnotherKnotsCommandMergesThem() throws {
+        let (skein, look, north, wait) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+        skeinView.select(look, withAnimation: false)
+        skein.activeItem = look
+
+        try choose("Edit Command", for: look, in: skeinView)
+        try typeText("wait", in: window)
+        let notifications = try selectionChanges(of: skeinView) { try fieldEditor(in: window).insertNewline(nil) }
+        XCTAssertEqual(commands(skein.rootItem), ["wait"])
+        XCTAssertIdentical(north.parent, wait)
+
+        // The knot it merged into takes over as the active and selected knot
+        XCTAssertIdentical(skein.activeItem, wait)
+        XCTAssertIdentical(skeinView.selectedItem, wait)
+        XCTAssertEqual(notifications.count, 1)
+    }
+
+    // MARK: - The font size
+
+    func testTheFontSize() throws {
+        XCTAssertEqual(IFSkeinView.fontSize, kSkeinDefaultItemFontSize * IFPreferences.shared.appFontSizeMultiplier)
+
+        let (skein, _, _, _) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+        let changes = changes(of: skein) {
+            skeinView.fontSizePreferenceChanged(Notification(name: Notification.Name("Test")))
+        }
+        XCTAssertEqual(changes, 1)
+    }
+
+    // MARK: - What the help shows
+
+    func testWhatTheHelpAsksAbout() throws {
+        let (skein, look, north, _) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        // Nothing selected or played
+        XCTAssertEqual(skeinView.itemsVisible, 4)
+        XCTAssertFalse(skeinView.isAnyItemPurple)
+        XCTAssertTrue(skeinView.isAnyItemGrey)
+        XCTAssertFalse(skeinView.isAnyItemBlue)
+        XCTAssertFalse(skeinView.isReportVisible)
+        XCTAssertFalse(skeinView.isTickVisible)
+        XCTAssertFalse(skeinView.isCrossVisible)
+        XCTAssertFalse(skeinView.isBadgedItemVisible)
+
+        // A thread selected, with nothing blessed
+        skeinView.select(north, withAnimation: false)
+        XCTAssertTrue(skeinView.isAnyItemBlue)
+        XCTAssertTrue(skeinView.isAnyItemGrey)
+        XCTAssertTrue(skeinView.isReportVisible)
+        XCTAssertTrue(skeinView.isTickVisible)
+        XCTAssertFalse(skeinView.isCrossVisible)
+
+        // A knot on the thread blessed, and another blessed with different output
+        skeinView.setItemBlessed(north, bless: true)
+        XCTAssertTrue(skeinView.isTickVisible)
+        XCTAssertTrue(skeinView.isCrossVisible)
+        XCTAssertFalse(skeinView.isBadgedItemVisible)
+        look.ideal = "Somewhere else.\n>"
+        skein.postChanged(withAnimate: false, keepActiveVisible: false)
+        XCTAssertTrue(skeinView.isBadgedItemVisible)
+
+        // A thread played
+        skein.activeItem = north
+        skein.postChanged(withAnimate: false, keepActiveVisible: false)
+        XCTAssertTrue(skeinView.isAnyItemPurple)
     }
 }
