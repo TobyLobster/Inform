@@ -444,6 +444,17 @@ final class IFFindControllerTests: XCTestCase {
         XCTAssertEqual(context(1, results)?.string, "A beaker. A flask. A bottle.")
     }
 
+    /// Replace All remembers the phrase in the find history, and the replacement in the replace history
+    func testReplaceAllRemembersWhatWasTypedInEachBox() throws {
+        let (controller, defaults, window) = try makeController()
+        _ = finder("A beaker. A flask. A beaker.")
+        try type("beaker", with: controller)
+        replaceBox(window).stringValue = "bottle"
+        controller.replaceAll(nil)
+        XCTAssertEqual(defaults.object(forKey: "IFFindHistory") as? [String], ["beaker"])
+        XCTAssertEqual(defaults.object(forKey: "IFReplaceHistory") as? [String], ["bottle"])
+    }
+
     /// With a regular expression, Replace All puts what each match's groups matched for \1 and so on
     func testReplaceAllExpandsARegularExpressionsGroups() throws {
         let (controller, _, window) = try makeController()

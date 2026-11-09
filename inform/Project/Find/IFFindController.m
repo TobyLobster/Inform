@@ -537,7 +537,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
     [self findAll:sender];
     
 	// Store the replace phrase in the replacement history
-	[self addPhraseToFindHistory: replacePhrase.stringValue];
+	[self addPhraseToReplaceHistory: replacePhrase.stringValue];
 
 	// Indicate that a 'replace all' operation is starting
 	if ([activeDelegate respondsToSelector: @selector(beginReplaceAll:)]) {
