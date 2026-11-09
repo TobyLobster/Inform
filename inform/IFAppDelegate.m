@@ -60,11 +60,28 @@
     NSString* fileCopyDestination;
     NSString* fileCopySource;
     int exportToEPubIndex;
+
+    /// Where whether the source is spell checked is kept
+    NSUserDefaults* defaults;
 }
 
 static NSString* const IFSourceSpellChecking = @"IFSourceSpellChecking";
 static CGFloat   const pixelWidthBetweenExtensionNameAndVersion = 10.0;
 static IFNewProject* newProj = nil;
+
+- (instancetype) init {
+    return [self initWithDefaults: [NSUserDefaults standardUserDefaults]];
+}
+
+- (instancetype) initWithDefaults: (NSUserDefaults*) theDefaults {
+    self = [super init];
+
+    if (self) {
+        defaults = theDefaults;
+    }
+
+    return self;
+}
 
 - (void) applicationWillFinishLaunching: (NSNotification*) not {
     _newsManager = [[IFNewsManager alloc] init];
@@ -687,12 +704,12 @@ static IFNewProject* newProj = nil;
 }
 
 - (BOOL) sourceSpellChecking {
-    return [[NSUserDefaults standardUserDefaults] boolForKey: IFSourceSpellChecking];
+    return [defaults boolForKey: IFSourceSpellChecking];
 }
 
 - (IBAction) toggleSourceSpellChecking: (id) sender {
 	// Toggle the setting
-	BOOL sourceSpellChecking = ![[NSUserDefaults standardUserDefaults] boolForKey: IFSourceSpellChecking];
+	BOOL sourceSpellChecking = ![defaults boolForKey: IFSourceSpellChecking];
 	
     // Tell each document's controller about the change
     for(NSDocument* doc in [NSDocumentController sharedDocumentController].documents) {
@@ -709,8 +726,8 @@ static IFNewProject* newProj = nil;
     }
 
 	// Store the result
-	[[NSUserDefaults standardUserDefaults] setBool: sourceSpellChecking
-											forKey: IFSourceSpellChecking];
+	[defaults setBool: sourceSpellChecking
+			   forKey: IFSourceSpellChecking];
 }
 
 - (BOOL) copyResource: (NSString*) resource

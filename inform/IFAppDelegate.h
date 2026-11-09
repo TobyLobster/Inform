@@ -17,6 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IFAppDelegate : NSObject<NSMenuItemValidation>
 
+/// The app's delegate, made by the main menu's nib, which keeps whether the source is spell checked in the user's defaults
+- (instancetype) init;
+/// An app delegate that keeps whether the source is spell checked in the given defaults
+- (instancetype) initWithDefaults: (NSUserDefaults*) defaults NS_DESIGNATED_INITIALIZER;
+
 @property (atomic, readonly, nullable) IFNewsManager* newsManager;    // nil until the app has finished launching
 
 - (void) doCopyProject: (NSURL*) source
