@@ -14,15 +14,12 @@
 #import "IFAppDelegate.h"
 #import "IFSourcePage.h"
 #import "IFProjectController.h"
-#import "IFCompilerSettings.h"
 #import "IFProject.h"
 
 @implementation IFWebViewHelper {
     __weak IFProjectController* projectController;
     __weak IFProjectPane* pane;
-    __weak IFCompilerSettings* settings;
 
-    NSMutableCharacterSet *escapeCharset;
     NSError* genericError;
 }
 
@@ -36,17 +33,10 @@
         projectController = theProjectController;
         pane = newPane;
 
-        escapeCharset = [[NSCharacterSet URLQueryAllowedCharacterSet] mutableCopy];
-        [escapeCharset removeCharactersInString:@"!*'();:@&=+$,/?%#[]"];
-
         genericError = [NSError errorWithDomain:INFORM_ERROR_DOMAIN code: 0 userInfo: nil];
     }
 
     return self;
-}
-
-- (void) dealloc {
-    pane = nil;
 }
 
 - (WKWebView *) createWebViewWithFrame:(CGRect) frame {
@@ -500,9 +490,7 @@
                                  @"createNewProject": @2,
                                  @"pasteCode": @1,
                                  @"openFile": @1,
-                                 @"openURL": @1,
-                                 @"askInterfaceForLocalVersionAuthor": @3,
-                                 @"askInterfaceForLocalVersionTextAuthor": @2
+                                 @"openURL": @1
                                };
     if (list.count == 0) {
         return;
@@ -534,15 +522,6 @@
         [self openFile: list[1]];
     } else if ([@"openURL" isEqualToString: list[0]]) {
         [self openUrl: list[1]];
-    } else if ([@"askInterfaceForLocalVersionAuthor" isEqualToString: list[0]]) {
-        [self askInterfaceForLocalVersionAuthor: list[1]
-                                          title: list[2]
-                                      available: list[3]
-                                compilerVersion: settings.compilerVersion];
-    } else if ([@"askInterfaceForLocalVersionTextAuthor" isEqualToString: list[0]]) {
-        [self askInterfaceForLocalVersionTextAuthor: list[1]
-                                              title: list[2]
-                                    compilerVersion: settings.compilerVersion];
     }
 }
 
@@ -620,68 +599,6 @@
     if (![[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString: url]]) {
         NSLog(@"Could not open URL: %@", url);
     }
-}
-
--(NSString*) askInterfaceForLocalVersionAuthor: (NSString*) author
-                                         title: (NSString*) title
-                                     available: (NSString*) availableVersion
-                               compilerVersion: (NSString*) compilerVersion {
-    IFExtensionsManager* mgr = [IFExtensionsManager sharedNaturalInformExtensionsManager];
-    author = author.lowercaseString;
-    title = title.lowercaseString;
-
-    IFSemVer* versionAvailable = [[IFSemVer alloc] initWithString: availableVersion];
-
-    for( IFExtensionInfo* info in [mgr availableExtensionsWithCompilerVersion: compilerVersion] ) {
-        // NSLog(@"Got installed extension %@ by %@", [info title], info.author);
-        if( [(info.author).lowercaseString isEqualToString: author] ) {
-            if( [[IFExtensionInfo canonicalTitle:info.displayName].lowercaseString isEqualToString: title] ) {
-                // We have this extension
-                if( info.isBuiltIn ) {
-                    //NSLog(@"Found %@ by %@ BUILT IN", title, author);
-                    return @"!";
-                }
-
-                IFSemVer* versionLocal = info.semver;
-
-                int result = [versionLocal cmp:versionAvailable];
-
-                if( result == 0) {
-                    //NSLog(@"Found %@ by %@ version %@ EQUAL", title, author, version);
-                    return @"=";
-                }
-                if( result < 0 ) {
-                    //NSLog(@"Found %@ by %@ version %@ <", title, author, version);
-                    return @"<";
-                }
-                //NSLog(@"Found %@ by %@ version %@ >", title, author, version);
-                return @">";
-            }
-        }
-    }
-
-    // Not found
-    //NSLog(@"Looked for %@ by %@ NOT-FOUND", title, author);
-    return @"";
-}
-
--(NSString*) askInterfaceForLocalVersionTextAuthor: (NSString*) author
-                                             title: (NSString*) title
-                                   compilerVersion: (NSString*) compilerVersion {
-    IFExtensionsManager* mgr = [IFExtensionsManager sharedNaturalInformExtensionsManager];
-    author = author.lowercaseString;
-    title = title.lowercaseString;
-
-    for( IFExtensionInfo* info in [mgr availableExtensionsWithCompilerVersion: compilerVersion] ) {
-        if( [(info.author).lowercaseString isEqualToString: author] ) {
-            if( [[IFExtensionInfo canonicalTitle: info.displayName].lowercaseString isEqualToString: title] ) {
-                return info.safeVersion;
-            }
-        }
-    }
-
-    // Not found
-    return @"";
 }
 
 #pragma mark - Preferences
