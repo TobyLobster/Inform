@@ -843,17 +843,6 @@ static IFCompilerController* activeController = nil;
     return (IFCompilerTabId)integer.intValue;
 }
 
--(NSString *) filenameOfItemWithTabId: (IFCompilerTabId) tabId
-{
-    for( NSString* key in tabDictionary)
-    {
-        if( [tabDictionary[key] intValue] == tabId ) {
-            return key;
-        }
-    }
-    return nil;
-}
-
 -(bool) tabsContainsTabId: (IFCompilerTabId) tabId {
     return [self tabIndexWithTabId:tabId] != NSNotFound;
 }
