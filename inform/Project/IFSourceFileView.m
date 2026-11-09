@@ -84,7 +84,8 @@ static NSImage* arrowNotPressed = nil;
     mousePoint = [self convertPoint: mousePoint
                            fromView: nil];
     if( tornAtTop ) {
-        NSRect tornAtTopRect = NSMakeRect(0, 0, 1000, topTear.size.height);
+        NSRect bounds = self.bounds;
+        NSRect tornAtTopRect = NSMakeRect(NSMinX(bounds), NSMinY(bounds), bounds.size.width, topTear.size.height);
         
         if( NSPointInRect(mousePoint, tornAtTopRect) ) {
             [[NSCursor pointingHandCursor] set];

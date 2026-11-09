@@ -341,6 +341,19 @@ final class IFSourceFileViewTests: XCTestCase {
         NSCursor.arrow.set()
     }
 
+    func testTheCursorIsAPointingHandOverTheArrowOfAWideView() {
+        // The arrow is in the middle of the top tear, which here is more than 1000 points from the left
+        window.setContentSize(NSSize(width: 2400, height: 400))
+        textView.setTornAtTop(true)
+        XCTAssertGreaterThan(textView.bounds.midX, 1000)
+
+        NSCursor.arrow.set()
+        moveMouse(to: NSPoint(x: textView.bounds.midX, y: topTearHeight / 2))
+
+        XCTAssertIdentical(NSCursor.current, NSCursor.pointingHand)
+        NSCursor.arrow.set()
+    }
+
     func testTheCursorIsntAPointingHandOverTheText() {
         textView.setTornAtTop(true)
         textView.setTornAtBottom(true)
