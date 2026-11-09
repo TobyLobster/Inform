@@ -17,6 +17,7 @@
 #import "IFSkein.h"
 #import "IFSkeinItem.h"
 #import "IFSkeinPlayAll.h"
+#import "IFSourceHighlights.h"
 #import "IFSkeinConstants.h"
 #import "IFSkeinView.h"
 #import "IFSkeinItemView.h"
