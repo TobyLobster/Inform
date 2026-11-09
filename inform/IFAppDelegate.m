@@ -7,12 +7,10 @@
 //
 
 #import "IFAppDelegate.h"
-#import "IFCompilerController.h"
 #import "IFNewProject.h"
 #import "IFExtensionsManager.h"
 #import "IFWelcomeWindow.h"
 #import "IFFindController.h"
-#import "IFFindInFilesController.h"
 
 #import "IFProject.h"
 #import "IFProjectController.h"
@@ -32,7 +30,6 @@
 
 #import "IFSingleFile.h"
 #import "IFPreferences.h"
-#import "IFProject.h"
 #import "IFUtility.h"
 #import "IFCompilerSettings.h"
 
@@ -44,9 +41,6 @@
 #import "Inform-Swift.h"
 
 @implementation IFAppDelegate {
-    /// News
-    //IFNewsManager* newsManager;
-
     /// The 'New Extension Project' menu
     IBOutlet NSMenuItem* newExtensionProjectMenu;
     /// The 'Open Extension' menu
@@ -72,28 +66,11 @@ static NSString* const IFSourceSpellChecking = @"IFSourceSpellChecking";
 static CGFloat   const pixelWidthBetweenExtensionNameAndVersion = 10.0;
 static IFNewProject* newProj = nil;
 
-static NSRunLoop* mainRunLoop = nil;
-+ (NSRunLoop*) mainRunLoop {
-	return mainRunLoop;
-}
-
-+ (BOOL)isWebKitAvailable {
-    return YES;
-}
-
 - (void) applicationWillFinishLaunching: (NSNotification*) not {
-	mainRunLoop = [NSRunLoop currentRunLoop];
-
     _newsManager = [[IFNewsManager alloc] init];
 
     // Register some custom URL handlers
     [NSURLProtocol registerClass: [IFInformProtocol class]];
-
-    copySource = nil;
-    copyDestination = nil;
-    fileCopyDestination = nil;
-    fileCopySource = nil;
-    exportToEPubIndex = 0;
 
 	// Standard settings
 	[IFSettingsController addStandardSettingsClass: [IFOutputSettings class]];
@@ -112,10 +89,7 @@ static NSRunLoop* mainRunLoop = nil;
     }
 
     // Remove the 'tab' related menu entries on the Window menu
-    if ([NSWindow respondsToSelector:@selector(setAllowsAutomaticWindowTabbing:)])
-    {
-        [NSWindow setAllowsAutomaticWindowTabbing:NO];
-    }
+    [NSWindow setAllowsAutomaticWindowTabbing:NO];
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification*) not {
@@ -162,11 +136,8 @@ static NSRunLoop* mainRunLoop = nil;
 }
 
 - (bool) isDark {
-    if (@available(macOS 10.14, *)) {
-        NSAppearanceName basicAppearance = [NSApp.effectiveAppearance bestMatchFromAppearancesWithNames:@[NSAppearanceNameAqua, NSAppearanceNameDarkAqua]];
-        return [basicAppearance isEqualToString:NSAppearanceNameDarkAqua];
-    }
-    return false;
+    NSAppearanceName basicAppearance = [NSApp.effectiveAppearance bestMatchFromAppearancesWithNames:@[NSAppearanceNameAqua, NSAppearanceNameDarkAqua]];
+    return [basicAppearance isEqualToString:NSAppearanceNameDarkAqua];
 }
 
 - (void) darkModeChanged {
@@ -743,8 +714,7 @@ static NSRunLoop* mainRunLoop = nil;
 }
 
 - (BOOL) copyResource: (NSString*) resource
-          toDirectory: (NSString*) destDir
-                error: (NSError*__autoreleasing*) error {
+          toDirectory: (NSString*) destDir {
     NSString* extension = resource.pathExtension;
     NSString* name = resource.lastPathComponent.stringByDeletingPathExtension;
 
@@ -775,8 +745,7 @@ static NSRunLoop* mainRunLoop = nil;
     }
 
     BOOL result = [self copyResourceWithoutConfirmation: fileCopySource
-                                          toDestination: fileCopyDestination
-                                                  error: error];
+                                          toDestination: fileCopyDestination];
     fileCopySource = nil;
     fileCopyDestination = nil;
 
@@ -788,18 +757,19 @@ static NSRunLoop* mainRunLoop = nil;
 }
 
 - (BOOL) copyResourceWithoutConfirmation: (NSString*) source
-                           toDestination: (NSString*) destination
-                                   error: (NSError*__autoreleasing*) error {
+                           toDestination: (NSString*) destination {
+    NSError* error;
+
     // Remove any existing file at destination
     [[NSFileManager defaultManager] removeItemAtPath: destination
-                                               error: error];
+                                               error: nil];
 
     if ( ![[NSFileManager defaultManager] copyItemAtPath: source
                                                   toPath: destination
-                                                   error: error]) {
+                                                   error: &error]) {
         [IFUtility runAlertWarningWindow: nil
                                    title: @"Export failed"
-                                 message: [IFUtility localizedString:@"Export to %@ failed - error %@"], destination, (*error).localizedDescription];
+                                 message: [IFUtility localizedString:@"Export to %@ failed - error %@"], destination, error.localizedDescription];
         return NO;
     }
     return YES;
@@ -815,10 +785,8 @@ static NSRunLoop* mainRunLoop = nil;
     fileCopyDestination = nil;
 
 	if (returnCode == NSAlertFirstButtonReturn) {
-        NSError* error;
         if( [self copyResourceWithoutConfirmation: sourceCopy
-                                    toDestination: destCopy
-                                            error: &error] ) {
+                                    toDestination: destCopy] ) {
             exportToEPubIndex++;
             [self exportNext:destCopy.stringByDeletingLastPathComponent];
         }
@@ -829,12 +797,9 @@ static NSRunLoop* mainRunLoop = nil;
     NSArray*  exportFiles = @[@"Inform - A Design System for Interactive Fiction.epub",
                               @"Changes to Inform.epub"];
 
-    NSError* error = nil;
-
     for(; exportToEPubIndex < exportFiles.count; exportToEPubIndex++) {
         if (![self copyResource: exportFiles[exportToEPubIndex]
-                    toDirectory: destDir
-                          error: &error]) {
+                    toDirectory: destDir]) {
             // Something stopped the flow - an error or a confirmation dialog.
             return;
         }

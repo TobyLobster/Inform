@@ -15,13 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class IFProjectController;
 
-@interface IFAppDelegate : NSObject<NSOpenSavePanelDelegate, NSMenuItemValidation>
+@interface IFAppDelegate : NSObject<NSMenuItemValidation>
 
 @property (atomic, readonly, nullable) IFNewsManager* newsManager;    // nil until the app has finished launching
 
-/// Retrieves the runloop used by the main thread (Cocoa sometimes calls our callbacks
-/// from a sooper-sekrit bonus thread, causing pain if we don't use this)
-+ (nullable NSRunLoop*) mainRunLoop;
 - (void) doCopyProject: (NSURL*) source
                     to: (NSURL*) destination;
 
@@ -48,8 +45,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction) showWelcome: (nullable id) sender;
 - (IBAction) exportToEPub: (nullable id) sender;
 
-/// Updates extensions menu
-- (void) updateExtensionsMenu;
 /// Updates the extensions menus with the extensions installed for a version of the compiler
 - (void) updateExtensionsMenuForCompilerVersion: (NSString*) compilerVersion;
 - (void) createNewProject: (NSString*) title
