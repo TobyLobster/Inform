@@ -652,12 +652,18 @@ static NSDictionary* itemTextAttributes;
 
 #pragma mark - Menu actions
 
+// Each command acts on the knot whose menu was shown, and does nothing without one
+
 - (IBAction) playToHere: (id) sender {
+    if( contextItem == nil ) return;
+
     [self playToPoint: contextItem];
     contextItem = nil;
 }
 
 - (IBAction) addNewBranch: (id) sender {
+    if( contextItem == nil ) return;
+
     if( [self canSplitThread: contextItem] ) {
         // Add a new, blank item
         IFSkeinItem* newItem = [contextItem addChild: [[IFSkeinItem alloc] initWithSkein: skein command: @""]];
@@ -673,6 +679,8 @@ static NSDictionary* itemTextAttributes;
 }
 
 - (IBAction) insertPreviousItem: (id) sender {
+    if( contextItem == nil ) return;
+
     if( [self canInsertPreviousItem: contextItem] ) {
         // Get the parent item
         IFSkeinItem* parent = contextItem.parent;
@@ -697,6 +705,8 @@ static NSDictionary* itemTextAttributes;
 }
 
 - (IBAction) insertNextItem: (id) sender {
+    if( contextItem == nil ) return;
+
     if( [self canInsertNextItem: contextItem] ) {
         if( contextItem.children.count == 1 ) {
             contextItem = contextItem.children[0];
@@ -710,6 +720,8 @@ static NSDictionary* itemTextAttributes;
 }
 
 - (IBAction) deleteItem: (id) sender {
+    if( contextItem == nil ) return;
+
     if ([self canDeleteThread: contextItem]) {
         BOOL fixSelectedItem = [contextItem hasDescendant: selectedItem];
 
@@ -741,6 +753,8 @@ static NSDictionary* itemTextAttributes;
 }
 
 - (IBAction) deleteOneItem: (id) sender {
+    if( contextItem == nil ) return;
+
     if ([self canDeleteItem: contextItem]) {
         BOOL fixSelectedItem = [contextItem hasDescendant: selectedItem];
 
@@ -789,6 +803,8 @@ static NSDictionary* itemTextAttributes;
 }
 
 - (IBAction) setWinningCommandItem: (id) sender {
+    if( contextItem == nil ) return;
+
     if ([self canSetWinningItem: contextItem]) {
         IFSkeinItem* oldWinningItem = skein.winningItem;
         if (oldWinningItem == contextItem) {
@@ -811,6 +827,8 @@ static NSDictionary* itemTextAttributes;
 }
 
 - (IBAction) editContextItem: (id) sender {
+    if( contextItem == nil ) return;
+
     if( [self canEditItem: contextItem] ) {
         [self editItem: contextItem];
     }
@@ -818,6 +836,8 @@ static NSDictionary* itemTextAttributes;
 }
 
 - (IBAction) blessItem: (id) sender {
+    if( contextItem == nil ) return;
+
     contextItem.ideal = [contextItem.actual copy];
 
     // Force a layout of the skein
@@ -826,6 +846,8 @@ static NSDictionary* itemTextAttributes;
 }
 
 - (IBAction) blessToHere: (id) sender {
+    if( contextItem == nil ) return;
+
     while(contextItem != nil ) {
         contextItem.ideal = [contextItem.actual copy];
         contextItem = contextItem.parent;

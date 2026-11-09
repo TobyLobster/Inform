@@ -666,6 +666,32 @@ final class IFSkeinViewTests: XCTestCase {
 
     // MARK: - The menu's commands
 
+    /// The commands act on the knot whose menu was shown, so with no menu shown they do nothing
+    func testTheMenusCommandsNeedAKnot() throws {
+        let (skein, _, north, _) = makeSkein()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+        skeinView.select(north, withAnimation: false)
+        let delegate = Delegate()
+        skeinView.delegate = delegate
+
+        // Stop at the first failure, as some commands beep without a knot
+        continueAfterFailure = false
+        for action in ["deleteItem:", "blessItem:", "blessToHere:", "playToHere:", "insertPreviousItem:",
+                       "insertNextItem:", "deleteOneItem:", "setWinningCommandItem:", "editContextItem:",
+                       "addNewBranch:"] {
+            let changes = changes(of: skein) {
+                XCTAssertTrue(NSApp.sendAction(NSSelectorFromString(action), to: skeinView, from: nil), action)
+            }
+            XCTAssertEqual(changes, 0, action)
+            XCTAssertIdentical(skeinView.selectedItem, north, action)
+            XCTAssertEqual(delegate.calls, [], action)
+            XCTAssertFalse(isEditing(skeinView), action)
+        }
+        XCTAssertEqual(commands(skein.rootItem), ["look", "wait"])
+        XCTAssertEqual(skein.rootItem.ideal, "")
+    }
+
     func testPlayToHere() throws {
         let (skein, look, north, wait) = makeSkein()
         let (window, skeinView) = makeSkeinView(skein)
