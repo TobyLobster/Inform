@@ -68,6 +68,7 @@
 #import "IFNewExtensionsManager.h"
 #import "IFInBuild.h"
 #import "IFInTest.h"
+#import "IFCompileCheck.h"
 #import "IFCompiler.h"
 #import "IFCompilerStyles.h"
 #import "IFProgress.h"

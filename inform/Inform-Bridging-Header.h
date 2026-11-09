@@ -56,6 +56,7 @@
 #import "IFProjectPane.h"
 #import "IFProject.h"
 #import "IFProjectFile.h"
+#import "IFCompileCheck.h"
 #import "IFCompiler.h"
 #import "IFCompilerStyles.h"
 #import "IFProgress.h"
