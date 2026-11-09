@@ -252,6 +252,11 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
 }
 
 -(void) drawRect: (NSRect) dirtyRect {
+    // Nothing to draw until the view has its layout item
+    if( layoutItem == nil ) {
+        return;
+    }
+
     [[NSColor colorWithCalibratedRed:0.0f green:0.0f blue:0.0f alpha:1.0f] set];
 
     // Draw the background
@@ -441,6 +446,12 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
     }
     if( insideLozengeArea ) {
         [self mouseExitedLozengeArea];
+    }
+
+    // Nothing to track until the view has its layout item
+    if( layoutItem == nil ) {
+        [super updateTrackingAreas];
+        return;
     }
 
     // Get current mouse position

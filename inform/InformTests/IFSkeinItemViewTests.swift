@@ -237,6 +237,19 @@ final class IFSkeinItemViewTests: XCTestCase {
         XCTAssertEqual(view.registeredDraggedTypes, [NSPasteboard.PasteboardType(IFSkeinItemPboardType)])
     }
 
+    /// Until it has its layout item, a view draws nothing and tracks nothing
+    func testAViewWithoutItsLayoutItem() throws {
+        let view = IFSkeinItemView(frame: NSRect(x: 10, y: 10, width: 100, height: 30))
+        window.contentView?.addSubview(view)
+
+        let rep = try bitmap(view)
+        let data = try XCTUnwrap(rep.bitmapData)
+        XCTAssertFalse(UnsafeBufferPointer(start: data, count: rep.bytesPerRow * rep.pixelsHigh).contains { $0 != 0 })
+
+        view.updateTrackingAreas()
+        XCTAssertEqual(view.trackingAreas, [])
+    }
+
     // MARK: - The command's size
 
     /// A command's size is its size in the system font, or in bold for the start
