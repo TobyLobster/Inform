@@ -18,7 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Initialisation
 
-+ (IFFindController*) sharedFindController;								// The shared find window controller
++ (IFFindController*) sharedFindController;								// The shared find window controller, which keeps its histories in the user's defaults
+- (instancetype) initWithDefaults: (NSUserDefaults*) defaults;			// A find window controller that keeps its find and replace histories in the given defaults
 
 // Actions
 - (IBAction) findNext: (nullable id) sender;							// 'Next' clicked
@@ -31,15 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction) findTypeChanged: (nullable id) sender;						// The user has selected a new type of find (from contains, etc)
 - (IBAction) comboBoxEnterKeyPress: (nullable id) sender;				// The user hit enter in the 'find all' combo box
 
-
-// Menu actions
-- (BOOL) canFindAgain: (nullable id) sender;							// YES if find next/previous can be sensibly repeated
-- (BOOL) canUseSelectionForFind: (nullable id) sender;					// YES if 'useSelectionForFind' will work
-
 // Updating the find window
 - (void) updateFromFirstResponder;										// Updates the status of the find window from the first responder
-
-- (void) showAuxiliaryView: (nullable NSView*) auxView;					// Shows the specified auxiliary view in the find window
 
 @end
 
