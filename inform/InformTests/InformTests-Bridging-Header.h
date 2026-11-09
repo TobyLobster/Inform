@@ -27,6 +27,7 @@
 #import "IFProjectPane.h"
 #import "IFHistoryEvent.h"
 #import "IFPageBarCell.h"
+#import "IFPageBarView.h"
 #import "IFDocumentationPage.h"
 #import "IFErrorsPage.h"
 #import "IFIndexPage.h"
