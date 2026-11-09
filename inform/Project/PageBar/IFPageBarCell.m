@@ -18,47 +18,33 @@
     /// An identifier for this cell
     id identifier;
 
-    // Pop-up
-    /// The menu for this cell
-    NSMenu* menu;
-
     // Radio
     /// The radio group identifier for this cell
     int radioGroup;
-
-    // View
-    /// The view for this cell
-    NSView* view;
 
     // Key equivalent
     /// The key equivalent string for this cell
     NSString* keyEquivalent;
 }
 
-+ (NSImage*) dropDownImage {
-	return [NSImage imageNamed: @"App/PageBar/BarMenuArrow"];
-}
-
 #pragma mark - Initialisation
 
 - (instancetype) init {
 	self = [super init];
-	
+
 	if (self) {
 		radioGroup = -1;
-		view = nil;
 	}
-	
+
 	return self;
 }
 
 - (instancetype) initTextCell: (NSString*) text {
 	self = [super init];
-	
+
 	if (self) {
         radioGroup = -1;
-        view = nil;
-        
+
 		NSAttributedString* attrText = [[NSAttributedString alloc] initWithString: text
 																	   attributes: 
 			@{NSForegroundColorAttributeName: [NSColor controlTextColor],
@@ -75,20 +61,11 @@
 	
 	if (self) {
         radioGroup = -1;
-        view = nil;
 
 		self.image = image;
 	}
-	
-	return self;
-}
 
-- (void) dealloc {
-	 menu = nil;
-	 view = nil;
-	 identifier = nil;
-	 keyEquivalent = nil;
-	
+	return self;
 }
 
 @synthesize identifier;
@@ -145,12 +122,7 @@
 		size = [text size];
 		size.width += 4;
 	}
-	
-	if (self.popup) {
-		NSImage* dropDownArrow = [IFPageBarCell dropDownImage];
-		size.width += dropDownArrow.size.width + 4;
-	}
-	
+
 	// Add a border for the margins
 	size.width += 8;
 	size.width = floor(size.width+0.5);
@@ -168,11 +140,7 @@
 	NSColor * backgroundColor = nil;
 	
 	if (self.highlighted) {
-		if (self.popup) {
-			backgroundColor = [NSColor colorNamed:@"GraphiteSelected"];
-		} else {
-			backgroundColor = [NSColor colorNamed:@"Highlighted"];
-		}
+		backgroundColor = [NSColor colorNamed:@"Highlighted"];
 	} else if (self.state == NSControlStateValueOn) {
 		backgroundColor = [NSColor colorNamed:@"Selected"];
 	}
@@ -193,39 +161,6 @@
 							inRect: backgroundFrame
 					   totalBounds: backgroundBounds
 						  fraction: 1.0];
-	}
-	
-	if (self.popup) {
-		// Draw the popup arrow
-		NSImage* dropDownArrow = [IFPageBarCell dropDownImage];
-		NSSize dropDownSize = dropDownArrow.size;
-		
-		NSRect dropDownDrawRect;
-		
-		dropDownDrawRect.origin = NSMakePoint(NSMaxX(cellFrame) - dropDownSize.width - 6,
-											  cellFrame.origin.y + (cellFrame.size.height+2-dropDownSize.height)/2);
-		dropDownDrawRect.size = dropDownSize;
-		
-		if (isRight) dropDownDrawRect.origin.x += 2;
-		
-        NSImage *layer = [[NSImage alloc] initWithSize:NSMakeSize(NSMaxX(dropDownDrawRect), NSMaxY(dropDownDrawRect))];
-        [layer lockFocus];
-		[dropDownArrow drawInRect: dropDownDrawRect
-						 fromRect: NSZeroRect
-						operation: NSCompositingOperationSourceOver
-						 fraction: 1.0];
-        if (dropDownArrow.template) {
-            [NSColor.labelColor set];
-            NSRectFillUsingOperation(dropDownDrawRect, NSCompositingOperationSourceAtop);
-        }
-        [layer unlockFocus];
-        [layer drawAtPoint: NSZeroPoint
-                  fromRect: NSZeroRect
-                 operation: NSCompositingOperationSourceOver
-                  fraction: 1];
-        
-		// Reduce the frame size
-		cellFrame.size.width -= dropDownSize.width+4;
 	}
 
 	NSColor * textColor = NSColor.labelColor;
@@ -355,60 +290,9 @@
 	}
 }
 
-- (BOOL) isEnabled {
-	if (menu) {
-		if (menu.numberOfItems <= 0) return NO;
-	}
-	
-	return super.enabled;
-}
-
-
 #pragma mark - Acting as part of a radio group
 
 @synthesize radioGroup;
-	
-#pragma mark - Acting as a tab
-
-@synthesize view;
-
-#pragma mark - Acting as a pop-up
-
-- (BOOL) isPopup {
-	if (menu) return YES;
-	
-	return NO;
-}
-
-- (void) showPopupAtPoint: (NSPoint) pointInWindow {
-	if (menu) {
-		self.state = NSControlStateValueOn;
-		self.highlighted = YES;
-		
-		NSEvent* fakeEvent = [NSEvent mouseEventWithType: NSEventTypeLeftMouseDown
-												location: pointInWindow
-										   modifierFlags: (NSEventModifierFlags) 0
-											   timestamp: NSApp.currentEvent.timestamp
-											windowNumber: self.controlView.window.windowNumber
-												 context: nil
-											 eventNumber: NSApp.currentEvent.eventNumber
-											  clickCount: 0
-												pressure: 1.0];
-
-		[NSMenu popUpContextMenu: menu
-					   withEvent: fakeEvent
-						 forView: self.controlView
-						withFont: [NSFont systemFontOfSize: 11]];
-		
-		self.state = NSControlStateValueOff;
-		[self update];
-	}
-}
-
-- (void) setMenu: (NSMenu*) newMenu {
-	menu = newMenu;
-	[self update];
-}
 
 #pragma mark - Tracking
 
@@ -418,37 +302,15 @@
 	  untilMouseUp:(BOOL)untilMouseUp {
 	trackingFrame = cellFrame;
 	
-	if (self.popup) {
-		NSRect winFrame = [self.controlView convertRect: trackingFrame
-												   toView: nil];
-		[self showPopupAtPoint: NSMakePoint(NSMinX(winFrame)+1, NSMinY(winFrame)-3)];
-		
-        self.highlighted = NO;
-		
-		return YES;
-	}
-	
-	BOOL result = [super trackMouse: theEvent
-							 inRect: cellFrame
-							 ofView: controlView
-					   untilMouseUp: untilMouseUp];
-	
-	if (result) {
-		// Tracking was successful
-		if (radioGroup >= 0) {
-			
-		}
-	}
-	
-	return result;
+	return [super trackMouse: theEvent
+					  inRect: cellFrame
+					  ofView: controlView
+				untilMouseUp: untilMouseUp];
 }
 
 - (BOOL)startTrackingAt: (NSPoint)startPoint 
 				 inView: (NSView*)controlView {
     self.highlighted = YES;
-	
-	// TODO: if this is a menu or pop-up cell, only send the action when the user makes a selection
-	// [self sendActionOn: 0];
 	
 	return YES;
 }

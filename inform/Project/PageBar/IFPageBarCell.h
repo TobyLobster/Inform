@@ -14,8 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// A cell that can be placed on the left or right of the IFPageBarView.
 ///
-/// These cells can contain an image or text. Additionally, they can contain a drop-down menu or a pop-up
-/// window. The assumption is that these will be rendered as part of the page bar view.
+/// These cells can contain an image or text. The assumption is that these will be rendered as part of the
+/// page bar view.
 ///
 @interface IFPageBarCell : NSActionCell
 
@@ -29,20 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Forces this cell to refresh
 - (void) update;
 
-// Acting as a pop-up
-/// \c YES if this is a pop-up cell of some kind
-@property (atomic, getter=isPopup, readonly) BOOL popup;
-/// Request to run the pop-up
-- (void) showPopupAtPoint: (NSPoint) pointInWindow;
-/// The pop-up menu
-- (void) setMenu: (nullable NSMenu*) menu;
-
 /// Acting as part of a radio group
 @property (atomic) int radioGroup;
-
-// Acting as a tab (you'll need to implement another control to make this work)
-/// The view to display for this item
-@property (atomic, strong, nullable) NSView *view;
 
 @end
 
