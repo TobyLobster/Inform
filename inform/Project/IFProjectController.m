@@ -22,6 +22,7 @@
 #import "IFSkeinPlayAll.h"
 #import "IFSourceHighlights.h"
 #import "IFRuntimeProblemPage.h"
+#import "IFExtensionFileFinder.h"
 #import "IFInBuild.h"
 
 
@@ -1222,32 +1223,13 @@ static CGFloat const      minDividerWidth     = 75.0f;
 }
 
 - (BOOL) loadInform7Extension: (NSString*) filename {
-    // Get the author and extension name
-    NSArray* components = filename.pathComponents;
-    if (components.count != 2) {
-        if ([filename characterAtIndex: 0] == '/' && [[NSFileManager defaultManager] fileExistsAtPath: filename]) {
-            [self loadInform7ExtensionWithFullFilePath:filename];
-            return YES;
-        }
-        return NO;
-    }
+    NSString* extnFile = [IFExtensionFileFinder fileForExtension: filename
+                                               extensionsManager: [IFExtensionsManager sharedNaturalInformExtensionsManager]];
+    if (extnFile == nil) return NO;
 
-    NSString* author = components[0];
-    NSString* extension = components[1];
-
-    // Search for this extension
-    NSArray* possibleExtensions = [[IFExtensionsManager sharedNaturalInformExtensionsManager] filesInExtensionWithName: author];
-    if (possibleExtensions.count <= 0) return NO;
-
-    for( NSString* extnFile in possibleExtensions ) {
-        if ([extnFile.lastPathComponent caseInsensitiveCompare: extension] == NSOrderedSame) {
-            // This is the extension file we need to open
-            [self loadInform7ExtensionWithFullFilePath: extnFile];
-            return YES;
-        }
-    }
-
-    return NO;
+    // This is the extension file we need to open
+    [self loadInform7ExtensionWithFullFilePath: extnFile];
+    return YES;
 }
 
 - (BOOL) showTestCase: (NSString*) testCase skeinNode:(unsigned long) skeinNodeId {
