@@ -41,10 +41,6 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
     IBOutlet NSButton*		findAll;
     IBOutlet NSButton*		replaceAll;
 
-    // Progress
-    /// The 'searching' progress indicator
-    IBOutlet NSProgressIndicator* findProgress;
-
     // Parent view to position extra content
     IBOutlet NSView*		auxViewPanel;								// The auxilary view panel
 
@@ -65,16 +61,13 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
     NSMenuItem*             lastSearchType;                             // The last search type that was searched with
     BOOL                    lastSearchIgnoreCase;                       // The last searches 'ignore case' flag
 
-    BOOL					searching;									// YES if we're searching for results
     NSMutableArray*			findAllResults;								// The 'find all' results view
     int						findAllCount;								// Used to generate the identifier
     id						findIdentifier;								// The current find all identifier
-    NSRect                  textViewSize;								// The original size of the text view
 
     // Auxiliary views
     NSView* auxView;													// The auxiliary view that is being displayed
     NSRect winFrame;													// The default window frame
-    NSRect contentFrame;												// The default size of the content frame
     
     // The delegate
     /// The delegate that we've chosen to work with
@@ -118,9 +111,6 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 - (void) dealloc {
 	// Stop receiving notifications
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-	
-	
-	// Finish up
 }
 
 #pragma mark - Updating the history
@@ -309,20 +299,6 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 	}
 }
 
-#pragma mark - Find menu actions
-
-- (BOOL) canFindAgain: (id) sender {
-	if (activeDelegate && ![@"" isEqualToString: findPhrase.stringValue]) {
-		return YES;
-	} else {
-		return NO;
-	}
-}
-
-- (BOOL) canUseSelectionForFind: (id) sender {
-    return YES;
-}
-
 #pragma mark - Updating the find delegate
 
 - (BOOL) isSuitableDelegate: (id) object {
@@ -429,10 +405,6 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 
     findIdentifier = nil;
 
-	if (searching) {
-		[findProgress stopAnimation: self];
-		searching = NO;
-	}
 	if (auxView != regexpHelpView) {
 		[self showAuxiliaryView: nil];
 	}
@@ -455,7 +427,6 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
     [self updateControls: YES];
 
 	winFrame		= self.window.frame;
-	contentFrame	= self.window.contentView.frame;
     borders         = self.window.frame.size.height + findAllView.frame.size.height - findAllTable.frame.size.height;
 
     // When clicked, call the routine
@@ -519,10 +490,6 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 
     // Resize window to fit the number of results
     [self resizeToFitResults];
-}
-
-- (NSView*) findAllView {
-	return findAllView;
 }
 
 - (IBAction) findAll: (id) sender {
