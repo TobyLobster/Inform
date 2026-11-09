@@ -6,7 +6,6 @@
 //
 
 #import "IFFindInFilesController.h"
-#import "IFAppDelegate.h"
 #import "IFFindResult.h"
 #import "IFFindInFiles.h"
 #import "IFProjectController.h"
@@ -14,14 +13,12 @@
 #import "Inform-Swift.h"
 
 static NSString* const IFFindHistoryPref		= @"IFFindHistory";
-static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 
 static const int FIND_HISTORY_LENGTH = 30;
 
 @implementation IFFindInFilesController {
     // The components of the find dialog
     IBOutlet NSComboBox*	findPhrase;									// The phrase to search for
-    IBOutlet NSComboBox*	replacePhrase;								// The phrase to replace it with
 
     // Ignore case radio button
     IBOutlet NSButton*		ignoreCase;									// The 'ignore case' checkbox
@@ -42,7 +39,6 @@ static const int FIND_HISTORY_LENGTH = 30;
 
     // Buttons
     IBOutlet NSButton*		findAll;
-    IBOutlet NSButton*		replaceAll;
 
     // Progress
     IBOutlet NSProgressIndicator* findProgress;							// The 'searching' progress indicator
@@ -61,13 +57,9 @@ static const int FIND_HISTORY_LENGTH = 30;
     IBOutlet NSTextField*   findCountText;                              // The text count of how many results we have found
 
     // Things we've searched for
-    NSMutableArray*			replaceHistory;								// The 'replace' history
     NSMutableArray*			findHistory;								// The 'find' history
 
-    BOOL					searching;									// YES if we're searching for results
     NSArray*                findAllResults;								// The 'find all' results view
-    int						findAllCount;								// Used to generate the identifier
-    id						findIdentifier;								// The current find all identifier
     CGFloat                 borders;
 
     // Auxiliary views
@@ -78,10 +70,6 @@ static const int FIND_HISTORY_LENGTH = 30;
     IFProject*                  project;                                // Project to search in
     IFProjectController*        controller;                             // Project controller to use
     IFFindInFiles*              findInFiles;                            // Object used to perform searching
-    
-    // The delegate
-    /// The delegate that we've chosen to work with
-    __weak id<IFFindInFilesDelegate> activeDelegate;
 }
 
 
@@ -101,12 +89,10 @@ static const int FIND_HISTORY_LENGTH = 30;
 	self = [super initWithWindowNibName: (NSString*) nibName];
 	
 	if (self) {
-		// Get the find/replace history
+		// Get the find history
 		findHistory = [[[NSUserDefaults standardUserDefaults] objectForKey: IFFindHistoryPref] mutableCopy];
-		replaceHistory = [[[NSUserDefaults standardUserDefaults] objectForKey: IFReplaceHistoryPref] mutableCopy];
 		
 		if (!findHistory)		findHistory		= [[NSMutableArray alloc] init];
-		if (!replaceHistory)	replaceHistory	= [[NSMutableArray alloc] init];
         
         findInFiles = [[IFFindInFiles alloc] init];
 
@@ -152,32 +138,6 @@ static const int FIND_HISTORY_LENGTH = 30;
 	
 	// Update the combo box
 	[findPhrase reloadData];
-}
-
-- (void) addPhraseToReplaceHistory: (NSString*) phrase {
-	phrase = [phrase copy];
-	
-	// Ensure that we don't store a duplicate copy of the phrase
-	NSUInteger lastIndex = [replaceHistory indexOfObject: phrase];
-	if (lastIndex != NSNotFound) {
-		[replaceHistory removeObjectAtIndex: lastIndex];
-	}
-	
-	// Insert the new phrase into the find history
-	[replaceHistory insertObject: phrase
-						 atIndex: 0];
-	
-	// Ensure that we limit the number of items in the history
-	while (replaceHistory.count > FIND_HISTORY_LENGTH) {
-		[replaceHistory removeLastObject];
-	}
-	
-	// Store in the user defaults
-	[[NSUserDefaults standardUserDefaults] setObject: [replaceHistory copy]
-											  forKey: IFReplaceHistoryPref];
-	
-	// Update the combo box
-	[replacePhrase reloadData];
 }
 
 #pragma mark - Actions
@@ -256,7 +216,6 @@ static const int FIND_HISTORY_LENGTH = 30;
     BOOL hasSearchTerm = findPhrase.stringValue.length > 0;
 
     // Enable or disable the buttons
-	replaceAll.enabled = hasSearchTerm;
 	findAll.enabled = hasSearchTerm;
 
 	// 'Contains' is the basic type of search
@@ -377,10 +336,6 @@ static const int FIND_HISTORY_LENGTH = 30;
 	// Add the find phrase to the history
 	[self addPhraseToFindHistory: findPhrase.stringValue];
 
-	// Create a new find identifier
-	findAllCount++;
-	findIdentifier = @(findAllCount);
-
 	// Clear out the find results
 	findAllResults = nil;
     [findAllTable reloadData];
@@ -427,13 +382,6 @@ static const int FIND_HISTORY_LENGTH = 30;
         }
     ];
 }
-
-#pragma mark - Performing 'replace all'
-
-- (IBAction) replaceAll: (id) sender {
-    // TODO!
-}
-
 
 #pragma mark - The find all table
 
@@ -515,7 +463,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 }
 
 
-#pragma mark - Find/replace history
+#pragma mark - Find history
 
 - (id)				 comboBox: (NSComboBox*)	aComboBox
 	objectValueForItemAtIndex: (int)			index {
@@ -523,8 +471,6 @@ static const int FIND_HISTORY_LENGTH = 30;
 	NSMutableArray* itemArray = nil;
 	if (aComboBox == findPhrase) {
 		itemArray = findHistory;
-	} else if (aComboBox == replacePhrase) {
-		itemArray = replaceHistory;
 	}
 	
 	// Return the item
@@ -540,8 +486,6 @@ static const int FIND_HISTORY_LENGTH = 30;
 	NSMutableArray* itemArray = nil;
 	if (aComboBox == findPhrase) {
 		itemArray = findHistory;
-	} else if (aComboBox == replacePhrase) {
-		itemArray = replaceHistory;
 	}
 	
 	// Return the number of items
