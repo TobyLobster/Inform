@@ -23,8 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Initialisation
 
-/// The shared find window controller
+/// The shared find window controller, which keeps its find history in the user's defaults
 + (IFFindInFilesController*) sharedFindInFilesController;
+/// A find window controller that keeps its find history in the given defaults
+- (instancetype) initWithDefaults: (NSUserDefaults*) defaults;
 
 /// Set the project to use for the current search
 -(void) setProject: (IFProject*) aProject;

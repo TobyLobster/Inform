@@ -58,6 +58,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 
     // Things we've searched for
     NSMutableArray*			findHistory;								// The 'find' history
+    NSUserDefaults*         defaults;                                   // Where the find history is kept
 
     NSArray*                findAllResults;								// The 'find all' results view
     CGFloat                 borders;
@@ -79,18 +80,20 @@ static const int FIND_HISTORY_LENGTH = 30;
 	static IFFindInFilesController* sharedController = nil;
 	
 	if (!sharedController) {
-		sharedController = [[IFFindInFilesController alloc] initWithWindowNibName: @"FindInFiles"];
+		sharedController = [[IFFindInFilesController alloc] initWithDefaults: [NSUserDefaults standardUserDefaults]];
 	}
 	
 	return sharedController;
 }
 
-- (instancetype) initWithWindowNibName: (NSString*) nibName {
-	self = [super initWithWindowNibName: (NSString*) nibName];
+- (instancetype) initWithDefaults: (NSUserDefaults*) theDefaults {
+	self = [super initWithWindowNibName: @"FindInFiles"];
 	
 	if (self) {
+		defaults = theDefaults;
+
 		// Get the find history
-		findHistory = [[[NSUserDefaults standardUserDefaults] objectForKey: IFFindHistoryPref] mutableCopy];
+		findHistory = [[defaults objectForKey: IFFindHistoryPref] mutableCopy];
 		
 		if (!findHistory)		findHistory		= [[NSMutableArray alloc] init];
         
@@ -133,8 +136,8 @@ static const int FIND_HISTORY_LENGTH = 30;
 	}
 	
 	// Store in the user defaults
-	[[NSUserDefaults standardUserDefaults] setObject: [findHistory copy]
-											  forKey: IFFindHistoryPref];
+	[defaults setObject: [findHistory copy]
+				 forKey: IFFindHistoryPref];
 	
 	// Update the combo box
 	[findPhrase reloadData];
