@@ -101,23 +101,6 @@ private let carriageReturn: unichar = 0x0D      // \r
         return NSRange(location: Int(linepos), length: lineEnd - Int(linepos))
     }
 
-    @objc(indexOfLine:inString:)
-    class func index(ofLine line: UInt, in store: String) -> UInt {
-        let linepos = start(ofLine: Int(bitPattern: line), in: store)
-
-        if linepos == UInt(NSNotFound) {
-            return UInt(NSNotFound)
-        }
-
-        // The first line has no line before it
-        if linepos == 0 {
-            return 0
-        }
-
-        // The character before the line's start is the last of what ends the line before
-        return linepos - 1
-    }
-
     @objc(lineForCharacter:inString:)
     class func line(forCharacter charNum: UInt, in store: String) -> Int32 {
         var line: Int32 = 0

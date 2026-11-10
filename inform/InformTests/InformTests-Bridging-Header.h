@@ -14,6 +14,7 @@
 #import "IFSkeinPlayAll.h"
 #import "IFSourceHighlights.h"
 #import "IFSourceLines.h"
+#import "IFSourceSections.h"
 #import "IFSkeinView.h"
 #import "IFSkeinViewChildren.h"
 #import "IFSkeinLayout.h"

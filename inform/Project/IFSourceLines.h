@@ -27,10 +27,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// has no such line
 + (NSRange) rangeOfLine: (NSUInteger) line
                inString: (NSString*) store;
-/// The index of the last character that ends the line before a line (0 for the first line), or NSNotFound if the text
-/// has no such line
-+ (NSUInteger) indexOfLine: (NSUInteger) line
-                  inString: (NSString*) store;
 /// The line a character is on, counting from 0 as the source page's headings do, with what ends a line on that line
 + (int) lineForCharacter: (NSUInteger) charNum
                 inString: (NSString*) store;

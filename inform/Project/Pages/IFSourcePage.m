@@ -22,6 +22,7 @@
 #import "IFSourceFileView.h"
 #import "IFColourTheme.h"
 #import "IFSourceLines.h"
+#import "IFSourceSections.h"
 #import "Inform-Swift.h"
 
 @interface IFSourcePage(IFSourcePagePrivate)
@@ -511,39 +512,9 @@
 		NSRange restriction = [IFSyntaxManager restrictedRange: textStorage
                                                    forTextView: textView];
 		
-		NSUInteger firstLine = 0;
-		NSUInteger finalLine = NSNotFound;
-
-		NSString* store = textStorage.string;
-		NSUInteger length = store.length;
-		
-        NSUInteger x;
-        NSUInteger lineno = 1;
-        NSUInteger linepos;
-
-		for (x=0; x<length; x++) {
-			unichar chr = [store characterAtIndex: x];
-			
-			if (chr == '\n' || chr == '\r') {
-				unichar otherchar = chr == '\n'?'\r':'\n';
-				
-				lineno++;
-				linepos = x + 1;
-				
-				if (x < restriction.location) firstLine = lineno;
-				else if (x < restriction.location + restriction.length) finalLine = lineno;
-				else break;
-				
-				// Deal with DOS line endings
-				if (linepos < length && [store characterAtIndex: linepos] == otherchar) {
-					x++; linepos++;
-				}
-			}
-		}
-		if (finalLine == NSNotFound) finalLine = lineno;
-		
 		// Highlight the appropriate node
-		[headerPage highlightNodeWithLines: NSMakeRange(firstLine, finalLine-firstLine)];
+		[headerPage highlightNodeWithLines: [IFSourceSections linesOfRange: restriction
+		                                                          inString: textStorage.string]];
 	} else {
 		// Highlight nothing
 		[headerPage selectNode: nil];
@@ -767,7 +738,6 @@
 - (void) limitToSymbol: (IFIntelSymbol*) symbol 
 	 preserveScrollPos: (BOOL)preserveScrollPos {
 	IFIntelFile* intelFile = (self.parent).headerController.intelFile;
-	IFIntelSymbol* followingSymbol	= symbol.sibling;
 	
 	if (symbol == nil || symbol == intelFile.firstSymbol) {
 		// Remove the source text limitations
@@ -782,47 +752,13 @@
 		return;
 	}
 	
-	if (followingSymbol == nil) {
-		IFIntelSymbol* parentSymbol = symbol.parent;
-		
-		while (parentSymbol && !followingSymbol) {
-			followingSymbol = parentSymbol.sibling;
-			parentSymbol = parentSymbol.parent;
-		}
-	}
-	
 	// Get the range we need to limit to
-	NSRange limitRange;
-	
-	NSUInteger symbolLine = [intelFile lineForSymbol: symbol];
-	if (symbolLine == NSNotFound) return;
-	
-	limitRange.location = [IFSourceLines indexOfLine: symbolLine
-	                                        inString: textStorage.string];
-	
-	NSUInteger finalLocation;
-	if (followingSymbol) {
-		NSUInteger followingLine = [intelFile lineForSymbol: followingSymbol];
-		if (followingLine == NSNotFound) return;
-		finalLocation = [IFSourceLines indexOfLine: followingLine
-		                                  inString: textStorage.string];
-	} else {
-		finalLocation = textStorage.length;
-	}
-	
-	if (finalLocation == NSNotFound) return;
-	
-	// Move the start of the limitation to the first non-whitespace character
-	while (limitRange.location < finalLocation) {
-		unichar chr = [textStorage.string characterAtIndex: limitRange.location];
-		if (chr != ' ' && chr != '\t' && chr != '\n' && chr != '\r') {
-			break;
-		}
-		limitRange.location++;
-	}
+	NSRange limitRange = [IFSourceSections rangeOfSection: symbol
+	                                               inFile: intelFile
+	                                             inString: textStorage.string];
+	if (limitRange.location == NSNotFound) return;
 	
 	// Perform the limitation
-	limitRange.length = finalLocation - limitRange.location;
 	[self limitToRange: limitRange
 	 preserveScrollPos: preserveScrollPos];
 	
@@ -907,8 +843,9 @@
                                                    forTextView: textView];
 
 		// Return the nearest section
-		return [intelFile nearestSymbolToLine: [IFSourceLines lineForCharacter: restriction.location
-		                                                              inString: textStorage.string]];
+		return [IFSourceSections sectionAtCharacter: restriction.location
+		                                     inFile: intelFile
+		                                   inString: textStorage.string];
 	}
 	
 	return nil;
@@ -916,12 +853,8 @@
 
 - (void) sourceFileShowPreviousSection: (id) sender {
 	IFIntelSymbol* section = [self currentSection];
-	IFIntelSymbol* previousSection = section.previousSibling;
-	
-	if (!previousSection) {
-		previousSection = section.parent;
-		if (previousSection == self.currentIntelligence.firstSymbol) previousSection = nil;
-	}
+	IFIntelSymbol* previousSection = [IFSourceSections sectionBefore: section
+	                                                          inFile: self.currentIntelligence];
 
 	if (previousSection) {
 		IFViewAnimator* animator = [[IFViewAnimator alloc] init];
@@ -957,15 +890,7 @@
 
 - (void) sourceFileShowNextSection: (id) sender {
 	IFIntelSymbol* section		= [self currentSection];
-	IFIntelSymbol* nextSection	= section.sibling;
-	
-	if (!nextSection) {
-		IFIntelSymbol* parentSection = section.parent;
-		while (parentSection && !nextSection) {
-			nextSection = parentSection.sibling;
-			parentSection = parentSection.parent;
-		}
-	}
+	IFIntelSymbol* nextSection	= [IFSourceSections sectionAfter: section];
 	
 	if (nextSection) {
 		IFViewAnimator* animator = [[IFViewAnimator alloc] init];
@@ -1001,8 +926,9 @@
 	
 	// Retrieve the symbol nearest to the line the selection is on
 	IFIntelFile* intelFile			= self.currentIntelligence;
-	IFIntelSymbol* nearestSymbol	= [intelFile nearestSymbolToLine: [IFSourceLines lineForCharacter: selection.location
-	                                                                                         inString: textStorage.string]];
+	IFIntelSymbol* nearestSymbol	= [IFSourceSections sectionAtCharacter: selection.location
+	                                                                inFile: intelFile
+	                                                              inString: textStorage.string];
 	
 	return nearestSymbol;
 }
@@ -1035,17 +961,9 @@
 	// Also get the section that the cursor is in
 	IFIntelSymbol* cursorSection = [self symbolNearestSelection];
 	
-	// Can't do anything if the cursor is in no section, or the currently selected section is the most specific we can use
-	if (cursorSection == nil || currentSection == cursorSection) {
-		return;
-	}
-	
-	// Move up the sections until we find one which has the currentSection as a parent
-	IFIntelSymbol* lowerSection = cursorSection;
-	while (lowerSection && lowerSection.parent != currentSection) {
-		lowerSection = lowerSection.parent;
-	}
-	
+	// Find the section under the current one that the cursor is in
+	IFIntelSymbol* lowerSection = [IFSourceSections sectionBelow: currentSection
+	                                                     towards: cursorSection];
 	if (lowerSection) {
 		// Restrict to this section
 		[self limitToSymbol: lowerSection
@@ -1060,8 +978,9 @@
 		return;
 	}
 	
-	IFIntelSymbol* parentSection	= currentSection.parent;
-	if (parentSection && parentSection != self.currentIntelligence.firstSymbol) {
+	IFIntelSymbol* parentSection	= [IFSourceSections sectionAbove: currentSection
+	                                                          inFile: self.currentIntelligence];
+	if (parentSection) {
 		[self limitToSymbol: parentSection
 		  preserveScrollPos: YES];
 	} else {
