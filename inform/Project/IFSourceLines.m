@@ -120,37 +120,31 @@
 
 + (int) lineForCharacter: (NSUInteger) charNum
                 inString: (NSString*) store {
-	int result = 0;
-
+	int line = 0;
+	
     NSUInteger length = store.length;
-
+	
+    // Count what ends the lines before the character
     NSUInteger x;
-    NSUInteger linepos;
-    int lineno;
-    lineno = 1;
-	for (x=0; x<length; x++) {
+	for (x=0; x<charNum && x<length; x++) {
 		unichar chr = [store characterAtIndex: x];
-
+		
 		if (chr == '\n' || chr == '\r') {
 			unichar otherchar = chr == '\n'?'\r':'\n';
-
-			lineno++;
-			linepos = x + 1;
-
+			
 			// Deal with DOS line endings
-			if (linepos < length && [store characterAtIndex: linepos] == otherchar) {
-				x++; linepos++;
+			if (x + 1 < length && [store characterAtIndex: x + 1] == otherchar) {
+				x++;
 			}
-
-			if (x > charNum) {
-				break;
-			} else {
-				result = lineno;
+			
+			// (The character may be part of what ends its own line)
+			if (x < charNum) {
+				line++;
 			}
 		}
 	}
-
-	return result;
+	
+	return line;
 }
 
 @end

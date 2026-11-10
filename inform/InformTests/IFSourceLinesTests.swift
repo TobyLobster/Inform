@@ -116,4 +116,57 @@ final class IFSourceLinesTests: XCTestCase {
         XCTAssertEqual(IFSourceLines.line(forCharacter: 0, in: "One"), 0)
         XCTAssertEqual(IFSourceLines.line(forCharacter: 0, in: ""), 0)
     }
+
+    func testTheLineACharacterIsOn() {
+        // Counting from 0, as the headings do, with what ends a line on that line
+        let text = "One\nTwo\nThree\n"
+        XCTAssertEqual(IFSourceLines.line(forCharacter: 3, in: text), 0)
+        XCTAssertEqual(IFSourceLines.line(forCharacter: 4, in: text), 1)
+        XCTAssertEqual(IFSourceLines.line(forCharacter: 7, in: text), 1)
+        XCTAssertEqual(IFSourceLines.line(forCharacter: 8, in: text), 2)
+        XCTAssertEqual(IFSourceLines.line(forCharacter: 13, in: text), 2)
+        XCTAssertEqual(IFSourceLines.line(forCharacter: 14, in: text), 3)
+    }
+
+    func testTheLineACharacterIsOnWithReturns() {
+        // The lines start at 0, 5, 9 and 11
+        let text = "One\r\nTwo\n\n\rFour"
+        XCTAssertEqual(IFSourceLines.line(forCharacter: 3, in: text), 0)
+        XCTAssertEqual(IFSourceLines.line(forCharacter: 4, in: text), 0)
+        XCTAssertEqual(IFSourceLines.line(forCharacter: 5, in: text), 1)
+        XCTAssertEqual(IFSourceLines.line(forCharacter: 8, in: text), 1)
+        XCTAssertEqual(IFSourceLines.line(forCharacter: 9, in: text), 2)
+        XCTAssertEqual(IFSourceLines.line(forCharacter: 10, in: text), 2)
+        XCTAssertEqual(IFSourceLines.line(forCharacter: 11, in: text), 3)
+    }
+
+    func testTheHeadingACharacterIsUnder() {
+        // As the source page finds the section to show for Show Current Section Only
+        let text = "\"Story\" by Me\n\nChapter 1\n\nThe Hall is a room.\n\nChapter 2\n\nThe Yard is a room.\n"
+        let file = IFIntelFile()
+        file.add(heading("\"Story\" by Me", level: 0), atLine: 0)
+        file.add(heading("Chapter 1"), atLine: 2)
+        file.add(heading("Chapter 2"), atLine: 6)
+
+        func headingUnder(_ string: String, after offset: Int = 0) -> String? {
+            let index = (text as NSString).range(of: string).location + offset
+            return file.nearestSymbol(toLine: IFSourceLines.line(forCharacter: UInt(index), in: text))?.name
+        }
+
+        XCTAssertEqual(headingUnder("The Hall"), "Chapter 1")
+        // At the end of the section's last line, and on the blank line after it
+        XCTAssertEqual(headingUnder("room.\n\nChapter 2", after: 5), "Chapter 1")
+        XCTAssertEqual(headingUnder("room.\n\nChapter 2", after: 6), "Chapter 1")
+        XCTAssertEqual(headingUnder("Chapter 2"), "Chapter 2")
+        XCTAssertEqual(headingUnder("The Yard"), "Chapter 2")
+    }
+
+    private func heading(_ name: String, level: Int32 = 2) -> IFIntelSymbol {
+        let symbol = IFIntelSymbol()
+        symbol.type = IFSectionSymbolType
+        symbol.name = name
+        symbol.relation = .onLevel
+        symbol.levelDelta = level
+        return symbol
+    }
 }

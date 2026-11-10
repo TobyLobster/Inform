@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// has no such line
 + (NSUInteger) indexOfLine: (NSUInteger) line
                   inString: (NSString*) store;
-/// The line a character is on, as the source page's headings count it
+/// The line a character is on, counting from 0 as the source page's headings do, with what ends a line on that line
 + (int) lineForCharacter: (NSUInteger) charNum
                 inString: (NSString*) store;
 
