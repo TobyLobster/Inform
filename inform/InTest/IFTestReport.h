@@ -29,7 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (int) skeinNodesToItem: (nullable IFSkeinItem*) item;
 
 /// Puts a copy of the report at the first URL at the second, in place of what's there, as the combined report when
-/// only one test case was run. If what's there can't be removed, the report isn't copied. Each failure is logged
+/// only one test case was run. If something's there that can't be removed, the report isn't copied. Each failure is
+/// logged
 + (void) copyReport: (NSURL*) reportURL
       toCombinedURL: (NSURL*) combinedReportURL;
 

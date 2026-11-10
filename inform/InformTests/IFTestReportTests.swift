@@ -81,6 +81,15 @@ final class IFTestReportTests: XCTestCase {
         XCTAssertEqual(try contents(of: report), "This test case's report")
     }
 
+    func testWithNoCombinedReportTheReportIsStillCopied() throws {
+        let report = try write("This test case's report", to: "Inform-Report-1.html")
+        let combined = folder.appendingPathComponent("Problems.html")
+
+        IFTestReport.copy(report, toCombinedURL: combined)
+
+        XCTAssertEqual(try contents(of: combined), "This test case's report")
+    }
+
     func testWithNoReportTheCombinedOneIsStillRemoved() throws {
         let report = folder.appendingPathComponent("Inform-Report-1.html")
         let combined = try write("An earlier report", to: "Problems.html")

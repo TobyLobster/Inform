@@ -58,7 +58,9 @@
     // Copy from reportURL to combinedReportURL
     NSFileManager *fm = [NSFileManager defaultManager];
     NSError* err;
-    if( [fm removeItemAtURL:combinedReportURL error: &err] ) {
+    // (There may be no combined report yet)
+    if( [fm removeItemAtURL:combinedReportURL error: &err] ||
+        ([err.domain isEqualToString: NSCocoaErrorDomain] && err.code == NSFileNoSuchFileError) ) {
         if (![fm copyItemAtURL:reportURL
                          toURL:combinedReportURL
                          error: &err] )
