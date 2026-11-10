@@ -3,6 +3,7 @@
 //  InformTests
 //
 
+import WebKit
 import XCTest
 
 /// A project controller whose window, once loaded, isn't given an autosave name, which would keep its frame in the
@@ -55,6 +56,10 @@ final class IFProjectControllerTests: XCTestCase {
     }
 
     override func tearDownWithError() throws {
+        // The panes' pages each start a process of their own to load in, which are let finish first, or they're still
+        // starting as the tests after these run, and slow them
+        waitForPagesToLoad(in: [left, right].compactMap { $0 })
+
         controller?.close()
         project?.close()
         left = nil
@@ -66,6 +71,27 @@ final class IFProjectControllerTests: XCTestCase {
             try? FileManager.default.removeItem(at: folder)
         }
         try super.tearDownWithError()
+    }
+
+    /// Waits for the web views in the panes' pages, shown or not, to finish loading
+    private func waitForPagesToLoad(in panes: [IFProjectPane]) {
+        var webViews: [WKWebView] = []
+        func find(in view: NSView) {
+            if let webView = view as? WKWebView {
+                webViews.append(webView)
+            } else {
+                view.subviews.forEach(find(in:))
+            }
+        }
+        for pane in panes {
+            pane.tabView.tabViewItems.compactMap { $0.view }.forEach(find(in:))
+        }
+
+        let limit = Date(timeIntervalSinceNow: 10)
+        while webViews.contains(where: { $0.isLoading }) && Date() < limit {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+        }
+        XCTAssertFalse(webViews.contains { $0.isLoading }, "The panes' pages didn't finish loading")
     }
 
     /// A file's highlights, each its line and style
@@ -135,6 +161,7 @@ final class IFProjectControllerTests: XCTestCase {
             closedWindow = otherWindow
             closedPane = otherController.sourcePane
 
+            waitForPagesToLoad(in: [otherController.sourcePane, otherController.auxPane].compactMap { $0 })
             otherController.close()
             otherProject.close()
         }
