@@ -215,6 +215,29 @@ final class IFProjectControllerTests: XCTestCase {
         XCTAssertEqual(right.currentView, .documentationPane)
     }
 
+    /// Each page a pane shows in a pass of the run loop of its own is an event in its history, which Back and Forward
+    /// replay. A page that shows a web page records loading it too, so the pages load first, and the pages shown
+    /// load nothing.
+    func testBackAndForwardShowAgainWhatAPaneShowed() {
+        waitForPagesToLoad(in: [right])
+        let pages = [IFSourcePage.description(), IFErrorsPage.description(), IFSettingsPage.description()]
+        for page in pages {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+            right.tabView.selectTabViewItem(withIdentifier: page)
+        }
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+        XCTAssertEqual(pageShown(right), pages[2])
+
+        right.goBackwards(nil)
+        XCTAssertEqual(pageShown(right), pages[1])
+        right.goBackwards(nil)
+        XCTAssertEqual(pageShown(right), pages[0])
+        right.goForwards(nil)
+        XCTAssertEqual(pageShown(right), pages[1])
+        right.goForwards(nil)
+        XCTAssertEqual(pageShown(right), pages[2])
+    }
+
     func testGoingToEachPaneMakesItCurrent() {
         controller.gotoLeftPane(nil)
         XCTAssertTrue(controller.isSourcePaneCurrent)

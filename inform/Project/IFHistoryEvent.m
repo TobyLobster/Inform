@@ -27,17 +27,6 @@
 
 #pragma mark - Initialisation
 
-- (instancetype) initWithInvocation: (NSInvocation*) newInvocation {
-	self = [super init];
-	
-	if (self) {
-		invocations = [[NSMutableArray alloc] initWithObjects: newInvocation, nil];
-		target = nil;
-	}
-	
-	return self;
-}
-
 - (instancetype) initWithObject: (id) newTarget {
 	self = [super init];
 	

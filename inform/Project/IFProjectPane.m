@@ -28,6 +28,7 @@
 #import "IFGlkResources.h"
 
 #import "IFHistoryEvent.h"
+#import "IFPaneHistory.h"
 #import "IFPageBarCell.h"
 #import "IFPageBarView.h"
 
@@ -55,14 +56,8 @@ static NSDictionary* IFSyntaxAttributes[256];
     IFPageBarCell* backCell;
 
     // History
-    /// The history actions for this object
-    NSMutableArray<IFHistoryEvent*>* history;
-    /// The last history event created
-    IFHistoryEvent* lastEvent;
-    /// The position that we are in the history
-    NSInteger       historyPos;
-    /// If true, then new history items are not created
-    BOOL            replaying;
+    /// The history, for the backwards and forwards buttons
+    IFPaneHistory* paneHistory;
 
     // The pages
     /// Pages being managed by this control
@@ -192,8 +187,11 @@ static NSDictionary* IFSyntaxAttributes[256];
         awake   = NO;
 		
 		pages   = [[NSMutableArray alloc] init];
-		history = [[NSMutableArray alloc] init];
-		historyPos = -1;
+
+        __weak IFProjectPane* weakSelf = self;
+        paneHistory = [[IFPaneHistory alloc] initWithChangeHandler: ^{
+            [weakSelf updateHistoryControls];
+        }];
     }
 
     return self;
@@ -373,9 +371,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 
 - (void) willClose {
 	// The history might reference this object (or cause a circular reference some other way), so we destroy it now
-	history     = nil;
-	lastEvent   = nil;
-	historyPos  = 0;
+	[paneHistory clear];
 
     for( IFPage* page in pages ) {
         if( [page respondsToSelector:@selector(willClose)] ) {
@@ -613,88 +609,17 @@ static NSDictionary* IFSyntaxAttributes[256];
 #pragma mark - The history
 
 - (void) updateHistoryControls {
-	if (historyPos <= 0) {
-		[backCell setEnabled: NO];
-	} else {
-		[backCell setEnabled: YES];
-	}
-
-	if (historyPos >= history.count-1) {
-		[forwardCell setEnabled: NO];
-	} else {
-		[forwardCell setEnabled: YES];
-	}
-}
-
-- (void) clearLastEvent {
-	lastEvent = nil;
-}
-
-- (void) addHistoryEvent: (IFHistoryEvent*) newEvent {
-    LogHistory(@"HISTORY: Project Pane (%@): (addHistoryEvent) %@", self, newEvent);
-	if (newEvent == nil) return;
-	
-	// If we've gone backwards in the history, then remove the 'forward' history items
-	if (historyPos != history.count-1) {
-		[history removeObjectsInRange: NSMakeRange(historyPos+1, history.count-(historyPos+1))];
-	}
-	
-	// Add the new history item
-	[history addObject: newEvent];
-	historyPos++;
-	
-	// Record it as the last event
-	if (lastEvent == nil) {
-		[[NSRunLoop currentRunLoop] performSelector: @selector(clearLastEvent)
-											 target: self
-										   argument: nil
-											  order: 99
-											  modes: @[NSDefaultRunLoopMode]];
-	}
-	
-	lastEvent = newEvent;
-	
-	[self updateHistoryControls];
+	[backCell setEnabled: paneHistory.canGoBackwards];
+	[forwardCell setEnabled: paneHistory.canGoForwards];
 }
 
 - (IFHistoryEvent*) historyEvent {
-	if (replaying) return nil;
-	
-	IFHistoryEvent* event;
-	if (lastEvent) {
-		event = lastEvent;
-	} else {
-		// Construct a new event based on this obejct
-		IFHistoryEvent* newEvent = [[IFHistoryEvent alloc] initWithObject: self];
-		[self addHistoryEvent: newEvent];
-		
-		event = newEvent;
-	}
-	
-	return event;
-}
-
-- (void) addHistoryInvocation: (NSInvocation*) invoke {
-	if (replaying) return;
-	
-	// Construct a new event based on the invocation
-	IFHistoryEvent* newEvent = [[IFHistoryEvent alloc] initWithInvocation: invoke];
-	[self addHistoryEvent: newEvent];
+	return [paneHistory eventForObject: self];
 }
 
 - (id) history {
-	if (replaying) return nil;
-	
-	IFHistoryEvent* event;
-	if (lastEvent) {
-		event = lastEvent;
-	} else {
-		// Construct a new event based on this obejct
-		IFHistoryEvent* newEvent = [[IFHistoryEvent alloc] initWithObject: self];
-		[self addHistoryEvent: newEvent];
-		
-		event = newEvent;
-	}
+	IFHistoryEvent* event = [paneHistory eventForObject: self];
+	if (event == nil) return nil;
 	
 	// Return a suitable proxy
 	event.target = self;
@@ -702,27 +627,11 @@ static NSDictionary* IFSyntaxAttributes[256];
 }
 
 - (void) goBackwards: (id) sender {
-	if (historyPos <= 0) return;
-	
-	
-	replaying = YES;
-	[history[historyPos-1] replay];
-	historyPos--;
-	replaying = NO;
-	
-	[self updateHistoryControls];
+	[paneHistory goBackwards];
 }
 
 - (void) goForwards: (id) sender {
-	if (historyPos >= history.count-1) return;
-	
-	
-	replaying = YES;
-	[history[historyPos+1] replay];
-	historyPos++;
-	replaying = NO;
-	
-	[self updateHistoryControls];
+	[paneHistory goForwards];
 }
 
 // Extension updated

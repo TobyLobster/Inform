@@ -6,7 +6,7 @@
 //  Copyright 2007 Andrew Hunter. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,8 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 // Initialisation
 
 - (instancetype) init NS_UNAVAILABLE;
-/// Initialise with the specified invocation
-- (instancetype) initWithInvocation: (NSInvocation*) invocation NS_DESIGNATED_INITIALIZER;
 /// Initialise with the specified object as an invocation target
 - (instancetype) initWithObject: (id) target NS_DESIGNATED_INITIALIZER;
 

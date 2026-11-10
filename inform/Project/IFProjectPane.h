@@ -132,8 +132,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, readonly, strong, nullable) IFHistoryEvent * historyEvent;
 /// Returns a proxy for this object for a new history item (nil while replaying history)
 @property (atomic, readonly, strong, nullable) id               history;
-/// Adds a new invocation to the forward/backwards history
-- (void) addHistoryInvocation: (NSInvocation*) invoke;
 /// Go forwards in the history
 - (IBAction) goForwards: (nullable id) sender;
 /// Go backwards in the history
