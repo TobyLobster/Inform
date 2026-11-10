@@ -86,17 +86,16 @@
     return [[self alloc] init];
 }
 
-+ (void) initialize {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-	[[ZoomPreferences globalPreferences] setDisplayWarnings: YES];
-    });
-}
-
 - (instancetype) init {
     self = [super init];
 
     if (self) {
+        // Zoom shows the warnings a story's interpreter gives, once there's a pane to run it in
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            [[ZoomPreferences globalPreferences] setDisplayWarnings: YES];
+        });
+
         parent  = nil;
         awake   = NO;
 		
