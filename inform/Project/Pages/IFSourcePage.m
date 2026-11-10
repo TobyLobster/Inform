@@ -719,7 +719,6 @@
 		
 		// Scroll the view
 		NSPoint scrollPos = scrollView.contentView.documentVisibleRect.origin;
-		NSLog(@"Old offset: %g, new offset %g, adjusted scroll by %g from %g", originalCursorOffset, newCursorOffset, scrollOffset, scrollPos.y);
 		scrollPos.y += scrollOffset;
 		if (range.location > 0) scrollPos.y += 18;			// HACK
 		if (scrollPos.y < 0) scrollPos.y = 0;
