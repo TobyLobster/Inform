@@ -104,6 +104,12 @@ final class IFCompilerOutputScannerTests: XCTestCase {
                            message: "Couldn't open source file \"Story.inf\"")])
     }
 
+    func testInform6CompilerErrors() {
+        assertLine(inform6("*** Compiler error:  Paged size exceeds rough estimate."), IFStyleCompilerFatalError,
+                   [.error(file: "auto.inf", line: 10, type: IFLexCompilerFatalError,
+                           message: "Paged size exceeds rough estimate.")])
+    }
+
     func testOtherInform6Messages() {
         assertLine(inform6("Something else entirely", line: 5), IFStyleCompilerMessage,
                    [.error(file: "auto.inf", line: 5, type: IFLexCompilerMessage, message: "Something else entirely")])

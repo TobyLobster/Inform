@@ -95,9 +95,10 @@ File\ \".*\";\ Line\  {
 }
 
 <ERRORMESSAGE>\w*\*\*\*\ Compiler\ error:.*\n {
+    // (Inform 6 puts two spaces after the colon)
     char* comerr  = strstr(yytext, "Compiler error:");
     char* message = calloc(strlen(comerr), 1);
-    strncpy(message, comerr + 16, strlen(comerr)-17);
+    strncpy(message, comerr + 17, strlen(comerr)-18);
     
     IFErrorAddError(currentError.file,
                     currentError.line,
