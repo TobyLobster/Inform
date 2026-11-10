@@ -84,6 +84,7 @@
 #import "IFExtensionsManager.h"
 #import "IFExtensionFileFinder.h"
 #import "IFCompilerResultFiles.h"
+#import "IFCompilerOutputScanner.h"
 #import "IFMaintenanceTask.h"
 #import "IFInBuild.h"
 #import "IFInTest.h"
