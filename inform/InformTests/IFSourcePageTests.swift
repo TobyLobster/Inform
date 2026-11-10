@@ -251,6 +251,15 @@ final class IFSourcePageTests: XCTestCase {
         XCTAssertEqual(page.openSourceFilepath, sourcePath("story.ni"))
     }
 
+    func testShowingAnotherFileWhileASectionIsShownShowsAllOfIt() throws {
+        putCursor(before: "Cupboard is")
+        page.showCurrentSectionOnly(nil)
+        page.showSourceFile("Notes.txt")
+        XCTAssertEqual(textView.string, notes)
+        XCTAssertFalse(tears.top)
+        XCTAssertFalse(tears.bottom)
+    }
+
     func testShowingTheSameFileNoFileOrOneThatIsntThereChangesNothing() {
         textView.setSelectedRange(NSRange(location: 5, length: 2))
         page.showSourceFile("story.ni")

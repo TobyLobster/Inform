@@ -439,6 +439,10 @@
 	textStorage = fileStorage;
     [textView.layoutManager replaceTextStorage: textStorage];
 
+    // All of the file is shown, without the tears of a section of the last one
+    [textView setTornAtTop: NO];
+    [textView setTornAtBottom: NO];
+
     [IFSyntaxManager registerTextStorage: textStorage
                                 filename: file.lastPathComponent
                             intelligence: [IFProjectTypes intelligenceForFilename:file]
