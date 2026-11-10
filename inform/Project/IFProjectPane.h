@@ -53,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 //
 // Controller class dealing with one side of the project window
 //
-@interface IFProjectPane : NSObject<IFProjectPane, IFHistoryRecorder, NSMenuItemValidation>
+@interface IFProjectPane : NSObject<IFProjectPane, IFHistoryRecorder>
 
 // Class methods
 /// Create/load a project pane
@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, readonly, strong, nullable) NSView *       activeView;
 /// The compiler controller associated with this view
 @property (atomic, readonly, strong) IFCompilerController *   compilerController;
-/// Returns the currently displayed view (\c IFUnknownPane is a possibility for some views I haven't added code to check for)
+/// Returns the currently displayed view (\c IFUnknownPane for the settings, which have no type of view of their own)
 @property (atomic, readonly) IFProjectPaneType                currentView;
 /// The tab view itself
 @property (atomic, readwrite, strong) IBOutlet NSTabView *    tabView;
@@ -89,8 +89,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, readonly, strong) IFSkeinPage *            skeinPage;
 /// The page representing the settings for this project
 @property (atomic, readonly, strong) IFSettingsPage *         settingsPage;
-/// The page representing the running game
-@property (atomic, readonly, strong) IFGamePage *             gamePage;
+/// The page representing the running game; only the second pane has one
+@property (atomic, readonly, strong, nullable) IFGamePage *   gamePage;
 /// The page representing the documentation
 @property (atomic, readonly, strong) IFDocumentationPage *    documentationPage;
 /// The page representing the extensions
@@ -116,22 +116,20 @@ NS_ASSUME_NONNULL_BEGIN
 // The source page
 /// Informs this pane that it's time to prepare to save the document
 - (void) prepareToSave;
-/// Sets the source page to show a specific source file
-- (void) showSourceFile: (nullable NSString*) file;
 
 // The game page
 /// Convenience method
 - (void) stopRunningGame;
-
-// Search/replace
-/// Called to invoke the find panel for the current pane
-- (void) performFindPanelAction: (nullable id) sender;
 
 // History
 /// Gets the current history event for this run through the loop (nil while replaying history)
 @property (atomic, readonly, strong, nullable) IFHistoryEvent * historyEvent;
 /// Returns a proxy for this object for a new history item (nil while replaying history)
 @property (atomic, readonly, strong, nullable) id               history;
+/// Shows the tab given, as the history records doing
+- (void) selectTabViewItem: (NSTabViewItem*) item;
+/// Makes the page's active view the window's first responder, as the history records doing
+- (void) activatePage: (nullable IFPage*) page;
 /// Go forwards in the history
 - (IBAction) goForwards: (nullable id) sender;
 /// Go backwards in the history

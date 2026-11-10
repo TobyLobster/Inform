@@ -1166,7 +1166,7 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
     var runningGamePane: IFProjectPane? {
         // Return the pane that we're displaying/going to display the game in
         for pane in projectPanes ?? [] {
-            if pane.gamePage.isRunningGame { return pane }
+            if pane.gamePage?.isRunningGame ?? false { return pane }
         }
 
         return nil
