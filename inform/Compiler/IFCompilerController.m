@@ -236,8 +236,8 @@
         outputScanner = [[IFCompilerOutputScanner alloc] init];
         outputScanner.delegate = self;
 
-        errorFiles    = nil;
-        errorMessages = nil;
+        errorFiles    = [[NSMutableArray alloc] init];
+        errorMessages = [[NSMutableArray alloc] init];
         delegate      = nil;
 
         tabs          = [[NSMutableArray alloc] init];
@@ -305,9 +305,6 @@
 }
 
 - (void) clearConsole: (NSNotification*) not {
-    if (errorFiles == nil) errorFiles = [[NSMutableArray alloc] init];
-    if (errorMessages == nil) errorMessages = [[NSMutableArray alloc] init];
-
     [errorMessages removeAllObjects];
     [errorFiles removeAllObjects];
     [compilerMessages reloadData];

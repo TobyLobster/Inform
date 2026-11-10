@@ -382,6 +382,11 @@ final class IFCompilerControllerTests: XCTestCase {
         XCTAssertEqual(warningText.attribute(.foregroundColor, at: 0, effectiveRange: nil) as? NSColor, .systemBlue)
     }
 
+    func testAnErrorBeforeTheConsoleIsFirstCleared() throws {
+        stdout(inform6("Error:  No such constant"))
+        XCTAssertEqual(try errorListContents(), ["auto.inf", "  L10: No such constant"])
+    }
+
     func testOtherItemsHaveNoErrors() throws {
         startBuild()
         stdout(inform6("Error:  No such constant"))
