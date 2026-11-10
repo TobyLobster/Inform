@@ -48,6 +48,7 @@
 #import "IFCompilerSettings.h"
 #import "IFCompileCheck.h"
 #import "IFProjectMenuValidation.h"
+#import "IFPaneWidths.h"
 #import "IFTestCaseRun.h"
 
 #import "IFUtility.h"
@@ -56,7 +57,6 @@
 
 // Preferences
 static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
-static CGFloat const      minDividerWidth     = 75.0f;
 
 // *******************************************************************************************
 @interface IFProjectController() <IFProjectMenuState>
@@ -304,37 +304,16 @@ static CGFloat const      minDividerWidth     = 75.0f;
             [splitViews addObject: newView];
         }
 
-        // Remaining space for other dividers
-        CGFloat remaining        = panesView.bounds.size.width - dividerWidth*(CGFloat)(nviews-1);
-        CGFloat totalRemaining   = panesView.bounds.size.width;
-        CGFloat viewWidth        = floor(remaining / (CGFloat)nviews);
-
-        // Work out the widths of the dividers using the preferences
-        NSMutableArray<NSNumber*>* realDividerWidths = [NSMutableArray array];
+        // Work out the widths of the panes using the preferences
         NSArray* dividerProportions = [[NSUserDefaults standardUserDefaults] arrayForKey: IFSplitViewSizes];
+        NSArray<NSNumber*>* paneWidths = [IFPaneWidths widthsOfPanes: nviews
+                                                             inWidth: panesView.bounds.size.width
+                                                        dividerWidth: dividerWidth
+                                                         proportions: dividerProportions];
 
-        if (![dividerProportions isKindOfClass: [NSArray class]] || dividerProportions.count <= 0) {
-            dividerProportions = @[@1.0f];
-        }
-
-        CGFloat totalWidth = 0;
-        for (view=0; view<nviews; view++) {
-            CGFloat width;
-
-            if (view >= dividerProportions.count) {
-                width = [dividerProportions[dividerProportions.count-1] doubleValue];
-            } else {
-                width = [dividerProportions[view] doubleValue];
-            }
-
-            if (width <= 0) width = 1.0;
-            [realDividerWidths addObject: @(width)];
-
-            totalWidth += width;
-        }
-
-        // Work out the actual widths to use, and size and add the views appropriately
-        CGFloat proportion = remaining / totalWidth;
+        // Size and add the views appropriately
+        CGFloat totalRemaining   = panesView.bounds.size.width;
+        CGFloat viewWidth        = 0;
 
         // Insert the views
         NSSplitView* lastView = nil;
@@ -346,7 +325,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
             [pane setController: self viewIndex: view];
 
-            viewWidth = floor(proportion * (realDividerWidths[view]).doubleValue);
+            viewWidth = (paneWidths[view]).doubleValue;
 
             // Resize the splitview
             NSRect splitFrame;
@@ -377,7 +356,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
             lastView = thisView;
 
             // Update the amount of space remaining
-            remaining -= viewWidth;
             totalRemaining -= viewWidth + dividerWidth;
         }
 
@@ -401,7 +379,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
     int nviews = (int) projectPanes.count;
     int view;
 
-    NSMutableArray* viewSizes = [NSMutableArray array];
+    NSMutableArray<NSNumber*>* paneWidths = [NSMutableArray array];
 
     CGFloat totalWidth = self.window.frame.size.width;
 
@@ -409,9 +387,11 @@ static CGFloat const      minDividerWidth     = 75.0f;
         IFProjectPane* pane = projectPanes[view];
         NSRect paneFrame = pane.paneView.frame;
 
-        [viewSizes addObject: @((CGFloat) (paneFrame.size.width/totalWidth))];
+        [paneWidths addObject: @(paneFrame.size.width)];
     }
 
+    NSArray<NSNumber*>* viewSizes = [IFPaneWidths proportionsOfWidths: paneWidths
+                                                        inWindowWidth: totalWidth];
     [[NSUserDefaults standardUserDefaults] setObject: viewSizes
                                               forKey: IFSplitViewSizes];
 }
@@ -2282,23 +2262,15 @@ static CGFloat const      minDividerWidth     = 75.0f;
    constrainMinCoordinate: (CGFloat) proposedMinimumPosition
               ofSubviewAt: (NSInteger) dividerIndex
 {
-    if (proposedMinimumPosition < minDividerWidth) {
-        proposedMinimumPosition = minDividerWidth;
-    }
-
-    return proposedMinimumPosition;
+    return [IFPaneWidths leastDividerPosition: proposedMinimumPosition];
 }
 
 - (CGFloat)     splitView: (NSSplitView *) splitView
    constrainMaxCoordinate: (CGFloat) proposedMaximumPosition
               ofSubviewAt: (NSInteger) dividerIndex
 {
-    CGFloat limit = MAX(minDividerWidth, [splitView bounds].size.width - minDividerWidth);
-    if (proposedMaximumPosition > limit) {
-        proposedMaximumPosition = limit;
-    }
-    
-    return proposedMaximumPosition;
+    return [IFPaneWidths greatestDividerPosition: proposedMaximumPosition
+                                         inWidth: [splitView bounds].size.width];
 }
 
 - (BOOL)    splitView: (NSSplitView *) splitView
