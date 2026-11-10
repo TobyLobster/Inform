@@ -39,16 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// The default styles for the error messages
 + (NSDictionary<NSAttributedStringKey, id>*) defaultStyles;
 
-/// Destroys + recreates the compiler (ie, resets it back to its initial state)
-- (void)        resetCompiler;
 /// Sets a specific compiler object to use
 /// Retrieves the current compiler object
 @property (atomic, strong) IFCompiler *compiler;
-
-/// Tells the compiler to start
-@property (NS_NONATOMIC_IOSONLY, readonly) BOOL startCompiling;
-/// Tells the compiler to stop
-@property (NS_NONATOMIC_IOSONLY, readonly) BOOL abortCompiling;
 
 /// Adds an error to the display
 - (void) addErrorForFile: (NSString*) file
@@ -86,8 +79,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) switchToViewWithTabId: (IFCompilerTabId) tabId;
 /// Switches to the default split view
 - (void) switchToSplitView;
-/// Switches to the runtime error view
-- (void) switchToRuntimeErrorView;
 /// Clears the console view of text
 - (void) clearConsole: (nullable NSNotification*) not;
 /// Returns the tabs this controller can display

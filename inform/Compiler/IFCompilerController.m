@@ -53,9 +53,6 @@
     /// We're attached to this window
     IBOutlet NSWindow*      window;
 
-    /// When we've got some messages to display, this is how high the pane will be
-    CGFloat messagesSize;
-
     /// This object receives our delegate messages
     __weak id<IFCompilerControllerDelegate> delegate;
 
@@ -268,8 +265,6 @@
     awake = YES;
     compilerResults.textStorage.delegate = self;
 
-    messagesSize = 0; // [messageScroller frame].size.height;
-
     splitView.delegate = self;
     [self adjustSplitView];
 
@@ -309,15 +304,6 @@
 }
 
 #pragma mark
-- (void) resetCompiler {
-    [self _removeHandlers];
-
-    compiler = [[IFCompiler alloc] init];
-    [self _registerHandlers];
-
-    [self adjustSplitView];
-}
-
 - (void) setCompiler: (IFCompiler*) comp {
     [self _removeHandlers];
 
@@ -329,43 +315,6 @@
 
 - (IFCompiler*) compiler {
     return compiler;
-}
-
-// == Starting/stopping the compiler ==
-- (BOOL) startCompiling {
-    if (window)
-        window.title = [NSString stringWithFormat: [IFUtility localizedString: @"Compiling - '%@'..."],
-                                                      compiler.inputFile.lastPathComponent];
-
-
-    errorFiles    = [NSMutableArray array];
-    errorMessages = [NSMutableArray array];
-	
-	overrideURL = nil;
-
-    if (delegate &&
-        [delegate respondsToSelector: @selector(errorMessagesCleared:)]) {
-        [delegate errorMessagesCleared: self];
-    }
-
-    [compilerResults.textStorage.mutableString setString: @""];
-    highlightPos = 0;
-
-    if (![compiler prepareForLaunchWithBlorbStage: NO testCase: nil])
-    {
-        return NO;
-    }
-	[compiler launch];
-
-    return YES;
-}
-
-- (BOOL) abortCompiling {
-    if (window)
-        window.title = [NSString stringWithFormat: @"Aborted - '%@'",
-            compiler.inputFile.lastPathComponent];
-
-    return YES;
 }
 
 // == Compiler messages ==
@@ -1069,10 +1018,6 @@
 
 - (void) switchToSplitView {
 	[self switchToViewWithTabId: IFTabConsole];
-}
-
-- (void) switchToRuntimeErrorView {
-	[self switchToViewWithTabId: IFTabRuntime];
 }
 
 - (NSArray*) viewTabs {
