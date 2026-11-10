@@ -674,14 +674,6 @@ static NSDictionary* IFSyntaxAttributes[256];
 	return event;
 }
 
-- (void) addHistoryInvocation: (NSInvocation*) invoke {
-	if (replaying) return;
-	
-	// Construct a new event based on the invocation
-	IFHistoryEvent* newEvent = [[IFHistoryEvent alloc] initWithInvocation: invoke];
-	[self addHistoryEvent: newEvent];
-}
-
 - (id) history {
 	if (replaying) return nil;
 	
