@@ -76,6 +76,7 @@
 #import "IFCompileCheck.h"
 #import "IFCompiler.h"
 #import "IFCompilerStyles.h"
+#import "IFCompilerResultFiles.h"
 #import "IFProgress.h"
 #import "IFProjectMaterialsPresenter.h"
 #import "IFNaturalIntel.h"

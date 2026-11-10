@@ -69,8 +69,6 @@ static IFCompilerController* activeController = nil;
     NSMutableArray*  tabs;
     /// Currently selected tab
     IFCompilerTabId  selectedTabId;
-    /// Fixed dictionary of document names and their tabs
-    NSDictionary*    tabDictionary;
 
     // The subtask
     /// This is the actual compiler
@@ -252,13 +250,6 @@ static IFCompilerController* activeController = nil;
 
         tabs          = [[NSMutableArray alloc] init];
         selectedTabId = IFTabInvalid;
-
-        tabDictionary = @{@"debug log.txt":         @((int) IFTabDebugging),
-                          @"auto.inf":              @((int) IFTabInform6),
-                          @"problems.html":         @((int) IFTabReport),
-                          @"log of problems.txt":   @((int) IFTabReport),
-                          @"inbuild.html":          @((int) IFTabInBuild),
-                          @"compiler":              @((int) IFTabConsole)};
 
         [self _registerHandlers];
     }
@@ -832,28 +823,6 @@ static IFCompilerController* activeController = nil;
     return tab.tabId;
 }
 
--(IFCompilerTabId) tabIdOfItemWithFilename: (NSString *) theFile
-{
-    NSString* lowerFile = theFile.lowercaseString;
-    
-    NSNumber* integer = tabDictionary[lowerFile];
-    if( integer == nil ) {
-        return IFTabInvalid;
-    }
-    return (IFCompilerTabId)integer.intValue;
-}
-
--(NSString *) filenameOfItemWithTabId: (IFCompilerTabId) tabId
-{
-    for( NSString* key in tabDictionary)
-    {
-        if( [tabDictionary[key] intValue] == tabId ) {
-            return key;
-        }
-    }
-    return nil;
-}
-
 -(bool) tabsContainsTabId: (IFCompilerTabId) tabId {
     return [self tabIndexWithTabId:tabId] != NSNotFound;
 }
@@ -918,7 +887,7 @@ static IFCompilerController* activeController = nil;
 							 named: [IFUtility localizedString: file.lastPathComponent
                                                        default: file.lastPathComponent.stringByDeletingPathExtension
                                                          table: @"CompilerOutput"]
-                         withTabId: [self tabIdOfItemWithFilename:file.lastPathComponent]];
+                         withTabId: [IFCompilerResultFiles tabIdForFile: file.lastPathComponent]];
 	} else {
 		// Create the new text view
 		NSTextView* textView = [[NSTextView alloc] initWithFrame: superView.frame];
@@ -969,7 +938,7 @@ static IFCompilerController* activeController = nil;
                                                               default: file.lastPathComponent.stringByDeletingPathExtension
                                                                 table: @"CompilerOutput"]
 								 withView: scrollView
-                                withTabId: [self tabIdOfItemWithFilename:file.lastPathComponent]];
+                                withTabId: [IFCompilerResultFiles tabIdForFile: file.lastPathComponent]];
 	}
 }
 
@@ -998,14 +967,6 @@ static IFCompilerController* activeController = nil;
         return; // Nothing to do
     }
 	
-	// The set of files we should avoid showing
-	NSMutableSet* excludedFiles = [NSMutableSet set];
-	
-	if (![IFPreferences sharedPreferences].showDebuggingLogs) {
-		[excludedFiles addObject: @"debug log.txt"];
-		[excludedFiles addObject: @"auto.inf"];
-	}
-
 	// If there is a compiler-supplied problems file, add this to the tab view
 	if (lastProblemURL != nil) {
 		[self makeTabForURL: lastProblemURL
@@ -1015,32 +976,11 @@ static IFCompilerController* activeController = nil;
                   withTabId: IFTabReport];
 	}
 	
-	NSString* excludedFilename = nil;
-	if (lastProblemURL) {
-		excludedFilename = lastProblemURL.path.lastPathComponent.stringByDeletingPathExtension.lowercaseString;
-	}
-
-	// Enumerate across the list of files in the filewrapper
-    for( NSString* key in files.fileWrappers ) {
-        NSString* type = key.pathExtension.lowercaseString;
-		
-		// Skip this file if it's in the excluded list
-		if ([excludedFiles containsObject: key.lowercaseString]) continue;
-
-		// HTML, text and inf files go in a tab view showing various different status messages
-		// With NI, the problems file is most important: we substitute this if the compiler wants
-		NSString* filename = key.stringByDeletingPathExtension.lowercaseString;
-
-        bool tempFile = (key.length >= 4) && ([[key substringToIndex: 4].lowercaseString isEqualToString: @"temp"]);
-        bool goodFileType = [type isEqualTo: @"inf"] ||
-                            [type isEqualTo: @"txt"] ||
-                            [type isEqualTo: @"html"] ||
-                            [type isEqualTo: @"htm"];
-        bool excludedFile = (lastProblemURL != nil) && ([filename isEqualToString: @"problems"] || [filename isEqualToString: excludedFilename]);
-
-        if (!tempFile && !excludedFile && goodFileType) {
-			[self makeTabForFile: [path stringByAppendingPathComponent: key]];
-        }
+	// Enumerate across the files in the filewrapper that go in a tab view
+    for( NSString* key in [IFCompilerResultFiles filesToShowOf: files.fileWrappers.allKeys
+                                             showDebuggingLogs: [IFPreferences sharedPreferences].showDebuggingLogs
+                                                   problemsURL: lastProblemURL] ) {
+        [self makeTabForFile: [path stringByAppendingPathComponent: key]];
     }
 
 	[self switchToViewWithTabId: IFTabReport];

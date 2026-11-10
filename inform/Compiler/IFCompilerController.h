@@ -11,22 +11,12 @@
 
 #import "IFCompiler.h"
 #import "IFError.h"
+#import "IFCompilerResultFiles.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class IFProjectController;
 @class IFProjectPane;
-
-/// List of tabs
-typedef NS_ENUM(unsigned int, IFCompilerTabId) {
-    IFTabReport,
-    IFTabConsole,
-    IFTabDebugging,
-    IFTabInform6,
-    IFTabRuntime,
-    IFTabInBuild,
-    IFTabInvalid,
-};
 
 @interface IFCompilerTab : NSObject
 
