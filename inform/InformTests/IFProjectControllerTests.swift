@@ -284,6 +284,21 @@ final class IFProjectControllerTests: XCTestCase {
         XCTAssertEqual(right.currentView, .documentationPane)
     }
 
+    // MARK: - Playing the skein
+
+    /// The game page tells the controller when the commands it was given, by the skein or a test case, have run
+    /// out. A moment later the controller reports on the skein, when testing, and plays the next of the skein's
+    /// threads, when playing them all.
+    func testCommandsRunningOutWithNothingMoreToPlayDoesNothing() {
+        controller.inputSourceHasFinished(nil)
+
+        // The controller looks once the run loop has run (and any exception it raised fails the test)
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+
+        XCTAssertFalse(controller.isRunningGame)
+        XCTAssertFalse(controller.isCurrentlyTesting)
+    }
+
     // MARK: - The window
 
     func testTheWindowIsTitledWithTheProjectsName() {

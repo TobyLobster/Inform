@@ -1896,7 +1896,8 @@ static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
 
 - (void) inputSourceHasFinishedAfterDelay {
     // Gather report data
-    NSString* intestCode = [self.document reportStateForSkein];
+    IFSkein* currentSkein = [self.document currentSkein];
+    NSString* intestCode = (currentSkein != nil) ? currentSkein.reportStateForSkein : @"";
     IFSkeinItem* reportItem = [self.document nodeToReport];
     unsigned long skeinNodeId = reportItem.uniqueId;
     int skeinNodes = [IFTestReport skeinNodesToItem: [self.document currentSkein].activeItem];
