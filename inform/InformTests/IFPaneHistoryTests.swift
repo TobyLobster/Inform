@@ -204,4 +204,20 @@ final class IFPaneHistoryTests: XCTestCase {
         XCTAssertNil(target)
         XCTAssertFalse(history.canGoBackwards)
     }
+
+    func testOnceClearedTheHistoryIsAsANewOne() throws {
+        try record("a")
+        try record("b")
+        history.clear()
+        XCTAssertFalse(history.canGoBackwards)
+        XCTAssertFalse(history.canGoForwards)
+
+        // What's recorded next is the first event
+        try record("c")
+        XCTAssertFalse(history.canGoBackwards)
+        XCTAssertFalse(history.canGoForwards)
+        try record("d")
+        history.goBackwards()
+        XCTAssertEqual(shown.shown, ["c"])
+    }
 }

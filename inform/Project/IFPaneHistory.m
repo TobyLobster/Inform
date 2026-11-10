@@ -115,9 +115,9 @@
 }
 
 - (void) clear {
-	history     = nil;
+	[history removeAllObjects];
 	lastEvent   = nil;
-	historyPos  = 0;
+	historyPos  = -1;
 }
 
 @end
