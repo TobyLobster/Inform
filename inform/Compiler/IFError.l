@@ -30,7 +30,6 @@ static struct errorValue currentError;
 %option nounput
 %option noinput
 
-%x MPW_1
 %x ERRORMESSAGE
 %%
 
@@ -75,29 +74,33 @@ Copy\ blorb\ to:\ \[\[.*\]\]\n {
 	return IFLexEndText;
 }
 
-File\ \".*\";\ Line\  {
-    // Beginning of an MPW-style error message
-    currentError.file = calloc(strlen(yytext)-13, 1);
-    strncpy(currentError.file, yytext + 6, strlen(yytext)-14);
+File\ \".*\";\ Line\ [0-9]+(:\ \(.*\))?\t#\  {
+    // Beginning of an MPW-style error message, which Inform 6 gives as
+    //     File "auto.inf"; Line 10<tab># 
+    // or, for code after an #OrigSource directive, with where the code came from, as
+    //     File "auto.inf"; Line 10: ("source/story.ni"; Line 3)<tab># 
+    // The file name ends at the first '"; Line ' with a line number and then one of these after it
+    char* fileEnd = yytext + 5;
+    char* lineNumber;
+    char* afterLineNumber;
+    do {
+        fileEnd = strstr(fileEnd + 1, "\"; Line ");
+        lineNumber = fileEnd + 8;
+        afterLineNumber = lineNumber + strspn(lineNumber, "0123456789");
+    } while (afterLineNumber == lineNumber
+             || (*afterLineNumber != '\t' && strncmp(afterLineNumber, ": (", 3) != 0));
 
-    BEGIN(MPW_1);
-}
-<MPW_1>[0-9]+\t#\  {
-    // MPW-style line number
-    currentError.line = atoi(yytext);
+    currentError.file = strndup(yytext + 6, fileEnd - (yytext + 6));
+    currentError.line = atoi(lineNumber);
+
     BEGIN(ERRORMESSAGE);
-}
-<MPW_1>. {
-    // Not MPW after all, something else thoroughly weird
-    free(currentError.file); currentError.file = NULL;
-    BEGIN(0);
-    return -1;
 }
 
 <ERRORMESSAGE>\w*\*\*\*\ Compiler\ error:.*\n {
+    // (Inform 6 puts two spaces after the colon)
     char* comerr  = strstr(yytext, "Compiler error:");
     char* message = calloc(strlen(comerr), 1);
-    strncpy(message, comerr + 16, strlen(comerr)-17);
+    strncpy(message, comerr + 17, strlen(comerr)-18);
     
     IFErrorAddError(currentError.file,
                     currentError.line,

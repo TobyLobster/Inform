@@ -22,14 +22,13 @@
 #import "IFProjectController.h"
 #import "IFProgress.h"
 #import "IFCompilerStyles.h"
-
-static IFCompilerController* activeController = nil;
+#import "IFCompilerOutputScanner.h"
 
 @implementation IFCompilerTab
 
 @end
 
-@interface IFCompilerController ()
+@interface IFCompilerController () <IFCompilerOutputScannerDelegate>
 @property (atomic, readwrite, copy) NSString *blorbLocation;
 @end
 
@@ -83,6 +82,8 @@ static IFCompilerController* activeController = nil;
     NSMutableDictionary<NSString*,NSDictionary<NSString*,id>*>* styles;
     /// The position the highlighter has reached (see IFError.[hl])
     NSInteger highlightPos;
+    /// Scans each line of output for its style and what it says
+    IFCompilerOutputScanner* outputScanner;
 
     // Error messages
     /// A list of the files that the compiler has reported errors on (this is how we group errors together by file)
@@ -243,6 +244,8 @@ static IFCompilerController* activeController = nil;
         compiler = [[IFCompiler alloc] init];
         styles = [[[self class] defaultStyles] mutableCopy];
         highlightPos = 0;
+        outputScanner = [[IFCompilerOutputScanner alloc] init];
+        outputScanner.delegate = self;
 
         errorFiles    = nil;
         errorMessages = nil;
@@ -510,94 +513,44 @@ static IFCompilerController* activeController = nil;
     [compilerResults.textStorage appendAttributedString: newString];
 }
 
-// == Dealing with highlighting of the compiler output ==
+// == What the compiler's output says ==
 
-- (NSString*) styleForLine: (NSString*) line {
-    activeController = self;
-    IFLex res = IFErrorScanString([line cStringUsingEncoding:NSUTF8StringEncoding]);
-    
-    switch (res) {
-        case IFLexBase:
-            return IFStyleBase;
-
-        case IFLexCompilerVersion:
-            return IFStyleCompilerVersion;
-            
-        case IFLexCompilerMessage:
-            return IFStyleCompilerMessage;
-            
-        case IFLexCompilerWarning:
-            return IFStyleCompilerWarning;
-            
-        case IFLexCompilerError:
-            return IFStyleCompilerError;
-            
-        case IFLexCompilerFatalError:
-            return IFStyleCompilerFatalError;
-
-        case IFLexAssembly:
-            return IFStyleAssembly;
-            
-        case IFLexHexDump:
-            return IFStyleHexDump;
-            
-        case IFLexStatistics:
-            return IFStyleStatistics;
-			
-		case IFLexProgress:
-			compiler.progress.percentage = IFLexLastProgress;
-			
-			if (IFLexLastProgressString) {
-				NSString* msg;
-				
-				msg = [[NSString alloc] initWithBytes: IFLexLastProgressString
-											   length: strlen(IFLexLastProgressString)-2
-											 encoding: NSUTF8StringEncoding];
-				
-				// (Second attempt if UTF-8 makes no sense)
-				if (msg == nil) msg = [[NSString alloc] initWithBytes: IFLexLastProgressString
-															   length: strlen(IFLexLastProgressString)-2
-															 encoding: NSISOLatin1StringEncoding];
-				
-				compiler.progress.message = msg;
-			}
-
-			return IFStyleProgress;
-        case IFLexEndText:
-            if( IFLexEndTextString ) {
-				NSString* msg;
-				
-				msg = [[NSString alloc] initWithBytes: IFLexEndTextString
-											   length: strlen(IFLexEndTextString)-1
-											 encoding: NSUTF8StringEncoding];
-
-				// (Second attempt if UTF-8 makes no sense)
-				if (msg == nil)
-                {
-                    msg = [[NSString alloc] initWithBytes: IFLexEndTextString
-												   length: strlen(IFLexEndTextString)-1
-												 encoding: NSISOLatin1StringEncoding];
-                }
-
-                compiler.endTextString = msg;
-            }
-            return IFStyleCompilerMessage;
+- (void) outputScanner: (IFCompilerOutputScanner*) scanner
+           hasProgress: (int) percentage
+               message: (NSString*) message {
+    compiler.progress.percentage = percentage;
+    if (message) {
+        compiler.progress.message = message;
     }
-
-    return nil;
-    
-    // Version strings have the form 'Foo Inform x.xx (Date)'
-    
-    
-    // MPW style errors and warnings have the form:
-    // File "file.h"; line 10	#
-    //if ([[line substringWithRange: NSMakeRange(0, 4)] isEqualTo: @"File"]) {
-        // May be an MPW string
-    //    return nil;
-    //}
-
-    //return nil;
 }
+
+- (void) outputScanner: (IFCompilerOutputScanner*) scanner
+            hasEndText: (NSString*) endText {
+    compiler.endTextString = endText;
+}
+
+- (void) outputScanner: (IFCompilerOutputScanner*) scanner
+       addErrorForFile: (NSString*) file
+                atLine: (int) line
+              withType: (IFLex) type
+               message: (NSString*) message {
+    [self addErrorForFile: file
+                   atLine: line
+                 withType: type
+                  message: message];
+}
+
+- (void) outputScanner: (IFCompilerOutputScanner*) scanner
+   overrideProblemsURL: (NSURL*) problemsURL {
+    [self overrideProblemsURL: problemsURL];
+}
+
+- (void) outputScanner: (IFCompilerOutputScanner*) scanner
+           copyBlorbTo: (NSString*) location {
+    self.blorbLocation = location;
+}
+
+// == Dealing with highlighting of the compiler output ==
 
 - (void)textStorage:(NSTextStorage *)storage didProcessEditing:(NSTextStorageEditActions)editedMask range:(NSRange)editedRange changeInLength:(NSInteger)delta {
     // Set the text to the base style
@@ -627,7 +580,7 @@ static IFCompilerController* activeController = nil;
 
         // ... set the style appropriately
         NSRange lineRange = NSMakeRange(highlightPos, (newlinePos-highlightPos)+1);
-        NSString* newStyle = [self styleForLine: [str substringWithRange: lineRange]];
+        NSString* newStyle = [outputScanner styleForLine: [str substringWithRange: lineRange]];
 
         if (newStyle != nil) {
             [storage addAttributes: styles[newStyle]
@@ -1127,46 +1080,3 @@ static IFCompilerController* activeController = nil;
 }
 
 @end
-
-// == The lexical helper function to actually add error messages ==
-
-static NSString* memSetting = @"The memory setting ";
-static NSString* exceeds = @"The story file exceeds ";
-static NSString* readable = @"This program has overflowed the maximum readable-memory size of the Z-machine format.";
-
-void IFErrorAddError(const char* filC,
-					 int line,
-                     IFLex type,
-                     const char* mesC) {
-    NSString* file    = @(filC);
-    NSString* message = @(mesC);
-	
-	// Look for known error messages
-	if (type == IFLexCompilerFatalError 
-		&& message.length > memSetting.length
-		&& [[message substringToIndex: memSetting.length] isEqualToString: memSetting]) {
-		[activeController overrideProblemsURL: [NSURL URLWithString: @"inform:/ErrorI6MemorySetting.html"]];
-	}
-	
-	if (type == IFLexCompilerFatalError
-		&& message.length > exceeds.length
-		&& [[message substringToIndex: exceeds.length] isEqualToString: exceeds]) {
-		[activeController overrideProblemsURL: [NSURL URLWithString: @"inform:/ErrorI6TooBig.html"]];
-	}
-	
-	if ((type == IFLexCompilerFatalError || type == IFLexCompilerError)
-		&& message.length > readable.length
-		&& [[message substringToIndex: readable.length] isEqualToString: readable]) {
-		[activeController overrideProblemsURL: [NSURL URLWithString: @"inform:/ErrorI6Readable.html"]];
-	}
-	
-    // Pass the rest to the controller
-    [activeController addErrorForFile: file
-                               atLine: line
-                             withType: type
-                              message: message];
-}
-
-void IFErrorCopyBlorbTo(const char* whereTo) {
-	activeController.blorbLocation = @(whereTo);
-}
