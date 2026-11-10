@@ -28,22 +28,25 @@ final class IFSourceSectionsTests: XCTestCase {
 
         """
 
-    private var storage: NSTextStorage!
     private var intel: IFIntelFile!
 
     override func setUpWithError() throws {
-        // The headings gathered as the source page's are
-        let storage = NSTextStorage(string: source)
+        intel = try headings(of: source)
+    }
+
+    /// The headings of a story, gathered as the source page's are, from a text storage unregistered at the end.
+    private func headings(of text: String) throws -> IFIntelFile {
+        let storage = NSTextStorage(string: text)
         IFSyntaxManager.register(storage, name: "IFSourceSectionsTests", type: .inform7,
                                  intelligence: IFNaturalIntel(), undoManager: nil)
         addTeardownBlock { IFSyntaxManager.unregisterTextStorage(storage) }
-        self.storage = storage
-        intel = try XCTUnwrap(IFSyntaxManager.intelligenceData(for: storage))
+        return try XCTUnwrap(IFSyntaxManager.intelligenceData(for: storage))
     }
 
-    /// The heading whose name starts with some text.
-    private func heading(_ name: String, file: StaticString = #filePath, line: UInt = #line) throws -> IFIntelSymbol {
-        var symbol = intel.firstSymbol
+    /// The heading whose name starts with some text, in the story's headings unless given others.
+    private func heading(_ name: String, in headings: IFIntelFile? = nil,
+                         file: StaticString = #filePath, line: UInt = #line) throws -> IFIntelSymbol {
+        var symbol = (headings ?? intel).firstSymbol
         while let heading = symbol {
             if heading.name?.hasPrefix(name) == true { return heading }
             symbol = heading.next
@@ -51,12 +54,15 @@ final class IFSourceSectionsTests: XCTestCase {
         return try XCTUnwrap(nil, "No heading \(name)", file: file, line: line)
     }
 
-    /// The text of a heading's section.
-    private func textOfSection(_ name: String, file: StaticString = #filePath, line: UInt = #line) throws -> String? {
-        let symbol = try heading(name, file: file, line: line)
-        let range = IFSourceSections.range(ofSection: symbol, inFile: intel, in: source)
+    /// The text of a heading's section, in the story unless given another and its headings.
+    private func textOfSection(_ name: String, in text: String? = nil, headings: IFIntelFile? = nil,
+                               file: StaticString = #filePath, line: UInt = #line) throws -> String? {
+        let text = text ?? source
+        let headings = headings ?? intel
+        let symbol = try heading(name, in: headings, file: file, line: line)
+        let range = IFSourceSections.range(ofSection: symbol, inFile: headings, in: text)
         if range.location == NSNotFound { return nil }
-        return (source as NSString).substring(with: range)
+        return (text as NSString).substring(with: range)
     }
 
     // MARK: - The sections next to one, for the tears at the top and bottom
@@ -140,6 +146,24 @@ final class IFSourceSectionsTests: XCTestCase {
         XCTAssertEqual(try textOfSection("Chapter 2"), "Chapter 2 - Yard\n\nThe Yard is a room.\n")
     }
 
+    func testTheRangeOfASectionWhoseHeadingFollowsText() throws {
+        // A heading with no blank line before it is a heading, and the text before it is in the section before
+        let text = "\"Story\" by Me\n\nChapter 1 - Hall\n\nThe Hall is a room.\n" +
+                   "Chapter 2 - Yard\n\nThe Yard is a room.\n"
+        let headings = try headings(of: text)
+        XCTAssertEqual(try textOfSection("Chapter 1", in: text, headings: headings),
+                       "Chapter 1 - Hall\n\nThe Hall is a room.")
+        XCTAssertEqual(try textOfSection("Chapter 2", in: text, headings: headings),
+                       "Chapter 2 - Yard\n\nThe Yard is a room.\n")
+    }
+
+    func testTheRangeOfASectionBeforeBlankLines() throws {
+        // None of the blank lines before the next heading are in the section
+        let text = "\"Story\" by Me\n\nChapter 1 - Hall\n\nThe Hall is a room.\n\n\n\nChapter 2 - Yard\n"
+        XCTAssertEqual(try textOfSection("Chapter 1", in: text, headings: try headings(of: text)),
+                       "Chapter 1 - Hall\n\nThe Hall is a room.")
+    }
+
     func testTheRangeOfASectionAfterIndentedBlankLines() throws {
         // White space before the heading isn't in the section
         let text = "\"Story\" by Me\n\t\n  Chapter 1 - Hall\n\nThe Hall is a room.\n \nChapter 2 - Yard\n"
@@ -163,7 +187,7 @@ final class IFSourceSectionsTests: XCTestCase {
         file.add(made("Chapter 2 - Yard\n"), atLine: 6)
 
         let range = IFSourceSections.range(ofSection: chapter1, inFile: file, in: text)
-        XCTAssertEqual((text as NSString).substring(with: range), "Chapter 1 - Hall\r\n\r\nThe Hall is a room.\r")
+        XCTAssertEqual((text as NSString).substring(with: range), "Chapter 1 - Hall\r\n\r\nThe Hall is a room.")
     }
 
     func testTheRangeOfAHeadingThatIsntInTheFile() throws {

@@ -75,21 +75,23 @@
                   inString: (NSString*) store {
 	IFIntelSymbol* followingSymbol	= [self sectionAfter: symbol];
 
-	// Get the range we need to limit to
+	// Get the range we need to limit to: from the start of the heading's line (the headings count lines from 0, and
+	// IFSourceLines from 1)...
 	NSRange limitRange;
 
 	NSUInteger symbolLine = [intelFile lineForSymbol: symbol];
 	if (symbolLine == NSNotFound) return NSMakeRange(NSNotFound, 0);
 
-	limitRange.location = [IFSourceLines indexOfLine: symbolLine
+	limitRange.location = [IFSourceLines startOfLine: (NSInteger) symbolLine + 1
 	                                        inString: store];
 	if (limitRange.location == NSNotFound) return NSMakeRange(NSNotFound, 0);
 
+	// ...to the start of the next section's heading's line, or the end of the text
 	NSUInteger finalLocation;
 	if (followingSymbol) {
 		NSUInteger followingLine = [intelFile lineForSymbol: followingSymbol];
 		if (followingLine == NSNotFound) return NSMakeRange(NSNotFound, 0);
-		finalLocation = [IFSourceLines indexOfLine: followingLine
+		finalLocation = [IFSourceLines startOfLine: (NSInteger) followingLine + 1
 		                                  inString: store];
 	} else {
 		finalLocation = store.length;
@@ -104,6 +106,17 @@
 			break;
 		}
 		limitRange.location++;
+	}
+
+	// Leave out the white space before the next section's heading
+	if (followingSymbol) {
+		while (finalLocation > limitRange.location) {
+			unichar chr = [store characterAtIndex: finalLocation - 1];
+			if (chr != ' ' && chr != '\t' && chr != '\n' && chr != '\r') {
+				break;
+			}
+			finalLocation--;
+		}
 	}
 
 	limitRange.length = finalLocation - limitRange.location;
