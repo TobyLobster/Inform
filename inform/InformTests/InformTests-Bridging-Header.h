@@ -75,6 +75,7 @@
 #import "IFInBuild.h"
 #import "IFInTest.h"
 #import "IFTestCaseRun.h"
+#import "IFTestReport.h"
 #import "IFCompileCheck.h"
 #import "IFProjectMenuValidation.h"
 #import "IFPaneChoice.h"
