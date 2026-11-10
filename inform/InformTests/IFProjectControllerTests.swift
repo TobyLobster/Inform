@@ -117,6 +117,36 @@ final class IFProjectControllerTests: XCTestCase {
         XCTAssertNil(controller.oppositePane(left))
     }
 
+    /// Once its window has closed, the controller is freed, with its window and panes. (This is another project's
+    /// controller, as the test's own is still held, made in a pool of its own, so that nothing autoreleased holds it.)
+    func testOnceTheWindowHasClosedTheControllerIsFreed() throws {
+        weak var closedController: TestProjectController?
+        weak var closedWindow: NSWindow?
+        weak var closedPane: IFProjectPane?
+        try autoreleasepool {
+            let otherProject = try IFProject(contentsOf: folder.appendingPathComponent("Lighthouse.inform"),
+                                             ofType: "org.inform-fiction.project")
+            let otherController = TestProjectController()
+            otherProject.addWindowController(otherController)
+            let otherWindow = try XCTUnwrap(otherController.window)
+            otherWindow.setFrameOrigin(NSPoint(x: -20000, y: -20000))
+
+            closedController = otherController
+            closedWindow = otherWindow
+            closedPane = otherController.sourcePane
+
+            otherController.close()
+            otherProject.close()
+        }
+
+        // AppKit may hold the window until the run loop has run
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+
+        XCTAssertNil(closedController)
+        XCTAssertNil(closedWindow)
+        XCTAssertNil(closedPane)
+    }
+
     // MARK: - Switching tabs and panes
 
     func testTheTabCommandsDoNothingWithNoCurrentPane() {
