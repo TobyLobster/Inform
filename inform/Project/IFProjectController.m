@@ -61,7 +61,7 @@
 static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
 
 // *******************************************************************************************
-@interface IFProjectController() <IFProjectMenuState>
+@interface IFProjectController()
 
 - (void) refreshIndexTabs;
 - (void) runCompilerOutput;
