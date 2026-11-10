@@ -368,19 +368,9 @@
 }
 
 - (void) selectTextRange: (NSRange) range {
-	// Restrict the range if needed
-	if ( [IFSyntaxManager isRestricted: textStorage
-                           forTextView: textView] ) {
-		NSRange restriction = [IFSyntaxManager restrictedRange: textStorage
-                                                   forTextView: textView];
-		if (range.location >= restriction.location &&
-            range.location < (restriction.location + restriction.length)) {
-			range.location -= restriction.location;
-		} else {
-			// TODO: move to the appropriate section and try again
-			return;
-		}
-	}
+	// Restrict the range if needed, showing its section if it's outside the one shown
+	range = [self viewRangeForRange: range];
+	if (range.location == NSNotFound) return;
 
 	// Display the range
 	[textView scrollRangeToVisible: NSMakeRange(range.location, range.length==0?1:range.length)];

@@ -484,10 +484,18 @@ final class IFSourcePageTests: XCTestCase {
         XCTAssertEqual(textView.selectedRange(), NSRange(location: shownRange(of: "The Hall").location, length: 0))
         page.move(toLine: 3, character: 4)
         XCTAssertEqual(textView.selectedRange(), NSRange(location: 4, length: 0))
-        // Not to one in another section
+    }
+
+    func testMovingToALineInAnotherSectionShowsThatSection() {
+        putCursor(before: "Hall is")
+        page.showCurrentSectionOnly(nil)
         page.move(toLine: 13)
-        XCTAssertEqual(textView.string, chapter1)
-        XCTAssertEqual(textView.selectedRange(), NSRange(location: 4, length: 0))
+        XCTAssertEqual(textView.string, chapter2)
+        XCTAssertEqual(textView.selectedRange(), NSRange(location: shownRange(of: "The Yard").location, length: 0))
+        // Or the whole story, for a line before the first heading
+        page.move(toLine: 1, character: 1)
+        XCTAssertEqual(textView.string, story)
+        XCTAssertEqual(textView.selectedRange(), NSRange(location: 1, length: 0))
     }
 
     func testShowingASectionCanBeUndone() throws {
