@@ -59,9 +59,11 @@ final class IFCompilerOutputScannerTests: XCTestCase {
         XCTAssertEqual(delegate.events, events, "events", file: file, line: lineNumber)
     }
 
-    /// An error that Inform 6 gives for a line of a file, in the format the app asks for
-    private func inform6(_ message: String, file: String = "auto.inf", line: Int = 10) -> String {
-        return "File \"\(file)\"; Line \(line)\t# \(message)\n"
+    /// An error that Inform 6 gives for a line of a file, in the format the app asks for, with where the line's code
+    /// came from if an #OrigSource directive says
+    private func inform6(_ message: String, file: String = "auto.inf", line: Int = 10, from: String? = nil) -> String {
+        let origin = from.map { ": (\($0))" } ?? ""
+        return "File \"\(file)\"; Line \(line)\(origin)\t# \(message)\n"
     }
 
     func testCompilerVersions() {
@@ -108,6 +110,36 @@ final class IFCompilerOutputScannerTests: XCTestCase {
         assertLine(inform6("*** Compiler error:  Paged size exceeds rough estimate."), IFStyleCompilerFatalError,
                    [.error(file: "auto.inf", line: 10, type: IFLexCompilerFatalError,
                            message: "Paged size exceeds rough estimate.")])
+    }
+
+    func testInform6ErrorsInCodeThatCameFromElsewhere() {
+        // As Inform 6.45 gives it, for code after an #OrigSource directive, which Inform 7 writes
+        assertLine("File \"err.inf\"; Line 4: (\"source/story.ni\"; Line 12)\t# Error:  No such constant as \"undefined_thing\"\n",
+                   IFStyleCompilerError,
+                   [.error(file: "err.inf", line: 4, type: IFLexCompilerError,
+                           message: "No such constant as \"undefined_thing\"")])
+        assertLine(inform6("Warning:  Local variable \"x\" declared but not used", line: 7,
+                           from: "\"Basic Inform.i7x\"; Line 3; Char 5"),
+                   IFStyleCompilerWarning,
+                   [.error(file: "auto.inf", line: 7, type: IFLexCompilerWarning,
+                           message: "Local variable \"x\" declared but not used")])
+        assertLine(inform6("Error:  Oops", line: 8, from: "\"BasicInformKit\""), IFStyleCompilerError,
+                   [.error(file: "auto.inf", line: 8, type: IFLexCompilerError, message: "Oops")])
+    }
+
+    func testAKnownErrorInCodeThatCameFromElsewhere() {
+        let message = "This program has overflowed the maximum readable-memory size of the Z-machine format. See below."
+        assertLine(inform6("Error:  \(message)", from: "\"source/story.ni\"; Line 12"), IFStyleCompilerError,
+                   [.problemsURL("inform:/ErrorI6Readable.html"),
+                    .error(file: "auto.inf", line: 10, type: IFLexCompilerError, message: message)])
+    }
+
+    func testAFileWithQuotesInItsName() {
+        let file = "/Projects/A \"Quoted\" Story.inform/Build/auto.inf"
+        assertLine(inform6("Error:  Oops", file: file), IFStyleCompilerError,
+                   [.error(file: file, line: 10, type: IFLexCompilerError, message: "Oops")])
+        assertLine(inform6("Error:  Oops", file: file, from: "\"source/story.ni\"; Line 12"), IFStyleCompilerError,
+                   [.error(file: file, line: 10, type: IFLexCompilerError, message: "Oops")])
     }
 
     func testOtherInform6Messages() {
