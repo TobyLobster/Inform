@@ -57,8 +57,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, readonly, copy, nullable) NSString *openSourceFilepath;
 /// Returns the currently displayed filename
 @property (atomic, readonly, copy, nullable) NSString *currentFile;
-/// Returns the line the cursor is currently on
-@property (atomic, readonly) int currentLine;
 
 /// Shows an indicator for the specified line number
 - (void) indicateLine: (int) line;

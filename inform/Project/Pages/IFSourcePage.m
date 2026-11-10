@@ -429,37 +429,6 @@
 	return [(self.parent).document pathForSourceFile: openSourceFilepath];
 }
 
-- (int) currentLine {
-	NSUInteger selPos = [textView selectedRange].location;
-	
-	if (selPos >= textStorage.length) return -1;
-	
-	// Count the number of newlines until the current line
-	// (Take account of CRLF or LFCR style things)
-	int x;
-	int line = 0;
-	
-	unichar lastNewline = 0;
-	
-	for (x=0; x<selPos; x++) {
-		unichar chr = [textStorage.string characterAtIndex: x];
-		
-		if (chr == '\n' || chr == '\r') {
-			if (lastNewline != 0 && chr != lastNewline) {
-				// CRLF combination
-				lastNewline = 0;
-			} else {
-				lastNewline = chr;
-				line++;
-			}
-		} else {
-			lastNewline = 0;
-		}
-	}
-	
-	return line;
-}
-
 - (void) selectTextRange: (NSRange) range {
 	// Restrict the range if needed
 	if ( [IFSyntaxManager isRestricted: textStorage
