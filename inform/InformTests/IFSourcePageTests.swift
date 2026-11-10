@@ -316,8 +316,6 @@ final class IFSourcePageTests: XCTestCase {
         XCTAssertEqual(textView.selectedRange(), NSRange(location: location(of: "The Hall"), length: 0))
         page.move(toLine: 5, character: 4)
         XCTAssertEqual(textView.selectedRange(), NSRange(location: location(of: "Hall is"), length: 0))
-        page.move(toLocation: 20)
-        XCTAssertEqual(textView.selectedRange(), NSRange(location: 20, length: 0))
     }
 
     func testSelectsARange() {

@@ -53,10 +53,11 @@ import WebKit
     /// This object receives our delegate messages
     weak var delegate: IFCompilerControllerDelegate?
 
-    /// Project controller
-    private final var projectController: IFProjectController?
+    /// Project controller, held weakly, as it owns the pane
+    private final weak var projectController: IFProjectController?
     private final var helper: IFWebViewHelper?
-    private final var pane: IFProjectPane?
+    /// The pane, held weakly, as it owns the errors page, which owns this
+    private final weak var pane: IFProjectPane?
 
     /// Tabs
     private final var tabs: [IFCompilerTab] = []

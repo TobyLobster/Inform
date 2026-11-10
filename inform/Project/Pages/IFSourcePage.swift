@@ -385,10 +385,6 @@ import Cocoa
         selectTextRange(NSRange(location: Int(bitPattern: linepos), length: 0))
     }
 
-    func move(toLocation location: Int) {
-        selectTextRange(NSRange(location: location, length: 0))
-    }
-
     @objc(selectRange:)
     func select(_ range: NSRange) {
         textView.scrollRangeToVisible(range)
