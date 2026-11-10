@@ -282,10 +282,6 @@ private final class IFSemiTransparentView: NSView {
         gameRunningProgress?.stopStory()
     }
 
-    func pauseRunningGame() {
-        zView?.debugTask()
-    }
-
     // MARK: - Page actions
 
     public override func didSwitchToPage() {

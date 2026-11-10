@@ -41,8 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
 		  character: (int) chr;
 /// Scrolls the source view so that the given line to be visible
 - (void) moveToLine: (NSInteger) line;
-/// Scrolls the source view so that the given character index is visible
-- (void) moveToLocation: (NSInteger) location;
 /// Selects a range of characters in the source view
 - (void) selectRange: (NSRange) range;
 /// Indicates a range of characters in the source view

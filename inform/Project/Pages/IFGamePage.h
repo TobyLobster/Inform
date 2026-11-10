@@ -50,8 +50,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) startRunningGame: (NSString*) fileName;
 /// Forcibly stops running the game
 - (void) stopRunningGame;
-/// Forcibly pauses the running game and enters the debugger
-- (void) pauseRunningGame;
 
 @end
 

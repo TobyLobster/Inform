@@ -48,12 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
 // Communication from the containing panes
 - (BOOL) showTestCase: (NSString*) testCase skeinNode:(unsigned long) skeinNodeId;
 - (BOOL) selectSourceFile: (NSString*) fileName;
-- (void) moveToSourceFilePosition: (NSInteger) location;
 - (void) moveToSourceFileLine: (NSInteger) line;
-@property (atomic, readonly, copy, nullable) NSString *selectedSourceFile;
 
-- (void) highlightSourceFileLine: (NSInteger) line
-                          inFile: (NSString*) file;
 - (void) highlightSourceFileLine: (NSInteger) line
                           inFile: (NSString*) file
                            style: (IFLineStyle) style;
@@ -73,9 +69,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, nullable) NSOpenPanel* openLegacyExtensionPanel;
 
 - (void) zoomViewIsWaitingForInput;
-
-// Documentation
-- (void) openDocUrl: (NSURL*) url;
 
 // Displaying progress
 - (void) addProgressIndicator:      (IFProgress*) indicator;

@@ -102,9 +102,6 @@ static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
     /// Decides whether the project needs compiling before its story is used
     IFCompileCheck*         compileCheck;
 
-    // The last file selected
-    NSString*               lastFilename;
-
     /// Used when running the entire skein
     IFSkeinPlayAll*         playAll;
 
@@ -591,21 +588,6 @@ static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
     [self refreshTestCases];
 }
 
-/*
- - (IBAction)saveDocumentAs:(id)sender {
- // Need to call prepareToSave here to give the project panes a chance to shut down any editing operations that might be ongoing
- for( IFProjectPane* pane in projectPanes ) {
- [pane prepareToSave];
- }
-
- // Save the project, without user interaction.
- [[self document] saveDocumentWithoutUserInteraction];
-
- // Refresh the available test cases
- [self refreshTestCases];
- }
- */
-
 - (void) makeWithRelease: (BOOL) release
               forTesting: (BOOL) releaseForTesting
              refreshOnly: (BOOL) onlyRefresh
@@ -1055,16 +1037,12 @@ static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
     if ([self.document storageForFile: fileName] != nil) {
         // Load this file
         [self.sourcePage showSourceFile: fileName];
-        //[projectPanes makeObjectsPerformSelector: @selector(showSourceFile:)
-        //							  withObject: fileName];
     } else if (![self loadInform7Extension: fileName]) {
         // Display an error if we couldn't find the file
         [IFUtility runAlertWarningWindow: self.window
                                    title: @"Unable to open source file"
                                  message: @"Unable to open source file description"];
     }
-
-    lastFilename = [fileName copy];
 
     return YES;
 }
@@ -1073,23 +1051,11 @@ static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
     return self.sourcePane.sourcePage;
 }
 
-- (NSString*) selectedSourceFile {
-    return [self sourcePage].currentFile;
-}
-
 - (void) moveToSourceFileLine: (NSInteger) line {
     IFProjectPane* thePane = self.sourcePane;
 
     [thePane selectViewOfType: IFSourcePane];
     [thePane.sourcePage moveToLine: line];
-    [self.window makeFirstResponder: thePane.activeView];
-}
-
-- (void) moveToSourceFilePosition: (NSInteger) location {
-    IFProjectPane* thePane = self.sourcePane;
-
-    [thePane selectViewOfType: IFSourcePane];
-    [thePane.sourcePage moveToLocation: location];
     [self.window makeFirstResponder: thePane.activeView];
 }
 
@@ -1136,13 +1102,6 @@ static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
     }
 
     [highlights temporaryHighlightsWereRemoved];
-}
-
-- (void) highlightSourceFileLine: (NSInteger) line
-                          inFile: (NSString*) file {
-    [self highlightSourceFileLine: line
-                           inFile: file
-                            style: IFLineStyleNeutral];
 }
 
 - (void) highlightSourceFileLine: (NSInteger) line
@@ -1206,17 +1165,6 @@ static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
 
 - (IFGamePage*) gamePage {
     return [projectPanes[1] gamePage];
-}
-
-- (void) restartRunning {
-    // Perform actions to switch back to the game when we click on continue, etc
-    [self.window makeFirstResponder: [self runningGamePage].zoomView];
-
-    [toolbarManager validateVisibleItems];
-}
-
-- (void) pauseProcess: (id) sender {
-    [[self runningGamePage] pauseRunningGame];
 }
 
 - (IFIntelFile*) currentIntelligence {
@@ -1475,22 +1423,6 @@ static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
 
 - (void) removeProgressIndicator: (IFProgress*) indicator {
     [toolbarManager removeProgressIndicator: indicator];
-}
-
-- (void) progressIndicator: (IFProgress*) indicator
-				percentage: (CGFloat) newPercentage {
-	[toolbarManager progressIndicator: indicator
-                           percentage: newPercentage];
-}
-
-- (void) progressIndicator: (IFProgress*) indicator
-				   message: (NSString*) newMessage {
-    [toolbarManager progressIndicator: indicator
-                              message: newMessage];
-}
-
-- (void) updateProgress {
-    [toolbarManager updateProgress];
 }
 
 - (BOOL) validateToolbarItem: (NSToolbarItem*) item {
@@ -2011,15 +1943,6 @@ static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
 
 - (IBAction) exportExtension: (id) sender {
     [self.document exportExtension: self.window];
-}
-
-#pragma mark - Documentation
-
-- (void) openDocUrl: (NSURL*) url {
-	IFProjectPane* auxPane = self.auxPane;
-	
-	[auxPane selectViewOfType: IFDocumentationPane];
-	[auxPane.documentationPage openURL: url];
 }
 
 #pragma mark - Headers
