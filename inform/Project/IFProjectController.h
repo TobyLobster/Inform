@@ -97,6 +97,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction) tabGame:           (nullable id) sender;
 - (IBAction) tabDocumentation:  (nullable id) sender;
 - (IBAction) tabSettings:       (nullable id) sender;
+- (IBAction) tabExtensions:     (nullable id) sender;
+- (IBAction) showIndexTab:      (nullable id) sender;
 
 - (IBAction) gotoLeftPane:      (nullable id) sender;
 - (IBAction) gotoRightPane:     (nullable id) sender;
@@ -107,6 +109,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction) showHeadings:        (nullable id) sender;
 - (IBAction) showPreviousSection: (nullable id) sender;
 - (IBAction) showNextSection:     (nullable id) sender;
+- (IBAction) showCurrentSectionOnly: (nullable id) sender;
+- (IBAction) showEntireSource:    (nullable id) sender;
+- (IBAction) showFewerHeadings:   (nullable id) sender;
+- (IBAction) showMoreHeadings:    (nullable id) sender;
 - (IBAction) commentOutSelection: (nullable id) sender;
 - (IBAction) uncommentSelection:  (nullable id) sender;
 - (IBAction) release:           (nullable id) sender;
@@ -116,6 +122,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction) compileAndDebug:   (nullable id) sender;
 - (IBAction) compileAndRefresh: (nullable id) sender;
 - (IBAction) replayUsingSkein:  (nullable id) sender;
+- (IBAction) replayEntireSkein: (nullable id) sender;
 - (IBAction) stopProcess:       (nullable id) sender;
 - (IBAction) searchDocs:        (nullable id) sender;
 - (IBAction) searchProject:     (nullable id) sender;
