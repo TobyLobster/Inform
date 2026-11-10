@@ -47,6 +47,7 @@
 #import "IFCompilerController.h"
 #import "IFCompilerSettings.h"
 #import "IFCompileCheck.h"
+#import "IFProjectMenuValidation.h"
 #import "IFTestCaseRun.h"
 
 #import "IFUtility.h"
@@ -58,7 +59,7 @@ static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
 static CGFloat const      minDividerWidth     = 75.0f;
 
 // *******************************************************************************************
-@interface IFProjectController()
+@interface IFProjectController() <IFProjectMenuState>
 
 - (void) refreshIndexTabs;
 - (void) runCompilerOutput;
@@ -457,123 +458,53 @@ static CGFloat const      minDividerWidth     = 75.0f;
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem*) menuItem {
-    SEL itemSelector = menuItem.action;
-    BOOL isRunning = [self runningGamePage].isRunningGame;
+    return [IFProjectMenuValidation isEnabledAction: menuItem.action
+                                                tag: menuItem.tag
+                                            inState: self];
+}
 
-    if (itemSelector == @selector(stopProcess:)) {
-        return isRunning;
-    }
+#pragma mark - What the menu's commands depend on
 
-    BOOL selectedNoTestCase = [self isExtensionProject] && ((toolbarManager.testCases.count == 0) ||
-                                                            (toolbarManager.currentTestCase == nil));
-    BOOL selectedTestAllCase = [self isExtensionProject] && [self isTestAllCasesSelected];
-    BOOL currentlyTesting = self.currentlyTesting;
+- (NSUInteger) numberOfToolbarTestCases {
+    return toolbarManager.testCases.count;
+}
 
-    if (itemSelector == @selector(testMe:)) {
-        // If we are in an Extension Project, and there are no test cases to run, disable Go! (etc) menu items.
-        if( selectedNoTestCase || currentlyTesting) {
-            return NO;
-        }
-    }
+- (NSString*) toolbarTestCase {
+    return toolbarManager.currentTestCase;
+}
 
-    if (itemSelector == @selector(replayEntireSkein:) ||
-        itemSelector == @selector(replayUsingSkein:)) {
+- (BOOL) isCompilerRunning {
+    return [self.document compiler].running;
+}
 
-        // If we are in an Extension Project, and there are no test cases to run, disable Go! (etc) menu items.
-        if( selectedNoTestCase || selectedTestAllCase || currentlyTesting) {
-            return NO;
-        }
-    }
-    
-    if (itemSelector == @selector(compile:) ||
-        itemSelector == @selector(release:) ||
-        itemSelector == @selector(releaseForTesting:) ||
-        itemSelector == @selector(compileAndRun:) ||
-        itemSelector == @selector(compileAndDebug:) ||
-        itemSelector == @selector(replayUsingSkein:) ||
-        itemSelector == @selector(compileAndRefresh:)) {
+- (BOOL) isUsingNaturalInform {
+    return [self.document settings].usingNaturalInform;
+}
 
-        // If we are in an Extension Project, and there are no test cases to run, disable Go! (etc) menu items.
-        if( selectedNoTestCase ) {
-            return NO;
-        }
-        return ![self.document compiler].running;
-    }
+- (BOOL) isTextViewFirstResponder {
+    return [self.window.firstResponder isKindOfClass: [NSTextView class]];
+}
 
-    // Format options
-    if (itemSelector == @selector(shiftLeft:) ||
-        itemSelector == @selector(shiftRight:) ||
-        itemSelector == @selector(renumberSections:)) {
-        // First responder must be an NSTextView object
-        if (![self.window.firstResponder isKindOfClass: [NSTextView class]])
-            return NO;
-    }
+- (NSUInteger) firstResponderSelectionLength {
+    return [(NSTextView*)self.window.firstResponder selectedRange].length;
+}
 
-    if (itemSelector == @selector(commentOutSelection:)
-        || itemSelector == @selector(uncommentSelection:)) {
-        // Must be an Inform 7 project (not supporting this for I6 unless someone asks or implements themselves :-)
-        if (![self.document settings].usingNaturalInform)
-            return NO;
+- (BOOL) firstResponderHasIntelligence {
+    NSTextStorage* storage = [IFSyntaxManager registeredStorageForTextView: (NSTextView*)self.window.firstResponder];
 
-        // First responder must be a NSTextView object
-        if (![self.window.firstResponder isKindOfClass: [NSTextView class]])
-            return NO;
+    return !(storage == nil || [IFSyntaxManager intelligenceDataForStorage: storage] == nil);
+}
 
-        // There must be a non-zero length selection
-        if ([(NSTextView*)self.window.firstResponder selectedRange].length == 0)
-            return 0;
-    }
+- (BOOL) hasCurrentTabView {
+    return [self currentTabView] != nil;
+}
 
-    if (itemSelector == @selector(renumberSections:)) {
-        // First responder must be an NSTextView object containing a NSTextStorage with some intel data
-        if (![self.window.firstResponder isKindOfClass: [NSTextView class]])
-            return NO;
+- (BOOL) isSourcePaneCurrent {
+    return currentPane.currentView == IFSourcePane;
+}
 
-        NSTextStorage* storage = [IFSyntaxManager registeredStorageForTextView: (NSTextView*)self.window.firstResponder];
-
-        if (storage == nil || [IFSyntaxManager intelligenceDataForStorage: storage] == nil) return NO;
-    }
-
-    // Tabbing options
-    if (itemSelector == @selector(tabSource:)
-        || itemSelector == @selector(tabErrors:)
-        || itemSelector == @selector(tabIndex:)
-        || itemSelector == @selector(tabSkein:)
-        || itemSelector == @selector(tabGame:)
-        || itemSelector == @selector(tabDocumentation:)
-        || itemSelector == @selector(tabSettings:)
-        || itemSelector == @selector(switchPanes:)) {
-        return [self currentTabView] != nil;
-    }
-
-    if (itemSelector == @selector(showIndexTab:)) {
-        return [[projectPanes[0] indexPage] canSelectIndexTab: (int) menuItem.tag];
-    }
-
-    // Heading options
-    if (itemSelector == @selector(showNextSection:)
-        || itemSelector == @selector(showPreviousSection:)
-        || itemSelector == @selector(showCurrentSectionOnly:)
-        || itemSelector == @selector(showEntireSource:)
-        || itemSelector == @selector(showFewerHeadings:)
-        || itemSelector == @selector(showMoreHeadings:)) {
-        // For any of these to work, the source page must be visible
-        if (![self.window.firstResponder isKindOfClass: [NSTextView class]])
-            return NO;
-
-        if (currentPane.currentView != IFSourcePane)
-            return NO;
-    }
-
-    if (itemSelector == @selector(exportIFiction:)) {
-        return [self.document settings].usingNaturalInform;
-    }
-
-    if (itemSelector == @selector(exportExtension:)) {
-        return [self.document isExtensionProject];
-    }
-
-    return YES;
+- (BOOL) canSelectIndexTab: (int) tab {
+    return [[projectPanes[0] indexPage] canSelectIndexTab: tab];
 }
 
 -(int) getNumberOfTestCases {
