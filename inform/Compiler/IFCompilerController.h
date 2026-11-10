@@ -49,8 +49,6 @@ NS_ASSUME_NONNULL_BEGIN
                 withType: (IFLex) type
                  message: (NSString*) message;
 
-/// Displays the window thats displaying the compiler messages
-- (void) showWindow: (nullable id) sender;
 /// The delegate object
 @property (atomic, weak, nullable) IBOutlet id<IFCompilerControllerDelegate> delegate;
 

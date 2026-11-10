@@ -18,7 +18,6 @@
 
 #import "IFPreferences.h"
 #import "IFUtility.h"
-#import "NSBundle+IFBundleExtensions.h"
 #import "IFProjectController.h"
 #import "IFProgress.h"
 #import "IFCompilerStyles.h"
@@ -33,9 +32,6 @@
 @end
 
 @implementation IFCompilerController {
-    /// \c YES if we're all initialised (ie, loaded up from a nib)
-    BOOL awake;
-
     /// Output from the compiler ends up here
     IBOutlet NSTextView* compilerResults;
     /// ...and is scrolled around by this thingmebob
@@ -49,9 +45,6 @@
     IBOutlet NSScrollView*  messageScroller;
     /// ...and this actually displays them
     IBOutlet NSOutlineView* compilerMessages;
-
-    /// We're attached to this window
-    IBOutlet NSWindow*      window;
 
     /// This object receives our delegate messages
     __weak id<IFCompilerControllerDelegate> delegate;
@@ -237,7 +230,6 @@
     self = [super init];
 
     if (self) {
-        awake = NO;
         compiler = [[IFCompiler alloc] init];
         styles = [[[self class] defaultStyles] mutableCopy];
         highlightPos = 0;
@@ -262,7 +254,6 @@
 }
 
 - (void) awakeFromNib {
-    awake = YES;
     compilerResults.textStorage.delegate = self;
 
     splitView.delegate = self;
@@ -277,15 +268,6 @@
     [compilerResults.textContainer setWidthTracksTextView: NO];
     compilerResults.textContainer.containerSize = NSMakeSize(1e8, 1e8);
     compilerResults.backgroundColor = NSColor.textBackgroundColor;
-}
-
-- (void) showWindow: (id) sender {
-    if (!awake) {
-        [NSBundle customLoadNib: @"Compiling"
-                          owner: self];
-    }
-
-    [window orderFront: sender];
 }
 
 // == Information ==
@@ -702,10 +684,6 @@
     }
 
     return;
-}
-
-- (void) windowWillClose: (NSNotification*) not {
-    //[self autorelease];
 }
 
 // Other information
