@@ -47,136 +47,70 @@
     return linepos;
 }
 
-+ (NSRange) rangeOfTextOnLine: (int) line
-                     inString: (NSString*) store {
+/// Where the line starting at an index ends: the index of the character that ends it, or the length of the text
++ (NSUInteger) endOfLineStartingAt: (NSUInteger) linepos
+                          inString: (NSString*) store {
     NSUInteger length = store.length;
 
     NSUInteger x;
-    NSUInteger lineLength;
-    NSUInteger linepos = 0;
-    int        lineno = 1;
-
-    if (line > lineno)
-	{
-		for (x=0; x<length; x++) {
-			unichar chr = [store characterAtIndex: x];
-
-			if (chr == '\n' || chr == '\r') {
-				unichar otherchar = chr == '\n'?'\r':'\n';
-
-				lineno++;
-				linepos = x + 1;
-
-				// Deal with DOS line endings
-				if (linepos < length && [store characterAtIndex: linepos] == otherchar) {
-					x++; linepos++;
-				}
-
-				if (lineno == line) {
-					break;
-				}
-			}
-		}
-	}
-
-    if (lineno != line) {
-        return NSMakeRange(NSNotFound, 0);
-    }
-
-    lineLength = 0;
-    for (x=0; x<length-linepos; x++) {
-        if ([store characterAtIndex: x+linepos] == '\n'
-			|| [store characterAtIndex: x+linepos] == '\r') {
-            break;
-        }
-        lineLength++;
-    }
-
-    return NSMakeRange(linepos, lineLength);
-}
-
-+ (NSRange) rangeOfLine: (NSUInteger) line
-               inString: (NSString*) store {
-    NSUInteger length = store.length;
-
-    NSUInteger x;
-    NSUInteger linepos = 0;
-    NSUInteger lineno = 1;
-
-    if (line > lineno) {
-		for (x=0; x<length; x++) {
-			unichar chr = [store characterAtIndex: x];
-
-			if (chr == '\n' || chr == '\r') {
-				unichar otherchar = chr == '\n'?'\r':'\n';
-
-				lineno++;
-				linepos = x + 1;
-
-				// Deal with DOS line endings
-				if (linepos < length && [store characterAtIndex: linepos] == otherchar) {
-					x++; linepos++;
-				}
-
-				if (lineno == line) {
-					break;
-				}
-			}
-		}
-	}
-
-    if (lineno != line) {
-        return NSMakeRange(NSNotFound, 0);
-    }
-
-	// Find the end of this line
 	for (x=linepos; x<length; x++) {
         unichar chr = [store characterAtIndex: x];
-
+        
         if (chr == '\n' || chr == '\r') {
 			break;
 		}
 	}
 
-	return NSMakeRange(linepos, x - linepos + 1);
+    return x;
+}
+
++ (NSRange) rangeOfTextOnLine: (int) line
+                     inString: (NSString*) store {
+    NSUInteger linepos = [self startOfLine: line
+                                  inString: store];
+
+    if (linepos == NSNotFound) {
+        return NSMakeRange(NSNotFound, 0);
+    }
+
+    NSUInteger lineEnd = [self endOfLineStartingAt: linepos
+                                          inString: store];
+
+    return NSMakeRange(linepos, lineEnd - linepos);
+}
+
++ (NSRange) rangeOfLine: (NSUInteger) line
+               inString: (NSString*) store {
+    NSUInteger linepos = [self startOfLine: (NSInteger) line
+                                  inString: store];
+
+    if (linepos == NSNotFound) {
+        return NSMakeRange(NSNotFound, 0);
+    }
+	
+	// Find the end of this line
+    NSUInteger lineEnd = [self endOfLineStartingAt: linepos
+                                          inString: store];
+	
+	return NSMakeRange(linepos, lineEnd - linepos + 1);
 }
 
 + (NSUInteger) indexOfLine: (NSUInteger) line
                   inString: (NSString*) store {
-    NSUInteger length = store.length;
+    NSUInteger linepos = [self startOfLine: (NSInteger) line
+                                  inString: store];
 
-    NSUInteger x = 0;
-    NSUInteger linepos;
-    NSUInteger lineno = 1;
-
-    if (line > lineno)
-	{
-		for (x=0; x<length; x++) {
-			unichar chr = [store characterAtIndex: x];
-
-			if (chr == '\n' || chr == '\r') {
-				unichar otherchar = chr == '\n'?'\r':'\n';
-
-				lineno++;
-				linepos = x + 1;
-
-				// Deal with DOS line endings
-				if (linepos < length && [store characterAtIndex: linepos] == otherchar) {
-					x++; linepos++;
-				}
-
-				if (lineno == line) {
-					break;
-				}
-			}
-		}
-	}
-
-	if (lineno != line) {
+	if (linepos == NSNotFound) {
 		return NSNotFound;
 	}
 
-	return x;
+    // The first line has no line before it
+    if (linepos == 0) {
+        return 0;
+    }
+
+    // The character before the line's start is the last of what ends the line before
+	return linepos - 1;
 }
 
 + (int) lineForCharacter: (NSUInteger) charNum
