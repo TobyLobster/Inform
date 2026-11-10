@@ -9,7 +9,6 @@
 #import "IFProjectPane.h"
 #import "IFProject.h"
 #import "IFProjectController.h"
-#import "IFAppDelegate.h"
 #import "IFCompilerController.h"
 
 #import "IFSourcePage.h"
@@ -23,10 +22,6 @@
 
 #import "IFPreferences.h"
 
-#import "IFRuntimeErrorParser.h"
-
-#import "IFGlkResources.h"
-
 #import "IFHistoryEvent.h"
 #import "IFPaneHistory.h"
 #import "IFPageBarCell.h"
@@ -36,8 +31,6 @@
 #import <ZoomView/ZoomView.h>
 #import <ZoomView/ZoomView-Swift.h>
 
-
-static NSDictionary* IFSyntaxAttributes[256];
 
 @implementation IFProjectPane {
     // Outlets
@@ -96,86 +89,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 + (void) initialize {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-    NSFont* systemFont       = [NSFont systemFontOfSize: 11];
-    NSFont* smallFont        = [NSFont boldSystemFontOfSize: 9];
-    NSFont* boldSystemFont   = [NSFont boldSystemFontOfSize: 11];
-    NSFont* headerSystemFont = [NSFont boldSystemFontOfSize: 12];
-    NSFont* monospaceFont    = [NSFont fontWithName: @"Monaco"
-                                               size: 9];
-
 	[[ZoomPreferences globalPreferences] setDisplayWarnings: YES];
-
-    // Default style
-    NSDictionary* defaultStyle = @{NSFontAttributeName: systemFont,
-        NSForegroundColorAttributeName: [NSColor textColor]};
-
-    for (int x = 0; x < 256; x++) {
-        IFSyntaxAttributes[x] = defaultStyle;
-    }
-
-    // Styles for various kinds of code
-    IFSyntaxAttributes[IFSyntaxString]          = @{ NSFontAttributeName:            systemFont,
-                                                     NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.53 green: 0.08 blue: 0.08 alpha: 1.0],
-                                                     NSLigatureAttributeName:        @0 };
-    IFSyntaxAttributes[IFSyntaxComment]         = @{ NSFontAttributeName:            smallFont,
-                                                     NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.14 green: 0.43 blue: 0.14 alpha: 1.0],
-                                                     NSLigatureAttributeName:        @0 };
-    IFSyntaxAttributes[IFSyntaxMonospace]       = @{ NSFontAttributeName:            monospaceFont,
-                                                     NSForegroundColorAttributeName: [NSColor blackColor],
-                                                     NSLigatureAttributeName:        @0 };
-
-    // Inform 6 syntax types
-    IFSyntaxAttributes[IFSyntaxDirective]       = @{ NSFontAttributeName:            systemFont,
-                                                     NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.20 green: 0.08 blue: 0.53 alpha: 1.0],
-                                                     NSLigatureAttributeName:        @0};
-    IFSyntaxAttributes[IFSyntaxProperty]        = @{ NSFontAttributeName:            boldSystemFont,
-                                                     NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.08 green: 0.08 blue: 0.53 alpha: 1.0],
-                                                     NSLigatureAttributeName:        @0};
-    IFSyntaxAttributes[IFSyntaxFunction]        = @{ NSFontAttributeName:            boldSystemFont,
-                                                     NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.08 green: 0.53 blue: 0.53 alpha: 1.0],
-                                                     NSLigatureAttributeName:        @0};
-    IFSyntaxAttributes[IFSyntaxCode]            = @{ NSFontAttributeName:            boldSystemFont,
-                                                     NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.46 green: 0.06 blue: 0.31 alpha: 1.0],
-                                                     NSLigatureAttributeName:        @0};
-    IFSyntaxAttributes[IFSyntaxAssembly]        = @{ NSFontAttributeName:            boldSystemFont,
-                                                     NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.46 green: 0.31 blue: 0.31 alpha: 1.0],
-                                                     NSLigatureAttributeName:        @0};
-    IFSyntaxAttributes[IFSyntaxCodeAlpha]       = @{ NSFontAttributeName:            systemFont,
-                                                     NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.4 green: 0.4 blue: 0.3 alpha: 1.0],
-                                                     NSLigatureAttributeName:        @0};
-    IFSyntaxAttributes[IFSyntaxEscapeCharacter] = @{ NSFontAttributeName:            boldSystemFont,
-                                                     NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.73 green: 0.2 blue: 0.73 alpha: 1.0],
-                                                     NSLigatureAttributeName:        @0};
-
-	// Natural Inform tab stops
-	NSMutableParagraphStyle* tabStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-
-	NSMutableArray* tabStops = [NSMutableArray array];
-	for (int x = 0; x < 48; x++) {
-		NSTextTab* tab = [[NSTextTab alloc] initWithType: NSLeftTabStopType
-												location: 64.0 * (x+1)];
-		[tabStops addObject: tab];
-	}
-	tabStyle.tabStops = tabStops;
-
-    // Natural inform syntax types
-	IFSyntaxAttributes[IFSyntaxNaturalInform] = @{ NSFontAttributeName:            systemFont,
-                                                   NSForegroundColorAttributeName: [NSColor textColor],
-                                                   NSParagraphStyleAttributeName:  tabStyle};
-    IFSyntaxAttributes[IFSyntaxHeading]       = @{ NSFontAttributeName:            headerSystemFont,
-                                                   NSForegroundColorAttributeName: [NSColor textColor],
-                                                   NSParagraphStyleAttributeName:  tabStyle};
-	IFSyntaxAttributes[IFSyntaxGameText]      = @{ NSFontAttributeName:            boldSystemFont,
-                                                   NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.0 green: 0.3 blue: 0.6 alpha: 1.0],
-                                                   NSParagraphStyleAttributeName:  tabStyle};
-	IFSyntaxAttributes[IFSyntaxSubstitution]  = @{ NSFontAttributeName:            systemFont,
-                                                   NSForegroundColorAttributeName: [NSColor systemPurpleColor],
-                                                   NSParagraphStyleAttributeName:  tabStyle};
-
-	// The 'plain' style is a bit of a special case. It's used for files that we want to run the syntax
-	// highlighter on, but where we want the user to be able to set styles. The user will be able to set
-	// certain styles even for things that are affected by the highlighter.
-	IFSyntaxAttributes[IFSyntaxPlain] = @{NSForegroundColorAttributeName: [NSColor textColor]};
     });
 }
 
@@ -444,20 +358,10 @@ static NSDictionary* IFSyntaxAttributes[256];
     return errorsPage.compilerController;
 }
 
-#pragma mark - Menu actions
-
-- (BOOL)validateMenuItem:(NSMenuItem*) menuItem {
-	return YES;
-}
-
 #pragma mark - The source view
 
 - (void) prepareToSave {
 	[sourcePage prepareToSave];
-}
-
-- (void) showSourceFile: (NSString*) file {
-	[self.sourcePage showSourceFile: file];
 }
 
 #pragma mark - The pages
@@ -538,11 +442,6 @@ static NSDictionary* IFSyntaxAttributes[256];
 #pragma mark - The tab view
 
 @synthesize tabView;
-
-#pragma mark - Find
-
-- (void) performFindPanelAction: (id) sender {
-}
 
 #pragma mark - Dealing with pages
 

@@ -53,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 //
 // Controller class dealing with one side of the project window
 //
-@interface IFProjectPane : NSObject<IFProjectPane, IFHistoryRecorder, NSMenuItemValidation>
+@interface IFProjectPane : NSObject<IFProjectPane, IFHistoryRecorder>
 
 // Class methods
 /// Create/load a project pane
@@ -116,16 +116,10 @@ NS_ASSUME_NONNULL_BEGIN
 // The source page
 /// Informs this pane that it's time to prepare to save the document
 - (void) prepareToSave;
-/// Sets the source page to show a specific source file
-- (void) showSourceFile: (nullable NSString*) file;
 
 // The game page
 /// Convenience method
 - (void) stopRunningGame;
-
-// Search/replace
-/// Called to invoke the find panel for the current pane
-- (void) performFindPanelAction: (nullable id) sender;
 
 // History
 /// Gets the current history event for this run through the loop (nil while replaying history)
