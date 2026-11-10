@@ -99,7 +99,7 @@ final class IFProjectMenuValidationTests: XCTestCase {
         XCTAssertFalse(isEnabled(#selector(IFProjectController.testMe(_:))))
     }
 
-    func testTestMeInAnExtensionProjectNeedsATestCaseChosen() {
+    func testTestMeInAnExtensionProjectNeedsTestCases() {
         let testMe = #selector(IFProjectController.testMe(_:))
 
         state.isExtensionProject = true
@@ -108,8 +108,9 @@ final class IFProjectMenuValidationTests: XCTestCase {
         makeExtensionProject(choosing: "Test 1")
         XCTAssertTrue(isEnabled(testMe))
 
+        // Test Me runs them all, as the toolbar's Test button does
         makeExtensionProject(choosing: nil)
-        XCTAssertFalse(isEnabled(testMe), "with Test All chosen")
+        XCTAssertTrue(isEnabled(testMe), "with Test All chosen")
     }
 
     func testReplayingInAnExtensionProjectNeedsATestCaseChosen() {

@@ -25,8 +25,10 @@
     BOOL currentlyTesting = state.currentlyTesting;
 
     if (itemSelector == @selector(testMe:)) {
-        // If we are in an Extension Project, and there are no test cases to run, disable Go! (etc) menu items.
-        if( selectedNoTestCase || currentlyTesting) {
+        // If we are in an Extension Project, and there are no test cases to run, disable Test Me. With Test All
+        // chosen, it runs them all.
+        BOOL noTestCases = state.isExtensionProject && (state.numberOfToolbarTestCases == 0);
+        if( noTestCases || currentlyTesting) {
             return NO;
         }
     }
