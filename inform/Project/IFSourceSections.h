@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The range of a heading's section, from the heading's first character that isn't white space to the end of the line
 /// two before the next section's heading, or the end of the text. The location is NSNotFound, and the length 0, if the
-/// heading or the next isn't in the file, or the next heading's line isn't in the text.
+/// heading or the next isn't in the file, or either's line isn't in the text.
 + (NSRange) rangeOfSection: (IFIntelSymbol*) symbol
                     inFile: (nullable IFIntelFile*) intelFile
                   inString: (NSString*) store NS_SWIFT_NAME(range(ofSection:inFile:in:));

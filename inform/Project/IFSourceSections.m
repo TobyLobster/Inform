@@ -83,6 +83,7 @@
 
 	limitRange.location = [IFSourceLines indexOfLine: symbolLine
 	                                        inString: store];
+	if (limitRange.location == NSNotFound) return NSMakeRange(NSNotFound, 0);
 
 	NSUInteger finalLocation;
 	if (followingSymbol) {

@@ -183,6 +183,18 @@ final class IFSourceSectionsTests: XCTestCase {
         XCTAssertEqual(IFSourceSections.range(ofSection: chapter1, inFile: file, in: text), notFound)
     }
 
+    func testTheRangeOfALastHeadingThatIsntInTheText() throws {
+        // As when the headings are out of step with the text
+        let text = "\"Story\" by Me\n\nChapter 1 - Hall\n\nThe Hall is a room.\n"
+        let file = IFIntelFile()
+        file.add(made("\"Story\"", level: 0), atLine: 0)
+        file.add(made("Chapter 1 - Hall\n"), atLine: 2)
+        let chapter2 = made("Chapter 2 - Yard\n")
+        file.add(chapter2, atLine: 50)
+
+        XCTAssertEqual(IFSourceSections.range(ofSection: chapter2, inFile: file, in: text), notFound)
+    }
+
     // MARK: - The lines of a range, for the header page
 
     func testTheLinesOfASection() throws {

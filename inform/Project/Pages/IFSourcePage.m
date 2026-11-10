@@ -756,7 +756,7 @@
 	NSRange limitRange = [IFSourceSections rangeOfSection: symbol
 	                                               inFile: intelFile
 	                                             inString: textStorage.string];
-	if (limitRange.location == NSNotFound && limitRange.length == 0) return;
+	if (limitRange.location == NSNotFound) return;
 	
 	// Perform the limitation
 	[self limitToRange: limitRange
