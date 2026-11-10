@@ -412,6 +412,20 @@ final class IFSourcePageTests: XCTestCase {
         XCTAssertEqual(textView.selectedRange(), shownRange(of: "The Yard"))
     }
 
+    func testMovesToALineOfTheFileInTheSectionShown() {
+        // As for a problem's link, which gives the line in the whole file
+        putCursor(before: "Hall is")
+        page.showCurrentSectionOnly(nil)
+        page.move(toLine: 5)
+        XCTAssertEqual(textView.selectedRange(), NSRange(location: shownRange(of: "The Hall").location, length: 0))
+        page.move(toLine: 3, character: 4)
+        XCTAssertEqual(textView.selectedRange(), NSRange(location: 4, length: 0))
+        // Not to one in another section
+        page.move(toLine: 13)
+        XCTAssertEqual(textView.string, chapter1)
+        XCTAssertEqual(textView.selectedRange(), NSRange(location: 4, length: 0))
+    }
+
     func testShowingASectionCanBeUndone() throws {
         try undo.beginUndoGrouping()
         putCursor(before: "Cupboard is")

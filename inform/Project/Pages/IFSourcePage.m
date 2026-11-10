@@ -380,9 +380,9 @@
 
 - (void) moveToLine: (NSInteger) line
 		  character: (int) chrNo {
-    // Find out where the line is in the source view
+    // Find out where the line is in the file (the text view has only the section shown)
     NSUInteger linepos = [IFSourceLines startOfLine: line
-                                           inString: textView.textStorage.string];
+                                           inString: textStorage.string];
 
     if (linepos == NSNotFound) {
         NSBeep(); // DOH!
