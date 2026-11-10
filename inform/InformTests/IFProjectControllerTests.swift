@@ -337,4 +337,10 @@ final class IFProjectControllerTests: XCTestCase {
 
         XCTAssertTrue(project.isDocumentEdited)
     }
+
+    func testAChangeToAnotherProjectsSettingsDoesntMarkItEdited() {
+        NotificationCenter.default.post(name: .IFSetting, object: IFCompilerSettings())
+
+        XCTAssertFalse(project.isDocumentEdited)
+    }
 }

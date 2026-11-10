@@ -146,7 +146,7 @@ static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
 
         // Update ourselves when the compiler settings change
         [[NSNotificationCenter defaultCenter] addObserver: self
-                                                 selector: @selector(updateSettings)
+                                                 selector: @selector(updateSettings:)
                                                      name: IFSettingNotification
                                                    object: nil];
 
@@ -171,7 +171,10 @@ static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
     [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
-- (void) updateSettings {
+- (void) updateSettings: (NSNotification*) not {
+    // Only this project's settings (every project's post the notification)
+    if (not.object != [self.document settings]) return;
+
     // Mark document as edited. This ensures a recompile happens on the next 'Go!', for example.
     [self.document updateChangeCount: NSChangeDone];
 }
