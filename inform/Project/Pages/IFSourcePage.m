@@ -21,6 +21,7 @@
 #import "IFHeaderPage.h"
 #import "IFSourceFileView.h"
 #import "IFColourTheme.h"
+#import "IFSourceLines.h"
 #import "Inform-Swift.h"
 
 @interface IFSourcePage(IFSourcePagePrivate)
@@ -29,8 +30,6 @@
 	preserveScrollPos: (BOOL)preserveScrollPos;
 - (void) limitToSymbol: (IFIntelSymbol*) symbol
 	preserveScrollPos: (BOOL)preserveScrollPos;
-- (int) lineForCharacter: (NSUInteger) charNum
-				 inStore: (NSString*) store;
 
 @end
 
@@ -257,8 +256,8 @@
 			range.location -= restriction.location;
 		} else {
 			// Try moving the restriction range to something nearer the indicated line
-			int line = [self lineForCharacter: range.location
-									  inStore: textStorage.string];
+			int line = [IFSourceLines lineForCharacter: range.location
+			                                  inString: textStorage.string];
 			
 			IFIntelFile* intel = self.currentIntelligence;
 			IFIntelSymbol* symbol = [intel nearestSymbolToLine: line];
@@ -284,93 +283,18 @@
     [textView showFindIndicatorForRange: range];
 }
 
-- (NSUInteger) indexOfLine: (NSUInteger) line
-					inString: (NSString*) store {
-    NSUInteger length = store.length;
-	
-    NSUInteger x = 0;
-    NSUInteger linepos;
-    NSUInteger lineno = 1;
-
-    if (line > lineno)
-	{
-		for (x=0; x<length; x++) {
-			unichar chr = [store characterAtIndex: x];
-			
-			if (chr == '\n' || chr == '\r') {
-				unichar otherchar = chr == '\n'?'\r':'\n';
-				
-				lineno++;
-				linepos = x + 1;
-				
-				// Deal with DOS line endings
-				if (linepos < length && [store characterAtIndex: linepos] == otherchar) {
-					x++; linepos++;
-				}
-				
-				if (lineno == line) {
-					break;
-				}
-			}
-		}
-	}
-	
-	if (lineno != line) {
-		return NSNotFound;
-	}
-	
-	return x;
-}
-
 - (void) indicateLine: (int) line {
     // Find out where the line is in the source view
-    NSString* store = textStorage.string;
-    NSUInteger length = store.length;
-	
-    NSUInteger x;
-    NSUInteger lineLength;
-    NSUInteger linepos = 0;
-    int        lineno = 1;
+    NSRange lineRange = [IFSourceLines rangeOfTextOnLine: line
+                                                inString: textStorage.string];
 
-    if (line > lineno)
-	{
-		for (x=0; x<length; x++) {
-			unichar chr = [store characterAtIndex: x];
-			
-			if (chr == '\n' || chr == '\r') {
-				unichar otherchar = chr == '\n'?'\r':'\n';
-				
-				lineno++;
-				linepos = x + 1;
-				
-				// Deal with DOS line endings
-				if (linepos < length && [store characterAtIndex: linepos] == otherchar) {
-					x++; linepos++;
-				}
-				
-				if (lineno == line) {
-					break;
-				}
-			}
-		}
-	}
-	
-    if (lineno != line) {
+    if (lineRange.location == NSNotFound) {
         NSBeep(); // DOH!
         return;
     }
-
-    lineLength = 0;
-    for (x=0; x<length-linepos; x++) {
-        if ([store characterAtIndex: x+linepos] == '\n'
-			|| [store characterAtIndex: x+linepos] == '\r') {
-            break;
-        }
-        lineLength++;
-    }
 	
 	// Show the find indicator
-	[self indicateRange: NSMakeRange(linepos, lineLength)];
+	[self indicateRange: lineRange];
 }
 
 - (void) updateHighlightedLines {
@@ -457,37 +381,10 @@
 - (void) moveToLine: (NSInteger) line
 		  character: (int) chrNo {
     // Find out where the line is in the source view
-    NSString* store = textView.textStorage.string;
-    NSUInteger length = store.length;
+    NSUInteger linepos = [IFSourceLines startOfLine: line
+                                           inString: textView.textStorage.string];
 
-    NSUInteger x;
-    NSUInteger linepos = 0;
-    NSInteger  lineno = 1;
-
-	if (line > lineno)
-	{
-		for (x=0; x<length; x++) {
-			unichar chr = [store characterAtIndex: x];
-			
-			if (chr == '\n' || chr == '\r') {
-				unichar otherchar = chr == '\n'?'\r':'\n';
-				
-				lineno++;
-				linepos = x + 1;
-				
-				// Deal with DOS line endings
-				if (linepos < length && [store characterAtIndex: linepos] == otherchar) {
-					x++; linepos++;
-				}
-				
-				if (lineno == line) {
-					break;
-				}
-			}
-		}
-	}
-	
-    if (lineno != line) {
+    if (linepos == NSNotFound) {
         NSBeep(); // DOH!
         return;
     }
@@ -551,85 +448,9 @@
 	[textView setEditable: YES];
 }
 
-- (int) lineForCharacter: (NSUInteger) charNum
-				 inStore: (NSString*) store {
-	int result = 0;
-	
-    NSUInteger length = store.length;
-	
-    NSUInteger x;
-    NSUInteger linepos;
-    int lineno;
-    lineno = 1;
-	for (x=0; x<length; x++) {
-		unichar chr = [store characterAtIndex: x];
-		
-		if (chr == '\n' || chr == '\r') {
-			unichar otherchar = chr == '\n'?'\r':'\n';
-			
-			lineno++;
-			linepos = x + 1;
-			
-			// Deal with DOS line endings
-			if (linepos < length && [store characterAtIndex: linepos] == otherchar) {
-				x++; linepos++;
-			}
-			
-			if (x > charNum) {
-				break;
-			} else {
-				result = lineno;
-			}
-		}
-	}
-	
-	return result;
-}
-
 - (NSRange) findLine: (NSUInteger) line {
-    NSString* store = textStorage.string;
-    NSUInteger length = store.length;
-	
-    NSUInteger x;
-    NSUInteger linepos = 0;
-    NSUInteger lineno = 1;
-
-    if (line > lineno) {
-		for (x=0; x<length; x++) {
-			unichar chr = [store characterAtIndex: x];
-			
-			if (chr == '\n' || chr == '\r') {
-				unichar otherchar = chr == '\n'?'\r':'\n';
-				
-				lineno++;
-				linepos = x + 1;
-				
-				// Deal with DOS line endings
-				if (linepos < length && [store characterAtIndex: linepos] == otherchar) {
-					x++; linepos++;
-				}
-				
-				if (lineno == line) {
-					break;
-				}
-			}
-		}
-	}
-	
-    if (lineno != line) {
-        return NSMakeRange(NSNotFound, 0);
-    }
-	
-	// Find the end of this line
-	for (x=linepos; x<length; x++) {
-        unichar chr = [store characterAtIndex: x];
-        
-        if (chr == '\n' || chr == '\r') {
-			break;
-		}
-	}
-	
-	return NSMakeRange(linepos, x - linepos + 1);
+    return [IFSourceLines rangeOfLine: line
+                             inString: textStorage.string];
 }
 
 #pragma mark - Breakpoints
@@ -976,15 +797,15 @@
 	NSUInteger symbolLine = [intelFile lineForSymbol: symbol];
 	if (symbolLine == NSNotFound) return;
 	
-	limitRange.location = [self indexOfLine: symbolLine
-								   inString: textStorage.string];
+	limitRange.location = [IFSourceLines indexOfLine: symbolLine
+	                                        inString: textStorage.string];
 	
 	NSUInteger finalLocation;
 	if (followingSymbol) {
 		NSUInteger followingLine = [intelFile lineForSymbol: followingSymbol];
 		if (followingLine == NSNotFound) return;
-		finalLocation = [self indexOfLine: followingLine
-								 inString: textStorage.string];
+		finalLocation = [IFSourceLines indexOfLine: followingLine
+		                                  inString: textStorage.string];
 	} else {
 		finalLocation = textStorage.length;
 	}
@@ -1086,8 +907,8 @@
                                                    forTextView: textView];
 
 		// Return the nearest section
-		return [intelFile nearestSymbolToLine: [self lineForCharacter: restriction.location
-															  inStore: textStorage.string]];
+		return [intelFile nearestSymbolToLine: [IFSourceLines lineForCharacter: restriction.location
+		                                                              inString: textStorage.string]];
 	}
 	
 	return nil;
@@ -1180,8 +1001,8 @@
 	
 	// Retrieve the symbol nearest to the line the selection is on
 	IFIntelFile* intelFile			= self.currentIntelligence;
-	IFIntelSymbol* nearestSymbol	= [intelFile nearestSymbolToLine: [self lineForCharacter: selection.location
-																				  inStore: textStorage.string]];
+	IFIntelSymbol* nearestSymbol	= [intelFile nearestSymbolToLine: [IFSourceLines lineForCharacter: selection.location
+	                                                                                         inString: textStorage.string]];
 	
 	return nearestSymbol;
 }
