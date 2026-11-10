@@ -18,6 +18,7 @@
 #import "IFSkeinItem.h"
 #import "IFSkeinPlayAll.h"
 #import "IFSourceHighlights.h"
+#import "IFSourceLines.h"
 #import "IFRuntimeProblemPage.h"
 #import "IFSkeinConstants.h"
 #import "IFSkeinView.h"
