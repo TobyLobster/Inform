@@ -412,6 +412,15 @@ final class IFSourcePageTests: XCTestCase {
         XCTAssertEqual(textView.selectedRange(), shownRange(of: "The Yard"))
     }
 
+    func testIndicatingARangeBeforeTheFirstHeadingShowsTheWholeStory() throws {
+        putCursor(before: "Yard is")
+        page.showCurrentSectionOnly(nil)
+        page.indicateRange(range(of: "Story"))
+        XCTAssertEqual(textView.string, story)
+        XCTAssertFalse(try isRestricted)
+        XCTAssertEqual(textView.selectedRange(), range(of: "Story"))
+    }
+
     func testMovesToALineOfTheFileInTheSectionShown() {
         // As for a problem's link, which gives the line in the whole file
         putCursor(before: "Hall is")

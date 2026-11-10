@@ -267,13 +267,17 @@
 				  preserveScrollPos: NO];
 			}
 			
-			// If the line is now available, then we can highlight the appropriate character
-            restriction = [IFSyntaxManager restrictedRange: textStorage
-                                               forTextView: textView];
-			if (range.location >= restriction.location && range.location < (restriction.location + restriction.length)) {
-				range.location -= restriction.location;
-			} else {
-				return;
+			// If the line is now available, then we can highlight the appropriate character (all of them are if the
+			// section was the whole story's, as there's no restriction now)
+			if ([IFSyntaxManager isRestricted: textStorage
+			                      forTextView: textView]) {
+				restriction = [IFSyntaxManager restrictedRange: textStorage
+				                                   forTextView: textView];
+				if (range.location >= restriction.location && range.location < (restriction.location + restriction.length)) {
+					range.location -= restriction.location;
+				} else {
+					return;
+				}
 			}
 		}
 	}
