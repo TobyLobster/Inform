@@ -39,16 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// The default styles for the error messages
 + (NSDictionary<NSAttributedStringKey, id>*) defaultStyles;
 
-/// Destroys + recreates the compiler (ie, resets it back to its initial state)
-- (void)        resetCompiler;
 /// Sets a specific compiler object to use
 /// Retrieves the current compiler object
 @property (atomic, strong) IFCompiler *compiler;
-
-/// Tells the compiler to start
-@property (NS_NONATOMIC_IOSONLY, readonly) BOOL startCompiling;
-/// Tells the compiler to stop
-@property (NS_NONATOMIC_IOSONLY, readonly) BOOL abortCompiling;
 
 /// Adds an error to the display
 - (void) addErrorForFile: (NSString*) file
@@ -56,8 +49,6 @@ NS_ASSUME_NONNULL_BEGIN
                 withType: (IFLex) type
                  message: (NSString*) message;
 
-/// Displays the window thats displaying the compiler messages
-- (void) showWindow: (nullable id) sender;
 /// The delegate object
 @property (atomic, weak, nullable) IBOutlet id<IFCompilerControllerDelegate> delegate;
 
@@ -86,8 +77,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) switchToViewWithTabId: (IFCompilerTabId) tabId;
 /// Switches to the default split view
 - (void) switchToSplitView;
-/// Switches to the runtime error view
-- (void) switchToRuntimeErrorView;
 /// Clears the console view of text
 - (void) clearConsole: (nullable NSNotification*) not;
 /// Returns the tabs this controller can display
@@ -103,33 +92,17 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol IFCompilerControllerDelegate <NSObject, WKNavigationDelegate>
 @optional
 
-// Status updates
-/// Called when the compiler has finished and reports failure
-- (void) compileCompletedAndFailed: (IFCompilerController*) sender;
-
 // User interface notification
-/// Called when the list of errors are cleared
-- (void) errorMessagesCleared: (IFCompilerController*) sender;
-
 /// Called when the user selects a specific error
 - (void) errorMessageHighlighted: (IFCompilerController*) sender
                           atLine: (int) line
                           inFile: (NSString*) file;
-/// Called when the compiler generates a new error
-- (void) compilerAddError: (IFCompilerController*) sender
-                  forFile: (NSString*) file
-                   atLine: (int) line
-                 withType: (IFLex) type
-                  message: (NSString*) message;
 
 /// Notification that the compiler controller has changed its set of views
 - (void) viewSetHasUpdated: (IFCompilerController*) sender;
 /// Notification that the compiler has switched to the specified view
 - (void) compiler: (IFCompilerController*) sender
    switchedToView: (int) viewIndex;	
-
-// Project controller
-- (void) setProjectController: (IFProjectController*) pc;
 
 @end
 
