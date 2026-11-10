@@ -684,8 +684,8 @@
 	// Reset the selection and try to scroll back to the original position if we can
 	if (preserveScrollPos) {
 		// Update the selection
-		if (range.location < selectionRange.location) {
-			// Selection is after the beginning of the range
+		if (range.location <= selectionRange.location) {
+			// Selection is at or after the beginning of the range
 			selectionRange.location -= range.location;
 			
 			if (selectionRange.location > range.length) {

@@ -319,6 +319,13 @@ final class IFSourcePageTests: XCTestCase {
         XCTAssertEqual(textView.selectedRange(), NSRange(location: shownRange(of: "Cupboard is").location, length: 8))
     }
 
+    func testKeepsASelectionThatStartsWhereTheSectionDoes() {
+        textView.setSelectedRange(range(of: "Section 1"))
+        page.showCurrentSectionOnly(nil)
+        XCTAssertEqual(textView.string, section1)
+        XCTAssertEqual(textView.selectedRange(), NSRange(location: 0, length: 9))
+    }
+
     func testTheLastSectionIsntTornAtTheBottom() {
         putCursor(before: "Yard is")
         page.showCurrentSectionOnly(nil)
