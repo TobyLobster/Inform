@@ -96,6 +96,7 @@
         || itemSelector == @selector(tabSkein:)
         || itemSelector == @selector(tabGame:)
         || itemSelector == @selector(tabDocumentation:)
+        || itemSelector == @selector(tabExtensions:)
         || itemSelector == @selector(tabSettings:)
         || itemSelector == @selector(switchPanes:)) {
         return state.hasCurrentTabView;

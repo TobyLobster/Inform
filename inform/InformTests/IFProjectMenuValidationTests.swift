@@ -52,6 +52,7 @@ final class IFProjectMenuValidationTests: XCTestCase {
                                #selector(IFProjectController.tabSkein(_:)),
                                #selector(IFProjectController.tabGame(_:)),
                                #selector(IFProjectController.tabDocumentation(_:)),
+                               #selector(IFProjectController.tabExtensions(_:)),
                                #selector(IFProjectController.tabSettings(_:)),
                                #selector(IFProjectController.switchPanes(_:))]
 
@@ -230,10 +231,6 @@ final class IFProjectMenuValidationTests: XCTestCase {
             state.hasCurrentTabView = true
             XCTAssertTrue(isEnabled(command), "\(command)")
         }
-    }
-
-    func testTabExtensionsIsEnabledWithoutACurrentTabView() {
-        XCTAssertTrue(isEnabled(#selector(IFProjectController.tabExtensions(_:))))
     }
 
     func testShowingAnIndexTabAsksTheIndexPageForTheItemsTag() {
