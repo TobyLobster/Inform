@@ -10,6 +10,10 @@ import XCTest
 private final class TestProjectController: IFProjectController {
     override func windowDidLoad() {
     }
+
+    /// Nor keeps the panes' widths in the user's preferences when the split views lay them out
+    override func splitViewDidResizeSubviews(_ notification: Notification) {
+    }
 }
 
 /// The project window's controller, with its real window and panes, kept off the screen and never shown
