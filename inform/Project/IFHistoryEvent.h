@@ -6,7 +6,7 @@
 //  Copyright 2007 Andrew Hunter. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
