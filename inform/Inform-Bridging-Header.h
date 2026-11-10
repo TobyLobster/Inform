@@ -95,6 +95,7 @@
 #import "IFInBuild.h"
 #import "IFInTest.h"
 #import "IFTestCaseRun.h"
+#import "IFTestReport.h"
 #import "IFScanner.h"
 #import "IFDocParser.h"
 #import "IFFindInFiles.h"
