@@ -92,33 +92,17 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol IFCompilerControllerDelegate <NSObject, WKNavigationDelegate>
 @optional
 
-// Status updates
-/// Called when the compiler has finished and reports failure
-- (void) compileCompletedAndFailed: (IFCompilerController*) sender;
-
 // User interface notification
-/// Called when the list of errors are cleared
-- (void) errorMessagesCleared: (IFCompilerController*) sender;
-
 /// Called when the user selects a specific error
 - (void) errorMessageHighlighted: (IFCompilerController*) sender
                           atLine: (int) line
                           inFile: (NSString*) file;
-/// Called when the compiler generates a new error
-- (void) compilerAddError: (IFCompilerController*) sender
-                  forFile: (NSString*) file
-                   atLine: (int) line
-                 withType: (IFLex) type
-                  message: (NSString*) message;
 
 /// Notification that the compiler controller has changed its set of views
 - (void) viewSetHasUpdated: (IFCompilerController*) sender;
 /// Notification that the compiler has switched to the specified view
 - (void) compiler: (IFCompilerController*) sender
    switchedToView: (int) viewIndex;	
-
-// Project controller
-- (void) setProjectController: (IFProjectController*) pc;
 
 @end
 

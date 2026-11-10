@@ -352,11 +352,6 @@
 				NSLog(@"%@", [NSString stringWithFormat: [IFUtility localizedString: @"Compilation failed with code %i"], exitCode]);
 				break;
 		}
-
-        if (delegate &&
-            [delegate respondsToSelector: @selector(compileCompletedAndFailed:)]) {
-            [delegate compileCompletedAndFailed: self];
-        }
     }
 
     [self scrollToEnd];
@@ -563,16 +558,6 @@
     [compilerMessages reloadData];
 
     [self adjustSplitView];
-
-    // Notify the delegate
-    if (delegate != nil &&
-        [delegate respondsToSelector: @selector(compilerAddError:forFile:atLine:withType:message:)]) {
-        [delegate compilerAddError: self
-                           forFile: file
-                            atLine: line
-                          withType: type
-                           message: message];
-    }
 }
 
 - (NSInteger)   outlineView: (NSOutlineView *) outlineView
