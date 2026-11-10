@@ -221,6 +221,11 @@ final class IFSourcePageTests: XCTestCase {
         XCTAssertEqual(cellStates, [.on, .off])
     }
 
+    func testTheActiveViewIsTheText() {
+        // Which the project controller makes the first responder after moving to a line, a search result or a problem
+        XCTAssertIdentical(page.activeView, textView)
+    }
+
     func testTheSourcePapersColour() {
         XCTAssertEqual(textView.backgroundColor, IFPreferences.shared.sourcePaper.colour)
     }

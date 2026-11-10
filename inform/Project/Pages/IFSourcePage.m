@@ -195,7 +195,9 @@
                               default: @"Source"];
 }
 
-@synthesize activeView;
+- (NSView*) activeView {
+	return textView;
+}
 
 #pragma mark - Text view delegate methods
 
