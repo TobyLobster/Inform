@@ -246,11 +246,6 @@
 - (void) awakeFromNib {
     awake = YES;
 
-    if (parent) {
-        [self setupFromControllerWithViewIndex:0];
-        [gamePage stopRunningGame];
-    }
-	
     tabView.delegate = self;
 	
 	// Set up the backwards/forwards buttons
