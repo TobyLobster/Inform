@@ -177,6 +177,25 @@ final class IFProjectPaneTests: XCTestCase {
         XCTAssertEqual(pageShown(right), right.extensionsPage.identifier)
     }
 
+    /// The Settings page has no type of view of its own, so it's not taken for the source
+    func testAPaneShowingTheSettingsShowsNoKnownTypeOfView() {
+        right.tabView.selectTabViewItem(withIdentifier: right.settingsPage.identifier)
+        XCTAssertEqual(right.currentView, .unknownPane)
+        XCTAssertTrue(right.activeView === right.tabView.selectedTabViewItem?.view)
+    }
+
+    /// With the Settings on the left and the source on the right, the source and what goes beside it, such as the
+    /// documentation, go where they are, and the source's commands aren't enabled for the Settings
+    func testAPaneShowingTheSettingsIsntTakenForTheSource() {
+        left.tabView.selectTabViewItem(withIdentifier: left.settingsPage.identifier)
+        right.selectView(of: .sourcePane)
+        XCTAssertTrue(controller.sourcePane === right)
+        XCTAssertTrue(controller.auxPane === left)
+
+        controller.changeFirstResponder(left.tabView)
+        XCTAssertFalse(controller.isSourcePaneCurrent)
+    }
+
     func testTheGameIsntShownWithNoStoryRunning() {
         right.selectView(of: .gamePane)
         XCTAssertEqual(right.currentView, .documentationPane)

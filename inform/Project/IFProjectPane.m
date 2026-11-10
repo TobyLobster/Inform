@@ -345,6 +345,7 @@
 	if ([selectedId isEqualTo: indexPage.identifier])         return IFIndexPane;
 	if ([selectedId isEqualTo: skeinPage.identifier])         return IFSkeinPane;
     if ([selectedId isEqualTo: extensionsPage.identifier])    return IFExtensionsPane;
+    if ([selectedId isEqualTo: settingsPage.identifier])      return IFUnknownPane;
 
     return IFSourcePane;
 }

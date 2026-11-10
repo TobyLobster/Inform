@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, readonly, strong, nullable) NSView *       activeView;
 /// The compiler controller associated with this view
 @property (atomic, readonly, strong) IFCompilerController *   compilerController;
-/// Returns the currently displayed view (\c IFUnknownPane is a possibility for some views I haven't added code to check for)
+/// Returns the currently displayed view (\c IFUnknownPane for the settings, which have no type of view of their own)
 @property (atomic, readonly) IFProjectPaneType                currentView;
 /// The tab view itself
 @property (atomic, readwrite, strong) IBOutlet NSTabView *    tabView;
