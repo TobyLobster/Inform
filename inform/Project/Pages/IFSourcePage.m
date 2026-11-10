@@ -31,6 +31,9 @@
 	preserveScrollPos: (BOOL)preserveScrollPos;
 - (void) limitToSymbol: (IFIntelSymbol*) symbol
 	preserveScrollPos: (BOOL)preserveScrollPos;
+/// The range in the text view of a range of the file, first showing the section it's in if it's outside the section
+/// shown, or a location of NSNotFound if it still isn't shown
+- (NSRange) viewRangeForRange: (NSRange) range;
 
 @end
 
@@ -245,7 +248,7 @@
 
 #pragma mark - Indicating
 
-- (void) indicateRange: (NSRange) range {
+- (NSRange) viewRangeForRange: (NSRange) range {
 	// Look at restricted range if necessary
 	if( [IFSyntaxManager isRestricted: textStorage
                           forTextView: textView] ) {
@@ -276,11 +279,18 @@
 				if (range.location >= restriction.location && range.location < (restriction.location + restriction.length)) {
 					range.location -= restriction.location;
 				} else {
-					return;
+					range.location = NSNotFound;
 				}
 			}
 		}
 	}
+
+	return range;
+}
+
+- (void) indicateRange: (NSRange) range {
+	range = [self viewRangeForRange: range];
+	if (range.location == NSNotFound) return;
 
     [textView setSelectedRange: range];
     [textView scrollRangeToVisible: range];
