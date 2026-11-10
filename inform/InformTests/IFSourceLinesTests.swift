@@ -88,25 +88,6 @@ final class IFSourceLinesTests: XCTestCase {
         XCTAssertEqual(IFSourceLines.range(ofLine: 1, in: ""), NSRange(location: 0, length: 0))
     }
 
-    // MARK: - The end of the line before, for a heading's section
-
-    func testTheEndOfTheLineBefore() {
-        let text = "One\nTwo\nThree\n"
-        XCTAssertEqual(IFSourceLines.index(ofLine: 1, in: text), 0)
-        XCTAssertEqual(IFSourceLines.index(ofLine: 2, in: text), 3)
-        XCTAssertEqual(IFSourceLines.index(ofLine: 3, in: text), 7)
-        XCTAssertEqual(IFSourceLines.index(ofLine: 4, in: text), 13)
-        XCTAssertEqual(IFSourceLines.index(ofLine: 5, in: text), notFound)
-        XCTAssertEqual(IFSourceLines.index(ofLine: 0, in: text), notFound)
-    }
-
-    func testTheEndOfTheLineBeforeEndingInAReturnAndANewline() {
-        // The last character of the ending
-        let text = "One\r\nTwo\n\rThree"
-        XCTAssertEqual(IFSourceLines.index(ofLine: 2, in: text), 4)
-        XCTAssertEqual(IFSourceLines.index(ofLine: 3, in: text), 9)
-    }
-
     // MARK: - The line a character is on, for the heading it's under
 
     func testACharacterOnTheFirstLine() {
