@@ -23,7 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// The range of the text on a line, without what ends it, or a location of NSNotFound if the text has no such line
 + (NSRange) rangeOfTextOnLine: (int) line
                      inString: (NSString*) store;
-/// The range of a line with the character that ends it, or a location of NSNotFound if the text has no such line
+/// The range of a line with the character that ends it (if something does), or a location of NSNotFound if the text
+/// has no such line
 + (NSRange) rangeOfLine: (NSUInteger) line
                inString: (NSString*) store;
 /// The index of the last character that ends the line before a line (0 for the first line), or NSNotFound if the text

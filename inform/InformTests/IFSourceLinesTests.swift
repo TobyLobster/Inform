@@ -81,6 +81,13 @@ final class IFSourceLinesTests: XCTestCase {
         XCTAssertEqual(IFSourceLines.range(ofLine: 2, in: text), NSRange(location: 5, length: 4))
     }
 
+    func testALastLineWithNoEnding() {
+        // The range stays inside the text
+        XCTAssertEqual(IFSourceLines.range(ofLine: 3, in: "One\nTwo\nThree"), NSRange(location: 8, length: 5))
+        XCTAssertEqual(IFSourceLines.range(ofLine: 4, in: "One\nTwo\nThree\n"), NSRange(location: 14, length: 0))
+        XCTAssertEqual(IFSourceLines.range(ofLine: 1, in: ""), NSRange(location: 0, length: 0))
+    }
+
     // MARK: - The end of the line before, for a heading's section
 
     func testTheEndOfTheLineBefore() {

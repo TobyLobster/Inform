@@ -91,8 +91,13 @@
 	// Find the end of this line
     NSUInteger lineEnd = [self endOfLineStartingAt: linepos
                                           inString: store];
+
+    // With the character that ends it, if something does
+    if (lineEnd < store.length) {
+        lineEnd++;
+    }
 	
-	return NSMakeRange(linepos, lineEnd - linepos + 1);
+	return NSMakeRange(linepos, lineEnd - linepos);
 }
 
 + (NSUInteger) indexOfLine: (NSUInteger) line
