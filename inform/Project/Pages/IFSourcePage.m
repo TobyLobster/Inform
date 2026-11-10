@@ -35,8 +35,6 @@
 @end
 
 @implementation IFSourcePage {
-    IBOutlet NSMenu*            contextMenu;
-
     NSTextStorage*              textStorage;					// The text storage object for this view
     NSLayoutManager*            layoutManager;
     NSTextContainer*            textContainer;
@@ -126,7 +124,6 @@
         [textView setHorizontallyResizable: NO];
         textView.autoresizingMask = NSViewWidthSizable;
         textView.delegate = self;
-        textView.menu = contextMenu;
         [textView setAllowsUndo:YES];
         [textView setRichText:NO];
         textView.enabledTextCheckingTypes = 0;
@@ -435,7 +432,6 @@
 
 	textStorage = fileStorage;
     [textView.layoutManager replaceTextStorage: textStorage];
-	textStorage.delegate = self;
 
     [IFSyntaxManager registerTextStorage: textStorage
                                 filename: file.lastPathComponent
@@ -492,14 +488,6 @@
 	}
 	
 	return NO;
-}
-
-- (void) setSourceTextView: (IFSourceFileView*) newSourceText {
-	textView = newSourceText;
-}
-
-- (IFSourceFileView*) sourceTextView {
-	return textView;
 }
 
 #pragma mark - The header page
@@ -577,10 +565,6 @@
 
 - (IBAction) showHeaderPage: (id) sender {
 	if (!headerPageShown) [self toggleHeaderPage: self];
-}
-
-- (IBAction) hideHeaderPage: (id) sender {
-	if (headerPageShown) [self toggleHeaderPage: self];
 }
 
 - (IBAction) showSourcePage: (id) sender {
