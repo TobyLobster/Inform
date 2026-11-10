@@ -89,8 +89,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, readonly, strong) IFSkeinPage *            skeinPage;
 /// The page representing the settings for this project
 @property (atomic, readonly, strong) IFSettingsPage *         settingsPage;
-/// The page representing the running game
-@property (atomic, readonly, strong) IFGamePage *             gamePage;
+/// The page representing the running game; only the second pane has one
+@property (atomic, readonly, strong, nullable) IFGamePage *   gamePage;
 /// The page representing the documentation
 @property (atomic, readonly, strong) IFDocumentationPage *    documentationPage;
 /// The page representing the extensions
