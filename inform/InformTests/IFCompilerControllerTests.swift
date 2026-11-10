@@ -468,6 +468,9 @@ final class IFCompilerControllerTests: XCTestCase {
         let textView = try XCTUnwrap(scrollView.documentView as? NSTextView)
         XCTAssertEqual(textView.string, "Constant Story \"Café\";\n")
         XCTAssertFalse(textView.isEditable)
+        XCTAssertEqual(textView.font, NSFont(name: "Monaco", size: 11))
+        XCTAssertEqual(textView.textStorage?.attribute(.font, at: 0, effectiveRange: nil) as? NSFont,
+                       NSFont(name: "Monaco", size: 11))
     }
 
     func testATextFileThatIsntUTF8IsReadAsLatin1() throws {

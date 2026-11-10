@@ -788,8 +788,8 @@
         }
 
         NSMutableAttributedString * attrString = [[NSMutableAttributedString alloc] initWithString: textData
-                                                                                        attributes: @{ NSParagraphStyleAttributeName : nameParagraphStyle }];
-        textView.textStorage.font = [NSFont fontWithName:@"Monaco" size:11];
+                                                                                        attributes: @{ NSParagraphStyleAttributeName : nameParagraphStyle,
+                                                                                                       NSFontAttributeName : [NSFont fontWithName:@"Monaco" size:11] }];
         [textView.textStorage setAttributedString: attrString];
 
         // scrollView is the 'parent' of the textView
