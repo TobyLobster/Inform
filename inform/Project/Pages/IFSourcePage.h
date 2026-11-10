@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// The 'source' page
 ///
-@interface IFSourcePage : IFPage<NSTextViewDelegate,NSTextStorageDelegate,IFSourceNavigation, IFHeaderPageDelegate, NSMenuItemValidation>
+@interface IFSourcePage : IFPage<NSTextViewDelegate,IFSourceNavigation, IFHeaderPageDelegate, NSMenuItemValidation>
 
 #pragma mark - Source pane controls
 /// Informs this pane that it's time to prepare to save the document
@@ -71,7 +71,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - The header page
 - (IBAction) showHeaderPage: (nullable id) sender;
-- (IBAction) hideHeaderPage: (nullable id) sender;
 - (IBAction) toggleHeaderPage: (nullable id) sender;
 
 /// Shows the section containing the beginning of the selection
