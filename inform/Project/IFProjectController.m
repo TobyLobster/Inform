@@ -1536,20 +1536,6 @@ static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
     return [toolbarManager validateToolbarItem: item];
 }
 
-// (Grr, need to be able to make IFProjectPane the first responder or something, but it isn't
-// listening to messages from the main menu. Or at least, it's not being called that way)
-// This may not work the way the user expects if she has two source panes open. Blerh.
-
-- (IFSourcePage*) activeSourcePage {
-	if (currentPane.currentView == IFSourcePane) {
-		// The cursor is currently in a source pane
-		return currentPane.sourcePage;
-	} else {
-		// The cursor is currently elsewhere: ie, there is no active source page
-		return nil;
-	}
-}
-
 #pragma mark - Dealing with search panels
 
 - (void) searchShowSelectedItemAtLocation: (NSInteger) location
