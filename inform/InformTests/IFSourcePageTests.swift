@@ -64,6 +64,7 @@ final class IFSourcePageTests: XCTestCase {
     private let chapter2 = "Chapter 2 - Yard\n\nThe Yard is a room.\n"
 
     private let notes = "Remember the lamp.\n"
+    private let appendix = "Volume 1 - Upstairs\n\nThe Attic is a room.\n\nVolume 2 - Downstairs\n\nThe Cellar is a room.\n"
 
     private var folder: URL!
     private var controller: ProjectControllerStandIn!
@@ -81,6 +82,7 @@ final class IFSourcePageTests: XCTestCase {
         try FileManager.default.createDirectory(at: source, withIntermediateDirectories: true)
         try Data(story.utf8).write(to: source.appendingPathComponent("story.ni"))
         try Data(notes.utf8).write(to: source.appendingPathComponent("Notes.txt"))
+        try Data(appendix.utf8).write(to: source.appendingPathComponent("Appendix.ni"))
         project = try IFProject(contentsOf: folder.appendingPathComponent("Test.inform"),
                                 ofType: "org.inform-fiction.project")
 
@@ -180,8 +182,8 @@ final class IFSourcePageTests: XCTestCase {
                                                           effectiveRange: nil) as? NSColor
     }
 
-    private func heading(_ name: String) throws -> IFIntelSymbol {
-        var symbol = page.currentIntelligence?.firstSymbol
+    private func heading(_ name: String, in headings: IFIntelFile? = nil) throws -> IFIntelSymbol {
+        var symbol = (headings ?? page.currentIntelligence)?.firstSymbol
         while let heading = symbol {
             if heading.name?.hasPrefix(name) == true { return heading }
             symbol = heading.next
@@ -251,11 +253,48 @@ final class IFSourcePageTests: XCTestCase {
         XCTAssertEqual(page.openSourceFilepath, sourcePath("story.ni"))
     }
 
+    func testShowingAnotherFileShowsItsHeadings() throws {
+        page.showSourceFile("Appendix.ni")
+        XCTAssertIdentical(controller.headerController.intelFile, page.currentIntelligence)
+        XCTAssertEqual(page.currentIntelligence?.firstSymbol?.name, "Volume 1 - Upstairs\n")
+
+        // And its sections
+        textView.setSelectedRange((appendix as NSString).range(of: "Cellar"))
+        page.showCurrentSectionOnly(nil)
+        XCTAssertEqual(textView.string, "Volume 2 - Downstairs\n\nThe Cellar is a room.\n")
+
+        page.showSourceFile("story.ni")
+        XCTAssertIdentical(controller.headerController.intelFile, page.currentIntelligence)
+        XCTAssertEqual(page.currentIntelligence?.firstSymbol?.name, "\"Story\"")
+    }
+
     func testShowingAnotherFileWhileASectionIsShownShowsAllOfIt() throws {
         putCursor(before: "Cupboard is")
         page.showCurrentSectionOnly(nil)
         page.showSourceFile("Notes.txt")
         XCTAssertEqual(textView.string, notes)
+        XCTAssertFalse(tears.top)
+        XCTAssertFalse(tears.bottom)
+    }
+
+    func testShowingAnotherFileLeavesTheLastOneWorkingForOtherPages() throws {
+        // As when both panes show the story
+        let other = IFSourcePage(projectController: controller)
+        page.showSourceFile("Notes.txt")
+        XCTAssertTrue(IFSyntaxManager.isRegistered(try storage))
+        XCTAssertEqual(other.currentIntelligence?.firstSymbol?.name, "\"Story\"")
+        // Still finding headings typed in it
+        try storage.replaceCharacters(in: NSRange(location: try storage.length, length: 0), with: "\nChapter 3 - Attic\n")
+        XCTAssertEqual(try heading("Chapter 3", in: try XCTUnwrap(other.currentIntelligence)).name, "Chapter 3 - Attic\n")
+    }
+
+    func testShowingTheFileAgainAfterASectionOfItShowsAllOfIt() throws {
+        putCursor(before: "Cupboard is")
+        page.showCurrentSectionOnly(nil)
+        page.showSourceFile("Notes.txt")
+        page.showSourceFile("story.ni")
+        XCTAssertEqual(textView.string, story)
+        XCTAssertFalse(try isRestricted)
         XCTAssertFalse(tears.top)
         XCTAssertFalse(tears.bottom)
     }

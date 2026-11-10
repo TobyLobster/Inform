@@ -433,8 +433,10 @@
     // Update current filepath
 	openSourceFilepath = [[(self.parent).document pathForSourceFile: file] copy];
 
-    // Update current storage
-    [IFSyntaxManager unregisterTextStorage: textStorage];
+    // Update current storage, leaving the last file whole in this view, but still highlighted, with its headings, for
+    // any other view of it
+    [IFSyntaxManager removeRestriction: textStorage
+                           forTextView: textView];
 
 	textStorage = fileStorage;
     [textView.layoutManager replaceTextStorage: textStorage];
@@ -443,10 +445,16 @@
     [textView setTornAtTop: NO];
     [textView setTornAtBottom: NO];
 
-    [IFSyntaxManager registerTextStorage: textStorage
-                                filename: file.lastPathComponent
-                            intelligence: [IFProjectTypes intelligenceForFilename:file]
-                             undoManager: [(self.parent).document undoManager]];
+    // (The project registers the storage of each file as it reads it)
+    if (![IFSyntaxManager isRegistered: textStorage]) {
+        [IFSyntaxManager registerTextStorage: textStorage
+                                    filename: file.lastPathComponent
+                                intelligence: [IFProjectTypes intelligenceForFilename:file]
+                                 undoManager: [(self.parent).document undoManager]];
+    }
+
+    // Show its headings
+    [(self.parent).headerController updateFromIntelligence: self.currentIntelligence];
 
     // Stop editing text storage
 	[fileStorage endEditing];
