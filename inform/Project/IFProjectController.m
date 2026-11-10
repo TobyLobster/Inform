@@ -48,6 +48,7 @@
 #import "IFCompilerSettings.h"
 #import "IFCompileCheck.h"
 #import "IFProjectMenuValidation.h"
+#import "IFPaneChoice.h"
 #import "IFPaneWidths.h"
 #import "IFTestCaseRun.h"
 
@@ -1012,92 +1013,25 @@ static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
 
 #pragma mark - Communication from the containing panes
 
+/// What each of the panes is showing, as IFProjectPaneType numbers
+- (NSArray<NSNumber*>*) paneViews {
+    NSMutableArray<NSNumber*>* views = [NSMutableArray array];
+    for (IFProjectPane* pane in projectPanes) {
+        [views addObject: @(pane.currentView)];
+    }
+    return views;
+}
+
 - (IFProjectPane*) sourcePane {
-    // Returns the current pane containing the source code (or an appropriate pane that source code can be displayed in)
-    int paneToUse = 0;
-    int x;
-
-    for (x=0; x<projectPanes.count; x++) {
-        IFProjectPane* thisPane = projectPanes[x];
-
-        if (thisPane.currentView == IFSourcePane) {
-            // Always use the first source pane found
-            paneToUse = x;
-            break;
-        }
-
-        if (thisPane.currentView == IFErrorPane) {
-            // Avoid a pane showing error messages
-            paneToUse = x+1;
-        }
-    }
-
-    if (paneToUse >= projectPanes.count) {
-        // All error views?
-        paneToUse = 0;
-    }
-
-    return projectPanes[paneToUse];
+    return projectPanes[[IFPaneChoice sourcePaneForViews: [self paneViews]]];
 }
 
 - (IFProjectPane*) auxPane {
-    // Returns the auxiliary pane: the one to use for displaying documentation, etc
-    int paneToUse = -1;
-    int x;
-
-    for (x=0; x<projectPanes.count; x++) {
-        IFProjectPane* thisPane = projectPanes[x];
-
-        if (thisPane.currentView == IFDocumentationPane) {
-            // Doc pane has priority
-            paneToUse = x;
-            break;
-        }
-    }
-
-    // If no documentation pane available, choose something else.
-    if (paneToUse == -1) {
-        paneToUse = 1;
-        for (x=(int)projectPanes.count-1; x>=0; x--) {
-            IFProjectPane* thisPane = projectPanes[x];
-
-            if (thisPane.currentView != IFSourcePane &&
-                thisPane.currentView != IFGamePane) {
-                // Anything but the source or game...
-                paneToUse = x;
-                break;
-            }
-
-            if (thisPane.currentView == IFSourcePane) {
-                // Avoid a pane showing the source code
-                paneToUse = x+1;
-            }
-        }
-    }
-
-    if (paneToUse >= projectPanes.count) {
-        // All source views?
-        paneToUse = 0;
-    }
-
-    return projectPanes[paneToUse];
+    return projectPanes[[IFPaneChoice auxPaneForViews: [self paneViews]]];
 }
 
 - (IFProjectPane*) indexPane {
-    // Returns the current pane containing the index
-    int x;
-
-    for (x=0; x<projectPanes.count; x++) {
-        IFProjectPane* thisPane = projectPanes[x];
-
-        if (thisPane.currentView == IFIndexPane) {
-            // This is the index pane
-            return thisPane;
-        }
-    }
-
-    // No index pane showing: use the aux pane
-    return self.auxPane;
+    return projectPanes[[IFPaneChoice indexPaneForViews: [self paneViews]]];
 }
 
 - (IFProjectPane*) oppositePane: (IFProjectPane*) pane {
@@ -1105,11 +1039,7 @@ static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
     NSInteger index = [projectPanes indexOfObjectIdenticalTo: pane];
     if (index == NSNotFound) return nil;
 
-    // Get it's 'opposite'
-    NSInteger opposite = index-1;
-    if (opposite < 0) opposite = projectPanes.count-1;
-
-    return projectPanes[opposite];
+    return projectPanes[[IFPaneChoice paneOppositePane: index count: projectPanes.count]];
 }
 
 -(void) loadInform7ExtensionWithFullFilePath:(NSString*) extnFile {
@@ -1604,20 +1534,6 @@ static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
 
 - (BOOL) validateToolbarItem: (NSToolbarItem*) item {
     return [toolbarManager validateToolbarItem: item];
-}
-
-// (Grr, need to be able to make IFProjectPane the first responder or something, but it isn't
-// listening to messages from the main menu. Or at least, it's not being called that way)
-// This may not work the way the user expects if she has two source panes open. Blerh.
-
-- (IFSourcePage*) activeSourcePage {
-	if (currentPane.currentView == IFSourcePane) {
-		// The cursor is currently in a source pane
-		return currentPane.sourcePage;
-	} else {
-		// The cursor is currently elsewhere: ie, there is no active source page
-		return nil;
-	}
 }
 
 #pragma mark - Dealing with search panels

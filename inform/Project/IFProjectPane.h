@@ -10,6 +10,7 @@
 #import <WebKit/WebKit.h>
 
 #import "IFSyntaxTypes.h"
+#import "IFProjectPaneType.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,18 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 @class IFExtensionsPage;
 @class IFSettingsPage;
 @class IFCompilerController;
-
-typedef NS_ENUM(int, IFProjectPaneType) {
-    IFSourcePane        = 1,
-    IFErrorPane         = 2,
-    IFGamePane          = 3,
-    IFDocumentationPane = 4,
-	IFIndexPane         = 5,
-	IFSkeinPane         = 6,
-    IFExtensionsPane    = 9,
-
-	IFUnknownPane       = 256
-};
 
 ///
 /// Protocol that can be implemented by other objects that wish to act like the 'other' panel when actions
