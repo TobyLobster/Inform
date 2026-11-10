@@ -50,6 +50,7 @@
 #import "IFProjectMenuValidation.h"
 #import "IFPaneChoice.h"
 #import "IFPaneWidths.h"
+#import "IFTestReport.h"
 #import "IFTestCaseRun.h"
 
 #import "IFUtility.h"
@@ -880,20 +881,8 @@ static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
                                                      outputURL: [self.document combinedReportURL]];
     }
     else {
-        // Copy from reportURL to [[self document] combinedReportURL];
-        NSFileManager *fm = [NSFileManager defaultManager];
-        NSError* err;
-        if( [fm removeItemAtURL:[self.document combinedReportURL] error: &err] ) {
-            if (![fm copyItemAtURL:reportURL
-                             toURL:[self.document combinedReportURL]
-                             error: &err] )
-            {
-                NSLog(@"Error copying file %@",err.localizedDescription);
-            }
-        }
-        else {
-            NSLog(@"Error removing file %@",err.localizedDescription);
-        }
+        [IFTestReport copyReport: reportURL
+                   toCombinedURL: [self.document combinedReportURL]];
     }
 
     [self updateBuildResults];
@@ -919,35 +908,7 @@ static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
 - (void) compilerFinished: (NSNotification*) not {
     int exitCode = [not.userInfo[@"exitCode"] intValue];
     ECompilerProblemType problemType = [not.userInfo[@"problemType"] intValue];
-    NSString* intestCode = nil;
-
-    // Convert our problem type into an intest error code
-    switch( problemType ) {
-        case EProblemTypeNone:
-        {
-            break;
-        }
-        case EProblemTypeInform6:
-        {
-            intestCode = @"i6";
-            break;
-        }
-        case EProblemTypeInform7:
-        {
-            intestCode = @"i7";
-            break;
-        }
-        case EProblemTypeCBlorb:
-        {
-            intestCode = @"i7";
-            break;
-        }
-        case EProblemTypeUnknown:
-        {
-            intestCode = @"i7";
-            break;
-        }
-    }
+    NSString* intestCode = [IFTestReport intestCodeForProblemType: problemType];
 
     [self removeProgressIndicator: [self.document compiler].progress];
 
@@ -2003,12 +1964,7 @@ static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
     NSString* intestCode = [self.document reportStateForSkein];
     IFSkeinItem* reportItem = [self.document nodeToReport];
     unsigned long skeinNodeId = reportItem.uniqueId;
-    IFSkeinItem* activeItem = [self.document currentSkein].activeItem;
-    int skeinNodes = 0;
-    while( (activeItem != nil) && (activeItem.parent != nil) ) {
-        activeItem = activeItem.parent;
-        skeinNodes++;
-    }
+    int skeinNodes = [IFTestReport skeinNodesToItem: [self.document currentSkein].activeItem];
 
     if (playAll.nextItem != nil) {
         // We are testing the entire skein.
