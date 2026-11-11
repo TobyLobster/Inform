@@ -270,6 +270,16 @@ final class IFExtensionsPageTests: XCTestCase, @unchecked Sendable {
         }
     }
 
+    /// Waits until the web view has finished loading the URL, whatever loads it started before
+    private func waitUntilShown(_ url: String, in shown: Shown) {
+        let limit = Date(timeIntervalSinceNow: 10)
+        while (shown.webView.isLoading || shown.webView.url?.absoluteString != url) && Date() < limit {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+        }
+        XCTAssertEqual(shown.webView.url?.absoluteString, url)
+        XCTAssertFalse(shown.webView.isLoading)
+    }
+
     /// Tells the page that a navigation to the URL has started, without loading it
     private func tellPageNavigationStarted(_ url: String, in shown: Shown) {
         let configuration = WKWebViewConfiguration()
@@ -562,6 +572,35 @@ final class IFExtensionsPageTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(shown.webView.url?.absoluteString, "inform:/index.html")
         XCTAssertEqual(recorder.timesAsked, 1)
         XCTAssertTrue(shown.watcher.errors.isEmpty)
+    }
+
+    /// Switching to the page while it's visible records what it shows once, and not again as it's reloaded
+    func testSwitchingToTheVisiblePageRecordsItOnce() throws {
+        let recorder = Recorder()
+        let shown = try makePageWithCatalogue(recorder: recorder)
+        shown.page.pageIsVisible = true
+        open("inform:/index.html", in: shown)
+        XCTAssertEqual(recorder.timesAsked, 2)
+
+        waitForNavigation(shown.watcher) {
+            shown.page.didSwitchToPage()
+        }
+        XCTAssertEqual(recorder.timesAsked, 3)
+    }
+
+    /// Going back to the page loads a page from the history straight after the reload as it's switched to. Neither
+    /// is recorded, whichever starts, and what's shown next is.
+    func testAPageFromTheHistoryAsThePageIsSwitchedTo() throws {
+        let recorder = Recorder()
+        let shown = try makePageWithCatalogue(recorder: recorder)
+        shown.page.pageIsVisible = true
+        shown.page.didSwitchToPage()
+        shown.page.openHistoricalURL(URL(string: "inform:/index.html"))
+        waitUntilShown("inform:/index.html", in: shown)
+        XCTAssertEqual(recorder.timesAsked, 1)
+
+        open(catalogueURL, in: shown)
+        XCTAssertEqual(recorder.timesAsked, 3)
     }
 
     /// Switching to the page while the failure page is shown records the page that failed in the history, not the
