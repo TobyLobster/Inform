@@ -252,10 +252,13 @@ private var itemTextAttributes: [NSAttributedString.Key: Any] = [
         return true
     }
 
-    public override func awakeFromNib() {
-        // Make sure the skein view doesn't have elasticity
-        enclosingScrollView?.horizontalScrollElasticity = .none
-        enclosingScrollView?.verticalScrollElasticity = .none
+    nonisolated public override func awakeFromNib() {
+        // Nibs are loaded on the main thread
+        MainActor.assumeIsolated {
+            // Make sure the skein view doesn't have elasticity
+            enclosingScrollView?.horizontalScrollElasticity = .none
+            enclosingScrollView?.verticalScrollElasticity = .none
+        }
     }
 
     // MARK: - Mouse handling

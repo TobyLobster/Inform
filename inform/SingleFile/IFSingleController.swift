@@ -64,37 +64,40 @@ private func ascii(_ scalar: Unicode.Scalar) -> unichar {
         IFWelcomeWindow.hide()
     }
 
-    public override func awakeFromNib() {
-        let document = self.document as? IFSingleFile
+    nonisolated public override func awakeFromNib() {
+        // Nibs are loaded on the main thread
+        MainActor.assumeIsolated {
+            let document = self.document as? IFSingleFile
 
-        // Set the window frame save name
-        windowFrameAutosaveName = "SingleFile"
+            // Set the window frame save name
+            windowFrameAutosaveName = "SingleFile"
 
-        // Set the view's text appropriately
-        if let storage = document?.storage {
-            fileView?.layoutManager?.replaceTextStorage(storage)
+            // Set the view's text appropriately
+            if let storage = document?.storage {
+                fileView?.layoutManager?.replaceTextStorage(storage)
+            }
+
+            fileView?.isEditable = !(document?.isReadOnly ?? false)
+            fileView?.isRichText = false
+            fileView?.enabledTextCheckingTypes = 0
+            fileView?.setSelectedRange(initialSelectionRange)
+
+            let filename = (document?.fileURL?.path as NSString?)?.standardizingPath
+            let dotExtension = (filename as NSString?)?.pathExtension.lowercased()
+
+            isExtension = dotExtension == "i7x" ||
+                          dotExtension == "h" ||
+                          dotExtension == ""
+            isInform7 = dotExtension == "i7x" ||
+                        dotExtension == "ni" ||
+                        dotExtension == "i7" ||
+                        dotExtension == ""
+
+            // Spell checking
+            setSourceSpellChecking((NSApp.delegate as? IFAppDelegate)?.sourceSpellChecking ?? false)
+
+            setBackgroundColour()
         }
-
-        fileView?.isEditable = !(document?.isReadOnly ?? false)
-        fileView?.isRichText = false
-        fileView?.enabledTextCheckingTypes = 0
-        fileView?.setSelectedRange(initialSelectionRange)
-
-        let filename = (document?.fileURL?.path as NSString?)?.standardizingPath
-        let dotExtension = (filename as NSString?)?.pathExtension.lowercased()
-
-        isExtension = dotExtension == "i7x" ||
-                      dotExtension == "h" ||
-                      dotExtension == ""
-        isInform7 = dotExtension == "i7x" ||
-                    dotExtension == "ni" ||
-                    dotExtension == "i7" ||
-                    dotExtension == ""
-
-        // Spell checking
-        setSourceSpellChecking((NSApp.delegate as? IFAppDelegate)?.sourceSpellChecking ?? false)
-
-        setBackgroundColour()
     }
 
     // MARK: - Menu items

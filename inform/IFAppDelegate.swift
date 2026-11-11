@@ -54,10 +54,10 @@ private var newProj: IFNewProject?
         super.init()
     }
 
-    public override func observeValue(forKeyPath keyPath: String?,
-                                      of object: Any?,
-                                      change: [NSKeyValueChangeKey: Any]?,
-                                      context: UnsafeMutableRawPointer?) {
+    nonisolated public override func observeValue(forKeyPath keyPath: String?,
+                                                  of object: Any?,
+                                                  change: [NSKeyValueChangeKey: Any]?,
+                                                  context: UnsafeMutableRawPointer?) {
         performSelector(onMainThread: #selector(darkModeChanged), with: nil, waitUntilDone: false)
     }
 

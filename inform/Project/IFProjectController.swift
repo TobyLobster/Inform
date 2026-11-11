@@ -217,35 +217,40 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
         }
     }
 
-    public override func awakeFromNib() {
-        // Setup the default panes
-        projectPanes?.removeAll()
-        projectPanes?.append(IFProjectPane.standard())
-        projectPanes?.append(IFProjectPane.standard())
+    nonisolated public override func awakeFromNib() {
+        // Nibs are loaded on the main thread
+        MainActor.assumeIsolated {
+            // Setup the default panes
+            projectPanes?.removeAll()
+            projectPanes?.append(IFProjectPane.standard())
+            projectPanes?.append(IFProjectPane.standard())
 
-        layoutPanes()
+            layoutPanes()
 
-        // Initial panes are source and documentation
-        projectPanes?[0].selectView(of: .sourcePane)
-        projectPanes?[1].selectView(of: .documentationPane)
+            // Initial panes are source and documentation
+            projectPanes?[0].selectView(of: .sourcePane)
+            projectPanes?[1].selectView(of: .documentationPane)
 
-        projectPanes?[0].sourcePage.setSpellChecking((NSApp.delegate as? IFAppDelegate)?.sourceSpellChecking ?? false)
-        projectPanes?[1].sourcePage.setSpellChecking((NSApp.delegate as? IFAppDelegate)?.sourceSpellChecking ?? false)
+            projectPanes?[0].sourcePage.setSpellChecking(
+                (NSApp.delegate as? IFAppDelegate)?.sourceSpellChecking ?? false)
+            projectPanes?[1].sourcePage.setSpellChecking(
+                (NSApp.delegate as? IFAppDelegate)?.sourceSpellChecking ?? false)
 
-        // Monitor for compiler finished notifications
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(compilerFinished(_:)),
-                                               name: .IFCompilerFinished,
-                                               object: project?.compiler)
+            // Monitor for compiler finished notifications
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(compilerFinished(_:)),
+                                                   name: .IFCompilerFinished,
+                                                   object: project?.compiler)
 
-        // Fullscreen mode
-        window?.collectionBehavior.insert(.fullScreenPrimary)
+            // Fullscreen mode
+            window?.collectionBehavior.insert(.fullScreenPrimary)
 
-        // Create the toolbar view
-        toolbarManager?.setToolbar()
+            // Create the toolbar view
+            toolbarManager?.setToolbar()
 
-        // Update the toolbar to reflect the test cases
-        toolbarManager?.setTestCases(project?.testCases)
+            // Update the toolbar to reflect the test cases
+            toolbarManager?.setTestCases(project?.testCases)
+        }
     }
 
     // == Project pane layout ==
