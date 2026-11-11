@@ -188,22 +188,27 @@ final class IFHeaderViewTests: XCTestCase {
                        "\(contents) (The Story (Part One - The Beginning, Part Two - The End))")
         view.displayDepth = 1
         XCTAssertEqual(outline(view.rootHeaderNode), "\(contents) (The Story)")
-        XCTAssertNil(view.message)
         XCTAssertEqual(view.displayDepth, 1)
     }
 
-    /// The message for no headings is only shown when the view shows nothing below the top header, but the story's
-    /// header is always below it (see ToFix.md)
-    func testTheMessagesForNoHeadings() {
+    /// A story with no headings below its title says so, in place of the contents and the title
+    func testTheMessageForAStoryWithNoHeadings() {
         let titleOnly = headerView(file: file([("The Story", 0, 0)]))
-        XCTAssertNil(titleOnly.message)
+        XCTAssertEqual(titleOnly.message, IFUtility.localizedString("NoHeadingsSet"))
         XCTAssertEqual(outline(titleOnly.rootHeaderNode), "\(contents) (The Story)")
+    }
 
-        // No depth in the depth menu shows nothing below the top header
-        let view = headerView(depth: 0)
+    /// A story whose headings are all deeper than the depth shown says to choose another depth
+    func testTheMessageWhenNoHeadingsAreShown() {
+        let view = headerView(depth: 1)
         XCTAssertEqual(view.message, IFUtility.localizedString("NoHeadingsVisible"))
-        view.displayDepth = 1
+        view.displayDepth = 3
         XCTAssertNil(view.message)
+        view.displayDepth = 0
+        XCTAssertEqual(view.message, IFUtility.localizedString("NoHeadingsVisible"))
+
+        let withAVolume = headerView(depth: 1, file: file([("The Story", 0, 0), ("Volume 1 - All\n", 1, 2)]))
+        XCTAssertNil(withAVolume.message)
     }
 
     func testTheViewIsAsTallAsItsHeadings() {

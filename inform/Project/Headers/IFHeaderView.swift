@@ -81,15 +81,16 @@ import Cocoa
 
         _rootHeaderNode.populate(toDepth: populateToDepth)
 
-        // Add a message if necessary
-        if (_rootHeaderNode.children?.count ?? 0) == 0 {
-            if (rootHeader?.children.count ?? 0) == 0 {
-                self.message = IFUtility.localizedString("NoHeadingsSet",
-                                                         default: "")
-            } else {
-                self.message = IFUtility.localizedString("NoHeadingsVisible",
-                                                         default: "")
-            }
+        // Add a message if necessary. The root is the Contents, over the story's header, with its title, and an
+        // extension's documentation, so the headings are below those.
+        let topHeaders = rootHeader?.children ?? []
+        let topNodes = _rootHeaderNode.children ?? []
+        if topHeaders.allSatisfy({ $0.children.isEmpty }) {
+            self.message = IFUtility.localizedString("NoHeadingsSet",
+                                                     default: "")
+        } else if topNodes.allSatisfy({ ($0.children ?? []).isEmpty }) {
+            self.message = IFUtility.localizedString("NoHeadingsVisible",
+                                                     default: "")
         } else {
             _message = nil
         }
