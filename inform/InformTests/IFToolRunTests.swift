@@ -54,6 +54,27 @@ final class IFToolRunTests: XCTestCase {
         XCTAssertEqual(run.standardError, Data(repeating: UInt8(ascii: "e"), count: 100000))
     }
 
+    /// As when an external Inform Core folder (Advanced preferences) hasn't got it
+    func testAToolThatIsntThereIsntRunAndStderrSaysWhy() {
+        let run = IFToolRun(command: "/nonexistent/intest", arguments: [])
+
+        XCTAssertEqual(run.exitCode, -1)
+        XCTAssertEqual(run.standardOutput, Data())
+        let error = text(run.standardError)
+        XCTAssertTrue(error.hasPrefix("Couldn't run /nonexistent/intest: "), error)
+        XCTAssertTrue(error.hasSuffix("\n"), error)
+    }
+
+    /// As when the app hasn't got the tool
+    func testNoToolIsntRunAndStderrSaysWhy() {
+        let run = IFToolRun(command: nil, arguments: [])
+
+        XCTAssertEqual(run.exitCode, -1)
+        XCTAssertEqual(run.standardOutput, Data())
+        let error = text(run.standardError)
+        XCTAssertTrue(error.hasPrefix("Couldn't run the tool: "), error)
+    }
+
     func testKeepsTheToolsExitCode() {
         XCTAssertEqual(shell("exit 3").exitCode, 3)
     }

@@ -51,12 +51,14 @@ extension IFInTest {
         mutableArgs.insert(((extensionPathName as NSString).deletingLastPathComponent as NSString).deletingLastPathComponent,
                            at: 0)
 
-        // The app always has intest. (Objective-C raised on a nil command, putting it in the notification.)
-        let command = IFUtility.path(forInformExecutable: "intest", version: "")!
+        // nil if the app hasn't got intest, when the run says so
+        let command = IFUtility.path(forInformExecutable: "intest", version: "")
 
         // InTest Start notification
-        var uiDict: [String: Any] = ["command": command,
-                                     "args": mutableArgs]
+        var uiDict: [String: Any] = ["args": mutableArgs]
+        if let command {
+            uiDict["command"] = command
+        }
         NotificationCenter.default.post(name: .IFInTestStarting,
                                         object: self,
                                         userInfo: uiDict)

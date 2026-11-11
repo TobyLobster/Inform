@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, readonly, copy) NSData* standardOutput;
 /// What the tool wrote to stderr
 @property (atomic, readonly, copy) NSData* standardError;
-/// The tool's exit code
+/// The tool's exit code, or -1 if it couldn't be run, as when it isn't there, when stderr says why
 @property (atomic, readonly) int exitCode;
 
 @end

@@ -19,7 +19,9 @@ extension IFToolRun {
         let theTask = Process()
 
         theTask.arguments = arguments
-        theTask.launchPath = command
+        if let command {
+            theTask.executableURL = URL(fileURLWithPath: command)
+        }
         theTask.currentDirectoryPath = NSTemporaryDirectory()
 
         // Prepare the task's IO
@@ -33,8 +35,19 @@ extension IFToolRun {
         let stdOutH = stdOutPipe.fileHandleForReading
         let stdErrH = stdErrPipe.fileHandleForReading
 
-        // Start the task
-        theTask.launch()
+        // Start the task. One that can't be run isn't, and stderr says why. (Process raises for no command.)
+        do {
+            if command == nil {
+                throw CocoaError(.fileNoSuchFile)
+            }
+            try theTask.run()
+        } catch {
+            standardOutput = Data()
+            standardError = Data("Couldn't run \(command ?? "the tool"): \(error.localizedDescription)\n".utf8)
+            exitCode = -1
+            super.init()
+            return
+        }
 
         // Read stderr as the tool writes it, so that a tool writing more there than a pipe holds isn't kept waiting
         // for stdout to be read to its end
