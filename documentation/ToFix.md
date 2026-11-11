@@ -26,10 +26,6 @@ Each says how it was found, and none has been seen in the app unless it says so.
 
 - **Knots once couldn't be clicked or dragged** (seen in the app on 5 November 2026, in a build of `phase5/swift-utility-rest`), then could again in the same run. Not reproduced. The branch `debug/skein-clicks` logs the skein's mouse events, tagged "SKEIN", to read with `log show`. An idea, not checked: the knots' tracking areas use `NSTrackingActiveInKeyWindow`, so if the window wasn't key, a knot under the pointer might never be marked as inside, and a click only acts on a knot that is.
 
-## Quick Look
-
-- **The plugin would raise when it makes the preferences.** The Quick Look plugin compiles `IFPreferences` and `IFNaturalIntel`, which call the `NSString` category, but not the category itself. `IFNaturalIntel` never runs there, but `IFPreferences` compares theme names with `isEqualToStringCaseInsensitive:` when it makes its styles, which it does when the shared preferences are first used, so the first preview or thumbnail would raise. It has been so since the call was added (7a02e964, May 2022). Compiling the category's Swift file into the plugin would fix it. Found by reading (5 November 2026, and for `IFPreferences` 7 November 2026). InformQL itself may no longer load on macOS 15; replacing it is Phase 6.
-
 ## Building
 
 - **Fresh clones of Zoom don't build ZoomServer.** The external-build-tool `Interpreter` target runs before `Builder` is linked, so `build/interp_*.h` are never generated (`'interp_z3.h' file not found`). It works here because old headers sit in the ignored `zoom/build/` (the same code as freshly generated ones, apart from `#line` paths and order), and until it's fixed a fresh clone of Inform hits it too. The fix generates the headers in a ZoomServer Run Script phase that declares Builder as an input: sent as MaddTheSane/zoom#3 (branch `generate-interpreter-headers` in `~/Code/upstream/zoom`), and applied uncommitted to our `zoom/` until it's merged. Found on 3 November 2026.
