@@ -230,6 +230,56 @@ final class IFNaturalIntelTests: XCTestCase {
         XCTAssertEqual(storage.string, text.replacingOccurrences(of: "the second", with: "Chapter \nthe second"))
     }
 
+    // MARK: - Headings numbered in words
+
+    /// A heading after one numbered in words is numbered in words, in the same capitals
+    func testAHeadingAfterOneNumberedInWordsIsNumberedInWords() throws {
+        try skipUnlessNumbering()
+        for (before, after) in [("Two", "Three"), ("two", "three"), ("TWO", "THREE"), ("Twenty", "Twenty-One"),
+                                ("twenty-one", "twenty-two")] {
+            let text = source.replacingOccurrences(of: "Section 2 - Back", with: "Section \(before) - Back")
+            let storage = registered(text)
+            typeHeading("Section", before: "Chapter 2", in: storage)
+            XCTAssertEqual(storage.string,
+                           text.replacingOccurrences(of: "Chapter 2", with: "Section \(after) - \n\nChapter 2"),
+                           before)
+        }
+    }
+
+    /// A number that would take more than one word is put in figures, as the heading's number is its second word
+    func testANumberTooBigForOneWordIsInFigures() throws {
+        try skipUnlessNumbering()
+        let text = source.replacingOccurrences(of: "Section 2 - Back", with: "Section Ninety-Nine - Back")
+        let storage = registered(text)
+        typeHeading("Section", before: "Chapter 2", in: storage)
+        XCTAssertEqual(storage.string, text.replacingOccurrences(of: "Chapter 2", with: "Section 100 - \n\nChapter 2"))
+    }
+
+    /// A word that only reads as a number another way, such as "Second", isn't taken for one
+    func testAHeadingAfterAnotherWordIsLeftAlone() throws {
+        try skipUnlessNumbering()
+        let text = source.replacingOccurrences(of: "Section 2 - Back", with: "Section Second - Back")
+        let storage = registered(text)
+        typeHeading("Section", before: "Chapter 2", in: storage)
+        XCTAssertEqual(storage.string, text.replacingOccurrences(of: "Chapter 2", with: "Section \n\nChapter 2"))
+    }
+
+    /// The headings after a new one are renumbered, each in words or in figures as it was
+    func testHeadingsAreRenumberedInWordsOrFiguresAsTheyWere() throws {
+        try skipUnlessNumbering()
+        let inWords = source.replacingOccurrences(of: "Chapter 1", with: "Chapter One")
+                            .replacingOccurrences(of: "Chapter 2", with: "Chapter Two")
+        let storage = registered(inWords)
+        typeHeading("Chapter", before: "Chapter Two", in: storage)
+        XCTAssertEqual(storage.string,
+                       inWords.replacingOccurrences(of: "Chapter Two", with: "Chapter Two - \n\nChapter Three"))
+
+        let inBoth = source.replacingOccurrences(of: "Chapter 1", with: "Chapter One")
+        let both = registered(inBoth)
+        typeHeading("Chapter", before: "Chapter 2", in: both)
+        XCTAssertEqual(both.string, inBoth.replacingOccurrences(of: "Chapter 2", with: "Chapter Two - \n\nChapter 3"))
+    }
+
     // MARK: - Renumbering the headings after a new one
 
     func testOnlyTheSectionsOfTheSameChapterAreRenumbered() throws {
