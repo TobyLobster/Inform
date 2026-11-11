@@ -15,8 +15,8 @@ private func synchronized<T>(_ lock: AnyObject, _ body: () throws -> T) rethrows
     return try body()
 }
 
-/// A text or file to search, and where it is
-private final class IFSearchItem {
+/// A text or file to search, and where it is (handed to the search's thread, and not changed)
+private final class IFSearchItem: Sendable {
     let text: String?
     let filepath: String?
     let location: IFFindLocation
@@ -32,17 +32,24 @@ private final class IFSearchItem {
 
 @objc @implementation
 extension IFFindInFiles {
+    /// The items a search is to search, gathered on the main thread as it starts
     private final var searchItems: [IFSearchItem] = []
     private final var foundResults: [IFFindResult] = []
-    private final var exampleInfo: [String: IFExampleInfo]?
-    private final var codeInfo: [IFCodeInfo]?
-    private final var definitionInfo: [IFCodeInfo]?
 
-    private final let searchLock = NSObject()
-    private final let searchItemsLock = NSObject()
+    /// Counts the searches started. A search is left off once another is started, and its results and progress
+    /// are then left out, so it's kept behind the results' lock.
+    private final var searchNumber = 0
     let searchResultsLock = NSObject()
 
-    private final func foundMatch(inFile filename: String?,
+    /// Whether this is the latest search started
+    private final func isLatestSearch(_ search: Int) -> Bool {
+        return synchronized(searchResultsLock) {
+            searchNumber == search
+        }
+    }
+
+    private final func foundMatch(forSearch search: Int,
+                                  inFile filename: String?,
                                   rangeInFile fileRange: NSRange,
                                   documentDisplayName: String?,
                                   documentSortName: String?,
@@ -67,7 +74,9 @@ extension IFFindInFiles {
                                   definitionAnchorTag: definitionAnchorTag,
                                   regexFoundGroups: regexFoundGroups)
         synchronized(searchResultsLock) {
-            foundResults.append(result)
+            if searchNumber == search {
+                foundResults.append(result)
+            }
         }
     }
 
@@ -107,7 +116,8 @@ extension IFFindInFiles {
         return textString.substring(with: NSRange(location: lowContext, length: highContext + 1 - lowContext))
     }
 
-    private final func exampleInfoForRange(_ range: NSRange) -> IFExampleInfo? {
+    private static func exampleInfoForRange(_ range: NSRange,
+                                            in exampleInfo: [String: IFExampleInfo]?) -> IFExampleInfo? {
         if let exampleInfo {
             for (_, info) in exampleInfo {
                 if (range.location >= info.range.location) &&
@@ -119,7 +129,7 @@ extension IFFindInFiles {
         return nil
     }
 
-    private final func codeInfoForRange(_ range: NSRange) -> IFCodeInfo? {
+    private static func codeInfoForRange(_ range: NSRange, in codeInfo: [IFCodeInfo]?) -> IFCodeInfo? {
         if let codeInfo {
             for info in codeInfo {
                 if (range.location >= info.range.location) &&
@@ -131,7 +141,7 @@ extension IFFindInFiles {
         return nil
     }
 
-    private final func definitionInfoForRange(_ range: NSRange) -> IFCodeInfo? {
+    private static func definitionInfoForRange(_ range: NSRange, in definitionInfo: [IFCodeInfo]?) -> IFCodeInfo? {
         if let definitionInfo {
             for info in definitionInfo {
                 if (range.location >= info.range.location) &&
@@ -143,18 +153,23 @@ extension IFFindInFiles {
         return nil
     }
 
-    private final func searchThread(withPhrase searchPhrase: String,
+    private final func searchThread(forSearch search: Int,
+                                    items: [IFSearchItem],
+                                    withPhrase searchPhrase: String,
                                     searchType: IFFindType,
                                     locations searchLocations: IFFindLocation,
                                     progressBlock: @escaping @MainActor @Sendable (Int32, Int32, Int32) -> Void) {
         // memory pool
         autoreleasepool {
-            synchronized(searchItemsLock) {
-                let totalSearchItems = Int32(searchItems.count)
+            do {
+                let totalSearchItems = Int32(items.count)
                 var progressCount: Int32 = 0
                 var resultCount: Int32
 
-                for searchItem in searchItems {
+                for searchItem in items {
+                    // Leave off if another search has started
+                    if !isLatestSearch(search) { return }
+
                     // Retrieve values from it
                     var storage                 = searchItem.text
                     let filename                = searchItem.filepath
@@ -163,7 +178,9 @@ extension IFFindInFiles {
                     var displayName = filename.map { ($0 as NSString).lastPathComponent }.map { ($0 as NSString).deletingPathExtension }
                     var sortKey: String? = nil
 
-                    exampleInfo = nil
+                    var exampleInfo: [String: IFExampleInfo]? = nil
+                    var codeInfo: [IFCodeInfo]? = nil
+                    var definitionInfo: [IFCodeInfo]? = nil
                     var lastFoundInExample: String? = nil
                     var foundOutsideExample = false
                     var onlyOneMatchPerSegment = false          // I define a segment to be an Example or the text outside an Example.
@@ -259,9 +276,9 @@ extension IFFindInFiles {
                                 //
 
                                 // Get information about where the match occured
-                                let info   = exampleInfoForRange(matchRange)
-                                let cdInfo = codeInfoForRange(matchRange)
-                                let dfInfo = definitionInfoForRange(matchRange)
+                                let info   = IFFindInFiles.exampleInfoForRange(matchRange, in: exampleInfo)
+                                let cdInfo = IFFindInFiles.codeInfoForRange(matchRange, in: codeInfo)
+                                let dfInfo = IFFindInFiles.definitionInfoForRange(matchRange, in: definitionInfo)
 
                                 // Check if we have already found a result in this segment... Matches in code and
                                 // definitions are all listed, so they don't count.
@@ -322,7 +339,8 @@ extension IFFindInFiles {
                                     //
                                     // Record the result
                                     //
-                                    foundMatch(inFile: filename,
+                                    foundMatch(forSearch: search,
+                                               inFile: filename,
                                                rangeInFile: matchRange,
                                                documentDisplayName: displayName,
                                                documentSortName: sortKey,
@@ -341,9 +359,6 @@ extension IFFindInFiles {
                         }
                         while matchRange.location != NSNotFound
                     }
-                    exampleInfo = nil
-                    codeInfo = nil
-                    definitionInfo = nil
 
 
                     // Update progress
@@ -352,9 +367,12 @@ extension IFFindInFiles {
                     }
                     progressCount += 1
 
-                    // (The values now, as an Objective-C block took them)
+                    // (The values now, as an Objective-C block took them. A search that's been left off doesn't
+                    // report what it had queued.)
                     DispatchQueue.main.async { [progressCount, resultCount] in
-                        progressBlock(progressCount, totalSearchItems + 1, resultCount)
+                        if self.isLatestSearch(search) {
+                            progressBlock(progressCount, totalSearchItems + 1, resultCount)
+                        }
                     }
                 }
 
@@ -363,7 +381,9 @@ extension IFFindInFiles {
                     Int32(foundResults.count)
                 }
                 DispatchQueue.main.async { [resultCount] in
-                    progressBlock(totalSearchItems + 1, totalSearchItems + 1, resultCount)
+                    if self.isLatestSearch(search) {
+                        progressBlock(totalSearchItems + 1, totalSearchItems + 1, resultCount)
+                    }
                 }
             }
 
@@ -470,38 +490,43 @@ extension IFFindInFiles {
                from project: IFProject,
                withLocations locations: IFFindLocation,
                withProgressBlock progressBlock: @escaping IFFindInFilesProgressBlock) {
-        synchronized(searchLock) {
-            synchronized(searchItemsLock) {
-                synchronized(searchResultsLock) {
-                    foundResults.removeAll()
+        searchItems.removeAll()
 
-                    searchItems.removeAll()
+        if locations.contains(.documentationBasic) ||
+           locations.contains(.documentationSource) ||
+           locations.contains(.documentationDefinitions) {
+            addDocumentation()
+        }
+        if locations.contains(.extensions) {
+            addExtensions(project)
+        }
+        if locations.contains(.source) {
+            addSourceFiles(project)
+        }
 
-                    if locations.contains(.documentationBasic) ||
-                       locations.contains(.documentationSource) ||
-                       locations.contains(.documentationDefinitions) {
-                        addDocumentation()
-                    }
-                    if locations.contains(.extensions) {
-                        addExtensions(project)
-                    }
-                    if locations.contains(.source) {
-                        addSourceFiles(project)
-                    }
-                }
-            }
+        let items = searchItems
+        searchItems.removeAll()
 
-            // Start a thread to do the search... GCD style
-            let queue = DispatchQueue.global(qos: .default)
-            queue.async {
-                self.searchThread(withPhrase: searchPhrase,
-                                  searchType: searchType,
-                                  locations: locations,
-                                  progressBlock: progressBlock)
-            }
+        // A search already running isn't waited for: it leaves off when it sees this one has started
+        let search = synchronized(searchResultsLock) {
+            searchNumber += 1
+            foundResults.removeAll()
+            return searchNumber
+        }
+
+        // Start a thread to do the search... GCD style
+        let queue = DispatchQueue.global(qos: .default)
+        queue.async {
+            self.searchThread(forSearch: search,
+                              items: items,
+                              withPhrase: searchPhrase,
+                              searchType: searchType,
+                              locations: locations,
+                              progressBlock: progressBlock)
         }
     }
 }
 
-// The search runs on another thread, but its items, its results and its progress are each kept behind a lock
+// The search runs on another thread, with its own items, but its results and the latest search's number are kept
+// behind a lock
 extension IFFindInFiles: @unchecked Sendable {}

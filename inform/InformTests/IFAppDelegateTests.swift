@@ -369,6 +369,29 @@ final class IFAppDelegateTests: XCTestCase {
         }
     }
 
+    /// An installed extension that's already open is brought to the front, not opened again. (Its file is removed
+    /// once it's open, so that it couldn't be opened again, as that would show a window on the screen.)
+    func testOpeningAnInstalledExtensionThatsOpenShowsIt() throws {
+        let folder = try makeExtensionsFolder()
+        try put("Unicode Parser by Andrew Plotkin begins here.", "Unicode Parser.i7x", in: "Andrew Plotkin", of: folder)
+        let file = URL(fileURLWithPath: folder).appendingPathComponent("Andrew Plotkin/Unicode Parser.i7x")
+        let (delegate, _) = makeDelegate()
+        let (openMenu, _) = makeExtensionsMenus(for: delegate)
+        delegate.updateExtensionsMenu(forCompilerVersion: "10.1")
+        let item = try XCTUnwrap(openMenu.items.first { $0.title == "Andrew Plotkin" }?.submenu?.items.first)
+
+        let document = try IFSingleFile(contentsOf: file, ofType: "Inform 7 extension")
+        let window = makeWindow()
+        open(document, with: NSWindowController(window: window))
+        try FileManager.default.removeItem(at: file)
+
+        // (The action isn't in the delegate's header)
+        _ = delegate.perform(Selector(("openExtension:")), with: item)
+
+        XCTAssertTrue(window.isVisible)
+        XCTAssertEqual(NSDocumentController.shared.documents.filter { $0.fileURL == file }, [document])
+    }
+
     // MARK: - Copying sample projects
 
     /// Copying a project over one already there asks first, so with the alert unanswered, as in the tests, nothing

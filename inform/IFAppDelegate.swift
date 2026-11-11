@@ -755,9 +755,16 @@ extension IFAppDelegate {
         // Get the tag, and from that, get the source file we want to open
         let tag = (sender as? NSMenuItem)?.tag ?? 0
         let sourceFilename = extensionSources[tag]
+        let url = URL(fileURLWithPath: sourceFilename)
+
+        // An extension that's open already is brought to the front, as when a project opens it
+        if let openDoc = NSDocumentController.shared.document(for: url) {
+            openDoc.showWindows()
+            return
+        }
 
         // Open the file
-        guard let newDoc = try? IFSingleFile(contentsOf: URL(fileURLWithPath: sourceFilename),
+        guard let newDoc = try? IFSingleFile(contentsOf: url,
                                              ofType: "Inform 7 extension") else {
             return
         }

@@ -89,6 +89,33 @@ private let closeBracket: unichar       = 0x5D      // ]
         return true
     }
 
+    /// Where the brackets of the outermost comments in a range are, for a range that starts at this comment depth and
+    /// doesn't leave it. Brackets in a string aren't comments.
+    private final func outermostCommentBrackets(in range: NSRange, commentDepth: Int) -> [Int] {
+        var brackets: [Int] = []
+        var depth = 0           // In the range
+        var inString = false
+
+        for index in range.location..<(range.location + range.length) {
+            let chr = character(at: index)
+
+            let isQuotationMark = (chr == quotationMark) || (chr == leftQuotationMark) || (chr == rightQuotationMark)
+            if isQuotationMark && (commentDepth + depth == 0) {
+                inString = !inString
+            } else if !inString {
+                if chr == openBracket {
+                    if depth == 0 { brackets.append(index) }
+                    depth += 1
+                } else if (chr == closeBracket) && (depth > 0) {
+                    depth -= 1
+                    if depth == 0 { brackets.append(index) }
+                }
+            }
+        }
+
+        return brackets
+    }
+
     func commentOutInform7(_ range: UnsafeMutablePointer<NSRange>) -> Bool {
         // Make sure we are in a valid range
         var commentDepth = 0
@@ -118,23 +145,26 @@ private let closeBracket: unichar       = 0x5D      // ]
             return false
         }
 
-        // All clear to make the change - uncomment
+        // All clear to make the change - uncomment. Each comment in the selection loses its brackets, but in a
+        // comment, only a selection that's one comment does.
+        let brackets = outermostCommentBrackets(in: range.pointee, commentDepth: commentDepth)
         let end = range.pointee.location + range.pointee.length - 1
-        if (character(at: range.pointee.location) == openBracket) &&
-           (character(at: end) == closeBracket) {
-            deleteCharacters(in: NSRange(location: end, length: 1))
-            deleteCharacters(in: NSRange(location: range.pointee.location, length: 1))
-            range.pointee.length -= 2
+        if commentDepth == 0 || brackets == [range.pointee.location, end] {
+            if brackets.isEmpty {
+                return false
+            }
+            for index in brackets.reversed() {
+                deleteCharacters(in: NSRange(location: index, length: 1))
+            }
+            range.pointee.length -= brackets.count
             return true
         }
 
-        if commentDepth > 0 {
-            insert("[", at: range.pointee.location + range.pointee.length)
-            insert("]", at: range.pointee.location)
-            range.pointee.length += 2
+        // Otherwise the comment it's in is closed before it and opened again after it
+        insert("[", at: range.pointee.location + range.pointee.length)
+        insert("]", at: range.pointee.location)
+        range.pointee.length += 2
 
-            return true
-        }
-        return false
+        return true
     }
 }

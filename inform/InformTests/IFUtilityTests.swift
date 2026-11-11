@@ -413,17 +413,15 @@ final class IFUtilityTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(unescape("[=0x1F600=]"), "\u{F600}")
     }
 
-    /// A digit that isn't hexadecimal counts as 0.
-    func testCharacterCodesWithBadDigits() {
-        XCTAssertEqual(unescape("[=0x4G=]"), "@")
-    }
-
-    /// An escape runs to the next =], so an Inform comment starting [= is taken as one.
-    func testUnknownEscapesAreQuestionMarks() {
-        XCTAssertEqual(unescape("[=back=]"), "?")
-        XCTAssertEqual(unescape("[=0X41=]"), "?")
-        XCTAssertEqual(unescape("[==]"), "?")
-        XCTAssertEqual(unescape("[=== Notes ===]"), "?")
+    /// Only a character code or BACK is an escape, so an Inform comment starting [= is left as it is
+    func testOtherTextInAnEscapesBracketsIsLeftAlone() {
+        XCTAssertEqual(unescape("[=0x4G=]"), "[=0x4G=]")
+        XCTAssertEqual(unescape("[=0x=]"), "[=0x=]")
+        XCTAssertEqual(unescape("[=back=]"), "[=back=]")
+        XCTAssertEqual(unescape("[=0X41=]"), "[=0X41=]")
+        XCTAssertEqual(unescape("[==]"), "[==]")
+        XCTAssertEqual(unescape("[=== Notes ===]"), "[=== Notes ===]")
+        XCTAssertEqual(unescape("[=== Notes [=0x0041=] ===]"), "[=== Notes A ===]")
     }
 
     /// Without a closing =] after it, [= is left as it is.

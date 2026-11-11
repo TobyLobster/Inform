@@ -63,7 +63,7 @@ private func synchronized<T>(_ lock: AnyObject, _ body: () throws -> T) rethrows
     @IBOutlet private final var findCountText: NSTextField?                     // The text count of how many results we have found
 
     // Things we've searched for
-    private final var findHistory: [Any]                                        // The 'find' history
+    private final var findHistoryWithoutDefaults: [Any] = []                    // The 'find' history, with no defaults
     private final var defaults: UserDefaults?                                   // Where the find history is kept
 
     private final var findAllResults: [IFFindResult] = []                       // The 'find all' results view
@@ -73,10 +73,11 @@ private func synchronized<T>(_ lock: AnyObject, _ body: () throws -> T) rethrows
     private final var auxView: NSView?                                          // The auxiliary view that is being displayed
     private final var winFrame = NSRect.zero                                    // The default window frame
 
-    // Project we are going to search
-    private final var project: IFProject?                                       // Project to search in
-    private final var controller: IFProjectController?                          // Project controller to use
+    // Project we are going to search, let go of when its window closes
+    private final weak var project: IFProject?                                  // Project to search in
+    private final weak var controller: IFProjectController?                     // Project controller to use
     private final var findInFiles: IFFindInFiles                                // Object used to perform searching
+    private final var searchCount = 0                                           // Counts searches, and projects closed
 
     // MARK: - Initialisation
 
@@ -92,9 +93,6 @@ private func synchronized<T>(_ lock: AnyObject, _ body: () throws -> T) rethrows
     init(defaults theDefaults: UserDefaults) {
         defaults = theDefaults
 
-        // Get the find history
-        findHistory = theDefaults.object(forKey: IFFindHistoryPref) as? [Any] ?? []
-
         findInFiles = IFFindInFiles()
 
         // The nib is named by windowNibName, as a Swift initialiser can't call initWithWindowNibName:
@@ -109,7 +107,6 @@ private func synchronized<T>(_ lock: AnyObject, _ body: () throws -> T) rethrows
 
     // Swift needs this, as NSWindowController's is required. The Objective-C inherited it, starting with nothing set.
     public required init?(coder: NSCoder) {
-        findHistory = []
         defaults = nil
         findInFiles = IFFindInFiles()
 
@@ -127,23 +124,41 @@ private func synchronized<T>(_ lock: AnyObject, _ body: () throws -> T) rethrows
 
     // MARK: - Updating the history
 
+    /// The 'find' history. It's kept in the defaults, where the Find panel adds to it too, so it's read from there
+    /// each time.
+    private final var findHistory: [Any] {
+        get {
+            guard let defaults else { return findHistoryWithoutDefaults }
+            return defaults.object(forKey: IFFindHistoryPref) as? [Any] ?? []
+        }
+        set {
+            guard let defaults else {
+                findHistoryWithoutDefaults = newValue
+                return
+            }
+            defaults.set(newValue, forKey: IFFindHistoryPref)
+        }
+    }
+
     private final func addPhraseToFindHistory(_ phrase: String) {
+        var history = findHistory
+
         // Ensure that we don't store a duplicate copy of the phrase
-        let lastIndex = (findHistory as NSArray).index(of: phrase)
+        let lastIndex = (history as NSArray).index(of: phrase)
         if lastIndex != NSNotFound {
-            findHistory.remove(at: lastIndex)
+            history.remove(at: lastIndex)
         }
 
         // Insert the new phrase into the find history
-        findHistory.insert(phrase, at: 0)
+        history.insert(phrase, at: 0)
 
         // Ensure that we limit the number of items in the history
-        while findHistory.count > FIND_HISTORY_LENGTH {
-            findHistory.removeLast()
+        while history.count > FIND_HISTORY_LENGTH {
+            history.removeLast()
         }
 
         // Store in the user defaults
-        defaults?.set(findHistory, forKey: IFFindHistoryPref)
+        findHistory = history
 
         // Update the combo box
         findPhrase?.reloadData()
@@ -358,11 +373,16 @@ private func synchronized<T>(_ lock: AnyObject, _ body: () throws -> T) rethrows
 
         // Start the find
         let locations = currentFindLocation()
+        searchCount += 1
+        let search = searchCount
 
         findInFiles.start(withPhrase: findPhrase?.stringValue ?? "",
                           withSearch: currentFindType(),
                           from: project,
                           withLocations: locations) { num, total, found in
+            // A search of a project whose window has since closed isn't shown
+            guard self.searchCount == search else { return }
+
             // Update progress
             let progress = CGFloat(num) / CGFloat(total)
             self.findProgress?.doubleValue = progress
@@ -590,6 +610,17 @@ extension IFFindInFilesController {
             findAllResults = []
             showAuxiliaryView(nil)
             win?.saveFrame(usingName: "FindInFilesFrame")
+        } else if let win, let controller, win.windowController === controller {
+            // The project is closing. It's let go of, with its results, which can't be shown without it, and any
+            // search of it.
+            project = nil
+            self.controller = nil
+            searchCount += 1
+            findAllResults = []
+            findAllTable?.reloadData()
+            findProgress?.stopAnimation(self)
+            findProgress?.isHidden = true
+            showAuxiliaryView(nil)
         }
     }
 }

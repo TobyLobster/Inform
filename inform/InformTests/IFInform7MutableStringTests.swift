@@ -115,8 +115,20 @@ final class IFInform7MutableStringTests: XCTestCase {
         XCTAssertEqual(uncomment("[A «note] Every» turn"), "unchanged")
     }
 
+    /// Each comment in the selection loses its brackets, but not a comment in one, or brackets in a string
     func testUncommentingTwoComments() {
-        // Not right: this takes the first and last brackets away, leaving the brackets between
-        XCTAssertEqual(uncomment("«[A note] Every turn [another]»"), "«A note] Every turn [another»")
+        XCTAssertEqual(uncomment("«[A note] Every turn [another]»"), "«A note Every turn another»")
+        XCTAssertEqual(uncomment("«[A [nested] note] and [another]»"), "«A [nested] note and another»")
+        XCTAssertEqual(uncomment("«[A note] say \"[Hi]\" [another]»"), "«A note say \"[Hi]\" another»")
+    }
+
+    func testUncommentingACommentInTheSelection() {
+        XCTAssertEqual(uncomment("«Every [note] turn»"), "«Every note turn»")
+    }
+
+    /// In a comment, a selection that isn't one comment is taken out of the comment, with any comments in it
+    func testUncommentingTwoCommentsInAComment() {
+        XCTAssertEqual(uncomment("[A «[note]» here.]"), "[A «note» here.]")
+        XCTAssertEqual(uncomment("[A «[note] and [another]» here.]"), "[A «][note] and [another][» here.]")
     }
 }

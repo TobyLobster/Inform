@@ -475,6 +475,38 @@ final class IFFindInFilesControllerTests: XCTestCase {
                                                        anchorTag: "")])
     }
 
+    /// When the project's window closes, its results go, as they can't be shown without it, and the project and its
+    /// controller are let go of, so Find All does nothing until Find in Files is used from another project
+    func testLetsGoOfAProjectWhenItsWindowCloses() throws {
+        let (controller, _, window) = try makeController()
+        weak var closedController: IFProjectController?
+        try autoreleasepool {
+            let projectController = ProjectControllerStandIn()
+            NotificationCenter.default.removeObserver(projectController)
+            closedController = projectController
+            controller.setController(projectController)
+            controller.setProject(try openProject(source: ["story.ni": "A beaker."]))
+            try findAll("beaker", with: controller)
+            XCTAssertEqual(below(window), [.results])
+
+            // The project's window isn't shown, and is only said to close
+            let projectWindow = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 200, height: 100),
+                                         styleMask: [.titled],
+                                         backing: .buffered,
+                                         defer: true)
+            projectWindow.setFrameOrigin(NSPoint(x: -20000, y: -20000))
+            projectWindow.isReleasedWhenClosed = false
+            projectWindow.windowController = projectController
+            NotificationCenter.default.post(name: NSWindow.willCloseNotification, object: projectWindow)
+        }
+
+        XCTAssertNil(closedController)
+        XCTAssertEqual(below(window), [])
+        controller.findAll(nil)
+        XCTAssertTrue(progress(window).isHidden)
+        XCTAssertEqual(below(window), [])
+    }
+
     /// Clicking a result in the documentation shows it at the anchor of the code, definition or example it's in
     func testClickingAResultInTheDocumentationGivesItsAnchor() throws {
         let (controller, _, window) = try makeController()
@@ -556,6 +588,18 @@ final class IFFindInFilesControllerTests: XCTestCase {
         try findAll("beaker", with: controller)
         XCTAssertEqual(defaults.object(forKey: "IFFindHistory") as? [String], ["beaker", "flask", "bottle"])
         XCTAssertEqual(historyItems(window), ["beaker", "flask", "bottle"])
+    }
+
+    /// The history is kept with the Find panel's, so what that adds after this is made is offered, and kept when this
+    /// adds to it
+    func testTheHistoryKeepsWhatTheFindPanelAdds() throws {
+        let (controller, defaults, window) = try makeController(history: ["flask"])
+        controller.setProject(try openProject(source: ["story.ni": "A beaker."]))
+        defaults.set(["bottle", "flask"], forKey: "IFFindHistory")
+        XCTAssertEqual(historyItems(window), ["bottle", "flask"])
+        try findAll("beaker", with: controller)
+        XCTAssertEqual(defaults.object(forKey: "IFFindHistory") as? [String], ["beaker", "bottle", "flask"])
+        XCTAssertEqual(historyItems(window), ["beaker", "bottle", "flask"])
     }
 
     /// The history keeps the last thirty phrases

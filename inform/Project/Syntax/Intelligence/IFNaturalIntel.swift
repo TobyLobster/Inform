@@ -24,10 +24,43 @@ private let autoNumberHeading = [false, true, true, true, true, true, false]
 
     // MARK: - Useful parsing functions
 
-    private static func parseNumber(_ number: String) -> Int32 {
-        // IMPLEMENT ME: parse english numbers (one, two, three, etc)
+    /// Writes numbers out in English words, and reads them
+    private static let numberWords: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .spellOut
+        formatter.locale = Locale(identifier: "en_US")
+        return formatter
+    }()
 
-        return (number as NSString).intValue
+    /// A number in figures, or in English words, such as "Two" or "twenty-one". A word that only reads as a number
+    /// another way, such as "second", isn't one.
+    private static func parseNumber(_ number: String) -> Int32 {
+        let figures = (number as NSString).intValue
+        if figures != 0 { return figures }
+
+        let word = number.lowercased()
+        guard let value = numberWords.number(from: word),
+              numberWords.string(from: value) == word else {
+            return 0
+        }
+        return value.int32Value
+    }
+
+    /// A number written as another heading's number is: in figures, or, if that's in words, in one word, in its
+    /// capitals
+    private static func numberText(_ number: Int32, like other: String) -> String {
+        let figures = "\(number)"
+        let otherIsInWords = (other as NSString).intValue == 0 && parseNumber(other) != 0
+
+        // The heading's number is its second word, so a number that needs more than one is put in figures
+        guard otherIsInWords,
+              let words = numberWords.string(from: NSNumber(value: number)),
+              !words.contains(" ") else {
+            return figures
+        }
+        if other == other.uppercased() { return words.uppercased() }
+        if let first = other.first, first.isUppercase { return words.capitalized }
+        return words
     }
 
     private static func numberOfHeading(_ heading: String) -> Int32 {
@@ -36,6 +69,12 @@ private let autoNumberHeading = [false, true, true, true, true, true, false]
         if words.count < 2 { return 0 }
 
         return IFNaturalIntel.parseNumber(words[1])
+    }
+
+    /// A heading's second word, where its number is
+    private static func numberWordOfHeading(_ heading: String) -> String {
+        let words = heading.components(separatedBy: " ")
+        return words.count < 2 ? "" : words[1]
     }
 
     // MARK: - Notifying of the highlighter currently in use
@@ -243,12 +282,14 @@ private let autoNumberHeading = [false, true, true, true, true, true, false]
 
                 // Work out the numeric value of the heading
                 var lastHeadingNumber: Int32 = 0
+                var lastNumberWord = ""                 // Written as the new heading's number is to be
 
                 if let symbol {
                     if symbol.level != headingLevel {
                         lastHeadingNumber = 0           // No preceding items at this level
                     } else {
                         lastHeadingNumber = IFNaturalIntel.numberOfHeading(symbol.name ?? "")
+                        lastNumberWord = IFNaturalIntel.numberWordOfHeading(symbol.name ?? "")
                         if lastHeadingNumber == 0 {
                             lastHeadingNumber = -1      // There was a preceding heading, but we don't know the number
                         }
@@ -260,7 +301,7 @@ private let autoNumberHeading = [false, true, true, true, true, true, false]
 
                 if lastHeadingNumber >= 0 {
                     // Insert a suitable new heading number
-                    res = " \(lastHeadingNumber + 1) - "
+                    res = " \(IFNaturalIntel.numberText(lastHeadingNumber + 1, like: lastNumberWord)) - "
 
                     highlighter.callback(forEditing: #selector(renumberSections(afterLine:)),
                                          withValue: NSNumber(value: lineNumber))
@@ -308,7 +349,7 @@ private let autoNumberHeading = [false, true, true, true, true, true, false]
                 var words = line.components(separatedBy: " ")
 
                 if words.count > 1 {
-                    words[1] = "\(currentSectionNumber)"
+                    words[1] = IFNaturalIntel.numberText(currentSectionNumber, like: words[1])
                     let newString = words.joined(separator: " ")
 
                     // Add to our 'todo' list
