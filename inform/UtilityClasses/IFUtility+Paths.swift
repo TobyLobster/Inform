@@ -22,7 +22,7 @@ private let temporaryFolder: URL = {
 @objc(Paths) @implementation extension IFUtility {
 
     // MARK: - Getting useful paths / URLs
-    class func publicLibraryURL() -> URL? {
+    @MainActor class func publicLibraryURL() -> URL? {
 #if DEBUG
         let redirectFile = (NSHomeDirectory() as NSString).appendingPathComponent("redirect_inform.txt")
         if let redirection = (try? NSString(contentsOfFile: redirectFile, encoding: String.Encoding.utf8.rawValue))?.trimmingWhitespace,
@@ -94,7 +94,7 @@ private let temporaryFolder: URL = {
 
     // A version is nil only if the app has no InformCoreVersion.txt (see IFUtility+CompilerVersions.swift).
 
-    class func path(forCompiler compilerVersion: String) -> String? {
+    @MainActor class func path(forCompiler compilerVersion: String) -> String? {
         // Older versions of compiler
         if IFUtility.compilerVersion(compilerVersion, isNoLaterThan: "6M62") {
             guard let executablePath = (Bundle.main.executablePath as NSString?)?.deletingLastPathComponent,
@@ -107,7 +107,7 @@ private let temporaryFolder: URL = {
         return IFUtility.path(forInformExecutable: "ni", version: compilerVersion)
     }
 
-    class func path(forInformInternalAppSupport compilerVersion: String) -> String {
+    @MainActor class func path(forInformInternalAppSupport compilerVersion: String) -> String {
         // (An app always has a resource path)
         let resourcePath = (Bundle.main.resourcePath ?? "") as NSString
         if IFUtility.isLatestMajorMinorCompilerVersion(compilerVersion) {
@@ -122,7 +122,7 @@ private let temporaryFolder: URL = {
         return (resourcePath.appendingPathComponent("retrospective") as NSString).appendingPathComponent(version)
     }
 
-    class func path(forInformExecutable executableName: String, version compilerVersion: String) -> String? {
+    @MainActor class func path(forInformExecutable executableName: String, version compilerVersion: String) -> String? {
         if IFUtility.isLatestMajorMinorCompilerVersion(compilerVersion) {
             if IFPreferences.shared.useExternalInformCoreDirectory {
                 // Use external locations for executables
@@ -161,15 +161,15 @@ private let temporaryFolder: URL = {
         return Bundle.main.path(forAuxiliaryExecutable: executableName)
     }
 
-    class func path(forInformInternalExtensions version: String) -> String {
+    @MainActor class func path(forInformInternalExtensions version: String) -> String {
         return (IFUtility.path(forInformInternalAppSupport: version) as NSString).appendingPathComponent("Extensions")
     }
 
-    class func path(forInformInternalLibraries version: String) -> String {
+    @MainActor class func path(forInformInternalLibraries version: String) -> String {
         return (IFUtility.path(forInformInternalAppSupport: version) as NSString).appendingPathComponent("Libraries")
     }
 
-    class func path(forInformInternalDocumentation version: String) -> String {
+    @MainActor class func path(forInformInternalDocumentation version: String) -> String {
         return (IFUtility.path(forInformInternalAppSupport: version) as NSString).appendingPathComponent("Documentation")
     }
 

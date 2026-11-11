@@ -76,6 +76,7 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
 ///
 /// Inform's application preferences are stored here
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFPreferences : NSObject
 
 // Constructing the object

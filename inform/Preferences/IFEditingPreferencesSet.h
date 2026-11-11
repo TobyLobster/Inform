@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+NS_SWIFT_UI_ACTOR
 @interface IFEditingPreferencesSet : NSObject
 
 @property (nonatomic) bool                 enableSyntaxHighlighting;

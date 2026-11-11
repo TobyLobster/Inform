@@ -23,7 +23,7 @@ import AppKit
       .strikethroughColor: NSColor(calibratedRed: 0.0, green: 0.0, blue: 0.0, alpha: 1.0) ])
 
 /// The attributes with their font at the report's size, times the app's font size multiplier
-private func sizedToFont(_ attributes: [NSAttributedString.Key: Any]) -> [NSAttributedString.Key: Any] {
+@MainActor private func sizedToFont(_ attributes: [NSAttributedString.Key: Any]) -> [NSAttributedString.Key: Any] {
     let fontSize = kSkeinDefaultReportFontSize * IFPreferences.shared.appFontSizeMultiplier
     return IFUtility.adjustAttributesFontSize(attributes, size: fontSize)
 }

@@ -11,6 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_SWIFT_UI_ACTOR
 @interface IFColourTheme : NSObject<NSSecureCoding>
 
 @property (nonatomic, nullable) NSNumber*                     flags;              // nil if it couldn't be read

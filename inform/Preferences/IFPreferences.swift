@@ -15,7 +15,7 @@ private let IFPreferencesComments          = "Comments"
 private let IFPreferencesQuotedText        = "QuotedText"
 private let IFPreferencesTextSubstitutions = "TextSubstitutions"
 
-private let sharedPrefs = IFPreferences()
+@MainActor private let sharedPrefs = IFPreferences()
 
 private extension IFSyntaxHighlightingOptionType {
     /// The kind of text's place in a theme's options

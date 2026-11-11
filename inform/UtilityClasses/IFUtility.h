@@ -146,7 +146,7 @@ CGFloat easeOutCubic(CGFloat t);
 @interface IFUtility (Paths)
 
 /// Paths to common resources
-+ (nullable NSURL*) publicLibraryURL;
++ (nullable NSURL*) publicLibraryURL NS_SWIFT_UI_ACTOR;
 
 // External directories within Application Support or Sandboxed container
 + (NSString*) pathForInformExternalAppSupport;
@@ -163,18 +163,19 @@ CGFloat easeOutCubic(CGFloat t);
 
 // Internal directories within the bundle resources
 /// Path to the internal Inform 7 app support
-+ (NSString*) pathForInformInternalAppSupport: (NSString *)version;
++ (NSString*) pathForInformInternalAppSupport: (NSString *)version NS_SWIFT_UI_ACTOR;
 /// Path to the internal Inform 7 extensions
-+ (NSString*) pathForInformInternalExtensions: (NSString *)version;
++ (NSString*) pathForInformInternalExtensions: (NSString *)version NS_SWIFT_UI_ACTOR;
 /// Path to the internal Inform 7 libraries
-+ (NSString*) pathForInformInternalLibraries: (NSString *)version;
++ (NSString*) pathForInformInternalLibraries: (NSString *)version NS_SWIFT_UI_ACTOR;
 /// Path to the internal Inform 7 documentation
-+ (NSString*) pathForInformInternalDocumentation: (NSString *)version;
++ (NSString*) pathForInformInternalDocumentation: (NSString *)version NS_SWIFT_UI_ACTOR;
 /// Path to the inform executables (ni, inbuild, intest etc)
-+ (nullable NSString*) pathForInformExecutable: (NSString*) executableName version: (NSString*) compilerVersion;
++ (nullable NSString*) pathForInformExecutable: (NSString*) executableName
+                                       version: (NSString*) compilerVersion NS_SWIFT_UI_ACTOR;
 
 /// Path to the compiler
-+ (nullable NSString*) pathForCompiler: (NSString *)version;
++ (nullable NSString*) pathForCompiler: (NSString *)version NS_SWIFT_UI_ACTOR;
 
 + (NSURL*) temporaryDirectoryURL;
 

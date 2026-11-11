@@ -9,7 +9,7 @@
 import Cocoa
 
 /// A root header node for the root header given, or for no headers when that's nil
-private func rootNode(withHeader header: IFHeader?) -> IFHeaderNode {
+@MainActor private func rootNode(withHeader header: IFHeader?) -> IFHeaderNode {
     let header = header ?? IFHeader(name: "", parent: nil, children: nil)
     return IFHeaderNode(header: header,
                         position: NSPoint(x: 0, y: 0),
