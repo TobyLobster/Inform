@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Project type for the New Extension window, which makes a new extension in a project's materials folder and opens it
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFNewInform7ExtensionFile : NSObject<IFNewProjectProtocol>
 
 - (instancetype) init NS_UNAVAILABLE;
@@ -36,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /// (This class name sounds suspiciously likes a free sample from one of those spams...)
+NS_SWIFT_UI_ACTOR
 @interface IFNewInform7ExtensionView : NSObject<IFNewProjectSetupView>
 
 - (instancetype) init NS_UNAVAILABLE;
