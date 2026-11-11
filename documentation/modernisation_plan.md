@@ -197,6 +197,8 @@ Started November 2026, on the `extensions` branch. This is a living document: up
         - The Index page recorded in the history while it was hidden (554f2670), and, found on the way, recorded its reload after each translation as a second entry while it was shown; it now leaves that out by its navigation, as the other pages do (e488873e).
         - After a project's first translation, the Index tab was blank until a cell was clicked, as the welcome page asked for when the pane was set up had no index to show. The page now shows its welcome page when the index is updated with nothing shown (8a69d134).
         - The Index page asked for its tabs' pages by their names in lower case, which Inform writes capitalised, so they couldn't be found on a case-sensitive volume. It now asks for the names it finds in the index (1e969d14). Not checked on a case-sensitive volume.
+    - Quick Look (11 November 2026). Not checked in the app, as InformQL may no longer load on macOS 15 (replacing it is Phase 6):
+        - The plugin compiled `IFPreferences`, which compares theme names with the `NSString` category as it makes its styles, but not the category, so its first preview or thumbnail would raise. It had been so since that call was added (7a02e964, May 2022). The category is now compiled into the plugin, and a unit test looks for it in the plugin's binary (26fa9dc7).
 
 ### Phase 5 – Swift, and separating logic from UI (goal 5)
 
