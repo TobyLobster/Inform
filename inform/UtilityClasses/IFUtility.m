@@ -12,9 +12,6 @@
 #import <objc/objc-runtime.h>
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
-NSErrorDomain        INFORM_ERROR_DOMAIN = @"com.inform7.errors";
-
-
 CGFloat lerp(CGFloat progress, CGFloat from, CGFloat to) {
     return from + progress * (to - from);
 }

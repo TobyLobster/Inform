@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSErrorDomain        INFORM_ERROR_DOMAIN;
+static NSErrorDomain const INFORM_ERROR_DOMAIN = @"com.inform7.errors";
 
 CGFloat lerp(CGFloat progress, CGFloat from, CGFloat to);
 CGFloat easeOutCubic(CGFloat t);
