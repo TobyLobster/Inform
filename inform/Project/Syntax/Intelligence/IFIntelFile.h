@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class IFIntelSymbol;
 
-extern NSNotificationName const IFIntelFileHasChangedNotification;
+static NSNotificationName const IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotification";
 
 ///
 /// 'Intelligence' data for a file.

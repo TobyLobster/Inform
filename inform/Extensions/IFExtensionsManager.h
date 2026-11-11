@@ -14,8 +14,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSNotificationName const IFCensusFinishedNotification;
-extern NSNotificationName const IFCensusFinishedButDontUpdateExtensionsWebPageNotification;
+static NSNotificationName const IFCensusFinishedNotification = @"IFCensusFinishedNotification";
+static NSNotificationName const IFCensusFinishedButDontUpdateExtensionsWebPageNotification =
+    @"IFCensusFinishedButDontUpdateExtensionsWebPageNotification";
 
 typedef NS_ENUM(int, IFExtensionResult) {
     IFExtensionNotFound,

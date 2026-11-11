@@ -18,10 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark Page notifications
 
 /// Notification sent by a page when it wishes to become frontmost
-extern NSNotificationName const IFSwitchToPageNotification;
+static NSNotificationName const IFSwitchToPageNotification = @"IFSwitchToPageNotification";
 
 /// Notification that the items on the toolbar for a page have changed
-extern NSNotificationName const IFUpdatePageBarCellsNotification;
+static NSNotificationName const IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotification";
 
 #define LOG_HISTORY
 #ifdef LOG_HISTORY

@@ -9,10 +9,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSNotificationName const IFInTestStartingNotification;
-extern NSNotificationName const IFInTestStdoutNotification;
-extern NSNotificationName const IFInTestStderrNotification;
-extern NSNotificationName const IFInTestFinishedNotification;
+static NSNotificationName const IFInTestStartingNotification = @"IFInTestStartingNotification";
+static NSNotificationName const IFInTestStdoutNotification = @"IFInTestStdoutNotification";
+static NSNotificationName const IFInTestStderrNotification = @"IFInTestStderrNotification";
+static NSNotificationName const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
 
 //
 // Class that handles actually running InTest

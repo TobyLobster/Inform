@@ -4,8 +4,8 @@
 //
 //  Created by Andrew Hunter on Mon Aug 18 2003.
 //  Copyright (c) 2003 Andrew Hunter. All rights reserved.
-//  Translated from Objective-C in November 2026. The interface is still IFCompilerSettings.h, and
-//  the constants are defined in IFCompilerSettingsConstants.m.
+//  Translated from Objective-C in November 2026. The interface is still IFCompilerSettings.h, which
+//  also defines the constants.
 //
 
 //

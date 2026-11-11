@@ -12,10 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NSString *IFDocAttributeKey NS_STRING_ENUM;
 
-extern IFDocAttributeKey const IFDocAttributeHtmlTitle;
-extern IFDocAttributeKey const IFDocAttributeTitle;
-extern IFDocAttributeKey const IFDocAttributeSection;
-extern IFDocAttributeKey const IFDocAttributeSort;
+static IFDocAttributeKey const IFDocAttributeHtmlTitle = @"IFDocHtmlTitle";
+static IFDocAttributeKey const IFDocAttributeTitle = @"IFDocTitle";
+static IFDocAttributeKey const IFDocAttributeSection = @"IFDocSection";
+static IFDocAttributeKey const IFDocAttributeSort = @"IFDocSort";
 
 ///
 /// Information about an example section foun in the HTML

@@ -4,8 +4,8 @@
 //
 //  Created by Andrew Hunter on 06/10/2004.
 //  Copyright 2004 Andrew Hunter. All rights reserved.
-//  Translated from Objective-C in November 2026. The interface is still IFSetting.h, and
-//  the constants are defined in IFSettingConstants.m.
+//  Translated from Objective-C in November 2026. The interface is still IFSetting.h, which
+//  also defines the constants.
 //
 
 import Cocoa

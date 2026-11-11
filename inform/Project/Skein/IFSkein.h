@@ -12,13 +12,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString* const IFSkeinChangedNotification;
-extern NSString* const IFSkeinReplacedNotification;
-extern NSString* const IFSkeinChangedAnimateKey;
-extern NSString* const IFSkeinKeepActiveVisibleKey;
+static NSNotificationName const IFSkeinChangedNotification = @"IFSkeinChangedNotification";
+static NSNotificationName const IFSkeinReplacedNotification = @"IFSkeinReplacedNotification";
+static NSString* const IFSkeinChangedAnimateKey = @"IFSkeinChangedAnimateKey";
+static NSString* const IFSkeinKeepActiveVisibleKey = @"IFSkeinKeepActiveVisibleKey";
 
-extern NSString* const IFSkeinSelectionChangedNotification;
-extern NSString* const IFSkeinSelectionChangedItemKey;
+static NSNotificationName const IFSkeinSelectionChangedNotification = @"IFSkeinSelectionChangedNotification";
+static NSString* const IFSkeinSelectionChangedItemKey = @"IFSkeinSelectionChangedItemKey";
 
 @class IFProject;
 

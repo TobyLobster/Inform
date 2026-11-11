@@ -14,7 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /// Paseboard type for drag and drop
-extern NSString* const IFSkeinItemPboardType;
+static NSString* const IFSkeinItemPboardType = @"com.inform7.IFSkeinItemPboardType";
 
 #pragma mark - "Skein Item"
 ///

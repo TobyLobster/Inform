@@ -3,8 +3,8 @@
 //  Inform
 //
 //  Created by Toby Nelson in 2015
-//  Translated from Objective-C in November 2026. The interface is still IFSkeinItem.h, and the
-//  pasteboard type is defined in IFSkeinConstants.m.
+//  Translated from Objective-C in November 2026. The interface is still IFSkeinItem.h, which
+//  also defines the pasteboard type.
 //
 
 import Cocoa

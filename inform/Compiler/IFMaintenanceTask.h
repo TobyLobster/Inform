@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSNotificationName const IFMaintenanceTasksStarted;
+static NSNotificationName const IFMaintenanceTasksStarted = @"IFMaintenanceTasksStarted";
 
 ///
 /// Class that deals with background maintenance tasks (particularly ni -census)
