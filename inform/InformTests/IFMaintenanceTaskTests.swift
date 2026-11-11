@@ -81,7 +81,7 @@ final class IFMaintenanceTaskTests: XCTestCase, @unchecked Sendable {
     }
 
     func testTellsWhenTasksStartOnceForEachRun() {
-        var started = 0
+        nonisolated(unsafe) var started = 0
         let observer = NotificationCenter.default.addObserver(forName: .IFMaintenanceTasksStarted,
                                                               object: maintenance, queue: nil) { _ in
             started += 1
@@ -104,7 +104,7 @@ final class IFMaintenanceTaskTests: XCTestCase, @unchecked Sendable {
 
     func testOnlyTheLastTasksNotificationIsPosted() {
         let earlier = makeNotificationName()
-        var toldEarlier = 0
+        nonisolated(unsafe) var toldEarlier = 0
         let observer = NotificationCenter.default.addObserver(forName: earlier, object: maintenance, queue: nil) { _ in
             toldEarlier += 1
         }

@@ -287,7 +287,7 @@ final class IFInTestTests: XCTestCase {
 
     /// Runs the block, and returns the user info of each notification the IFInTest posts meanwhile
     private func notifications(from inTest: IFInTest, during block: () -> Void) -> [(NSNotification.Name, [AnyHashable: Any])] {
-        var posted: [(NSNotification.Name, [AnyHashable: Any])] = []
+        nonisolated(unsafe) var posted: [(NSNotification.Name, [AnyHashable: Any])] = []
         let names: [NSNotification.Name] = [.IFInTestStarting, .IFInTestStdout, .IFInTestStderr, .IFInTestFinished]
         let observers = names.map { name in
             NotificationCenter.default.addObserver(forName: name, object: inTest, queue: nil) { notification in

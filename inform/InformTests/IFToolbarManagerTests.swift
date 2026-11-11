@@ -616,7 +616,7 @@ final class IFToolbarManagerTests: XCTestCase, @unchecked Sendable {
     func testHidingOrShowingTheToolbarIsPosted() throws {
         let window = showToolbar()
         let toolbar = try XCTUnwrap(window.toolbar)
-        var posted = 0
+        nonisolated(unsafe) var posted = 0
         let observer = NotificationCenter.default.addObserver(forName: Notification.Name("IFToolbarChangedVisibility"),
                                                               object: toolbar, queue: nil) { _ in
             posted += 1

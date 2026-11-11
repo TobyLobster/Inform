@@ -225,7 +225,7 @@ final class IFSkeinItemViewTests: XCTestCase, @unchecked Sendable {
 
     /// Counts the skein's change notifications while running the block
     private func changes(of skein: IFSkein, _ block: () throws -> Void) rethrows -> Int {
-        var count = 0
+        nonisolated(unsafe) var count = 0
         let observer = NotificationCenter.default.addObserver(forName: .IFSkeinChanged, object: skein,
                                                               queue: nil) { _ in count += 1 }
         defer { NotificationCenter.default.removeObserver(observer) }

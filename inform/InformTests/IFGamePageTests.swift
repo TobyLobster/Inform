@@ -119,7 +119,7 @@ final class IFGamePageTests: XCTestCase, @unchecked Sendable {
 
     /// How often the page asks to be shown while the block runs
     private func timesAskedToBeShown(_ page: IFGamePage, during block: () throws -> Void) rethrows -> Int {
-        var times = 0
+        nonisolated(unsafe) var times = 0
         let observer = NotificationCenter.default.addObserver(forName: .IFSwitchToPage, object: page, queue: nil) { _ in
             times += 1
         }

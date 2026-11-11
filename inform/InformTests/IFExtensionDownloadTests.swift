@@ -34,7 +34,7 @@ final class IFExtensionDownloadTests: XCTestCase, @unchecked Sendable {
     private func response(_ download: IFExtensionDownload, _ dataTask: URLSessionDataTask,
                           _ response: URLResponse) throws -> URLSession.ResponseDisposition? {
         let delegate = try XCTUnwrap(download as? URLSessionDataDelegate)
-        var disposition: URLSession.ResponseDisposition?
+        nonisolated(unsafe) var disposition: URLSession.ResponseDisposition?
         delegate.urlSession?(URLSession.shared, dataTask: dataTask, didReceive: response) { disposition = $0 }
         return disposition
     }

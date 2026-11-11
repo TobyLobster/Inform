@@ -318,9 +318,11 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
         try writeIndex(indexPages.map { $0.file })
         let shown = try makePage()
 
-        var told: [[Int]] = []
+        nonisolated(unsafe) var told: [[Int]] = []
         let observer = NotificationCenter.default.addObserver(forName: .IFUpdatePageBarCells, object: shown.page, queue: nil) { _ in
-            told.append(shown.page.toolbarCells.compactMap { ($0.representedObject as? NSNumber)?.intValue })
+            MainActor.assumeIsolated {
+                told.append(shown.page.toolbarCells.compactMap { ($0.representedObject as? NSNumber)?.intValue })
+            }
         }
         shown.page.updateIndexView()
         NotificationCenter.default.removeObserver(observer)
@@ -524,7 +526,7 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
 
     /// The notifications of the given name that the page posts while the block runs
     private func notifications(_ name: Notification.Name, from page: IFPage, during block: () -> Void) -> [Notification] {
-        var posted: [Notification] = []
+        nonisolated(unsafe) var posted: [Notification] = []
         let observer = NotificationCenter.default.addObserver(forName: name, object: page, queue: nil) {
             posted.append($0)
         }

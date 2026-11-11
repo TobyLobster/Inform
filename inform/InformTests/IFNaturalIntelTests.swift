@@ -245,12 +245,12 @@ final class IFNaturalIntelTests: XCTestCase {
         try skipUnlessNumbering()
         // The section after the new one needs renumbering, but the one after that is right
         let text = source.replacingOccurrences(of: "Section 2 - Back", with: "Section 2 - Side\n\nSection 4 - Back")
-        let storage = registered(text)
+        nonisolated(unsafe) let storage = registered(text)
         let start = location(of: "Section 2", in: storage)
         storage.replaceCharacters(in: NSRange(location: start, length: 0), with: "Section\n\n")
         type(" ", at: start + 7, in: storage)
 
-        var renumbered: [String] = []
+        nonisolated(unsafe) var renumbered: [String] = []
         let observer = NotificationCenter.default.addObserver(forName: NSTextStorage.didProcessEditingNotification,
                                                               object: storage, queue: nil) { _ in
             if storage.editedMask.contains(.editedCharacters) {

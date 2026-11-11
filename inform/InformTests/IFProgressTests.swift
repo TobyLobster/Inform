@@ -224,7 +224,7 @@ final class IFProgressTests: XCTestCase {
 
     func testCancelsOnTheMainThread() {
         let progress = makeProgress()
-        let target = CancelTarget()
+        nonisolated(unsafe) let target = CancelTarget()
         progress.setCancelAction(#selector(CancelTarget.stop(_:)), for: target)
         let cancelled = expectation(description: "Cancelled")
 

@@ -171,7 +171,7 @@ final class IFErrorsPageTests: XCTestCase, @unchecked Sendable {
 
     /// The notifications of the given name that the page posts while the block runs
     private func notifications(_ name: Notification.Name, from page: IFPage, during block: () throws -> Void) rethrows -> [Notification] {
-        var posted: [Notification] = []
+        nonisolated(unsafe) var posted: [Notification] = []
         let observer = NotificationCenter.default.addObserver(forName: name, object: page, queue: nil) {
             posted.append($0)
         }

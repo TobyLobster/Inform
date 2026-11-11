@@ -486,7 +486,7 @@ final class IFUtilityTests: XCTestCase, @unchecked Sendable {
     /// IDs are unique even when they're made on several threads at once.
     func testGeneratesUniqueIDsOnAnyThread() {
         let lock = NSLock()
-        var ids = Set<UInt>()
+        nonisolated(unsafe) var ids = Set<UInt>()
         DispatchQueue.concurrentPerform(iterations: 1000) { _ in
             let id = IFUtility.generateID()
             lock.lock()
