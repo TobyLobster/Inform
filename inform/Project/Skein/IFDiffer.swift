@@ -45,7 +45,7 @@ private func charAt(_ string: NSString, _ index: Int) -> unichar {
 
 // The letterCharacterSet contains the Unicode categories "Letters" and "Marks".
 // See eg. http://www.fileformat.info/info/unicode/category/index.htm
-private let letterCharacterSet = NSCharacterSet.letters as NSCharacterSet
+nonisolated(unsafe) private let letterCharacterSet = NSCharacterSet.letters as NSCharacterSet
 
 private func isWordBoundary(_ string: NSString, _ index: Int) -> Bool {
     let a = charAt(string, index)

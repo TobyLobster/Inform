@@ -35,7 +35,7 @@ import Foundation
 
 	private override init() {}
 	
-	@objcMembers @objc(IFCompilerListEntry) class Entry: NSObject {
+	@objcMembers @objc(IFCompilerListEntry) final class Entry: NSObject, Sendable {
 		@objc(id) let identifier: String
 
 		let displayName: String
