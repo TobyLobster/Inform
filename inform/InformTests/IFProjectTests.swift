@@ -360,6 +360,42 @@ final class IFProjectTests: XCTestCase {
         XCTAssertNotNil(written.fileWrappers?["Skein.skein"])
     }
 
+    /// The save panel has asked whether to replace the file
+    func testSavesTheIFictionRecordOverAFileThatsThere() throws {
+        let project = try open(makeProject(source: ["story.ni": Data()]))
+        try Data("<ifindex/>".utf8).write(to: fileURL("Metadata.ifiction", in: project))
+        let copy = try makeFolder().appendingPathComponent("Lighthouse.iFiction")
+        try Data("Old".utf8).write(to: copy)
+
+        try project.saveIFiction(to: copy, hidingExtension: false)
+
+        XCTAssertEqual(try String(contentsOf: copy, encoding: .utf8), "<ifindex/>")
+    }
+
+    func testSavingTheIFictionRecordSaysWhenThereIsNone() throws {
+        let project = try open(makeProject(source: ["story.ni": Data()]))
+        let copy = try makeFolder().appendingPathComponent("Lighthouse.iFiction")
+
+        XCTAssertThrowsError(try project.saveIFiction(to: copy, hidingExtension: false))
+    }
+
+    func testExportsAnExtensionOverAFileThatsThere() throws {
+        let project = try openExtensionProject()
+        let copy = try makeFolder().appendingPathComponent("Lamplighting.i7x")
+        try Data("Old".utf8).write(to: copy)
+
+        try project.exportExtension(to: copy, hidingExtension: false)
+
+        XCTAssertEqual(try String(contentsOf: copy, encoding: .utf8), extensionText)
+    }
+
+    func testExportingAnExtensionSaysWhenItCant() throws {
+        let project = try openExtensionProject()
+        let copy = try makeFolder().appendingPathComponent("Missing/Lamplighting.i7x")
+
+        XCTAssertThrowsError(try project.exportExtension(to: copy, hidingExtension: false))
+    }
+
     func testSavesAProjectElsewhere() throws {
         let project = try open(makeProject(source: ["story.ni": Data("Old".utf8)]))
         let story = try XCTUnwrap(project.sourceFiles?["story.ni"])

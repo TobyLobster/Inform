@@ -900,7 +900,12 @@ extension IFProject {
             panel.beginSheetModal(for: window) { result in
                 // Copy the file to the specified path
                 if result == .OK, let url = panel.url {
-                    self.saveIFiction(to: url, hidingExtension: panel.isExtensionHidden)
+                    do {
+                        try self.saveIFiction(to: url, hidingExtension: panel.isExtensionHidden)
+                    } catch {
+                        panel.close()
+                        NSAlert(error: error).beginSheetModal(for: window)
+                    }
                 }
             }
         } else {
@@ -911,14 +916,24 @@ extension IFProject {
         }
     }
 
-    @objc(saveIFictionToURL:hidingExtension:)
-    func saveIFiction(to url: URL, hidingExtension hideExtension: Bool) {
+    @objc(saveIFictionToURL:hidingExtension:error:)
+    func saveIFiction(to url: URL, hidingExtension hideExtension: Bool) throws {
         guard let iFictionURL = metadataURL else {
-            return
+            throw CocoaError(.fileReadNoSuchFile)
         }
-        let filepath = (url.path as NSString).resolvingSymlinksInPath
-        try? FileManager.default.copyItem(atPath: iFictionURL.path,
-                                          toPath: filepath)
+        try copyFile(at: iFictionURL, over: url, hidingExtension: hideExtension)
+    }
+
+    /// Copies a file to one the user chose in a save panel, which has asked whether to replace a file that's there
+    private final func copyFile(at source: URL, over destination: URL, hidingExtension hideExtension: Bool) throws {
+        let filepath = (destination.path as NSString).resolvingSymlinksInPath
+
+        // Remove the existing file, then copy
+        if FileManager.default.fileExists(atPath: filepath) {
+            try FileManager.default.removeItem(atPath: filepath)
+        }
+        try FileManager.default.copyItem(atPath: source.path,
+                                         toPath: filepath)
 
         // Hide the file extension if the user has requested it
         if var attributes = try? FileManager.default.attributesOfItem(atPath: filepath) {
@@ -1220,26 +1235,22 @@ extension IFProject {
             panel.beginSheetModal(for: window) { result in
                 // Copy the file to the specified path
                 if result == .OK, let url = panel.url {
-                    self.exportExtension(to: url, hidingExtension: panel.isExtensionHidden)
+                    do {
+                        try self.exportExtension(to: url, hidingExtension: panel.isExtensionHidden)
+                    } catch {
+                        panel.close()
+                        NSAlert(error: error).beginSheetModal(for: window)
+                    }
                 }
             }
         }
     }
 
-    @objc(exportExtensionToURL:hidingExtension:)
-    func exportExtension(to url: URL, hidingExtension hideExtension: Bool) {
-        let filepath = (url.path as NSString).resolvingSymlinksInPath
-
-        if let sourceExtensionFileURL = sourceDirectoryURL?.appendingPathComponent("extension.i7x") {
-            try? FileManager.default.copyItem(atPath: sourceExtensionFileURL.path,
-                                              toPath: filepath)
+    @objc(exportExtensionToURL:hidingExtension:error:)
+    func exportExtension(to url: URL, hidingExtension hideExtension: Bool) throws {
+        guard let sourceExtensionFileURL = sourceDirectoryURL?.appendingPathComponent("extension.i7x") else {
+            throw CocoaError(.fileReadNoSuchFile)
         }
-
-        // Hide the file extension if the user has requested it
-        if var attributes = try? FileManager.default.attributesOfItem(atPath: filepath) {
-            attributes[.extensionHidden] = hideExtension
-            try? FileManager.default.setAttributes(attributes,
-                                                   ofItemAtPath: filepath)
-        }
+        try copyFile(at: sourceExtensionFileURL, over: url, hidingExtension: hideExtension)
     }
 }

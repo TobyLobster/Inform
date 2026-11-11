@@ -66,8 +66,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) importIntoSkeinWithWindow: (NSWindow*) window;
 
 - (void) saveIFictionWithWindow:(NSWindow*) window;
-/// Copies the iFiction record to a file the user chose, with its extension hidden or not
-- (void) saveIFictionToURL: (NSURL*) url hidingExtension: (BOOL) hideExtension;
+/// Copies the iFiction record to a file the user chose, with its extension hidden or not, in place of any file there.
+/// NO, with the error, if it couldn't
+- (BOOL) saveIFictionToURL: (NSURL*) url hidingExtension: (BOOL) hideExtension error: (NSError**) error;
 - (void) saveDocumentWithoutUserInteraction;
 - (void) saveCompilerOutputWithWindow:(NSWindow*) window;
 
@@ -76,8 +77,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) selectSkein: (int) index;
 /// Saves an extension project, then asks where to save a copy of its extension
 - (void) exportExtension: (NSWindow*) window;
-/// Copies an extension project's extension to a file the user chose, with its extension hidden or not
-- (void) exportExtensionToURL: (NSURL*) url hidingExtension: (BOOL) hideExtension;
+/// Copies an extension project's extension to a file the user chose, with its extension hidden or not, in place of
+/// any file there. NO, with the error, if it couldn't
+- (BOOL) exportExtensionToURL: (NSURL*) url hidingExtension: (BOOL) hideExtension error: (NSError**) error;
 
 @property (NS_NONATOMIC_IOSONLY, readonly) bool useNewExtensions;
 
