@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The file of the extension with this name, or nil if there's none
 + (nullable NSString*) fileForExtension: (NSString*) filename
-                      extensionsManager: (IFExtensionsManager*) extensionsManager;
+                      extensionsManager: (IFExtensionsManager*) extensionsManager NS_SWIFT_UI_ACTOR;
 
 @end
 

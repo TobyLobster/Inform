@@ -12,7 +12,7 @@ import Cocoa
 
 private let maxErrorMessagesToDisplay: Int32 = 3
 
-private let sharedManager = IFExtensionsManager()
+@MainActor private let sharedManager = IFExtensionsManager()
 
 /// The lists of installed extensions: for projects for 6M62 and earlier, from the extension folders,
 /// and for later projects, from inbuild's census

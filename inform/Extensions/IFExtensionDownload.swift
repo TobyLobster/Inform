@@ -73,7 +73,7 @@ extension IFExtensionDownload {
     }
 
     // *******************************************************************************************
-    private final func downloadedTask(_ task: URLSessionTask, error: Error?) {
+    @MainActor private final func downloadedTask(_ task: URLSessionTask, error: Error?) {
         let mgr = IFExtensionsManager.sharedNaturalInform
 
         if let error {

@@ -9,7 +9,7 @@
 import Cocoa
 
 /// The shared manager, made when it's first needed
-private let sharedManager = IFNewExtensionsManager()
+@MainActor private let sharedManager = IFNewExtensionsManager()
 
 // *******************************************************************************************
 @objc @implementation
