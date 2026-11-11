@@ -879,6 +879,36 @@ final class IFUtilityTests: XCTestCase, @unchecked Sendable {
         XCTAssertTrue(delegate.ended.isEmpty)
     }
 
+    /// An extension that couldn't be installed gets a warning, whatever went wrong
+    func testAnExtensionThatCouldntBeInstalledGetsAWarning() {
+        AlertRecorder.shown = []
+        defer { AlertRecorder.shown = [] }
+        let window = makeWindow()
+        let failures: [IFExtensionResult] = [.notFound, .notValid, .alreadyExists, .cantWriteDestination]
+
+        for result in failures {
+            AlertRecorder.showExtensionError(result, with: window)
+        }
+
+        XCTAssertEqual(AlertRecorder.shown.count, failures.count)
+        XCTAssertTrue(AlertRecorder.shown.allSatisfy { $0.window === window })
+        XCTAssertEqual(Set(AlertRecorder.shown.map(\.alert.messageText)),
+                       ["Inform was unable to install the extension"])
+        XCTAssertEqual(Set(AlertRecorder.shown.map(\.alert.informativeText)),
+                       [IFUtility.localizedString("Failed to Install Extension Explanation")])
+        XCTAssertEqual(Set(AlertRecorder.shown.map(\.alert.alertStyle)), [.warning])
+    }
+
+    /// ...but one that was installed gets none
+    func testAnExtensionThatWasInstalledGetsNoWarning() {
+        AlertRecorder.shown = []
+        defer { AlertRecorder.shown = [] }
+
+        AlertRecorder.showExtensionError(.success, with: makeWindow())
+
+        XCTAssertTrue(AlertRecorder.shown.isEmpty)
+    }
+
     // MARK: - The tests' home folder
 
     /// The environment of a test host whose home folder is the one given

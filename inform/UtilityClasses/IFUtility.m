@@ -343,9 +343,9 @@ CGFloat easeOutCubic(CGFloat t) {
         default:
             return;
     }
-    [IFUtility runAlertWarningWindow: window
-                               title: @"Failed to Install Extension"
-                             message: @"Failed to Install Extension Explanation"];
+    [self runAlertWarningWindow: window
+                          title: @"Failed to Install Extension"
+                        message: @"Failed to Install Extension Explanation"];
 }
 
 @end
