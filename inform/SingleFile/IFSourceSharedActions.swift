@@ -150,11 +150,19 @@ private func ascii(_ scalar: Unicode.Scalar) -> unichar {
 
         // The change is named here, not as it's made, as undoing it makes the opposite shift, and Redo keeps this name
         document.undoManager?.setActionName(IFUtility.localizedString("Shift Left"))
+        let lengthBefore = storage.length
         let newRange = shiftRangeLeft(in: document,
                                       range: selRange,
                                       storage: storage)
 
-        textView.setSelectedRange(newRange)
+        if selRange.length == 0 {
+            // The insertion point stays where it was in the line's text, or goes to the start of the line with the tab
+            // it was after
+            let removed = lengthBefore - storage.length
+            textView.setSelectedRange(NSRange(location: max(newRange.location, selRange.location - removed), length: 0))
+        } else {
+            textView.setSelectedRange(newRange)
+        }
     }
 
     @objc(shiftRightTextViewInDocument:textView:)
@@ -167,11 +175,17 @@ private func ascii(_ scalar: Unicode.Scalar) -> unichar {
 
         // The change is named here, not as it's made, as undoing it makes the opposite shift, and Redo keeps this name
         document.undoManager?.setActionName(IFUtility.localizedString("Shift Right"))
+        let lengthBefore = storage.length
         let newRange = shiftRangeRight(in: document,
                                        range: selRange,
                                        storage: storage)
 
-        textView.setSelectedRange(newRange)
+        if selRange.length == 0 {
+            // The insertion point stays where it was in the line's text, after the new tab
+            textView.setSelectedRange(NSRange(location: selRange.location + storage.length - lengthBefore, length: 0))
+        } else {
+            textView.setSelectedRange(newRange)
+        }
     }
 
     @objc(renumberSectionsInDocument:textView:)

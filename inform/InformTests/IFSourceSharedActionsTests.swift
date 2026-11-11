@@ -96,10 +96,17 @@ final class IFSourceSharedActionsTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(marked(textView), "«\tab\n\tc»d\n")
     }
 
+    /// With nothing selected, the insertion point stays where it was in the line's text, so typing goes on there
     func testShiftRightIndentsTheLineWithTheInsertionPoint() {
         let textView = makeView("a\nb«»c\nd\n")
         shiftRight(textView)
-        XCTAssertEqual(textView.string, "a\n\tbc\nd\n")
+        XCTAssertEqual(marked(textView), "a\n\tb«»c\nd\n")
+    }
+
+    func testShiftRightWithTheInsertionPointAtTheStartOfALine() {
+        let textView = makeView("a\n«»bc\n")
+        shiftRight(textView)
+        XCTAssertEqual(marked(textView), "a\n\t«»bc\n")
     }
 
     func testShiftRightLeavesTheLineAfterASelectedLine() {
@@ -125,6 +132,34 @@ final class IFSourceSharedActionsTests: XCTestCase, @unchecked Sendable {
         shiftLeft(textView)
         XCTAssertEqual(marked(textView), "«\ta\nb»\nc\n")
         XCTAssertEqual(undo.undoActionName, "Shift Left")
+    }
+
+    /// With nothing selected, the insertion point stays where it was in the line's text, or at the start of the line
+    /// if the tab it was after goes
+    func testShiftLeftUnindentsTheLineWithTheInsertionPoint() {
+        let textView = makeView("a\n\t\tb«»c\n")
+        shiftLeft(textView)
+        XCTAssertEqual(marked(textView), "a\n\tb«»c\n")
+    }
+
+    func testShiftLeftWithTheInsertionPointInALineWithoutATab() {
+        let textView = makeView("a\nb«»c\n")
+        shiftLeft(textView)
+        XCTAssertEqual(marked(textView), "a\nb«»c\n")
+
+        let atTheStart = makeView("a\n«»bc\n")
+        shiftLeft(atTheStart)
+        XCTAssertEqual(marked(atTheStart), "a\n«»bc\n")
+    }
+
+    func testShiftLeftWithTheInsertionPointInTheTabs() {
+        let textView = makeView("a\n\t«»\tb\n")
+        shiftLeft(textView)
+        XCTAssertEqual(marked(textView), "a\n«»\tb\n")
+
+        let atTheStart = makeView("a\n«»\tb\n")
+        shiftLeft(atTheStart)
+        XCTAssertEqual(marked(atTheStart), "a\n«»b\n")
     }
 
     func testShiftLeftGoesOnPastALineWithoutATab() {
