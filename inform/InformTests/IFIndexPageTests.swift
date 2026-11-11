@@ -334,7 +334,10 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
     func testAPartIndex() throws {
         try writeIndex(["Welcome.html", "Contents.html"])
         let shown = try makePage()
-        shown.page.updateIndexView()
+        waitForNavigation(shown.watcher) {
+            // It shows the welcome page, as it showed nothing before
+            shown.page.updateIndexView()
+        }
 
         XCTAssertEqual(shown.page.toolbarCells.compactMap { ($0.representedObject as? NSNumber)?.intValue }, [2, 1])
         XCTAssertTrue(shown.page.canSelectIndexTab(IFIndexTabType.contents.rawValue))
@@ -504,20 +507,25 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(shown.webView.url, try tabURL("Phrasebook.html"))
     }
 
-    /// Switching to the page before it has shown anything highlights no cell. That happens after a project's first
-    /// translation, when the page reloads nothing, as it had nothing to show before (see ToFix).
-    func testSwitchingToThePageBeforeItShowsAnything() throws {
-        let shown = try makePage()
+    /// After a project's first translation, the page shows its welcome page, which the pane asked for as it was set
+    /// up, when there was no index to show. It isn't recorded in the history, as the reload in its place isn't.
+    func testTheFirstIndexShowsTheWelcomePage() throws {
+        let recorder = Recorder()
+        let shown = try makePage(recorder: recorder)
+        shown.page.pageIsVisible = true
         shown.page.updateIndexView()
-        try writeIndex(indexPages.map { $0.file })
         expectNoNavigation(shown.watcher) {
+            shown.page.switch(toTab: IFIndexTabType.welcome.rawValue)
+        }
+
+        try writeIndex(indexPages.map { $0.file })
+        waitForNavigation(shown.watcher) {
             shown.page.updateIndexView()
         }
         XCTAssertEqual(shown.page.toolbarCells.count, 8)
-        XCTAssertNil(shown.webView.url)
-
-        shown.page.didSwitchToPage()
-        XCTAssertEqual(highlightedTabs(shown), [])
+        XCTAssertEqual(shown.webView.url, try tabURL("Welcome.html"))
+        XCTAssertEqual(highlightedTabs(shown), [Int(IFIndexTabType.welcome.rawValue)])
+        XCTAssertEqual(recorder.timesAsked, 0)
     }
 
     /// A page of the index with no cell highlights none

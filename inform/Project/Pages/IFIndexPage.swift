@@ -122,28 +122,26 @@ import WebKit
     }
 
     @discardableResult
-    private final func requestRelativePath(_ relativePath: String) -> Bool {
+    private final func requestRelativePath(_ relativePath: String) -> WKNavigation? {
         let indexDirURL = (parent?.document as? IFProject)?.indexDirectoryURL
 
         var isDir: ObjCBool = false
 
         // Check that it exists and is a directory
         guard let indexDirURL else {
-            return false
+            return nil
         }
         if !FileManager.default.fileExists(atPath: indexDirURL.path,
                                            isDirectory: &isDir) {
-            return false
+            return nil
         }
         if !isDir.boolValue {
-            return false
+            return nil
         }
 
         let fullFileURL = indexDirURL.appendingPathComponent(relativePath)
         let aRequest = URLRequest(url: fullFileURL)
-        webView.load(aRequest)
-
-        return true
+        return webView.load(aRequest)
     }
 
     func openHistoricalURL(_ url: URL?) {
@@ -157,13 +155,20 @@ import WebKit
     }
 
     func `switch`(toTab tabIdentifier: Int32) {
+        showTab(tabIdentifier)
+    }
+
+    /// Shows a tab's page, if the index has it
+    @discardableResult
+    private final func showTab(_ tabIdentifier: Int32) -> WKNavigation? {
         let tabIndex = indexOfItem(withTabId: tabIdentifier)
         if tabIndex != NSNotFound {
             // Set a URL request going
             if let filename = filenameOfItem(withTabId: tabIdentifier) {
-                requestRelativePath(filename)
+                return requestRelativePath(filename)
             }
         }
+        return nil
     }
 
     @objc(switchToTabWithObject:)
@@ -249,8 +254,13 @@ import WebKit
         // Once they're in order, as the page bar copies them
         toolbarCellsHaveUpdated()
 
-        // The same page, with the index updated, so it isn't recorded again
-        leaveOutOfHistory(webView.reload())
+        // The same page, with the index updated, so it isn't recorded again. With nothing shown, as when there was
+        // no index before the project's first translation, the welcome page, which the pane asked for as it was set up.
+        if webView.url == nil {
+            leaveOutOfHistory(showTab(IFIndexTabType.welcome.rawValue))
+        } else {
+            leaveOutOfHistory(webView.reload())
+        }
     }
 
     // MARK: - History
