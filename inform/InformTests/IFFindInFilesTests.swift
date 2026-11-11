@@ -205,34 +205,46 @@ final class IFFindInFilesTests: XCTestCase {
 
     // MARK: - Searching the documentation
 
-    /// One result for a page's text, however many matches it has, and one for each example on it. Writing with
-    /// Inform comes before the Recipe Book.
-    func testFindsOneResultForAPagesTextAndOneForEachExample() {
-        let results = search("SYBIL", .documentationBasic).results
+    /// The file names of results
+    private func files(_ results: [IFFindResult]) -> [String] {
+        return results.map { ($0.filepath as NSString?)?.lastPathComponent ?? "-" }
+    }
+
+    /// The documentation the app shows, with Writing with Inform first, then the Recipe Book, then the examples, each
+    /// a page of its own. One result for a page's text, however many matches it has.
+    func testFindsOneResultForEachPagesText() {
+        let results = search("Sybil", .documentationBasic).results
 
         XCTAssertEqual(results.map(\.documentDisplayName),
-                       ["7.6: Reading and talking", "7.7: Saying Simple Things", "7.7: Saying Simple Things"])
-        XCTAssertEqual(results.map(\.recipeBookResult), [false, true, true])
-        XCTAssertEqual(results.first?.exampleName, "93: Sybil 2")
-        XCTAssertEqual(results.first?.exampleAnchorTag, "e350")
-        XCTAssertEqual(Set(results.dropFirst().map { $0.exampleName ?? "" }), ["", "93: Sybil 2"])
+                       ["7.7: Reading and talking", "18.13: Topic columns", "7.7: Saying Simple Things",
+                        "Example 97: Sybil 1", "Example 98: Sybil 2"])
+        XCTAssertEqual(files(results), ["WI_7_7.html", "WI_18_13.html", "RB_7_7.html", "eg_97.html", "eg_98.html"])
+        XCTAssertEqual(results.map(\.recipeBookResult), [false, false, true, false, false])
         for result in results {
-            XCTAssertEqual(result.phrase, "SYBIL")
+            XCTAssertEqual(result.phrase, "Sybil")
             XCTAssertEqual(result.locationType, .documentationBasic)
-            XCTAssertTrue(result.filepath?.hasSuffix(".html") ?? false)
+            XCTAssertNil(result.exampleName)
             XCTAssertNil(result.codeAnchorTag)
         }
     }
 
+    /// The contents pages, and the pages left from older documentation that nothing leads to, have no search title
+    /// and section, and aren't searched
+    func testLeavesOutPagesWithoutASearchTitle() {
+        let results = search("Declaring files", .documentationBasic).results
+
+        XCTAssertEqual(files(results), ["WI_27_10.html", "WI_27_11.html", "WI_27_12.html"])
+    }
+
     /// Every match in the documentation's code is a result, with the code's anchor
     func testFindsEveryMatchInTheDocumentationsCode() {
-        let results = search("Bodleian", .documentationSource).results
+        let results = search("Bodleian Library;", .documentationSource).results
 
         XCTAssertEqual(results.map(\.context), ["move the player to the Bodleian Library;",
                                                 "now the player is in the Bodleian Library;"])
         for result in results {
             XCTAssertEqual(result.documentDisplayName, "8.9: Moving the player")
-            XCTAssertEqual(result.codeAnchorTag, "c1869")
+            XCTAssertEqual(result.codeAnchorTag, "code466")
             XCTAssertEqual(result.locationType, .documentationBasic)
         }
     }
@@ -246,22 +258,22 @@ final class IFFindInFilesTests: XCTestCase {
         XCTAssertNil(text.first?.codeAnchorTag)
 
         let textAndCode = search("Bodleian", [.documentationBasic, .documentationSource]).results
-        XCTAssertEqual(textAndCode.map { $0.codeAnchorTag ?? "" }.sorted(), ["", "c1869", "c1869"])
+        XCTAssertEqual(textAndCode.map { $0.codeAnchorTag ?? "" }.sorted(), ["", "code466", "code466"])
     }
 
     /// ...and in its definitions of phrases, which the text leaves to them
     func testFindsEveryMatchInTheDocumentationsDefinitions() {
         let results = search("arccosine", .documentationDefinitions).results
 
-        XCTAssertEqual(results.map(\.definitionAnchorTag), ["defn210", "defn216"])
-        XCTAssertEqual(results.map(\.documentDisplayName), ["15.7: Trigonometry", "15.7: Trigonometry"])
+        XCTAssertEqual(results.map(\.definitionAnchorTag), ["defn260", "defn266"])
+        XCTAssertEqual(results.map(\.documentDisplayName), ["16.8: Trigonometry", "16.8: Trigonometry"])
         XCTAssertEqual(search("arccosine", .documentationBasic).results, [])
     }
 
     /// The source is listed before the documentation
     func testListsTheSourceBeforeTheDocumentation() throws {
-        let project = try openProject(source: ["story.ni": "SYBIL is a woman."])
-        XCTAssertEqual(search("SYBIL", [.source, .documentationBasic], in: project).results.map(\.locationType),
-                       [.source, .documentationBasic, .documentationBasic, .documentationBasic])
+        let project = try openProject(source: ["story.ni": "Sybil is a woman."])
+        XCTAssertEqual(search("Sybil", [.source, .documentationBasic], in: project).results.map(\.locationType),
+                       [.source] + Array(repeating: .documentationBasic, count: 5))
     }
 }

@@ -209,6 +209,9 @@ private func synchronized<T>(_ lock: AnyObject, _ body: () throws -> T) rethrows
             if findResult.recipeBookResult {
                 locationTypeKey = "LocationDocumentationRecipeBook"
             }
+            else if findResult.exampleResult {
+                locationTypeKey = "LocationDocumentationExamples"
+            }
             else {
                 locationTypeKey = "LocationDocumentationWritingWithInform"
             }

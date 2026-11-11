@@ -220,12 +220,16 @@ extension IFFindInFiles {
                             // Objective-C gave the parser nil)
                             let fileContents = IFDocParser(html: fileString ?? "")
 
-                            // Retrieve the storage contents
-                            storage = fileContents.plainText
-
                             // Work out the display name
                             let title = fileContents.attributes[.title] as? String
                             let section = fileContents.attributes[.section] as? String
+
+                            // Retrieve the storage contents. A page of the documentation without a search title
+                            // and section isn't searched: the contents pages, and a few left from older versions
+                            // that nothing leads to, have none.
+                            if !locationType.contains(.documentationBasic) || (title != nil && section != nil) {
+                                storage = fileContents.plainText
+                            }
 
                             sortKey = fileContents.attributes[.sort] as? String
 
@@ -423,11 +427,13 @@ extension IFFindInFiles {
             let extn = (path as NSString).pathExtension
             let description = (((path as NSString).lastPathComponent as NSString).deletingPathExtension as NSString).lowercased
 
-            // Must be an html file and start with doc or Rdoc.
+            // Must be an html file of the documentation the app shows: Writing with Inform (WI_), the Recipe Book
+            // (RB_) and the examples (eg_). (The doc and Rdoc pages are the documentation as it was until 2024.)
             if extn == "html" ||
                extn == "htm" {
-                if description.hasPrefix("doc") ||
-                   description.hasPrefix("rdoc") {
+                if description.hasPrefix("wi_") ||
+                   description.hasPrefix("rb_") ||
+                   description.hasPrefix("eg_") {
                     addSearchFile((resourcePath as NSString).appendingPathComponent(path),
                                   withLocation: .documentationBasic)
                 }

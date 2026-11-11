@@ -19,10 +19,18 @@ final class IFDocParserTests: XCTestCase {
         XCTAssertEqual(text("  one \n\t two  "), "one two ")
     }
 
-    /// A tag separates the text either side of it.
+    /// A tag separates the text either side of it...
     func testATagSeparatesTheTextEitherSideOfIt() {
-        XCTAssertEqual(text("a<b>b</b>c"), "a b c")
+        XCTAssertEqual(text("a<div>b</div>c"), "a b c")
+        XCTAssertEqual(text("<td>a</td><td>b</td>"), "a b ")
+        XCTAssertEqual(text("a<img src=\"x.png\">b"), "a b")
+    }
+
+    /// ...unless it's an inline tag, such as those the documentation's code has had round each word since 2024.
+    func testAnInlineTagDoesntSeparateTheText() {
+        XCTAssertEqual(text("a<b>b</b>c"), "abc")
         XCTAssertEqual(text("a <i>b</i> c"), "a b c")
+        XCTAssertEqual(text(#"<span class="x">(</span><span class="y">About</span><a id="c1"></a>.)"#), "(About.)")
     }
 
     /// A line break, or the start or end of a paragraph, starts a new line.
@@ -89,6 +97,24 @@ final class IFDocParserTests: XCTestCase {
         XCTAssertEqual(parser.attributes[.sort] as? String, "000-011-003-000")
     }
 
+    /// The documentation since 2024 has spaces inside its markers' comments, and a title with quotes inside it.
+    func testReadsMarkersWithSpacesInside() {
+        let parser = IFDocParser(html: #"<!-- SEARCH TITLE "Making the verb "to weigh"" -->"#
+                                     + #"<!-- SEARCH SECTION "16.13" --><!-- SEARCH SORT "001-016-013-000" -->"#
+                                     + #"a<!-- START CODE "code1" -->code"#
+                                     + #"<!-- END CODE -->b<!-- START PHRASE "phrase1" -->phrase<!-- END PHRASE -->"#
+                                     + #"<!-- START EXAMPLE "1: Kilns" "e1" -->example<!-- END EXAMPLE -->"#
+                                     + #"<!-- START IGNORE -->ignored<!-- END IGNORE -->"#)
+        XCTAssertEqual(parser.attributes[.title] as? String, #"Making the verb "to weigh""#)
+        XCTAssertEqual(parser.attributes[.section] as? String, "16.13")
+        XCTAssertEqual(parser.attributes[.sort] as? String, "001-016-013-000")
+        XCTAssertEqual(parser.plainText, "a code b phrase example ")
+        XCTAssertEqual(parser.codeInfo.map { $0.anchorTag }, ["code1"])
+        XCTAssertEqual(parser.codeInfo.map { $0.range }, [NSRange(location: 2, length: 5)])
+        XCTAssertEqual(parser.definitionInfo.map { $0.anchorTag }, ["phrase1"])
+        XCTAssertEqual(parser.exampleInfo["1: Kilns"]?.anchorTag, "e1")
+    }
+
     /// A marker without the quoted text it should have is passed over.
     func testPassesOverAMarkerWithoutItsText() {
         let parser = IFDocParser(html: #"a<!--START CODE-->b<!--END CODE--><!--START PHRASE-->c<!--SEARCH TITLE "-->d"#
@@ -126,7 +152,24 @@ final class IFDocParserTests: XCTestCase {
 
     // MARK: - A page of the documentation
 
-    /// A page of Writing with Inform, as Find in Files searches it.
+    /// A page of Writing with Inform as the app shows it since 2024, as Find in Files searches it.
+    func testReadsAPageOfTheNewDocumentation() throws {
+        let url = try XCTUnwrap(Bundle.main.url(forResource: "WI_11_3", withExtension: "html"))
+        let parser = IFDocParser(html: try String(contentsOf: url, encoding: .utf8))
+
+        XCTAssertEqual(parser.attributes[.title] as? String, "Dialogue beats and their cues")
+        XCTAssertEqual(parser.attributes[.section] as? String, "11.3")
+        XCTAssertEqual(parser.attributes[.sort] as? String, "001-011-003-000")
+        XCTAssertFalse(parser.plainText.contains("<"))
+
+        XCTAssertEqual(parser.codeInfo.count, 20)
+        let firstCode = try XCTUnwrap(parser.codeInfo.first)
+        XCTAssertEqual(firstCode.anchorTag, "code611")
+        let firstCodeText = (parser.plainText as NSString).substring(with: firstCode.range)
+        XCTAssertTrue(firstCodeText.contains("(About the paranormal.)"), firstCodeText)
+    }
+
+    /// A page of Writing with Inform as it was until 2024, as Find in Files searches it.
     func testReadsADocumentationPage() throws {
         let url = try XCTUnwrap(Bundle.main.url(forResource: "doc159", withExtension: "html"))
         let parser = IFDocParser(html: try String(contentsOf: url, encoding: .utf8))
@@ -139,7 +182,8 @@ final class IFDocParserTests: XCTestCase {
 
         XCTAssertEqual(parser.exampleInfo.keys.sorted(), ["169: Ahem", "170: Ferragamo Again"])
         XCTAssertEqual(parser.exampleInfo["169: Ahem"]?.anchorTag, "e12")
-        XCTAssertEqual(parser.exampleInfo["169: Ahem"]?.range, NSRange(location: 3939, length: 1526))
+        // (Its banner's spans give "ExampleAhem", as they're inline, where CSS spaces them)
+        XCTAssertEqual(parser.exampleInfo["169: Ahem"]?.range, NSRange(location: 3939, length: 1525))
 
         XCTAssertEqual(parser.codeInfo.count, 39)
         XCTAssertEqual(parser.definitionInfo.count, 0)

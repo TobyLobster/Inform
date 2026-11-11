@@ -1210,7 +1210,8 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
     }
 
     @IBAction func docRecipes(_ sender: Any?) {
-        auxPane?.documentationPage.open(URL(string: "inform:/Rdoc1.html")!)
+        // The contents of the Recipe Book (the old Recipe Book, until 2024, started at Rdoc1.html)
+        auxPane?.documentationPage.open(URL(string: "inform:/RB_index.html")!)
     }
 
     @IBAction func docExtensions(_ sender: Any?) {
