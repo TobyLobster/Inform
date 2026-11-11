@@ -749,7 +749,9 @@ import Cocoa
                                      preserveScrollPos: Bool) {
         let intelFile = parent?.headerController.intelFile
 
-        guard let symbol, symbol !== intelFile?.firstSymbol else {
+        // The title's section is the whole file. (A file whose first line is a heading has no title.)
+        let isTitle = symbol === intelFile?.firstSymbol && symbol?.level == 0
+        guard let symbol, !isTitle else {
             // Remove the source text limitations
             removeLimits()
 

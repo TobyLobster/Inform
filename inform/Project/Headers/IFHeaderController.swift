@@ -40,7 +40,16 @@ import Cocoa
     private final func setChildren(for root: IFHeader,
                                    symbol: IFIntelSymbol,
                                    recurse: Bool) {
-        var child = symbol.child
+        setChildren(for: root,
+                    firstChild: symbol.child,
+                    recurse: recurse)
+    }
+
+    /// Makes headers for a symbol and its siblings, as the children of a header
+    private final func setChildren(for root: IFHeader,
+                                   firstChild: IFIntelSymbol?,
+                                   recurse: Bool) {
+        var child = firstChild
 
         // If the symbol has no children then don't add it to the list
         if child == nil {
@@ -86,13 +95,24 @@ import Cocoa
 
         // Firstly, build up a header structure from the intelligence object
 
-        // "Story"
-        let storyRoot = IFHeader(name: firstSymbol.name ?? "",
+        // "Story": the title, over the headings. A file whose first line is a heading has no title, so the story's
+        // header is over that heading and those beside it.
+        let storyRoot: IFHeader
+        if firstSymbol.level == 0 {
+            storyRoot = IFHeader(name: firstSymbol.name ?? "",
                                  parent: nil,
                                  children: nil)
-        setChildren(for: storyRoot,
-                    symbol: firstSymbol,
-                    recurse: true)
+            setChildren(for: storyRoot,
+                        symbol: firstSymbol,
+                        recurse: true)
+        } else {
+            storyRoot = IFHeader(name: IFUtility.localizedString("Story"),
+                                 parent: nil,
+                                 children: nil)
+            setChildren(for: storyRoot,
+                        firstChild: firstSymbol,
+                        recurse: true)
+        }
 
         // "---- DOCUMENTATION ----"
         var documentationRootSymbol: IFIntelSymbol? = firstSymbol

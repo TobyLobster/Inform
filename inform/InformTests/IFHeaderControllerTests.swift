@@ -126,6 +126,19 @@ final class IFHeaderControllerTests: XCTestCase {
         XCTAssertEqual(controller.rootHeader?.children[0].children, [])
     }
 
+    /// A file whose first line is a heading has no title, so its headings go under a header for the story, with
+    /// no symbol, as a title's has
+    func testTheHeadersOfAFileStartingWithAHeading() {
+        let controller = IFHeaderController()
+        controller.update(fromIntelligence: file([("Volume 1", 1), ("Chapter 1", 4), ("Volume 2", 1)]))
+
+        let story = IFUtility.localizedString("Story")
+        XCTAssertEqual(outline(controller.rootHeader), "\(contents) (\(story) (Volume 1 (Chapter 1), Volume 2))")
+        XCTAssertEqual(symbols(controller.rootHeader),
+                       ["\(contents): -", "\(story): -", "Volume 1: Volume 1", "Chapter 1: Chapter 1",
+                        "Volume 2: Volume 2"])
+    }
+
     /// An extension's documentation, which starts with a heading on the top level, gets its own header beside the
     /// extension's
     func testTheHeadersOfAnExtensionWithDocumentation() {

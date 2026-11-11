@@ -273,6 +273,26 @@ final class IFSourcePageTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(page.currentIntelligence?.firstSymbol?.name, "\"Story\"")
     }
 
+    /// A file whose first line is a heading has no title, so its first section can be shown alone, as the others can,
+    /// and the headings page has them all, under a header for the whole file
+    func testShowingTheFirstSectionOfAFileStartingWithAHeading() throws {
+        page.showSourceFile("Appendix.ni")
+        textView.setSelectedRange(NSRange(location: shownRange(of: "Attic is").location, length: 0))
+        page.showCurrentSectionOnly(nil)
+        XCTAssertEqual(textView.string, "Volume 1 - Upstairs\n\nThe Attic is a room.")
+
+        let file = try XCTUnwrap(controller.headerController.rootHeader?.children.first)
+        XCTAssertEqual(file.children.map { $0.headingName.trimmingCharacters(in: .newlines) },
+                       ["Volume 1 - Upstairs", "Volume 2 - Downstairs"])
+        guard file.children.count == 2 else { return }
+        page.headerPage(nil, limitTo: file.children[1])
+        XCTAssertEqual(textView.string, "Volume 2 - Downstairs\n\nThe Cellar is a room.\n")
+        page.headerPage(nil, limitTo: file.children[0])
+        XCTAssertEqual(textView.string, "Volume 1 - Upstairs\n\nThe Attic is a room.")
+        page.headerPage(nil, limitTo: file)
+        XCTAssertEqual(textView.string, appendix)
+    }
+
     func testShowingAnotherFileWhileASectionIsShownShowsAllOfIt() throws {
         putCursor(before: "Cupboard is")
         page.showCurrentSectionOnly(nil)
