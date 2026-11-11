@@ -5,6 +5,28 @@
 
 import XCTest
 
+/// User defaults kept in memory, so that the tests never read or write the user's own
+private final class MemoryDefaults: UserDefaults {
+    var values: [String: Any]
+
+    init(_ values: [String: Any] = [:]) {
+        self.values = values
+        super.init(suiteName: "IFProjectTests.never-written")!
+    }
+
+    override func object(forKey defaultName: String) -> Any? {
+        return values[defaultName]
+    }
+
+    override func set(_ value: Any?, forKey defaultName: String) {
+        values[defaultName] = value
+    }
+
+    override func removeObject(forKey defaultName: String) {
+        values[defaultName] = nil
+    }
+}
+
 @MainActor
 final class IFProjectTests: XCTestCase {
 
@@ -503,6 +525,74 @@ final class IFProjectTests: XCTestCase {
         try FileManager.default.removeItem(at: index)
         project.reloadIndexDirectory()
         XCTAssertNil(try project.fileWrapper(ofType: projectType).fileWrappers?["Index"])
+    }
+
+    // MARK: - Closing
+
+    /// Opens a project with files in its Build, Temp and Index folders, which cleans by preferences kept in memory
+    private func openProjectWithBuildFiles(cleanOnClose: Bool, alsoCleanIndex: Bool) throws -> (IFProject, URL) {
+        let url = try makeProject(source: ["story.ni": Data("The Kitchen is a room.".utf8)])
+        for file in ["Build/output.ulx", "Build/Problems.html", "Temp/scratch", "Index/Welcome.html",
+                     "Index/Details/1.html"] {
+            let fileURL = url.appendingPathComponent(file)
+            try FileManager.default.createDirectory(at: fileURL.deletingLastPathComponent(),
+                                                    withIntermediateDirectories: true)
+            try Data("x".utf8).write(to: fileURL)
+        }
+        let project = try open(url)
+        let stored = ["cleanProjectOnClose": cleanOnClose, "alsoCleanIndexFiles": alsoCleanIndex]
+        project.preferences = IFPreferences(userDefaults: MemoryDefaults([IFPreferencesDefault: stored]))
+        return (project, url)
+    }
+
+    /// The names of the files in a folder of a project, or nil if it has no such folder
+    private func files(in folder: String, of url: URL) -> [String]? {
+        return try? FileManager.default.contentsOfDirectory(atPath: url.appendingPathComponent(folder).path).sorted()
+    }
+
+    /// As the preference says, closing a project deletes its build files, though it was saved before they were made
+    func testClosingCleansOutTheBuildFiles() throws {
+        let (project, url) = try openProjectWithBuildFiles(cleanOnClose: true, alsoCleanIndex: false)
+
+        project.close()
+
+        XCTAssertEqual(files(in: "Build", of: url), [])
+        XCTAssertNil(files(in: "Temp", of: url))
+        XCTAssertEqual(files(in: "Index", of: url), ["Details", "Welcome.html"])
+        XCTAssertEqual(files(in: "Source", of: url), ["story.ni"])
+    }
+
+    func testClosingAlsoCleansOutTheIndexFilesIfAsked() throws {
+        let (project, url) = try openProjectWithBuildFiles(cleanOnClose: true, alsoCleanIndex: true)
+
+        project.close()
+
+        XCTAssertEqual(files(in: "Build", of: url), [])
+        XCTAssertNil(files(in: "Temp", of: url))
+        XCTAssertEqual(files(in: "Index", of: url), [])
+        XCTAssertEqual(files(in: "Source", of: url), ["story.ni"])
+    }
+
+    /// The index files are only cleaned out with the build files, as the Advanced preferences show
+    func testClosingCleansOutNothingIfNotAsked() throws {
+        let (project, url) = try openProjectWithBuildFiles(cleanOnClose: false, alsoCleanIndex: true)
+
+        project.close()
+
+        XCTAssertEqual(files(in: "Build", of: url), ["Problems.html", "output.ulx"])
+        XCTAssertEqual(files(in: "Temp", of: url), ["scratch"])
+        XCTAssertEqual(files(in: "Index", of: url), ["Details", "Welcome.html"])
+    }
+
+    /// Saving cleans out the build files, but not the index files, which the Index page shows
+    func testSavingLeavesTheIndexFiles() throws {
+        let (project, _) = try openProjectWithBuildFiles(cleanOnClose: true, alsoCleanIndex: true)
+
+        let wrapper = try project.fileWrapper(ofType: projectType)
+
+        XCTAssertEqual(wrapper.fileWrappers?["Build"]?.fileWrappers?.keys.sorted(), [])
+        XCTAssertNil(wrapper.fileWrappers?["Temp"])
+        XCTAssertEqual(wrapper.fileWrappers?["Index"]?.fileWrappers?.keys.sorted(), ["Details", "Welcome.html"])
     }
 
     // MARK: - Reverting

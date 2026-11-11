@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class IFCompilerSettings;
 @class IFInBuild;
 @class IFInTest;
+@class IFPreferences;
 @class IFSkein;
 @class IFSkeinItem;
 
@@ -31,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, readonly, copy, nullable)    NSString *            mainSourceFile;         // nil if there's no story file
 @property (atomic, readonly, copy, nullable)    NSString *            mainSourcePathName;     // Full pathname
 @property (atomic, readonly, strong, nullable)  NSArray<NSDictionary<NSString*, id>*> * testCases;   // nil until a project is read
+/// The preferences that say what's cleaned out of the project: the shared ones, unless others are given
+@property (atomic, strong)                      IFPreferences *       preferences;
 
 // 'Subsidiary' files
 @property (atomic, readonly, strong, nullable)  IFSkein *             currentSkein;
