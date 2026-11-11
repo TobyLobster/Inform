@@ -12,13 +12,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_SWIFT_SENDABLE
 @interface IFNewsManager : NSObject
 
 /// A news manager that keeps the news in the user's defaults, and downloads it with the shared session
--(instancetype) init;
+-(instancetype) init NS_SWIFT_UI_ACTOR;
 /// A news manager that keeps the news in the given defaults, and downloads it with the given session
 -(instancetype) initWithDefaults: (NSUserDefaults*) defaults
-                         session: (NSURLSession*) session NS_DESIGNATED_INITIALIZER;
+                         session: (NSURLSession*) session NS_DESIGNATED_INITIALIZER NS_SWIFT_UI_ACTOR;
 
 /// What gives the news page the app's resources
 @property (nonatomic, readonly, strong) IFNewsCustomSchemeHandler* newsSchemeHandler;

@@ -19,12 +19,12 @@ import Foundation
         return _newsSchemeHandler
     }
 
-    override convenience init() {
+    @MainActor override convenience init() {
         self.init(defaults: UserDefaults.standard,
                   session: URLSession.shared)
     }
 
-    init(defaults newDefaults: UserDefaults,
+    @MainActor init(defaults newDefaults: UserDefaults,
          session newSession: URLSession) {
         defaults = newDefaults
         session = newSession

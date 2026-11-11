@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^IFFindInFilesProgressBlock)(int num, int total, int found);
+typedef void (NS_SWIFT_UI_ACTOR ^IFFindInFilesProgressBlock)(int num, int total, int found);
 
 ///
 /// Find in Files: searches a project's source, the extensions and the documentation, on another thread
@@ -26,7 +26,7 @@ typedef void (^IFFindInFilesProgressBlock)(int num, int total, int found);
                      withSearchType: (IFFindType)                   searchType
                         fromProject: (IFProject*)                   project
                       withLocations: (IFFindLocation)               locations
-                  withProgressBlock: (IFFindInFilesProgressBlock)   progressBlock;
+                  withProgressBlock: (IFFindInFilesProgressBlock)   progressBlock NS_SWIFT_UI_ACTOR;
 
 // Utility functions
 + (NSString*) getContextFromText: (NSString*) textString

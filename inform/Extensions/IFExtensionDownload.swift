@@ -154,6 +154,10 @@ extension IFExtensionDownload {
     }
 }
 
+// The session's queue uses the task, its data and the server's error only between the task's start and its
+// completion, and the main thread only before it starts and once its completion is handed to the main queue
+extension IFExtensionDownload: @unchecked Sendable {}
+
 // *******************************************************************************************
 extension IFExtensionDownload: URLSessionDataDelegate {
     public func urlSession(_ session: URLSession,
