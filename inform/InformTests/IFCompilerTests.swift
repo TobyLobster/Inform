@@ -31,6 +31,36 @@ private final class StubSuccessHandler: NSObject, IFCompilerProblemHandler {
     }
 }
 
+/// User defaults kept in memory, for preferences that are never written
+private final class MemoryDefaults: UserDefaults {
+    var values: [String: Any] = [:]
+
+    init() {
+        super.init(suiteName: "IFCompilerTests.never-written")!
+    }
+
+    override func object(forKey defaultName: String) -> Any? {
+        return values[defaultName]
+    }
+
+    override func set(_ value: Any?, forKey defaultName: String) {
+        values[defaultName] = value
+    }
+
+    override func removeObject(forKey defaultName: String) {
+        values[defaultName] = nil
+    }
+}
+
+/// Settings whose Inform 7 may not be there, as with an external Inform Core folder without it
+private final class SettingsMissingInform7: IFCompilerSettings {
+    var inform7IsThere = false
+
+    override func isNaturalInformCompilerPathValid() -> Bool {
+        return inform7IsThere && super.isNaturalInformCompilerPathValid()
+    }
+}
+
 /// A notification the compiler posted
 private struct Posted {
     let name: NSNotification.Name
@@ -388,6 +418,33 @@ final class IFCompilerTests: XCTestCase {
         _ = launch(compiler)
 
         XCTAssertFalse(FileManager.default.fileExists(atPath: path))
+    }
+
+    // MARK: - The build.sh stage
+
+    /// With "Rebuild I7 compiler as needed" chosen (Advanced preferences), build.sh is run first. When there's no
+    /// Inform 7 to run after it, nothing is left queued, so the next build has all its stages.
+    func testLeavesNoBuildShStageWhenThereIsNoInform7() throws {
+        try XCTSkipIf(IFUtility.isSandboxed, "The sandboxed app never runs build.sh")
+        let preferences = IFPreferences(userDefaults: MemoryDefaults())
+        preferences.runBuildSh = true
+        let settings = SettingsMissingInform7()
+        settings.zcodeVersion = 256
+        let compiler = IFCompiler()
+        compiler.settings = settings
+        compiler.preferences = preferences
+        compiler.inputFile = "/Missing/Lighthouse.inform"
+
+        XCTAssertFalse(compiler.prepareForLaunch(withBlorbStage: false, testCase: nil))
+
+        // The next build, once there's an Inform 7, and without build.sh, starts with Inform 7
+        preferences.runBuildSh = false
+        settings.inform7IsThere = true
+        let posted = launch(compiler)
+
+        let inform7 = try XCTUnwrap(settings.naturalInformCompilerToUse)
+        let firstLaunch = try XCTUnwrap(launches(posted).first)
+        XCTAssertTrue(firstLaunch.hasPrefix("Launching: \(quoted(inform7))"), firstLaunch)
     }
 
     // MARK: - Inform's stages
