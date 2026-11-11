@@ -60,8 +60,11 @@ import Cocoa
     }
 
     deinit {
-        if let controller = _controller, let headerView = _headerView {
-            controller.removeHeaderView(headerView)
+        // The source page lets go of its header page on the main thread
+        MainActor.assumeIsolated {
+            if let controller = _controller, let headerView = _headerView {
+                controller.removeHeaderView(headerView)
+            }
         }
     }
 

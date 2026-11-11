@@ -39,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+NS_SWIFT_UI_ACTOR
 @protocol IFHeaderViewDelegate <NSObject, IFHeaderView>
 @optional
 

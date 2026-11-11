@@ -22,7 +22,7 @@ private let IFHeaderCorner    = "IFHeaderCorner"
 
 /// The fonts for nodes, made after registering the defaults for laying out nodes. Swift makes them once, when they're
 /// first used, which is when the first node is made.
-private let headerNodeFonts: (regular: NSFont, bold: NSFont) = {
+nonisolated(unsafe) private let headerNodeFonts: (regular: NSFont, bold: NSFont) = {
     UserDefaults.standard.register(defaults:
         [IFHeaderPointSize: NSFont.smallSystemFontSize,
          IFHeaderMargin: 5.0,

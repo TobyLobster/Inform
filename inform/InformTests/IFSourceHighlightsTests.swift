@@ -6,6 +6,7 @@
 import XCTest
 
 /// The lines highlighted in a project's source files
+@MainActor
 final class IFSourceHighlightsTests: XCTestCase {
     private let highlights = IFSourceHighlights()
     private let story = "/Projects/Lighthouse.inform/Source/story.ni"

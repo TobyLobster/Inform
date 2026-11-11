@@ -6,7 +6,7 @@
 import XCTest
 
 /// A URL protocol client that records what the protocol tells it
-private final class RecordingClient: NSObject, URLProtocolClient {
+private final class RecordingClient: NSObject, URLProtocolClient, @unchecked Sendable {
     private(set) var responses: [URLResponse] = []
     private(set) var storagePolicies: [URLCache.StoragePolicy] = []
     private(set) var data = Data()
@@ -59,7 +59,8 @@ private final class RecordingClient: NSObject, URLProtocolClient {
     }
 }
 
-final class IFInformProtocolTests: XCTestCase {
+@MainActor
+final class IFInformProtocolTests: XCTestCase, @unchecked Sendable {
 
     /// A folder of the tests' own in Inform's documentation folder, which is in the tests' own home
     private var documentationFolder: URL {
@@ -74,9 +75,11 @@ final class IFInformProtocolTests: XCTestCase {
     }
 
     override func tearDown() {
-        try? FileManager.default.removeItem(at: documentationFolder)
-        try? FileManager.default.removeItem(at: appSupportFile)
-        super.tearDown()
+        MainActor.assumeIsolated {
+            try? FileManager.default.removeItem(at: documentationFolder)
+            try? FileManager.default.removeItem(at: appSupportFile)
+            super.tearDown()
+        }
     }
 
     /// Writes a file in the tests' own home

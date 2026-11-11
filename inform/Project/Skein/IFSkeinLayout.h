@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class IFSkeinItem;
 @class IFSkeinLayoutItem;
 
+NS_SWIFT_UI_ACTOR
 @interface IFSkeinLayout : NSObject
 
 // Initialisation

@@ -6,7 +6,8 @@
 import XCTest
 import UniformTypeIdentifiers
 
-final class IFUtilityTests: XCTestCase {
+@MainActor
+final class IFUtilityTests: XCTestCase, @unchecked Sendable {
 
     func testContentTypesForKnownExtensions() {
         let types: [UTType] = IFUtility.contentTypes(forFilenameExtensions: ["txt", "rtf"])
@@ -38,12 +39,16 @@ final class IFUtilityTests: XCTestCase {
     private var materials: URL!
 
     override func setUpWithError() throws {
-        materials = FileManager.default.temporaryDirectory
-            .appendingPathComponent("IFUtilityTests-\(UUID().uuidString).materials")
+        MainActor.assumeIsolated {
+            materials = FileManager.default.temporaryDirectory
+                .appendingPathComponent("IFUtilityTests-\(UUID().uuidString).materials")
+        }
     }
 
     override func tearDownWithError() throws {
-        try? FileManager.default.removeItem(at: materials)
+        MainActor.assumeIsolated {
+            try? FileManager.default.removeItem(at: materials)
+        }
     }
 
     /// Makes Extensions/Reserved/Documentation/<author>/<folder>/index.html in the materials folder
@@ -481,7 +486,7 @@ final class IFUtilityTests: XCTestCase {
     /// IDs are unique even when they're made on several threads at once.
     func testGeneratesUniqueIDsOnAnyThread() {
         let lock = NSLock()
-        var ids = Set<UInt>()
+        nonisolated(unsafe) var ids = Set<UInt>()
         DispatchQueue.concurrentPerform(iterations: 1000) { _ in
             let id = IFUtility.generateID()
             lock.lock()
@@ -618,10 +623,12 @@ final class IFUtilityTests: XCTestCase {
 
     /// IFUtility, recording the alerts it's asked to show instead of showing them
     private final class AlertRecorder: IFUtility {
-        static var shown: [(alert: NSAlert, window: NSWindow?)] = []
+        nonisolated(unsafe) static var shown: [(alert: NSAlert, window: NSWindow?)] = []
 
-        override class func show(_ alert: NSAlert, for window: NSWindow?,
-                                 completionHandler handler: @escaping (NSApplication.ModalResponse) -> Void) {
+        override class func show(_ alert: NSAlert,
+                                 for window: NSWindow?,
+                                 completionHandler handler:
+                                    @escaping @MainActor @Sendable (NSApplication.ModalResponse) -> Void) {
             shown.append((alert, window))
         }
     }

@@ -42,6 +42,7 @@ private struct Posted {
     var problemType: Int? { userInfo["problemType"] as? Int }
 }
 
+@MainActor
 final class IFCompilerTests: XCTestCase {
 
     /// A new folder, removed when the test ends
@@ -92,7 +93,7 @@ final class IFCompilerTests: XCTestCase {
 
     /// Runs the block, which starts the compiler, and returns what the compiler posts until it has finished
     private func run(_ compiler: IFCompiler, timeout: TimeInterval = 20, starting start: () -> Void) -> [Posted] {
-        var posted: [Posted] = []
+        nonisolated(unsafe) var posted: [Posted] = []
         let names: [NSNotification.Name] = [.IFCompilerClearConsole, .IFCompilerStarting, .IFCompilerStdout,
                                             .IFCompilerStderr, .IFCompilerFinished]
         let observers = names.map { name in
@@ -322,7 +323,7 @@ final class IFCompilerTests: XCTestCase {
 
     func testSendsTextAsIfACompilerWroteIt() {
         let compiler = IFCompiler()
-        var userInfo: [AnyHashable: Any]?
+        nonisolated(unsafe) var userInfo: [AnyHashable: Any]?
         let observer = NotificationCenter.default.addObserver(forName: .IFCompilerStdout, object: compiler, queue: nil) {
             userInfo = $0.userInfo
         }

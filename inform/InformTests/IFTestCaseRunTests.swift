@@ -6,6 +6,7 @@
 import XCTest
 
 /// Test's run through an extension project's test cases
+@MainActor
 final class IFTestCaseRunTests: XCTestCase {
     func testANewRunIsBetweenRuns() {
         let run = IFTestCaseRun()

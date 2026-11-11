@@ -27,24 +27,29 @@ private final class MemoryDefaults: UserDefaults {
     }
 }
 
-final class IFNewInform7ExtensionFileTests: XCTestCase {
+@MainActor
+final class IFNewInform7ExtensionFileTests: XCTestCase, @unchecked Sendable {
     private var folder: URL!
     /// The project the extension is for, which the project type only holds weakly
     private var project: IFProject!
 
     override func setUpWithError() throws {
-        folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        try MainActor.assumeIsolated {
+            folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+            try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
 
-        // Only the project's location is needed, so it isn't read from disk
-        project = IFProject()
-        project.fileURL = folder.appendingPathComponent("Lamplighter.inform")
+            // Only the project's location is needed, so it isn't read from disk
+            project = IFProject()
+            project.fileURL = folder.appendingPathComponent("Lamplighter.inform")
+        }
     }
 
     override func tearDownWithError() throws {
-        project.close()
-        project = nil
-        try FileManager.default.removeItem(at: folder)
+        try MainActor.assumeIsolated {
+            project.close()
+            project = nil
+            try FileManager.default.removeItem(at: folder)
+        }
     }
 
     /// Preferences that give the author's name, kept in memory

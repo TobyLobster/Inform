@@ -146,7 +146,7 @@ extension IFFindInFiles {
     private final func searchThread(withPhrase searchPhrase: String,
                                     searchType: IFFindType,
                                     locations searchLocations: IFFindLocation,
-                                    progressBlock: @escaping IFFindInFilesProgressBlock) {
+                                    progressBlock: @escaping @MainActor @Sendable (Int32, Int32, Int32) -> Void) {
         // memory pool
         autoreleasepool {
             synchronized(searchItemsLock) {
@@ -415,7 +415,7 @@ extension IFFindInFiles {
         }
     }
 
-    private final func addExtensions(_ project: IFProject) {
+    @MainActor private final func addExtensions(_ project: IFProject) {
         let manager = IFExtensionsManager.sharedNaturalInform
 
         for info in manager.availableExtensions(withCompilerVersion: project.settings.compilerVersion) {
@@ -426,7 +426,7 @@ extension IFFindInFiles {
         }
     }
 
-    private final func addSourceFiles(_ project: IFProject) {
+    @MainActor private final func addSourceFiles(_ project: IFProject) {
         // Find all text in the project source files
         let sourceFiles = project.sourceFiles ?? [:]
 
@@ -465,7 +465,7 @@ extension IFFindInFiles {
 
     // (Swift's name for it leaves out words of the selector, so the selector is given)
     @objc(startFindInFilesWithPhrase:withSearchType:fromProject:withLocations:withProgressBlock:)
-    func start(withPhrase searchPhrase: String,
+    @MainActor func start(withPhrase searchPhrase: String,
                withSearch searchType: IFFindType,
                from project: IFProject,
                withLocations locations: IFFindLocation,
@@ -502,3 +502,6 @@ extension IFFindInFiles {
         }
     }
 }
+
+// The search runs on another thread, but its items, its results and its progress are each kept behind a lock
+extension IFFindInFiles: @unchecked Sendable {}

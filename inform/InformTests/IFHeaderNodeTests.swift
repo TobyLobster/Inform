@@ -5,7 +5,8 @@
 
 import XCTest
 
-final class IFHeaderNodeTests: XCTestCase {
+@MainActor
+final class IFHeaderNodeTests: XCTestCase, @unchecked Sendable {
 
     // MARK: - Headings
 
@@ -116,9 +117,11 @@ final class IFHeaderNodeTests: XCTestCase {
     }
 
     override func setUp() {
-        super.setUp()
-        // The first node registers the layout's defaults
-        _ = IFHeaderNode(header: IFHeader(name: "", parent: nil, children: nil), position: .zero, depth: 0)
+        MainActor.assumeIsolated {
+            super.setUp()
+            // The first node registers the layout's defaults
+            _ = IFHeaderNode(header: IFHeader(name: "", parent: nil, children: nil), position: .zero, depth: 0)
+        }
     }
 
     // MARK: - Constructing nodes

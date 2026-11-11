@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFSkeinItemTests: XCTestCase {
 
     /// Dragging a knot copies it, and the knots below it, through the pasteboard as an archive.

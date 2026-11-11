@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Controller object that manages the headers page
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFHeaderPage : NSObject <IFHeaderViewDelegate>
 
 /// The page for the shared preferences
@@ -56,6 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction) updateDepthPopup: (nullable id) sender;
 @end
 
+NS_SWIFT_UI_ACTOR
 @protocol IFHeaderPageDelegate <NSObject, IFHeaderViewDelegate>
 @optional
 

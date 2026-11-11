@@ -17,6 +17,7 @@ extern NSNotificationName const IFInTestFinishedNotification;
 //
 // Class that handles actually running InTest
 //
+NS_SWIFT_UI_ACTOR
 @interface IFInTest : NSObject
 
 - (NSArray<NSDictionary<NSString*,id>*>*) refreshExtensionCatalogue: (NSString*) extensionPathName;

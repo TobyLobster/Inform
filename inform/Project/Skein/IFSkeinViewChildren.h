@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class IFSkeinLayout;
 @class IFSkeinItemView;
 
+NS_SWIFT_UI_ACTOR
 @interface IFSkeinViewChildren : NSObject<IFSkeinReportBlessDelegate>
 
 -(instancetype) initWithSkeinView:(IFSkeinView*) theSkeinView;

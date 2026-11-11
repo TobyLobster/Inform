@@ -11,7 +11,7 @@ import UniformTypeIdentifiers
 
 /// Made when it's first used, as Objective-C made it in +initialize
 private let uniqueIdLock = NSLock()
-private var uniqueId: UInt = 1000
+nonisolated(unsafe) private var uniqueId: UInt = 1000
 
 // *******************************************************************************************
 @objc(Miscellaneous) @implementation extension IFUtility {
@@ -38,7 +38,7 @@ private var uniqueId: UInt = 1000
 
     // Save transcript (handles save dialog)
     @objc(saveTranscriptPanelWithString:window:)
-    class func saveTranscriptPanel(with string: String,
+    @MainActor class func saveTranscriptPanel(with string: String,
                                    window: NSWindow) {
 
         let panel = NSSavePanel()

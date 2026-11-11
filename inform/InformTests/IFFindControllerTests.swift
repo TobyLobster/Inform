@@ -26,7 +26,9 @@ private final class MemoryDefaults: UserDefaults {
 private final class FindNextOnly: NSWindowController, IFFindDelegate {
     private(set) var found: [String] = []
 
-    func findNextMatch(_ match: String, of type: IFFindType, completionHandler: ((Bool) -> Void)?) {
+    func findNextMatch(_ match: String,
+                       of type: IFFindType,
+                       completionHandler: (@MainActor @Sendable (Bool) -> Void)?) {
         found.append(match)
     }
 }
@@ -34,14 +36,17 @@ private final class FindNextOnly: NSWindowController, IFFindDelegate {
 /// The Find panel, finding in a text view in a window that the tests tell the panel is the main window. The panel's
 /// window is loaded but never shown, and never closed, as closing it saves its frame in the user's defaults. Not
 /// finding a match beeps, so some of these tests do.
-final class IFFindControllerTests: XCTestCase {
+@MainActor
+final class IFFindControllerTests: XCTestCase, @unchecked Sendable {
 
     /// The windows the test has made, kept until it ends
     private var windows: [NSWindow] = []
 
     override func tearDown() {
-        windows = []
-        super.tearDown()
+        MainActor.assumeIsolated {
+            windows = []
+            super.tearDown()
+        }
     }
 
     /// What can be shown below the controls

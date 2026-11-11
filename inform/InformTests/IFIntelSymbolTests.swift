@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFIntelSymbolTests: XCTestCase {
 
     /// A heading's symbol, as the Natural Inform intelligence makes it.

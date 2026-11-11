@@ -18,6 +18,7 @@ private final class CountingSetting: IFSetting {
     }
 }
 
+@MainActor
 final class IFSettingTests: XCTestCase {
     // MARK: - Helpers
 
@@ -31,7 +32,7 @@ final class IFSettingTests: XCTestCase {
     }
 
     private func notifications(named name: NSNotification.Name, from object: AnyObject, during block: () -> Void) -> Int {
-        var count = 0
+        nonisolated(unsafe) var count = 0
         let observer = NotificationCenter.default.addObserver(forName: name, object: object, queue: nil) { _ in
             count += 1
         }
@@ -87,12 +88,12 @@ final class IFSettingTests: XCTestCase {
 
     func testChangesAreNotifiedOnce() {
         let setting = IFSetting(nibName: nil)
-        var count = 0
+        nonisolated(unsafe) var count = 0
         let observer = NotificationCenter.default.addObserver(forName: .IFSettingHasChanged, object: setting, queue: nil) { _ in
             count += 1
 
             // A change while the last one is being handled isn't notified
-            setting.settingsHaveChanged(nil)
+            MainActor.assumeIsolated { setting.settingsHaveChanged(nil) }
         }
 
         setting.settingsHaveChanged(nil)

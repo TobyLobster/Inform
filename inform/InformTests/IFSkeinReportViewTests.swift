@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFSkeinReportViewTests: XCTestCase {
 
     private let skein: IFSkein = IFSkein(project: nil)

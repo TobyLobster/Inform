@@ -5,16 +5,21 @@
 
 import XCTest
 
-final class IFNewInform7ExtensionProjectTests: XCTestCase {
+@MainActor
+final class IFNewInform7ExtensionProjectTests: XCTestCase, @unchecked Sendable {
     private var folder: URL!
 
     override func setUpWithError() throws {
-        folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        try MainActor.assumeIsolated {
+            folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+            try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        }
     }
 
     override func tearDownWithError() throws {
-        try FileManager.default.removeItem(at: folder)
+        try MainActor.assumeIsolated {
+            try FileManager.default.removeItem(at: folder)
+        }
     }
 
     /// A new, empty project file, which is only ever kept in memory

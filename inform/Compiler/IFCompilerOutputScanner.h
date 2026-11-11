@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// What the compiler's output tells the app, as the scanner comes to it
 ///
+NS_SWIFT_UI_ACTOR
 @protocol IFCompilerOutputScannerDelegate <NSObject>
 
 /// A progress line: how far through the compiler is, and the stage it has reached, if the line gives one
@@ -47,6 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Scans each line of the compiler's output with the lexer in IFError.l, for the style to show the line in and for what
 /// it tells the app: progress, how the compiler ended, errors, and where to copy the blorb file.
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFCompilerOutputScanner : NSObject
 
 /// Told what each line says, as it's scanned

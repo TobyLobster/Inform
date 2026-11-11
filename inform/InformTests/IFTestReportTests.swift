@@ -7,16 +7,21 @@ import XCTest
 
 /// What goes into an extension project's test reports: the code for a problem the compiler found, how far down the
 /// skein the story was played, and a single test case's report as the combined one
-final class IFTestReportTests: XCTestCase {
+@MainActor
+final class IFTestReportTests: XCTestCase, @unchecked Sendable {
     private var folder: URL!
 
     override func setUpWithError() throws {
-        folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        try MainActor.assumeIsolated {
+            folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+            try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        }
     }
 
     override func tearDownWithError() throws {
-        try? FileManager.default.removeItem(at: folder)
+        MainActor.assumeIsolated {
+            try? FileManager.default.removeItem(at: folder)
+        }
     }
 
     // MARK: - The code for a problem the compiler found

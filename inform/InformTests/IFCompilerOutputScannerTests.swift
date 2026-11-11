@@ -6,7 +6,8 @@
 import XCTest
 
 /// Scanning each line of the compiler's output for its style and what it tells the app
-final class IFCompilerOutputScannerTests: XCTestCase {
+@MainActor
+final class IFCompilerOutputScannerTests: XCTestCase, @unchecked Sendable {
 
     /// What the scanner tells its delegate
     private enum Event: Equatable {
@@ -47,8 +48,10 @@ final class IFCompilerOutputScannerTests: XCTestCase {
     private let delegate = Delegate()
 
     override func setUp() {
-        super.setUp()
-        scanner.delegate = delegate
+        MainActor.assumeIsolated {
+            super.setUp()
+            scanner.delegate = delegate
+        }
     }
 
     /// Scans a line, checking its style and what the delegate is told

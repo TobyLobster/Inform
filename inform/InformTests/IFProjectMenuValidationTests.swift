@@ -6,6 +6,7 @@
 import XCTest
 
 /// Which of a project window's menu commands are enabled
+@MainActor
 final class IFProjectMenuValidationTests: XCTestCase {
     /// What the commands depend on, set by each test, as the project controller would know it
     private final class MenuState: NSObject, IFProjectMenuState {

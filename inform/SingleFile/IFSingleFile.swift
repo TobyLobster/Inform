@@ -27,7 +27,10 @@ import Cocoa
     }
 
     deinit {
-        IFSyntaxManager.unregisterTextStorage(fileStorage)
+        // Documents are closed, and let go of, on the main thread
+        MainActor.assumeIsolated {
+            IFSyntaxManager.unregisterTextStorage(fileStorage)
+        }
     }
 
     // MARK: - Data
@@ -47,60 +50,63 @@ import Cocoa
         return data
     }
 
-    public override func read(from data: Data, ofType type: String) throws {
-        var highlightType: IFHighlightType = .none
-        var intel: IFSyntaxIntelligence? = nil
+    nonisolated public override func read(from data: Data, ofType type: String) throws {
+        // The document isn't read concurrently, so NSDocument reads it on the main thread
+        try MainActor.assumeIsolated {
+            var highlightType: IFHighlightType = .none
+            var intel: IFSyntaxIntelligence? = nil
 
-        fileEncoding = String.Encoding.utf8.rawValue
+            fileEncoding = String.Encoding.utf8.rawValue
 
-        //
-        // Use the appropriate highlighter, intelligence and encoding, based on the file type
-        //
-        switch IFProjectTypes.fileType(from: type) {
-        case .inform6ICLFile:
-            // No highlighter currently available for ICL files, and they're latin-1
-            fileEncoding = String.Encoding.isoLatin1.rawValue
-        case .inform6SourceFile:
-            fileEncoding = String.Encoding.isoLatin1.rawValue
-            highlightType = .inform6
-        case .inform7SourceFile, .inform7ExtensionFile:
-            highlightType = .inform7
-            intel = IFNaturalIntel()
-        default:
-            preconditionFailure("Found invalid file type \(IFProjectTypes.fileType(from: type).rawValue) from type '\(type)'")
+            //
+            // Use the appropriate highlighter, intelligence and encoding, based on the file type
+            //
+            switch IFProjectTypes.fileType(from: type) {
+            case .inform6ICLFile:
+                // No highlighter currently available for ICL files, and they're latin-1
+                fileEncoding = String.Encoding.isoLatin1.rawValue
+            case .inform6SourceFile:
+                fileEncoding = String.Encoding.isoLatin1.rawValue
+                highlightType = .inform6
+            case .inform7SourceFile, .inform7ExtensionFile:
+                highlightType = .inform7
+                intel = IFNaturalIntel()
+            default:
+                preconditionFailure("Found invalid file type \(IFProjectTypes.fileType(from: type).rawValue) from type '\(type)'")
+            }
+
+            // Create the file data
+            var fileString = NSString(data: data, encoding: fileEncoding)
+            if fileString == nil {
+                // If opening with the suggested encoder doesn't work, fall back to using Latin1
+                fileEncoding = String.Encoding.isoLatin1.rawValue
+                fileString = NSString(data: data, encoding: fileEncoding)
+            }
+
+            guard let fileString else {
+                let error = NSError(domain: NSCocoaErrorDomain,
+                                    code: NSFileReadUnknownStringEncodingError,
+                                    userInfo: [NSLocalizedDescriptionKey: "Error: failed to load file: could not find an acceptable character encoding",
+                                               NSStringEncodingErrorKey: fileEncoding])
+                NSLog("Error: failed to load file: could not find an acceptable character encoding")
+                throw error
+            }
+
+            // Read again, as by Revert To Saved: the window shows this storage, so it's given the new text
+            if IFSyntaxManager.isRegistered(fileStorage) {
+                fileStorage.replaceCharacters(in: NSRange(location: 0, length: fileStorage.length),
+                                              with: fileString as String)
+                return
+            }
+
+            // Update fileStorage
+            fileStorage = NSTextStorage(string: fileString as String)
+            IFSyntaxManager.register(fileStorage,
+                                     name: "single file",
+                                     type: highlightType,
+                                     intelligence: intel,
+                                     undoManager: undoManager)
         }
-
-        // Create the file data
-        var fileString = NSString(data: data, encoding: fileEncoding)
-        if fileString == nil {
-            // If opening with the suggested encoder doesn't work, fall back to using Latin1
-            fileEncoding = String.Encoding.isoLatin1.rawValue
-            fileString = NSString(data: data, encoding: fileEncoding)
-        }
-
-        guard let fileString else {
-            let error = NSError(domain: NSCocoaErrorDomain,
-                                code: NSFileReadUnknownStringEncodingError,
-                                userInfo: [NSLocalizedDescriptionKey: "Error: failed to load file: could not find an acceptable character encoding",
-                                           NSStringEncodingErrorKey: fileEncoding])
-            NSLog("Error: failed to load file: could not find an acceptable character encoding")
-            throw error
-        }
-
-        // Read again, as by Revert To Saved: the window shows this storage, so it's given the new text
-        if IFSyntaxManager.isRegistered(fileStorage) {
-            fileStorage.replaceCharacters(in: NSRange(location: 0, length: fileStorage.length),
-                                          with: fileString as String)
-            return
-        }
-
-        // Update fileStorage
-        fileStorage = NSTextStorage(string: fileString as String)
-        IFSyntaxManager.register(fileStorage,
-                                 name: "single file",
-                                 type: highlightType,
-                                 intelligence: intel,
-                                 undoManager: undoManager)
     }
 
     // MARK: - Retrieving document data

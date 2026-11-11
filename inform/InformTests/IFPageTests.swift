@@ -30,6 +30,7 @@ private final class Recorder: NSObject, IFHistoryRecorder {
     var historyEvent: IFHistoryEvent?
 }
 
+@MainActor
 final class IFPageTests: XCTestCase {
 
     /// A page with no nib, which is all a page needs to be tested on its own
@@ -47,7 +48,7 @@ final class IFPageTests: XCTestCase {
 
     /// The notifications of the given name that the page posts while the block runs
     private func notifications(_ name: Notification.Name, from page: IFPage, during block: () -> Void) -> [Notification] {
-        var posted: [Notification] = []
+        nonisolated(unsafe) var posted: [Notification] = []
         let observer = NotificationCenter.default.addObserver(forName: name, object: page, queue: nil) {
             posted.append($0)
         }

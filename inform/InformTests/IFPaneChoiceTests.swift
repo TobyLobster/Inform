@@ -7,6 +7,7 @@ import XCTest
 
 /// Which of a project window's panes to show the source, the documentation and the index in, from what each is
 /// showing, and which pane is opposite another
+@MainActor
 final class IFPaneChoiceTests: XCTestCase {
     private func numbers(_ views: [IFProjectPaneType]) -> [NSNumber] {
         return views.map { NSNumber(value: $0.rawValue) }

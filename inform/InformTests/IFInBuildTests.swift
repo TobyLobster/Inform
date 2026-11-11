@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFInBuildTests: XCTestCase {
 
     /// A new folder whose name isn't ASCII, so the command line in an error page isn't either.
@@ -54,7 +55,7 @@ final class IFInBuildTests: XCTestCase {
     }
 
     private func install(in project: URL, confirmed: Bool, results: URL,
-                         settings: IFCompilerSettings = IFCompilerSettings()) throws -> Int32 {
+                         settings: IFCompilerSettings? = nil) throws -> Int32 {
         let folder = project.deletingLastPathComponent()
         return IFInBuild().executeForInfo(withProject: project,
                                           action: "-install",
@@ -62,7 +63,7 @@ final class IFInBuildTests: XCTestCase {
                                           withInternal: internalURL,
                                           withConfirmation: confirmed,
                                           withResults: results,
-                                          settings: settings)
+                                          settings: settings ?? IFCompilerSettings())
     }
 
     func testHasNoOutputBeforeItsFirstRun() {

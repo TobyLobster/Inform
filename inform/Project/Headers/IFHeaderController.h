@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Protocol that anything that can be a header view should implement
 ///
 NS_SWIFT_NAME(IFHeaderViewProtocol)
+NS_SWIFT_UI_ACTOR
 @protocol IFHeaderView <NSObject>
 
 @optional
@@ -31,6 +32,7 @@ NS_SWIFT_NAME(IFHeaderViewProtocol)
 ///
 /// Controller class used to manage the header view(s)
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFHeaderController : NSObject
 
 // Managing the list of headers

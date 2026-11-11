@@ -23,6 +23,10 @@ INFORM_APP_SYMLINK = YES
 // Inform.app symlink in the repository root, and run codesign.
 ENABLE_USER_SCRIPT_SANDBOXING = NO
 
+// Swift checks for data races as the Swift 6 language mode does, but warns where Swift 6 would
+// give errors. The language mode is still Swift 5 (SWIFT_VERSION, on each target).
+SWIFT_STRICT_CONCURRENCY = complete
+
 #include "Warnings.xcconfig"
 
 // Machine-specific overrides. Not in git: copy Local.xcconfig.example to Local.xcconfig.

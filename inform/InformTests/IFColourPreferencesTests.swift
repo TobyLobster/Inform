@@ -28,6 +28,7 @@ private final class MemoryDefaults: UserDefaults {
 }
 
 /// The Colour pane's controls, from its nib
+@MainActor
 private struct Controls {
     let enableSyntaxColouring: NSButton
     let styles: NSPopUpButton
@@ -72,6 +73,7 @@ private struct Controls {
     }
 }
 
+@MainActor
 final class IFColourPreferencesTests: XCTestCase {
     private let standardThemes = ["Light Mode", "Dark Mode", "Seven Seas", "Traditional"]
     private let types: [IFSyntaxHighlightingOptionType] = [.headings, .mainText, .comments, .quotedText, .textSubstitutions]

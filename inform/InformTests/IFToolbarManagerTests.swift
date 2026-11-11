@@ -48,24 +48,29 @@ private final class ProjectControllerStandIn: IFProjectController {
     }
 }
 
-final class IFToolbarManagerTests: XCTestCase {
+@MainActor
+final class IFToolbarManagerTests: XCTestCase, @unchecked Sendable {
 
     private var controller: ProjectControllerStandIn!
     private var manager: IFToolbarManager!
 
     override func setUp() {
-        super.setUp()
-        controller = ProjectControllerStandIn()
-        manager = IFToolbarManager(projectController: controller)
+        MainActor.assumeIsolated {
+            super.setUp()
+            controller = ProjectControllerStandIn()
+            manager = IFToolbarManager(projectController: controller)
+        }
     }
 
     override func tearDown() {
-        // Toolbars with the same identifier share their items while they last
-        controller?.testWindow?.toolbar = nil
-        controller?.testWindow?.close()
-        manager = nil
-        controller = nil
-        super.tearDown()
+        MainActor.assumeIsolated {
+            // Toolbars with the same identifier share their items while they last
+            controller?.testWindow?.toolbar = nil
+            controller?.testWindow?.close()
+            manager = nil
+            controller = nil
+            super.tearDown()
+        }
     }
 
     // MARK: - Helpers
@@ -611,7 +616,7 @@ final class IFToolbarManagerTests: XCTestCase {
     func testHidingOrShowingTheToolbarIsPosted() throws {
         let window = showToolbar()
         let toolbar = try XCTUnwrap(window.toolbar)
-        var posted = 0
+        nonisolated(unsafe) var posted = 0
         let observer = NotificationCenter.default.addObserver(forName: Notification.Name("IFToolbarChangedVisibility"),
                                                               object: toolbar, queue: nil) { _ in
             posted += 1

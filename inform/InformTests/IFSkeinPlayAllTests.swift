@@ -6,6 +6,7 @@
 import XCTest
 
 /// The knots the skein's Play All plays to
+@MainActor
 final class IFSkeinPlayAllTests: XCTestCase {
     private let skein = IFSkein(project: nil)
 

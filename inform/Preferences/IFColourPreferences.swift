@@ -72,8 +72,11 @@ import Cocoa
     }
 
     deinit {
-        if let previewStorage {
-            IFSyntaxManager.unregisterTextStorage(previewStorage)
+        // The preferences window lets go of its panes on the main thread
+        MainActor.assumeIsolated {
+            if let previewStorage {
+                IFSyntaxManager.unregisterTextStorage(previewStorage)
+            }
         }
     }
 

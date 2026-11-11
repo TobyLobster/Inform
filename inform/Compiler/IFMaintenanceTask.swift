@@ -10,7 +10,7 @@
 import Cocoa
 
 /// The common maintenance task object, made when it's first needed
-private let sharedMaintenanceTask = IFMaintenanceTask()
+@MainActor private let sharedMaintenanceTask = IFMaintenanceTask()
 
 /// A task waiting to be run
 private struct IFPendingMaintenanceTask {

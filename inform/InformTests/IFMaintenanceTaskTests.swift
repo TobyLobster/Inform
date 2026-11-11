@@ -5,7 +5,8 @@
 
 import XCTest
 
-final class IFMaintenanceTaskTests: XCTestCase {
+@MainActor
+final class IFMaintenanceTaskTests: XCTestCase, @unchecked Sendable {
 
     private var maintenance: IFMaintenanceTask {
         return IFMaintenanceTask.shared
@@ -41,13 +42,15 @@ final class IFMaintenanceTaskTests: XCTestCase {
     }
 
     override func setUpWithError() throws {
-        try super.setUpWithError()
+        try MainActor.assumeIsolated {
+            try super.setUpWithError()
 
-        // Wait for anything already queued, such as a census, so that each test starts with nothing running
-        let idle = makeNotificationName()
-        let finished = expectation(forNotification: idle, object: maintenance)
-        queueNothing(notifyType: idle)
-        wait(for: [finished], timeout: 60)
+            // Wait for anything already queued, such as a census, so that each test starts with nothing running
+            let idle = makeNotificationName()
+            let finished = expectation(forNotification: idle, object: maintenance)
+            queueNothing(notifyType: idle)
+            wait(for: [finished], timeout: 60)
+        }
     }
 
     func testThereIsOneSharedMaintenanceTask() {
@@ -78,7 +81,7 @@ final class IFMaintenanceTaskTests: XCTestCase {
     }
 
     func testTellsWhenTasksStartOnceForEachRun() {
-        var started = 0
+        nonisolated(unsafe) var started = 0
         let observer = NotificationCenter.default.addObserver(forName: .IFMaintenanceTasksStarted,
                                                               object: maintenance, queue: nil) { _ in
             started += 1
@@ -101,7 +104,7 @@ final class IFMaintenanceTaskTests: XCTestCase {
 
     func testOnlyTheLastTasksNotificationIsPosted() {
         let earlier = makeNotificationName()
-        var toldEarlier = 0
+        nonisolated(unsafe) var toldEarlier = 0
         let observer = NotificationCenter.default.addObserver(forName: earlier, object: maintenance, queue: nil) { _ in
             toldEarlier += 1
         }

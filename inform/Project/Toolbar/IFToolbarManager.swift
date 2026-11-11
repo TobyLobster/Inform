@@ -8,7 +8,7 @@
 import Cocoa
 
 // Limits the width of a toolbar item's view (replaces NSToolbarItem's deprecated minSize and maxSize)
-private func setToolbarViewWidth(_ view: NSView?, _ minWidth: CGFloat, _ maxWidth: CGFloat) {
+@MainActor private func setToolbarViewWidth(_ view: NSView?, _ minWidth: CGFloat, _ maxWidth: CGFloat) {
     view?.widthAnchor.constraint(greaterThanOrEqualToConstant: minWidth).isActive = true
     view?.widthAnchor.constraint(lessThanOrEqualToConstant: maxWidth).isActive = true
 }
@@ -21,7 +21,7 @@ private struct IFToolbarItems {
     let itemDictionary: [String: NSToolbarItem]
 }
 
-private let toolbarItems: IFToolbarItems = {
+@MainActor private let toolbarItems: IFToolbarItems = {
     // Create the toolbar items
     let compileItem         = NSToolbarItem(itemIdentifier: NSToolbarItem.Identifier("compileItem"))
     let compileAndRunItem   = NSToolbarItem(itemIdentifier: NSToolbarItem.Identifier("compileAndRunItem"))

@@ -155,7 +155,8 @@ private final class NavigationWatcher: NSObject, WKNavigationDelegate {
     }
 }
 
-final class IFWebViewHelperTests: XCTestCase {
+@MainActor
+final class IFWebViewHelperTests: XCTestCase, @unchecked Sendable {
 
     /// The helper's project controller, with its source pane, and its other pane
     private var controller: ProjectControllerStandIn!
@@ -163,22 +164,26 @@ final class IFWebViewHelperTests: XCTestCase {
     private var pane: PaneStandIn!
 
     override func setUp() {
-        super.setUp()
+        MainActor.assumeIsolated {
+            super.setUp()
 
-        // A project controller that doesn't watch for settings changing, and so doesn't make the project window's
-        // toolbar for them, which saves its configuration in the user's preferences.
-        controller = ProjectControllerStandIn()
-        NotificationCenter.default.removeObserver(controller as Any)
-        sourcePane = PaneStandIn()
-        pane = PaneStandIn()
-        controller.standInSourcePane = sourcePane
+            // A project controller that doesn't watch for settings changing, and so doesn't make the project window's
+            // toolbar for them, which saves its configuration in the user's preferences.
+            controller = ProjectControllerStandIn()
+            NotificationCenter.default.removeObserver(controller as Any)
+            sourcePane = PaneStandIn()
+            pane = PaneStandIn()
+            controller.standInSourcePane = sourcePane
+        }
     }
 
     override func tearDown() {
-        controller = nil
-        sourcePane = nil
-        pane = nil
-        super.tearDown()
+        MainActor.assumeIsolated {
+            controller = nil
+            sourcePane = nil
+            pane = nil
+            super.tearDown()
+        }
     }
 
     /// The helper for the stand-in project controller and pane

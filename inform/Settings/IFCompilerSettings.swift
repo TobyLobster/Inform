@@ -130,8 +130,11 @@ private let libraryPaths: [String] = {
     }
 
     deinit {
-        for setting in genericSettings {
-            setting.compilerSettings = nil
+        // The project lets go of its settings on the main thread
+        MainActor.assumeIsolated {
+            for setting in genericSettings {
+                setting.compilerSettings = nil
+            }
         }
     }
 

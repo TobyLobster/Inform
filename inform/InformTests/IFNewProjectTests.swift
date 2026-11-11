@@ -16,29 +16,34 @@ private final class Controller: IFNewProject {
 /// New Extension Project go straight to a save panel, and an extension that's created opens in a window that
 /// saves its frame, so the tests stop short of those. While the app is hosting the tests, the alerts the window
 /// would show, having no window to go on, are only logged, and end as if cancelled.
-final class IFNewProjectTests: XCTestCase {
+@MainActor
+final class IFNewProjectTests: XCTestCase, @unchecked Sendable {
     private var folder: URL!
     /// The project the extension is for, which the window's project type only holds weakly
     private var project: IFProject!
     private var controller: Controller!
 
     override func setUpWithError() throws {
-        folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        try MainActor.assumeIsolated {
+            folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+            try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
 
-        // Only the project's location is needed, so it isn't read from disk
-        project = IFProject()
-        project.fileURL = folder.appendingPathComponent("Lamplighter.inform")
+            // Only the project's location is needed, so it isn't read from disk
+            project = IFProject()
+            project.fileURL = folder.appendingPathComponent("Lamplighter.inform")
 
-        controller = Controller()
+            controller = Controller()
+        }
     }
 
     override func tearDownWithError() throws {
-        controller.cancelButtonClicked(nil)
-        controller = nil
-        project.close()
-        project = nil
-        try FileManager.default.removeItem(at: folder)
+        try MainActor.assumeIsolated {
+            controller.cancelButtonClicked(nil)
+            controller = nil
+            project.close()
+            project = nil
+            try FileManager.default.removeItem(at: folder)
+        }
     }
 
     /// Every text field in the view and the views inside it

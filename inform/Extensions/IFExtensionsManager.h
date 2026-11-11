@@ -33,6 +33,7 @@ typedef NS_ENUM(int, IFExtensionResult) {
 /// This class can be used as a delegate for NSSave/Open panel delegates to only allow valid extensions
 /// to be selected.
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFExtensionsManager : NSObject<NSOpenSavePanelDelegate>
 
 @property (atomic) BOOL rebuildExtensionDictionaryCache;

@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class IFProjectController;
 
+NS_SWIFT_UI_ACTOR
 @interface IFAppDelegate : NSObject<NSMenuItemValidation>
 
 /// The app's delegate, made by the main menu's nib, which keeps whether the source is spell checked in the user's defaults

@@ -30,9 +30,11 @@ typedef enum IFLex {
     IFLexEndText,
 } IFLex;
 
-extern int IFLexLastProgress;
-extern char* IFLexLastProgressString;
-extern char* IFLexEndTextString;
+// What the lexer found in the last line it scanned. It scans for the compiler output scanner, on the main thread,
+// so Swift is told they're the main actor's.
+extern int IFLexLastProgress __attribute__((swift_attr("@MainActor")));
+extern char* IFLexLastProgressString __attribute__((swift_attr("@MainActor")));
+extern char* IFLexEndTextString __attribute__((swift_attr("@MainActor")));
 
 extern int  IFErrorScanString(const char* string);				// Scans a string (presumably from the compiler) for anything that looks like an error
 extern void IFErrorAddError  (const char* file,

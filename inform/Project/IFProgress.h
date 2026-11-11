@@ -21,6 +21,7 @@ static const int IFProgressPrioritySyntax     = 10;
 ///
 /// A progress indicator object
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFProgress : NSObject
 
 - (instancetype) init __attribute__((unavailable));
@@ -45,7 +46,8 @@ static const int IFProgressPrioritySyntax     = 10;
 
 // Setting the delegate
 @property (atomic, weak, nullable) id<IFProgressDelegate> delegate;
-- (void) cancelProgress;
+/// Can be called on any thread: the cancel action is sent on the main thread
+- (void) cancelProgress NS_SWIFT_NONISOLATED;
 @property (atomic, getter=isCancelled, readonly) BOOL cancelled;
 - (void) setCancelAction: (SEL) selector forObject:(id) object;
 
@@ -54,6 +56,7 @@ static const int IFProgressPrioritySyntax     = 10;
 ///
 /// Progress indicator delegate methods
 ///
+NS_SWIFT_UI_ACTOR
 @protocol IFProgressDelegate <NSObject>
 @optional
 

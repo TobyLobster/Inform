@@ -62,7 +62,10 @@ private func cgImage(from image: NSImage?) -> CGImage? {
     }
 
     deinit {
-        finishAnimation()
+        // Views are let go of on the main thread
+        MainActor.assumeIsolated {
+            finishAnimation()
+        }
     }
 
     // MARK: - Caching views

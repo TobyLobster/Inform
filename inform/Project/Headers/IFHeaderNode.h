@@ -26,6 +26,7 @@ typedef NS_ENUM(int, IFHeaderNodeSelectionStyle) {
 ///
 /// A single node in a header view
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFHeaderNode : NSObject
 // Constructing this node
 

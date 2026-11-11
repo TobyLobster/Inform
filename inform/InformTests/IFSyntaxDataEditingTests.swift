@@ -6,6 +6,7 @@
 import XCTest
 
 /// Editing highlighted text: keeping the views restricted to part of it in step, and rewriting what's typed.
+@MainActor
 final class IFSyntaxDataEditingTests: XCTestCase {
 
     private let source = """

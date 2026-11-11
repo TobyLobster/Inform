@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFDifferTests: XCTestCase {
 
     /// The start of a transcript, with an old-style banner from the given serial number and Inform 6 version.

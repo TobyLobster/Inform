@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Records useful syntax information about an NSTextStorage object
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFSyntaxData : NSObject<NSTextStorageDelegate>
 
 @property (nonatomic, strong) NSTextStorage*  textStorage;

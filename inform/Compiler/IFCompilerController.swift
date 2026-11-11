@@ -249,21 +249,24 @@ import WebKit
         NotificationCenter.default.removeObserver(self)
     }
 
-    public override func awakeFromNib() {
-        compilerResults?.textStorage?.delegate = self
+    nonisolated public override func awakeFromNib() {
+        // Nibs are loaded on the main thread
+        MainActor.assumeIsolated {
+            compilerResults?.textStorage?.delegate = self
 
-        _splitView?.delegate = self
-        adjustSplitView()
+            _splitView?.delegate = self
+            adjustSplitView()
 
-        messageScroller?.borderType = .noBorder
+            messageScroller?.borderType = .noBorder
 
-        resultScroller?.hasHorizontalScroller = true
-        compilerResults?.maxSize = NSSize(width: 1e8, height: 1e8)
-        compilerResults?.isHorizontallyResizable = true
-        compilerResults?.isVerticallyResizable = true
-        compilerResults?.textContainer?.widthTracksTextView = false
-        compilerResults?.textContainer?.containerSize = NSSize(width: 1e8, height: 1e8)
-        compilerResults?.backgroundColor = NSColor.textBackgroundColor
+            resultScroller?.hasHorizontalScroller = true
+            compilerResults?.maxSize = NSSize(width: 1e8, height: 1e8)
+            compilerResults?.isHorizontallyResizable = true
+            compilerResults?.isVerticallyResizable = true
+            compilerResults?.textContainer?.widthTracksTextView = false
+            compilerResults?.textContainer?.containerSize = NSSize(width: 1e8, height: 1e8)
+            compilerResults?.backgroundColor = NSColor.textBackgroundColor
+        }
     }
 
     // MARK: - Information

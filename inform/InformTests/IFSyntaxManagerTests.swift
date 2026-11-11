@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFSyntaxManagerTests: XCTestCase {
 
     private let source = """

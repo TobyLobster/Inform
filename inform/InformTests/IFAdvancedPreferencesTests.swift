@@ -28,6 +28,7 @@ private final class MemoryDefaults: UserDefaults {
 }
 
 /// The Advanced pane's controls, from its nib
+@MainActor
 private struct Controls {
     let showDebugLogs: NSButton
     let runBuildSh: NSButton
@@ -69,6 +70,7 @@ private struct Controls {
     }
 }
 
+@MainActor
 final class IFAdvancedPreferencesTests: XCTestCase {
     /// A pane for preferences kept in memory, which start with the values given
     private func makePane(_ stored: [String: Any] = [:]) throws -> (IFAdvancedPreferences, IFPreferences, MemoryDefaults, Controls) {

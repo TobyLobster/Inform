@@ -15,6 +15,7 @@ extern NSNotificationName const IFMaintenanceTasksStarted;
 ///
 /// Class that deals with background maintenance tasks (particularly ni -census)
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFMaintenanceTask : NSObject
 
 /// The common maintenance task object

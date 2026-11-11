@@ -20,6 +20,7 @@ extern NSString* const IFSkeinItemPboardType;
 ///
 /// Represents a single 'knot' in the skein
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFSkeinItem : NSObject<NSSecureCoding, NSPasteboardWriting>
 
 #pragma mark - Initialization

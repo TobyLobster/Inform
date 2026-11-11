@@ -13,7 +13,7 @@ private let IFFindHistoryPref = "IFFindHistory"
 private let FIND_HISTORY_LENGTH = 30
 
 /// The shared find window controller
-private var sharedController: IFFindInFilesController?
+@MainActor private var sharedController: IFFindInFilesController?
 
 /// Runs `body` holding `lock`, as Objective-C's @synchronized does (the search holds the results' lock that way)
 private func synchronized<T>(_ lock: AnyObject, _ body: () throws -> T) rethrows -> T {

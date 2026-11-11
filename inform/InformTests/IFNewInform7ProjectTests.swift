@@ -27,6 +27,7 @@ private final class MemoryDefaults: UserDefaults {
     }
 }
 
+@MainActor
 final class IFNewInform7ProjectTests: XCTestCase {
 
     /// A project type whose preferences give the author's name

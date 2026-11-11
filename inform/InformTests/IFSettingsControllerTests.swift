@@ -45,6 +45,7 @@ private class RecordingSetting: IFSetting {
 private final class OtherSetting: RecordingSetting {
 }
 
+@MainActor
 final class IFSettingsControllerTests: XCTestCase {
 
     /// The standard settings, as the app adds them when it starts
@@ -70,7 +71,7 @@ final class IFSettingsControllerTests: XCTestCase {
     /// The number of times a notification is posted by an object during a block
     private func notifications(named name: NSNotification.Name, from object: AnyObject,
                                during block: () -> Void) -> Int {
-        var count = 0
+        nonisolated(unsafe) var count = 0
         let observer = NotificationCenter.default.addObserver(forName: name, object: object, queue: nil) { _ in
             count += 1
         }

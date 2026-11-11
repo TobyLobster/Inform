@@ -71,6 +71,7 @@ private final class SingleControllerStandIn: IFSingleController {
 /// keeps whether the source is spell checked in memory, and fills in menus of the test's own. Windows the tests put
 /// on the list of the app's windows are off the screen, and documents they open are only known to the document
 /// controller, which forgets them when the test ends.
+@MainActor
 final class IFAppDelegateTests: XCTestCase {
 
     // MARK: - Helpers

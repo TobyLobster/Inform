@@ -49,6 +49,7 @@ private final class CancelTarget: NSObject {
     }
 }
 
+@MainActor
 final class IFProgressTests: XCTestCase {
 
     private func makeProgress(priority: Int32 = IFProgressPriorityCompiler, canCancel: Bool = true) -> IFProgress {
@@ -223,7 +224,7 @@ final class IFProgressTests: XCTestCase {
 
     func testCancelsOnTheMainThread() {
         let progress = makeProgress()
-        let target = CancelTarget()
+        nonisolated(unsafe) let target = CancelTarget()
         progress.setCancelAction(#selector(CancelTarget.stop(_:)), for: target)
         let cancelled = expectation(description: "Cancelled")
 

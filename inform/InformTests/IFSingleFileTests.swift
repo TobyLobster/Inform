@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFSingleFileTests: XCTestCase {
     private let inform7SourceType = "Inform 7 source file"
     private let inform7ExtensionType = "org.inform-fiction.inform7.extension"

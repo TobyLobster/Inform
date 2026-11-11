@@ -5,7 +5,8 @@
 
 import XCTest
 
-final class IFSkeinItemViewTests: XCTestCase {
+@MainActor
+final class IFSkeinItemViewTests: XCTestCase, @unchecked Sendable {
 
     // The menu's area, as IFSkeinItemView has it: the visible size of its image, the image's offset from the end of
     // the command, and how far in from the image's bottom left the mouse is over it
@@ -21,25 +22,29 @@ final class IFSkeinItemViewTests: XCTestCase {
     private var pasteboard: NSPasteboard!
 
     override func setUp() {
-        super.setUp()
-        // Far off the screen, so that the mouse is never over a knot. NSWindow moves a window made off the screen
-        // onto it, so it's moved off afterwards.
-        window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 700, height: 500),
-                          styleMask: [.titled], backing: .buffered, defer: false)
-        window.isReleasedWhenClosed = false
-        window.setFrameOrigin(NSPoint(x: -20000, y: -20000))
-        skeinView = IFSkeinView(frame: NSRect(x: 0, y: 0, width: 700, height: 500))
-        window.contentView?.addSubview(skeinView)
-        pasteboard = NSPasteboard.withUniqueName()
+        MainActor.assumeIsolated {
+            super.setUp()
+            // Far off the screen, so that the mouse is never over a knot. NSWindow moves a window made off the screen
+            // onto it, so it's moved off afterwards.
+            window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 700, height: 500),
+                              styleMask: [.titled], backing: .buffered, defer: false)
+            window.isReleasedWhenClosed = false
+            window.setFrameOrigin(NSPoint(x: -20000, y: -20000))
+            skeinView = IFSkeinView(frame: NSRect(x: 0, y: 0, width: 700, height: 500))
+            window.contentView?.addSubview(skeinView)
+            pasteboard = NSPasteboard.withUniqueName()
+        }
     }
 
     override func tearDown() {
-        pasteboard.releaseGlobally()
-        pasteboard = nil
-        window.close()
-        window = nil
-        skeinView = nil
-        super.tearDown()
+        MainActor.assumeIsolated {
+            pasteboard.releaseGlobally()
+            pasteboard = nil
+            window.close()
+            window = nil
+            skeinView = nil
+            super.tearDown()
+        }
     }
 
     private func add(_ command: String, to parent: IFSkeinItem, actual: String) -> IFSkeinItem {
@@ -187,6 +192,7 @@ final class IFSkeinItemViewTests: XCTestCase {
         var springLoadingHighlight: NSSpringLoadingHighlight { return .none }
         func resetSpringLoading() {}
 
+        @MainActor
         init(window: NSWindow?, mask: NSDragOperation, location: NSPoint, pasteboard: NSPasteboard, source: Any?) {
             draggingDestinationWindow = window
             draggingSourceOperationMask = mask
@@ -219,7 +225,7 @@ final class IFSkeinItemViewTests: XCTestCase {
 
     /// Counts the skein's change notifications while running the block
     private func changes(of skein: IFSkein, _ block: () throws -> Void) rethrows -> Int {
-        var count = 0
+        nonisolated(unsafe) var count = 0
         let observer = NotificationCenter.default.addObserver(forName: .IFSkeinChanged, object: skein,
                                                               queue: nil) { _ in count += 1 }
         defer { NotificationCenter.default.removeObserver(observer) }

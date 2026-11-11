@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFSyntaxDataTests: XCTestCase {
 
     /// A table, with text before and after it.
@@ -22,8 +23,10 @@ final class IFSyntaxDataTests: XCTestCase {
         """
 
     override func setUpWithError() throws {
-        // Elastic tabs are a preference, which the tests mustn't change
-        try XCTSkipUnless(IFPreferences.shared.elasticTabs, "Elastic tabs are turned off in Inform's preferences")
+        try MainActor.assumeIsolated {
+            // Elastic tabs are a preference, which the tests mustn't change
+            try XCTSkipUnless(IFPreferences.shared.elasticTabs, "Elastic tabs are turned off in Inform's preferences")
+        }
     }
 
     /// Source text highlighted as the editor highlights it.

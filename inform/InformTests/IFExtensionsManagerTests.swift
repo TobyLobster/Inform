@@ -6,6 +6,7 @@
 import Network
 import XCTest
 
+@MainActor
 final class IFExtensionsManagerTests: XCTestCase {
 
     private struct FirstLine {
@@ -360,7 +361,7 @@ final class IFExtensionsManagerTests: XCTestCase {
     func testKeepsTheListUntilItsCacheIsDirtied() throws {
         let folder = try makeExtensionsFolder()
         let locksmith = try put("Locksmith by Emily Short begins here.", "Locksmith.i7x", in: "Emily Short", of: folder)
-        var told = 0
+        nonisolated(unsafe) var told = 0
         let observer = NotificationCenter.default.addObserver(forName: .IFCensusFinished, object: manager, queue: nil) { _ in
             told += 1
         }
@@ -470,7 +471,7 @@ final class IFExtensionsManagerTests: XCTestCase {
     func testKeepsAListForEachKindOfProject() throws {
         let folder = try makeExtensionsFolder()
         let locksmith = try put("Version 3 of Locksmith by Emily Short begins here.", "Locksmith.i7x", in: "Emily Short", of: folder)
-        var told = 0
+        nonisolated(unsafe) var told = 0
         let observer = NotificationCenter.default.addObserver(forName: .IFCensusFinished, object: manager, queue: nil) { _ in
             told += 1
         }
@@ -799,7 +800,7 @@ final class IFExtensionsManagerTests: XCTestCase {
     }
 
     /// A server, only on this Mac, that answers each request with "not found"
-    private final class NotFoundServer {
+    private final class NotFoundServer: @unchecked Sendable {
         private let listener: NWListener
         private let queue = DispatchQueue(label: "NotFoundServer")
         private let lock = NSLock()

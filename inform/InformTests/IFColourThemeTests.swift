@@ -79,6 +79,7 @@ private final class MemoryDefaults: UserDefaults {
     }
 }
 
+@MainActor
 final class IFColourThemeTests: XCTestCase {
 
     private let red = NSColor(deviceRed: 0.9, green: 0.2, blue: 0.3, alpha: 1.0)

@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class IFProjectController;
 @class IFToolbarStatusView;
 
+NS_SWIFT_UI_ACTOR
 @interface IFToolbarManager : NSObject<NSToolbarDelegate, NSToolbarItemValidation>
 
 - (instancetype) init NS_DESIGNATED_INITIALIZER;

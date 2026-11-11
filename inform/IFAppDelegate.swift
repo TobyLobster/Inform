@@ -12,7 +12,7 @@ import GlkView.GlkHub
 
 private let IFSourceSpellChecking = "IFSourceSpellChecking"
 private let pixelWidthBetweenExtensionNameAndVersion: CGFloat = 10.0
-private var newProj: IFNewProject?
+@MainActor private var newProj: IFNewProject?
 
 @objc @implementation extension IFAppDelegate {
     /// The 'New Extension Project' menu
@@ -54,10 +54,10 @@ private var newProj: IFNewProject?
         super.init()
     }
 
-    public override func observeValue(forKeyPath keyPath: String?,
-                                      of object: Any?,
-                                      change: [NSKeyValueChangeKey: Any]?,
-                                      context: UnsafeMutableRawPointer?) {
+    nonisolated public override func observeValue(forKeyPath keyPath: String?,
+                                                  of object: Any?,
+                                                  change: [NSKeyValueChangeKey: Any]?,
+                                                  context: UnsafeMutableRawPointer?) {
         performSelector(onMainThread: #selector(darkModeChanged), with: nil, waitUntilDone: false)
     }
 
@@ -681,7 +681,9 @@ extension IFAppDelegate {
         // Schedule "Checking whether document exists." into next UI Loop, because document is not restored yet.
         // NSInvocationOperation isn't available in Swift, so the operation is a block.
         OperationQueue.main.addOperation {
-            self.openWelcomeDialogIfNeeded()
+            MainActor.assumeIsolated {
+                self.openWelcomeDialogIfNeeded()
+            }
         }
     }
 

@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFCompilerSettingsTests: XCTestCase {
 
     /// A project's Settings.plist, as the app writes it, with settings changed from their defaults.
@@ -259,7 +260,7 @@ final class IFCompilerSettingsTests: XCTestCase {
     /// turning Inform 7 off, which does nothing.
     func testChangesAreNotified() {
         let settings = IFCompilerSettings()
-        var notified = 0
+        nonisolated(unsafe) var notified = 0
         let observer = NotificationCenter.default.addObserver(forName: .IFSetting, object: settings,
                                                               queue: nil) { _ in
             notified += 1

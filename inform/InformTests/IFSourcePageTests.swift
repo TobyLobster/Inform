@@ -39,7 +39,8 @@ private final class ProjectControllerStandIn: IFProjectController {
 }
 
 /// The source page: the project's source files, a section of one at a time if wanted, and its headings
-final class IFSourcePageTests: XCTestCase {
+@MainActor
+final class IFSourcePageTests: XCTestCase, @unchecked Sendable {
 
     /// A story with a section inside its first chapter, on lines 3, 7 and 11 of the text, counting from 1
     private let story = """
@@ -74,54 +75,58 @@ final class IFSourcePageTests: XCTestCase {
     private var textView: IFSourceFileView!
 
     override func setUpWithError() throws {
-        try super.setUpWithError()
+        try MainActor.assumeIsolated {
+            try super.setUpWithError()
 
-        // A project with the story and some notes
-        folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
-        let source = folder.appendingPathComponent("Test.inform/Source", isDirectory: true)
-        try FileManager.default.createDirectory(at: source, withIntermediateDirectories: true)
-        try Data(story.utf8).write(to: source.appendingPathComponent("story.ni"))
-        try Data(notes.utf8).write(to: source.appendingPathComponent("Notes.txt"))
-        try Data(appendix.utf8).write(to: source.appendingPathComponent("Appendix.ni"))
-        project = try IFProject(contentsOf: folder.appendingPathComponent("Test.inform"),
-                                ofType: "org.inform-fiction.project")
+            // A project with the story and some notes
+            folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+            let source = folder.appendingPathComponent("Test.inform/Source", isDirectory: true)
+            try FileManager.default.createDirectory(at: source, withIntermediateDirectories: true)
+            try Data(story.utf8).write(to: source.appendingPathComponent("story.ni"))
+            try Data(notes.utf8).write(to: source.appendingPathComponent("Notes.txt"))
+            try Data(appendix.utf8).write(to: source.appendingPathComponent("Appendix.ni"))
+            project = try IFProject(contentsOf: folder.appendingPathComponent("Test.inform"),
+                                    ofType: "org.inform-fiction.project")
 
-        // A project controller that doesn't watch for settings changing, and so doesn't make the project window's
-        // toolbar for them, which saves its configuration in the user's preferences. Nor does it hear of the
-        // headings changing, so it's told of them.
-        controller = ProjectControllerStandIn()
-        NotificationCenter.default.removeObserver(controller as Any)
-        controller.project = project
+            // A project controller that doesn't watch for settings changing, and so doesn't make the project window's
+            // toolbar for them, which saves its configuration in the user's preferences. Nor does it hear of the
+            // headings changing, so it's told of them.
+            controller = ProjectControllerStandIn()
+            NotificationCenter.default.removeObserver(controller as Any)
+            controller.project = project
 
-        page = IFSourcePage(projectController: controller)
-        controller.headerController.update(fromIntelligence: page.currentIntelligence)
+            page = IFSourcePage(projectController: controller)
+            controller.headerController.update(fromIntelligence: page.currentIntelligence)
 
-        // In a window, for the animations. NSWindow moves a window made off the screen onto it, so it's moved off
-        // afterwards
-        window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 400, height: 500),
-                          styleMask: [.titled], backing: .buffered, defer: false)
-        window.isReleasedWhenClosed = false
-        window.setFrameOrigin(NSPoint(x: -20000, y: -20000))
-        let content = try XCTUnwrap(window.contentView)
-        page.view.frame = content.bounds
-        content.addSubview(page.view)
+            // In a window, for the animations. NSWindow moves a window made off the screen onto it, so it's moved off
+            // afterwards
+            window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 400, height: 500),
+                              styleMask: [.titled], backing: .buffered, defer: false)
+            window.isReleasedWhenClosed = false
+            window.setFrameOrigin(NSPoint(x: -20000, y: -20000))
+            let content = try XCTUnwrap(window.contentView)
+            page.view.frame = content.bounds
+            content.addSubview(page.view)
 
-        textView = try XCTUnwrap((page.view.subviews.first as? NSScrollView)?.documentView as? IFSourceFileView)
+            textView = try XCTUnwrap((page.view.subviews.first as? NSScrollView)?.documentView as? IFSourceFileView)
+        }
     }
 
     override func tearDownWithError() throws {
-        waitForAnimations()
-        window?.close()
-        window = nil
-        textView = nil
-        page = nil
-        project?.close()
-        project = nil
-        controller = nil
-        if let folder {
-            try? FileManager.default.removeItem(at: folder)
+        try MainActor.assumeIsolated {
+            waitForAnimations()
+            window?.close()
+            window = nil
+            textView = nil
+            page = nil
+            project?.close()
+            project = nil
+            controller = nil
+            if let folder {
+                try? FileManager.default.removeItem(at: folder)
+            }
+            try super.tearDownWithError()
         }
-        try super.tearDownWithError()
     }
 
     // MARK: - Helpers

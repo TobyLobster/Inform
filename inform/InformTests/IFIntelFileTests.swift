@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFIntelFileTests: XCTestCase {
 
     private func heading(_ name: String, level: Int32 = 4) -> IFIntelSymbol {
@@ -168,7 +169,7 @@ final class IFIntelFileTests: XCTestCase {
     func testChangesAreNotifiedOnceTwoSecondsLater() {
         let file = IFIntelFile()
         let start = Date()
-        var times: [TimeInterval] = []
+        nonisolated(unsafe) var times: [TimeInterval] = []
         let observer = NotificationCenter.default.addObserver(forName: .IFIntelFileHasChanged,
                                                               object: file, queue: nil) { _ in
             times.append(Date().timeIntervalSince(start))
@@ -192,7 +193,7 @@ final class IFIntelFileTests: XCTestCase {
 
     func testClearingLinesWithNoSymbolsIsNotAChange() {
         let file = IFIntelFile()
-        var notified = false
+        nonisolated(unsafe) var notified = false
         let observer = NotificationCenter.default.addObserver(forName: .IFIntelFileHasChanged,
                                                               object: file, queue: nil) { _ in
             notified = true

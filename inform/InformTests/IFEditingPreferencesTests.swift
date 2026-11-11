@@ -91,6 +91,7 @@ private struct Controls {
     }
 }
 
+@MainActor
 final class IFEditingPreferencesTests: XCTestCase {
     private let types: [IFSyntaxHighlightingOptionType] = [.headings, .mainText, .comments, .quotedText, .textSubstitutions]
 

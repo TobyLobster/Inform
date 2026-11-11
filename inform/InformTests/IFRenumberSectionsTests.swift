@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFRenumberSectionsTests: XCTestCase {
 
     private let source = """

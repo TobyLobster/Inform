@@ -73,7 +73,7 @@ extension IFExtensionDownload {
     }
 
     // *******************************************************************************************
-    private final func downloadedTask(_ task: URLSessionTask, error: Error?) {
+    @MainActor private final func downloadedTask(_ task: URLSessionTask, error: Error?) {
         let mgr = IFExtensionsManager.sharedNaturalInform
 
         if let error {
@@ -153,6 +153,10 @@ extension IFExtensionDownload {
         mgr.downloadAndInstallFinished(self)
     }
 }
+
+// The session's queue uses the task, its data and the server's error only between the task's start and its
+// completion, and the main thread only before it starts and once its completion is handed to the main queue
+extension IFExtensionDownload: @unchecked Sendable {}
 
 // *******************************************************************************************
 extension IFExtensionDownload: URLSessionDataDelegate {

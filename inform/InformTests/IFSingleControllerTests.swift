@@ -6,6 +6,7 @@
 import XCTest
 
 /// The window of a file opened on its own. Each window is loaded, but never shown.
+@MainActor
 final class IFSingleControllerTests: XCTestCase {
 
     /// The controller, keeping its window's frame out of the preferences: it notes the frame autosave name it's

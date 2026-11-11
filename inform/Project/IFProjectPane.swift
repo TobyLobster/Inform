@@ -78,23 +78,26 @@ private let zoomShowsWarnings: Void = {
     }
 
     deinit {
-        _sourcePage?.finished()
-        _errorsPage?.finished()
-        _indexPage?.finished()
-        _skeinPage?.finished()
-        _gamePage?.finished()
-        _documentationPage?.finished()
-        _extensionsPage?.finished()
-        _settingsPage?.finished()
+        // The project window lets go of its panes on the main thread
+        MainActor.assumeIsolated {
+            _sourcePage?.finished()
+            _errorsPage?.finished()
+            _indexPage?.finished()
+            _skeinPage?.finished()
+            _gamePage?.finished()
+            _documentationPage?.finished()
+            _extensionsPage?.finished()
+            _settingsPage?.finished()
 
-        for page in pages {
-            page.recorder = nil
-        }
-        for page in pages {
-            page.otherPane = nil
-        }
+            for page in pages {
+                page.recorder = nil
+            }
+            for page in pages {
+                page.otherPane = nil
+            }
 
-        NotificationCenter.default.removeObserver(self)
+            NotificationCenter.default.removeObserver(self)
+        }
     }
 
     @objc(attributeForStyle:)
@@ -236,26 +239,29 @@ private let zoomShowsWarnings: Void = {
         historicalPane?.selectView(of: .sourcePane)
     }
 
-    public override func awakeFromNib() {
-        awake = true
+    nonisolated public override func awakeFromNib() {
+        // Nibs are loaded on the main thread
+        MainActor.assumeIsolated {
+            awake = true
 
-        _tabView?.delegate = self
+            _tabView?.delegate = self
 
-        // Set up the backwards/forwards buttons
-        let backCell    = IFPageBarCell(imageCell: NSImage(named: NSImage.goBackTemplateName))
-        let forwardCell = IFPageBarCell(imageCell: NSImage(named: NSImage.goForwardTemplateName))
-        self.backCell    = backCell
-        self.forwardCell = forwardCell
+            // Set up the backwards/forwards buttons
+            let backCell    = IFPageBarCell(imageCell: NSImage(named: NSImage.goBackTemplateName))
+            let forwardCell = IFPageBarCell(imageCell: NSImage(named: NSImage.goForwardTemplateName))
+            self.backCell    = backCell
+            self.forwardCell = forwardCell
 
-        backCell.setKeyEquivalent("-")
-        forwardCell.setKeyEquivalent("=")
+            backCell.setKeyEquivalent("-")
+            forwardCell.setKeyEquivalent("=")
 
-        backCell.target = self
-        forwardCell.target = self
-        backCell.action = #selector(goBackwards(_:))
-        forwardCell.action = #selector(goForwards(_:))
+            backCell.target = self
+            forwardCell.target = self
+            backCell.action = #selector(goBackwards(_:))
+            forwardCell.action = #selector(goForwards(_:))
 
-        pageBar?.setLeftCells([backCell, forwardCell])
+            pageBar?.setLeftCells([backCell, forwardCell])
+        }
     }
 
     func setController(_ p: IFProjectController,

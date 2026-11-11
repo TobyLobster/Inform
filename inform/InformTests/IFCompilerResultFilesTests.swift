@@ -6,6 +6,7 @@
 import XCTest
 
 /// Choosing the files in a build folder that the Errors page shows a tab for, and the tab each one is
+@MainActor
 final class IFCompilerResultFilesTests: XCTestCase {
 
     private let problemsURL = URL(fileURLWithPath: "/Projects/Story.inform/Build/Problems.html")

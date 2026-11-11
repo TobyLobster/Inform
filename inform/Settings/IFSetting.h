@@ -23,6 +23,7 @@ extern NSString* const IFSettingCreateBlorb;
 /// It's usually pretty pointless to make extra model objects beyond IFCompilerSettings, so there
 /// may be some overlap with the model here.
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFSetting : NSObject
 
 /// Initialises the setting object with no nib (each subclass overrides this to load its own)

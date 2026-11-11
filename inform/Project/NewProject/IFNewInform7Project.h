@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// (Actually, we use the file and the current user name to generate an initial heading for the game)
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFNewInform7Project : NSObject<IFNewProjectProtocol>
 
 /// A project type that takes the author's name from the shared preferences

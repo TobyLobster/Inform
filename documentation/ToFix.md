@@ -81,6 +81,10 @@ Each says how it was found, and none has been seen in the app unless it says so.
 
 - **Fresh clones of Zoom don't build ZoomServer.** The external-build-tool `Interpreter` target runs before `Builder` is linked, so `build/interp_*.h` are never generated (`'interp_z3.h' file not found`). It works here because old headers sit in the ignored `zoom/build/` (the same code as freshly generated ones, apart from `#line` paths and order), and until it's fixed a fresh clone of Inform hits it too. The fix generates the headers in a ZoomServer Run Script phase that declares Builder as an input: sent as MaddTheSane/zoom#3 (branch `generate-interpreter-headers` in `~/Code/upstream/zoom`), and applied uncommitted to our `zoom/` until it's merged. Found on 3 November 2026.
 
+## Tests
+
+- **A test host that crashes comes back with the user's preferences.** When the test host crashes, Xcode starts it again for the tests that are left, but by then the tests' home folder exists, as the Test action only removes it before the run, so the new host reads the user's real preferences, and could write them. A crash in `IFSkeinItemTests` during the strict concurrency work did this: the tests after it saw the user's external Inform Core folder, and `IFUtilityTests` failed. Nothing was written. Found by the full check (11 November 2026).
+
 ## Zoom and CocoaGlk
 
 - **Possibly real, from the static analyser** (4 November 2026), to look at upstream: a possible null `win->stream` in `glk_window_set_echo_stream` (`glk_windows.m`), a nil font in an attributes dictionary (`ZoomTextView.m`), a variable-length array that could have a negative size (`GlkTypesetter.m`), null `buf` arrays with a non-zero length in `glk_stream.m` and `glk_unicode.m`, and leaks in Zoom's `debug.c` and `rc.c`.

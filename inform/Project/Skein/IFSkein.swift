@@ -384,7 +384,7 @@ import Cocoa
 // MARK: - Dealing with/creating XML data
 
 /// Unique ID for this item (we use the pointer as the value, as it's guaranteed unique for a unique node)
-private func idForNode(_ item: IFSkeinItem) -> String {
+@MainActor private func idForNode(_ item: IFSkeinItem) -> String {
     return "node-\(item.uniqueId)"
 }
 

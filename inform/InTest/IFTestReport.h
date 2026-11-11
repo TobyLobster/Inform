@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// compiler found, how far down the skein the story was played, and, when only one test case was run, its report as
 /// the combined one
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFTestReport : NSObject
 
 - (instancetype) init NS_UNAVAILABLE;

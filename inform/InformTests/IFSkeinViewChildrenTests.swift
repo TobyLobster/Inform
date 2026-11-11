@@ -5,7 +5,8 @@
 
 import XCTest
 
-final class IFSkeinViewChildrenTests: XCTestCase {
+@MainActor
+final class IFSkeinViewChildrenTests: XCTestCase, @unchecked Sendable {
 
     /// The height of an arrow's view: its head, with a point above and below
     private let arrowViewHeight = kSkeinArrowHeadHeight + 2.0
@@ -17,21 +18,25 @@ final class IFSkeinViewChildrenTests: XCTestCase {
     private var children: IFSkeinViewChildren!
 
     override func setUp() {
-        super.setUp()
-        window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 700, height: 500),
-                          styleMask: [.titled], backing: .buffered, defer: false)
-        window.isReleasedWhenClosed = false
-        skeinView = IFSkeinView(frame: NSRect(x: 0, y: 0, width: 700, height: 500))
-        window.contentView?.addSubview(skeinView)
-        children = IFSkeinViewChildren(skeinView: skeinView)
+        MainActor.assumeIsolated {
+            super.setUp()
+            window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 700, height: 500),
+                              styleMask: [.titled], backing: .buffered, defer: false)
+            window.isReleasedWhenClosed = false
+            skeinView = IFSkeinView(frame: NSRect(x: 0, y: 0, width: 700, height: 500))
+            window.contentView?.addSubview(skeinView)
+            children = IFSkeinViewChildren(skeinView: skeinView)
+        }
     }
 
     override func tearDown() {
-        window.close()
-        window = nil
-        skeinView = nil
-        children = nil
-        super.tearDown()
+        MainActor.assumeIsolated {
+            window.close()
+            window = nil
+            skeinView = nil
+            children = nil
+            super.tearDown()
+        }
     }
 
     private func add(_ command: String, to parent: IFSkeinItem, actual: String) -> IFSkeinItem {

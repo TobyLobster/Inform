@@ -9,14 +9,14 @@
 import Cocoa
 
 /// The regular expressions compiled recently
-private let regexCache: NSCache<NSString, NSRegularExpression> = {
+nonisolated(unsafe) private let regexCache: NSCache<NSString, NSRegularExpression> = {
     let cache = NSCache<NSString, NSRegularExpression>()
     cache.countLimit = 16
     return cache
 }()
 
 /// The letters, accents and digits of any script, which make up a word
-private let wordCharacters = CharacterSet.alphanumerics as NSCharacterSet
+nonisolated(unsafe) private let wordCharacters = CharacterSet.alphanumerics as NSCharacterSet
 
 @objc @implementation
 extension IFScanner {

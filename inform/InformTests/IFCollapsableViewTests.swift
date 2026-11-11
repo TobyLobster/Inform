@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFCollapsableViewTests: XCTestCase {
 
     /// The border around the views, and between them

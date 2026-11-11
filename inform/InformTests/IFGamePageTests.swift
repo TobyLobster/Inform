@@ -47,32 +47,38 @@ private final class ProjectControllerStandIn: IFProjectController {
     }
 }
 
-final class IFGamePageTests: XCTestCase {
+@MainActor
+final class IFGamePageTests: XCTestCase, @unchecked Sendable {
     private var controller: ProjectControllerStandIn?
     /// A folder for the project, removed after each test
     private var folder: URL?
 
     override func setUpWithError() throws {
-        try super.setUpWithError()
+        try MainActor.assumeIsolated {
+            try super.setUpWithError()
 
-        // A project controller that doesn't watch for settings changing, and so doesn't make the project window's
-        // toolbar for them, which saves its configuration in the user's preferences.
-        let controller = ProjectControllerStandIn()
-        NotificationCenter.default.removeObserver(controller)
-        self.controller = controller
+            // A project controller that doesn't watch for settings changing, and so doesn't make the project window's
+            // toolbar for them, which saves its configuration in the user's preferences.
+            let controller = ProjectControllerStandIn()
+            NotificationCenter.default.removeObserver(controller)
+            self.controller = controller
 
-        let folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
-        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
-        self.folder = folder
+            let folder = FileManager.default.temporaryDirectory
+                .appendingPathComponent(UUID().uuidString, isDirectory: true)
+            try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+            self.folder = folder
+        }
     }
 
     override func tearDownWithError() throws {
-        controller = nil
-        if let folder {
-            try FileManager.default.removeItem(at: folder)
+        try MainActor.assumeIsolated {
+            controller = nil
+            if let folder {
+                try FileManager.default.removeItem(at: folder)
+            }
+            folder = nil
+            try super.tearDownWithError()
         }
-        folder = nil
-        try super.tearDownWithError()
     }
 
     // MARK: - Helpers
@@ -113,7 +119,7 @@ final class IFGamePageTests: XCTestCase {
 
     /// How often the page asks to be shown while the block runs
     private func timesAskedToBeShown(_ page: IFGamePage, during block: () throws -> Void) rethrows -> Int {
-        var times = 0
+        nonisolated(unsafe) var times = 0
         let observer = NotificationCenter.default.addObserver(forName: .IFSwitchToPage, object: page, queue: nil) { _ in
             times += 1
         }

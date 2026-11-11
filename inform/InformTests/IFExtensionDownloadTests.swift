@@ -5,16 +5,21 @@
 
 import XCTest
 
-final class IFExtensionDownloadTests: XCTestCase {
+@MainActor
+final class IFExtensionDownloadTests: XCTestCase, @unchecked Sendable {
     private var folder: URL!
 
     override func setUpWithError() throws {
-        folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        try MainActor.assumeIsolated {
+            folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+            try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        }
     }
 
     override func tearDownWithError() throws {
-        try? FileManager.default.removeItem(at: folder)
+        MainActor.assumeIsolated {
+            try? FileManager.default.removeItem(at: folder)
+        }
     }
 
     private func download(_ url: URL) -> IFExtensionDownload {
@@ -29,7 +34,7 @@ final class IFExtensionDownloadTests: XCTestCase {
     private func response(_ download: IFExtensionDownload, _ dataTask: URLSessionDataTask,
                           _ response: URLResponse) throws -> URLSession.ResponseDisposition? {
         let delegate = try XCTUnwrap(download as? URLSessionDataDelegate)
-        var disposition: URLSession.ResponseDisposition?
+        nonisolated(unsafe) var disposition: URLSession.ResponseDisposition?
         delegate.urlSession?(URLSession.shared, dataTask: dataTask, didReceive: response) { disposition = $0 }
         return disposition
     }

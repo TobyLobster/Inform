@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFDocParserTests: XCTestCase {
 
     private func text(_ html: String) -> String {

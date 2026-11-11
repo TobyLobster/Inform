@@ -20,6 +20,7 @@ private final class RecordingHeaderView: NSView, IFHeaderViewProtocol {
 private final class QuietHeaderView: NSView, IFHeaderViewProtocol {
 }
 
+@MainActor
 final class IFHeaderControllerTests: XCTestCase {
 
     private func heading(_ name: String, level: Int32) -> IFIntelSymbol {

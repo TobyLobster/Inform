@@ -6,6 +6,7 @@
 import XCTest
 
 /// Comment Out and Uncomment Selection, on source text with the selection marked by « and ».
+@MainActor
 final class IFInform7MutableStringTests: XCTestCase {
 
     /// Runs the change on the marked text, and returns the text with the range it gives back marked,

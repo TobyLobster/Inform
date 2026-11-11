@@ -99,7 +99,8 @@ private final class NavigationWatcher: NSObject, WKNavigationDelegate {
     }
 }
 
-final class IFIndexPageTests: XCTestCase {
+@MainActor
+final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
 
     /// A page being tested, with its web view and the watcher between them
     private struct Shown {
@@ -123,27 +124,32 @@ final class IFIndexPageTests: XCTestCase {
     private var folder: URL?
 
     override func setUpWithError() throws {
-        try super.setUpWithError()
+        try MainActor.assumeIsolated {
+            try super.setUpWithError()
 
-        // A project controller that doesn't watch for settings changing, and so doesn't make the project window's
-        // toolbar for them, which saves its configuration in the user's preferences.
-        let controller = ProjectControllerStandIn()
-        NotificationCenter.default.removeObserver(controller)
-        self.controller = controller
+            // A project controller that doesn't watch for settings changing, and so doesn't make the project window's
+            // toolbar for them, which saves its configuration in the user's preferences.
+            let controller = ProjectControllerStandIn()
+            NotificationCenter.default.removeObserver(controller)
+            self.controller = controller
 
-        let folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
-        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
-        self.folder = folder
+            let folder = FileManager.default.temporaryDirectory
+                .appendingPathComponent(UUID().uuidString, isDirectory: true)
+            try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+            self.folder = folder
+        }
     }
 
     override func tearDownWithError() throws {
-        shown = []
-        controller = nil
-        if let folder {
-            try FileManager.default.removeItem(at: folder)
+        try MainActor.assumeIsolated {
+            shown = []
+            controller = nil
+            if let folder {
+                try FileManager.default.removeItem(at: folder)
+            }
+            folder = nil
+            try super.tearDownWithError()
         }
-        folder = nil
-        try super.tearDownWithError()
     }
 
     /// The project's index folder
@@ -312,9 +318,11 @@ final class IFIndexPageTests: XCTestCase {
         try writeIndex(indexPages.map { $0.file })
         let shown = try makePage()
 
-        var told: [[Int]] = []
+        nonisolated(unsafe) var told: [[Int]] = []
         let observer = NotificationCenter.default.addObserver(forName: .IFUpdatePageBarCells, object: shown.page, queue: nil) { _ in
-            told.append(shown.page.toolbarCells.compactMap { ($0.representedObject as? NSNumber)?.intValue })
+            MainActor.assumeIsolated {
+                told.append(shown.page.toolbarCells.compactMap { ($0.representedObject as? NSNumber)?.intValue })
+            }
         }
         shown.page.updateIndexView()
         NotificationCenter.default.removeObserver(observer)
@@ -518,7 +526,7 @@ final class IFIndexPageTests: XCTestCase {
 
     /// The notifications of the given name that the page posts while the block runs
     private func notifications(_ name: Notification.Name, from page: IFPage, during block: () -> Void) -> [Notification] {
-        var posted: [Notification] = []
+        nonisolated(unsafe) var posted: [Notification] = []
         let observer = NotificationCenter.default.addObserver(forName: name, object: page, queue: nil) {
             posted.append($0)
         }

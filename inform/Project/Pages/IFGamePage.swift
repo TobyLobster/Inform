@@ -68,22 +68,25 @@ private final class IFSemiTransparentView: NSView {
     }
 
     deinit {
-        NotificationCenter.default.removeObserver(self)
+        // The pane lets go of its pages on the main thread
+        MainActor.assumeIsolated {
+            NotificationCenter.default.removeObserver(self)
 
-        if let gameRunningProgress {
-            gameRunningProgress.stop()
-            parent?.removeProgressIndicator(gameRunningProgress)
-        }
+            if let gameRunningProgress {
+                gameRunningProgress.stop()
+                parent?.removeProgressIndicator(gameRunningProgress)
+            }
 
-        if let zView {
-            zView.removeFromSuperview()
-            zView.delegate = nil
-            zView.killTask()
-        }
-        if let gView {
-            gView.removeFromSuperview()
-            gView.delegate = nil
-            gView.terminateClient()
+            if let zView {
+                zView.removeFromSuperview()
+                zView.delegate = nil
+                zView.killTask()
+            }
+            if let gView {
+                gView.removeFromSuperview()
+                gView.delegate = nil
+                gView.terminateClient()
+            }
         }
     }
 
@@ -293,8 +296,9 @@ private final class IFSemiTransparentView: NSView {
     }
 }
 
-// The page is the delegate of the views it runs stories in, as its class extension declared
-extension IFGamePage: GlkViewDelegate, ZoomViewDelegate {
+// The page is the delegate of the views it runs stories in, as its class extension declared. They call it on the
+// main thread, but don't say so, so the conformances are @preconcurrency.
+extension IFGamePage: @preconcurrency GlkViewDelegate, @preconcurrency ZoomViewDelegate {
     // MARK: - GlkView delegate methods
 
     public func taskHasStarted() {

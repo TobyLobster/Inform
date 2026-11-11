@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFSkeinArrowViewTests: XCTestCase {
 
     /// An arrow as the skein view makes it, as high as the arrow head and a point above and below it

@@ -182,17 +182,20 @@ private func isLineEnd(_ c: unichar) -> Bool {
     }
 
     deinit {
-        NotificationCenter.default.removeObserver(self)
+        // Text storages, and the syntax data they're registered with, are let go of on the main thread
+        MainActor.assumeIsolated {
+            NotificationCenter.default.removeObserver(self)
 
-        if charStyles.styles != nil {
-            free(charStyles.styles)
-            charStyles.styles = nil
-            charStyles.numCharStyles = 0
+            if charStyles.styles != nil {
+                free(charStyles.styles)
+                charStyles.styles = nil
+                charStyles.numCharStyles = 0
+            }
+
+            highlighter?.setSyntaxData(nil)
+
+            intelSource?.setSyntaxData(nil)
         }
-
-        highlighter?.setSyntaxData(nil)
-
-        intelSource?.setSyntaxData(nil)
     }
 
     // MARK: - Utility methods

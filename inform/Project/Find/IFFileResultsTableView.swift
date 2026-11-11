@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objc protocol IFFindClickableTableViewDelegate {
+@MainActor @objc protocol IFFindClickableTableViewDelegate {
     func tableView(_: NSTableView, didClickRow: NSInteger)
 }
 

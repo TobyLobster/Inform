@@ -9,6 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_SWIFT_UI_ACTOR
 @interface IFSourceSharedActions : NSObject
 
 // Menu options

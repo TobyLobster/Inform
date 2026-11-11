@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Objects implementing this protocol specify a type of project that can be created via the
 /// new project dialog.
 ///
+NS_SWIFT_UI_ACTOR
 @protocol IFNewProjectProtocol <NSObject>
 
 /// nil, or a project type-specific view that can be used to customise the new project. Should be reallocated every time this is called.
@@ -47,6 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+NS_SWIFT_UI_ACTOR
 @protocol IFNewProjectSetupView <NSObject>
 
 /// The view that's displayed for this projects custom settings (nil until it's loaded from its nib)

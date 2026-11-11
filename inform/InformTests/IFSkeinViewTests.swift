@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFSkeinViewTests: XCTestCase {
 
     /// A skein view in a 700 by 500 scroll view, in a window that isn't shown, far off the screen so that the mouse
@@ -259,7 +260,7 @@ final class IFSkeinViewTests: XCTestCase {
     }
 
     private func changes(of skein: IFSkein, _ block: () throws -> Void) rethrows -> Int {
-        var count = 0
+        nonisolated(unsafe) var count = 0
         let observer = NotificationCenter.default.addObserver(forName: .IFSkeinChanged, object: skein,
                                                               queue: nil) { _ in count += 1 }
         defer { NotificationCenter.default.removeObserver(observer) }
@@ -268,7 +269,7 @@ final class IFSkeinViewTests: XCTestCase {
     }
 
     private func selectionChanges(of skeinView: IFSkeinView, _ block: () throws -> Void) rethrows -> [Notification] {
-        var notifications: [Notification] = []
+        nonisolated(unsafe) var notifications: [Notification] = []
         let observer = NotificationCenter.default.addObserver(forName: .IFSkeinSelectionChanged, object: skeinView,
                                                               queue: nil) { notifications.append($0) }
         defer { NotificationCenter.default.removeObserver(observer) }
@@ -993,7 +994,7 @@ final class IFSkeinViewTests: XCTestCase {
 
         try choose("Edit Command", for: north, in: skeinView)
         try typeText("south", in: window)
-        var movements: [Int?] = []
+        nonisolated(unsafe) var movements: [Int?] = []
         let observer = NotificationCenter.default.addObserver(forName: NSText.didEndEditingNotification,
                                                               object: try fieldEditor(in: window), queue: nil) {
             movements.append($0.userInfo?["NSTextMovement"] as? Int)

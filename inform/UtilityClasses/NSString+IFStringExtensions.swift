@@ -8,7 +8,7 @@
 
 import Foundation
 
-private let whitespace    = CharacterSet.whitespacesAndNewlines as NSCharacterSet
+nonisolated(unsafe) private let whitespace    = CharacterSet.whitespacesAndNewlines as NSCharacterSet
 private let nonWhitespace = CharacterSet.whitespacesAndNewlines.inverted
 
 // *******************************************************************************************

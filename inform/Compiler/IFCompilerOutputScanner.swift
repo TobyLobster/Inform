@@ -9,7 +9,7 @@
 import Foundation
 
 /// The scanner whose line the lexer is scanning, which the lexer's helper functions report to
-private var activeScanner: IFCompilerOutputScanner?
+@MainActor private var activeScanner: IFCompilerOutputScanner?
 
 @objc @implementation extension IFCompilerOutputScanner {
     weak var delegate: IFCompilerOutputScannerDelegate?
@@ -95,50 +95,62 @@ private var activeScanner: IFCompilerOutputScanner?
 
 // == The lexical helper functions, which the lexer calls ==
 
-private let memSetting: NSString = "The memory setting "
-private let exceeds: NSString = "The story file exceeds "
-private let readable: NSString = "This program has overflowed the maximum readable-memory size of the Z-machine format."
+nonisolated(unsafe) private let memSetting: NSString = "The memory setting "
+nonisolated(unsafe) private let exceeds: NSString = "The story file exceeds "
+nonisolated(unsafe) private let readable: NSString =
+    "This program has overflowed the maximum readable-memory size of the Z-machine format."
 
 @_cdecl("IFErrorAddError")
 func IFErrorAddError(_ filC: UnsafePointer<CChar>,
                      _ line: Int32,
                      _ type: IFLex,
                      _ mesC: UnsafePointer<CChar>) {
-    let file    = String(cString: filC)
-    let message = String(cString: mesC) as NSString
+    let file          = String(cString: filC)
+    let messageString = String(cString: mesC)
 
-    guard let scanner = activeScanner else { return }
+    // The lexer calls this as it scans a line for style(forLine:), on the main actor
+    MainActor.assumeIsolated {
+        let message = messageString as NSString
 
-    // Look for known error messages
-    if type == IFLexCompilerFatalError
-        && message.length > memSetting.length
-        && message.substring(to: memSetting.length) == memSetting as String {
-        scanner.delegate?.outputScanner(scanner, overrideProblemsURL: URL(string: "inform:/ErrorI6MemorySetting.html")!)
+        guard let scanner = activeScanner else { return }
+
+        // Look for known error messages
+        if type == IFLexCompilerFatalError
+            && message.length > memSetting.length
+            && message.substring(to: memSetting.length) == memSetting as String {
+            scanner.delegate?.outputScanner(scanner,
+                                            overrideProblemsURL: URL(string: "inform:/ErrorI6MemorySetting.html")!)
+        }
+
+        if type == IFLexCompilerFatalError
+            && message.length > exceeds.length
+            && message.substring(to: exceeds.length) == exceeds as String {
+            scanner.delegate?.outputScanner(scanner, overrideProblemsURL: URL(string: "inform:/ErrorI6TooBig.html")!)
+        }
+
+        if (type == IFLexCompilerFatalError || type == IFLexCompilerError)
+            && message.length > readable.length
+            && message.substring(to: readable.length) == readable as String {
+            scanner.delegate?.outputScanner(scanner, overrideProblemsURL: URL(string: "inform:/ErrorI6Readable.html")!)
+        }
+
+        // Pass the rest to the delegate
+        scanner.delegate?.outputScanner(scanner,
+                                        addErrorForFile: file,
+                                        atLine: line,
+                                        withType: type,
+                                        message: message as String)
     }
-
-    if type == IFLexCompilerFatalError
-        && message.length > exceeds.length
-        && message.substring(to: exceeds.length) == exceeds as String {
-        scanner.delegate?.outputScanner(scanner, overrideProblemsURL: URL(string: "inform:/ErrorI6TooBig.html")!)
-    }
-
-    if (type == IFLexCompilerFatalError || type == IFLexCompilerError)
-        && message.length > readable.length
-        && message.substring(to: readable.length) == readable as String {
-        scanner.delegate?.outputScanner(scanner, overrideProblemsURL: URL(string: "inform:/ErrorI6Readable.html")!)
-    }
-
-    // Pass the rest to the delegate
-    scanner.delegate?.outputScanner(scanner,
-                                    addErrorForFile: file,
-                                    atLine: line,
-                                    withType: type,
-                                    message: message as String)
 }
 
 @_cdecl("IFErrorCopyBlorbTo")
 func IFErrorCopyBlorbTo(_ whereTo: UnsafePointer<CChar>) {
-    guard let scanner = activeScanner else { return }
+    let whereTo = String(cString: whereTo)
 
-    scanner.delegate?.outputScanner(scanner, copyBlorbTo: String(cString: whereTo))
+    // The lexer calls this as it scans a line for style(forLine:), on the main actor
+    MainActor.assumeIsolated {
+        guard let scanner = activeScanner else { return }
+
+        scanner.delegate?.outputScanner(scanner, copyBlorbTo: whereTo)
+    }
 }
