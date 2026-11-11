@@ -506,6 +506,21 @@ final class IFSkeinItemViewTests: XCTestCase, @unchecked Sendable {
         XCTAssertIdentical(skeinView.selectedItem, north)
     }
 
+    /// The skein view begins drag-scrolling when the mouse goes down on a knot, as a knot that can't be dragged
+    /// scrolls the skein. A click on the knot ends that, leaving the knot's cursor.
+    func testClickingAKnotEndsTheDragScrolling() throws {
+        let (_, _, wait) = makeSkein()
+        let view = try knot(wait)
+        try enter(view)
+        try click(view)
+        XCTAssertIdentical(skeinView.selectedItem, wait)
+        XCTAssertIdentical(NSCursor.current, NSCursor.pointingHand)
+
+        // Once the mouse is up, the skein view doesn't take a drag for scrolling
+        skeinView.mouseDragged(with: try mouseEvent(.leftMouseDragged, at: .zero, in: skeinView))
+        XCTAssertIdentical(NSCursor.current, NSCursor.pointingHand)
+    }
+
     /// A knot's context menu is the skein view's
     func testTheContextMenu() throws {
         let (look, _, _) = makeSkein()
