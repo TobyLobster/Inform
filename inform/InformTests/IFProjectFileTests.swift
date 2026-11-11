@@ -68,6 +68,23 @@ final class IFProjectFileTests: XCTestCase {
         return commands
     }
 
+    /// An extension project written to disk, with a skein for each line of play from SkeinA.skein on
+    private func extensionProjectOnDisk(_ lines: [[String]], in folder: URL) throws -> URL {
+        let projectFile = try XCTUnwrap(IFProjectFile(fileWrapper: project(name: "Lighthouse.i7xp")))
+        projectFile.write(lines.map(skein), isExtensionProject: true)
+        let url = folder.appendingPathComponent("Lighthouse.inform")
+        projectFile.filename = url.path
+        XCTAssertTrue(projectFile.write)
+        return url
+    }
+
+    /// Renames a file in two steps, so that a change of case alone is made on a disk that doesn't tell case apart
+    private func rename(_ name: String, to newName: String, in folder: URL) throws {
+        let between = folder.appendingPathComponent(UUID().uuidString)
+        try fileManager.moveItem(at: folder.appendingPathComponent(name), to: between)
+        try fileManager.moveItem(at: between, to: folder.appendingPathComponent(newName))
+    }
+
     private func loadSkeins(_ projectFile: IFProjectFile, isExtensionProject: Bool) -> [IFSkein] {
         let skeins = NSMutableArray()
         projectFile.load(into: skeins, project: IFProject(), isExtensionProject: isExtensionProject)
@@ -378,6 +395,30 @@ final class IFProjectFileTests: XCTestCase {
         let loaded = loadSkeins(try XCTUnwrap(IFProjectFile(fileWrapper: written)), isExtensionProject: true)
 
         XCTAssertEqual(loaded.map { commands($0).last }, ["look"])
+    }
+
+    func testReadsAnExtensionProjectsSkeinNamedInAnotherCase() throws {
+        let url = try extensionProjectOnDisk([["look"], ["north"]], in: try makeFolder())
+        try rename("SkeinA.skein", to: "skeina.skein", in: url)
+
+        let written = try FileWrapper(url: url, options: .immediate)
+        let loaded = loadSkeins(try XCTUnwrap(IFProjectFile(fileWrapper: written)), isExtensionProject: true)
+
+        XCTAssertEqual(loaded.map { commands($0).last }, ["look", "north"])
+    }
+
+    /// As a disk that tells case apart can have
+    func testReadsTheSkeinNamedExactlyWhenOneNamedInAnotherCaseIsThereToo() throws {
+        let url = try extensionProjectOnDisk([["look"], ["north"]], in: try makeFolder())
+        let written = try FileWrapper(url: url, options: .immediate)
+        let skeinB = try XCTUnwrap(written.fileWrappers?["SkeinB.skein"]?.regularFileContents)
+        let otherCase = FileWrapper(regularFileWithContents: skeinB)
+        otherCase.preferredFilename = "skeina.skein"
+        written.addFileWrapper(otherCase)
+
+        let loaded = loadSkeins(try XCTUnwrap(IFProjectFile(fileWrapper: written)), isExtensionProject: true)
+
+        XCTAssertEqual(loaded.map { commands($0).last }, ["look", "north"])
     }
 
     func testANewSkeinForAnExtensionProjectWithNone() throws {

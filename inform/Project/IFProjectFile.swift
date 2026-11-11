@@ -163,22 +163,19 @@ extension IFProjectFile {
             // Load all skeins for an extension project
             let wrappers = bundleDirectory.fileWrappers ?? [:]
             for alphabetCount in 0..<26 {
-                var found = false
                 let fileToFind = String(format: "Skein%c.skein", Int32(UInt8(ascii: "A")) + Int32(alphabetCount))
-                for (_, wrapper) in wrappers {
-                    if wrapper.isRegularFile {
-                        if (wrapper.filename as NSString?)?.isEqual(toStringCaseInsensitive: fileToFind) == true {
-                            let skein = IFSkein(project: project)
-                            if loadIntoSkein(skein, fromFile: fileToFind) {
-                                skeins.add(skein)
-                                found = true
-                            }
-                        }
-                    }
+                // The file of that name in any case, or the one named exactly if a disk that tells case apart has more
+                let names = wrappers.keys.sorted().filter {
+                    wrappers[$0]?.isRegularFile == true && ($0 as NSString).isEqual(toStringCaseInsensitive: fileToFind)
                 }
-                if !found {
+                guard let name = names.contains(fileToFind) ? fileToFind : names.first else {
                     break
                 }
+                let skein = IFSkein(project: project)
+                guard loadIntoSkein(skein, fromFile: name) else {
+                    break
+                }
+                skeins.add(skein)
             }
         }
 
