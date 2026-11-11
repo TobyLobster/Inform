@@ -11,7 +11,7 @@ import AppKit
 private let kSkeinMinEditFieldWidth: CGFloat = 40.0    // Smallest width for editing a command
 
 /// Drawing info, made when first used
-private var itemTextAttributes: [NSAttributedString.Key: Any] = [
+@MainActor private var itemTextAttributes: [NSAttributedString.Key: Any] = [
     .font:            NSFont.systemFont(ofSize: IFSkeinView.fontSize),
     .foregroundColor: NSColor.black,
 ]

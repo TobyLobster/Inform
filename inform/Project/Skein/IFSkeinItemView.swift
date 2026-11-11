@@ -45,38 +45,38 @@ private let testMeTextColor = NSColor(calibratedRed: 0.8,
                                       alpha: 1.0)
 
 // Standard attributes
-private var itemTextActiveAttributes: [NSAttributedString.Key: Any] = [
+@MainActor private var itemTextActiveAttributes: [NSAttributedString.Key: Any] = [
     .font:            NSFont.systemFont(ofSize: IFSkeinView.fontSize),
     .foregroundColor: NSColor.white ]
-private var itemTextSelectedAttributes: [NSAttributedString.Key: Any] = [
+@MainActor private var itemTextSelectedAttributes: [NSAttributedString.Key: Any] = [
     .font:            NSFont.systemFont(ofSize: IFSkeinView.fontSize),
     .foregroundColor: NSColor.white ]
-private var itemTextUnselectedAttributes: [NSAttributedString.Key: Any] = [
+@MainActor private var itemTextUnselectedAttributes: [NSAttributedString.Key: Any] = [
     .font:            NSFont.systemFont(ofSize: IFSkeinView.fontSize),
     .foregroundColor: NSColor.white ]
 
 // "Test me" attributes
-private var itemTestMeTextActiveAttributes: [NSAttributedString.Key: Any] = [
+@MainActor private var itemTestMeTextActiveAttributes: [NSAttributedString.Key: Any] = [
     .font:            NSFont.systemFont(ofSize: IFSkeinView.fontSize),
     .obliqueness:     0.2,
     .foregroundColor: testMeTextColor ]
-private var itemTestMeTextSelectedAttributes: [NSAttributedString.Key: Any] = [
+@MainActor private var itemTestMeTextSelectedAttributes: [NSAttributedString.Key: Any] = [
     .font:            NSFont.systemFont(ofSize: IFSkeinView.fontSize),
     .obliqueness:     0.2,
     .foregroundColor: testMeTextColor ]
-private var itemTestMeTextUnselectedAttributes: [NSAttributedString.Key: Any] = [
+@MainActor private var itemTestMeTextUnselectedAttributes: [NSAttributedString.Key: Any] = [
     .font:            NSFont.systemFont(ofSize: IFSkeinView.fontSize),
     .obliqueness:     0.2,
     .foregroundColor: testMeTextColor ]
 
 // Root attributes
-private var itemTextRootActiveAttributes: [NSAttributedString.Key: Any] = [
+@MainActor private var itemTextRootActiveAttributes: [NSAttributedString.Key: Any] = [
     .font:            NSFont.boldSystemFont(ofSize: IFSkeinView.fontSize),
     .foregroundColor: NSColor.white ]
-private var itemTextRootSelectedAttributes: [NSAttributedString.Key: Any] = [
+@MainActor private var itemTextRootSelectedAttributes: [NSAttributedString.Key: Any] = [
     .font:            NSFont.boldSystemFont(ofSize: IFSkeinView.fontSize),
     .foregroundColor: NSColor.white ]
-private var itemTextRootUnselectedAttributes: [NSAttributedString.Key: Any] = [
+@MainActor private var itemTextRootUnselectedAttributes: [NSAttributedString.Key: Any] = [
     .font:            NSFont.boldSystemFont(ofSize: IFSkeinView.fontSize),
     .foregroundColor: NSColor.white ]
 

@@ -9,14 +9,14 @@ import AppKit
 
 // The text's attributes. Made when first used, as the Objective-C's +initialize made them when the class was first
 // used, at the size adjustAttributesToFontSize gives them.
-private var commandAttr: [NSAttributedString.Key: Any] = sizedToFont(
+@MainActor private var commandAttr: [NSAttributedString.Key: Any] = sizedToFont(
     [ .font: NSFont.boldSystemFont(ofSize: kSkeinDefaultReportFontSize) ])
-private var normalAttr: [NSAttributedString.Key: Any] = sizedToFont(
+@MainActor private var normalAttr: [NSAttributedString.Key: Any] = sizedToFont(
     [ .font: NSFont.systemFont(ofSize: kSkeinDefaultReportFontSize) ])
-private var insertAttr: [NSAttributedString.Key: Any] = sizedToFont(
+@MainActor private var insertAttr: [NSAttributedString.Key: Any] = sizedToFont(
     [ .font: NSFont.systemFont(ofSize: kSkeinDefaultReportFontSize),
       .backgroundColor: NSColor(calibratedRed: 0.0, green: 0.75, blue: 0.0, alpha: 0.45) ])
-private var deleteAttr: [NSAttributedString.Key: Any] = sizedToFont(
+@MainActor private var deleteAttr: [NSAttributedString.Key: Any] = sizedToFont(
     [ .font: NSFont.systemFont(ofSize: kSkeinDefaultReportFontSize),
       .backgroundColor: NSColor(calibratedRed: 1.0, green: 0.0, blue: 0.1, alpha: 0.45),
       .strikethroughStyle: NSUnderlineStyle.single.rawValue,

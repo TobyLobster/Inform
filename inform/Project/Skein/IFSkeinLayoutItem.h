@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 //
 // A skein item's layout
 //
+NS_SWIFT_UI_ACTOR
 @interface IFSkeinLayoutItem : NSObject
 
 // Initialisation
