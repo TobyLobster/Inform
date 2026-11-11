@@ -15,7 +15,7 @@ import WebKit
     @objc(findNextMatch:ofType:completionHandler:)
     func findNextMatch(_ match: String,
                        of type: IFFindType,
-                       completionHandler: ((Bool) -> Void)?) {
+                       completionHandler: (@MainActor @Sendable (Bool) -> Void)?) {
         let insensitive = (type.rawValue & IFFindType.caseInsensitive.rawValue) != 0
 
         let configuration = WKFindConfiguration()
@@ -31,7 +31,7 @@ import WebKit
     @objc(findPreviousMatch:ofType:completionHandler:)
     func findPreviousMatch(_ match: String,
                            of type: IFFindType,
-                           completionHandler: ((Bool) -> Void)?) {
+                           completionHandler: (@MainActor @Sendable (Bool) -> Void)?) {
         let insensitive = (type.rawValue & IFFindType.caseInsensitive.rawValue) != 0
 
         let configuration = WKFindConfiguration()
@@ -57,7 +57,7 @@ import WebKit
         }
     }
 
-    func currentSelectionForFind(completionHandler: @escaping (String?) -> Void) {
+    func currentSelectionForFind(completionHandler: @escaping @MainActor @Sendable (String?) -> Void) {
         let script = "window.getSelection().toString()"
         evaluateJavaScript(script) { selectedString, error in
             if error == nil {

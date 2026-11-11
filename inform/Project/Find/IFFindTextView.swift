@@ -76,7 +76,7 @@ private var groupsLastFound: NSArray?
     @objc(findNextMatch:ofType:completionHandler:)
     func findNextMatch(_ match: String,
                        of type: IFFindType,
-                       completionHandler: ((Bool) -> Void)?) {
+                       completionHandler: (@MainActor @Sendable (Bool) -> Void)?) {
         // Start after the current selection
         var matchPos = UInt(selectedRange().location + selectedRange().length)
 
@@ -106,7 +106,7 @@ private var groupsLastFound: NSArray?
     @objc(findPreviousMatch:ofType:completionHandler:)
     func findPreviousMatch(_ match: String,
                            of type: IFFindType,
-                           completionHandler: ((Bool) -> Void)?) {
+                           completionHandler: (@MainActor @Sendable (Bool) -> Void)?) {
         // Start searching at the previous character
         let matchPos: UInt
         let length = textStorage?.length ?? 0
@@ -147,7 +147,7 @@ private var groupsLastFound: NSArray?
         return true
     }
 
-    func currentSelectionForFind(completionHandler: @escaping (String?) -> Void) {
+    func currentSelectionForFind(completionHandler: @escaping @MainActor @Sendable (String?) -> Void) {
         completionHandler((string as NSString).substring(with: selectedRange()))
     }
 

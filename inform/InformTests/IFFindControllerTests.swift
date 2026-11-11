@@ -26,7 +26,9 @@ private final class MemoryDefaults: UserDefaults {
 private final class FindNextOnly: NSWindowController, IFFindDelegate {
     private(set) var found: [String] = []
 
-    func findNextMatch(_ match: String, of type: IFFindType, completionHandler: ((Bool) -> Void)?) {
+    func findNextMatch(_ match: String,
+                       of type: IFFindType,
+                       completionHandler: (@MainActor @Sendable (Bool) -> Void)?) {
         found.append(match)
     }
 }

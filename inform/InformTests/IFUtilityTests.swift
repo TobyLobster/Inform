@@ -620,8 +620,10 @@ final class IFUtilityTests: XCTestCase {
     private final class AlertRecorder: IFUtility {
         static var shown: [(alert: NSAlert, window: NSWindow?)] = []
 
-        override class func show(_ alert: NSAlert, for window: NSWindow?,
-                                 completionHandler handler: @escaping (NSApplication.ModalResponse) -> Void) {
+        override class func show(_ alert: NSAlert,
+                                 for window: NSWindow?,
+                                 completionHandler handler:
+                                    @escaping @MainActor @Sendable (NSApplication.ModalResponse) -> Void) {
             shown.append((alert, window))
         }
     }

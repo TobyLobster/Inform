@@ -681,7 +681,9 @@ extension IFAppDelegate {
         // Schedule "Checking whether document exists." into next UI Loop, because document is not restored yet.
         // NSInvocationOperation isn't available in Swift, so the operation is a block.
         OperationQueue.main.addOperation {
-            self.openWelcomeDialogIfNeeded()
+            MainActor.assumeIsolated {
+                self.openWelcomeDialogIfNeeded()
+            }
         }
     }
 

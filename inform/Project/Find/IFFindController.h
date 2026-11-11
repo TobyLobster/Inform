@@ -46,19 +46,20 @@ NS_ASSUME_NONNULL_BEGIN
 /// Request to find the next match
 - (void) findNextMatch:	(NSString*) match
 				ofType: (IFFindType) type
-     completionHandler: (nullable void (^)(bool result))completionHandler;
+     completionHandler: (nullable void (NS_SWIFT_UI_ACTOR ^)(bool result))completionHandler;
 @optional
 
 /// Request to find the previous match
 - (void) findPreviousMatch: (NSString*) match
 					ofType: (IFFindType) type
-         completionHandler: (nullable void (^)(bool result))completionHandler;
+         completionHandler: (nullable void (NS_SWIFT_UI_ACTOR ^)(bool result))completionHandler;
 
 /// Allows delegates to specify which type of file they can search on
 - (BOOL) canUseFindType: (IFFindType) find;
 
 /// Returns whatever was currently selected (or nil if it can't be had): used to implement the 'use selection for find' menu option
-- (void) currentSelectionForFindWithCompletionHandler:(void (^)(NSString* _Nullable result))completionHandler;
+- (void) currentSelectionForFindWithCompletionHandler:
+    (void (NS_SWIFT_UI_ACTOR ^)(NSString* _Nullable result))completionHandler;
 
 // 'Find all'
 /// Should return an array of IFFindResults (nil if there's nothing to find)
