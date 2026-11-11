@@ -384,6 +384,19 @@ final class IFProjectControllerTests: XCTestCase, @unchecked Sendable {
         XCTAssertFalse(controller.isCurrentlyTesting)
     }
 
+    // MARK: - Run-time problems
+
+    /// When inbuild can't turn a run-time problem's Markdown into a page, the page it writes about the error is
+    /// shown in its place
+    func testARunTimeProblemInbuildCantConvertShowsItsErrorPage() {
+        // The folder the story names has no Markdown for the problem
+        controller.runtimeError("Missing", inDirectory: folder.path)
+
+        XCTAssertEqual(pageShown(left), IFErrorsPage.description())
+        XCTAssertTrue(left.compilerController.viewTabs.contains { $0.tabId == .tabRuntime })
+        XCTAssertEqual(left.compilerController.selectedTabId, .tabRuntime)
+    }
+
     // MARK: - The window
 
     func testTheWindowIsTitledWithTheProjectsName() {
