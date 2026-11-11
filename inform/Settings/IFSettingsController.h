@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Class used to manage a set of IFSettings
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFSettingsController : NSObject
 
 // Plug-in support

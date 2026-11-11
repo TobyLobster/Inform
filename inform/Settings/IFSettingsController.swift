@@ -9,7 +9,7 @@
 import Cocoa
 
 /// The 'standard' settings classes, which are always added to the controller on startup
-private var standardSettingsClasses: [IFSetting.Type] = []
+@MainActor private var standardSettingsClasses: [IFSetting.Type] = []
 
 @objc @implementation extension IFSettingsController {
     // UI + model
