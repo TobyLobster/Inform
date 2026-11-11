@@ -144,10 +144,13 @@ import Cocoa
         return document?.undoManager
     }
 
-    /// Where to send a message that undoes a change, or nil if there's no skein or undo manager.
-    private var undoTarget: AnyObject? {
-        guard let skein else { return nil }
-        return undoManager?.prepare(withInvocationTarget: skein) as AnyObject?
+    /// Where to send a message that undoes a change, or nil if there's no skein or undo manager. The undo manager
+    /// records the message it's sent next, to send to the skein, so it isn't cast, as a cast asks it its class. Nor
+    /// is the message looked up on AnyObject, which finds none for the undo manager, as the skein is the main
+    /// actor's.
+    private var undoTarget: IFSkein? {
+        guard let skein, let undoManager else { return nil }
+        return unsafeBitCast(undoManager.prepare(withInvocationTarget: skein) as AnyObject, to: IFSkein.self)
     }
 
     private func disableUndo() {
@@ -227,7 +230,7 @@ import Cocoa
                 return
             }
 
-            _ = undoTarget?.setParentOf(self, parent: _parent)
+            undoTarget?.setParentOf(self, parent: _parent)
             _parent = newParent
             skein?.setLayoutDirty()
             skein?.setSkeinChanged()
@@ -243,7 +246,7 @@ import Cocoa
     func removeFromParent() {
         if let parent = _parent {
             parent.remove(fromChildrenArray: self)
-            _ = undoTarget?.setParentOf(self, parent: _parent)
+            undoTarget?.setParentOf(self, parent: _parent)
             skein?.setLayoutDirty()
             skein?.setSkeinChanged()
             _parent = nil
@@ -252,7 +255,7 @@ import Cocoa
     }
 
     func remove(fromChildrenArray itemToRemove: IFSkeinItem) {
-        _ = undoTarget?.add(toChildrenArrayOf: self, itemToAdd: itemToRemove)
+        undoTarget?.add(toChildrenArrayOf: self, itemToAdd: itemToRemove)
         _children.remove(itemToRemove)
         skein?.setLayoutDirty()
         skein?.setSkeinChanged()
@@ -260,7 +263,7 @@ import Cocoa
 
     func add(toChildrenArray itemToAdd: IFSkeinItem) {
         // Insert childItem into children alphabetically
-        _ = undoTarget?.remove(fromChildrenArrayOf: self, itemToRemove: itemToAdd)
+        undoTarget?.remove(fromChildrenArrayOf: self, itemToRemove: itemToAdd)
         var index = 0
         while index < _children.count {
             if ((_children[index] as! IFSkeinItem)._command as NSString).compare(itemToAdd._command) == .orderedDescending {
@@ -339,7 +342,7 @@ import Cocoa
                 return
             }
 
-            _ = undoTarget?.setCommandOf(self, command: _command)
+            undoTarget?.setCommandOf(self, command: _command)
 
             commandSizeDidChange = true
             _command = newCommand
@@ -359,7 +362,7 @@ import Cocoa
                 return
             }
 
-            _ = undoTarget?.setActualOf(self, actual: _actual)
+            undoTarget?.setActualOf(self, actual: _actual)
             _actual = newActual
             skein?.setLayoutDirty()
             skein?.setSkeinChanged()
@@ -376,7 +379,7 @@ import Cocoa
                 return
             }
 
-            _ = undoTarget?.setIdealOf(self, ideal: _ideal)
+            undoTarget?.setIdealOf(self, ideal: _ideal)
             _ideal = newIdeal
             skein?.setLayoutDirty()
             skein?.setSkeinChanged()
@@ -398,8 +401,8 @@ import Cocoa
             return
         }
 
-        _ = undoTarget?.setIsTestSubItemWithNSNumberOf(self,
-                                                       isTestSubItemWith: NSNumber(value: _isTestSubItem))
+        undoTarget?.setIsTestSubItemWithNSNumberOf(self,
+                                                   isTestSubItemWith: NSNumber(value: _isTestSubItem))
         _isTestSubItem = newIsTestSubItem.boolValue
         skein?.setLayoutDirty()
         skein?.setSkeinChanged()
