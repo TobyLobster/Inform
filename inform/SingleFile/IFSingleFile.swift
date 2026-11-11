@@ -27,7 +27,10 @@ import Cocoa
     }
 
     deinit {
-        IFSyntaxManager.unregisterTextStorage(fileStorage)
+        // Documents are closed, and let go of, on the main thread
+        MainActor.assumeIsolated {
+            IFSyntaxManager.unregisterTextStorage(fileStorage)
+        }
     }
 
     // MARK: - Data

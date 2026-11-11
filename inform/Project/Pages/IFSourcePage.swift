@@ -157,14 +157,17 @@ import Cocoa
     }
 
     deinit {
-        // Main views and text classes
-        scrollView?.removeFromSuperview()
+        // The pane lets go of its pages on the main thread
+        MainActor.assumeIsolated {
+            // Main views and text classes
+            scrollView?.removeFromSuperview()
 
-        // Remove all notifications
-        NotificationCenter.default.removeObserver(self)
+            // Remove all notifications
+            NotificationCenter.default.removeObserver(self)
 
-        // Header page
-        headerPage?.delegate = nil
+            // Header page
+            headerPage?.delegate = nil
+        }
     }
 
     // MARK: - Details about this view

@@ -78,23 +78,26 @@ private let zoomShowsWarnings: Void = {
     }
 
     deinit {
-        _sourcePage?.finished()
-        _errorsPage?.finished()
-        _indexPage?.finished()
-        _skeinPage?.finished()
-        _gamePage?.finished()
-        _documentationPage?.finished()
-        _extensionsPage?.finished()
-        _settingsPage?.finished()
+        // The project window lets go of its panes on the main thread
+        MainActor.assumeIsolated {
+            _sourcePage?.finished()
+            _errorsPage?.finished()
+            _indexPage?.finished()
+            _skeinPage?.finished()
+            _gamePage?.finished()
+            _documentationPage?.finished()
+            _extensionsPage?.finished()
+            _settingsPage?.finished()
 
-        for page in pages {
-            page.recorder = nil
-        }
-        for page in pages {
-            page.otherPane = nil
-        }
+            for page in pages {
+                page.recorder = nil
+            }
+            for page in pages {
+                page.otherPane = nil
+            }
 
-        NotificationCenter.default.removeObserver(self)
+            NotificationCenter.default.removeObserver(self)
+        }
     }
 
     @objc(attributeForStyle:)

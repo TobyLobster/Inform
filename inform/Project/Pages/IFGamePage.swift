@@ -68,22 +68,25 @@ private final class IFSemiTransparentView: NSView {
     }
 
     deinit {
-        NotificationCenter.default.removeObserver(self)
+        // The pane lets go of its pages on the main thread
+        MainActor.assumeIsolated {
+            NotificationCenter.default.removeObserver(self)
 
-        if let gameRunningProgress {
-            gameRunningProgress.stop()
-            parent?.removeProgressIndicator(gameRunningProgress)
-        }
+            if let gameRunningProgress {
+                gameRunningProgress.stop()
+                parent?.removeProgressIndicator(gameRunningProgress)
+            }
 
-        if let zView {
-            zView.removeFromSuperview()
-            zView.delegate = nil
-            zView.killTask()
-        }
-        if let gView {
-            gView.removeFromSuperview()
-            gView.delegate = nil
-            gView.terminateClient()
+            if let zView {
+                zView.removeFromSuperview()
+                zView.delegate = nil
+                zView.killTask()
+            }
+            if let gView {
+                gView.removeFromSuperview()
+                gView.delegate = nil
+                gView.terminateClient()
+            }
         }
     }
 
