@@ -36,16 +36,25 @@ extension IFToolRun {
         // Start the task
         theTask.launch()
 
+        // Read stderr as the tool writes it, so that a tool writing more there than a pipe holds isn't kept waiting
+        // for stdout to be read to its end
+        nonisolated(unsafe) var errorData = Data()
+        let errorRead = DispatchGroup()
+        DispatchQueue.global().async(group: errorRead) {
+            errorData = stdErrH.readDataToEndOfFile()
+        }
+
         // Wait until finished
         var data = Data(capacity: 512)
         while theTask.isRunning {
             data.append(stdOutH.readDataToEndOfFile())
         }
         data.append(stdOutH.readDataToEndOfFile())
+        errorRead.wait()
 
         // Record output
         standardOutput = data
-        standardError = stdErrH.readDataToEndOfFile()
+        standardError = errorData
         exitCode = theTask.terminationStatus
         super.init()
     }

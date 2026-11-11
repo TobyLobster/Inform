@@ -38,6 +38,22 @@ final class IFToolRunTests: XCTestCase {
         XCTAssertEqual(run.standardOutput, Data(repeating: UInt8(ascii: "o"), count: 100000))
     }
 
+    /// More than a pipe holds, before the tool ends its stdout. If stderr weren't read until then, the tool would wait
+    /// for room to write it, and the run for stdout to end; so the tool stops itself after ten seconds, for the test
+    /// to fail rather than hang.
+    func testKeepsAllTheToolWritesToStderrBeforeItsStdoutEnds() {
+        let run = shell("""
+            ( sleep 10; kill $$ ) >/dev/null 2>&1 & watchdog=$!
+            head -c 100000 /dev/zero | tr '\\0' e >&2
+            printf done
+            kill $watchdog
+            """)
+
+        XCTAssertEqual(run.exitCode, 0)
+        XCTAssertEqual(text(run.standardOutput), "done")
+        XCTAssertEqual(run.standardError, Data(repeating: UInt8(ascii: "e"), count: 100000))
+    }
+
     func testKeepsTheToolsExitCode() {
         XCTAssertEqual(shell("exit 3").exitCode, 3)
     }
