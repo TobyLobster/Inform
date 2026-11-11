@@ -34,29 +34,18 @@ CGFloat easeOutCubic(CGFloat t);
 + (BOOL) isTestHostWithLeftoverHomeInEnvironment: (NSDictionary<NSString*, NSString*>*) environment;
 
 // Convenience methods for alerts
-+ (void) runAlertInformationWindow: (nullable NSWindow*) window
-                             title: (NSString*) title
-                           message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(3,4);
-+ (void) runAlertWarningWindow: (nullable NSWindow*) window
-                         title: (NSString*) title
-                       message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(3,4);
-/// The same, for Swift, which can't call the methods taking a format
+/// An informational alert with an OK button, its title looked up in the localised strings and its text as it is
 + (void) runAlertInformationWindow: (nullable NSWindow*) window
                              title: (NSString*) title
                    informativeText: (NSString*) text;
+/// The same, as a warning
 + (void) runAlertWarningWindow: (nullable NSWindow*) window
                          title: (NSString*) title
                informativeText: (NSString*) text;
-/// A warning whose title is already localised, with its text as it is, for Swift
+/// A warning whose title is already localised
 + (void) runAlertWarningWindow: (nullable NSWindow*) window
                 localizedTitle: (NSString*) title
                informativeText: (NSString*) text;
-
-+ (void) runAlertWindow: (nullable NSWindow*) window
-              localized: (BOOL) alreadyLocalized
-                warning: (BOOL) warningStyle
-                  title: (NSString*) title
-                message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(5,6);
 
 /// Shows the alert in a sheet on the window, or with no window runs it app-modally. While the app is
 /// hosting the unit tests an alert with no window is only logged, and ends at once with NSModalResponseAbort.
@@ -70,25 +59,8 @@ CGFloat easeOutCubic(CGFloat t);
               forWindow: (nullable NSWindow*) window
       completionHandler: (void (NS_SWIFT_UI_ACTOR ^)(NSModalResponse result)) handler;
 
-+ (void) runAlertYesNoWindow: (nullable NSWindow*) window
-                       title: (NSString*) title
-                         yes: (NSString*) yes
-                          no: (NSString*) no
-               modalDelegate: (nullable id) modalDelegate
-              didEndSelector: (nullable SEL) alertDidEndSelector
-                 contextInfo: (nullable void *) contextInfo
-                     message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(8,9);
-
-+ (void) runAlertYesNoWindow: (nullable NSWindow*) window
-                       title: (NSString*) title
-                         yes: (NSString*) yes
-                          no: (NSString*) no
-               modalDelegate: (nullable id) modalDelegate
-              didEndSelector: (nullable SEL) alertDidEndSelector
-                 contextInfo: (nullable void *) contextInfo
-            destructiveIndex: (NSInteger) desIdx
-                     message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(9,10);
-/// The same, for Swift, which can't call the methods taking a format
+/// An alert asking yes or no, with its title, buttons and text as they're given. When it ends, the delegate is sent
+/// the selector, if both are given, with the window, the response and the context.
 + (void) runAlertYesNoWindow: (nullable NSWindow*) window
                        title: (NSString*) title
                          yes: (NSString*) yes
@@ -97,7 +69,7 @@ CGFloat easeOutCubic(CGFloat t);
               didEndSelector: (nullable SEL) alertDidEndSelector
                  contextInfo: (nullable void *) contextInfo
              informativeText: (NSString*) text;
-/// The same, with the button at the index given (0 or 1) marked as destructive, for Swift
+/// The same, with the button at the index given (0 or 1) marked as destructive
 + (void) runAlertYesNoWindow: (nullable NSWindow*) window
                        title: (NSString*) title
                          yes: (NSString*) yes

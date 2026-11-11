@@ -51,78 +51,40 @@ CGFloat easeOutCubic(CGFloat t) {
 #pragma mark - Alert dialogs
 + (void) runAlertWarningWindow: (NSWindow*) window
                          title: (NSString*) title
-                       message: (NSString*) formatString, ... {
-    va_list args;
-    va_start(args, formatString);
-    NSString* contents = [[NSString alloc] initWithFormat: [self localizedString:formatString]
-                                                 arguments: args];
-    va_end(args);
-    
-    [[self class] runAlertWindow: window
-                       localized: NO
-                         warning: YES
-                           title: [self localizedString: title]
-                         message: @"%@", contents];
-}
-
-+ (void) runAlertWarningWindow: (NSWindow*) window
-                         title: (NSString*) title
                informativeText: (NSString*) text {
-    [self runAlertWarningWindow: window
-                          title: title
-                        message: @"%@", text];
+    [self runAlertWindow: window
+                 warning: YES
+          localizedTitle: [self localizedString: title]
+         informativeText: text];
 }
 
 + (void) runAlertWarningWindow: (NSWindow*) window
                 localizedTitle: (NSString*) title
                informativeText: (NSString*) text {
-    [[self class] runAlertWindow: window
-                       localized: YES
-                         warning: YES
-                           title: title
-                         message: @"%@", text];
-}
-
-+ (void) runAlertInformationWindow: (NSWindow*) window
-                             title: (NSString*) title
-                           message: (NSString*) formatString, ... {
-    va_list args;
-    va_start(args, formatString);
-    NSString* contents = [[NSString alloc] initWithFormat: [self localizedString:formatString]
-                                                 arguments: args];
-    va_end(args);
-    
-    [[self class] runAlertWindow: window
-                       localized: NO
-                         warning: NO
-                           title: [self localizedString: title]
-                         message: @"%@", contents];
+    [self runAlertWindow: window
+                 warning: YES
+          localizedTitle: title
+         informativeText: text];
 }
 
 + (void) runAlertInformationWindow: (NSWindow*) window
                              title: (NSString*) title
                    informativeText: (NSString*) text {
-    [self runAlertInformationWindow: window
-                              title: title
-                            message: @"%@", text];
+    [self runAlertWindow: window
+                 warning: NO
+          localizedTitle: [self localizedString: title]
+         informativeText: text];
 }
 
-
+/// An alert with an OK button
 + (void) runAlertWindow: (NSWindow*) window
-              localized: (BOOL) alreadyLocalized
                 warning: (BOOL) warningStyle
-                  title: (NSString*) title
-                message: (NSString*) formatString, ... {
-    va_list args;
-    va_start(args, formatString);
-    NSString* contents = [[NSString alloc] initWithFormat: alreadyLocalized ? formatString : [self localizedString:formatString]
-                                                 arguments: args];
-    va_end(args);
-
+         localizedTitle: (NSString*) title
+        informativeText: (NSString*) text {
     NSAlert *alert = [[NSAlert alloc] init];
     [alert addButtonWithTitle:  [self localizedString: @"OK"]];
-    alert.messageText = alreadyLocalized ? title : [self localizedString: title];
-    alert.informativeText = contents;
+    alert.messageText = title;
+    alert.informativeText = text;
     alert.alertStyle = warningStyle ? NSAlertStyleWarning : NSAlertStyleInformational;
 
     [self showAlert: alert
@@ -162,32 +124,35 @@ CGFloat easeOutCubic(CGFloat t) {
                modalDelegate: (id) modalDelegate
               didEndSelector: (SEL) alertDidEndSelector
                  contextInfo: (void *) contextInfo
-            destructiveIndex: (NSInteger) desIdx
-                     message: (NSString*) formatString
-                        args: (va_list) args {
-    NSString* contents = [[NSString alloc] initWithFormat: formatString
-                                                 arguments: args];
+             informativeText: (NSString*) text {
+    [self runAlertYesNoWindow: window
+                        title: title
+                          yes: yes
+                           no: no
+                modalDelegate: modalDelegate
+               didEndSelector: alertDidEndSelector
+                  contextInfo: contextInfo
+             destructiveIndex: NSNotFound
+              informativeText: text];
+}
 
++ (void) runAlertYesNoWindow: (NSWindow*) window
+                       title: (NSString*) title
+                         yes: (NSString*) yes
+                          no: (NSString*) no
+               modalDelegate: (id) modalDelegate
+              didEndSelector: (SEL) alertDidEndSelector
+                 contextInfo: (void *) contextInfo
+            destructiveIndex: (NSInteger) desIdx
+             informativeText: (NSString*) text {
     NSAlert *alert = [[NSAlert alloc] init];
     [alert addButtonWithTitle:  yes];
     [alert addButtonWithTitle:  no];
     alert.messageText = title;
-    alert.informativeText = contents;
+    alert.informativeText = text;
     alert.alertStyle = NSAlertStyleInformational;
-    if (@available(macOS 11.0, *)) {
-        switch (desIdx) {
-            case NSNotFound:
-                // do nothing
-                break;
-                
-            case 0:
-            case 1:
-                alert.buttons[desIdx].hasDestructiveAction = YES;
-                break;
-
-            default:
-                break;
-        }
+    if (desIdx == 0 || desIdx == 1) {
+        alert.buttons[desIdx].hasDestructiveAction = YES;
     }
 
     [self showAlert: alert
@@ -215,91 +180,6 @@ CGFloat easeOutCubic(CGFloat t) {
     func(modalDelegate, alertDidEndSelector, window, returnCode, contextInfo);
 }
 
-+ (void) runAlertYesNoWindow: (NSWindow*) window
-                       title: (NSString*) title
-                         yes: (NSString*) yes
-                          no: (NSString*) no
-               modalDelegate: (id) modalDelegate
-              didEndSelector: (SEL) alertDidEndSelector
-                 contextInfo: (void *) contextInfo
-                     message: (NSString*) formatString, ... {
-    va_list args;
-    va_start(args, formatString);
-    [self runAlertYesNoWindow:window
-                        title:title
-                          yes:yes
-                           no:no
-                modalDelegate:modalDelegate
-               didEndSelector:alertDidEndSelector
-                  contextInfo:contextInfo
-             destructiveIndex:NSNotFound
-                      message:formatString
-                         args:args];
-    va_end(args);
-}
-
-+ (void) runAlertYesNoWindow: (NSWindow*) window
-                       title: (NSString*) title
-                         yes: (NSString*) yes
-                          no: (NSString*) no
-               modalDelegate: (id) modalDelegate
-              didEndSelector: (SEL) alertDidEndSelector
-                 contextInfo: (void *) contextInfo
-            destructiveIndex: (NSInteger) desIdx
-                     message: (NSString*) formatString, ... {
-    va_list args;
-    va_start(args, formatString);
-    [self runAlertYesNoWindow:window
-                        title:title
-                          yes:yes
-                           no:no
-                modalDelegate:modalDelegate
-               didEndSelector:alertDidEndSelector
-                  contextInfo:contextInfo
-             destructiveIndex:desIdx
-                      message:formatString
-                         args:args];
-    va_end(args);
-}
-
-+ (void) runAlertYesNoWindow: (NSWindow*) window
-                       title: (NSString*) title
-                         yes: (NSString*) yes
-                          no: (NSString*) no
-               modalDelegate: (id) modalDelegate
-              didEndSelector: (SEL) alertDidEndSelector
-                 contextInfo: (void *) contextInfo
-             informativeText: (NSString*) text {
-    [self runAlertYesNoWindow: window
-                        title: title
-                          yes: yes
-                           no: no
-                modalDelegate: modalDelegate
-               didEndSelector: alertDidEndSelector
-                  contextInfo: contextInfo
-                      message: @"%@", text];
-}
-
-+ (void) runAlertYesNoWindow: (NSWindow*) window
-                       title: (NSString*) title
-                         yes: (NSString*) yes
-                          no: (NSString*) no
-               modalDelegate: (id) modalDelegate
-              didEndSelector: (SEL) alertDidEndSelector
-                 contextInfo: (void *) contextInfo
-            destructiveIndex: (NSInteger) desIdx
-             informativeText: (NSString*) text {
-    [self runAlertYesNoWindow: window
-                        title: title
-                          yes: yes
-                           no: no
-                modalDelegate: modalDelegate
-               didEndSelector: alertDidEndSelector
-                  contextInfo: contextInfo
-             destructiveIndex: desIdx
-                      message: @"%@", text];
-}
-
 + (void) showExtensionError: (IFExtensionResult) result
                  withWindow: (NSWindow*) window {
     // TODO: Do we want to customise the error message depending on the IFExtensionResult?
@@ -318,7 +198,7 @@ CGFloat easeOutCubic(CGFloat t) {
     }
     [self runAlertWarningWindow: window
                           title: @"Failed to Install Extension"
-                        message: @"Failed to Install Extension Explanation"];
+                informativeText: [self localizedString: @"Failed to Install Extension Explanation"]];
 }
 
 @end
