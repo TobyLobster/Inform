@@ -20,7 +20,10 @@ import WebKit
 
     private final var webView: WKWebView!
     private final let helper: IFWebViewHelper
-    private final var inhibitAddToHistory = 0
+    /// The loads that aren't recorded in the history as they start, each by its navigation: a page from the history,
+    /// and the reload as the index is updated. (A load that another overtakes before it starts is left here, never
+    /// matched.)
+    private final var unrecordedNavigations: [WKNavigation] = []
 
     // MARK: - Initialisation
 
@@ -149,10 +152,8 @@ import WebKit
         }
 
         // Because we are opening this URL as part of replaying history, we don't add it to the history itself.
-        inhibitAddToHistory += 1
-
         let aRequest = URLRequest(url: url)
-        webView.load(aRequest)
+        leaveOutOfHistory(webView.load(aRequest))
     }
 
     func `switch`(toTab tabIdentifier: Int32) {
@@ -248,10 +249,18 @@ import WebKit
         // Once they're in order, as the page bar copies them
         toolbarCellsHaveUpdated()
 
-        webView.reload(self)
+        // The same page, with the index updated, so it isn't recorded again
+        leaveOutOfHistory(webView.reload())
     }
 
     // MARK: - History
+
+    /// Leaves a load out of the history
+    private final func leaveOutOfHistory(_ navigation: WKNavigation?) {
+        if let navigation {
+            unrecordedNavigations.append(navigation)
+        }
+    }
 
     /// The history, as the page: what's sent to it is recorded, and sent to the page when the history is replayed.
     /// The history is a proxy, which records any message it's sent, so it isn't cast, as a cast asks it its class.
@@ -324,17 +333,11 @@ extension IFIndexPage {
                         didStartProvisionalNavigation navigation: WKNavigation!) {
         let url = theWebView.url
         NSLog("HISTORY: Index Page: (didStartProvisionalLoadForFrame) requestURL %@", url?.absoluteString ?? "(null)")
-        if pageIsVisible && inhibitAddToHistory <= 0 {
+        if let index = unrecordedNavigations.firstIndex(where: { $0 === navigation }) {
+            unrecordedNavigations.remove(at: index)
+        } else if pageIsVisible {
             historicalPage?.switchToPage()
             historicalPage?.openHistoricalURL(url)
-        }
-
-        // reduce the number of reasons to inhibit adding to history
-        if inhibitAddToHistory > 0 {
-            inhibitAddToHistory -= 1
-        }
-        else {
-            inhibitAddToHistory = 0
         }
 
         // Highlight the indexCell to something appropriate for the new URL

@@ -397,6 +397,24 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(highlightedTabs(shown), [Int(IFIndexTabType.rules.rawValue)])
     }
 
+    /// The reload as the index is updated after a translation isn't recorded in the history, as it's the same page,
+    /// and what's shown next is
+    func testUpdatingTheIndexIsntRecorded() throws {
+        let recorder = Recorder()
+        let shown = try makePageShowingTheIndex(recorder: recorder)
+        shown.page.pageIsVisible = true
+        switchToTab(.rules, in: shown)
+        XCTAssertEqual(recorder.timesAsked, 2)
+
+        waitForNavigation(shown.watcher) {
+            shown.page.updateIndexView()
+        }
+        XCTAssertEqual(recorder.timesAsked, 2)
+
+        switchToTab(.kinds, in: shown)
+        XCTAssertEqual(recorder.timesAsked, 4)
+    }
+
     /// Each page the page shows is recorded in the history, so that going back switches to the page and shows that
     /// page again, which isn't recorded
     func testTheHistory() throws {
