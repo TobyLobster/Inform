@@ -47,6 +47,22 @@ CGFloat easeOutCubic(CGFloat t) {
     return NSProcessInfo.processInfo.environment[@"XCTestConfigurationFilePath"] != nil;
 }
 
++ (void) stopTestHostWithLeftoverHome {
+    NSDictionary<NSString*, NSString*>* environment = NSProcessInfo.processInfo.environment;
+    if ([self isTestHostWithLeftoverHomeInEnvironment: environment]) {
+        NSLog(@"The tests' home folder %@ was there as the test host started, so the host has the user's "
+              @"preferences. It's stopped, and the tests that were left aren't run.",
+              environment[@"CFFIXED_USER_HOME"]);
+        exit(EXIT_FAILURE);
+    }
+}
+
++ (BOOL) isTestHostWithLeftoverHomeInEnvironment: (NSDictionary<NSString*, NSString*>*) environment {
+    NSString* home = environment[@"CFFIXED_USER_HOME"];
+    return environment[@"XCTestConfigurationFilePath"] != nil && home != nil &&
+           [NSFileManager.defaultManager fileExistsAtPath: home];
+}
+
 #pragma mark - Alert dialogs
 + (void) runAlertWarningWindow: (NSWindow*) window
                          title: (NSString*) title

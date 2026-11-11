@@ -727,4 +727,35 @@ final class IFUtilityTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(shown.alert.buttons.map(\.title), ["Delete", "Cancel"])
         XCTAssertEqual(shown.alert.buttons.map(\.hasDestructiveAction), [true, false])
     }
+
+    // MARK: - The tests' home folder
+
+    /// The environment of a test host whose home folder is the one given
+    private func hostEnvironment(home: URL) -> [String: String] {
+        return ["XCTestConfigurationFilePath": "/tmp/Tests.xctestconfiguration", "CFFIXED_USER_HOME": home.path]
+    }
+
+    /// A test host that Xcode starts again after a crash finds the home folder the first host made, and is stopped
+    func testATestHostWithItsHomeThereIsStopped() throws {
+        try FileManager.default.createDirectory(at: materials, withIntermediateDirectories: true)
+
+        XCTAssertTrue(IFUtility.isTestHostWithLeftoverHome(inEnvironment: hostEnvironment(home: materials)))
+    }
+
+    /// ...but one started without its home folder, as the scheme's pre-action leaves it, isn't
+    func testATestHostWithoutItsHomeIsntStopped() {
+        XCTAssertFalse(IFUtility.isTestHostWithLeftoverHome(inEnvironment: hostEnvironment(home: materials)))
+    }
+
+    /// ...nor is the app when it isn't hosting the tests, or has no home folder of its own
+    func testOnlyATestHostWithItsOwnHomeIsStopped() throws {
+        try FileManager.default.createDirectory(at: materials, withIntermediateDirectories: true)
+        var environment = hostEnvironment(home: materials)
+        environment["XCTestConfigurationFilePath"] = nil
+        XCTAssertFalse(IFUtility.isTestHostWithLeftoverHome(inEnvironment: environment))
+
+        environment = hostEnvironment(home: materials)
+        environment["CFFIXED_USER_HOME"] = nil
+        XCTAssertFalse(IFUtility.isTestHostWithLeftoverHome(inEnvironment: environment))
+    }
 }

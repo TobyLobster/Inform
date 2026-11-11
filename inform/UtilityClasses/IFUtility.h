@@ -31,6 +31,14 @@ CGFloat easeOutCubic(CGFloat t);
 /// run an alert that has no window, and keeps the website data of `IFWebViewHelper`'s web views in memory.
 @property (class, readonly, atomic, getter=isHostingUnitTests) BOOL hostingUnitTests;
 
+/// Xcode starts the test host again after it crashes, to run the tests that are left, but doesn't run the scheme's
+/// pre-action that removes the tests' home folder (CFFIXED_USER_HOME). A host started with that folder there has
+/// the user's preferences, as they're first read before any of the app's code runs (by ZoomView's
+/// `+[ZoomSkeinLayout load]`), so `main` stops it, and the tests that were left aren't run.
++ (void) stopTestHostWithLeftoverHome;
+/// Whether the environment is a test host's whose home folder is there, as it is for `main` after a crash
++ (BOOL) isTestHostWithLeftoverHomeInEnvironment: (NSDictionary<NSString*, NSString*>*) environment;
+
 // Convenience methods for alerts
 + (void) runAlertInformationWindow: (nullable NSWindow*) window
                              title: (NSString*) title

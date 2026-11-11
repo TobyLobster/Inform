@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "IFUtility.h"
 
 #undef DEBUG_BUILD
 #ifdef DEBUG_BUILD
@@ -27,5 +28,7 @@ int main(int argc, const char *argv[])
 #ifdef DEBUG_BUILD
     atexit(reportLeaks);
 #endif
+    [IFUtility stopTestHostWithLeftoverHome];
+
     return NSApplicationMain(argc, argv);
 }
