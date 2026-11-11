@@ -15,9 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSErrorDomain const INFORM_ERROR_DOMAIN = @"com.inform7.errors";
 
-CGFloat lerp(CGFloat progress, CGFloat from, CGFloat to);
-CGFloat easeOutCubic(CGFloat t);
-
 @interface IFUtility : NSObject
 
 /// When the app is hosting the unit tests, it skips start-up work that would touch the user's Inform
