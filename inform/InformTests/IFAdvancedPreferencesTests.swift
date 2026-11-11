@@ -28,6 +28,7 @@ private final class MemoryDefaults: UserDefaults {
 }
 
 /// The Advanced pane's controls, from its nib
+@MainActor
 private struct Controls {
     let showDebugLogs: NSButton
     let runBuildSh: NSButton

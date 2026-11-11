@@ -28,6 +28,7 @@ private final class MemoryDefaults: UserDefaults {
 }
 
 /// The Colour pane's controls, from its nib
+@MainActor
 private struct Controls {
     let enableSyntaxColouring: NSButton
     let styles: NSPopUpButton

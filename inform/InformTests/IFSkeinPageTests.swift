@@ -55,6 +55,7 @@ private final class NavigationWatcher: NSObject, WKNavigationDelegate {
 final class IFSkeinPageTests: XCTestCase, @unchecked Sendable {
 
     /// A page being tested, with its views
+    @MainActor
     private struct Shown {
         let page: IFSkeinPage
         let project: IFProject

@@ -11,6 +11,7 @@ final class IFFindTextViewTests: XCTestCase {
 
     /// Gives a text view an undo manager, as its window would. The text view has to allow undo, as the source's does,
     /// or it has no undo manager.
+    @MainActor
     private final class UndoGiver: NSObject, NSTextViewDelegate {
         let undo = UndoManager()
 

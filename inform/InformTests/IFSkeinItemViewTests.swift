@@ -192,6 +192,7 @@ final class IFSkeinItemViewTests: XCTestCase, @unchecked Sendable {
         var springLoadingHighlight: NSSpringLoadingHighlight { return .none }
         func resetSpringLoading() {}
 
+        @MainActor
         init(window: NSWindow?, mask: NSDragOperation, location: NSPoint, pasteboard: NSPasteboard, source: Any?) {
             draggingDestinationWindow = window
             draggingSourceOperationMask = mask
