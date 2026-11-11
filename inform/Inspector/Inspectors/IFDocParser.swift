@@ -340,6 +340,8 @@ extension IFDocParser {
                     // Strip down this comment
                     comment = comment.substring(from: 4) as NSString                     // Removes <!--
                     comment = comment.substring(to: comment.length - 2) as NSString      // Removes --
+                    // Removes the spaces inside, which the documentation has had since 2024
+                    comment = comment.trimmingCharacters(in: .whitespacesAndNewlines) as NSString
 
                     // Look for interesting comments
                     if comment.hasPrefix("START EXAMPLE \"") {

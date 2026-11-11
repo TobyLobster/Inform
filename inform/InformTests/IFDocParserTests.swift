@@ -89,6 +89,24 @@ final class IFDocParserTests: XCTestCase {
         XCTAssertEqual(parser.attributes[.sort] as? String, "000-011-003-000")
     }
 
+    /// The documentation since 2024 has spaces inside its markers' comments, and a title with quotes inside it.
+    func testReadsMarkersWithSpacesInside() {
+        let parser = IFDocParser(html: #"<!-- SEARCH TITLE "Making the verb "to weigh"" -->"#
+                                     + #"<!-- SEARCH SECTION "16.13" --><!-- SEARCH SORT "001-016-013-000" -->"#
+                                     + #"a<!-- START CODE "code1" -->code"#
+                                     + #"<!-- END CODE -->b<!-- START PHRASE "phrase1" -->phrase<!-- END PHRASE -->"#
+                                     + #"<!-- START EXAMPLE "1: Kilns" "e1" -->example<!-- END EXAMPLE -->"#
+                                     + #"<!-- START IGNORE -->ignored<!-- END IGNORE -->"#)
+        XCTAssertEqual(parser.attributes[.title] as? String, #"Making the verb "to weigh""#)
+        XCTAssertEqual(parser.attributes[.section] as? String, "16.13")
+        XCTAssertEqual(parser.attributes[.sort] as? String, "001-016-013-000")
+        XCTAssertEqual(parser.plainText, "a code b phrase example ")
+        XCTAssertEqual(parser.codeInfo.map { $0.anchorTag }, ["code1"])
+        XCTAssertEqual(parser.codeInfo.map { $0.range }, [NSRange(location: 2, length: 5)])
+        XCTAssertEqual(parser.definitionInfo.map { $0.anchorTag }, ["phrase1"])
+        XCTAssertEqual(parser.exampleInfo["1: Kilns"]?.anchorTag, "e1")
+    }
+
     /// A marker without the quoted text it should have is passed over.
     func testPassesOverAMarkerWithoutItsText() {
         let parser = IFDocParser(html: #"a<!--START CODE-->b<!--END CODE--><!--START PHRASE-->c<!--SEARCH TITLE "-->d"#
@@ -126,7 +144,24 @@ final class IFDocParserTests: XCTestCase {
 
     // MARK: - A page of the documentation
 
-    /// A page of Writing with Inform, as Find in Files searches it.
+    /// A page of Writing with Inform as the app shows it since 2024, as Find in Files searches it.
+    func testReadsAPageOfTheNewDocumentation() throws {
+        let url = try XCTUnwrap(Bundle.main.url(forResource: "WI_11_3", withExtension: "html"))
+        let parser = IFDocParser(html: try String(contentsOf: url, encoding: .utf8))
+
+        XCTAssertEqual(parser.attributes[.title] as? String, "Dialogue beats and their cues")
+        XCTAssertEqual(parser.attributes[.section] as? String, "11.3")
+        XCTAssertEqual(parser.attributes[.sort] as? String, "001-011-003-000")
+        XCTAssertFalse(parser.plainText.contains("<"))
+
+        XCTAssertEqual(parser.codeInfo.count, 20)
+        let firstCode = try XCTUnwrap(parser.codeInfo.first)
+        XCTAssertEqual(firstCode.anchorTag, "code611")
+        let firstCodeText = (parser.plainText as NSString).substring(with: firstCode.range)
+        XCTAssertTrue(firstCodeText.contains("About the paranormal"), firstCodeText)
+    }
+
+    /// A page of Writing with Inform as it was until 2024, as Find in Files searches it.
     func testReadsADocumentationPage() throws {
         let url = try XCTUnwrap(Bundle.main.url(forResource: "doc159", withExtension: "html"))
         let parser = IFDocParser(html: try String(contentsOf: url, encoding: .utf8))
