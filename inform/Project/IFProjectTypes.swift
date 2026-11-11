@@ -119,7 +119,7 @@ extension IFProjectTypes {
         }
     }
 
-    class func intelligence(forFilename filename: String) -> IFSyntaxIntelligence? {
+    @MainActor class func intelligence(forFilename filename: String) -> IFSyntaxIntelligence? {
         let version = IFProjectTypes.informVersion(forFilename: filename)
         switch version {
         case .version6:       return nil                // Inform 6 file (no intelligence yet)

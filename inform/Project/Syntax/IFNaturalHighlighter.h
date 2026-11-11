@@ -36,6 +36,7 @@ NS_ENUM(IFHighlighterMode) {
 ///
 /// Natural Inform syntax highlighter
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFNaturalHighlighter : NSObject<IFSyntaxHighlighter>
 
 @end

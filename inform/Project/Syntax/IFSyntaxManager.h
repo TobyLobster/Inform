@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Manages NSTextStorage objects registered
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFSyntaxManager : NSObject
 
 //

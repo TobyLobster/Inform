@@ -9,7 +9,7 @@
 import Cocoa
 
 /// The syntax data of each registered text storage, found by the storage's identity (the storage isn't retained)
-private var storages: [ObjectIdentifier: IFSyntaxData] = [:]
+@MainActor private var storages: [ObjectIdentifier: IFSyntaxData] = [:]
 
 @objc @implementation extension IFSyntaxManager {
 

@@ -54,7 +54,7 @@ typedef NS_ENUM(unsigned int, IFLineStyle) {
 + (NSStringEncoding) encodingForFilename: (NSString*) filename;
 + (IFInformVersion) informVersionForFilename: (NSString*) filename;
 + (IFHighlightType) highlighterTypeForFilename: (NSString*) filename;
-+ (nullable id<IFSyntaxIntelligence>) intelligenceForFilename: (NSString*) filename;
++ (nullable id<IFSyntaxIntelligence>) intelligenceForFilename: (NSString*) filename NS_SWIFT_UI_ACTOR;
 
 + (IFFileType) fileTypeFromString: (NSString*) typeName;
 

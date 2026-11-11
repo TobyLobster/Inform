@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Class to gather intelligence data on Natural Inform files
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFNaturalIntel : NSObject<IFSyntaxIntelligence>
 @end
 
