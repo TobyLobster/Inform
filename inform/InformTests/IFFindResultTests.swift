@@ -56,10 +56,11 @@ final class IFFindResultTests: XCTestCase {
         XCTAssertEqual(makeResult().phrase, "cat")
     }
 
-    /// The Recipe Book's pages sort as "001…", and Writing with Inform's as "000…".
+    /// The Recipe Book's pages sort as "002…", Writing with Inform's as "001…" and the examples' as "003…".
     func testIsInTheRecipeBookWhenItsSortNameSaysSo() {
-        XCTAssertTrue(makeResult(documentSortName: "001 Recipe").recipeBookResult)
-        XCTAssertFalse(makeResult(documentSortName: "000 Writing").recipeBookResult)
+        XCTAssertTrue(makeResult(documentSortName: "002-007-007-000").recipeBookResult)
+        XCTAssertFalse(makeResult(documentSortName: "001-007-007-000").recipeBookResult)
+        XCTAssertFalse(makeResult(documentSortName: "003-098-000-000").recipeBookResult)
         XCTAssertFalse(makeResult(documentSortName: nil).recipeBookResult)
     }
 

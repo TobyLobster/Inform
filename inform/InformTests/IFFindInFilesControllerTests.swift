@@ -507,7 +507,7 @@ final class IFFindInFilesControllerTests: XCTestCase {
         XCTAssertEqual(below(window), [])
     }
 
-    /// Clicking a result in the documentation shows it at the anchor of the code, definition or example it's in
+    /// Clicking a result in the documentation shows it at the anchor of the code or definition it's in
     func testClickingAResultInTheDocumentationGivesItsAnchor() throws {
         let (controller, _, window) = try makeController()
         let projectController = ProjectControllerStandIn()
@@ -524,22 +524,21 @@ final class IFFindInFilesControllerTests: XCTestCase {
             }
             return projectController.shown.dropFirst(before).map { $0.anchorTag }
         }
-        XCTAssertEqual(try anchors("Bodleian", .documentationSource), ["c1869", "c1869"])
-        XCTAssertEqual(try anchors("arccosine", .documentationDefinitions).first, "defn210")
-        let examples = try anchors("SYBIL", .documentationBasic)
-        XCTAssertEqual(examples.first, "e350")
-        XCTAssertEqual(Set(examples.dropFirst()), ["", "e350"])
+        XCTAssertEqual(try anchors("Bodleian", .documentationSource), ["code466", "code466"])
+        XCTAssertEqual(try anchors("arccosine", .documentationDefinitions).first, "defn260")
+        XCTAssertEqual(try anchors("Sybil", .documentationBasic), ["", "", "", "", ""])
     }
 
     /// The documentation's results are named by the book they're in, and the recipe book's are shown in yellow
     func testNamesTheBookOfEachResult() throws {
         let (controller, _, window) = try makeController()
         controller.setProject(try openProject(source: [:]))
-        controller.startFindInFilesSearch(withPhrase: "SYBIL", withLocationType: .documentationBasic, with: .contains)
+        controller.startFindInFilesSearch(withPhrase: "Sybil", withLocationType: .documentationBasic, with: .contains)
         waitForTheSearch(window)
         let results = try table(window)
         XCTAssertEqual((0..<rows(results)).map { value("location", $0, results) as? String },
-                       ["Writing with Inform", "The Inform Recipe Book", "The Inform Recipe Book"])
+                       ["Writing with Inform", "Writing with Inform", "The Inform Recipe Book", "Writing with Inform",
+                        "Writing with Inform"])
 
         let backgrounds: [NSColor?] = (0..<rows(results)).map { row in
             let cell = NSTextFieldCell()
@@ -547,9 +546,8 @@ final class IFFindInFilesControllerTests: XCTestCase {
             results.delegate?.tableView?(results, willDisplayCell: cell, for: column("context", results), row: row)
             return cell.drawsBackground ? cell.backgroundColor : nil
         }
-        XCTAssertEqual(backgrounds, [nil,
-                                     NSColor(calibratedRed: 1, green: 1, blue: 210 / 255, alpha: 1),
-                                     NSColor(calibratedRed: 1, green: 1, blue: 224 / 255, alpha: 1)])
+        let yellow = NSColor(calibratedRed: 1, green: 1, blue: 224 / 255, alpha: 1)
+        XCTAssertEqual(backgrounds, [nil, nil, yellow, nil, nil])
     }
 
     func testResultsDontShowExpansionToolTips() throws {

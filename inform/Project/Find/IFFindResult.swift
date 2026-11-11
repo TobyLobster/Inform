@@ -71,9 +71,10 @@ extension IFFindResult {
         // (The header names the getter, which Swift doesn't take from it)
         @objc(isRecipeBookResult)
         get {
-            // sort name starts with 000 for Writing With Inform
-            // sort name starts with 001 for The Inform Recipe Book
-            return documentSortName?.hasPrefix("001") ?? false
+            // sort name starts with 001 for Writing With Inform
+            // sort name starts with 002 for The Inform Recipe Book
+            // sort name starts with 003 for the examples
+            return documentSortName?.hasPrefix("002") ?? false
         }
     }
 
