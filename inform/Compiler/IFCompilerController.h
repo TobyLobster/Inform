@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class IFProjectController;
 @class IFProjectPane;
+@class IFInTest;
 
 @interface IFCompilerTab : NSObject
 
@@ -43,6 +44,8 @@ NS_SWIFT_UI_ACTOR
 /// Sets a specific compiler object to use
 /// Retrieves the current compiler object
 @property (atomic, strong) IFCompiler *compiler;
+/// The intest whose output is shown in the console; nil until it's set
+@property (atomic, strong, nullable) IFInTest *inTest;
 
 /// Adds an error to the display
 - (void) addErrorForFile: (NSString*) file

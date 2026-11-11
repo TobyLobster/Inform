@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class IFCompiler;
 @class IFCompilerSettings;
 @class IFInBuild;
+@class IFInTest;
 @class IFSkein;
 @class IFSkeinItem;
 
@@ -24,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, readonly, copy, nullable)    NSDictionary<NSString*, NSTextStorage*> * sourceFiles;   // nil until a file is read
 @property (atomic, readonly, strong)            IFCompilerSettings *  settings;
 @property (atomic, readonly, strong)            IFCompiler *          compiler;
+@property (atomic, readonly, strong)            IFInTest *            inTest;
 @property (atomic)                              NSRange               initialSelectionRange;
 @property (atomic)                              IFFileType            projectFileType;
 @property (atomic, readonly, copy, nullable)    NSString *            mainSourceFile;         // nil if there's no story file
