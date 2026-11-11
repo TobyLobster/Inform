@@ -103,30 +103,37 @@ private func valueForHexChar(_ c: unichar) -> Int32 {
                         finalChNum += 1
                     }
 
-                    if finalChNum >= length {
-                        // No =], so this isn't an escape
-                        outChar = chr
-                    } else {
-                        // Get the character number from the string
-                        let characterString = string.substring(with: NSRange(location: chNum+2, length: finalChNum-chNum-3)) as NSString
+                    // The escape is a character code in hexadecimal, or BACK
+                    let characterString = finalChNum >= length
+                        ? nil
+                        : string.substring(with: NSRange(location: chNum+2, length: finalChNum-chNum-3)) as NSString
+                    let hexDigits = CharacterSet(charactersIn: "0123456789abcdefABCDEF")
+                    let isCharacterCode = characterString.map {
+                        $0.hasPrefix("0x") && $0.length > 2 &&
+                        $0.substring(from: 2).unicodeScalars.allSatisfy { hexDigits.contains($0) }
+                    } ?? false
 
-                        if characterString.hasPrefix("0x") {
-                            // Is a hexidecimal character
-                            var val: Int32 = 0
-                            for pos in stride(from: 2, to: characterString.length, by: 1) {
-                                val = val &* 16
-                                val = val &+ valueForHexChar(characterString.character(at: pos))
-                            }
-                            outChar = unichar(truncatingIfNeeded: val)
-                        } else if characterString.isEqual(to: "BACK") {
-                            // Backslash
-                            outChar = ch("\\")
-                        } else {
-                            outChar = ch("?")
+                    if let characterString, isCharacterCode {
+                        // Is a hexidecimal character
+                        var val: Int32 = 0
+                        for pos in stride(from: 2, to: characterString.length, by: 1) {
+                            val = val &* 16
+                            val = val &+ valueForHexChar(characterString.character(at: pos))
                         }
+                        outChar = unichar(truncatingIfNeeded: val)
 
                         // Move to the final character
                         chNum = finalChNum
+                    } else if let characterString, characterString.isEqual(to: "BACK") {
+                        // Backslash
+                        outChar = ch("\\")
+
+                        // Move to the final character
+                        chNum = finalChNum
+                    } else {
+                        // No =], or something else before it, such as an Inform comment starting [=, so this isn't
+                        // an escape
+                        outChar = chr
                     }
                 } else {
                     outChar = chr
