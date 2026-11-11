@@ -4,11 +4,6 @@ Open bugs in the Inform app and in Zoom and CocoaGlk, found during the modernisa
 
 Each says how it was found, and none has been seen in the app unless it says so.
 
-## Running Inform's tools
-
-- **A build stage whose tool isn't there raises an exception.** `IFCompiler` launches each stage with `launch()`, which raises for a command that isn't there: `~/build.sh` with "Rebuild I7 compiler as needed" chosen and no such file, or `inform6`, `cBlorb` or `intest` with an external Inform Core folder that hasn't got them, as only Inform 7 is looked for first. `IFToolRun` and `IFMaintenanceTask` start their tools with `run()`, which throws instead. Found by reading (11 November 2026).
-- Harmless as the app uses it: `IFMaintenanceTask` only posts the last task's notification, when the queue empties, so a task queued behind another never posts its own. Every run of censuses ends with `IFCensusFinished`, which everything that observes the other census notification observes too. A test pins it.
-
 ## Extension projects
 
 - **The Public Library page and the app disagree about their messages.** `messages_to_objc.js` posts `askInterfaceForLocalVersion`, `askInterfaceForLocalVersionText` and `downloadMultipleExtensions`, which `IFWebViewHelper` doesn't act on, and its `openURL` posts `openFile`, so the helper takes the URL for a file's path. Inform Core's `pl404.html` also uses the first two's return values at once, which WKWebView messages can't give, so this needs an asynchronous design on both sides (see `for_g.txt`). The helper had handlers for the first two under other names, which nothing reached and whose answers were thrown away; they were taken out (a84b8641), and the lookup of an installed extension's version will have to be written for that design. Older than this work; found reading the scripts (November 2026).

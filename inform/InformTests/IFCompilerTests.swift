@@ -328,6 +328,56 @@ final class IFCompilerTests: XCTestCase {
         XCTAssertEqual(handler.errorCodes, [])
     }
 
+    /// A stage whose command isn't there, as `~/build.sh` may not be, or a tool missing from an external Inform Core
+    /// folder, ends the build as a stage that fails does, saying why, with the exit code `IFToolRun` gives
+    func testAStageWhoseCommandIsntThereFails() throws {
+        let command = try makeFolder().appendingPathComponent("no-such-tool").path
+        let compiler = makeCompiler()
+        let handler = StubProblemHandler(problemURL: URL(string: "inform:/Problem.html"))
+        compiler.addCustomBuildStage(command, withArguments: ["-x"], nextStageInput: "next", errorHandler: handler,
+                                     named: "Missing")
+
+        let posted = launch(compiler)
+
+        XCTAssertEqual(launches(posted), ["Launching: \(command) \\\n    -x\n"])
+        XCTAssertTrue(errors(posted).hasPrefix("Couldn't run \(command): "), errors(posted))
+        XCTAssertEqual(finishes(posted).count, 1)
+        XCTAssertEqual(posted.last?.exitCode, -1)
+        XCTAssertEqual(posted.last?.problemType, Int(ECompilerProblemType.unknown.rawValue))
+        XCTAssertEqual(handler.errorCodes, [], "There's no problems page for a stage that never ran")
+        XCTAssertNil(compiler.problemsURL)
+        XCTAssertEqual(compiler.progress.message, "Couldn't run no-such-tool")
+        XCTAssertFalse(compiler.isRunning)
+
+        // The compiler runs again afterwards
+        addShellStage(to: compiler, "exit 0")
+        let next = launch(compiler)
+        XCTAssertEqual(launches(next).count, 1)
+        XCTAssertEqual(next.last?.exitCode, 0)
+    }
+
+    /// ...and so does one after another stage, and the stages after it don't run
+    func testALaterStageWhoseCommandIsntThereFails() throws {
+        let folder = try makeFolder()
+        let command = folder.appendingPathComponent("no-such-tool").path
+        let marker = folder.appendingPathComponent("ran.txt").path
+        let compiler = makeCompiler()
+        addShellStage(to: compiler, "exit 0")
+        compiler.addCustomBuildStage(command, withArguments: [], nextStageInput: "next", errorHandler: nil,
+                                     named: "Missing")
+        addShellStage(to: compiler, "touch '\(marker)'")
+
+        let posted = launch(compiler)
+
+        XCTAssertEqual(launches(posted).count, 2)
+        XCTAssertTrue(errors(posted).hasPrefix("Couldn't run \(command): "), errors(posted))
+        XCTAssertEqual(finishes(posted).count, 1)
+        XCTAssertEqual(posted.last?.exitCode, -1)
+        XCTAssertEqual(posted.last?.problemType, Int(ECompilerProblemType.none.rawValue))
+        XCTAssertFalse(FileManager.default.fileExists(atPath: marker))
+        XCTAssertFalse(compiler.isRunning)
+    }
+
     func testShowsTheEndTextOnceFinished() {
         let compiler = makeCompiler()
         addShellStage(to: compiler, "exit 0")

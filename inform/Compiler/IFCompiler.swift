@@ -483,9 +483,52 @@ extension IFCompiler {
         NotificationCenter.default.post(name: .IFCompilerStarting,
                                         object: self)
         // (A stage is always prepared before the compiler is launched)
-        let theTask = theTask!
-        sendTaskDetails(theTask)
-        theTask.launch()
+        start(theTask!)
+    }
+
+    /// Starts a stage's task. One that can't be run, as when its command isn't there, ends the build as a stage that
+    /// fails does, with the exit code `IFToolRun` gives, and stderr says why.
+    private final func start(_ task: Process) {
+        sendTaskDetails(task)
+        do {
+            try task.run()
+        } catch {
+            let command = task.launchPath ?? "the stage's tool"
+            let message = "Couldn't run \(command): \(error.localizedDescription)\n"
+            NotificationCenter.default.removeObserver(self)
+            NotificationCenter.default.post(name: .IFCompilerStderr,
+                                            object: self,
+                                            userInfo: ["string": message])
+
+            _problemsURL = nil
+            progress.stop()
+            progress.message = "Couldn't run \((command as NSString).lastPathComponent)"
+            endTextString = nil
+
+            let problemType = stageProblemType
+            runQueue.removeAll()
+            theTask = nil
+
+            let uiDict: [String: Any] = ["exitCode": NSNumber(value: Int32(-1)),
+                                         "problemType": NSNumber(value: problemType.rawValue)]
+            NotificationCenter.default.post(name: .IFCompilerFinished,
+                                            object: self,
+                                            userInfo: uiDict)
+        }
+    }
+
+    /// The kind of problem the stage's handler gives, for a stage that failed
+    private final var stageProblemType: ECompilerProblemType {
+        if problemHandler is NaturalProblem {
+            return .inform7
+        } else if problemHandler is Inform6Problem {
+            return .inform6
+        } else if problemHandler is CBlorbProblem {
+            return .cBlorb
+        } else if problemHandler != nil {
+            return .unknown
+        }
+        return .none
     }
 
     var problemsURL: URL? {
@@ -514,19 +557,7 @@ extension IFCompiler {
     private final func taskHasReallyFinished() {
         // (With no task, Objective-C read 0)
         let exitCode = theTask?.terminationStatus ?? 0
-        var problemType = ECompilerProblemType.none
-
-        if exitCode != 0 {
-            if problemHandler is NaturalProblem {
-                problemType = .inform7
-            } else if problemHandler is Inform6Problem {
-                problemType = .inform6
-            } else if problemHandler is CBlorbProblem {
-                problemType = .cBlorb
-            } else if problemHandler != nil {
-                problemType = .unknown
-            }
-        }
+        let problemType = exitCode != 0 ? stageProblemType : .none
 
         if runQueue.count == 0 {
             if exitCode != 0, let problemHandler {
@@ -591,9 +622,7 @@ extension IFCompiler {
             prepareNext()
 
             // Launch it
-            let theTask = theTask!
-            sendTaskDetails(theTask)
-            theTask.launch()
+            start(theTask!)
         }
     }
 
