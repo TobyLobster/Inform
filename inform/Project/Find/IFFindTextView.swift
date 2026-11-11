@@ -9,7 +9,7 @@
 import Cocoa
 
 /// The groups of the last regular expression found, in any text view
-private var groupsLastFound: NSArray?
+@MainActor private var groupsLastFound: NSArray?
 
 @objc(IFFindTextView) @implementation extension NSTextView {
 

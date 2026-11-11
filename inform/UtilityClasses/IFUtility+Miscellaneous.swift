@@ -38,7 +38,7 @@ private var uniqueId: UInt = 1000
 
     // Save transcript (handles save dialog)
     @objc(saveTranscriptPanelWithString:window:)
-    class func saveTranscriptPanel(with string: String,
+    @MainActor class func saveTranscriptPanel(with string: String,
                                    window: NSWindow) {
 
         let panel = NSSavePanel()

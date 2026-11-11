@@ -12,7 +12,7 @@ import GlkView.GlkHub
 
 private let IFSourceSpellChecking = "IFSourceSpellChecking"
 private let pixelWidthBetweenExtensionNameAndVersion: CGFloat = 10.0
-private var newProj: IFNewProject?
+@MainActor private var newProj: IFNewProject?
 
 @objc @implementation extension IFAppDelegate {
     /// The 'New Extension Project' menu

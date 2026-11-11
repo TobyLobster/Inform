@@ -15,7 +15,7 @@ private let IFReplaceHistoryPref = "IFReplaceHistory"
 private let FIND_HISTORY_LENGTH = 30
 
 /// The shared find window controller
-private var sharedController: IFFindController?
+@MainActor private var sharedController: IFFindController?
 
 @objc @implementation extension IFFindController {
     // The components of the find dialog

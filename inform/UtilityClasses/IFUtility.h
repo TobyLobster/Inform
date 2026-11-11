@@ -207,7 +207,7 @@ CGFloat easeOutCubic(CGFloat t);
 
 /// Save transcript (handles save dialog)
 +(void) saveTranscriptPanelWithString: (NSString*) string
-                               window: (NSWindow*) window;
+                               window: (NSWindow*) window NS_SWIFT_UI_ACTOR;
 
 +(bool) unzip: (NSURL*) zipFilepath toDirectory:(NSURL*) targetDirectory;
 

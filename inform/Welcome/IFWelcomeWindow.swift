@@ -15,7 +15,7 @@ import UniformTypeIdentifiers
 private let maxItemsInRecentMenu = 8
 
 /// Shared welcome window
-private var sharedWindow: IFWelcomeWindow?
+@MainActor private var sharedWindow: IFWelcomeWindow?
 
 @objc @implementation extension IFWelcomeWindow {
     /// Progress indicator that shows when a background process is running
