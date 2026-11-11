@@ -558,6 +558,18 @@ final class IFFindInFilesControllerTests: XCTestCase {
         XCTAssertEqual(historyItems(window), ["beaker", "flask", "bottle"])
     }
 
+    /// The history is kept with the Find panel's, so what that adds after this is made is offered, and kept when this
+    /// adds to it
+    func testTheHistoryKeepsWhatTheFindPanelAdds() throws {
+        let (controller, defaults, window) = try makeController(history: ["flask"])
+        controller.setProject(try openProject(source: ["story.ni": "A beaker."]))
+        defaults.set(["bottle", "flask"], forKey: "IFFindHistory")
+        XCTAssertEqual(historyItems(window), ["bottle", "flask"])
+        try findAll("beaker", with: controller)
+        XCTAssertEqual(defaults.object(forKey: "IFFindHistory") as? [String], ["beaker", "bottle", "flask"])
+        XCTAssertEqual(historyItems(window), ["beaker", "bottle", "flask"])
+    }
+
     /// The history keeps the last thirty phrases
     func testTheHistoryKeepsThirtyPhrases() throws {
         let history = (1...30).map { "phrase \($0)" }

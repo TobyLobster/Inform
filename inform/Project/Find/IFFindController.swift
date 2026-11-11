@@ -57,7 +57,7 @@ private let FIND_HISTORY_LENGTH = 30
 
     // Things we've searched for
     private final var replaceHistory: [Any]                                     // The 'replace' history
-    private final var findHistory: [Any]                                        // The 'find' history
+    private final var findHistoryWithoutDefaults: [Any] = []                    // The 'find' history, with no defaults
     private final var defaults: UserDefaults?                                   // Where the histories are kept
     private final var lastSearch: String?                                       // The last phrase that was searched for
     private final var lastSearchType: NSMenuItem?                               // The last search type that was searched with
@@ -89,8 +89,7 @@ private let FIND_HISTORY_LENGTH = 30
     init(defaults theDefaults: UserDefaults) {
         defaults = theDefaults
 
-        // Get the find/replace history
-        findHistory = theDefaults.object(forKey: IFFindHistoryPref) as? [Any] ?? []
+        // Get the replace history
         replaceHistory = theDefaults.object(forKey: IFReplaceHistoryPref) as? [Any] ?? []
 
         // The nib is named by windowNibName, as a Swift initialiser can't call initWithWindowNibName:
@@ -106,7 +105,6 @@ private let FIND_HISTORY_LENGTH = 30
     // Swift needs this, as NSWindowController's is required. The Objective-C inherited it, starting with nothing set.
     public required init?(coder: NSCoder) {
         replaceHistory = []
-        findHistory = []
         defaults = nil
 
         super.init(coder: coder)
@@ -123,23 +121,41 @@ private let FIND_HISTORY_LENGTH = 30
 
     // MARK: - Updating the history
 
+    /// The 'find' history. It's kept in the defaults, where Find in Files adds to it too, so it's read from there
+    /// each time.
+    private final var findHistory: [Any] {
+        get {
+            guard let defaults else { return findHistoryWithoutDefaults }
+            return defaults.object(forKey: IFFindHistoryPref) as? [Any] ?? []
+        }
+        set {
+            guard let defaults else {
+                findHistoryWithoutDefaults = newValue
+                return
+            }
+            defaults.set(newValue, forKey: IFFindHistoryPref)
+        }
+    }
+
     private final func addPhraseToFindHistory(_ phrase: String) {
+        var history = findHistory
+
         // Ensure that we don't store a duplicate copy of the phrase
-        let lastIndex = (findHistory as NSArray).index(of: phrase)
+        let lastIndex = (history as NSArray).index(of: phrase)
         if lastIndex != NSNotFound {
-            findHistory.remove(at: lastIndex)
+            history.remove(at: lastIndex)
         }
 
         // Insert the new phrase into the find history
-        findHistory.insert(phrase, at: 0)
+        history.insert(phrase, at: 0)
 
         // Ensure that we limit the number of items in the history
-        while findHistory.count > FIND_HISTORY_LENGTH {
-            findHistory.removeLast()
+        while history.count > FIND_HISTORY_LENGTH {
+            history.removeLast()
         }
 
         // Store in the user defaults
-        defaults?.set(findHistory, forKey: IFFindHistoryPref)
+        findHistory = history
 
         // Update the combo box
         findPhrase?.reloadData()

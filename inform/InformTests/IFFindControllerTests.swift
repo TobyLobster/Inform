@@ -652,6 +652,19 @@ final class IFFindControllerTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(items(replaceBox(window)), expected)
     }
 
+    /// The find history is kept with Find in Files', so what that adds after this is made is offered, and kept when
+    /// this adds to it
+    func testTheFindHistoryKeepsWhatFindInFilesAdds() throws {
+        let (controller, defaults, window) = try makeController(findHistory: ["flask"])
+        _ = finder("A beaker.")
+        defaults.set(["bottle", "flask"], forKey: "IFFindHistory")
+        XCTAssertEqual(items(findBox(window)), ["bottle", "flask"])
+        try type("beaker", with: controller)
+        controller.findNext(nil)
+        XCTAssertEqual(defaults.object(forKey: "IFFindHistory") as? [String], ["beaker", "bottle", "flask"])
+        XCTAssertEqual(items(findBox(window)), ["beaker", "bottle", "flask"])
+    }
+
     /// A box is offered nothing past its history, and another box nothing at all
     func testNothingIsOfferedPastTheHistory() throws {
         let (_, _, window) = try makeController(findHistory: ["beaker"])
