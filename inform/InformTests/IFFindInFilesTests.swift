@@ -142,6 +142,39 @@ final class IFFindInFilesTests: XCTestCase {
         XCTAssertEqual(search("fragile", .source, in: project, with: finder).results.map(\.phrase), ["fragile"])
     }
 
+    /// Starting a search while another runs doesn't wait for that one to end, and that one's progress isn't reported
+    /// after, as its last report would stop the new search's progress indicator
+    func testANewSearchDoesntWaitForOneRunning() throws {
+        let project = try openProject(source: ["story.ni": "A beaker is in the Lab."])
+        let finder = IFFindInFiles()
+        let firstReported = expectation(description: "The first search reports progress")
+        var firstFinished = false
+        var firstReports = 0
+        let documentation: IFFindLocation = [.documentationBasic, .documentationSource, .documentationDefinitions]
+        finder.start(withPhrase: "the", withSearch: .contains, from: project,
+                     withLocations: documentation) { num, total, _ in
+            firstReports += 1
+            if num == 1 { firstReported.fulfill() }
+            if num == total { firstFinished = true }
+        }
+        wait(for: [firstReported], timeout: 60)
+        XCTAssertFalse(firstFinished)
+
+        let secondFinished = expectation(description: "The second search finishes")
+        let firstReportsBeforeTheSecond = firstReports
+        let started = Date()
+        finder.start(withPhrase: "beaker", withSearch: .contains, from: project,
+                     withLocations: .source) { num, total, _ in
+            if num == total { secondFinished.fulfill() }
+        }
+        let startTook = Date().timeIntervalSince(started)
+        wait(for: [secondFinished], timeout: 60)
+
+        XCTAssertLessThan(startTook, 1)
+        XCTAssertEqual(firstReports, firstReportsBeforeTheSecond)
+        XCTAssertEqual(finder.results.map(\.context), ["A beaker is in the Lab."])
+    }
+
     /// The source is searched as it was when the search started, though that's done later, on another thread
     func testSearchesTheSourceAsItWasWhenTheSearchStarted() throws {
         let project = try openProject(source: ["story.ni": "A beaker. A beaker."])
