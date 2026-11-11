@@ -90,6 +90,7 @@ NS_SWIFT_UI_ACTOR
 @end
 
 // Delegate methods
+NS_SWIFT_UI_ACTOR
 @protocol IFCompilerControllerDelegate <NSObject, WKNavigationDelegate>
 @optional
 

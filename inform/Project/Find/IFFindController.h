@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Delegate methods that can be used to enhance the find dialog (or provide it for new views or controllers)
 ///
+NS_SWIFT_UI_ACTOR
 @protocol IFFindDelegate <NSObject>
 
 // Basic interface (all searchable objects must implement this)

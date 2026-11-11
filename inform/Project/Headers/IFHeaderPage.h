@@ -57,6 +57,7 @@ NS_SWIFT_UI_ACTOR
 - (IBAction) updateDepthPopup: (nullable id) sender;
 @end
 
+NS_SWIFT_UI_ACTOR
 @protocol IFHeaderPageDelegate <NSObject, IFHeaderViewDelegate>
 @optional
 

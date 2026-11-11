@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class IFSkeinLayout;
 
 
+NS_SWIFT_UI_ACTOR
 @protocol IFSkeinViewDelegate <NSObject>
 
 // Playing the game
