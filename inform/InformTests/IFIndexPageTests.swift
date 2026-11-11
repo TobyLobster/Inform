@@ -431,14 +431,15 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
         XCTAssertTrue(shown.watcher.errors.isEmpty)
     }
 
-    /// Unlike the other pages, the page records what it shows in the history even while it's hidden (see ToFix)
+    /// Nothing is recorded in the history while the page is hidden, as for the other pages: not the welcome page it
+    /// shows as the pane is set up, nor a tab shown
     func testTheHistoryWhileHidden() throws {
         let recorder = Recorder()
         let shown = try makePageShowingTheIndex(recorder: recorder)
-        XCTAssertEqual(recorder.timesAsked, 2)
+        XCTAssertEqual(recorder.timesAsked, 0)
 
         switchToTab(.kinds, in: shown)
-        XCTAssertEqual(recorder.timesAsked, 4)
+        XCTAssertEqual(recorder.timesAsked, 0)
     }
 
     /// Opening a URL from the history shows it without recording it, and nothing without one

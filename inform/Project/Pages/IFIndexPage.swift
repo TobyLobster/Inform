@@ -324,7 +324,7 @@ extension IFIndexPage {
                         didStartProvisionalNavigation navigation: WKNavigation!) {
         let url = theWebView.url
         NSLog("HISTORY: Index Page: (didStartProvisionalLoadForFrame) requestURL %@", url?.absoluteString ?? "(null)")
-        if inhibitAddToHistory <= 0 {
+        if pageIsVisible && inhibitAddToHistory <= 0 {
             historicalPage?.switchToPage()
             historicalPage?.openHistoricalURL(url)
         }
