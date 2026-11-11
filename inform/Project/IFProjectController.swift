@@ -667,6 +667,8 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
 
     @IBAction func compileAndRun(_ sender: Any?) {
         if !compiling {
+            // In place of any threads Play All has left
+            playAll = nil
             gamePage?.setSwitchTo(true)
             gamePage?.setTestCommands(nil)
 
@@ -690,6 +692,9 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
     }
 
     @IBAction func testMe(_ sender: Any?) {
+        // In place of any threads Play All has left
+        playAll = nil
+
         if isExtensionProject {
             if isTestAllCasesSelected {
                 // Run all test cases
@@ -770,6 +775,9 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
     }
 
     @IBAction func compileAndDebug(_ sender: Any?) {
+        // In place of any threads Play All has left
+        playAll = nil
+
         gamePage?.setSwitchTo(true)
         gamePage?.setTestCommands(nil)
 
@@ -781,6 +789,9 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
     }
 
     @IBAction func stopProcess(_ sender: Any?) {
+        // Play All's threads left are dropped, or they'd be played when what's played next runs out of commands
+        playAll = nil
+
         for pane in projectPanes ?? [] {
             pane.stopRunningGame()
         }
@@ -1406,6 +1417,9 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
     // MARK: - Skein delegate
 
     func stopGame() {
+        // Play All's threads left are dropped, as for Stop
+        playAll = nil
+
         let gamePage = self.gamePage
 
         if gamePage?.isRunningGame ?? false {
@@ -1415,6 +1429,9 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
 
     func play(toPoint point: IFSkeinItem,
               fromPoint currentPoint: IFSkeinItem) {
+        // In place of any threads Play All has left
+        playAll = nil
+
         if gamePage?.isRunningGame ?? false {
             let inputSource = IFSkein.inputSource(from: currentPoint,
                                                   to: point)
@@ -2091,6 +2108,14 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
         @objc(isCompiling)
         get {
             return compiling
+        }
+    }
+
+    @objc(playingAll)
+    var isPlayingAll: Bool {
+        @objc(isPlayingAll)
+        get {
+            return playAll?.nextItem != nil
         }
     }
 
