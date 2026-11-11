@@ -27,6 +27,26 @@ private final class MemoryDefaults: UserDefaults {
     }
 }
 
+/// Counts the preferences' Editing notifications from one object, each of which re-highlights the open source views
+private final class EditingNotificationCounter: @unchecked Sendable {
+    private(set) var count = 0
+    private var observer: NSObjectProtocol?
+
+    init(_ object: AnyObject) {
+        observer = NotificationCenter.default.addObserver(forName: .IFPreferencesEditingDidChange,
+                                                          object: object,
+                                                          queue: nil) { [weak self] _ in
+            self?.count += 1
+        }
+    }
+
+    deinit {
+        if let observer {
+            NotificationCenter.default.removeObserver(observer)
+        }
+    }
+}
+
 /// The Colour pane's controls, from its nib
 @MainActor
 private struct Controls {
@@ -422,6 +442,29 @@ final class IFColourPreferencesTests: XCTestCase {
     }
 
     /// Restoring puts back the theme's default colours and turns syntax colouring back on
+    /// Restoring the defaults tells of the change once, so the source views are only re-highlighted once
+    func testRestoringTheDefaultsTellsOnce() throws {
+        let (pane, preferences, _, controls) = try makePane(["currentThemeName": "Dark Mode"])
+        for (well, _, _) in controls.wells {
+            change(well, to: mauve)
+        }
+        let counter = EditingNotificationCounter(preferences)
+
+        pane.restoreDefaults()
+
+        XCTAssertEqual(counter.count, 1)
+    }
+
+    /// Choosing a theme tells of the change once
+    func testChoosingAThemeTellsOnce() throws {
+        let (_, preferences, _, controls) = try makePane()
+        let counter = EditingNotificationCounter(preferences)
+
+        choose("Seven Seas", in: controls.styles)
+
+        XCTAssertEqual(counter.count, 1)
+    }
+
     func testRestoringPutsBackTheDefaults() throws {
         let (pane, preferences, _, controls) = try makePane(["currentThemeName": "Dark Mode"])
         let defaults = controls.wells.map { $0.colour(preferences) }

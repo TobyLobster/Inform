@@ -300,7 +300,8 @@ final class IFPreferencesTests: XCTestCase {
         XCTAssertEqual(recorder.names, [])
     }
 
-    /// In a batch, nothing is written or told until it ends; then each change's notification is posted, in order
+    /// In a batch, nothing is written or told until it ends; then the preferences are written once, and each kind of
+    /// change is told once, in the order first made
     func testABatchWritesAndTellsWhenItEnds() {
         let (prefs, defaults) = makePreferences()
         let recorder = NotificationRecorder(prefs)
@@ -317,8 +318,8 @@ final class IFPreferencesTests: XCTestCase {
 
         prefs.endBatchEditing()
 
-        XCTAssertEqual(recorder.names, [.IFPreferencesEditingDidChange, .IFPreferencesAdvancedDidChange, .IFPreferencesEditingDidChange])
-        XCTAssertGreaterThan(defaults.writes, writes)
+        XCTAssertEqual(recorder.names, [.IFPreferencesEditingDidChange, .IFPreferencesAdvancedDidChange])
+        XCTAssertEqual(defaults.writes, writes + 1)
         XCTAssertEqual(written(defaults)["tabWidth"] as? Double, 30.5)
         XCTAssertEqual(written(defaults)["runBuildSh"] as? Bool, true)
         XCTAssertEqual(written(defaults)["elasticTabs"] as? Bool, false)
@@ -464,13 +465,26 @@ final class IFPreferencesTests: XCTestCase {
     func testAThemeIsChosenByItsNameInAnyCase() {
         let (prefs, defaults) = makePreferences()
         let recorder = NotificationRecorder(prefs)
+        let writes = defaults.writes
 
         XCTAssertTrue(prefs.setCurrentTheme("seven SEAS"))
 
         XCTAssertEqual(prefs.getCurrentTheme().themeName, "Seven Seas")
         XCTAssertEqual(written(defaults)["currentThemeName"] as? String, "seven SEAS")
-        // Once for the name, and again for the theme
-        XCTAssertEqual(recorder.names, [.IFPreferencesEditingDidChange, .IFPreferencesEditingDidChange])
+        XCTAssertEqual(recorder.names, [.IFPreferencesEditingDidChange])
+        XCTAssertEqual(defaults.writes, writes + 1)
+    }
+
+    /// Choosing the current theme again changes nothing, as setting any preference to its value does
+    func testChoosingTheCurrentThemeAgainChangesNothing() {
+        let (prefs, defaults) = makePreferences(["currentThemeName": "Seven Seas"])
+        let recorder = NotificationRecorder(prefs)
+        let writes = defaults.writes
+
+        XCTAssertTrue(prefs.setCurrentTheme("Seven Seas"))
+
+        XCTAssertEqual(recorder.names, [])
+        XCTAssertEqual(defaults.writes, writes)
     }
 
     /// A theme that doesn't exist can't be chosen
@@ -498,12 +512,14 @@ final class IFPreferencesTests: XCTestCase {
         let recorder = NotificationRecorder(prefs)
         let mine = prefs.getCurrentTheme().createDuplicateSet()
         mine.themeName = "Mine"
+        let writes = defaults.writes
 
         XCTAssertTrue(prefs.add(mine))
 
         XCTAssertEqual(prefs.themeNames, standardThemes + ["Mine"])
         XCTAssertEqual(try themes(in: written(defaults)["themes"]).map { $0.themeName }, standardThemes + ["Mine"])
         XCTAssertEqual(recorder.names, [.IFPreferencesEditingDidChange])
+        XCTAssertEqual(defaults.writes, writes + 1)
 
         let another = prefs.getCurrentTheme().createDuplicateSet()
         another.themeName = "MINE"
@@ -524,11 +540,13 @@ final class IFPreferencesTests: XCTestCase {
         XCTAssertEqual(prefs.themeNames, standardThemes + ["Mine"])
 
         let recorder = NotificationRecorder(prefs)
+        let writes = defaults.writes
         XCTAssertTrue(prefs.removeTheme("mine"))
 
         XCTAssertEqual(prefs.themeNames, standardThemes)
         XCTAssertEqual(try themes(in: written(defaults)["themes"]).map { $0.themeName }, standardThemes)
         XCTAssertEqual(recorder.names, [.IFPreferencesEditingDidChange])
+        XCTAssertEqual(defaults.writes, writes + 1)
     }
 
     /// Dark mode switches between the Light Mode and Dark Mode themes, but leaves any other alone

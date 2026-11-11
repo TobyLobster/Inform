@@ -27,6 +27,26 @@ private final class MemoryDefaults: UserDefaults {
     }
 }
 
+/// Counts the preferences' Editing notifications from one object, each of which re-highlights the open source views
+private final class EditingNotificationCounter: @unchecked Sendable {
+    private(set) var count = 0
+    private var observer: NSObjectProtocol?
+
+    init(_ object: AnyObject) {
+        observer = NotificationCenter.default.addObserver(forName: .IFPreferencesEditingDidChange,
+                                                          object: object,
+                                                          queue: nil) { [weak self] _ in
+            self?.count += 1
+        }
+    }
+
+    deinit {
+        if let observer {
+            NotificationCenter.default.removeObserver(observer)
+        }
+    }
+}
+
 /// The controls for one type of text in the pane's syntax highlighting section
 private struct Row {
     let type: IFSyntaxHighlightingOptionType
@@ -489,6 +509,21 @@ final class IFEditingPreferencesTests: XCTestCase {
     }
 
     /// Restoring the defaults puts back every editing preference, and leaves the text size alone
+    /// Restoring the defaults tells of the change once, so the source views are only re-highlighted once
+    func testRestoringTheDefaultsTellsOnce() throws {
+        let (pane, preferences, _, _) = try makePane { preferences in
+            preferences.sourceFontFamily = "Menlo"
+            preferences.tabWidth = 40
+            preferences.elasticTabs = false
+            preferences.setSourceFontStyle(.bold, for: .comments)
+        }
+        let counter = EditingNotificationCounter(preferences)
+
+        pane.restoreDefaults()
+
+        XCTAssertEqual(counter.count, 1)
+    }
+
     func testRestoringTheDefaults() throws {
         let (pane, preferences, _, controls) = try makePane { preferences in
             preferences.sourceFontFamily = "Menlo"
