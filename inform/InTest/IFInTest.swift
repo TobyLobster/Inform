@@ -20,21 +20,6 @@ private struct IFTestCaseData {
 
 @objc @implementation
 extension IFInTest {
-    // The task
-    /// Task where `InTest` is running
-    private final var theTask: Process?
-
-    // Output/input streams
-    /// stdErr pipe
-    private final var stdErrPipe: Pipe?
-    /// stdOut pipe
-    private final var stdOutPipe: Pipe?
-
-    /// File handle for stderr
-    private final var stdErrH: FileHandle?
-    /// File handle for stdout
-    private final var stdOutH: FileHandle?
-
     // Results
     private final var stdOut: String?
     private final var stdErr: String?
@@ -53,11 +38,6 @@ extension IFInTest {
     }
 
     private final func tidyUp() {
-        theTask     = nil
-        stdOutPipe  = nil
-        stdErrPipe  = nil
-        stdErrH     = nil
-        stdOutH     = nil
         exitCode    = 0
         stdErr      = nil
         stdOut      = nil
@@ -67,13 +47,6 @@ extension IFInTest {
 
     private final func executeInTest(forExtension extensionPathName: String,
                                      withArgs args: [String]) {
-        if let theTask {
-            if theTask.isRunning {
-                theTask.terminate()
-            }
-            self.theTask = nil
-        }
-
         var mutableArgs = args
         mutableArgs.insert(((extensionPathName as NSString).deletingLastPathComponent as NSString).deletingLastPathComponent,
                            at: 0)
@@ -91,45 +64,14 @@ extension IFInTest {
         stdErr = ""
         stdOut = ""
 
-        // Prepare the task (based on http://stackoverflow.com/questions/412562/execute-a-terminal-command-from-a-cocoa-app )
-        let theTask = Process()
-        self.theTask = theTask
-
-        theTask.arguments = mutableArgs
-        theTask.launchPath = command
-        theTask.currentDirectoryPath = NSTemporaryDirectory()
-
-        // Prepare the task's IO
-        let stdErrPipe = Pipe()
-        let stdOutPipe = Pipe()
-        self.stdErrPipe = stdErrPipe
-        self.stdOutPipe = stdOutPipe
-
-        theTask.standardOutput = stdOutPipe
-        theTask.standardError = stdErrPipe
-        theTask.standardInput = Pipe()       // "The magic line that keeps your log where it belongs"
-
-        let stdOutH = stdOutPipe.fileHandleForReading
-        let stdErrH = stdErrPipe.fileHandleForReading
-        self.stdOutH = stdOutH
-        self.stdErrH = stdErrH
-
-        // Start the task
-        theTask.launch()
-
-        // Wait until finished
-        var data = Data(capacity: 512)
-        while theTask.isRunning {
-            data.append(stdOutH.readDataToEndOfFile())
-        }
-        data.append(stdOutH.readDataToEndOfFile())
+        let run = IFToolRun(command: command, arguments: mutableArgs)
 
         // Record output
-        stdOut = NSString(data: data,
+        stdOut = NSString(data: run.standardOutput,
                           encoding: String.Encoding.utf8.rawValue) as String?
-        stdErr = NSString(data: stdErrH.readDataToEndOfFile(),
+        stdErr = NSString(data: run.standardError,
                           encoding: String.Encoding.utf8.rawValue) as String?
-        exitCode = theTask.terminationStatus
+        exitCode = run.exitCode
 
         // intest always writes UTF-8, so the output is never nil. (Objective-C raised on nil, as here.)
         // Stdout
