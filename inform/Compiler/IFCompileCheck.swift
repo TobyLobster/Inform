@@ -43,11 +43,36 @@ import Foundation
         return false
     }
 
+    /// Whether anything in the folders, or a folder itself, was changed after the date, as when an extension in them
+    /// is changed, added or taken away. Hidden files, such as the Finder's, aren't counted, nor is a folder that
+    /// isn't there.
+    private final func anything(in folders: [URL], changedAfter date: Date) -> Bool {
+        for folder in folders {
+            guard let folderDate = modificationDate(of: folder) else { continue }
+            if folderDate > date { return true }
+
+            let contents = FileManager.default.enumerator(at: folder,
+                                                          includingPropertiesForKeys: [.contentModificationDateKey],
+                                                          options: [.skipsHiddenFiles])
+            while let url = contents?.nextObject() as? URL {
+                let values = try? url.resourceValues(forKeys: [.contentModificationDateKey])
+                if let itemDate = values?.contentModificationDate, itemDate > date { return true }
+            }
+        }
+        return false
+    }
+
+    /// When the file or folder was last changed; nil if it isn't there
+    private final func modificationDate(of url: URL) -> Date? {
+        return (try? FileManager.default.attributesOfItem(atPath: url.path))?[.modificationDate] as? Date
+    }
+
     func needsCompileForcing(_ force: Bool,
                              alwaysCompile: Bool,
                              unsavedChanges: Bool,
                              sourceURL: URL?,
                              settingsURL: URL?,
+                             extensionFolderURLs: [URL],
                              outputURL: URL?) -> Bool {
         var needsToCompile = force
 
@@ -80,6 +105,12 @@ import Foundation
                 // If the settings timestamp is later than the output timestamp, then we need to compile
                 needsToCompile = !timestampsInChronologicalOrder(settingsURL,
                                                                  second: outputURL)
+            }
+
+            // If an extension was changed after the output was written, then we need to compile. (The output is
+            // there, or the timestamps aren't in order.)
+            if !needsToCompile, let outputURL, let outputDate = modificationDate(of: outputURL) {
+                needsToCompile = anything(in: extensionFolderURLs, changedAfter: outputDate)
             }
         }
 
