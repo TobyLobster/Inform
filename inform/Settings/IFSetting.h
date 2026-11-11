@@ -11,8 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 // Notification strings
-extern NSNotificationName const IFSettingHasChangedNotification;
-extern NSString* const IFSettingCreateBlorb;
+static NSNotificationName const IFSettingHasChangedNotification = @"IFSettingHasChangedNotification";
+static NSString* const IFSettingCreateBlorb = @"IFSettingCreateBlorb";
 
 @class IFCompilerSettings;
 

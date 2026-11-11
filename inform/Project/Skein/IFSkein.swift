@@ -3,8 +3,8 @@
 //  Inform
 //
 //  Created by Toby Nelson in 2015
-//  Translated from Objective-C in November 2026. The interface is still IFSkein.h, and the
-//  notification names and keys are defined in IFSkeinConstants.m.
+//  Translated from Objective-C in November 2026. The interface is still IFSkein.h, which
+//  also defines the notification names and keys.
 //
 
 import Cocoa

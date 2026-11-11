@@ -4,8 +4,8 @@
 //
 //  Created by Andrew Hunter on Mon Aug 18 2003.
 //  Copyright (c) 2003 Andrew Hunter. All rights reserved.
-//  Translated from Objective-C in November 2026. The interface is still IFCompiler.h, and the
-//  notification names are defined in IFCompilerConstants.m.
+//  Translated from Objective-C in November 2026. The interface is still IFCompiler.h, which
+//  also defines the notification names.
 //
 //  This does the actual low level work of a build: executing tasks in background threads and
 //  sending notifications with the results.

@@ -19,7 +19,7 @@ typedef NS_ENUM(int, IFSymbolRelation) {
 NS_ASSUME_NONNULL_BEGIN
 
 // Standard symbol types
-extern NSString* const IFSectionSymbolType;	// Natural Inform section
+static NSString* const IFSectionSymbolType = @"IFSectionSymbolType"; // Natural Inform section
 // (IMPLEMENT ME: Inform 6 objects, etc)
 
 @class IFIntelFile;

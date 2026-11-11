@@ -13,23 +13,23 @@
 NS_ASSUME_NONNULL_BEGIN
 
 // Possible styles (stored in the styles dictionary)
-extern NSString* const IFStyleBase;
-extern NSString* const IFStyleLaunch;
+static NSString* const IFStyleBase = @"IFStyleBase";
+static NSString* const IFStyleLaunch = @"IFStyleLaunch";
 
 // Basic compiler messages
-extern NSString* const IFStyleCompilerVersion;
-extern NSString* const IFStyleCompilerMessage;
-extern NSString* const IFStyleCompilerWarning;
-extern NSString* const IFStyleCompilerError;
-extern NSString* const IFStyleCompilerFatalError;
-extern NSString* const IFStyleProgress;
+static NSString* const IFStyleCompilerVersion = @"IFStyleCompilerVersion";
+static NSString* const IFStyleCompilerMessage = @"IFStyleCompilerMessage";
+static NSString* const IFStyleCompilerWarning = @"IFStyleCompilerWarning";
+static NSString* const IFStyleCompilerError = @"IFStyleCompilerError";
+static NSString* const IFStyleCompilerFatalError = @"IFStyleCompilerFatalError";
+static NSString* const IFStyleProgress = @"IFStyleProgress";
 
-extern NSString* const IFStyleFilename;
+static NSString* const IFStyleFilename = @"IFStyleFilename";
 
 // Compiler statistics/dumps/etc
-extern NSString* const IFStyleAssembly;
-extern NSString* const IFStyleHexDump;
-extern NSString* const IFStyleStatistics;
+static NSString* const IFStyleAssembly = @"IFStyleAssembly";
+static NSString* const IFStyleHexDump = @"IFStyleHexDump";
+static NSString* const IFStyleStatistics = @"IFStyleStatistics";
 
 
 

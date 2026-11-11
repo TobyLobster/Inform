@@ -13,30 +13,30 @@
 NS_ASSUME_NONNULL_BEGIN
 
 // The settings keys
-extern NSString* const IFSettingZCodeVersion; // default is 5, 256 = GLULX
+static NSString* const IFSettingZCodeVersion = @"IFSettingZCodeVersion"; // default is 5, 256 = GLULX
 
 // Switches
-extern NSString* const IFSettingNaturalInform; // default NO
-extern NSString* const IFSettingStrict;        // default YES
-extern NSString* const IFSettingInfix;         // default NO
-extern NSString* const IFSettingDEBUG;         // default YES
-extern NSString* const IFSettingTestingTabHelpShown;  // default YES
-extern NSString* const IFSettingTestingTabShownCount; // default 0
-extern NSString* const IFSettingNobbleRng;            // default NO
-extern NSString* const IFSettingBasicInform;          // default NO
-extern NSString* const IFSettingCompilerVersion;      // default "Latest"
+static NSString* const IFSettingNaturalInform = @"IFSettingNaturalInform"; // default NO
+static NSString* const IFSettingStrict = @"IFSettingStrict"; // default YES
+static NSString* const IFSettingInfix = @"IFSettingInfix"; // default NO
+static NSString* const IFSettingDEBUG = @"IFSettingDEBUG"; // default YES
+static NSString* const IFSettingTestingTabHelpShown = @"IFSettingTestingTabHelpShown"; // default YES
+static NSString* const IFSettingTestingTabShownCount = @"IFSettingTestingTabShownCount"; // default 0
+static NSString* const IFSettingNobbleRng = @"IFSettingNobbleRng"; // default NO
+static NSString* const IFSettingBasicInform = @"IFSettingBasicInform"; // default NO
+static NSString* const IFSettingCompilerVersion = @"IFSettingCompilerVersion"; // default "Latest"
 
 // Debug
-extern NSString* const IFSettingAllowLegacyExtensionDirectory;
+static NSString* const IFSettingAllowLegacyExtensionDirectory = @"IFSettingAllowLegacyExtensionDirectory";
 
 // Notifications
-extern NSNotificationName const IFSettingNotification;
+static NSNotificationName const IFSettingNotification = @"IFSettingNotification";
 /// Posted by a project, as its object, when it has read its settings, as it does again for Revert To Saved
-extern NSNotificationName const IFProjectSettingsReplacedNotification;
+static NSNotificationName const IFProjectSettingsReplacedNotification = @"IFProjectSettingsReplacedNotification";
 
 // Compiler types
-extern NSString* const IFCompilerInform6;
-extern NSString* const IFCompilerNaturalInform;
+static NSString* const IFCompilerInform6 = @"IFCompilerInform6";
+static NSString* const IFCompilerNaturalInform = @"IFCompilerNaturalInform";
 
 @class IFSetting;
 

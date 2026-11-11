@@ -4,8 +4,8 @@
 //
 //  Created by Andrew Hunter on 05/02/2005.
 //  Copyright 2005 Andrew Hunter. All rights reserved.
-//  Translated from Objective-C in November 2026. The interface is still IFIntelFile.h, and
-//  IFIntelFileHasChangedNotification is defined in IFIntelConstants.m.
+//  Translated from Objective-C in November 2026. The interface is still IFIntelFile.h, which
+//  also defines IFIntelFileHasChangedNotification.
 //
 
 import Cocoa

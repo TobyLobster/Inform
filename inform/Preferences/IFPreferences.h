@@ -11,12 +11,16 @@
 NS_ASSUME_NONNULL_BEGIN
 
 // Notifications
-extern NSString* const IFPreferencesAuthorDidChangeNotification;
-extern NSString* const IFPreferencesEditingDidChangeNotification;
-extern NSString* const IFPreferencesAdvancedDidChangeNotification;
-extern NSString* const IFPreferencesAppFontSizeDidChangeNotification;	// Change to app font size
+static NSNotificationName const IFPreferencesAuthorDidChangeNotification = @"IFPreferencesAuthorDidChangeNotification";
+static NSNotificationName const IFPreferencesEditingDidChangeNotification =
+    @"IFPreferencesEditingDidChangeNotification";
+static NSNotificationName const IFPreferencesAdvancedDidChangeNotification =
+    @"IFPreferencesAdvancedDidChangeNotification";
+// Change to app font size
+static NSNotificationName const IFPreferencesAppFontSizeDidChangeNotification =
+    @"IFPreferencesAppFontSizeDidChangeNotification";
 
-extern NSString* const IFPreferencesDefault;
+static NSString* const IFPreferencesDefault = @"IFApplicationPreferences";
 typedef NS_ENUM(int, IFAppFontSize) {
     IFAppFontSizeMinus100,
     IFAppFontSizeMinus75,

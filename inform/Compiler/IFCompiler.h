@@ -14,11 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 @class IFPreferences;
 @class IFProgress;
 
-extern NSNotificationName const IFCompilerClearConsoleNotification;
-extern NSNotificationName const IFCompilerStartingNotification;
-extern NSNotificationName const IFCompilerStdoutNotification;
-extern NSNotificationName const IFCompilerStderrNotification;
-extern NSNotificationName const IFCompilerFinishedNotification;
+static NSNotificationName const IFCompilerClearConsoleNotification = @"IFCompilerClearConsoleNotification";
+static NSNotificationName const IFCompilerStartingNotification = @"IFCompilerStartingNotification";
+static NSNotificationName const IFCompilerStdoutNotification = @"IFCompilerStdoutNotification";
+static NSNotificationName const IFCompilerStderrNotification = @"IFCompilerStderrNotification";
+static NSNotificationName const IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
 
 typedef NS_ENUM(int, ECompilerProblemType) {
     EProblemTypeNone NS_SWIFT_NAME(none),
