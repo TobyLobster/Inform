@@ -64,6 +64,13 @@ final class IFFindResultTests: XCTestCase {
         XCTAssertFalse(makeResult(documentSortName: nil).recipeBookResult)
     }
 
+    func testIsAnExampleWhenItsSortNameSaysSo() {
+        XCTAssertTrue(makeResult(documentSortName: "003-098-000-000").exampleResult)
+        XCTAssertFalse(makeResult(documentSortName: "001-007-007-000").exampleResult)
+        XCTAssertFalse(makeResult(documentSortName: "002-007-007-000").exampleResult)
+        XCTAssertFalse(makeResult(documentSortName: nil).exampleResult)
+    }
+
     // MARK: - Expanding a replacement
 
     /// \n is a newline and \r a return, as in the regular expression.

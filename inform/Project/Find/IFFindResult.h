@@ -67,6 +67,8 @@ typedef NS_OPTIONS(unsigned int, IFFindLocation) {
 @property (atomic, readonly, copy, nullable) NSArray<NSString*> * regexFoundGroups;
 /// Is the result found in the Recipe Book documentation?
 @property (atomic, getter=isRecipeBookResult, readonly) bool recipeBookResult;
+/// Is the result found in one of the documentation's examples, each a page of its own?
+@property (atomic, getter=isExampleResult, readonly) bool exampleResult;
 
 @property (atomic, readonly, copy) NSAttributedString *attributedContext;
 

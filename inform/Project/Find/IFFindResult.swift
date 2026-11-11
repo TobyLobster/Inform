@@ -78,6 +78,14 @@ extension IFFindResult {
         }
     }
 
+    var exampleResult: Bool {
+        // (The header names the getter, which Swift doesn't take from it)
+        @objc(isExampleResult)
+        get {
+            return documentSortName?.hasPrefix("003") ?? false
+        }
+    }
+
     func setError(_ newHasError: Bool) {
         hasError = newHasError
     }
