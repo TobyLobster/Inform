@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFSemVerTests: XCTestCase {
 
     private func text(_ string: String) -> String {

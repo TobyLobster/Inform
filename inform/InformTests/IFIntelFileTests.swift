@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFIntelFileTests: XCTestCase {
 
     private func heading(_ name: String, level: Int32 = 4) -> IFIntelSymbol {

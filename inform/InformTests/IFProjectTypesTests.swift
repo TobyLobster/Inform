@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFProjectTypesTests: XCTestCase {
 
     private let latin1 = String.Encoding.isoLatin1.rawValue

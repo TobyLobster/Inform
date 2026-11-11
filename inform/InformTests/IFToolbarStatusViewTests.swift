@@ -40,7 +40,8 @@ private final class ManagerStandIn: IFToolbarManager {
     }
 }
 
-final class IFToolbarStatusViewTests: XCTestCase {
+@MainActor
+final class IFToolbarStatusViewTests: XCTestCase, @unchecked Sendable {
 
     private var view: IFToolbarStatusView!
     private var manager: ManagerStandIn!
@@ -50,18 +51,22 @@ final class IFToolbarStatusViewTests: XCTestCase {
     private let toolbarSize = NSSize(width: 300, height: 30)
 
     override func setUp() {
-        super.setUp()
-        view = IFToolbarStatusView(frame: NSRect(origin: .zero, size: toolbarSize))
-        controller = ProjectControllerStandIn()
-        manager = ManagerStandIn()
-        manager.controller = controller
+        MainActor.assumeIsolated {
+            super.setUp()
+            view = IFToolbarStatusView(frame: NSRect(origin: .zero, size: toolbarSize))
+            controller = ProjectControllerStandIn()
+            manager = ManagerStandIn()
+            manager.controller = controller
+        }
     }
 
     override func tearDown() {
-        view = nil
-        manager = nil
-        controller = nil
-        super.tearDown()
+        MainActor.assumeIsolated {
+            view = nil
+            manager = nil
+            controller = nil
+            super.tearDown()
+        }
     }
 
     // MARK: - Helpers

@@ -5,7 +5,8 @@
 
 import XCTest
 
-final class IFViewAnimatorTests: XCTestCase {
+@MainActor
+final class IFViewAnimatorTests: XCTestCase, @unchecked Sendable {
 
     /// A view filled with one colour, so that a picture of it shows which view it is, and which can be focused
     private final class ColourView: NSView {
@@ -45,28 +46,32 @@ final class IFViewAnimatorTests: XCTestCase {
     private var blue: ColourView!
 
     override func setUp() {
-        super.setUp()
-        // NSWindow moves a window made off the screen onto it, so it's moved off afterwards
-        window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 400, height: 300),
-                          styleMask: [.titled], backing: .buffered, defer: false)
-        window.isReleasedWhenClosed = false
-        window.setFrameOrigin(NSPoint(x: -20000, y: -20000))
-        container = NSView(frame: NSRect(x: 0, y: 0, width: 400, height: 300))
-        window.contentView?.addSubview(container)
+        MainActor.assumeIsolated {
+            super.setUp()
+            // NSWindow moves a window made off the screen onto it, so it's moved off afterwards
+            window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 400, height: 300),
+                              styleMask: [.titled], backing: .buffered, defer: false)
+            window.isReleasedWhenClosed = false
+            window.setFrameOrigin(NSPoint(x: -20000, y: -20000))
+            container = NSView(frame: NSRect(x: 0, y: 0, width: 400, height: 300))
+            window.contentView?.addSubview(container)
 
-        red = ColourView(frame: NSRect(x: 10, y: 20, width: 200, height: 100), colour: .red)
-        red.autoresizingMask = [.width, .maxYMargin]
-        container.addSubview(red)
-        blue = ColourView(frame: NSRect(x: 30, y: 40, width: 250, height: 150), colour: .blue)
+            red = ColourView(frame: NSRect(x: 10, y: 20, width: 200, height: 100), colour: .red)
+            red.autoresizingMask = [.width, .maxYMargin]
+            container.addSubview(red)
+            blue = ColourView(frame: NSRect(x: 30, y: 40, width: 250, height: 150), colour: .blue)
+        }
     }
 
     override func tearDown() {
-        window.close()
-        window = nil
-        container = nil
-        red = nil
-        blue = nil
-        super.tearDown()
+        MainActor.assumeIsolated {
+            window.close()
+            window = nil
+            container = nil
+            red = nil
+            blue = nil
+            super.tearDown()
+        }
     }
 
     // MARK: - Helpers

@@ -45,6 +45,7 @@ private class RecordingSetting: IFSetting {
 private final class OtherSetting: RecordingSetting {
 }
 
+@MainActor
 final class IFSettingsControllerTests: XCTestCase {
 
     /// The standard settings, as the app adds them when it starts

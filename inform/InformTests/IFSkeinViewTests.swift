@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFSkeinViewTests: XCTestCase {
 
     /// A skein view in a 700 by 500 scroll view, in a window that isn't shown, far off the screen so that the mouse

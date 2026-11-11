@@ -25,7 +25,8 @@ private final class TestProjectController: IFProjectController {
 }
 
 /// The two sides of a project window, with their real window and controller, kept off the screen and never shown
-final class IFProjectPaneTests: XCTestCase {
+@MainActor
+final class IFProjectPaneTests: XCTestCase, @unchecked Sendable {
     private var folder: URL!
     private var project: IFProject!
     private var controller: TestProjectController!
@@ -34,45 +35,49 @@ final class IFProjectPaneTests: XCTestCase {
     private var right: IFProjectPane!
 
     override func setUpWithError() throws {
-        try super.setUpWithError()
+        try MainActor.assumeIsolated {
+            try super.setUpWithError()
 
-        folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
-        let source = folder.appendingPathComponent("Lighthouse.inform/Source", isDirectory: true)
-        try FileManager.default.createDirectory(at: source, withIntermediateDirectories: true)
-        try Data("\"Lighthouse\" by Me\n\nThe Lamp Room is a room.\n".utf8)
-            .write(to: source.appendingPathComponent("story.ni"))
+            folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+            let source = folder.appendingPathComponent("Lighthouse.inform/Source", isDirectory: true)
+            try FileManager.default.createDirectory(at: source, withIntermediateDirectories: true)
+            try Data("\"Lighthouse\" by Me\n\nThe Lamp Room is a room.\n".utf8)
+                .write(to: source.appendingPathComponent("story.ni"))
 
-        // An index, as a translation leaves, so that the index page can be shown
-        let index = folder.appendingPathComponent("Lighthouse.inform/Index", isDirectory: true)
-        try FileManager.default.createDirectory(at: index, withIntermediateDirectories: true)
-        try Data("<html><body>Welcome</body></html>".utf8).write(to: index.appendingPathComponent("Welcome.html"))
-        project = try IFProject(contentsOf: folder.appendingPathComponent("Lighthouse.inform"),
-                                ofType: "org.inform-fiction.project")
+            // An index, as a translation leaves, so that the index page can be shown
+            let index = folder.appendingPathComponent("Lighthouse.inform/Index", isDirectory: true)
+            try FileManager.default.createDirectory(at: index, withIntermediateDirectories: true)
+            try Data("<html><body>Welcome</body></html>".utf8).write(to: index.appendingPathComponent("Welcome.html"))
+            project = try IFProject(contentsOf: folder.appendingPathComponent("Lighthouse.inform"),
+                                    ofType: "org.inform-fiction.project")
 
-        controller = TestProjectController()
-        project.addWindowController(controller)
-        let window = try XCTUnwrap(controller.window)
-        window.setFrameOrigin(NSPoint(x: -20000, y: -20000))
+            controller = TestProjectController()
+            project.addWindowController(controller)
+            let window = try XCTUnwrap(controller.window)
+            window.setFrameOrigin(NSPoint(x: -20000, y: -20000))
 
-        left = try XCTUnwrap(controller.sourcePane)
-        right = try XCTUnwrap(controller.auxPane)
+            left = try XCTUnwrap(controller.sourcePane)
+            right = try XCTUnwrap(controller.auxPane)
+        }
     }
 
     override func tearDownWithError() throws {
-        // The panes' pages each start a process of their own to load in, which are let finish first, or they're still
-        // starting as the tests after these run, and slow them
-        waitForPagesToLoad(in: [left, right].compactMap { $0 })
+        try MainActor.assumeIsolated {
+            // The panes' pages each start a process of their own to load in, which are let finish first, or
+            // they're still starting as the tests after these run, and slow them
+            waitForPagesToLoad(in: [left, right].compactMap { $0 })
 
-        controller?.close()
-        project?.close()
-        left = nil
-        right = nil
-        controller = nil
-        project = nil
-        if let folder {
-            try? FileManager.default.removeItem(at: folder)
+            controller?.close()
+            project?.close()
+            left = nil
+            right = nil
+            controller = nil
+            project = nil
+            if let folder {
+                try? FileManager.default.removeItem(at: folder)
+            }
+            try super.tearDownWithError()
         }
-        try super.tearDownWithError()
     }
 
     /// Waits for the web views in the panes' pages, shown or not, to finish loading

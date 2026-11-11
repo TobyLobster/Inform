@@ -86,7 +86,8 @@ private final class NavigationWatcher: NSObject, WKNavigationDelegate {
     }
 }
 
-final class IFDocumentationPageTests: XCTestCase {
+@MainActor
+final class IFDocumentationPageTests: XCTestCase, @unchecked Sendable {
 
     /// A page being tested, with its web view and the watcher between them
     private struct Shown {
@@ -101,19 +102,23 @@ final class IFDocumentationPageTests: XCTestCase {
     private var shown: [Shown] = []
 
     override func setUp() {
-        super.setUp()
+        MainActor.assumeIsolated {
+            super.setUp()
 
-        // A project controller that doesn't watch for settings changing, and so doesn't make the project window's
-        // toolbar for them, which saves its configuration in the user's preferences.
-        let controller = ProjectControllerStandIn()
-        NotificationCenter.default.removeObserver(controller)
-        self.controller = controller
+            // A project controller that doesn't watch for settings changing, and so doesn't make the project window's
+            // toolbar for them, which saves its configuration in the user's preferences.
+            let controller = ProjectControllerStandIn()
+            NotificationCenter.default.removeObserver(controller)
+            self.controller = controller
+        }
     }
 
     override func tearDown() {
-        shown = []
-        controller = nil
-        super.tearDown()
+        MainActor.assumeIsolated {
+            shown = []
+            controller = nil
+            super.tearDown()
+        }
     }
 
     /// A documentation page, once it has loaded its first page

@@ -5,16 +5,21 @@
 
 import XCTest
 
-final class IFExtensionDownloadTests: XCTestCase {
+@MainActor
+final class IFExtensionDownloadTests: XCTestCase, @unchecked Sendable {
     private var folder: URL!
 
     override func setUpWithError() throws {
-        folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        try MainActor.assumeIsolated {
+            folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+            try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        }
     }
 
     override func tearDownWithError() throws {
-        try? FileManager.default.removeItem(at: folder)
+        MainActor.assumeIsolated {
+            try? FileManager.default.removeItem(at: folder)
+        }
     }
 
     private func download(_ url: URL) -> IFExtensionDownload {

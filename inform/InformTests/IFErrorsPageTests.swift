@@ -115,7 +115,8 @@ private final class NavigationWatcher: NSObject, WKNavigationDelegate {
     }
 }
 
-final class IFErrorsPageTests: XCTestCase {
+@MainActor
+final class IFErrorsPageTests: XCTestCase, @unchecked Sendable {
 
     /// The page's project controller, which the page doesn't keep
     private var controller: ProjectControllerStandIn?
@@ -126,26 +127,30 @@ final class IFErrorsPageTests: XCTestCase {
     private var kept: [AnyObject] = []
 
     override func setUpWithError() throws {
-        try super.setUpWithError()
+        try MainActor.assumeIsolated {
+            try super.setUpWithError()
 
-        // A project controller that doesn't watch for settings changing, and so doesn't make the project window's
-        // toolbar for them, which saves its configuration in the user's preferences.
-        let controller = ProjectControllerStandIn()
-        NotificationCenter.default.removeObserver(controller)
-        self.controller = controller
+            // A project controller that doesn't watch for settings changing, and so doesn't make the project window's
+            // toolbar for them, which saves its configuration in the user's preferences.
+            let controller = ProjectControllerStandIn()
+            NotificationCenter.default.removeObserver(controller)
+            self.controller = controller
 
-        let folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
-        self.folder = folder
+            let folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+            try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+            self.folder = folder
+        }
     }
 
     override func tearDownWithError() throws {
-        kept = []
-        controller = nil
-        if let folder {
-            try FileManager.default.removeItem(at: folder)
+        try MainActor.assumeIsolated {
+            kept = []
+            controller = nil
+            if let folder {
+                try FileManager.default.removeItem(at: folder)
+            }
+            try super.tearDownWithError()
         }
-        try super.tearDownWithError()
     }
 
     private func makePage(visible: Bool = false, recorder: Recorder? = nil) throws -> IFErrorsPage {

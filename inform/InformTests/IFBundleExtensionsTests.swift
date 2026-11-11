@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFBundleExtensionsTests: XCTestCase {
 
     /// A page loads its nib with itself as the owner, which connects its view.

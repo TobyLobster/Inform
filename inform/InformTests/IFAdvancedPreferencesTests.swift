@@ -69,6 +69,7 @@ private struct Controls {
     }
 }
 
+@MainActor
 final class IFAdvancedPreferencesTests: XCTestCase {
     /// A pane for preferences kept in memory, which start with the values given
     private func makePane(_ stored: [String: Any] = [:]) throws -> (IFAdvancedPreferences, IFPreferences, MemoryDefaults, Controls) {

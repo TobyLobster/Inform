@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFSkeinBlessButtonTests: XCTestCase {
 
     private func image(_ name: String) throws -> NSImage {

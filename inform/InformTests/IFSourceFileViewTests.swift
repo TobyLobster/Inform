@@ -5,7 +5,8 @@
 
 import XCTest
 
-final class IFSourceFileViewTests: XCTestCase {
+@MainActor
+final class IFSourceFileViewTests: XCTestCase, @unchecked Sendable {
 
     /// A delegate that can go to the previous and next sections, as the Source page does, and records when it's asked
     private final class Navigator: NSObject, NSTextViewDelegate, IFSourceNavigation {
@@ -36,62 +37,66 @@ final class IFSourceFileViewTests: XCTestCase {
     private let bottomTearHeight = NSImage(named: "App/TornPages/torn_bottom")?.size.height ?? 0
 
     override func setUp() {
-        super.setUp()
-        // NSWindow moves a window made off the screen onto it, so it's moved off afterwards, so that the mouse is
-        // never over the view
-        window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 500, height: 400),
-                          styleMask: [.titled], backing: .buffered, defer: false)
-        window.isReleasedWhenClosed = false
-        window.setFrameOrigin(NSPoint(x: -20000, y: -20000))
+        MainActor.assumeIsolated {
+            super.setUp()
+            // NSWindow moves a window made off the screen onto it, so it's moved off afterwards, so that the mouse is
+            // never over the view
+            window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 500, height: 400),
+                              styleMask: [.titled], backing: .buffered, defer: false)
+            window.isReleasedWhenClosed = false
+            window.setFrameOrigin(NSPoint(x: -20000, y: -20000))
 
-        // As the Source page makes it
-        let textStorage = NSTextStorage(string: "one\ntwo\nthree")
-        let layoutManager = NSLayoutManager()
-        textStorage.addLayoutManager(layoutManager)
-        let textContainer = NSTextContainer(containerSize: NSSize(width: 500, height: 400))
-        layoutManager.addTextContainer(textContainer)
+            // As the Source page makes it
+            let textStorage = NSTextStorage(string: "one\ntwo\nthree")
+            let layoutManager = NSLayoutManager()
+            textStorage.addLayoutManager(layoutManager)
+            let textContainer = NSTextContainer(containerSize: NSSize(width: 500, height: 400))
+            layoutManager.addTextContainer(textContainer)
 
-        let scrollView = NSScrollView(frame: NSRect(x: 0, y: 0, width: 500, height: 400))
-        scrollView.borderType = .noBorder
-        scrollView.hasVerticalScroller = true
-        scrollView.autoresizingMask = [.width, .height]
-        let contentSize = scrollView.contentSize
+            let scrollView = NSScrollView(frame: NSRect(x: 0, y: 0, width: 500, height: 400))
+            scrollView.borderType = .noBorder
+            scrollView.hasVerticalScroller = true
+            scrollView.autoresizingMask = [.width, .height]
+            let contentSize = scrollView.contentSize
 
-        textView = IFSourceFileView(frame: NSRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height),
-                                    textContainer: textContainer)
-        textView.minSize = NSSize(width: 0, height: contentSize.height)
-        textView.maxSize = NSSize(width: CGFloat(Float.greatestFiniteMagnitude),
-                                  height: CGFloat(Float.greatestFiniteMagnitude))
-        textView.isVerticallyResizable = true
-        textView.isHorizontallyResizable = false
-        textView.autoresizingMask = [.width]
-        textView.allowsUndo = true
-        textView.isRichText = false
-        textView.enabledTextCheckingTypes = 0
-        textView.textContainer?.containerSize = NSSize(width: contentSize.width,
-                                                       height: CGFloat(Float.greatestFiniteMagnitude))
-        textView.textContainer?.widthTracksTextView = true
-        textView.textContainerInset = NSSize(width: 3, height: 6)
+            textView = IFSourceFileView(frame: NSRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height),
+                                        textContainer: textContainer)
+            textView.minSize = NSSize(width: 0, height: contentSize.height)
+            textView.maxSize = NSSize(width: CGFloat(Float.greatestFiniteMagnitude),
+                                      height: CGFloat(Float.greatestFiniteMagnitude))
+            textView.isVerticallyResizable = true
+            textView.isHorizontallyResizable = false
+            textView.autoresizingMask = [.width]
+            textView.allowsUndo = true
+            textView.isRichText = false
+            textView.enabledTextCheckingTypes = 0
+            textView.textContainer?.containerSize = NSSize(width: contentSize.width,
+                                                           height: CGFloat(Float.greatestFiniteMagnitude))
+            textView.textContainer?.widthTracksTextView = true
+            textView.textContainerInset = NSSize(width: 3, height: 6)
 
-        navigator = Navigator()
-        textView.delegate = navigator
+            navigator = Navigator()
+            textView.delegate = navigator
 
-        scrollView.documentView = textView
-        window.contentView?.addSubview(scrollView)
-        textView.layoutManager?.ensureLayout(for: textContainer)
+            scrollView.documentView = textView
+            window.contentView?.addSubview(scrollView)
+            textView.layoutManager?.ensureLayout(for: textContainer)
+        }
     }
 
     override func tearDown() {
-        for pasteboard in pasteboards {
-            pasteboard.releaseGlobally()
+        MainActor.assumeIsolated {
+            for pasteboard in pasteboards {
+                pasteboard.releaseGlobally()
+            }
+            pasteboards = []
+            textView.delegate = nil
+            window.close()
+            window = nil
+            textView = nil
+            navigator = nil
+            super.tearDown()
         }
-        pasteboards = []
-        textView.delegate = nil
-        window.close()
-        window = nil
-        textView = nil
-        navigator = nil
-        super.tearDown()
     }
 
     // MARK: - Helpers

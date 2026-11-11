@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFCompilerSettingsTests: XCTestCase {
 
     /// A project's Settings.plist, as the app writes it, with settings changed from their defaults.

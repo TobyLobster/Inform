@@ -18,27 +18,32 @@ private final class Shown: NSObject {
     }
 }
 
-final class IFPaneHistoryTests: XCTestCase {
+@MainActor
+final class IFPaneHistoryTests: XCTestCase, @unchecked Sendable {
     private var history: IFPaneHistory!
     /// How often the history has said it changed
     private var changes = 0
     private var shown: Shown!
 
     override func setUp() {
-        super.setUp()
-        changes = 0
-        history = IFPaneHistory(changeHandler: { [weak self] in
-            self?.changes += 1
-        })
-        shown = Shown()
+        MainActor.assumeIsolated {
+            super.setUp()
+            changes = 0
+            history = IFPaneHistory(changeHandler: { [weak self] in
+                self?.changes += 1
+            })
+            shown = Shown()
+        }
     }
 
     override func tearDown() {
-        // Let the history forget its last event, which it does in the next pass of the run loop
-        nextPass()
-        history = nil
-        shown = nil
-        super.tearDown()
+        MainActor.assumeIsolated {
+            // Let the history forget its last event, which it does in the next pass of the run loop
+            nextPass()
+            history = nil
+            shown = nil
+            super.tearDown()
+        }
     }
 
     /// Runs the run loop, so that what's recorded next goes in an event of its own

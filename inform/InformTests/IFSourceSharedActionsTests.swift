@@ -7,24 +7,29 @@ import XCTest
 
 /// Shift Left and Right, and Comment Out and Uncomment Selection, on source text with the selection
 /// marked by « and ».
-final class IFSourceSharedActionsTests: XCTestCase {
+@MainActor
+final class IFSourceSharedActionsTests: XCTestCase, @unchecked Sendable {
 
     private let actions = IFSourceSharedActions()
     private var undo: UndoManager!
     private var document: NSDocument!
 
     override func setUp() {
-        super.setUp()
-        undo = UndoManager()
-        undo.groupsByEvent = false
-        document = NSDocument()
-        document.undoManager = undo
+        MainActor.assumeIsolated {
+            super.setUp()
+            undo = UndoManager()
+            undo.groupsByEvent = false
+            document = NSDocument()
+            document.undoManager = undo
+        }
     }
 
     override func tearDown() {
-        document = nil
-        undo = nil
-        super.tearDown()
+        MainActor.assumeIsolated {
+            document = nil
+            undo = nil
+            super.tearDown()
+        }
     }
 
     /// A view showing the marked text, registered as source text is, with the marked range selected.

@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFProjectTests: XCTestCase {
 
     private let lines = ["\"Line Endings\" by Inform.", "", "The Kitchen is a room."]

@@ -6,6 +6,7 @@
 import XCTest
 
 /// Not finding a match beeps, so some of these tests do.
+@MainActor
 final class IFFindTextViewTests: XCTestCase {
 
     /// Gives a text view an undo manager, as its window would. The text view has to allow undo, as the source's does,

@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFExtensionInfoTests: XCTestCase {
     private func info(_ displayName: String = "Locksmith",
                       filepath: String? = "/Extensions/Emily Short/Locksmith.i7x",

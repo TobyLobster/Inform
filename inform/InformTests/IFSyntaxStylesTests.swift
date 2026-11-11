@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFSyntaxStylesTests: XCTestCase {
 
     private let none = IFSyntaxStyle(rawValue: 0)

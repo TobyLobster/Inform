@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFRuntimeErrorParserTests: XCTestCase {
 
     /// The folder holding the explanations of the Standard Rules' run-time problems.

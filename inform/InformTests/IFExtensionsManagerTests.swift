@@ -6,6 +6,7 @@
 import Network
 import XCTest
 
+@MainActor
 final class IFExtensionsManagerTests: XCTestCase {
 
     private struct FirstLine {

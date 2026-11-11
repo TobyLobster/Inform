@@ -6,6 +6,7 @@
 import XCTest
 
 /// How wide a project window's panes are laid out, the proportions kept for them, and how far a divider can be dragged
+@MainActor
 final class IFPaneWidthsTests: XCTestCase {
     private func widths(of count: Int,
                         in width: CGFloat,

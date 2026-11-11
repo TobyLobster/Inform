@@ -54,6 +54,7 @@ private final class ProjectControllerStandIn: IFProjectController {
 
 /// The controller's window is loaded but never shown, and never closed, as closing it saves its frame in the user's
 /// defaults.
+@MainActor
 final class IFFindInFilesControllerTests: XCTestCase {
 
     /// What can be shown below the controls

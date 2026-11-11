@@ -56,6 +56,7 @@ private final class NotificationRecorder {
     }
 }
 
+@MainActor
 final class IFPreferencesTests: XCTestCase {
 
     private let types: [IFSyntaxHighlightingOptionType] = [.headings, .mainText, .comments, .quotedText, .textSubstitutions]

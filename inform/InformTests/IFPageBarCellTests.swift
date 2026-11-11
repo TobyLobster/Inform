@@ -5,7 +5,8 @@
 
 import XCTest
 
-final class IFPageBarCellTests: XCTestCase {
+@MainActor
+final class IFPageBarCellTests: XCTestCase, @unchecked Sendable {
 
     /// A page bar that records what its cells ask of it
     private final class RecordingBar: IFPageBarView {
@@ -40,28 +41,32 @@ final class IFPageBarCellTests: XCTestCase {
     private let cellSize = NSSize(width: 100, height: 22)
 
     override func setUp() {
-        super.setUp()
-        // NSWindow moves a window made off the screen onto it, so it's moved off afterwards, so that the mouse is
-        // never over the bar
-        window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 400, height: 22),
-                          styleMask: [.titled], backing: .buffered, defer: false)
-        window.isReleasedWhenClosed = false
-        window.setFrameOrigin(NSPoint(x: -20000, y: -20000))
+        MainActor.assumeIsolated {
+            super.setUp()
+            // NSWindow moves a window made off the screen onto it, so it's moved off afterwards, so that the mouse is
+            // never over the bar
+            window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 400, height: 22),
+                              styleMask: [.titled], backing: .buffered, defer: false)
+            window.isReleasedWhenClosed = false
+            window.setFrameOrigin(NSPoint(x: -20000, y: -20000))
 
-        bar = RecordingBar(frame: NSRect(x: 0, y: 0, width: 400, height: 22))
-        window.contentView?.addSubview(bar)
-        target = Target()
+            bar = RecordingBar(frame: NSRect(x: 0, y: 0, width: 400, height: 22))
+            window.contentView?.addSubview(bar)
+            target = Target()
+        }
     }
 
     override func tearDown() {
-        // Take off any events a test left queued
-        while NSApp.nextEvent(matching: .any, until: nil, inMode: .default, dequeue: true) != nil {
+        MainActor.assumeIsolated {
+            // Take off any events a test left queued
+            while NSApp.nextEvent(matching: .any, until: nil, inMode: .default, dequeue: true) != nil {
+            }
+            window.close()
+            window = nil
+            bar = nil
+            target = nil
+            super.tearDown()
         }
-        window.close()
-        window = nil
-        bar = nil
-        target = nil
-        super.tearDown()
     }
 
     // MARK: - Helpers

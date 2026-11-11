@@ -6,7 +6,8 @@
 import XCTest
 
 /// The sections of source text under its headings, as the source page shows one at a time.
-final class IFSourceSectionsTests: XCTestCase {
+@MainActor
+final class IFSourceSectionsTests: XCTestCase, @unchecked Sendable {
 
     private let notFound = NSRange(location: NSNotFound, length: 0)
 
@@ -31,7 +32,9 @@ final class IFSourceSectionsTests: XCTestCase {
     private var intel: IFIntelFile!
 
     override func setUpWithError() throws {
-        intel = try headings(of: source)
+        try MainActor.assumeIsolated {
+            intel = try headings(of: source)
+        }
     }
 
     /// The headings of a story, gathered as the source page's are, from a text storage unregistered at the end.

@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFInTestTests: XCTestCase {
 
     private let lighthouse = """

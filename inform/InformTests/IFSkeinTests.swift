@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFSkeinTests: XCTestCase {
 
     /// Records the skein's change notifications.

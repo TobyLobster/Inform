@@ -49,6 +49,7 @@ private final class CancelTarget: NSObject {
     }
 }
 
+@MainActor
 final class IFProgressTests: XCTestCase {
 
     private func makeProgress(priority: Int32 = IFProgressPriorityCompiler, canCancel: Bool = true) -> IFProgress {

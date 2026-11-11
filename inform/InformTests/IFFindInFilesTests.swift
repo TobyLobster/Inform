@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFFindInFilesTests: XCTestCase {
 
     // MARK: - Helpers
@@ -29,8 +30,9 @@ final class IFFindInFilesTests: XCTestCase {
     /// block (the items searched, the items to search, and the results so far)
     private func search(_ phrase: String,
                         _ locations: IFFindLocation,
-                        in project: IFProject = IFProject(),
+                        in project: IFProject? = nil,
                         with finder: IFFindInFiles = IFFindInFiles()) -> (results: [IFFindResult], progress: [[Int32]]) {
+        let project = project ?? IFProject()
         var progress: [[Int32]] = []
         let finished = expectation(description: "The search finishes")
         finder.start(withPhrase: phrase, withSearch: .contains, from: project, withLocations: locations) { num, total, found in

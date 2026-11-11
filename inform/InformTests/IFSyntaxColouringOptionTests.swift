@@ -27,6 +27,7 @@ private final class PartialOption: NSObject, NSSecureCoding {
     }
 }
 
+@MainActor
 final class IFSyntaxColouringOptionTests: XCTestCase {
 
     private let red = NSColor(deviceRed: 0.9, green: 0.2, blue: 0.3, alpha: 1.0)

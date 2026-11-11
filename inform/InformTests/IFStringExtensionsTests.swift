@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFStringExtensionsTests: XCTestCase {
 
     /// An empty string is never found, as with NSString's own searches.

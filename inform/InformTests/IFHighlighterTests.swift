@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFHighlighterTests: XCTestCase {
 
     /// Highlights the text as the editor does, and returns the style of each character (UTF-16 unit).

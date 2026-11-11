@@ -110,7 +110,8 @@ private final class NavigationWatcher: NSObject, WKNavigationDelegate {
     }
 }
 
-final class IFExtensionsPageTests: XCTestCase {
+@MainActor
+final class IFExtensionsPageTests: XCTestCase, @unchecked Sendable {
 
     /// A page being tested, with its web view and the watcher between them
     private struct Shown {
@@ -136,27 +137,32 @@ final class IFExtensionsPageTests: XCTestCase {
     private var folder: URL?
 
     override func setUpWithError() throws {
-        try super.setUpWithError()
+        try MainActor.assumeIsolated {
+            try super.setUpWithError()
 
-        // A project controller that doesn't watch for settings changing, and so doesn't make the project window's
-        // toolbar for them, which saves its configuration in the user's preferences.
-        let controller = ProjectControllerStandIn()
-        NotificationCenter.default.removeObserver(controller)
-        self.controller = controller
+            // A project controller that doesn't watch for settings changing, and so doesn't make the project window's
+            // toolbar for them, which saves its configuration in the user's preferences.
+            let controller = ProjectControllerStandIn()
+            NotificationCenter.default.removeObserver(controller)
+            self.controller = controller
 
-        let folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
-        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
-        self.folder = folder
+            let folder = FileManager.default.temporaryDirectory
+                .appendingPathComponent(UUID().uuidString, isDirectory: true)
+            try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+            self.folder = folder
+        }
     }
 
     override func tearDownWithError() throws {
-        shown = []
-        controller = nil
-        if let folder {
-            try FileManager.default.removeItem(at: folder)
+        try MainActor.assumeIsolated {
+            shown = []
+            controller = nil
+            if let folder {
+                try FileManager.default.removeItem(at: folder)
+            }
+            folder = nil
+            try super.tearDownWithError()
         }
-        folder = nil
-        try super.tearDownWithError()
     }
 
     /// A project, in the test's folder, with a catalogue of its extensions if one is given

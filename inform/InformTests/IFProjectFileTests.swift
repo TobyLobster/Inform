@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFProjectFileTests: XCTestCase {
 
     private let fileManager = FileManager.default

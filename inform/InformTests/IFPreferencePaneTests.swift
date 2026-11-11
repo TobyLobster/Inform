@@ -18,6 +18,7 @@ final class IFPreferencePaneTestsTallPane: IFPreferencePane {
     }
 }
 
+@MainActor
 final class IFPreferencePaneTests: XCTestCase {
     func testAPaneWithNoNibHasNoViewAndNoHeight() {
         let pane = IFPreferencePane()

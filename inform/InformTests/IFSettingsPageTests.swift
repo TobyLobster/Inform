@@ -50,6 +50,7 @@ private final class CountingSetting: IFSetting {
     }
 }
 
+@MainActor
 final class IFSettingsPageTests: XCTestCase {
 
     /// A controller for a project. It isn't told of changes to any compiler settings, as it would make its window a

@@ -32,6 +32,7 @@ private final class FocusableView: NSView {
     }
 }
 
+@MainActor
 final class IFNotifyingWindowTests: XCTestCase {
 
     /// A window with a view that can be the first responder. It's never shown, and has no autosave name.

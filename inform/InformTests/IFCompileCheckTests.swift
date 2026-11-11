@@ -6,6 +6,7 @@
 import XCTest
 
 /// Whether a project needs compiling before its story is used
+@MainActor
 final class IFCompileCheckTests: XCTestCase {
     /// A project's source, settings and story, in a folder of the test's own
     private struct Files {

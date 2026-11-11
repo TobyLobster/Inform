@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFFindResultTests: XCTestCase {
 
     /// Expands the escapes in a regular expression's replacement, as Replace does.

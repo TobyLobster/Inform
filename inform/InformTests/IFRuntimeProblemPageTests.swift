@@ -6,6 +6,7 @@
 import XCTest
 
 /// The page explaining a run-time problem that a story reported
+@MainActor
 final class IFRuntimeProblemPageTests: XCTestCase {
     private let materials = "/Projects/Lighthouse.materials"
     private let internalFiles = "/Applications/Inform.app/Contents/Resources/Internal"

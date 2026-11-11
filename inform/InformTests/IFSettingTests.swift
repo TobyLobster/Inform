@@ -18,6 +18,7 @@ private final class CountingSetting: IFSetting {
     }
 }
 
+@MainActor
 final class IFSettingTests: XCTestCase {
     // MARK: - Helpers
 

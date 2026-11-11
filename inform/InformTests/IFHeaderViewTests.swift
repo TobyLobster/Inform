@@ -28,6 +28,7 @@ private final class RecordingDelegate: NSObject, IFHeaderViewDelegate {
 private final class QuietDelegate: NSObject, IFHeaderViewDelegate {
 }
 
+@MainActor
 final class IFHeaderViewTests: XCTestCase {
 
     // MARK: - Headings

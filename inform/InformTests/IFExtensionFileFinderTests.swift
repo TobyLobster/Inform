@@ -6,7 +6,8 @@
 import XCTest
 
 /// Finding the file of an extension that a source link or a search names
-final class IFExtensionFileFinderTests: XCTestCase {
+@MainActor
+final class IFExtensionFileFinderTests: XCTestCase, @unchecked Sendable {
 
     /// An extensions manager whose authors have the files given
     private final class ExtensionsManager: IFExtensionsManager {
@@ -23,9 +24,11 @@ final class IFExtensionFileFinderTests: XCTestCase {
     private let locksmith = "/Library/Inform/Extensions/Emily Short/Locksmith.i7x"
 
     override func setUp() {
-        super.setUp()
-        manager.filesByAuthor["Emily Short"] = ["/Library/Inform/Extensions/Emily Short/Basic Screen Effects.i7x",
-                                                locksmith]
+        MainActor.assumeIsolated {
+            super.setUp()
+            manager.filesByAuthor["Emily Short"] = ["/Library/Inform/Extensions/Emily Short/Basic Screen Effects.i7x",
+                                                    locksmith]
+        }
     }
 
     private func file(_ name: String) -> String? {

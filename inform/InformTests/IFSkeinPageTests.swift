@@ -51,7 +51,8 @@ private final class NavigationWatcher: NSObject, WKNavigationDelegate {
     }
 }
 
-final class IFSkeinPageTests: XCTestCase {
+@MainActor
+final class IFSkeinPageTests: XCTestCase, @unchecked Sendable {
 
     /// A page being tested, with its views
     private struct Shown {
@@ -85,19 +86,23 @@ final class IFSkeinPageTests: XCTestCase {
     private var shown: [Shown] = []
 
     override func setUp() {
-        super.setUp()
+        MainActor.assumeIsolated {
+            super.setUp()
 
-        // A project controller that doesn't watch for settings changing, and so doesn't make the project window's
-        // toolbar for them, which saves its configuration in the user's preferences.
-        let controller = ProjectControllerStandIn()
-        NotificationCenter.default.removeObserver(controller)
-        self.controller = controller
+            // A project controller that doesn't watch for settings changing, and so doesn't make the project window's
+            // toolbar for them, which saves its configuration in the user's preferences.
+            let controller = ProjectControllerStandIn()
+            NotificationCenter.default.removeObserver(controller)
+            self.controller = controller
+        }
     }
 
     override func tearDown() {
-        shown = []
-        controller = nil
-        super.tearDown()
+        MainActor.assumeIsolated {
+            shown = []
+            controller = nil
+            super.tearDown()
+        }
     }
 
     /// The views of the given class in a view, at any depth

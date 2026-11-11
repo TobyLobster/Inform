@@ -6,6 +6,7 @@
 import XCTest
 
 /// Gathering the headings of Inform 7 source, and the indenting and numbering done as it's typed.
+@MainActor
 final class IFNaturalIntelTests: XCTestCase {
 
     private let source = """

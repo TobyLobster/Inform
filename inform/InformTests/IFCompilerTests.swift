@@ -42,6 +42,7 @@ private struct Posted {
     var problemType: Int? { userInfo["problemType"] as? Int }
 }
 
+@MainActor
 final class IFCompilerTests: XCTestCase {
 
     /// A new folder, removed when the test ends

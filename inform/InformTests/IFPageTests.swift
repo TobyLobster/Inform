@@ -30,6 +30,7 @@ private final class Recorder: NSObject, IFHistoryRecorder {
     var historyEvent: IFHistoryEvent?
 }
 
+@MainActor
 final class IFPageTests: XCTestCase {
 
     /// A page with no nib, which is all a page needs to be tested on its own

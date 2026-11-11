@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFScannerTests: XCTestCase {
 
     private let notFound = NSRange(location: NSNotFound, length: 0)

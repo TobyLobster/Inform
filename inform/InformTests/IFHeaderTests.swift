@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFHeaderTests: XCTestCase {
 
     private func header(_ name: String, parent: IFHeader? = nil, children: [IFHeader]? = nil) -> IFHeader {

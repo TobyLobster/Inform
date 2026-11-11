@@ -72,6 +72,7 @@ private struct Controls {
     }
 }
 
+@MainActor
 final class IFColourPreferencesTests: XCTestCase {
     private let standardThemes = ["Light Mode", "Dark Mode", "Seven Seas", "Traditional"]
     private let types: [IFSyntaxHighlightingOptionType] = [.headings, .mainText, .comments, .quotedText, .textSubstitutions]

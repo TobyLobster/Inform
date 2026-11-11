@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFSkeinXMLTests: XCTestCase {
 
     /// A skein in the format Zoom saved, as found in older projects.

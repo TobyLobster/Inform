@@ -49,6 +49,7 @@ private final class RecordingDelegate: NSObject, IFHeaderPageDelegate {
 private final class QuietDelegate: NSObject, IFHeaderPageDelegate {
 }
 
+@MainActor
 final class IFHeaderPageTests: XCTestCase {
 
     // MARK: - Headings

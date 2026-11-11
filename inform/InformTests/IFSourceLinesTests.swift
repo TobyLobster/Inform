@@ -7,6 +7,7 @@ import XCTest
 
 /// Finding lines in source text, as the source page does to go to a line, show it, highlight it, or show a heading's
 /// section
+@MainActor
 final class IFSourceLinesTests: XCTestCase {
 
     private let notFound = UInt(NSNotFound)

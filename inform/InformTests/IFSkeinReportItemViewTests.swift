@@ -5,6 +5,7 @@
 
 import XCTest
 
+@MainActor
 final class IFSkeinReportItemViewTests: XCTestCase {
 
     /// The width of the text, inside the report's borders

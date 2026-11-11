@@ -26,6 +26,7 @@ private final class MemoryDefaults: UserDefaults {
     }
 }
 
+@MainActor
 final class IFEditingPreferencesSetTests: XCTestCase {
 
     private let types: [IFSyntaxHighlightingOptionType] = [.headings, .mainText, .comments, .quotedText, .textSubstitutions]

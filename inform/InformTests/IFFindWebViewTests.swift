@@ -6,6 +6,7 @@
 import XCTest
 import WebKit
 
+@MainActor
 final class IFFindWebViewTests: XCTestCase {
 
     /// Tells a test when its web view has finished loading the page

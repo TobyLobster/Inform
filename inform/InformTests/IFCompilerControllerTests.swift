@@ -49,7 +49,8 @@ private final class Delegate: NSObject, IFCompilerControllerDelegate {
 
 /// The compiler controller, which shows what the compiler and intest write in the Results page's console, the
 /// errors Inform 6 gives, and tabs for the files of results
-final class IFCompilerControllerTests: XCTestCase {
+@MainActor
+final class IFCompilerControllerTests: XCTestCase, @unchecked Sendable {
 
     /// The project controller and the page whose nib makes the compiler controller, kept until the test ends
     private var projectController: ProjectControllerStandIn?
@@ -60,29 +61,33 @@ final class IFCompilerControllerTests: XCTestCase {
     private var folder: URL!
 
     override func setUpWithError() throws {
-        try super.setUpWithError()
+        try MainActor.assumeIsolated {
+            try super.setUpWithError()
 
-        // A project controller that doesn't watch for settings changing, and so doesn't make the project window's
-        // toolbar for them, which saves its configuration in the user's preferences.
-        let projectController = ProjectControllerStandIn()
-        NotificationCenter.default.removeObserver(projectController)
-        self.projectController = projectController
+            // A project controller that doesn't watch for settings changing, and so doesn't make the project window's
+            // toolbar for them, which saves its configuration in the user's preferences.
+            let projectController = ProjectControllerStandIn()
+            NotificationCenter.default.removeObserver(projectController)
+            self.projectController = projectController
 
-        let page = IFErrorsPage(projectController: projectController, with: IFProjectPane())
-        self.page = page
-        controller = page.compilerController
-        controller.delegate = delegate
+            let page = IFErrorsPage(projectController: projectController, with: IFProjectPane())
+            self.page = page
+            controller = page.compilerController
+            controller.delegate = delegate
 
-        folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+            folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+            try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        }
     }
 
     override func tearDownWithError() throws {
-        controller = nil
-        page = nil
-        projectController = nil
-        try FileManager.default.removeItem(at: folder)
-        try super.tearDownWithError()
+        try MainActor.assumeIsolated {
+            controller = nil
+            page = nil
+            projectController = nil
+            try FileManager.default.removeItem(at: folder)
+            try super.tearDownWithError()
+        }
     }
 
     // MARK: - Helpers

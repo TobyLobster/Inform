@@ -45,6 +45,7 @@ private final class RecordingSchemeTask: NSObject, WKURLSchemeTask {
     }
 }
 
+@MainActor
 final class IFNewsCustomSchemeHandlerTests: XCTestCase {
 
     private static let webView = WKWebView(frame: .zero)

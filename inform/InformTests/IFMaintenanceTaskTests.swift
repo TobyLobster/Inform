@@ -5,7 +5,8 @@
 
 import XCTest
 
-final class IFMaintenanceTaskTests: XCTestCase {
+@MainActor
+final class IFMaintenanceTaskTests: XCTestCase, @unchecked Sendable {
 
     private var maintenance: IFMaintenanceTask {
         return IFMaintenanceTask.shared
@@ -41,13 +42,15 @@ final class IFMaintenanceTaskTests: XCTestCase {
     }
 
     override func setUpWithError() throws {
-        try super.setUpWithError()
+        try MainActor.assumeIsolated {
+            try super.setUpWithError()
 
-        // Wait for anything already queued, such as a census, so that each test starts with nothing running
-        let idle = makeNotificationName()
-        let finished = expectation(forNotification: idle, object: maintenance)
-        queueNothing(notifyType: idle)
-        wait(for: [finished], timeout: 60)
+            // Wait for anything already queued, such as a census, so that each test starts with nothing running
+            let idle = makeNotificationName()
+            let finished = expectation(forNotification: idle, object: maintenance)
+            queueNothing(notifyType: idle)
+            wait(for: [finished], timeout: 60)
+        }
     }
 
     func testThereIsOneSharedMaintenanceTask() {

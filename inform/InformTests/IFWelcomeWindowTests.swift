@@ -66,18 +66,23 @@ private final class PolicyRecorder {
 /// The welcome window, from a controller of its own rather than the shared one, with its window loaded but
 /// never shown. Showing it would download the news and keep it in the user's defaults, and most of its rows
 /// and links open panels, windows or the browser, so the tests stop short of those.
-final class IFWelcomeWindowTests: XCTestCase {
+@MainActor
+final class IFWelcomeWindowTests: XCTestCase, @unchecked Sendable {
     private var controller: IFWelcomeWindow!
     private var savedTimeZone: TimeZone!
 
     override func setUp() {
-        savedTimeZone = NSTimeZone.default
-        controller = IFWelcomeWindow(windowNibName: "Launcher")
+        MainActor.assumeIsolated {
+            savedTimeZone = NSTimeZone.default
+            controller = IFWelcomeWindow(windowNibName: "Launcher")
+        }
     }
 
     override func tearDown() {
-        controller = nil
-        NSTimeZone.default = savedTimeZone
+        MainActor.assumeIsolated {
+            controller = nil
+            NSTimeZone.default = savedTimeZone
+        }
     }
 
     /// Every view of the given kind in the view and the views inside it, in the nib's order

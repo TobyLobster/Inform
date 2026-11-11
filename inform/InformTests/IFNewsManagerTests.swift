@@ -63,7 +63,8 @@ private final class FakeNewsServer: URLProtocol {
     }
 }
 
-final class IFNewsManagerTests: XCTestCase {
+@MainActor
+final class IFNewsManagerTests: XCTestCase, @unchecked Sendable {
 
     private let calendarURL = URL(string: "https://iftechfoundation.org/calendar/cal.txt")!
     private let calendar = "2026-11-21\t2026-11-22\tIFComp results\thttps://ifcomp.org/\n"
@@ -72,17 +73,21 @@ final class IFNewsManagerTests: XCTestCase {
     private var session: URLSession!
 
     override func setUp() {
-        super.setUp()
-        defaults = MemoryDefaults(suiteName: nil)
-        FakeNewsServer.reset()
-        let configuration = URLSessionConfiguration.ephemeral
-        configuration.protocolClasses = [FakeNewsServer.self]
-        session = URLSession(configuration: configuration)
+        MainActor.assumeIsolated {
+            super.setUp()
+            defaults = MemoryDefaults(suiteName: nil)
+            FakeNewsServer.reset()
+            let configuration = URLSessionConfiguration.ephemeral
+            configuration.protocolClasses = [FakeNewsServer.self]
+            session = URLSession(configuration: configuration)
+        }
     }
 
     override func tearDown() {
-        session.invalidateAndCancel()
-        super.tearDown()
+        MainActor.assumeIsolated {
+            session.invalidateAndCancel()
+            super.tearDown()
+        }
     }
 
     private struct News {
