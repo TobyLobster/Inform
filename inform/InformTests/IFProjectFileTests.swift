@@ -421,6 +421,30 @@ final class IFProjectFileTests: XCTestCase {
         XCTAssertEqual(loaded.map { commands($0).last }, ["look", "north"])
     }
 
+    /// As when a skein before them is missing, so that they weren't read
+    func testWritingAnExtensionProjectsSkeinsRemovesTheOnesNotWritten() throws {
+        let url = try extensionProjectOnDisk([["look"], ["north"], ["climb"]], in: try makeFolder())
+        try fileManager.removeItem(at: url.appendingPathComponent("SkeinB.skein"))
+        let wrapper = try FileWrapper(url: url, options: .immediate)
+        let projectFile = try XCTUnwrap(IFProjectFile(fileWrapper: wrapper))
+
+        projectFile.write(loadSkeins(projectFile, isExtensionProject: true), isExtensionProject: true)
+
+        XCTAssertEqual(names(wrapper).filter { $0.hasSuffix(".skein") }, ["SkeinA.skein"])
+    }
+
+    func testWritingAnExtensionProjectsSkeinsReplacesOnesNamedInAnotherCase() throws {
+        let url = try extensionProjectOnDisk([["look"]], in: try makeFolder())
+        try rename("SkeinA.skein", to: "skeina.skein", in: url)
+        let wrapper = try FileWrapper(url: url, options: .immediate)
+        let projectFile = try XCTUnwrap(IFProjectFile(fileWrapper: wrapper))
+
+        projectFile.write([skein(["north"])], isExtensionProject: true)
+
+        XCTAssertEqual(names(wrapper).filter { $0.hasSuffix(".skein") }, ["SkeinA.skein"])
+        XCTAssertEqual(loadSkeins(projectFile, isExtensionProject: true).map { commands($0).last }, ["north"])
+    }
+
     func testANewSkeinForAnExtensionProjectWithNone() throws {
         let projectFile = try XCTUnwrap(IFProjectFile(fileWrapper: project(name: "Lighthouse.i7xp")))
 

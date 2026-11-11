@@ -290,6 +290,16 @@ extension IFProjectFile {
     @objc(writeSkeins:isExtensionProject:)
     func write(_ skeins: [IFSkein], isExtensionProject: Bool) {
         if isExtensionProject {
+            // Remove the skeins there are, named in any case, so that none is left over
+            let skeinFilenames = Set((0..<26).map {
+                String(format: "skein%c.skein", Int32(UInt8(ascii: "a")) + Int32($0))
+            })
+            for (name, wrapper) in bundleDirectory.fileWrappers ?? [:] {
+                if skeinFilenames.contains(name.lowercased()) {
+                    bundleDirectory.removeFileWrapper(wrapper)
+                }
+            }
+
             // Write all skeins for an extension project
             var alphabetCount = 0
             for skein in skeins {
