@@ -191,6 +191,25 @@ final class IFProjectPaneTests: XCTestCase, @unchecked Sendable {
     }
 
     /// The Settings page has no type of view of its own, so it's not taken for the source
+    /// The settings a pane's Settings page shows, as its settings controller has them
+    private func settingsShown(by pane: IFProjectPane) -> AnyObject? {
+        let settingsController = pane.settingsPage.value(forKey: "settingsController") as? IFSettingsController
+        return settingsController?.compilerSettings
+    }
+
+    func testRevertingShowsTheSavedTextAndSettings() throws {
+        let textView = try XCTUnwrap(left.sourcePage.activeView as? NSTextView)
+        textView.string = "The Hall is a room."
+        XCTAssertIdentical(settingsShown(by: left), project.settings)
+
+        try project.revert(toContentsOf: try XCTUnwrap(project.fileURL), ofType: "org.inform-fiction.project")
+
+        XCTAssertEqual(textView.string, "\"Lighthouse\" by Me\n\nThe Lamp Room is a room.\n")
+        XCTAssertIdentical(settingsShown(by: left), project.settings)
+        XCTAssertIdentical(settingsShown(by: right), project.settings)
+        XCTAssertFalse(project.isDocumentEdited)
+    }
+
     func testAPaneShowingTheSettingsShowsNoKnownTypeOfView() {
         right.tabView.selectTabViewItem(withIdentifier: right.settingsPage.identifier)
         XCTAssertEqual(right.currentView, .unknownPane)

@@ -29,3 +29,4 @@ NSString* const IFCompilerNaturalInform = @"IFCompilerNaturalInform";
 
 // Notifications
 NSString* const IFSettingNotification = @"IFSettingNotification";
+NSString* const IFProjectSettingsReplacedNotification = @"IFProjectSettingsReplacedNotification";

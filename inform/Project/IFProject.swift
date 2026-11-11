@@ -448,7 +448,8 @@ extension IFProject {
         // Disable undo
         undoManager?.disableUndoRegistration()
 
-        // Load skeins
+        // Load skeins, in place of any read before, as by Revert To Saved
+        skeins.removeAllObjects()
         projectFile?.load(into: skeins,
                           project: self,
                           isExtensionProject: isExtensionProject)
@@ -498,9 +499,6 @@ extension IFProject {
             throw CocoaError(.fileReadUnknown)
         }
 
-        // Remove old project data
-        unregisterProjectTextStorage()
-
         // Create an object to represent the bundle files
         projectFile = IFProjectFile(fileWrapper: fileWrapper)
 
@@ -516,6 +514,8 @@ extension IFProject {
             throw CocoaError(.fileReadUnknown)
         }
 
+        // The pages show the text storages a project read before, as by Revert To Saved, so they're kept
+        let oldSourceFiles = _sourceFiles ?? [:]
         _sourceFiles = [:]
         let source = sourceDir.fileWrappers ?? [:]
 
@@ -530,7 +530,19 @@ extension IFProject {
             let text = storage(withData: regularFileContents,
                                forFilename: key)
 
-            _sourceFiles?[key] = text
+            if let oldText = oldSourceFiles[key] {
+                // A file read before is given its new text
+                IFSyntaxManager.unregisterTextStorage(text)
+                oldText.replaceCharacters(in: NSRange(location: 0, length: oldText.length), with: text)
+                _sourceFiles?[key] = oldText
+            } else {
+                _sourceFiles?[key] = text
+            }
+        }
+
+        // Remove the text of files that are gone
+        for (key, oldText) in oldSourceFiles where _sourceFiles?[key] !== oldText {
+            IFSyntaxManager.unregisterTextStorage(oldText)
         }
 
         // Refresh the settings, or create them as required
@@ -550,6 +562,9 @@ extension IFProject {
 
         // Load the breakpoints file (if present)
         breakpoints = projectFile.loadBreakpoints ?? NSMutableArray()
+
+        // The Settings page shows the settings it was given, so it's told of the new ones
+        NotificationCenter.default.post(name: .IFProjectSettingsReplaced, object: self)
     }
 
     nonisolated public override func read(from fileWrapper: FileWrapper, ofType typeName: String) throws {
