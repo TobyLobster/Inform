@@ -44,6 +44,7 @@ typedef NS_ENUM(int, ECompilerProblemType) {
 ///
 /// Class that handles actually running a compiler (more like a 'make' class these days)
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFCompiler : NSObject
 
 /// If set, debug options will be turned off while building

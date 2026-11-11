@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 //
 // Class that handles actually running InBuild
 //
+NS_SWIFT_UI_ACTOR
 @interface IFInBuild : NSObject
 
 -(int) executeInBuildForInfoWithProject: (NSURL*) projectURL

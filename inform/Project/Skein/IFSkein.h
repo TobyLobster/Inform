@@ -22,6 +22,7 @@ extern NSString* const IFSkeinSelectionChangedItemKey;
 
 @class IFProject;
 
+NS_SWIFT_UI_ACTOR
 @interface IFSkein : NSObject <ZoomViewOutputReceiver>
 
 // Retrieving the root / active / selected skein item

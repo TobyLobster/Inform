@@ -14,7 +14,7 @@
 import Foundation
 
 /// Counts the temporary output files made, so that each has its own name
-private var mod: UInt32 = 0
+@MainActor private var mod: UInt32 = 0
 
 /// A build stage waiting to be run
 private struct IFCompilerStage {
@@ -99,9 +99,12 @@ extension IFCompiler {
     }
 
     deinit {
-        if deleteOutputFile { deleteOutput() }
+        // The project controller lets go of its compilers on the main thread
+        MainActor.assumeIsolated {
+            if deleteOutputFile { deleteOutput() }
 
-        NotificationCenter.default.removeObserver(self)
+            NotificationCenter.default.removeObserver(self)
+        }
     }
 
     // MARK: - Setup

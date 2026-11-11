@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class IFProject;
 @class IFCompilerSettings;
 
+NS_SWIFT_UI_ACTOR
 @interface IFProjectFile : NSObject
 
 // Each of these is nil if the project doesn't have it

@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// in the commands that a "test me" knot ran, that knot, which runs them again. The threads go in order, a knot's first
 /// child's first.
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFSkeinPlayAll : NSObject
 
 - (instancetype) init NS_UNAVAILABLE;

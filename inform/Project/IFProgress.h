@@ -21,6 +21,7 @@ static const int IFProgressPrioritySyntax     = 10;
 ///
 /// A progress indicator object
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFProgress : NSObject
 
 - (instancetype) init __attribute__((unavailable));
@@ -54,6 +55,7 @@ static const int IFProgressPrioritySyntax     = 10;
 ///
 /// Progress indicator delegate methods
 ///
+NS_SWIFT_UI_ACTOR
 @protocol IFProgressDelegate <NSObject>
 @optional
 
