@@ -45,7 +45,8 @@ import Cocoa
         return projectType is IFNewInform7ExtensionFile
     }
 
-    private final func createExtension() {
+    /// Creates the extension, or says it couldn't, and gives whether it did
+    private final func createExtension() -> Bool {
         // Only asked for a new extension
         let proj = projectType as! IFNewInform7ExtensionFile
 
@@ -54,15 +55,18 @@ import Cocoa
         projectLocation = location as NSURL
         if proj.createAndOpenDocument(location) {
             // Success
-            return
+            return true
         } else {
-            IFUtility.runAlertWarning(window,
+            // On the window if it's shown, which is kept for the options to be changed, as it isn't closed
+            IFUtility.runAlertWarning(visibleWindow(),
                                       title: "Unable to create project",
                                       informativeText: IFUtility.localizedString("Inform was unable to save the extension file"))
+            return false
         }
     }
 
-    private final func createProject() {
+    /// Creates the project, or says it couldn't, and gives whether it did
+    private final func createProject() -> Bool {
         let theFile = IFProjectFile(emptyProject: ())
 
         theFile.filename = projectLocation?.path
@@ -78,7 +82,7 @@ import Cocoa
             guard let projectLocation, let projectType,
                   let newDoc = try? IFProject(contentsOf: projectLocation as URL, ofType: projectType.typeName) else {
                 // The project is written, but can't be opened (the Objective-C gave the document controller nil)
-                return
+                return true
             }
             newDoc.initialSelectionRange = projectType.initialSelectionRange
             newDoc.createMaterials()
@@ -86,22 +90,25 @@ import Cocoa
             NSDocumentController.shared.addDocument(newDoc)
             newDoc.makeWindowControllers()
             newDoc.showWindows()
+            return true
         } else {
-            IFUtility.runAlertWarning(window,
+            // The window is never shown for a new project, so the alert is run on its own
+            IFUtility.runAlertWarning(visibleWindow(),
                                       title: "Unable to create project",
                                       informativeText: IFUtility.localizedString("Inform was unable to save the project file"))
+            return false
         }
     }
 
-    private final func createItem() {
+    /// Creates the extension or project, or says it couldn't, and gives whether it did
+    private final func createItem() -> Bool {
         // Create extension
         if isExtension() {
-            createExtension()
-            return
+            return createExtension()
         }
 
         // Create project
-        createProject()
+        return createProject()
     }
 
     public override func close() {
@@ -155,8 +162,9 @@ import Cocoa
             return
         }
 
-        createItem()
-        close()
+        if createItem() {
+            close()
+        }
     }
 
     @objc private func confirmDidEnd(_ sheet: NSWindow?,
@@ -167,8 +175,9 @@ import Cocoa
             if showError() {
                 return
             }
-            createItem()
-            close()
+            if createItem() {
+                close()
+            }
         }
     }
 
