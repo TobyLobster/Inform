@@ -73,10 +73,11 @@ private func synchronized<T>(_ lock: AnyObject, _ body: () throws -> T) rethrows
     private final var auxView: NSView?                                          // The auxiliary view that is being displayed
     private final var winFrame = NSRect.zero                                    // The default window frame
 
-    // Project we are going to search
-    private final var project: IFProject?                                       // Project to search in
-    private final var controller: IFProjectController?                          // Project controller to use
+    // Project we are going to search, let go of when its window closes
+    private final weak var project: IFProject?                                  // Project to search in
+    private final weak var controller: IFProjectController?                     // Project controller to use
     private final var findInFiles: IFFindInFiles                                // Object used to perform searching
+    private final var searchCount = 0                                           // Counts searches, and projects closed
 
     // MARK: - Initialisation
 
@@ -372,11 +373,16 @@ private func synchronized<T>(_ lock: AnyObject, _ body: () throws -> T) rethrows
 
         // Start the find
         let locations = currentFindLocation()
+        searchCount += 1
+        let search = searchCount
 
         findInFiles.start(withPhrase: findPhrase?.stringValue ?? "",
                           withSearch: currentFindType(),
                           from: project,
                           withLocations: locations) { num, total, found in
+            // A search of a project whose window has since closed isn't shown
+            guard self.searchCount == search else { return }
+
             // Update progress
             let progress = CGFloat(num) / CGFloat(total)
             self.findProgress?.doubleValue = progress
@@ -604,6 +610,17 @@ extension IFFindInFilesController {
             findAllResults = []
             showAuxiliaryView(nil)
             win?.saveFrame(usingName: "FindInFilesFrame")
+        } else if let win, let controller, win.windowController === controller {
+            // The project is closing. It's let go of, with its results, which can't be shown without it, and any
+            // search of it.
+            project = nil
+            self.controller = nil
+            searchCount += 1
+            findAllResults = []
+            findAllTable?.reloadData()
+            findProgress?.stopAnimation(self)
+            findProgress?.isHidden = true
+            showAuxiliaryView(nil)
         }
     }
 }

@@ -475,6 +475,38 @@ final class IFFindInFilesControllerTests: XCTestCase {
                                                        anchorTag: "")])
     }
 
+    /// When the project's window closes, its results go, as they can't be shown without it, and the project and its
+    /// controller are let go of, so Find All does nothing until Find in Files is used from another project
+    func testLetsGoOfAProjectWhenItsWindowCloses() throws {
+        let (controller, _, window) = try makeController()
+        weak var closedController: IFProjectController?
+        try autoreleasepool {
+            let projectController = ProjectControllerStandIn()
+            NotificationCenter.default.removeObserver(projectController)
+            closedController = projectController
+            controller.setController(projectController)
+            controller.setProject(try openProject(source: ["story.ni": "A beaker."]))
+            try findAll("beaker", with: controller)
+            XCTAssertEqual(below(window), [.results])
+
+            // The project's window isn't shown, and is only said to close
+            let projectWindow = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 200, height: 100),
+                                         styleMask: [.titled],
+                                         backing: .buffered,
+                                         defer: true)
+            projectWindow.setFrameOrigin(NSPoint(x: -20000, y: -20000))
+            projectWindow.isReleasedWhenClosed = false
+            projectWindow.windowController = projectController
+            NotificationCenter.default.post(name: NSWindow.willCloseNotification, object: projectWindow)
+        }
+
+        XCTAssertNil(closedController)
+        XCTAssertEqual(below(window), [])
+        controller.findAll(nil)
+        XCTAssertTrue(progress(window).isHidden)
+        XCTAssertEqual(below(window), [])
+    }
+
     /// Clicking a result in the documentation shows it at the anchor of the code, definition or example it's in
     func testClickingAResultInTheDocumentationGivesItsAnchor() throws {
         let (controller, _, window) = try makeController()
