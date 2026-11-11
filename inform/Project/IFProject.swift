@@ -900,16 +900,7 @@ extension IFProject {
             panel.beginSheetModal(for: window) { result in
                 // Copy the file to the specified path
                 if result == .OK, let url = panel.url {
-                    let filepath = (url.path as NSString).resolvingSymlinksInPath
-                    try? FileManager.default.copyItem(atPath: iFictionURL.path,
-                                                      toPath: filepath)
-
-                    // Hide the file extension if the user has requested it
-                    if var attributes = try? FileManager.default.attributesOfItem(atPath: filepath) {
-                        attributes[.extensionHidden] = panel.isExtensionHidden
-                        try? FileManager.default.setAttributes(attributes,
-                                                               ofItemAtPath: filepath)
-                    }
+                    self.saveIFiction(to: url, hidingExtension: panel.isExtensionHidden)
                 }
             }
         } else {
@@ -917,6 +908,23 @@ extension IFProject {
             IFUtility.runAlertWarning(window,
                                       title: "The compiler failed to produce an iFiction record",
                                       informativeText: IFUtility.localizedString("The compiler failed to create an iFiction record; check the errors page to see why."))
+        }
+    }
+
+    @objc(saveIFictionToURL:hidingExtension:)
+    func saveIFiction(to url: URL, hidingExtension hideExtension: Bool) {
+        guard let iFictionURL = metadataURL else {
+            return
+        }
+        let filepath = (url.path as NSString).resolvingSymlinksInPath
+        try? FileManager.default.copyItem(atPath: iFictionURL.path,
+                                          toPath: filepath)
+
+        // Hide the file extension if the user has requested it
+        if var attributes = try? FileManager.default.attributesOfItem(atPath: filepath) {
+            attributes[.extensionHidden] = hideExtension
+            try? FileManager.default.setAttributes(attributes,
+                                                   ofItemAtPath: filepath)
         }
     }
 
@@ -1212,21 +1220,26 @@ extension IFProject {
             panel.beginSheetModal(for: window) { result in
                 // Copy the file to the specified path
                 if result == .OK, let url = panel.url {
-                    let filepath = (url.path as NSString).resolvingSymlinksInPath
-
-                    if let sourceExtensionFileURL = self.sourceDirectoryURL?.appendingPathComponent("extension.i7x") {
-                        try? FileManager.default.copyItem(atPath: sourceExtensionFileURL.path,
-                                                          toPath: filepath)
-                    }
-
-                    // Hide the file extension if the user has requested it
-                    if var attributes = try? FileManager.default.attributesOfItem(atPath: filepath) {
-                        attributes[.extensionHidden] = panel.isExtensionHidden
-                        try? FileManager.default.setAttributes(attributes,
-                                                               ofItemAtPath: filepath)
-                    }
+                    self.exportExtension(to: url, hidingExtension: panel.isExtensionHidden)
                 }
             }
+        }
+    }
+
+    @objc(exportExtensionToURL:hidingExtension:)
+    func exportExtension(to url: URL, hidingExtension hideExtension: Bool) {
+        let filepath = (url.path as NSString).resolvingSymlinksInPath
+
+        if let sourceExtensionFileURL = sourceDirectoryURL?.appendingPathComponent("extension.i7x") {
+            try? FileManager.default.copyItem(atPath: sourceExtensionFileURL.path,
+                                              toPath: filepath)
+        }
+
+        // Hide the file extension if the user has requested it
+        if var attributes = try? FileManager.default.attributesOfItem(atPath: filepath) {
+            attributes[.extensionHidden] = hideExtension
+            try? FileManager.default.setAttributes(attributes,
+                                                   ofItemAtPath: filepath)
         }
     }
 }
