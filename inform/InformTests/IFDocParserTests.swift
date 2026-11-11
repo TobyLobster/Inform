@@ -19,10 +19,18 @@ final class IFDocParserTests: XCTestCase {
         XCTAssertEqual(text("  one \n\t two  "), "one two ")
     }
 
-    /// A tag separates the text either side of it.
+    /// A tag separates the text either side of it...
     func testATagSeparatesTheTextEitherSideOfIt() {
-        XCTAssertEqual(text("a<b>b</b>c"), "a b c")
+        XCTAssertEqual(text("a<div>b</div>c"), "a b c")
+        XCTAssertEqual(text("<td>a</td><td>b</td>"), "a b ")
+        XCTAssertEqual(text("a<img src=\"x.png\">b"), "a b")
+    }
+
+    /// ...unless it's an inline tag, such as those the documentation's code has had round each word since 2024.
+    func testAnInlineTagDoesntSeparateTheText() {
+        XCTAssertEqual(text("a<b>b</b>c"), "abc")
         XCTAssertEqual(text("a <i>b</i> c"), "a b c")
+        XCTAssertEqual(text(#"<span class="x">(</span><span class="y">About</span><a id="c1"></a>.)"#), "(About.)")
     }
 
     /// A line break, or the start or end of a paragraph, starts a new line.
@@ -158,7 +166,7 @@ final class IFDocParserTests: XCTestCase {
         let firstCode = try XCTUnwrap(parser.codeInfo.first)
         XCTAssertEqual(firstCode.anchorTag, "code611")
         let firstCodeText = (parser.plainText as NSString).substring(with: firstCode.range)
-        XCTAssertTrue(firstCodeText.contains("About the paranormal"), firstCodeText)
+        XCTAssertTrue(firstCodeText.contains("(About the paranormal.)"), firstCodeText)
     }
 
     /// A page of Writing with Inform as it was until 2024, as Find in Files searches it.
@@ -174,7 +182,8 @@ final class IFDocParserTests: XCTestCase {
 
         XCTAssertEqual(parser.exampleInfo.keys.sorted(), ["169: Ahem", "170: Ferragamo Again"])
         XCTAssertEqual(parser.exampleInfo["169: Ahem"]?.anchorTag, "e12")
-        XCTAssertEqual(parser.exampleInfo["169: Ahem"]?.range, NSRange(location: 3939, length: 1526))
+        // (Its banner's spans give "ExampleAhem", as they're inline, where CSS spaces them)
+        XCTAssertEqual(parser.exampleInfo["169: Ahem"]?.range, NSRange(location: 3939, length: 1525))
 
         XCTAssertEqual(parser.codeInfo.count, 39)
         XCTAssertEqual(parser.definitionInfo.count, 0)

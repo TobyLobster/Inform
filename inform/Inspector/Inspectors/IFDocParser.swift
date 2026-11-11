@@ -55,6 +55,11 @@ extension IFCodeInfo {
 /// The tags whose contents aren't part of the text
 private let ignoreTags: Set<String> = ["head", "script"]
 
+/// The tags inside a line of text, which don't separate the text either side of them, as other tags do. (The
+/// documentation's code has had a span round each word and mark since 2024.)
+private let inlineTags: Set<String> = ["a", "abbr", "b", "big", "cite", "code", "em", "font", "i", "kbd", "q", "s",
+                                       "samp", "small", "span", "strike", "strong", "sub", "sup", "tt", "u", "var"]
+
 private let entities: [String: String] = [
     "lt": "<",
     "gt": ">",
@@ -150,6 +155,14 @@ extension IFDocParser {
         var tagStart = 0
         var ignoreCount = 0
 
+        /// Adds a single character of whitespace to separate the text either side of a tag or comment
+        func separateText() {
+            if ignoreCount == 0 && !ignoreSection && !whitespace {
+                whitespace = true
+                result.append(ascii(" "))
+            }
+        }
+
         for x in 0..<len {
             switch state {
             case .plainText:
@@ -170,18 +183,10 @@ extension IFDocParser {
                     }
 
                 case ascii("<"):
-                    // This is the beginning of a comment or a tag
+                    // This is the beginning of a comment or a tag, which separates the text unless it's an inline
+                    // tag: that's known where it ends
                     state = .htmlTagOrComment
                     tagStart = x
-
-                    if ignoreCount != 0 { break }
-                    if ignoreSection { break }
-
-                    // Add a single character of whitespace to separate text.
-                    if !whitespace {
-                        whitespace = true
-                        result.append(ascii(" "))
-                    }
 
                 case ascii("&"):
                     // This is the beginning of an entity
@@ -239,6 +244,7 @@ extension IFDocParser {
                     state = .htmlCommentStart1
 
                 case ascii(">"):
+                    separateText()
                     state = .plainText
 
                 default:
@@ -256,6 +262,10 @@ extension IFDocParser {
                     if spaceLoc != NSNotFound { tag = tag.substring(to: spaceLoc) as NSString }
 
                     let tagName = tag.lowercased
+
+                    if !inlineTags.contains(tagName) {
+                        separateText()
+                    }
 
                     // If this is an ignore tag, then increase/decrease the ignore count
                     if ignoreTags.contains(tagName) {
@@ -334,6 +344,7 @@ extension IFDocParser {
                 case ascii(">"):
                     // End of this comment
                     state = .plainText
+                    separateText()
 
                     var comment = string(chrs, from: tagStart, to: x)
 
