@@ -164,11 +164,6 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
         return try indexFolder.appendingPathComponent(file)
     }
 
-    /// The URL the page asks for to show a tab's page, which is its name in lower case
-    private func tabURL(_ file: String) throws -> URL {
-        return try indexURL(file.lowercased())
-    }
-
     /// Writes the given pages of the project's index, each saying its name
     private func writeIndex(_ files: [String]) throws {
         try FileManager.default.createDirectory(at: indexFolder, withIntermediateDirectories: true)
@@ -359,12 +354,12 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
     /// Switching to a tab shows its page, with its cell highlighted
     func testSwitchingToATab() throws {
         let shown = try makePageShowingTheIndex()
-        XCTAssertEqual(shown.webView.url, try tabURL("Welcome.html"))
+        XCTAssertEqual(shown.webView.url, try indexURL("Welcome.html"))
         XCTAssertEqual(highlightedTabs(shown), [Int(IFIndexTabType.welcome.rawValue)])
 
         for (file, tab) in indexPages {
             switchToTab(tab, in: shown)
-            XCTAssertEqual(shown.webView.url, try tabURL(file))
+            XCTAssertEqual(shown.webView.url, try indexURL(file))
             XCTAssertEqual(highlightedTabs(shown), [Int(tab.rawValue)], file)
         }
         XCTAssertTrue(shown.watcher.errors.isEmpty)
@@ -380,7 +375,7 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
             }
             let tab = try XCTUnwrap(cell.representedObject as? NSNumber).intValue
             let file = try XCTUnwrap(indexPages.first { Int($0.tab.rawValue) == tab }).file
-            XCTAssertEqual(shown.webView.url, try tabURL(file))
+            XCTAssertEqual(shown.webView.url, try indexURL(file))
             XCTAssertEqual(cell.state, .on)
         }
         XCTAssertTrue(shown.watcher.errors.isEmpty)
@@ -395,7 +390,7 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
         waitForNavigation(shown.watcher) {
             shown.page.updateIndexView()
         }
-        XCTAssertEqual(shown.webView.url, try tabURL("Rules.html"))
+        XCTAssertEqual(shown.webView.url, try indexURL("Rules.html"))
         XCTAssertEqual(try evaluate("document.body.innerText", in: shown.webView) as? String, "New rules")
         XCTAssertEqual(highlightedTabs(shown), [Int(IFIndexTabType.rules.rawValue)])
     }
@@ -442,7 +437,7 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
             }
         }
         XCTAssertEqual(posted.count, 1)
-        XCTAssertEqual(shown.webView.url, try tabURL("Kinds.html"))
+        XCTAssertEqual(shown.webView.url, try indexURL("Kinds.html"))
         XCTAssertEqual(highlightedTabs(shown), [Int(IFIndexTabType.kinds.rawValue)])
         XCTAssertEqual(recorder.timesAsked, asked + 4)
 
@@ -504,7 +499,7 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
         waitForNavigation(shown.watcher) {
             switched.replay()
         }
-        XCTAssertEqual(shown.webView.url, try tabURL("Phrasebook.html"))
+        XCTAssertEqual(shown.webView.url, try indexURL("Phrasebook.html"))
     }
 
     /// After a project's first translation, the page shows its welcome page, which the pane asked for as it was set
@@ -523,7 +518,7 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
             shown.page.updateIndexView()
         }
         XCTAssertEqual(shown.page.toolbarCells.count, 8)
-        XCTAssertEqual(shown.webView.url, try tabURL("Welcome.html"))
+        XCTAssertEqual(shown.webView.url, try indexURL("Welcome.html"))
         XCTAssertEqual(highlightedTabs(shown), [Int(IFIndexTabType.welcome.rawValue)])
         XCTAssertEqual(recorder.timesAsked, 0)
     }

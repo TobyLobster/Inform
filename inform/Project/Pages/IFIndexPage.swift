@@ -17,6 +17,8 @@ import WebKit
     private final var indexCells: [IFPageBarCell]?
     /// Dictionary of tab ids and their string names
     private final let tabDictionary: [String: Int32]
+    /// The name of each tab's file in the index, as Inform writes it (`Rules.html`), as a volume may tell case apart
+    private final var tabFiles: [Int32: String] = [:]
 
     private final var webView: WKWebView!
     private final let helper: IFWebViewHelper
@@ -115,10 +117,7 @@ import WebKit
     }
 
     private final func filenameOfItem(withTabId tabId: Int32) -> String? {
-        for (key, value) in tabDictionary where value == tabId {
-            return key
-        }
-        return nil
+        return tabFiles[tabId]
     }
 
     @discardableResult
@@ -200,6 +199,7 @@ import WebKit
         var isDir: ObjCBool = false
 
         indexCells = []
+        tabFiles = [:]
 
         // Check that it exists and is a directory
         if !FileManager.default.fileExists(atPath: indexPath,
@@ -235,6 +235,7 @@ import WebKit
                 }
 
                 if tabId != NSNotFound {
+                    tabFiles[Int32(tabId)] = theFile
                     newTab.representedObject = NSNumber(value: tabId)
                     newTab.target = self
                     newTab.action = #selector(switchToTab(withObject:))
