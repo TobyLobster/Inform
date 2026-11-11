@@ -197,7 +197,8 @@ final class IFDocumentationPageTests: XCTestCase, @unchecked Sendable {
     }
 
     /// The page bar's cells show the general index, the examples and the contents, each switching to the page and
-    /// showing its page, and each highlighted while its page is shown
+    /// showing its page, and each highlighted while its page is shown. (Until 2024 the examples' index was
+    /// examples_alphabetical.html, which the app still has.)
     func testThePageBarCells() throws {
         let shown = try makePage()
         let cells = shown.page.toolbarCells
@@ -208,7 +209,7 @@ final class IFDocumentationPageTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(cells.compactMap { $0.action.map(NSStringFromSelector) },
                        ["showGeneralIndex:", "showExamples:", "showToc:"])
 
-        let urls = ["inform:/general_index.html", "inform:/examples_alphabetical.html", "inform:/index.html"]
+        let urls = ["inform:/general_index.html", "inform:/alphabetical_index.html", "inform:/index.html"]
         for (index, cell) in cells.enumerated() {
             XCTAssertTrue(cell.target === shown.page)
             let action = try XCTUnwrap(cell.action)
@@ -239,7 +240,7 @@ final class IFDocumentationPageTests: XCTestCase, @unchecked Sendable {
     /// A cell is highlighted for its page's URL in any case
     func testTheCellsIgnoreCase() throws {
         let shown = try makePage()
-        open("inform:/Examples_Alphabetical.html", in: shown)
+        open("inform:/Alphabetical_Index.html", in: shown)
         XCTAssertEqual(shown.page.toolbarCells.map { $0.state }, [.off, .on, .off])
     }
 
@@ -250,7 +251,7 @@ final class IFDocumentationPageTests: XCTestCase, @unchecked Sendable {
         let shown = try makePage(visible: true, recorder: recorder)
 
         let examples = recorder.event
-        open("inform:/examples_alphabetical.html", in: shown)
+        open("inform:/alphabetical_index.html", in: shown)
         // To switch to the page, and to show its page
         XCTAssertEqual(recorder.timesAsked, 2)
 
@@ -265,7 +266,7 @@ final class IFDocumentationPageTests: XCTestCase, @unchecked Sendable {
         }
         // Once from the history, and once more as the page is opened
         XCTAssertEqual(posted.count, 2)
-        XCTAssertEqual(shown.webView.url?.absoluteString, "inform:/examples_alphabetical.html")
+        XCTAssertEqual(shown.webView.url?.absoluteString, "inform:/alphabetical_index.html")
         XCTAssertEqual(shown.page.toolbarCells.map { $0.state }, [.off, .on, .off])
         XCTAssertEqual(recorder.timesAsked, 4)
 
@@ -279,8 +280,8 @@ final class IFDocumentationPageTests: XCTestCase, @unchecked Sendable {
     func testTheHistoryWhileHidden() throws {
         let recorder = Recorder()
         let shown = try makePage(recorder: recorder)
-        open("inform:/examples_alphabetical.html", in: shown)
-        XCTAssertEqual(shown.webView.url?.absoluteString, "inform:/examples_alphabetical.html")
+        open("inform:/alphabetical_index.html", in: shown)
+        XCTAssertEqual(shown.webView.url?.absoluteString, "inform:/alphabetical_index.html")
         XCTAssertEqual(recorder.timesAsked, 0)
     }
 
@@ -298,7 +299,7 @@ final class IFDocumentationPageTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(recorder.timesAsked, 0)
 
         // What's shown next is recorded
-        open("inform:/examples_alphabetical.html", in: shown)
+        open("inform:/alphabetical_index.html", in: shown)
         XCTAssertEqual(recorder.timesAsked, 2)
         XCTAssertTrue(shown.watcher.errors.isEmpty)
     }
@@ -308,7 +309,7 @@ final class IFDocumentationPageTests: XCTestCase, @unchecked Sendable {
         let recorder = Recorder()
         // Hidden, so that only what switching records is counted
         let shown = try makePage(recorder: recorder)
-        open("inform:/examples_alphabetical.html", in: shown)
+        open("inform:/alphabetical_index.html", in: shown)
 
         let switched = recorder.event
         waitForNavigation(shown.watcher) {
@@ -316,14 +317,14 @@ final class IFDocumentationPageTests: XCTestCase, @unchecked Sendable {
         }
         XCTAssertEqual(recorder.timesAsked, 1)
         XCTAssertEqual(shown.watcher.started.suffix(2),
-                       ["inform:/examples_alphabetical.html", "inform:/examples_alphabetical.html"])
+                       ["inform:/alphabetical_index.html", "inform:/alphabetical_index.html"])
 
         recorder.event = IFHistoryEvent(object: NSNull())
         open("inform:/general_index.html", in: shown)
         waitForNavigation(shown.watcher) {
             switched.replay()
         }
-        XCTAssertEqual(shown.webView.url?.absoluteString, "inform:/examples_alphabetical.html")
+        XCTAssertEqual(shown.webView.url?.absoluteString, "inform:/alphabetical_index.html")
         XCTAssertEqual(recorder.timesAsked, 1)
         XCTAssertTrue(shown.watcher.errors.isEmpty)
     }

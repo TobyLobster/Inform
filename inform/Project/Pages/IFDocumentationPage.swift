@@ -42,9 +42,10 @@ import WebKit
         generalIndexCell = IFPageBarCell(textCell: IFUtility.localizedString("General Index Docs",
                                                                              default: "General Index"))
 
-        // Static dictionary mapping tab names to cells
+        // Static dictionary mapping tab names to cells. (Until 2024 the examples' index was
+        // examples_alphabetical.html, which the app still has, linking to the old documentation.)
         tabDictionary = ["inform:/index.html": contentsCell,
-                         "inform:/examples_alphabetical.html": examplesCell,
+                         "inform:/alphabetical_index.html": examplesCell,
                          "inform:/general_index.html": generalIndexCell]
 
         super.init(nibName: "Documentation",
