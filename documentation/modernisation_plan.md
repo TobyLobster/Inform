@@ -149,6 +149,10 @@ Started November 2026, on the `extensions` branch. This is a living document: up
         - With "Rebuild I7 compiler as needed" chosen (Advanced preferences), a build with no Inform 7 left `build.sh` queued, so the next build ran only that. `IFCompiler` now checks for Inform 7 first, and reads the preference from a `preferences` property, the shared preferences unless it's given others, so that the test can choose it (d2dab860).
         - Go, Replay and Play All ran the old story after an extension it includes was changed. `IFCompileCheck` now also compiles when anything in the folders of extensions the story may include, or a folder itself, was changed after the story was written (df03975c): the extensions installed in the project's materials and in the user's Library, and Inform's own for the project's version. Hidden files, such as `.DS_Store`, aren't counted. Looking was chosen over compiling every time (11 November 2026).
         - Found on the way, and put in `ToFix.md`: `IFCompiler` launches each stage with `launch()`, which raises for a command that isn't there.
+    - Extension projects (11 November 2026):
+        - An extension project's skein named in another case, such as `skeina.skein`, was passed over when the project was read, with every skein after it, and the project opened with a new skein in their place. `IFProjectFile` now reads the file it finds; where a disk that tells case apart has the name in more than one case, it reads the one named exactly (3c20aae4).
+        - Writing the skeins replaced each by its exact name and left the rest, so skeins that weren't read, because one before them was missing, stayed to be read later. And with `skeina.skein` there, the new `SkeinA.skein` went in under a made-up name, so the project read the old skein when it was next opened. Every skein file, named in any case, is now taken out before the skeins are written (7703cb41).
+        - Still in `ToFix.md`: the Public Library page's messages, which need Inform Core to change too.
 
 ### Phase 5 – Swift, and separating logic from UI (goal 5)
 
