@@ -191,6 +191,12 @@ Started November 2026, on the `extensions` branch. This is a living document: up
         - Delete Command cleared the selection of a knot after the deleted one. The selection now stays, going with the knot to the one it's merged into, if it is (9ca976b3).
         - Stop left Play All's threads still to play, so they were played when the next run's commands ran out. Stop and the skein stopping the story now drop them, as do Go, Test Me, Debug and playing to a knot, which have no tests, as each compiles the story (d4d1d77e).
         - Still in `ToFix.md`: the knots that once couldn't be clicked or dragged, not reproduced.
+    - Web pages (11 November 2026). None of these was checked in the app:
+        - Each time the welcome window was shown, it added another advice web view over the ones before. It's now made once, by `addAdviceWebView` (74e596db).
+        - Switching to the Documentation or Extensions tab recorded its page in the history twice, the second time as the page was reloaded, so Back had to be pressed twice to leave the tab. The pages now keep the navigations of the loads they leave out of the history, in place of a count that a page from the history overtaking the reload would have left too high, and leave out that reload too (61170ee3).
+        - The Index page recorded in the history while it was hidden (554f2670), and, found on the way, recorded its reload after each translation as a second entry while it was shown; it now leaves that out by its navigation, as the other pages do (e488873e).
+        - After a project's first translation, the Index tab was blank until a cell was clicked, as the welcome page asked for when the pane was set up had no index to show. The page now shows its welcome page when the index is updated with nothing shown (8a69d134).
+        - The Index page asked for its tabs' pages by their names in lower case, which Inform writes capitalised, so they couldn't be found on a case-sensitive volume. It now asks for the names it finds in the index (1e969d14). Not checked on a case-sensitive volume.
 
 ### Phase 5 – Swift, and separating logic from UI (goal 5)
 
