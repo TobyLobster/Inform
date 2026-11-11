@@ -456,8 +456,9 @@ final class IFSkeinItemViewTests: XCTestCase, @unchecked Sendable {
         XCTAssertIdentical(NSCursor.current, NSCursor.openHand)
     }
 
-    /// A "test me" knot can't be clicked on the selected line, so the cursor there is an open hand
-    func testATestMeKnotOnTheSelectedLineCantBeClicked() throws {
+    /// A "test me" knot is clicked as any other, so the cursor over it is a pointing hand on the selected line too,
+    /// where a click clears the selection
+    func testATestMeKnotIsClickedAsAnyOther() throws {
         let (_, north, _) = makeSkein()
         north.isTestSubItem = true
         layOut()
@@ -469,7 +470,9 @@ final class IFSkeinItemViewTests: XCTestCase, @unchecked Sendable {
 
         skeinView.select(north, withAnimation: false)
         try enter(view)
-        XCTAssertIdentical(NSCursor.current, NSCursor.openHand, "on the selected line")
+        XCTAssertIdentical(NSCursor.current, NSCursor.pointingHand, "on the selected line")
+        try click(view)
+        XCTAssertNil(skeinView.selectedItem)
     }
 
     // MARK: - Clicking

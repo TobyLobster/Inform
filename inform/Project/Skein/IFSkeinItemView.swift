@@ -307,18 +307,11 @@ private let testMeTextColor = NSColor(calibratedRed: 0.8,
         return img
     }
 
-    private final func canClickItem() -> Bool {
-        if !(layoutItem?.item.isTestSubItem ?? false) { return true }
-        if !(layoutItem?.onSelectedLine ?? false) { return true }
-
-        return false
-    }
-
     private final func updateCurrentCursor() {
         // (The mouse is only ever inside a view with a layout item, as one without has no tracking areas)
         if insideMenuArea, let layoutItem, skeinView?.hasMenu(layoutItem.item) ?? false {
             NSCursor.pointingHand.set()
-        } else if insideLozengeArea && canClickItem() {
+        } else if insideLozengeArea {
             NSCursor.pointingHand.set()
         }
         else {
