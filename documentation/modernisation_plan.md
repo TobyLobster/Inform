@@ -199,6 +199,8 @@ Started November 2026, on the `extensions` branch. This is a living document: up
         - The Index page asked for its tabs' pages by their names in lower case, which Inform writes capitalised, so they couldn't be found on a case-sensitive volume. It now asks for the names it finds in the index (1e969d14). Not checked on a case-sensitive volume.
     - Quick Look (11 November 2026). Not checked in the app, as InformQL may no longer load on macOS 15 (replacing it is Phase 6):
         - The plugin compiled `IFPreferences`, which compares theme names with the `NSString` category as it makes its styles, but not the category, so its first preview or thumbnail would raise. It had been so since that call was added (7a02e964, May 2022). The category is now compiled into the plugin, and a unit test looks for it in the plugin's binary (26fa9dc7).
+    - Tests (11 November 2026):
+        - When the test host crashed, Xcode started it again for the tests that were left, without the scheme's pre-action that removes the tests' home folder, so the new host had the user's preferences. Now `main` stops a test host that starts with its home folder there; Xcode then reports an early unexpected exit and doesn't start it again, so the tests that were left aren't run (4b59206f). Checked with a temporary test that killed the host. Removing the folder instead can't work: the preferences are first read before any of the app's code runs, by ZoomView's `+[ZoomSkeinLayout load]`, which makes fonts, colours and images. If that made them on first use, `main` could remove the folder and the tests that were left could run.
 
 ### Phase 5 – Swift, and separating logic from UI (goal 5)
 
