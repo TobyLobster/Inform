@@ -34,9 +34,6 @@ extension IFProject {
 
     private final var materialsAccess: IFProjectMaterialsPresenter?
 
-    // Temporary window pointer - only used for save dialog
-    private final var tempInternalWindow: NSWindow?
-
     private final var _documentFileWrapper: FileWrapper?
 
     let inTest: IFInTest
@@ -448,7 +445,8 @@ extension IFProject {
         // Disable undo
         undoManager?.disableUndoRegistration()
 
-        // Load skeins
+        // Load skeins, in place of any read before, as by Revert To Saved
+        skeins.removeAllObjects()
         projectFile?.load(into: skeins,
                           project: self,
                           isExtensionProject: isExtensionProject)
@@ -498,9 +496,6 @@ extension IFProject {
             throw CocoaError(.fileReadUnknown)
         }
 
-        // Remove old project data
-        unregisterProjectTextStorage()
-
         // Create an object to represent the bundle files
         projectFile = IFProjectFile(fileWrapper: fileWrapper)
 
@@ -516,6 +511,8 @@ extension IFProject {
             throw CocoaError(.fileReadUnknown)
         }
 
+        // The pages show the text storages a project read before, as by Revert To Saved, so they're kept
+        let oldSourceFiles = _sourceFiles ?? [:]
         _sourceFiles = [:]
         let source = sourceDir.fileWrappers ?? [:]
 
@@ -530,7 +527,19 @@ extension IFProject {
             let text = storage(withData: regularFileContents,
                                forFilename: key)
 
-            _sourceFiles?[key] = text
+            if let oldText = oldSourceFiles[key] {
+                // A file read before is given its new text
+                IFSyntaxManager.unregisterTextStorage(text)
+                oldText.replaceCharacters(in: NSRange(location: 0, length: oldText.length), with: text)
+                _sourceFiles?[key] = oldText
+            } else {
+                _sourceFiles?[key] = text
+            }
+        }
+
+        // Remove the text of files that are gone
+        for (key, oldText) in oldSourceFiles where _sourceFiles?[key] !== oldText {
+            IFSyntaxManager.unregisterTextStorage(oldText)
         }
 
         // Refresh the settings, or create them as required
@@ -550,6 +559,9 @@ extension IFProject {
 
         // Load the breakpoints file (if present)
         breakpoints = projectFile.loadBreakpoints ?? NSMutableArray()
+
+        // The Settings page shows the settings it was given, so it's told of the new ones
+        NotificationCenter.default.post(name: .IFProjectSettingsReplaced, object: self)
     }
 
     nonisolated public override func read(from fileWrapper: FileWrapper, ofType typeName: String) throws {
@@ -888,15 +900,11 @@ extension IFProject {
             panel.beginSheetModal(for: window) { result in
                 // Copy the file to the specified path
                 if result == .OK, let url = panel.url {
-                    let filepath = (url.path as NSString).resolvingSymlinksInPath
-                    try? FileManager.default.copyItem(atPath: iFictionURL.path,
-                                                      toPath: filepath)
-
-                    // Hide the file extension if the user has requested it
-                    if var attributes = try? FileManager.default.attributesOfItem(atPath: filepath) {
-                        attributes[.extensionHidden] = panel.isExtensionHidden
-                        try? FileManager.default.setAttributes(attributes,
-                                                               ofItemAtPath: filepath)
+                    do {
+                        try self.saveIFiction(to: url, hidingExtension: panel.isExtensionHidden)
+                    } catch {
+                        panel.close()
+                        NSAlert(error: error).beginSheetModal(for: window)
                     }
                 }
             }
@@ -905,6 +913,33 @@ extension IFProject {
             IFUtility.runAlertWarning(window,
                                       title: "The compiler failed to produce an iFiction record",
                                       informativeText: IFUtility.localizedString("The compiler failed to create an iFiction record; check the errors page to see why."))
+        }
+    }
+
+    @objc(saveIFictionToURL:hidingExtension:error:)
+    func saveIFiction(to url: URL, hidingExtension hideExtension: Bool) throws {
+        guard let iFictionURL = metadataURL else {
+            throw CocoaError(.fileReadNoSuchFile)
+        }
+        try copyFile(at: iFictionURL, over: url, hidingExtension: hideExtension)
+    }
+
+    /// Copies a file to one the user chose in a save panel, which has asked whether to replace a file that's there
+    private final func copyFile(at source: URL, over destination: URL, hidingExtension hideExtension: Bool) throws {
+        let filepath = (destination.path as NSString).resolvingSymlinksInPath
+
+        // Remove the existing file, then copy
+        if FileManager.default.fileExists(atPath: filepath) {
+            try FileManager.default.removeItem(atPath: filepath)
+        }
+        try FileManager.default.copyItem(atPath: source.path,
+                                         toPath: filepath)
+
+        // Hide the file extension if the user has requested it
+        if var attributes = try? FileManager.default.attributesOfItem(atPath: filepath) {
+            attributes[.extensionHidden] = hideExtension
+            try? FileManager.default.setAttributes(attributes,
+                                                   ofItemAtPath: filepath)
         }
     }
 
@@ -948,8 +983,6 @@ extension IFProject {
         // Setup a save panel
         let panel = NSSavePanel()
 
-        tempInternalWindow = window
-
         panel.accessoryView = nil
         panel.allowedContentTypes = IFUtility.contentTypes(forFilenameExtensions: [(compiler.outputFile as NSString).pathExtension])
         panel.canSelectHiddenExtension = true
@@ -982,19 +1015,18 @@ extension IFProject {
 
                     alert.beginSheetModal(for: window) { returnCode in
                         if returnCode == .alertFirstButtonReturn {
+                            // Try again, in the same window
                             RunLoop.current.perform(#selector(self.saveCompilerOutput(with:)),
                                                     target: self,
-                                                    argument: self.tempInternalWindow,
+                                                    argument: window,
                                                     order: 128,
-                                                    modes: [.default]) // Try again
+                                                    modes: [.default])
                         }
-                        self.tempInternalWindow = nil
                     }
                     return
                 }
             }
         }
-        tempInternalWindow = nil
     }
 
     private final func buildBlorbSetting() -> Bool {
@@ -1203,21 +1235,22 @@ extension IFProject {
             panel.beginSheetModal(for: window) { result in
                 // Copy the file to the specified path
                 if result == .OK, let url = panel.url {
-                    let filepath = (url.path as NSString).resolvingSymlinksInPath
-
-                    if let sourceExtensionFileURL = self.sourceDirectoryURL?.appendingPathComponent("extension.i7x") {
-                        try? FileManager.default.copyItem(atPath: sourceExtensionFileURL.path,
-                                                          toPath: filepath)
-                    }
-
-                    // Hide the file extension if the user has requested it
-                    if var attributes = try? FileManager.default.attributesOfItem(atPath: filepath) {
-                        attributes[.extensionHidden] = panel.isExtensionHidden
-                        try? FileManager.default.setAttributes(attributes,
-                                                               ofItemAtPath: filepath)
+                    do {
+                        try self.exportExtension(to: url, hidingExtension: panel.isExtensionHidden)
+                    } catch {
+                        panel.close()
+                        NSAlert(error: error).beginSheetModal(for: window)
                     }
                 }
             }
         }
+    }
+
+    @objc(exportExtensionToURL:hidingExtension:error:)
+    func exportExtension(to url: URL, hidingExtension hideExtension: Bool) throws {
+        guard let sourceExtensionFileURL = sourceDirectoryURL?.appendingPathComponent("extension.i7x") else {
+            throw CocoaError(.fileReadNoSuchFile)
+        }
+        try copyFile(at: sourceExtensionFileURL, over: url, hidingExtension: hideExtension)
     }
 }

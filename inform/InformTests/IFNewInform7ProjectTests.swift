@@ -94,12 +94,43 @@ final class IFNewInform7ProjectTests: XCTestCase {
         XCTAssertEqual((expected as NSString).substring(with: type.initialSelectionRange), "Example Location")
     }
 
+    /// Inform takes a " in a title as its end, and a [ as the start of a text substitution, so they're given as '
+    /// (which Inform prints as ") and ( )
+    func testATitleWithQuotationMarksOrSquareBrackets() {
+        let type = projectType(author: "Emily Short")
+        let file = projectFile("/Users/emily/The \"Lamp\" [Lit].inform")
+        setUp(file, with: type)
+
+        let expected = "\"The 'Lamp' (Lit)\" by Emily Short\n\nExample Location is a room. "
+        XCTAssertEqual(story(file), expected)
+        XCTAssertEqual((expected as NSString).substring(with: type.initialSelectionRange), "Example Location")
+    }
+
+    /// An author's name with any punctuation is put in quotation marks, with " and [ ] given as in a title
+    func testAnAuthorWithPunctuation() {
+        let authors = [("Jane; Doe", "\"Jane; Doe\""),
+                       ("Jane: Doe", "\"Jane: Doe\""),
+                       ("Jane (JD) Doe", "\"Jane (JD) Doe\""),
+                       ("Jane \"JD\" Doe", "\"Jane 'JD' Doe\""),
+                       ("Jane [Doe]", "\"Jane (Doe)\""),
+                       ("Pat O'Brien", "\"Pat O'Brien\"")]
+        for (author, written) in authors {
+            let file = projectFile("/Users/jane/Lighthouse.inform")
+            setUp(file, with: projectType(author: author))
+            XCTAssertEqual(story(file), "\"Lighthouse\" by \(written)\n\nExample Location is a room. ", author)
+        }
+    }
+
     /// With no author in the preferences, it's the user's name
     func testNoAuthorInThePreferences() {
         var userName = NSFullUserName()
         if userName.isEmpty { userName = NSUserName() }
         if userName.isEmpty { userName = "Unknown Author" }
-        if userName.contains(".") { userName = "\"\(userName)\"" }
+        userName = userName.replacingOccurrences(of: "\"", with: "'")
+            .replacingOccurrences(of: "[", with: "(").replacingOccurrences(of: "]", with: ")")
+        if userName.unicodeScalars.contains(where: { !CharacterSet.alphanumerics.contains($0) && $0 != " " }) {
+            userName = "\"\(userName)\""
+        }
 
         let file = projectFile("/Users/emily/Lamplighter.inform")
         setUp(file, with: projectType())

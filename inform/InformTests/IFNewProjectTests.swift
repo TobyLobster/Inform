@@ -183,6 +183,21 @@ final class IFNewProjectTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(try editableFields().count, 2)
     }
 
+    /// The alert saying so was begun on the window as it was closed, so it was never seen; now the options stay
+    func testAnExtensionThatCantBeWrittenLeavesTheOptions() throws {
+        // A folder can't be made for the author where there's a file
+        let authorFolder = extensionURL(title: "Lamps", author: "Emily Short").deletingLastPathComponent()
+        try FileManager.default.createDirectory(at: authorFolder.deletingLastPathComponent(),
+                                                withIntermediateDirectories: true)
+        try Data().write(to: authorFolder)
+        try newExtension(title: "Lamps", author: "Emily Short")
+        controller.window?.setFrameOrigin(NSPoint(x: -20000, y: -20000))
+
+        controller.okButtonClicked(nil)
+
+        XCTAssertEqual(try editableFields().count, 2)
+    }
+
     func testCreateOverAnExtensionAfterTheProjectHasGoneWritesNothing() throws {
         let oldText = try writeExtension(title: "Lamps", author: "Emily Short")
         try newExtension(title: "Lamps", author: "Emily Short")

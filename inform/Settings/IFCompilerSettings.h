@@ -31,6 +31,8 @@ extern NSString* const IFSettingAllowLegacyExtensionDirectory;
 
 // Notifications
 extern NSNotificationName const IFSettingNotification;
+/// Posted by a project, as its object, when it has read its settings, as it does again for Revert To Saved
+extern NSNotificationName const IFProjectSettingsReplacedNotification;
 
 // Compiler types
 extern NSString* const IFCompilerInform6;

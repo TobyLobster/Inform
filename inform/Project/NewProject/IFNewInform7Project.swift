@@ -53,11 +53,14 @@ import Cocoa
         } else {
             var name = (((file.filename ?? "") as NSString).lastPathComponent as NSString).deletingPathExtension
             if name.isEmpty { name = "Untitled" }
+            name = IFNewInform7Project.withoutQuotesOrBrackets(name)
 
-            var longuserName: String = preferences.freshGameAuthorName
+            var longuserName = IFNewInform7Project.withoutQuotesOrBrackets(preferences.freshGameAuthorName)
 
-            // If longusername contains a '.', then we have to enclose it in quotes
-            let needQuotes = longuserName.utf16.contains(UInt16(UInt8(ascii: ".")))
+            // If longusername contains any punctuation, then we have to enclose it in quotes
+            let needQuotes = longuserName.unicodeScalars.contains {
+                !CharacterSet.alphanumerics.contains($0) && $0 != " "
+            }
 
             if needQuotes { longuserName = "\"\(longuserName)\"" }
 
@@ -71,6 +74,14 @@ import Cocoa
         // Create the default file
         file.addSourceFile("story.ni",
                            withContents: defaultContents.data(using: .utf8) ?? Data())
+    }
+
+    /// Inform takes a " as the end of a title or author's name, and a [ as the start of a text substitution, so they're
+    /// given as ' (which Inform prints as ") and ( )
+    private static func withoutQuotesOrBrackets(_ name: String) -> String {
+        return name.replacingOccurrences(of: "\"", with: "'")
+            .replacingOccurrences(of: "[", with: "(")
+            .replacingOccurrences(of: "]", with: ")")
     }
 
     @objc(initialSelectionRange)

@@ -20,6 +20,18 @@ import Cocoa
                    projectController: controller)
 
         updateSettings()
+
+        // A project read again, as by Revert To Saved, has new settings
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(projectSettingsReplaced(_:)),
+                                               name: .IFProjectSettingsReplaced,
+                                               object: nil)
+    }
+
+    @objc private final func projectSettingsReplaced(_ notification: Notification) {
+        if (notification.object as AnyObject?) === parent?.document {
+            updateSettings()
+        }
     }
 
     // MARK: - Details about this view

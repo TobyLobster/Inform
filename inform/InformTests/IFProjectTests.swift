@@ -127,6 +127,22 @@ final class IFProjectTests: XCTestCase {
         return commands
     }
 
+    /// Saves skeins in a project's folder, each with a line of play
+    private func saveSkeins(_ lines: [[String]], in url: URL, isExtensionProject: Bool) throws {
+        let projectFile = try XCTUnwrap(IFProjectFile(fileWrapper: try FileWrapper(url: url, options: .immediate)))
+        let skeins = lines.map { line in
+            let skein = IFSkein(project: nil)
+            var item = skein.rootItem
+            for command in line {
+                item = item.addChild(IFSkeinItem(skein: skein, command: command))
+            }
+            return skein
+        }
+        projectFile.write(skeins, isExtensionProject: isExtensionProject)
+        projectFile.filename = url.path
+        XCTAssertTrue(projectFile.write)
+    }
+
     private func assertIsUnknownFileError(_ error: Error, file: StaticString = #filePath, line: UInt = #line) {
         XCTAssertEqual((error as NSError).domain, NSCocoaErrorDomain, file: file, line: line)
         XCTAssertEqual((error as NSError).code, NSFileReadUnknownError, file: file, line: line)
@@ -344,6 +360,42 @@ final class IFProjectTests: XCTestCase {
         XCTAssertNotNil(written.fileWrappers?["Skein.skein"])
     }
 
+    /// The save panel has asked whether to replace the file
+    func testSavesTheIFictionRecordOverAFileThatsThere() throws {
+        let project = try open(makeProject(source: ["story.ni": Data()]))
+        try Data("<ifindex/>".utf8).write(to: fileURL("Metadata.ifiction", in: project))
+        let copy = try makeFolder().appendingPathComponent("Lighthouse.iFiction")
+        try Data("Old".utf8).write(to: copy)
+
+        try project.saveIFiction(to: copy, hidingExtension: false)
+
+        XCTAssertEqual(try String(contentsOf: copy, encoding: .utf8), "<ifindex/>")
+    }
+
+    func testSavingTheIFictionRecordSaysWhenThereIsNone() throws {
+        let project = try open(makeProject(source: ["story.ni": Data()]))
+        let copy = try makeFolder().appendingPathComponent("Lighthouse.iFiction")
+
+        XCTAssertThrowsError(try project.saveIFiction(to: copy, hidingExtension: false))
+    }
+
+    func testExportsAnExtensionOverAFileThatsThere() throws {
+        let project = try openExtensionProject()
+        let copy = try makeFolder().appendingPathComponent("Lamplighting.i7x")
+        try Data("Old".utf8).write(to: copy)
+
+        try project.exportExtension(to: copy, hidingExtension: false)
+
+        XCTAssertEqual(try String(contentsOf: copy, encoding: .utf8), extensionText)
+    }
+
+    func testExportingAnExtensionSaysWhenItCant() throws {
+        let project = try openExtensionProject()
+        let copy = try makeFolder().appendingPathComponent("Missing/Lamplighting.i7x")
+
+        XCTAssertThrowsError(try project.exportExtension(to: copy, hidingExtension: false))
+    }
+
     func testSavesAProjectElsewhere() throws {
         let project = try open(makeProject(source: ["story.ni": Data("Old".utf8)]))
         let story = try XCTUnwrap(project.sourceFiles?["story.ni"])
@@ -451,6 +503,59 @@ final class IFProjectTests: XCTestCase {
         try FileManager.default.removeItem(at: index)
         project.reloadIndexDirectory()
         XCTAssertNil(try project.fileWrapper(ofType: projectType).fileWrappers?["Index"])
+    }
+
+    // MARK: - Reverting
+
+    /// The source page shows the text storage it was given, so reverting gives that the saved text
+    func testRevertingGivesASourceFilesTextTheSavedText() throws {
+        let url = try makeProject(source: ["story.ni": Data("The Kitchen is a room.".utf8)])
+        let project = try open(url)
+        let story = try XCTUnwrap(project.sourceFiles?["story.ni"])
+        story.replaceCharacters(in: NSRange(location: 0, length: story.length), with: "The Hall is a room.")
+
+        try project.revert(toContentsOf: url, ofType: projectType)
+
+        XCTAssertIdentical(project.sourceFiles?["story.ni"], story)
+        XCTAssertEqual(story.string, "The Kitchen is a room.")
+    }
+
+    func testRevertingReplacesTheSkein() throws {
+        let url = try makeProject(source: ["story.ni": Data()])
+        try saveSkeins([["look"]], in: url, isExtensionProject: false)
+        let project = try open(url)
+        let skein = try XCTUnwrap(project.currentSkein)
+        skein.rootItem.addChild(IFSkeinItem(skein: skein, command: "north"))
+
+        try project.revert(toContentsOf: url, ofType: projectType)
+
+        XCTAssertEqual(project.skeins.count, 1)
+        let reverted = try XCTUnwrap(project.currentSkein)
+        XCTAssertIdentical(project.skeins.firstObject as AnyObject?, reverted)
+        XCTAssertEqual(reverted.rootItem.children.map(\.command), ["look"])
+    }
+
+    func testRevertingAnExtensionProjectReplacesItsSkeins() throws {
+        let url = try makeProject(named: "Lamplighting.i7xp", source: ["extension.i7x": Data(extensionText.utf8)])
+        try saveSkeins([["look"], ["x lamp"]], in: url, isExtensionProject: true)
+        let project = try open(url, ofType: extensionProjectType)
+
+        try project.revert(toContentsOf: url, ofType: extensionProjectType)
+
+        XCTAssertEqual(project.skeins.map { commands($0 as! IFSkein) }, [["look"], ["x lamp"]])
+    }
+
+    /// The Settings page shows the settings it was given, so it's told of the new ones
+    func testRevertingGivesTheProjectTheSavedSettingsAndSaysSo() throws {
+        let url = try makeProject(source: ["story.ni": Data()])
+        let project = try open(url)
+        project.settings.zcodeVersion = 8
+        let replaced = XCTNSNotificationExpectation(name: .IFProjectSettingsReplaced, object: project)
+
+        try project.revert(toContentsOf: url, ofType: projectType)
+
+        wait(for: [replaced], timeout: 1)
+        XCTAssertEqual(project.settings.zcodeVersion, IFCompilerSettings().zcodeVersion)
     }
 
     // MARK: - Extension projects
