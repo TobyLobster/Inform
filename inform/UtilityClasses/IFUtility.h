@@ -13,15 +13,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
-#define DEGREES_TO_RADIANS(degrees) ((degrees) * (M_PI / 180.0))
-extern NSTimeInterval const defaultTimeoutInterval;
 extern NSErrorDomain        INFORM_ERROR_DOMAIN;
 
 CGFloat lerp(CGFloat progress, CGFloat from, CGFloat to);
-CGFloat smoothstep(CGFloat t);
-CGFloat smootherstep(CGFloat t);
-CGFloat easeOutQuad(CGFloat t);
 CGFloat easeOutCubic(CGFloat t);
 
 @interface IFUtility : NSObject

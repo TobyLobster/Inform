@@ -12,27 +12,12 @@
 #import <objc/objc-runtime.h>
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
-NSTimeInterval const defaultTimeoutInterval = 60.0;
 NSErrorDomain        INFORM_ERROR_DOMAIN = @"com.inform7.errors";
 
 
 CGFloat lerp(CGFloat progress, CGFloat from, CGFloat to) {
     return from + progress * (to - from);
 }
-
-CGFloat smoothstep(CGFloat t) {
-    // https://en.wikipedia.org/wiki/Smoothstep
-    return t*t*(3-2*t);
-}
-
-CGFloat smootherstep(CGFloat t) {
-    // https://en.wikipedia.org/wiki/Smoothstep#Variations
-    return t*t*t*(10+3*t*(2*t-5));
-}
-
-CGFloat easeOutQuad(CGFloat t) {
-    return t*(2-t);
-};
 
 CGFloat easeOutCubic(CGFloat t) {
     t--;
@@ -224,22 +209,10 @@ CGFloat easeOutCubic(CGFloat t) {
     if (!modalDelegate || !alertDidEndSelector) {
         return;
     }
-#if 0
-    NSMethodSignature * methodSignature = [[modalDelegate class]
-                                    instanceMethodSignatureForSelector: alertDidEndSelector];
-    NSInvocation * delegateInvocation = [NSInvocation
-                                   invocationWithMethodSignature:methodSignature];
-
-    [delegateInvocation setArgument:(void*)&window atIndex:2];
-    [delegateInvocation setArgument:&returnCode atIndex:3];
-    [delegateInvocation setArgument:(void*)&contextInfo atIndex:4];
-    [delegateInvocation invoke];
-#else
     // Hack!
     IMP imp = [modalDelegate methodForSelector: alertDidEndSelector];
     void (*func)(id, SEL, NSWindow*, NSInteger, void *) = (void *) imp;
     func(modalDelegate, alertDidEndSelector, window, returnCode, contextInfo);
-#endif
 }
 
 + (void) runAlertYesNoWindow: (NSWindow*) window
