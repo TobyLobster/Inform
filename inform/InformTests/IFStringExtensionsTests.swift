@@ -98,4 +98,17 @@ final class IFStringExtensionsTests: XCTestCase {
         XCTAssertEqual(("/a/" as NSString).appendingPathComponents("b"), "/a/b")
         XCTAssertEqual(("/a" as NSString).appendingPathComponents(nil), "/a")
     }
+
+    // MARK: - The Quick Look plugin
+
+    /// The Quick Look plugin compiles the preferences, which compare theme names with the category as they make
+    /// their styles, so it has the category too. The plugin's binary is read, not loaded, as it has its own copies
+    /// of the app's classes; the category's name is only in a binary that has the category.
+    func testTheQuickLookPluginHasTheCategory() throws {
+        let pluginURL = Bundle.main.bundleURL.appendingPathComponent("Contents/Library/QuickLook/InformQL.qlgenerator")
+        let plugin = try XCTUnwrap(Bundle(url: pluginURL))
+        let binary = try Data(contentsOf: try XCTUnwrap(plugin.executableURL))
+        XCTAssertNotNil(binary.range(of: Data("IFPreferences".utf8)), "The plugin has the preferences")
+        XCTAssertNotNil(binary.range(of: Data("IFStringAdditions".utf8)), "The plugin has the category")
+    }
 }
