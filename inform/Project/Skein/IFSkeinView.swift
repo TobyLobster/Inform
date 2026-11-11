@@ -796,11 +796,8 @@ private let kSkeinMinEditFieldWidth: CGFloat = 40.0    // Smallest width for edi
     @objc private final func deleteOneItem(_ sender: Any?) {
         guard let contextItem else { return }
 
-        if canDeleteItem(contextItem) {
-            let fixSelectedItem = contextItem.hasDescendant(_selectedItem)
-
-            let originalParent = contextItem.parent
-
+        // (The parent can't be nil, as the item can be deleted)
+        if canDeleteItem(contextItem), let originalParent = contextItem.parent {
             // Work out which is the last dependent item spawned by our potential "test me" command
             var dependentLeaf = contextItem
             while dependentLeaf.children.count == 1 {
@@ -814,6 +811,10 @@ private let kSkeinMinEditFieldWidth: CGFloat = 40.0    // Smallest width for edi
             // Remember the children of this item
             let children = dependentLeaf.children
 
+            // Is the selected item one that's deleted? (One after them goes with the children.)
+            let fixSelectedItem = contextItem.hasDescendant(_selectedItem)
+                                  && !children.contains { $0.hasDescendant(_selectedItem) }
+
             // Remove them from the tree
             for child in children {
                 child.removeFromParent()
@@ -824,12 +825,12 @@ private let kSkeinMinEditFieldWidth: CGFloat = 40.0    // Smallest width for edi
 
             // Add the children back to the parent item (merging if necessary)
             for child in children {
-                originalParent?.addChild(child)
+                add(child, to: originalParent)
             }
 
             // Adjust the selected item to remain valid
             if fixSelectedItem {
-                if (originalParent?.children.count ?? 0) <= 1 {
+                if originalParent.children.count <= 1 {
                     self.selectedItem = originalParent
                 } else {
                     self.selectedItem = nil

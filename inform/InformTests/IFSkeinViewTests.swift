@@ -825,14 +825,14 @@ final class IFSkeinViewTests: XCTestCase {
         let (window, skeinView) = makeSkeinView(skein)
         defer { window.close() }
 
-        // The knots after it join the knot before it, and a selection that was after it goes
+        // The knots after it join the knot before it, and a selection after it stays
         skeinView.select(north, withAnimation: false)
         let changes = try changes(of: skein) { try choose("Delete Command", for: look, in: skeinView) }
         XCTAssertEqual(changes, 1)
         XCTAssertEqual(commands(skein.rootItem), ["north", "wait"])
         XCTAssertIdentical(north.parent, skein.rootItem)
         XCTAssertNil(look.parent)
-        XCTAssertNil(skeinView.selectedItem)
+        XCTAssertIdentical(skeinView.selectedItem, north)
 
         // A selection elsewhere stays
         skeinView.select(wait, withAnimation: false)
@@ -843,6 +843,27 @@ final class IFSkeinViewTests: XCTestCase {
         // The start can't be deleted
         try choose("Delete Command", for: skein.rootItem, in: skeinView)
         XCTAssertEqual(commands(skein.rootItem), ["wait"])
+    }
+
+    /// The knots after a deleted knot are merged into the knot before's knots with the same commands, and the
+    /// selected and winning knots go to the knots they're merged into
+    func testDeleteCommandKeepsTheKnotsItMerges() throws {
+        let (skein, look, north, wait) = makeSkein()
+        let rootNorth = add("north", to: skein.rootItem, in: skein)
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+        skeinView.select(north, withAnimation: false)
+        skein.winningItem = north
+
+        try choose("Delete Command", for: look, in: skeinView)
+        XCTAssertEqual(commands(skein.rootItem), ["north", "wait"])
+        XCTAssertIdentical(skeinView.selectedItem, rootNorth)
+        XCTAssertIdentical(skein.winningItem, rootNorth)
+
+        // A selected knot that's deleted gives way to the knot before, if that has no other threads
+        skeinView.select(wait, withAnimation: false)
+        try choose("Delete Command", for: wait, in: skeinView)
+        XCTAssertIdentical(skeinView.selectedItem, skein.rootItem)
     }
 
     func testDeletingTestMeDeletesItsCommands() throws {
