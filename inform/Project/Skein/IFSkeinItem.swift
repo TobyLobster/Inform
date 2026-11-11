@@ -664,14 +664,16 @@ import Cocoa
             commandTotal += 1
         }
 
-        // Combine the items
+        // Combine the items. With none blessed, the commands' headings alone aren't a blessed transcript.
         let combinedIdeal = NSMutableString(string: _ideal)
+        var anyBlessed = (_ideal as NSString).length > 0
         var loopItem: IFSkeinItem = self
         for commandIndex in 1..<commandTotal {
             loopItem = loopItem.children[0]
             combinedIdeal.append("[\(commandIndex)] \(loopItem._command)\n\(loopItem._ideal)")
+            anyBlessed = anyBlessed || (loopItem._ideal as NSString).length > 0
         }
-        return combinedIdeal as String
+        return anyBlessed ? combinedIdeal as String : ""
     }
 
     // MARK: - Command Size Cache
