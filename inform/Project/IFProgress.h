@@ -46,7 +46,8 @@ NS_SWIFT_UI_ACTOR
 
 // Setting the delegate
 @property (atomic, weak, nullable) id<IFProgressDelegate> delegate;
-- (void) cancelProgress;
+/// Can be called on any thread: the cancel action is sent on the main thread
+- (void) cancelProgress NS_SWIFT_NONISOLATED;
 @property (atomic, getter=isCancelled, readonly) BOOL cancelled;
 - (void) setCancelAction: (SEL) selector forObject:(id) object;
 

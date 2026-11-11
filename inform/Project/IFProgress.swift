@@ -20,9 +20,10 @@ extension IFProgress {
     private final var _percentage: CGFloat
     private final var _inProgress: Bool
 
-    private final var _cancelled: Bool
-    private final var cancelActionSelector: Selector?
-    private final var cancelActionObject: Any?
+    // (Cancelling can happen on any thread)
+    nonisolated(unsafe) private final var _cancelled: Bool
+    nonisolated(unsafe) private final var cancelActionSelector: Selector?
+    nonisolated(unsafe) private final var cancelActionObject: Any?
 
     // Delegate
     weak var delegate: IFProgressDelegate?
@@ -90,7 +91,7 @@ extension IFProgress {
     }
 
     @objc(cancelProgress)
-    func cancel() {
+    nonisolated func cancel() {
         _cancelled = true
         // (The objects given are all NSObjects, which have performSelectorOnMainThread:)
         if let cancelActionSelector, let cancelActionObject = cancelActionObject as? NSObject {
