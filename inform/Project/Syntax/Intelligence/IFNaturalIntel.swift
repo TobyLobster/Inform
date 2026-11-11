@@ -330,7 +330,8 @@ private let autoNumberHeading = [false, true, true, true, true, true, false]
         if firstSymbol.level == 0 { return }
 
         // Renumber the siblings at the same level (a heading of a higher level can be a sibling too,
-        // such as a chapter after sections that aren't in one)
+        // such as a chapter after sections that aren't in one). A heading without a number ends them: it's left as it
+        // is, and so are the ones after it, as Renumber All Sections starts again after one.
         var symbol = firstSymbol.sibling
 
         var todoList: [(line: Int32, text: String)] = []
@@ -339,18 +340,26 @@ private let autoNumberHeading = [false, true, true, true, true, true, false]
             currentSectionNumber += 1
 
             let symbolSectionNumber = IFNaturalIntel.numberOfHeading(current.name ?? "")
+            if symbolSectionNumber <= 0 { break }
 
             if symbolSectionNumber != currentSectionNumber {
                 // Get the data for the line this symbol is on
                 let symbolLineNumber = data.line(for: current)
-                let line = highlighter.text(forLine: Int32(truncatingIfNeeded: symbolLineNumber))
+                var line = highlighter.text(forLine: Int32(truncatingIfNeeded: symbolLineNumber))
+
+                // Keep the line's ending, as the number may be the line's last word
+                var ending = ""
+                while let last = line.last, last.isNewline {
+                    ending = String(last) + ending
+                    line.removeLast()
+                }
 
                 // Renumber this symbol
                 var words = line.components(separatedBy: " ")
 
                 if words.count > 1 {
                     words[1] = IFNaturalIntel.numberText(currentSectionNumber, like: words[1])
-                    let newString = words.joined(separator: " ")
+                    let newString = words.joined(separator: " ") + ending
 
                     // Add to our 'todo' list
                     todoList.append((line: Int32(truncatingIfNeeded: symbolLineNumber), text: newString))

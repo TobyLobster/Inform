@@ -314,6 +314,28 @@ final class IFNaturalIntelTests: XCTestCase {
         XCTAssertEqual(renumbered, ["Section 3 - Side\n"])
     }
 
+    /// A heading without a number is left as it is, and so are the headings after it, as Renumber All Sections
+    /// starts again after one
+    func testRenumberingStopsAtAnUnnumberedHeading() throws {
+        try skipUnlessNumbering()
+        let text = source.replacingOccurrences(of: "Section 2 - Back",
+                                               with: "Section 2 - Side\n\nSection Back\n\nSection 3 - Rear")
+        let storage = registered(text)
+        typeHeading("Section", before: "Section 2", in: storage)
+        XCTAssertEqual(storage.string, text.replacingOccurrences(of: "Section 2 - Side",
+                                                                 with: "Section 2 - \n\nSection 3 - Side"))
+    }
+
+    /// A heading with nothing after its number keeps its line break as it's renumbered
+    func testAHeadingWithOnlyANumberKeepsItsLine() throws {
+        try skipUnlessNumbering()
+        let text = source.replacingOccurrences(of: "Section 2 - Back", with: "Section 2")
+        let storage = registered(text)
+        typeHeading("Section", before: "Section 2", in: storage)
+        XCTAssertEqual(storage.string, text.replacingOccurrences(of: "Section 2\n",
+                                                                 with: "Section 2 - \n\nSection 3\n"))
+    }
+
     /// Sections before the first chapter come under the title, as the chapters do, but aren't numbered with them.
     func testRenumberingStopsAtAHigherHeading() throws {
         try skipUnlessNumbering()
