@@ -21,21 +21,6 @@ private func escapedForHTML(_ text: String?) -> String {
 
 @objc @implementation
 extension IFInBuild {
-    // The task
-    /// Task where InBuild is running
-    private final var theTask: Process?
-
-    // Output/input streams
-    /// stdErr pipe
-    private final var stdErrPipe: Pipe?
-    /// stdOut pipe
-    private final var stdOutPipe: Pipe?
-
-    /// File handle for stderr
-    private final var stdErrH: FileHandle?
-    /// File handle for stdout
-    private final var stdOutH: FileHandle?
-
     private final var exitCode: Int32
 
     private final var _stdOut: NSMutableString?
@@ -60,14 +45,6 @@ extension IFInBuild {
         _stdErr = NSMutableString()
         _stdOut = NSMutableString()
 
-        // Prepare the task (based on http://stackoverflow.com/questions/412562/execute-a-terminal-command-from-a-cocoa-app )
-        let theTask = Process()
-        self.theTask = theTask
-
-        theTask.arguments = args
-        theTask.launchPath = command
-        theTask.currentDirectoryPath = NSTemporaryDirectory()
-
         var message = ""
         message += "Current Directory: \(NSTemporaryDirectory())\n"
         message += "Command: \(command ?? "(null)")\n"
@@ -81,37 +58,14 @@ extension IFInBuild {
         }
         NSLog("%@", message)
 
-        // Prepare the task's IO
-        let stdErrPipe = Pipe()
-        let stdOutPipe = Pipe()
-        self.stdErrPipe = stdErrPipe
-        self.stdOutPipe = stdOutPipe
-
-        theTask.standardOutput = stdOutPipe
-        theTask.standardError = stdErrPipe
-        theTask.standardInput = Pipe()       // "The magic line that keeps your log where it belongs"
-
-        let stdOutH = stdOutPipe.fileHandleForReading
-        let stdErrH = stdErrPipe.fileHandleForReading
-        self.stdOutH = stdOutH
-        self.stdErrH = stdErrH
-
-        // Start the task
-        theTask.launch()
-
-        // Wait until finished
-        var data = Data(capacity: 512)
-        while theTask.isRunning {
-            data.append(stdOutH.readDataToEndOfFile())
-        }
-        data.append(stdOutH.readDataToEndOfFile())
+        let run = IFToolRun(command: command, arguments: args)
 
         // Record output
-        _stdOut = NSString(data: data,
+        _stdOut = NSString(data: run.standardOutput,
                            encoding: String.Encoding.utf8.rawValue)?.mutableCopy() as? NSMutableString
-        _stdErr = NSString(data: stdErrH.readDataToEndOfFile(),
+        _stdErr = NSString(data: run.standardError,
                            encoding: String.Encoding.utf8.rawValue)?.mutableCopy() as? NSMutableString
-        exitCode = theTask.terminationStatus
+        exitCode = run.exitCode
 
         return message
     }
@@ -124,13 +78,6 @@ extension IFInBuild {
                         withConfirmation confirmed: Bool,
                         withResults resultsURL: URL,
                         settings: IFCompilerSettings) -> Int32 {
-        if let theTask {
-            if theTask.isRunning {
-                theTask.terminate()
-            }
-            self.theTask = nil
-        }
-
         // Build a command with arguments:
         //  inbuild -project PROJECTDIR -install EXTENSION -results RESULTS
 
@@ -176,13 +123,6 @@ extension IFInBuild {
 
     @objc(executeInBuildForCensus)
     func executeForCensus() -> Int32 {
-        if let theTask {
-            if theTask.isRunning {
-                theTask.terminate()
-            }
-            self.theTask = nil
-        }
-
         var externalPath = IFUtility.pathForInformExternalAppSupport()
         externalPath = (externalPath as NSString).appendingPathComponent("Extensions")
 
@@ -219,13 +159,6 @@ extension IFInBuild {
                  toHTML htmlFilepath: String,
                  withInternal internalURL: URL,
                  settings: IFCompilerSettings) -> Int32 {
-        if let theTask {
-            if theTask.isRunning {
-                theTask.terminate()
-            }
-            self.theTask = nil
-        }
-
         // Build a command with arguments:
         // inbuild -internal INTERNAL -markdown-from MARKDOWNFILE -markdown-to HTMLFILE
 

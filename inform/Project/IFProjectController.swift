@@ -593,6 +593,19 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
         refreshTestCases()
     }
 
+    /// The folders of the extensions the project's story may include: those installed in the project's materials and
+    /// in the user's Library, and Inform's own for the project's version of Inform
+    private final var extensionFolderURLs: [URL] {
+        var folders = [URL(fileURLWithPath: IFUtility.pathForInformExternalExtensions())]
+        if let materials = project?.materialsDirectoryURL {
+            folders.append(materials.appendingPathComponent("Extensions"))
+        }
+        if let settings = project?.settings {
+            folders.append(URL(fileURLWithPath: IFUtility.path(forInformInternalExtensions: settings.compilerVersion)))
+        }
+        return folders
+    }
+
     private final func make(withRelease release: Bool,
                             forTesting releaseForTesting: Bool,
                             refreshOnly onlyRefresh: Bool,
@@ -603,6 +616,7 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
                                                               unsavedChanges: project?.hasUnautosavedChanges ?? false,
                                                               sourceURL: project?.mainSourceFileURL,
                                                               settingsURL: project?.settingsFileURL,
+                                                              extensionFolderURLs: extensionFolderURLs,
                                                               outputURL: project?.buildOutputFileURL)
 
         if needsToCompile {
@@ -1607,18 +1621,16 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
         let markdownPath = page.markdownPath
 
         if let markdownPath {
-            // Run inbuild to convert the markdown file to HTML
+            // Run inbuild to convert the markdown file to HTML. When that fails, inbuild writes a page about the
+            // error there instead, which is shown in its place.
             let htmlURL = IFUtility.temporaryDirectoryURL().appendingPathComponent("temp.html")
             errorURL = htmlURL
             let internalURL = URL(fileURLWithPath: IFUtility.path(forInformInternalAppSupport: ""))
-            let result = project.map { project in
+            if let project {
                 project.inBuild.execute(forConvertingMarkdown: markdownPath,
                                         toHTML: htmlURL.path,
                                         withInternal: internalURL,
                                         settings: project.settings)
-            } ?? 0
-            if result != 0 {
-                return
             }
         }
 

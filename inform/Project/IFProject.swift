@@ -39,7 +39,7 @@ extension IFProject {
 
     private final var _documentFileWrapper: FileWrapper?
 
-    private final let inTest: IFInTest
+    let inTest: IFInTest
     var inBuild: IFInBuild
 
     // == Initialisation ==

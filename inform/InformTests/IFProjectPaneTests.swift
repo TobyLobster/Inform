@@ -161,6 +161,14 @@ final class IFProjectPaneTests: XCTestCase, @unchecked Sendable {
         XCTAssertFalse(left.compilerController === right.compilerController)
     }
 
+    /// Each side's errors page shows what the project's compiler and intest write
+    func testTheCompilerControllersShowTheProjectsCompilerAndIntest() {
+        for pane in [left!, right!] {
+            XCTAssertTrue(pane.compilerController.compiler === project.compiler)
+            XCTAssertTrue(pane.compilerController.inTest === project.inTest)
+        }
+    }
+
     // MARK: - What a pane shows
 
     func testWhatAPaneShowsIsTheTypeOfThePageShown() {

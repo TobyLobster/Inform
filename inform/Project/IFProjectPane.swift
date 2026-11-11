@@ -156,9 +156,10 @@ private let zoomShowsWarnings: Void = {
         _errorsPage = errorsPage
         add(errorsPage)
 
-        // Compiler (lives on the errors page)
+        // Compiler and intest (live on the errors page)
         if let doc {
             errorsPage.compilerController.compiler = doc.compiler
+            errorsPage.compilerController.inTest = doc.inTest
         }
         errorsPage.compilerController.setProject(ourParent, with: self)
 

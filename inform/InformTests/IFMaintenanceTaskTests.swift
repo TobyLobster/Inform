@@ -176,4 +176,32 @@ final class IFMaintenanceTaskTests: XCTestCase, @unchecked Sendable {
         wait(for: [finished], timeout: 10)
         XCTAssertEqual(try contents(of: file), "Hello\nHello\n")
     }
+
+    // MARK: - Commands that can't be run
+
+    /// As when an external Inform Core folder (Advanced preferences) hasn't got it
+    private let missingCommand = "/nonexistent/ni"
+
+    func testPassesOverACommandThatCantBeRun() throws {
+        let file = try makeFile()
+        let done = makeNotificationName()
+        let finished = expectation(forNotification: done, object: maintenance)
+
+        // The first task runs at once, so the next two wait behind it
+        queueNothing(notifyType: makeNotificationName())
+        maintenance.queue(missingCommand, withArguments: [], notifyType: done)
+        queueAppending("Hello", to: file, notifyType: done)
+
+        wait(for: [finished], timeout: 10)
+        XCTAssertEqual(try contents(of: file), "Hello\n")
+    }
+
+    func testTellsWhenACommandThatCantBeRunIsTheLast() {
+        let done = makeNotificationName()
+        let finished = expectation(forNotification: done, object: maintenance)
+
+        maintenance.queue(missingCommand, withArguments: [], notifyType: done)
+
+        wait(for: [finished], timeout: 10)
+    }
 }

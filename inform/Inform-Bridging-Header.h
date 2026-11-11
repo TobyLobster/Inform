@@ -95,6 +95,7 @@
 #import "IFMaintenanceTask.h"
 #import "IFInBuild.h"
 #import "IFInTest.h"
+#import "IFToolRun.h"
 #import "IFTestCaseRun.h"
 #import "IFTestReport.h"
 #import "IFScanner.h"

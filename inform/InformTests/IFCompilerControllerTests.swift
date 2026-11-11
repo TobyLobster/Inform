@@ -343,20 +343,48 @@ final class IFCompilerControllerTests: XCTestCase, @unchecked Sendable {
 
     // MARK: - intest
 
-    func testTheConsoleShowsWhatIntestWrites() throws {
-        startBuild()
-        NotificationCenter.default.post(name: .IFInTestStarting, object: nil,
+    /// Posts what an intest run would, as that intest
+    private func intestRun(by inTest: IFInTest) {
+        NotificationCenter.default.post(name: .IFInTestStarting, object: inTest,
                                         userInfo: ["command": "/usr/bin/intest", "args": ["-from", "Project"]])
-        NotificationCenter.default.post(name: .IFInTestStdout, object: nil, userInfo: ["string": "Passed\n"])
-        NotificationCenter.default.post(name: .IFInTestStderr, object: nil, userInfo: ["string": "Failed\n"])
-        NotificationCenter.default.post(name: .IFInTestFinished, object: nil,
+        NotificationCenter.default.post(name: .IFInTestStdout, object: inTest, userInfo: ["string": "Passed\n"])
+        NotificationCenter.default.post(name: .IFInTestStderr, object: inTest, userInfo: ["string": "Failed\n"])
+        NotificationCenter.default.post(name: .IFInTestFinished, object: inTest,
                                         userInfo: ["exitCode": NSNumber(value: 1)])
+    }
+
+    func testTheConsoleShowsWhatIntestWrites() throws {
+        let inTest = IFInTest()
+        controller.inTest = inTest
+        startBuild()
+        intestRun(by: inTest)
 
         XCTAssertEqual(try consoleText,
                        "Launching: /usr/bin/intest -from Project \nPassed\nFailed\nIntest finished with code 1\n")
         try assertStyle(IFStyleBase, of: "Launching: /usr/bin/intest")
         try assertStyle(IFStyleBase, of: "Passed")
         try assertStyle(IFStyleCompilerError, of: "Failed")
+    }
+
+    /// Another project's intest isn't this one's, so what it writes stays out of this console
+    func testTheConsoleShowsNothingFromAnotherIntest() throws {
+        controller.inTest = IFInTest()
+        startBuild()
+        intestRun(by: IFInTest())
+        XCTAssertEqual(try consoleText, "")
+    }
+
+    func testGivingTheControllerAnotherIntest() throws {
+        let old = IFInTest()
+        controller.inTest = old
+        let new = IFInTest()
+        controller.inTest = new
+        XCTAssertTrue(controller.inTest === new)
+
+        startBuild()
+        NotificationCenter.default.post(name: .IFInTestStdout, object: old, userInfo: ["string": "Old\n"])
+        NotificationCenter.default.post(name: .IFInTestStdout, object: new, userInfo: ["string": "New\n"])
+        XCTAssertEqual(try consoleText, "New\n")
     }
 
     // MARK: - The list of errors

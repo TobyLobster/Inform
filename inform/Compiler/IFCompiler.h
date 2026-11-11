@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class IFCompilerSettings;
+@class IFPreferences;
 @class IFProgress;
 
 extern NSNotificationName const IFCompilerClearConsoleNotification;
@@ -55,6 +56,8 @@ NS_SWIFT_UI_ACTOR
 @property (atomic, strong, nullable) IFCompilerSettings *settings;
 /// The build products directory; nil until it's set.
 @property (atomic, copy, nullable) NSString *directory;
+/// The preferences it follows: the shared ones, unless it's given others
+@property (atomic, strong) IFPreferences *preferences;
 
 /// Prepares the first task for launch
 - (BOOL) prepareForLaunchWithBlorbStage: (BOOL) makeBlorb testCase:(nullable NSString*) testCase;

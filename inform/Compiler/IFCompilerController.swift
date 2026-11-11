@@ -168,24 +168,6 @@ import WebKit
                                                    name: .IFCompilerStderr,
                                                    object: compiler)
 
-            // Intest support
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(intestStarting(_:)),
-                                                   name: .IFInTestStarting,
-                                                   object: nil)
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(intestFinished(_:)),
-                                                   name: .IFInTestFinished,
-                                                   object: nil)
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(gotIntestStdout(_:)),
-                                                   name: .IFInTestStdout,
-                                                   object: nil)
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(gotIntestStderr(_:)),
-                                                   name: .IFInTestStderr,
-                                                   object: nil)
-
             // Font size change
             NotificationCenter.default.addObserver(self,
                                                    selector: #selector(fontSizePreferenceChanged(_:)),
@@ -211,20 +193,6 @@ import WebKit
             NotificationCenter.default.removeObserver(self,
                                                       name: .IFCompilerStderr,
                                                       object: compiler)
-
-            // Intest support
-            NotificationCenter.default.removeObserver(self,
-                                                      name: .IFInTestStarting,
-                                                      object: nil)
-            NotificationCenter.default.removeObserver(self,
-                                                      name: .IFInTestFinished,
-                                                      object: nil)
-            NotificationCenter.default.removeObserver(self,
-                                                      name: .IFInTestStdout,
-                                                      object: nil)
-            NotificationCenter.default.removeObserver(self,
-                                                      name: .IFInTestStderr,
-                                                      object: nil)
 
             // Font size change
             NotificationCenter.default.removeObserver(self,
@@ -302,6 +270,35 @@ import WebKit
             registerHandlers()
 
             adjustSplitView()
+        }
+    }
+
+    var inTest: IFInTest? {
+        didSet {
+            if let oldValue {
+                for name in [Notification.Name.IFInTestStarting, .IFInTestFinished, .IFInTestStdout,
+                             .IFInTestStderr] {
+                    NotificationCenter.default.removeObserver(self, name: name, object: oldValue)
+                }
+            }
+            if let inTest {
+                NotificationCenter.default.addObserver(self,
+                                                       selector: #selector(intestStarting(_:)),
+                                                       name: .IFInTestStarting,
+                                                       object: inTest)
+                NotificationCenter.default.addObserver(self,
+                                                       selector: #selector(intestFinished(_:)),
+                                                       name: .IFInTestFinished,
+                                                       object: inTest)
+                NotificationCenter.default.addObserver(self,
+                                                       selector: #selector(gotIntestStdout(_:)),
+                                                       name: .IFInTestStdout,
+                                                       object: inTest)
+                NotificationCenter.default.addObserver(self,
+                                                       selector: #selector(gotIntestStderr(_:)),
+                                                       name: .IFInTestStderr,
+                                                       object: inTest)
+            }
         }
     }
 

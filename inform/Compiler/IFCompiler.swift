@@ -82,6 +82,8 @@ extension IFCompiler {
     /// Message to show at end of tasks
     var endTextString: String?
 
+    var preferences: IFPreferences
+
     // MARK: - Initialisation, etc
 
     override init() {
@@ -95,6 +97,7 @@ extension IFCompiler {
         progress = IFProgress(priority: IFProgressPriorityCompiler,
                               showsProgressBar: true,
                               canCancel: false)
+        preferences = IFPreferences.shared
         super.init()
     }
 
@@ -328,7 +331,13 @@ extension IFCompiler {
 
         // Prepare the arguments
         if runQueue.count <= 0 {
-            if IFPreferences.shared.runBuildSh && !IFUtility.isSandboxed {
+            // Check there's an Inform 7 before queuing anything, so nothing's left queued for the next build when
+            // there isn't. (With no settings, there's no valid path.)
+            guard let settings, settings.isNaturalInformCompilerPathValid() else {
+                return false
+            }
+
+            if preferences.runBuildSh && !IFUtility.isSandboxed {
                 let buildsh = ("~/build.sh" as NSString).expandingTildeInPath
 
                 addCustomBuildStage(buildsh,
@@ -338,10 +347,6 @@ extension IFCompiler {
                                     named: "Debug build stage")
             }
 
-            // (With no settings, there's no valid path)
-            guard let settings, settings.isNaturalInformCompilerPathValid() else {
-                return false
-            }
             addNaturalInformStage(usingTestCase: testCase)
 
             addStandardInformStage()

@@ -18,13 +18,19 @@ final class IFCompileCheckTests: XCTestCase {
     /// When the story was written
     private let compiled = Date(timeIntervalSinceReferenceDate: 800_000_000)
 
-    /// A source, settings and story, each written at the given time, or missing where the time is nil
-    private func makeFiles(source: Date?, settings: Date?, output: Date?) throws -> Files {
+    /// A new folder, removed when the test ends
+    private func makeFolder() throws -> URL {
         let folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         addTeardownBlock {
             try? FileManager.default.removeItem(at: folder)
         }
+        return folder
+    }
+
+    /// A source, settings and story, each written at the given time, or missing where the time is nil
+    private func makeFiles(source: Date?, settings: Date?, output: Date?) throws -> Files {
+        let folder = try makeFolder()
 
         let files = Files(source: folder.appendingPathComponent("story.ni"),
                           settings: folder.appendingPathComponent("Settings.plist"),
@@ -42,6 +48,29 @@ final class IFCompileCheckTests: XCTestCase {
         return try makeFiles(source: compiled - 60, settings: compiled - 120, output: compiled)
     }
 
+    /// A folder of extensions, with each file at its path written at the given time, and the folders, which change
+    /// when what's in them does, last changed at the time given for them
+    private func makeExtensionsFolder(_ files: [String: Date], foldersChanged: Date) throws -> URL {
+        let extensions = try makeFolder().appendingPathComponent("Extensions")
+        try FileManager.default.createDirectory(at: extensions, withIntermediateDirectories: true)
+        for (path, date) in files {
+            let file = extensions.appendingPathComponent(path)
+            try FileManager.default.createDirectory(at: file.deletingLastPathComponent(),
+                                                    withIntermediateDirectories: true)
+            try Data("x".utf8).write(to: file)
+            try FileManager.default.setAttributes([.modificationDate: date], ofItemAtPath: file.path)
+        }
+
+        // Each folder's time is set after what's in it is written
+        let folders = try FileManager.default.subpathsOfDirectory(atPath: extensions.path)
+            .map { extensions.appendingPathComponent($0) }
+            .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory == true }
+        for folder in folders.sorted(by: { $0.pathComponents.count > $1.pathComponents.count }) + [extensions] {
+            try FileManager.default.setAttributes([.modificationDate: foldersChanged], ofItemAtPath: folder.path)
+        }
+        return extensions
+    }
+
     /// A check that has seen a compile succeed
     private func makeCompiledCheck() -> IFCompileCheck {
         let check = IFCompileCheck()
@@ -53,12 +82,14 @@ final class IFCompileCheckTests: XCTestCase {
                               _ files: Files,
                               force: Bool = false,
                               alwaysCompile: Bool = false,
-                              unsavedChanges: Bool = false) -> Bool {
+                              unsavedChanges: Bool = false,
+                              extensionFolders: [URL] = []) -> Bool {
         return check.needsCompileForcing(force,
                                          alwaysCompile: alwaysCompile,
                                          unsavedChanges: unsavedChanges,
                                          sourceURL: files.source,
                                          settingsURL: files.settings,
+                                         extensionFolderURLs: extensionFolders,
                                          outputURL: files.output)
     }
 
@@ -148,5 +179,62 @@ final class IFCompileCheckTests: XCTestCase {
 
         XCTAssertTrue(needsCompile(makeCompiledCheck(), noSource))
         XCTAssertTrue(needsCompile(makeCompiledCheck(), noSettings))
+    }
+
+    // MARK: - Extensions
+
+    func testExtensionsChangedBeforeTheStoryNeedNoCompile() throws {
+        let extensions = try makeExtensionsFolder(["Emily Short/Locks.i7x": compiled - 60,
+                                                   "Emily Short/Keys.i7xd/Source/Extension.i7x": compiled - 60],
+                                                  foldersChanged: compiled - 60)
+
+        XCTAssertFalse(needsCompile(makeCompiledCheck(), try makeUpToDateFiles(), extensionFolders: [extensions]))
+    }
+
+    func testAChangedExtensionMeansACompileIsNeeded() throws {
+        let extensions = try makeExtensionsFolder(["Emily Short/Locks.i7x": compiled + 1],
+                                                  foldersChanged: compiled - 60)
+
+        XCTAssertTrue(needsCompile(makeCompiledCheck(), try makeUpToDateFiles(), extensionFolders: [extensions]))
+    }
+
+    func testAChangedFileInAnExtensionFolderMeansACompileIsNeeded() throws {
+        let extensions = try makeExtensionsFolder(["Emily Short/Keys.i7xd/Source/Extension.i7x": compiled + 1],
+                                                  foldersChanged: compiled - 60)
+
+        XCTAssertTrue(needsCompile(makeCompiledCheck(), try makeUpToDateFiles(), extensionFolders: [extensions]))
+    }
+
+    /// An extension added or taken away changes the folder it was in
+    func testAChangedFolderOfExtensionsMeansACompileIsNeeded() throws {
+        let extensions = try makeExtensionsFolder(["Emily Short/Locks.i7x": compiled - 60],
+                                                  foldersChanged: compiled + 1)
+
+        XCTAssertTrue(needsCompile(makeCompiledCheck(), try makeUpToDateFiles(), extensionFolders: [extensions]))
+    }
+
+    func testEachFolderOfExtensionsIsLookedAt() throws {
+        let unchanged = try makeExtensionsFolder(["Emily Short/Locks.i7x": compiled - 60],
+                                                 foldersChanged: compiled - 60)
+        let changed = try makeExtensionsFolder(["Emily Short/Keys.i7x": compiled + 1],
+                                               foldersChanged: compiled - 60)
+
+        XCTAssertTrue(needsCompile(makeCompiledCheck(), try makeUpToDateFiles(),
+                                   extensionFolders: [unchanged, changed]))
+    }
+
+    /// Such as the Finder's .DS_Store
+    func testAChangedHiddenFileNeedsNoCompile() throws {
+        let extensions = try makeExtensionsFolder(["Emily Short/.DS_Store": compiled + 1, ".DS_Store": compiled + 1],
+                                                  foldersChanged: compiled - 60)
+
+        XCTAssertFalse(needsCompile(makeCompiledCheck(), try makeUpToDateFiles(), extensionFolders: [extensions]))
+    }
+
+    /// As when the project's materials have no extensions
+    func testAMissingFolderOfExtensionsNeedsNoCompile() throws {
+        let missing = try makeFolder().appendingPathComponent("Extensions")
+
+        XCTAssertFalse(needsCompile(makeCompiledCheck(), try makeUpToDateFiles(), extensionFolders: [missing]))
     }
 }

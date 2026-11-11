@@ -26,12 +26,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// Whether the project must be compiled: always when forced, when the Always Compile preference is on, when the
 /// project has unsaved changes, when the test case has changed since the last successful compile, or when the story
 /// was made for release, which leaves out the debugging commands and doesn't fix the random numbers; and otherwise
-/// when its source or settings were changed after its story was written, or any of the three is missing
+/// when its source or settings were changed after its story was written, or any of the three is missing, or when
+/// anything in the folders of extensions, apart from hidden files, was changed after the story was written
 - (BOOL) needsCompileForcing: (BOOL) force
                alwaysCompile: (BOOL) alwaysCompile
               unsavedChanges: (BOOL) unsavedChanges
                    sourceURL: (nullable NSURL*) sourceURL
                  settingsURL: (nullable NSURL*) settingsURL
+         extensionFolderURLs: (NSArray<NSURL*>*) extensionFolderURLs
                    outputURL: (nullable NSURL*) outputURL;
 
 @end

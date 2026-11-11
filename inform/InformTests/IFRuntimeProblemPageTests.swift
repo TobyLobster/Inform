@@ -27,11 +27,24 @@ final class IFRuntimeProblemPageTests: XCTestCase {
         XCTAssertNil(page.markdownPath)
     }
 
-    func testAProblemTheAppHasNoPageForHasTheUnknownPage() {
+    /// The app has no page for a problem like this, from a story compiled without debugging, so a page saying so is
+    /// written
+    func testAProblemTheAppHasNoPageForHasAPageSayingSo() throws {
         let page = page("SaidInvalidSnippet", in: nil)
 
-        XCTAssertEqual(page.appPageURL?.absoluteString, "inform:/RTP_Unknown.html")
+        let url = try XCTUnwrap(page.appPageURL)
+        XCTAssertTrue(url.isFileURL, url.absoluteString)
+        let html = try String(contentsOf: url, encoding: .utf8)
+        XCTAssertTrue(html.contains("run-time problem SaidInvalidSnippet"), html)
         XCTAssertNil(page.markdownPath)
+    }
+
+    /// The problem's name is as the story wrote it, so it's shown as written
+    func testThePageSayingThereIsNoPageShowsTheProblemsNameAsWritten() throws {
+        let page = page("<b>&", in: nil)
+
+        let html = try String(contentsOf: try XCTUnwrap(page.appPageURL), encoding: .utf8)
+        XCTAssertTrue(html.contains("run-time problem &lt;b&gt;&amp;"), html)
     }
 
     func testAProblemInInformsInternalFilesIsMadeFromItsMarkdownThere() {
