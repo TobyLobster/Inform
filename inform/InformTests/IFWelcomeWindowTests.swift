@@ -255,6 +255,19 @@ final class IFWelcomeWindowTests: XCTestCase, @unchecked Sendable {
         }
     }
 
+    /// The advice is shown in one web view, made once, though the window is shown again and again
+    func testTheAdviceHasOneWebView() throws {
+        _ = controller.window
+        let adviceArea = try XCTUnwrap(controller.value(forKey: "webViewParent") as? NSView)
+        XCTAssertEqual(views(WKWebView.self, in: adviceArea).count, 0)
+
+        // As each time the window is shown, which isn't done, as it downloads the news
+        for _ in 0..<3 {
+            _ = controller.perform(NSSelectorFromString("addAdviceWebView"))
+        }
+        XCTAssertEqual(views(WKWebView.self, in: adviceArea).count, 1)
+    }
+
     func testTheSpinnerTurnsWhileMaintenanceRuns() throws {
         _ = controller.window
         let spinner = ProgressSpy()

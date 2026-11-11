@@ -180,6 +180,16 @@ final class IFDocumentationPageTests: XCTestCase, @unchecked Sendable {
         }
     }
 
+    /// Waits until the web view has finished loading the URL, whatever loads it started before
+    private func waitUntilShown(_ url: String, in shown: Shown) {
+        let limit = Date(timeIntervalSinceNow: 10)
+        while (shown.webView.isLoading || shown.webView.url?.absoluteString != url) && Date() < limit {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+        }
+        XCTAssertEqual(shown.webView.url?.absoluteString, url)
+        XCTAssertFalse(shown.webView.isLoading)
+    }
+
     func testTheTitle() throws {
         let shown = try makePage()
         XCTAssertEqual(shown.page.title, "Documentation")
@@ -327,6 +337,33 @@ final class IFDocumentationPageTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(shown.webView.url?.absoluteString, "inform:/alphabetical_index.html")
         XCTAssertEqual(recorder.timesAsked, 1)
         XCTAssertTrue(shown.watcher.errors.isEmpty)
+    }
+
+    /// Switching to the page while it's visible records what it shows once, and not again as it's reloaded
+    func testSwitchingToTheVisiblePageRecordsItOnce() throws {
+        let recorder = Recorder()
+        let shown = try makePage(visible: true, recorder: recorder)
+        open("inform:/alphabetical_index.html", in: shown)
+        XCTAssertEqual(recorder.timesAsked, 2)
+
+        waitForNavigation(shown.watcher) {
+            shown.page.didSwitchToPage()
+        }
+        XCTAssertEqual(recorder.timesAsked, 3)
+    }
+
+    /// Going back to the page loads a page from the history straight after the reload as it's switched to. Neither
+    /// is recorded, whichever starts, and what's shown next is.
+    func testAPageFromTheHistoryAsThePageIsSwitchedTo() throws {
+        let recorder = Recorder()
+        let shown = try makePage(visible: true, recorder: recorder)
+        shown.page.didSwitchToPage()
+        shown.page.openHistoricalURL(URL(string: "inform:/general_index.html"))
+        waitUntilShown("inform:/general_index.html", in: shown)
+        XCTAssertEqual(recorder.timesAsked, 1)
+
+        open("inform:/alphabetical_index.html", in: shown)
+        XCTAssertEqual(recorder.timesAsked, 3)
     }
 
     /// When the app's font size changes, the page is zoomed to it

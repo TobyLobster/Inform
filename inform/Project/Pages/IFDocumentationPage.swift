@@ -25,7 +25,10 @@ import WebKit
     /// Maps URL paths to cells
     private final let tabDictionary: [String: IFPageBarCell]
 
-    private final var inhibitAddToHistory = 0
+    /// The loads that aren't recorded in the history as they start, each by its navigation: the first page, a census's
+    /// reload, the reload as the page is switched to, and a page from the history. (A load that another overtakes
+    /// before it starts is left here, never matched.)
+    private final var unrecordedNavigations: [WKNavigation] = []
 
     // MARK: - Initialisation
 
@@ -73,10 +76,9 @@ import WebKit
         view.addSubview(wView)
 
         // Go to initial page
-        inhibitAddToHistory += 1
         let url = URL(string: "inform:/index.html")!
         let urlRequest = URLRequest(url: url)
-        wView.load(urlRequest)
+        leaveOutOfHistory(wView.load(urlRequest))
 
         contentsCell.target = self
         contentsCell.action = #selector(showToc(_:))
@@ -102,9 +104,8 @@ import WebKit
     // MARK: - Updating extensions
 
     @objc private final func censusCompleted(_ not: Notification) {
-        inhibitAddToHistory += 1
         // Force the documentation view to reload (the 'installed extensions' page may be updated)
-        wView.reload(self)
+        leaveOutOfHistory(wView.reload())
     }
 
     // MARK: - Preferences
@@ -117,9 +118,14 @@ import WebKit
 
     @objc(openURL:)
     func open(_ url: URL) {
+        load(url)
+    }
+
+    @discardableResult
+    private final func load(_ url: URL) -> WKNavigation? {
         switchToPage()
 
-        wView.load(URLRequest(url: url))
+        return wView.load(URLRequest(url: url))
     }
 
     func openHistoricalURL(_ url: URL?) {
@@ -128,8 +134,7 @@ import WebKit
         }
 
         // Because we are opening this URL as part of replaying history, we don't add it to the history itself.
-        inhibitAddToHistory += 1
-        open(url)
+        leaveOutOfHistory(load(url))
     }
 
     private final func highlightTab(forURL urlString: String?) {
@@ -145,6 +150,13 @@ import WebKit
 
     // MARK: - History
 
+    /// Leaves a load out of the history
+    private final func leaveOutOfHistory(_ navigation: WKNavigation?) {
+        if let navigation {
+            unrecordedNavigations.append(navigation)
+        }
+    }
+
     /// The history, as the page: what's sent to it is recorded, and sent to the page when the history is replayed.
     /// The history is a proxy, which records any message it's sent, so it isn't cast, as a cast sends it one.
     private final var historicalPage: IFDocumentationPage? {
@@ -159,7 +171,7 @@ import WebKit
 
         NSLog("HISTORY: Documentation Page: (didSwitchToPage) URL %@", url?.absoluteString ?? "(null)")
         historicalPage?.openHistoricalURL(url)
-        wView.reload(self)
+        leaveOutOfHistory(wView.reload())
     }
 
     // MARK: - Page bar cells
@@ -210,28 +222,14 @@ extension IFDocumentationPage {
         // Highlight appropriate tab
         highlightTab(forURL: webView.url?.absoluteString)
 
-        // Add to history...
-        // ... except when reloading after the census
-        // ... except on initial load
-        // ... except when clicking the forward or back arrows
-
-        // Each time we get here will remove one of these exceptions if present.
-
-        if pageIsVisible {
-            if inhibitAddToHistory <= 0 {
-                NSLog("HISTORY: Documentation Page: (didStartProvisionalNavigation) URL %@",
-                      webView.url?.absoluteString ?? "(null)")
-                historicalPage?.switchToPage()
-                historicalPage?.openHistoricalURL(webView.url)
-            }
-        }
-
-        // reduce the number of reasons to inhibit adding to history
-        if inhibitAddToHistory > 0 {
-            inhibitAddToHistory -= 1
-        }
-        else {
-            inhibitAddToHistory = 0
+        // Add to history, except for the loads left out of it
+        if let index = unrecordedNavigations.firstIndex(where: { $0 === navigation }) {
+            unrecordedNavigations.remove(at: index)
+        } else if pageIsVisible {
+            NSLog("HISTORY: Documentation Page: (didStartProvisionalNavigation) URL %@",
+                  webView.url?.absoluteString ?? "(null)")
+            historicalPage?.switchToPage()
+            historicalPage?.openHistoricalURL(webView.url)
         }
     }
 }

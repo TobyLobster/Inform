@@ -164,11 +164,6 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
         return try indexFolder.appendingPathComponent(file)
     }
 
-    /// The URL the page asks for to show a tab's page, which is its name in lower case
-    private func tabURL(_ file: String) throws -> URL {
-        return try indexURL(file.lowercased())
-    }
-
     /// Writes the given pages of the project's index, each saying its name
     private func writeIndex(_ files: [String]) throws {
         try FileManager.default.createDirectory(at: indexFolder, withIntermediateDirectories: true)
@@ -334,7 +329,10 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
     func testAPartIndex() throws {
         try writeIndex(["Welcome.html", "Contents.html"])
         let shown = try makePage()
-        shown.page.updateIndexView()
+        waitForNavigation(shown.watcher) {
+            // It shows the welcome page, as it showed nothing before
+            shown.page.updateIndexView()
+        }
 
         XCTAssertEqual(shown.page.toolbarCells.compactMap { ($0.representedObject as? NSNumber)?.intValue }, [2, 1])
         XCTAssertTrue(shown.page.canSelectIndexTab(IFIndexTabType.contents.rawValue))
@@ -356,12 +354,12 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
     /// Switching to a tab shows its page, with its cell highlighted
     func testSwitchingToATab() throws {
         let shown = try makePageShowingTheIndex()
-        XCTAssertEqual(shown.webView.url, try tabURL("Welcome.html"))
+        XCTAssertEqual(shown.webView.url, try indexURL("Welcome.html"))
         XCTAssertEqual(highlightedTabs(shown), [Int(IFIndexTabType.welcome.rawValue)])
 
         for (file, tab) in indexPages {
             switchToTab(tab, in: shown)
-            XCTAssertEqual(shown.webView.url, try tabURL(file))
+            XCTAssertEqual(shown.webView.url, try indexURL(file))
             XCTAssertEqual(highlightedTabs(shown), [Int(tab.rawValue)], file)
         }
         XCTAssertTrue(shown.watcher.errors.isEmpty)
@@ -377,7 +375,7 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
             }
             let tab = try XCTUnwrap(cell.representedObject as? NSNumber).intValue
             let file = try XCTUnwrap(indexPages.first { Int($0.tab.rawValue) == tab }).file
-            XCTAssertEqual(shown.webView.url, try tabURL(file))
+            XCTAssertEqual(shown.webView.url, try indexURL(file))
             XCTAssertEqual(cell.state, .on)
         }
         XCTAssertTrue(shown.watcher.errors.isEmpty)
@@ -392,9 +390,27 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
         waitForNavigation(shown.watcher) {
             shown.page.updateIndexView()
         }
-        XCTAssertEqual(shown.webView.url, try tabURL("Rules.html"))
+        XCTAssertEqual(shown.webView.url, try indexURL("Rules.html"))
         XCTAssertEqual(try evaluate("document.body.innerText", in: shown.webView) as? String, "New rules")
         XCTAssertEqual(highlightedTabs(shown), [Int(IFIndexTabType.rules.rawValue)])
+    }
+
+    /// The reload as the index is updated after a translation isn't recorded in the history, as it's the same page,
+    /// and what's shown next is
+    func testUpdatingTheIndexIsntRecorded() throws {
+        let recorder = Recorder()
+        let shown = try makePageShowingTheIndex(recorder: recorder)
+        shown.page.pageIsVisible = true
+        switchToTab(.rules, in: shown)
+        XCTAssertEqual(recorder.timesAsked, 2)
+
+        waitForNavigation(shown.watcher) {
+            shown.page.updateIndexView()
+        }
+        XCTAssertEqual(recorder.timesAsked, 2)
+
+        switchToTab(.kinds, in: shown)
+        XCTAssertEqual(recorder.timesAsked, 4)
     }
 
     /// Each page the page shows is recorded in the history, so that going back switches to the page and shows that
@@ -421,7 +437,7 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
             }
         }
         XCTAssertEqual(posted.count, 1)
-        XCTAssertEqual(shown.webView.url, try tabURL("Kinds.html"))
+        XCTAssertEqual(shown.webView.url, try indexURL("Kinds.html"))
         XCTAssertEqual(highlightedTabs(shown), [Int(IFIndexTabType.kinds.rawValue)])
         XCTAssertEqual(recorder.timesAsked, asked + 4)
 
@@ -431,14 +447,15 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
         XCTAssertTrue(shown.watcher.errors.isEmpty)
     }
 
-    /// Unlike the other pages, the page records what it shows in the history even while it's hidden (see ToFix)
+    /// Nothing is recorded in the history while the page is hidden, as for the other pages: not the welcome page it
+    /// shows as the pane is set up, nor a tab shown
     func testTheHistoryWhileHidden() throws {
         let recorder = Recorder()
         let shown = try makePageShowingTheIndex(recorder: recorder)
-        XCTAssertEqual(recorder.timesAsked, 2)
+        XCTAssertEqual(recorder.timesAsked, 0)
 
         switchToTab(.kinds, in: shown)
-        XCTAssertEqual(recorder.timesAsked, 4)
+        XCTAssertEqual(recorder.timesAsked, 0)
     }
 
     /// Opening a URL from the history shows it without recording it, and nothing without one
@@ -482,23 +499,28 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
         waitForNavigation(shown.watcher) {
             switched.replay()
         }
-        XCTAssertEqual(shown.webView.url, try tabURL("Phrasebook.html"))
+        XCTAssertEqual(shown.webView.url, try indexURL("Phrasebook.html"))
     }
 
-    /// Switching to the page before it has shown anything highlights no cell. That happens after a project's first
-    /// translation, when the page reloads nothing, as it had nothing to show before (see ToFix).
-    func testSwitchingToThePageBeforeItShowsAnything() throws {
-        let shown = try makePage()
+    /// After a project's first translation, the page shows its welcome page, which the pane asked for as it was set
+    /// up, when there was no index to show. It isn't recorded in the history, as the reload in its place isn't.
+    func testTheFirstIndexShowsTheWelcomePage() throws {
+        let recorder = Recorder()
+        let shown = try makePage(recorder: recorder)
+        shown.page.pageIsVisible = true
         shown.page.updateIndexView()
-        try writeIndex(indexPages.map { $0.file })
         expectNoNavigation(shown.watcher) {
+            shown.page.switch(toTab: IFIndexTabType.welcome.rawValue)
+        }
+
+        try writeIndex(indexPages.map { $0.file })
+        waitForNavigation(shown.watcher) {
             shown.page.updateIndexView()
         }
         XCTAssertEqual(shown.page.toolbarCells.count, 8)
-        XCTAssertNil(shown.webView.url)
-
-        shown.page.didSwitchToPage()
-        XCTAssertEqual(highlightedTabs(shown), [])
+        XCTAssertEqual(shown.webView.url, try indexURL("Welcome.html"))
+        XCTAssertEqual(highlightedTabs(shown), [Int(IFIndexTabType.welcome.rawValue)])
+        XCTAssertEqual(recorder.timesAsked, 0)
     }
 
     /// A page of the index with no cell highlights none

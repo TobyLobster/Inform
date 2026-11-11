@@ -27,7 +27,10 @@ import WebKit
     /// The page that failed to load, while the failure page is shown in its place
     private final var failedURL: NSURL?
 
-    private final var inhibitAddToHistory = 0
+    /// The loads that aren't recorded in the history as they start, each by its navigation: a census's reload, the
+    /// reload as the page is switched to, a page from the history, and the failure page. (A load that another
+    /// overtakes before it starts is left here, never matched.)
+    private final var unrecordedNavigations: [WKNavigation] = []
 
     // MARK: - Initialisation
 
@@ -97,20 +100,19 @@ import WebKit
     // MARK: - Updating extensions
 
     @objc private final func censusCompleted(_ not: Notification) {
-        inhibitAddToHistory += 1
         // Force the documentation view to reload (the 'installed extensions' page may be updated)
-        reloadPage()
+        leaveOutOfHistory(reloadPage())
     }
 
     /// Reloads the page. If the failure page is showing, tries the page that failed again instead,
     /// as it may exist now (the project's catalogue of extensions is made when it is translated).
-    private final func reloadPage() {
+    private final func reloadPage() -> WKNavigation? {
         if let failedURL {
             let urlRequest = URLRequest(url: failedURL as URL)
-            wView.load(urlRequest)
+            return wView.load(urlRequest)
         }
         else {
-            wView.reload(self)
+            return wView.reload()
         }
     }
 
@@ -118,12 +120,17 @@ import WebKit
 
     @objc(openURL:)
     func open(_ url: URL) {
+        load(url)
+    }
+
+    @discardableResult
+    private final func load(_ url: URL) -> WKNavigation? {
         switchToPage()
 
         failedURL = nil
 
         let urlRequest = URLRequest(url: url)
-        wView.load(urlRequest)
+        return wView.load(urlRequest)
     }
 
     func openHistoricalURL(_ url: URL?) {
@@ -132,8 +139,7 @@ import WebKit
         }
 
         // Because we are opening this URL as part of replaying history, we don't add it to the history itself.
-        inhibitAddToHistory += 1
-        open(url)
+        leaveOutOfHistory(load(url))
     }
 
     private final func highlightTab(forURL urlString: String?) {
@@ -166,14 +172,20 @@ import WebKit
 
         failedURL = urlString.flatMap { NSURL(string: $0) }
 
-        inhibitAddToHistory += 1
         let urlRequest = URLRequest(url: url)
 
-        wView.load(urlRequest)
+        leaveOutOfHistory(wView.load(urlRequest))
         loadingFailureWebPage = true
     }
 
     // MARK: - History
+
+    /// Leaves a load out of the history
+    private final func leaveOutOfHistory(_ navigation: WKNavigation?) {
+        if let navigation {
+            unrecordedNavigations.append(navigation)
+        }
+    }
 
     /// The history, as the page: what's sent to it is recorded, and sent to the page when the history is replayed.
     /// The history is a proxy, which records any message it's sent, so it isn't cast, as a cast asks it its class.
@@ -189,7 +201,7 @@ import WebKit
 
         NSLog("HISTORY: Extensions Page: (didSwitchToPage) URL %@", url?.absoluteString ?? "(null)")
         historicalPage?.openHistoricalURL(url)
-        reloadPage()
+        leaveOutOfHistory(reloadPage())
     }
 
     // MARK: - Preferences
@@ -247,32 +259,15 @@ extension IFExtensionsPage {
         // Highlight appropriate tab
         highlightTab(forURL: webView.url?.absoluteString)
 
-        // Add to history...
-        // ... except when reloading after the census
-        // ... except on initial load
-        // ... except when clicking the forward or back arrows
-        // ... except when going to the error page
-        // ... except when downloading from the public library (scheme "library")
-
-        // Each time we get here will remove one of these exceptions if present.
-
-        if pageIsVisible {
-            if inhibitAddToHistory <= 0 {
-                if webView.url?.scheme != "library" {
-                    NSLog("HISTORY: Extensions Page: (didStartProvisionalLoadForFrame) URL %@",
-                          webView.url?.absoluteString ?? "(null)")
-                    historicalPage?.switchToPage()
-                    historicalPage?.openHistoricalURL(webView.url)
-                }
-            }
-        }
-
-        // reduce the number of reasons to inhibit adding to history
-        if inhibitAddToHistory > 0 {
-            inhibitAddToHistory -= 1
-        }
-        else {
-            inhibitAddToHistory = 0
+        // Add to history, except for the loads left out of it, and downloads from the Public Library (scheme
+        // "library")
+        if let index = unrecordedNavigations.firstIndex(where: { $0 === navigation }) {
+            unrecordedNavigations.remove(at: index)
+        } else if pageIsVisible && webView.url?.scheme != "library" {
+            NSLog("HISTORY: Extensions Page: (didStartProvisionalLoadForFrame) URL %@",
+                  webView.url?.absoluteString ?? "(null)")
+            historicalPage?.switchToPage()
+            historicalPage?.openHistoricalURL(webView.url)
         }
     }
 
