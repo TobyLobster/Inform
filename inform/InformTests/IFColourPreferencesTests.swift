@@ -346,6 +346,58 @@ final class IFColourPreferencesTests: XCTestCase {
         XCTAssertEqual(controls.styles.titleOfSelectedItem, "Seven Seas")
     }
 
+    /// The name field and OK button of the sheet New shows
+    private func newThemeSheet(_ pane: IFColourPreferences) throws
+        -> (window: NSWindow, name: NSTextField, ok: NSButton) {
+        let sheet = try XCTUnwrap(pane.newThemeSheet())
+        return (sheet,
+                try XCTUnwrap(sheet.value(forKey: "nameField") as? NSTextField),
+                try XCTUnwrap(sheet.value(forKey: "okButton") as? NSButton))
+    }
+
+    /// Types a name in a sheet's name field, as its user would
+    private func type(_ name: String, in field: NSTextField) {
+        field.stringValue = name
+        NotificationCenter.default.post(name: NSControl.textDidChangeNotification, object: field)
+    }
+
+    /// New suggests a name no theme has, each time
+    func testTheNewThemeSheetSuggestsANameNotInUse() throws {
+        let (pane, _, _, _) = try makePane()
+        let sheet = try newThemeSheet(pane)
+        XCTAssertEqual(sheet.name.stringValue, "Custom")
+        XCTAssertTrue(sheet.ok.isEnabled)
+
+        type("Mine", in: sheet.name)
+        XCTAssertTrue(pane.addThemeNamed("Custom"))
+        XCTAssertEqual(try newThemeSheet(pane).name.stringValue, "Custom 2")
+        XCTAssertTrue(pane.addThemeNamed("Custom 2"))
+        XCTAssertEqual(try newThemeSheet(pane).name.stringValue, "Custom 3")
+    }
+
+    /// The sheet's OK button is only enabled while the name field has a name
+    func testTheNewThemeSheetNeedsAName() throws {
+        let (pane, _, _, _) = try makePane()
+        let sheet = try newThemeSheet(pane)
+
+        type("", in: sheet.name)
+        XCTAssertFalse(sheet.ok.isEnabled)
+        type("  ", in: sheet.name)
+        XCTAssertFalse(sheet.ok.isEnabled)
+        type("Mine", in: sheet.name)
+        XCTAssertTrue(sheet.ok.isEnabled)
+    }
+
+    /// OK takes the name without the spaces around it
+    func testTheNewThemeSheetTakesTheNameWithoutSpacesAround() throws {
+        let (pane, _, _, _) = try makePane()
+        let sheet = try newThemeSheet(pane)
+
+        type(" Mine ", in: sheet.name)
+        NSApp.sendAction(try XCTUnwrap(sheet.ok.action), to: sheet.ok.target, from: sheet.ok)
+        XCTAssertEqual(sheet.window.value(forKey: "themeName") as? String, "Mine")
+    }
+
     func testDeletingTheCurrentThemeChoosesLightMode() throws {
         let (pane, preferences, _, controls) = try makePane(["currentThemeName": "Dark Mode"])
         XCTAssertTrue(pane.addThemeNamed("Mine"))

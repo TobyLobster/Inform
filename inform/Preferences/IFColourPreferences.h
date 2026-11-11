@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) deleteCurrentTheme;
 /// Puts back the current theme's default colours, and colours syntax
 - (void) restoreDefaults;
+/// The sheet New shows, ready to be shown, with a name no theme has in its name field
+- (nullable NSWindow*) newThemeSheet;
 
 // Receiving data from/updating the interface
 - (IBAction) styleSetHasChanged: (nullable id) sender;
