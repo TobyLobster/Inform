@@ -623,7 +623,7 @@ final class IFUtilityTests: XCTestCase, @unchecked Sendable {
 
     /// IFUtility, recording the alerts it's asked to show instead of showing them
     private final class AlertRecorder: IFUtility {
-        static var shown: [(alert: NSAlert, window: NSWindow?)] = []
+        nonisolated(unsafe) static var shown: [(alert: NSAlert, window: NSWindow?)] = []
 
         override class func show(_ alert: NSAlert,
                                  for window: NSWindow?,

@@ -32,7 +32,7 @@ private final class MemoryDefaults: UserDefaults {
 }
 
 /// Records the preferences' notifications posted by one object
-private final class NotificationRecorder {
+private final class NotificationRecorder: @unchecked Sendable {
     private(set) var names: [NSNotification.Name] = []
     private var observers: [NSObjectProtocol] = []
 

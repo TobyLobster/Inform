@@ -6,7 +6,7 @@
 import XCTest
 
 /// A URL protocol client that records what the protocol tells it
-private final class RecordingClient: NSObject, URLProtocolClient {
+private final class RecordingClient: NSObject, URLProtocolClient, @unchecked Sendable {
     private(set) var responses: [URLResponse] = []
     private(set) var storagePolicies: [URLCache.StoragePolicy] = []
     private(set) var data = Data()

@@ -29,8 +29,8 @@ private final class MemoryDefaults: UserDefaults {
 /// Answers every request as the test asks, and records what was asked for
 private final class FakeNewsServer: URLProtocol {
     /// The status and body to answer with, or the error to fail with
-    static var answer: Result<(status: Int, body: Data), Error> = .success((200, Data()))
-    private(set) static var requests: [URL] = []
+    nonisolated(unsafe) static var answer: Result<(status: Int, body: Data), Error> = .success((200, Data()))
+    nonisolated(unsafe) private(set) static var requests: [URL] = []
 
     static func reset() {
         answer = .success((200, Data()))

@@ -800,7 +800,7 @@ final class IFExtensionsManagerTests: XCTestCase {
     }
 
     /// A server, only on this Mac, that answers each request with "not found"
-    private final class NotFoundServer {
+    private final class NotFoundServer: @unchecked Sendable {
         private let listener: NWListener
         private let queue = DispatchQueue(label: "NotFoundServer")
         private let lock = NSLock()
