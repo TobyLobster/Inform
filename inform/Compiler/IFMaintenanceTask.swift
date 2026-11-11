@@ -77,8 +77,13 @@ extension IFMaintenanceTask {
             haveFinished = false
         }
 
-        // Start the task
-        activeTask.launch()
+        // Start the task. One that can't be run, as when it isn't there, is over at once.
+        do {
+            try activeTask.run()
+        } catch {
+            NSLog("IFMaintenanceTask: couldn't run %@: %@", newTask.command.path, error.localizedDescription)
+            taskFinished(Notification(name: Process.didTerminateNotification, object: activeTask))
+        }
         return true
     }
 
