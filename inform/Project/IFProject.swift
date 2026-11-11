@@ -34,9 +34,6 @@ extension IFProject {
 
     private final var materialsAccess: IFProjectMaterialsPresenter?
 
-    // Temporary window pointer - only used for save dialog
-    private final var tempInternalWindow: NSWindow?
-
     private final var _documentFileWrapper: FileWrapper?
 
     let inTest: IFInTest
@@ -963,8 +960,6 @@ extension IFProject {
         // Setup a save panel
         let panel = NSSavePanel()
 
-        tempInternalWindow = window
-
         panel.accessoryView = nil
         panel.allowedContentTypes = IFUtility.contentTypes(forFilenameExtensions: [(compiler.outputFile as NSString).pathExtension])
         panel.canSelectHiddenExtension = true
@@ -997,19 +992,18 @@ extension IFProject {
 
                     alert.beginSheetModal(for: window) { returnCode in
                         if returnCode == .alertFirstButtonReturn {
+                            // Try again, in the same window
                             RunLoop.current.perform(#selector(self.saveCompilerOutput(with:)),
                                                     target: self,
-                                                    argument: self.tempInternalWindow,
+                                                    argument: window,
                                                     order: 128,
-                                                    modes: [.default]) // Try again
+                                                    modes: [.default])
                         }
-                        self.tempInternalWindow = nil
                     }
                     return
                 }
             }
         }
-        tempInternalWindow = nil
     }
 
     private final func buildBlorbSetting() -> Bool {
