@@ -295,6 +295,9 @@ final class IFProjectControllerTests: XCTestCase, @unchecked Sendable {
 
         controller.docRecipes(nil)
         XCTAssertEqual(right.currentView, .documentationPane)
+        // The contents of the Recipe Book the app shows (Rdoc1.html was the first page of the old one)
+        let webView = right.documentationPage.view.subviews.compactMap { $0 as? WKWebView }.first
+        XCTAssertEqual(webView?.url?.absoluteString, "inform:/RB_index.html")
 
         right.selectView(of: .indexPane)
         controller.docIndex(nil)
