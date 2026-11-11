@@ -35,6 +35,9 @@ private extension IFSyntaxStyle {
 
     // Notification flag
     private final var batchEditingPreferences: Bool
+    /// Whether a preference has changed in the batch
+    private final var batchHasChanges: Bool
+    /// Each kind of change in the batch, once, in the order first made
     private final var batchNotificationTypes: [NSNotification.Name]
     private final var notificationString: NSNotification.Name?
 
@@ -78,6 +81,7 @@ private extension IFSyntaxStyle {
         }
 
         batchEditingPreferences = false
+        batchHasChanges = false
         batchNotificationTypes = []
 
         defaultEditingPreferences = IFEditingPreferencesSet()
@@ -105,7 +109,8 @@ private extension IFSyntaxStyle {
                 NotificationCenter.default.post(name: notificationString, object: self)
             }
         } else {
-            if let notificationString {
+            batchHasChanges = true
+            if let notificationString, !batchNotificationTypes.contains(notificationString) {
                 batchNotificationTypes.append(notificationString)
             }
         }
@@ -117,17 +122,27 @@ private extension IFSyntaxStyle {
     func startBatchEditing() {
         precondition(batchEditingPreferences == false, "error updating preferences (start batch)")
         batchEditingPreferences = true
+        batchHasChanges = false
         batchNotificationTypes.removeAll()
     }
 
     func endBatchEditing() {
         precondition(batchEditingPreferences == true, "error updating preferences (end batch)")
         batchEditingPreferences = false
-        for notification in batchNotificationTypes {
-            notificationString = notification
-            preferencesHaveChanged()
-        }
+        let hasChanges = batchHasChanges
+        let notifications = batchNotificationTypes
+        batchHasChanges = false
+        batchNotificationTypes.removeAll()
         notificationString = nil
+
+        // Write the preferences and recalculate the styles once, then tell of each kind of change once, so that
+        // (say) the source views are re-highlighted once
+        guard hasChanges else { return }
+        userDefaults.set(preferences.copy(), forKey: IFPreferencesDefault)
+        recalculateStyles()
+        for notification in notifications {
+            NotificationCenter.default.post(name: notification, object: self)
+        }
     }
 
     // MARK: - Helper methods
@@ -293,10 +308,8 @@ private extension IFSyntaxStyle {
             return false
         }
 
+        // Setting the name writes the preferences and tells of the change, if it changes
         currentThemeName = name
-
-        notificationString = .IFPreferencesEditingDidChange
-        preferencesHaveChanged()
         return true
     }
 
@@ -311,10 +324,9 @@ private extension IFSyntaxStyle {
             return false
         }
 
+        // Setting the themes writes the preferences and tells of the change
         themes.append(theme)
-        notificationString = .IFPreferencesEditingDidChange
-        setPreferenceThemes(withNotification: notificationString)
-        preferencesHaveChanged()
+        setPreferenceThemes(withNotification: .IFPreferencesEditingDidChange)
         return true
     }
 
@@ -329,10 +341,9 @@ private extension IFSyntaxStyle {
             return false
         }
 
+        // Setting the themes writes the preferences and tells of the change
         themes.remove(at: index)
-        notificationString = .IFPreferencesEditingDidChange
-        setPreferenceThemes(withNotification: notificationString)
-        preferencesHaveChanged()
+        setPreferenceThemes(withNotification: .IFPreferencesEditingDidChange)
         return true
     }
 

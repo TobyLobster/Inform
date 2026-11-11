@@ -39,6 +39,8 @@ extension IFProject {
     let inTest: IFInTest
     var inBuild: IFInBuild
 
+    var preferences: IFPreferences
+
     // == Initialisation ==
 
     override init() {
@@ -54,6 +56,7 @@ extension IFProject {
         materialsAccess         = nil
         inTest                  = IFInTest()
         inBuild                 = IFInBuild()
+        preferences             = IFPreferences.shared
 
         watchExpressions        = NSMutableArray()
         breakpoints             = NSMutableArray()
@@ -71,16 +74,21 @@ extension IFProject {
 
     // == close ==
     public override func close() {
-        // Clean out any files that we aren't using any more, if set in the preferences
-        if IFPreferences.shared.cleanProjectOnClose {
-            cleanOutUnnecessaryFiles(false)
-        }
         unregisterProjectTextStorage()
 
         materialsAccess?.close()
         materialsAccess = nil
 
+        let projectURL = fileURL
         super.close()
+
+        // Clean out any files that we aren't using any more, if set in the preferences. Saving cleans out the build
+        // files, but the project is saved before it's built, so they're deleted here, from the disk, once the project
+        // has closed.
+        if preferences.cleanProjectOnClose, let projectURL {
+            IFProject.cleanOutUnnecessaryFiles(at: projectURL,
+                                               alsoCleanIndex: preferences.alsoCleanIndexFiles)
+        }
     }
 
     func createMaterials() {
@@ -616,7 +624,7 @@ extension IFProject {
     @discardableResult
     private final func writeBegin() -> Bool {
         // Clean out any files that we aren't using any more, if set in the preferences
-        if IFPreferences.shared.cleanProjectOnClose {
+        if preferences.cleanProjectOnClose {
             cleanOutUnnecessaryFiles(false)
         }
 
@@ -812,6 +820,25 @@ extension IFProject {
 
     private final func cleanOutUnnecessaryFiles(_ alsoCleanIndex: Bool) {
         projectFile?.cleanOutUnnecessaryFiles(alsoCleanIndex: alsoCleanIndex)
+    }
+
+    /// Deletes the files in a project's Build folder, and its Temp folder, and if asked the files in its Index folder,
+    /// as the project file's cleanOutUnnecessaryFiles does with its file wrappers
+    private static func cleanOutUnnecessaryFiles(at projectURL: URL, alsoCleanIndex: Bool) {
+        let fileManager = FileManager.default
+
+        func deleteFiles(in folder: String) {
+            let folderURL = projectURL.appendingPathComponent(folder)
+            for file in (try? fileManager.contentsOfDirectory(at: folderURL, includingPropertiesForKeys: nil)) ?? [] {
+                try? fileManager.removeItem(at: file)
+            }
+        }
+
+        deleteFiles(in: "Build")
+        try? fileManager.removeItem(at: projectURL.appendingPathComponent("Temp"))
+        if alsoCleanIndex {
+            deleteFiles(in: "Index")
+        }
     }
 
     var isExtensionProject: Bool {

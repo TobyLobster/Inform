@@ -121,14 +121,31 @@ import Cocoa
         deleteStyleButton?.isEnabled = ((currentSet.flags?.int32Value ?? 0) & 1) == 1
     }
 
-    @IBAction func newStyle(_ sender: Any?) {
+    func newThemeSheet() -> NSWindow? {
         if sheet == nil {
             _ = Bundle.customLoadNib("NewThemeWindow",
                                      owner: self)
         }
 
-        guard let sheet else { return }
-        sheet.themeName = "Custom"
+        guard let sheet else { return nil }
+        sheet.setThemeName(theName: unusedThemeName())
+        return sheet
+    }
+
+    /// "Custom", or if a theme has that name, the first of "Custom 2", "Custom 3" and so on that none has
+    private final func unusedThemeName() -> String {
+        let names = Set(preferences.themeNames)
+        var name = "Custom"
+        var number = 2
+        while names.contains(name) {
+            name = "Custom \(number)"
+            number += 1
+        }
+        return name
+    }
+
+    @IBAction func newStyle(_ sender: Any?) {
+        guard let sheet = newThemeSheet() as? IFNewThemeWindow else { return }
         let window = PreferenceController.shared.window
         window?.beginSheet(sheet) { returnCode in
             if returnCode == .OK {
