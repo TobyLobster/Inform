@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Class that represents a specific preference pane in the preferences window
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFPreferencePane : NSObject
 
 - (instancetype) init NS_DESIGNATED_INITIALIZER;

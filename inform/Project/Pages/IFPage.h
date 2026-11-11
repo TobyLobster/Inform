@@ -36,6 +36,7 @@ extern NSNotificationName const IFUpdatePageBarCellsNotification;
 ///
 /// Controller class that represents a page in a project pane
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFPage : NSObject
 
 /// The project controller that 'owns' this page, which the page doesn't keep

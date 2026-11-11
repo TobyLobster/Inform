@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject(IFWindowDelegate)
 
-- (void) changeFirstResponder: (nullable NSResponder*) newResponder;
+- (void) changeFirstResponder: (nullable NSResponder*) newResponder NS_SWIFT_UI_ACTOR;
 
 @end
 
