@@ -67,10 +67,11 @@ final class IFSingleFileTests: XCTestCase {
         }
     }
 
-    /// Inform 6 source is Latin-1, highlighted as Inform 6, with no intelligence
+    /// Inform 6 source, and Inform 6 headers, as in a project, are Latin-1, highlighted as Inform 6, with no
+    /// intelligence
     func testInform6Files() throws {
         let latin1: [UInt8] = [0x21, 0x20, 0x43, 0x61, 0x66, 0xE9, 0x0A]  // "! Café\n"
-        for typeName in [inform6SourceType, "org.inform-fiction.source.inform6"] {
+        for typeName in [inform6SourceType, "org.inform-fiction.source.inform6", headerType] {
             let file = try file(Data(latin1), ofType: typeName)
             XCTAssertEqual(file.storage.string, "! Café\n", typeName)
             XCTAssertEqual(try syntaxData(file).type, .inform6, typeName)
@@ -78,10 +79,10 @@ final class IFSingleFileTests: XCTestCase {
         }
     }
 
-    /// Inform control language files, and headers (see ToFix.md), are Latin-1, and not highlighted
+    /// Inform control language files are Latin-1, and not highlighted
     func testControlLanguageFiles() throws {
         let latin1: [UInt8] = [0x21, 0x20, 0x43, 0x61, 0x66, 0xE9, 0x0A]  // "! Café\n"
-        for typeName in [controlLanguageType, headerType] {
+        for typeName in [controlLanguageType] {
             let file = try file(Data(latin1), ofType: typeName)
             XCTAssertEqual(file.storage.string, "! Café\n", typeName)
             XCTAssertEqual(try syntaxData(file).type, IFHighlightType(rawValue: 0), typeName)

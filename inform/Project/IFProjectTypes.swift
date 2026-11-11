@@ -76,8 +76,10 @@ extension IFProjectTypes {
         //
         // Inform 6 source file
         //
+        // (An Inform 6 header, such as the library's parserm.h, is Inform 6 source too, as in a project)
         if typeName == "inform 6 source file" ||
-           typeName == "org.inform-fiction.source.inform6" {
+           typeName == "org.inform-fiction.source.inform6" ||
+           typeName == "public.c-header" {
             return .inform6SourceFile
         }
         //
@@ -92,8 +94,7 @@ extension IFProjectTypes {
         //
         // Inform 6 ICL file
         //
-        if typeName == "inform control language file" ||
-           typeName == "public.c-header" {
+        if typeName == "inform control language file" {
             return .inform6ICLFile
         }
 

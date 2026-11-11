@@ -76,8 +76,8 @@ final class IFProjectTypesTests: XCTestCase {
             ("Inform 7 source file", .inform7SourceFile),
             ("Natural Inform source file", .inform7SourceFile),
             ("Inform Control Language file", .inform6ICLFile),
-            // An Inform 6 header is opened as an ICL file
-            ("public.c-header", .inform6ICLFile),
+            // An Inform 6 header is opened as Inform 6 source, as in a project
+            ("public.c-header", .inform6SourceFile),
             ("org.inform-fiction.inform7.extension", .inform7ExtensionFile),
             ("Inform 7 extension", .inform7ExtensionFile),
             // In any case
