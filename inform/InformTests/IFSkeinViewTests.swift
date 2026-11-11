@@ -760,6 +760,29 @@ final class IFSkeinViewTests: XCTestCase {
         XCTAssertIdentical(wait.parent, skein.rootItem)
     }
 
+    /// Where the knot before already has a blank knot, the new knot is merged into it, and so the knot is merged into
+    /// the blank knot's knot with the same command, if it has one. The knots that are dropped give way to the ones
+    /// they're merged into as the knot being played, the selected knot and the winning knot.
+    func testInsertPreviousCommandKeepsTheKnotsItMerges() throws {
+        let (skein, look, north, _) = makeSkein()
+        let blank = add("", to: skein.rootItem, in: skein)
+        let blankLook = add("look", to: blank, in: skein)
+        let blankNorth = add("north", to: blankLook, in: skein)
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+        skein.activeItem = north
+        skeinView.select(north, withAnimation: false)
+        skein.winningItem = look
+
+        try choose("Insert Previous Command", for: look, in: skeinView)
+        XCTAssertEqual(commands(skein.rootItem), ["", "wait"])
+        XCTAssertEqual(commands(blank), ["look"])
+        XCTAssertEqual(commands(blankLook), ["north"])
+        XCTAssertIdentical(skein.activeItem, blankNorth)
+        XCTAssertIdentical(skeinView.selectedItem, blankNorth)
+        XCTAssertIdentical(skein.winningItem, blankLook)
+    }
+
     func testInsertNextCommand() throws {
         let (skein, look, north, _) = makeSkein()
         let (window, skeinView) = makeSkeinView(skein)
@@ -1035,6 +1058,27 @@ final class IFSkeinViewTests: XCTestCase {
         XCTAssertIdentical(skein.activeItem, wait)
         XCTAssertIdentical(skeinView.selectedItem, wait)
         XCTAssertEqual(notifications.count, 1)
+    }
+
+    /// Merging goes on knot by knot down each thread, and a knot after the edited one that matches one already there
+    /// is dropped. That one takes over from it as the knot being played, the selected knot and the winning knot.
+    func testEditingACommandToAnotherKnotsCommandKeepsTheKnotsAfterIt() throws {
+        let (skein, look, north, wait) = makeSkein()
+        let waitNorth = add("north", to: wait, in: skein)
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+        skein.activeItem = waitNorth
+        skeinView.select(waitNorth, withAnimation: false)
+        skein.winningItem = waitNorth
+
+        try choose("Edit Command", for: wait, in: skeinView)
+        try typeText("look", in: window)
+        try fieldEditor(in: window).insertNewline(nil)
+        XCTAssertEqual(commands(skein.rootItem), ["look"])
+        XCTAssertEqual(commands(look), ["north"])
+        XCTAssertIdentical(skein.activeItem, north)
+        XCTAssertIdentical(skeinView.selectedItem, north)
+        XCTAssertIdentical(skein.winningItem, north)
     }
 
     // MARK: - The font size
