@@ -552,18 +552,22 @@ extension IFProject {
         breakpoints = projectFile.loadBreakpoints ?? NSMutableArray()
     }
 
-    public override func read(from fileWrapper: FileWrapper, ofType typeName: String) throws {
-        documentFileWrapper = fileWrapper
+    nonisolated public override func read(from fileWrapper: FileWrapper, ofType typeName: String) throws {
+        // The document isn't read concurrently, so NSDocument reads it on the main thread, where the wrapper is kept
+        nonisolated(unsafe) let fileWrapper = fileWrapper
+        try MainActor.assumeIsolated {
+            documentFileWrapper = fileWrapper
 
-        let fileType = IFProjectTypes.fileType(from: typeName)
-        switch fileType {
-        // Inform project file
-        case .inform7Project, .inform7ExtensionProject:
-            try readProject(fileWrapper, fileType: fileType)
+            let fileType = IFProjectTypes.fileType(from: typeName)
+            switch fileType {
+            // Inform project file
+            case .inform7Project, .inform7ExtensionProject:
+                try readProject(fileWrapper, fileType: fileType)
 
-        // Unknown
-        default:
-            throw CocoaError(.fileReadUnknown)
+            // Unknown
+            default:
+                throw CocoaError(.fileReadUnknown)
+            }
         }
     }
 
