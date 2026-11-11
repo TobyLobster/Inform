@@ -358,6 +358,25 @@ final class IFSkeinItemTests: XCTestCase {
         XCTAssertEqual(test.ideal, "(Testing.)\n\n>")
     }
 
+    /// A "test me" command with nothing blessed has no blessed transcript, not one of its commands' headings
+    /// alone. With any part blessed, the headings place it.
+    func testATestCommandWithNothingBlessedHasNoBlessedTranscript() {
+        let skein: IFSkein = IFSkein(project: nil)
+        let test: IFSkeinItem = skein.rootItem.addChild(IFSkeinItem(skein: skein, command: "test me"))
+        let last: IFSkeinItem = test.decomposeActual(testTranscript)
+        XCTAssertEqual(test.composedIdeal, "")
+
+        last.ideal = "You jump.\n\n>"
+        XCTAssertEqual(test.composedIdeal, "[1] look\n[2] jump\nYou jump.\n\n>")
+        let again: IFSkeinItem = skein.rootItem.addChild(IFSkeinItem(skein: skein, command: "test again"))
+        again.actual = testTranscript
+        again.ideal = test.composedIdeal
+        let lastAgain: IFSkeinItem = again.decompose
+        XCTAssertEqual(again.ideal, "")
+        XCTAssertEqual(again.children.first?.ideal, "")
+        XCTAssertEqual(lastAgain.ideal, "You jump.\n\n>")
+    }
+
     /// The knots below a "test me" command's knot go below the knot for its last command.
     func testDecomposingKeepsTheKnotsBelow() {
         let skein: IFSkein = IFSkein(project: nil)

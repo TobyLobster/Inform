@@ -294,6 +294,56 @@ private let kSkeinMinEditFieldWidth: CGFloat = 40.0    // Smallest width for edi
         dragScrolling = false
     }
 
+    // MARK: - Merging knots
+
+    /// The commands of the knots on the way down from a knot to one after it, or nil if it isn't after it
+    private static func commandsOnTheWay(from item: IFSkeinItem,
+                                         to descendant: IFSkeinItem?) -> [(command: String, isTestSubItem: Bool)]? {
+        var commands: [(command: String, isTestSubItem: Bool)] = []
+        var current = descendant
+        while let knot = current {
+            if knot === item {
+                return commands.reversed()
+            }
+            commands.append((knot.command, knot.isTestSubItem))
+            current = knot.parent
+        }
+        return nil
+    }
+
+    /// The knot that the given commands lead to from a knot
+    private static func item(following commands: [(command: String, isTestSubItem: Bool)],
+                             from item: IFSkeinItem) -> IFSkeinItem? {
+        var current: IFSkeinItem? = item
+        for step in commands {
+            current = current?.child(withCommand: step.command, isTestSubItem: step.isTestSubItem)
+        }
+        return current
+    }
+
+    /// Adds a knot to a parent, which merges it into the parent's knot with the same command, if it has one, and so
+    /// on, knot by knot, down each thread: a knot that matches one already there is dropped. The knot being played,
+    /// the selected knot and the winning knot go to the knots they're merged into.
+    @discardableResult
+    private final func add(_ item: IFSkeinItem, to parent: IFSkeinItem) -> IFSkeinItem {
+        let activeCommands   = IFSkeinView.commandsOnTheWay(from: item, to: _skein?.activeItem)
+        let selectedCommands = IFSkeinView.commandsOnTheWay(from: item, to: _selectedItem)
+        let winningCommands  = IFSkeinView.commandsOnTheWay(from: item, to: _skein?.winningItem)
+
+        let addedItem = parent.addChild(item)
+
+        if let activeCommands {
+            _skein?.activeItem = IFSkeinView.item(following: activeCommands, from: addedItem)
+        }
+        if let selectedCommands {
+            self.selectedItem = IFSkeinView.item(following: selectedCommands, from: addedItem)
+        }
+        if let winningCommands {
+            _skein?.winningItem = IFSkeinView.item(following: winningCommands, from: addedItem)
+        }
+        return addedItem
+    }
+
     // MARK: - Editing items
 
     @objc(textDidEndEditing:)
@@ -317,22 +367,15 @@ private let kSkeinMinEditFieldWidth: CGFloat = 40.0    // Smallest width for edi
             let siblingAlreadyHasSameCommand = (parent?.child(withCommand: fieldEditor.string,
                                                               isTestSubItem: false) !== itemToEdit)
 
-            if siblingAlreadyHasSameCommand {
+            // (An item being edited has a parent, as the start's command can't be edited)
+            if siblingAlreadyHasSameCommand, let parent {
                 // Removing then re-adding the item back into the tree merges the itemToEdit with the existing tree
                 itemToEdit.removeFromParent()
 
                 // Set the new command
                 itemToEdit.command = fieldEditor.string
 
-                let newItem = parent?.addChild(itemToEdit)
-
-                // Update the active/selected item if required
-                if itemToEdit === _skein?.activeItem {
-                    _skein?.activeItem = newItem
-                }
-                if itemToEdit === _selectedItem {
-                    self.selectedItem = newItem
-                }
+                add(itemToEdit, to: parent)
             } else {
                 // Set the new command
                 itemToEdit.command = fieldEditor.string
@@ -691,8 +734,8 @@ private let kSkeinMinEditFieldWidth: CGFloat = 40.0    // Smallest width for edi
             // Add a new, blank item
             let newItem = parent.addChild(IFSkeinItem(skein: _skein, command: ""))
 
-            // Add the item back in again
-            newItem.addChild(contextItem)
+            // Add the item back in again (merging it, if the parent already had a blank item)
+            add(contextItem, to: newItem)
 
             // Update layout based on the changed skein
             _skein?.postChanged(withAnimate: true,
@@ -753,11 +796,8 @@ private let kSkeinMinEditFieldWidth: CGFloat = 40.0    // Smallest width for edi
     @objc private final func deleteOneItem(_ sender: Any?) {
         guard let contextItem else { return }
 
-        if canDeleteItem(contextItem) {
-            let fixSelectedItem = contextItem.hasDescendant(_selectedItem)
-
-            let originalParent = contextItem.parent
-
+        // (The parent can't be nil, as the item can be deleted)
+        if canDeleteItem(contextItem), let originalParent = contextItem.parent {
             // Work out which is the last dependent item spawned by our potential "test me" command
             var dependentLeaf = contextItem
             while dependentLeaf.children.count == 1 {
@@ -771,6 +811,10 @@ private let kSkeinMinEditFieldWidth: CGFloat = 40.0    // Smallest width for edi
             // Remember the children of this item
             let children = dependentLeaf.children
 
+            // Is the selected item one that's deleted? (One after them goes with the children.)
+            let fixSelectedItem = contextItem.hasDescendant(_selectedItem)
+                                  && !children.contains { $0.hasDescendant(_selectedItem) }
+
             // Remove them from the tree
             for child in children {
                 child.removeFromParent()
@@ -781,12 +825,12 @@ private let kSkeinMinEditFieldWidth: CGFloat = 40.0    // Smallest width for edi
 
             // Add the children back to the parent item (merging if necessary)
             for child in children {
-                originalParent?.addChild(child)
+                add(child, to: originalParent)
             }
 
             // Adjust the selected item to remain valid
             if fixSelectedItem {
-                if (originalParent?.children.count ?? 0) <= 1 {
+                if originalParent.children.count <= 1 {
                     self.selectedItem = originalParent
                 } else {
                     self.selectedItem = nil

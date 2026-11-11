@@ -183,6 +183,14 @@ Started November 2026, on the `extensions` branch. This is a living document: up
         - Help > Recipe Book opened `Rdoc1.html`, the old Recipe Book's first page. It now opens `RB_index.html`, the new one's contents (18f180fc).
         - The documentation page's Examples tab opened `examples_alphabetical.html`, last changed in August 2023, whose links all go to the old pages. It now opens `alphabetical_index.html`, which the contents page links to (2beeaefc). Found on the way.
         - Found on the way, and put in `ToFix.md`: the app still has the old pages, which nothing in it opens now.
+    - Skein (11 November 2026). None of these was checked in the app:
+        - A "test me" knot with nothing blessed was written with a blessed transcript made of its commands' headings alone, such as `[1] jump`, which the app reads back as none. `IFSkeinItem`'s `composedIdeal` is now empty when neither the knot nor any of its commands' knots is blessed (1c59da70).
+        - Over a "test me" command's knot on the selected line, the cursor was an open hand, as if it couldn't be clicked, though a click there clears the selection, as on any knot on that line. The cursor is now a pointing hand over every knot, as was chosen (6a043204).
+        - A click on a knot left the skein view drag-scrolling, with the closed hand, as the knot didn't pass on the mouse going up. It now does, and then sets its own cursor (dc9cb1b1).
+        - Edit Command and Insert Previous Command merge knots into others with the same commands, dropping the ones that match, and could drop the knot being played, which by reading would stop the app at the story's next command, and the selected and winning knots. `IFSkeinView`'s `add(_:to:)` now moves each to the knot it was merged into (1bf9c2a7).
+        - Delete Command cleared the selection of a knot after the deleted one. The selection now stays, going with the knot to the one it's merged into, if it is (9ca976b3).
+        - Stop left Play All's threads still to play, so they were played when the next run's commands ran out. Stop and the skein stopping the story now drop them, as do Go, Test Me, Debug and playing to a knot, which have no tests, as each compiles the story (d4d1d77e).
+        - Still in `ToFix.md`: the knots that once couldn't be clicked or dragged, not reproduced.
 
 ### Phase 5 – Swift, and separating logic from UI (goal 5)
 

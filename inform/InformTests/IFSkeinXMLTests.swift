@@ -91,7 +91,8 @@ final class IFSkeinXMLTests: XCTestCase {
         test.actual = "(Testing.)\n\n>[1] jump\nYou jump.\n\n>"
         _ = test.decompose
         skein.winningItem = look
-        // The knot for a "test me" command has children, but none that are written
+        // The knot for a "test me" command has children, but none that are written, and with nothing blessed,
+        // its blessed transcript is empty
         XCTAssertEqual(try writtenXML(skein), """
 
             <Skein rootNode="node-0">
@@ -114,8 +115,7 @@ final class IFSkeinXMLTests: XCTestCase {
             You jump.
 
             &gt;</result>
-                    <commentary xml:space="preserve">[1] jump
-            </commentary>
+                    <commentary xml:space="preserve"></commentary>
                     <children></children>
                 </item>
                 <item nodeId="node-1">

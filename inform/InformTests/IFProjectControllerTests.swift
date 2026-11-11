@@ -15,6 +15,18 @@ private final class TestProjectController: IFProjectController {
     /// Nor keeps the panes' widths in the user's preferences when the split views lay them out
     override func splitViewDidResizeSubviews(_ notification: Notification) {
     }
+
+    /// Whether the commands running out, which plays Play All's next thread, is only counted
+    var countsFinishedInput = false
+    var timesInputFinished = 0
+
+    override func inputSourceHasFinished(_ source: Any?) {
+        if countsFinishedInput {
+            timesInputFinished += 1
+        } else {
+            super.inputSourceHasFinished(source)
+        }
+    }
 }
 
 /// The project window's controller, with its real window and panes, kept off the screen and never shown
@@ -385,6 +397,30 @@ final class IFProjectControllerTests: XCTestCase, @unchecked Sendable {
 
         XCTAssertFalse(controller.isRunningGame)
         XCTAssertFalse(controller.isCurrentlyTesting)
+    }
+
+    /// Starts Play All, which plays nothing, as the commands running out is only counted
+    private func startPlayAll() {
+        controller.countsFinishedInput = true
+        _ = controller.perform(NSSelectorFromString("runCompilerOutputAndEntireSkein"))
+        XCTAssertEqual(controller.timesInputFinished, 1)
+        XCTAssertTrue(controller.isPlayingAll)
+    }
+
+    /// Stopping the story drops the threads Play All has left to play, as Replay does, so that they aren't played
+    /// when the commands of whatever is played next run out
+    func testStoppingTheStoryStopsPlayAll() {
+        XCTAssertFalse(controller.isPlayingAll)
+        startPlayAll()
+        controller.stopProcess(nil)
+        XCTAssertFalse(controller.isPlayingAll)
+    }
+
+    /// As does the skein stopping the story, to play to a knot from the start
+    func testTheSkeinStoppingTheStoryStopsPlayAll() {
+        startPlayAll()
+        controller.stopGame()
+        XCTAssertFalse(controller.isPlayingAll)
     }
 
     // MARK: - Run-time problems

@@ -307,18 +307,11 @@ private let testMeTextColor = NSColor(calibratedRed: 0.8,
         return img
     }
 
-    private final func canClickItem() -> Bool {
-        if !(layoutItem?.item.isTestSubItem ?? false) { return true }
-        if !(layoutItem?.onSelectedLine ?? false) { return true }
-
-        return false
-    }
-
     private final func updateCurrentCursor() {
         // (The mouse is only ever inside a view with a layout item, as one without has no tracking areas)
         if insideMenuArea, let layoutItem, skeinView?.hasMenu(layoutItem.item) ?? false {
             NSCursor.pointingHand.set()
-        } else if insideLozengeArea && canClickItem() {
+        } else if insideLozengeArea {
             NSCursor.pointingHand.set()
         }
         else {
@@ -464,11 +457,13 @@ private let testMeTextColor = NSColor(calibratedRed: 0.8,
     }
 
     public override func mouseUp(with event: NSEvent) {
+        // The skein view began drag-scrolling when the mouse went down, and ends it here, setting its open hand
+        super.mouseUp(with: event)
+
         // (The mouse is only ever inside a view with a layout item, as one without has no tracking areas)
         if insideMenuArea, let layoutItem, let skeinView, skeinView.hasMenu(layoutItem.item) {
             let menu = skeinView.menu(for: layoutItem.item)
             NSMenu.popUpContextMenu(menu, with: event, for: skeinView)
-            return
         } else if insideLozengeArea {
             if !(layoutItem?.onSelectedLine ?? false) {
                 // Select an item not currently on the selected line
@@ -477,9 +472,10 @@ private let testMeTextColor = NSColor(calibratedRed: 0.8,
                 // Clear the selection if clicking an item on the selected line
                 skeinView?.select(nil, withAnimation: true)
             }
-            return
         }
-        super.mouseUp(with: event)
+
+        // The knot's own cursor, where the mouse is over it
+        updateCurrentCursor()
     }
 
     private final func canDragItem() -> Bool {

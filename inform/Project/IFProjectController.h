@@ -150,6 +150,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (atomic, getter=isRunningGame, readonly) BOOL runningGame;
 @property (atomic, getter=isCompiling, readonly) BOOL compiling;
+/// Whether Play All has threads of the skein left to play
+@property (atomic, getter=isPlayingAll, readonly) BOOL playingAll;
 
 - (void) inputSourceHasFinished: (nullable id) source;
 - (void) showPublicLibrary;
