@@ -9,6 +9,11 @@
 
 import Cocoa
 
+/// What Inform 7 v10.2.0 rejects in an extension's title or author's name, with a /, which would make another folder
+private let charactersRejectedInExtensionNames = CharacterSet(charactersIn: "!\"(),.:;?[]{}/")
+/// The most characters Inform allows in an extension's title or author's name
+private let longestExtensionName = 51
+
 @objc @implementation extension IFNewInform7ExtensionFile {
     private final var vw: IFNewInform7ExtensionView?
     private final weak var project: IFProject?
@@ -62,6 +67,21 @@ import Cocoa
         }
         if (vw?.extensionName ?? "").isEmpty {
             return IFUtility.localizedString("BadExtensionName")
+        }
+
+        // Names Inform rejects
+        let names = [vw?.extensionName ?? "", vw?.authorName ?? ""]
+        if names.contains(where: { $0.rangeOfCharacter(from: charactersRejectedInExtensionNames) != nil }) {
+            return IFUtility.localizedString("BadExtensionCharacters")
+        }
+        if names.contains(where: { $0.count > longestExtensionName }) {
+            return IFUtility.localizedString("BadExtensionLength")
+        }
+        if (vw?.extensionName ?? "").split(separator: " ").contains(where: { $0.lowercased() == "by" }) {
+            return IFUtility.localizedString("BadExtensionTitleBy")
+        }
+        if vw?.authorName == "Reserved" {
+            return IFUtility.localizedString("BadExtensionAuthorReserved")
         }
 
         return nil
@@ -180,12 +200,12 @@ import Cocoa
     }
 
     func setupControls() {
-        var longuserName: String = preferences.freshGameAuthorName
-
-        // If longuserName contains a '.', then we have to enclose it in quotes
-        let needQuotes = longuserName.utf16.contains(UInt16(UInt8(ascii: ".")))
-
-        if needQuotes { longuserName = "\"\(longuserName)\"" }
+        // Without what Inform rejects in an extension's author's name, such as a full stop
+        let longuserName = preferences.freshGameAuthorName
+            .components(separatedBy: charactersRejectedInExtensionNames)
+            .joined(separator: " ")
+            .split(separator: " ")
+            .joined(separator: " ")
 
         authorNameField?.stringValue = longuserName
         extensionNameField?.stringValue = IFUtility.localizedString("New Extension")

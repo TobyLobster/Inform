@@ -132,10 +132,12 @@ final class IFNewInform7ExtensionFileTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(title.stringValue, "New Extension")
     }
 
-    /// An author's name with a full stop is put in quotation marks, as for a story (Inform rejects it for an
-    /// extension: see ToFix.md)
-    func testAnAuthorWithAFullStop() throws {
-        XCTAssertEqual(try options(projectType(author: "J. R. Hartley")).authorName, "\"J. R. Hartley\"")
+    /// The author's name is suggested without what Inform rejects in an extension's, such as a full stop
+    func testTheAuthorsNameIsSuggestedWithoutWhatInformRejects() throws {
+        XCTAssertEqual(try options(projectType(author: "J. R. Hartley")).authorName, "J R Hartley")
+        XCTAssertEqual(try options(projectType(author: "Jane \"JD\" (Doe)")).authorName, "Jane JD Doe")
+        XCTAssertEqual(try options(projectType(author: "Doe,Jane")).authorName, "Doe Jane")
+        XCTAssertEqual(try options(projectType(author: "Pat O'Brien-Smith")).authorName, "Pat O'Brien-Smith")
     }
 
     /// With no author in the preferences, it's the user's name
@@ -143,7 +145,8 @@ final class IFNewInform7ExtensionFileTests: XCTestCase, @unchecked Sendable {
         var userName = NSFullUserName()
         if userName.isEmpty { userName = NSUserName() }
         if userName.isEmpty { userName = "Unknown Author" }
-        if userName.contains(".") { userName = "\"\(userName)\"" }
+        userName = userName.components(separatedBy: CharacterSet(charactersIn: "!\"(),.:;?[]{}/"))
+            .joined(separator: " ").split(separator: " ").joined(separator: " ")
 
         XCTAssertEqual(try options(projectType(author: nil)).authorName, userName)
     }
@@ -193,6 +196,49 @@ final class IFNewInform7ExtensionFileTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(try filledIn(title: "Lamps", author: "").errorMessage, missingAuthor)
         XCTAssertEqual(try filledIn(title: "", author: "Emily Short").errorMessage, missingTitle)
         XCTAssertEqual(try filledIn(title: "", author: "").errorMessage, missingAuthor)
+    }
+
+    /// Inform rejects these in an extension's title or author's name, and a / would make another folder
+    func testATitleOrAuthorWithWhatInformRejects() throws {
+        let message = IFUtility.localizedString("BadExtensionCharacters")
+        XCTAssertNotEqual(message, "BadExtensionCharacters")
+
+        for character in ["!", "\"", "(", ")", ",", ".", ":", ";", "?", "[", "]", "{", "}", "/"] {
+            XCTAssertEqual(try filledIn(title: "Lamps\(character)", author: "Emily Short").errorMessage, message,
+                           character)
+            XCTAssertEqual(try filledIn(title: "Lamps", author: "Emily\(character) Short").errorMessage, message,
+                           character)
+        }
+        XCTAssertNil(try filledIn(title: "Lamps & Wicks", author: "Pat O'Brien-Smith").errorMessage)
+    }
+
+    func testATitleOrAuthorLongerThanInformAllows() throws {
+        let message = IFUtility.localizedString("BadExtensionLength")
+        XCTAssertNotEqual(message, "BadExtensionLength")
+        let longest = String(repeating: "Lamp ", count: 10) + "L"
+        XCTAssertEqual(longest.count, 51)
+
+        XCTAssertNil(try filledIn(title: longest, author: longest).errorMessage)
+        XCTAssertEqual(try filledIn(title: longest + "s", author: "Emily Short").errorMessage, message)
+        XCTAssertEqual(try filledIn(title: "Lamps", author: longest + "s").errorMessage, message)
+    }
+
+    func testATitleWithTheWordBy() throws {
+        let message = IFUtility.localizedString("BadExtensionTitleBy")
+        XCTAssertNotEqual(message, "BadExtensionTitleBy")
+
+        XCTAssertEqual(try filledIn(title: "Lamps By Night", author: "Emily Short").errorMessage, message)
+        XCTAssertEqual(try filledIn(title: "Lamps by Night", author: "Emily Short").errorMessage, message)
+        XCTAssertNil(try filledIn(title: "Bypass Lamps Nearby", author: "Emily Short").errorMessage)
+        XCTAssertNil(try filledIn(title: "Lamps", author: "Emily By Night").errorMessage)
+    }
+
+    func testTheAuthorReserved() throws {
+        let message = IFUtility.localizedString("BadExtensionAuthorReserved")
+        XCTAssertNotEqual(message, "BadExtensionAuthorReserved")
+
+        XCTAssertEqual(try filledIn(title: "Lamps", author: "Reserved").errorMessage, message)
+        XCTAssertNil(try filledIn(title: "Lamps", author: "Reserved Lamplighter").errorMessage)
     }
 
     /// With its project gone, as when it's closed while the New Extension window is open, the extension has nowhere to
