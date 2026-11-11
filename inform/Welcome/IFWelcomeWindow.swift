@@ -123,6 +123,15 @@ private let maxItemsInRecentMenu = 8
         // Refresh news if needed
         checkIfNewsRefreshIsNeeded()
 
+        addAdviceWebView()
+    }
+
+    /// Adds the web view that shows the advice, once
+    @objc private final func addAdviceWebView() {
+        if adviceWebView != nil {
+            return
+        }
+
         let helper = IFWebViewHelper(projectController: nil,
                                      with: nil)
         self.helper = helper
@@ -134,7 +143,6 @@ private let maxItemsInRecentMenu = 8
 
         // Add to view hieracrchy
         webViewParent?.addSubview(adviceWebView)
-
     }
 
     func hideWebView() {
