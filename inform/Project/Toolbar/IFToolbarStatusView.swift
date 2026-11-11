@@ -183,21 +183,32 @@ private let gapBetweenWelcomeImageAndText: CGFloat = 10.0
             storyRect.size.width = frame.size.width
         }
 
-        // Make sure title doesn't overlap story text
-        if titleRect.origin.y < (storyRect.origin.y + storyRect.size.height) {
-            titleRect.origin.y = storyRect.origin.y + storyRect.size.height
-        }
+        // While the progress bar is shown, the story text is hidden, so a message goes above the bar, the two
+        // together in the middle of the view, if they fit
+        let progressAndTitleBottom = floor((frame.size.height - progressRect.size.height - titleRect.size.height) / 2)
+        if isInProgress && !titleText.stringValue.isEmpty && progressAndTitleBottom >= minTopBorder {
+            titleText.isHidden = false
 
-        // Make sure title is within reasonable height bounds, otherwise hide it
-        if (titleRect.origin.y + titleRect.size.height) > (frame.size.height - minTopBorder) {
-            titleText.isHidden = true
-
-            // Centre everything vertically if title doesn't fit
-            progressRect.origin.y = frame.size.height / 2 - progressRect.size.height / 2
-            storyRect.origin.y    = frame.size.height / 2 - storyRect.size.height / 2
+            progressRect.origin.y = progressAndTitleBottom
+            titleRect.origin.y    = progressAndTitleBottom + progressRect.size.height
             cancelRect.origin.y   = frame.size.height / 2 - cancelRect.size.height / 2
         } else {
-            titleText.isHidden = false
+            // Make sure title doesn't overlap story text
+            if titleRect.origin.y < (storyRect.origin.y + storyRect.size.height) {
+                titleRect.origin.y = storyRect.origin.y + storyRect.size.height
+            }
+
+            // Make sure title is within reasonable height bounds, otherwise hide it
+            if (titleRect.origin.y + titleRect.size.height) > (frame.size.height - minTopBorder) {
+                titleText.isHidden = true
+
+                // Centre everything vertically if title doesn't fit
+                progressRect.origin.y = frame.size.height / 2 - progressRect.size.height / 2
+                storyRect.origin.y    = frame.size.height / 2 - storyRect.size.height / 2
+                cancelRect.origin.y   = frame.size.height / 2 - cancelRect.size.height / 2
+            } else {
+                titleText.isHidden = false
+            }
         }
 
         titleRect.origin.x = floor(titleRect.origin.x)
@@ -331,6 +342,7 @@ private let gapBetweenWelcomeImageAndText: CGFloat = 10.0
 
     func showMessage(_ aTitle: String) {
         titleText.stringValue = aTitle
+        updateVisibility()
     }
 
     private static func currentTime() -> String {
@@ -420,6 +432,10 @@ private let gapBetweenWelcomeImageAndText: CGFloat = 10.0
     }
 
     func startProgress() {
+        // A message from before the progress bar was shown isn't this progress's
+        if !isInProgress {
+            titleText.stringValue = ""
+        }
         isInProgress = true
 
         progressIndicator.startAnimation(self)

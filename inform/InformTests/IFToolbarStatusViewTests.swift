@@ -191,6 +191,46 @@ final class IFToolbarStatusViewTests: XCTestCase, @unchecked Sendable {
         XCTAssertTrue(titleText.isHidden)
     }
 
+    /// The story line is hidden while the progress bar is shown, so a message has room above the bar, the two
+    /// together in the middle of the view
+    func testAMessageIsShownAboveTheProgressBar() {
+        view.startProgress()
+        view.showMessage("Compiling")
+
+        XCTAssertFalse(titleText.isHidden)
+        XCTAssertEqual(progressBar.frame.size, NSSize(width: 260, height: 10))
+        XCTAssertEqual(titleText.frame.minY, progressBar.frame.maxY)
+        XCTAssertEqual(progressBar.frame.minY, toolbarSize.height - titleText.frame.maxY, accuracy: 1)
+        XCTAssertGreaterThanOrEqual(progressBar.frame.minY, 2)
+        XCTAssertFalse(welcomeIsShown)
+    }
+
+    func testTheCancelButtonIsBesideAMessageAndTheProgressBar() {
+        view.canCancel(true)
+        view.startProgress()
+        view.showMessage("Compiling")
+
+        XCTAssertEqual(cancelButton.frame, NSRect(x: 274, y: 7, width: 16, height: 16))
+        XCTAssertEqual(progressBar.frame.width, 244)
+    }
+
+    func testAMessageGoesWithTheProgressBar() {
+        view.startProgress()
+        view.showMessage("Compiling")
+        view.stopProgress()
+
+        XCTAssertTrue(titleText.isHidden)
+    }
+
+    /// A message from before the bar was shown, such as the last compilation's, isn't the new progress's
+    func testAMessageFromBeforeTheProgressBarIsntShownAboveIt() {
+        view.showMessage("Compiled")
+        view.startProgress()
+
+        XCTAssertTrue(titleText.isHidden || titleText.stringValue.isEmpty)
+        XCTAssertEqual(progressBar.frame, NSRect(x: 20, y: 10, width: 260, height: 10))
+    }
+
     func testInATallerViewTheTitleIsAtTheTop() {
         view.setFrameSize(NSSize(width: 300, height: 50))
 
