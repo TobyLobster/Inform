@@ -53,6 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 //
 // Controller class dealing with one side of the project window
 //
+NS_SWIFT_UI_ACTOR
 @interface IFProjectPane : NSObject<IFProjectPane, IFHistoryRecorder>
 
 // Class methods

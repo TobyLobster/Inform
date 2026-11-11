@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// (In ye olden dayes, this was a window controller as well, but now young whippersnapper
 /// compilers can go anywhere, so it's not any more)
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFCompilerController : NSObject<NSTextStorageDelegate, NSSplitViewDelegate>
 
 /// The default styles for the error messages
