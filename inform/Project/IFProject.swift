@@ -611,6 +611,11 @@ extension IFProject {
         try copyFile(at: iFictionURL, over: url, hidingExtension: hideExtension)
     }
 
+    @objc(saveCompilerOutputToURL:hidingExtension:error:)
+    func saveCompilerOutput(to url: URL, hidingExtension hideExtension: Bool) throws {
+        try copyFile(at: URL(fileURLWithPath: compiler.outputFile), over: url, hidingExtension: hideExtension)
+    }
+
     /// Copies a file to one the user chose in a save panel, which has asked whether to replace a file that's there
     private final func copyFile(at source: URL, over destination: URL, hidingExtension hideExtension: Bool) throws {
         let filepath = (destination.path as NSString).resolvingSymlinksInPath

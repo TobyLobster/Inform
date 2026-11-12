@@ -403,6 +403,42 @@ final class IFProjectTests: XCTestCase {
         XCTAssertThrowsError(try project.saveIFiction(to: copy, hidingExtension: false))
     }
 
+    /// The save panel has asked whether to replace the file
+    func testSavesTheCompilerOutputOverAFileThatsThere() throws {
+        let project = try open(makeProject(source: ["story.ni": Data()]))
+        let output = try makeFolder().appendingPathComponent("output.ulx")
+        try Data("Story".utf8).write(to: output)
+        project.compiler.outputFile = output.path
+        let copy = try makeFolder().appendingPathComponent("Lighthouse.ulx")
+        try Data("Old".utf8).write(to: copy)
+
+        try project.saveCompilerOutput(to: copy, hidingExtension: false)
+
+        XCTAssertEqual(try String(contentsOf: copy, encoding: .utf8), "Story")
+        XCTAssertEqual(try copy.resourceValues(forKeys: [.hasHiddenExtensionKey]).hasHiddenExtension, false)
+    }
+
+    func testSavesTheCompilerOutputWithItsExtensionHiddenWhenAsked() throws {
+        let project = try open(makeProject(source: ["story.ni": Data()]))
+        let output = try makeFolder().appendingPathComponent("output.ulx")
+        try Data("Story".utf8).write(to: output)
+        project.compiler.outputFile = output.path
+        let copy = try makeFolder().appendingPathComponent("Lighthouse.ulx")
+
+        try project.saveCompilerOutput(to: copy, hidingExtension: true)
+
+        XCTAssertEqual(try copy.resourceValues(forKeys: [.hasHiddenExtensionKey]).hasHiddenExtension, true)
+    }
+
+    func testSavingTheCompilerOutputSaysWhenThereIsNone() throws {
+        let project = try open(makeProject(source: ["story.ni": Data()]))
+        let folder = try makeFolder()
+        project.compiler.outputFile = folder.appendingPathComponent("output.ulx").path
+
+        XCTAssertThrowsError(try project.saveCompilerOutput(to: folder.appendingPathComponent("Lighthouse.ulx"),
+                                                            hidingExtension: false))
+    }
+
     func testExportsAnExtensionOverAFileThatsThere() throws {
         let project = try openExtensionProject()
         let copy = try makeFolder().appendingPathComponent("Lamplighting.i7x")

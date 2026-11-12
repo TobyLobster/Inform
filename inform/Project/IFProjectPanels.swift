@@ -70,12 +70,9 @@ import Cocoa
 
         // Show it
         panel.beginSheetModal(for: window) { result in
-            if result == .OK, let whereToSave = panel.url?.path {
-                // Remove existing file then copy
-                try? FileManager.default.removeItem(atPath: whereToSave)
+            if result == .OK, let url = panel.url {
                 do {
-                    try FileManager.default.copyItem(atPath: self.project.compiler.outputFile,
-                                                     toPath: whereToSave)
+                    try self.project.saveCompilerOutput(to: url, hidingExtension: panel.isExtensionHidden)
                 } catch {
                     panel.close()
 
@@ -83,7 +80,7 @@ import Cocoa
                     // Report that a file failed to save
                     let alert = NSAlert()
                     let contents = String(format: IFUtility.localizedString("An error was encountered while trying to save the file '%@'"),
-                                          (whereToSave as NSString).lastPathComponent)
+                                          url.lastPathComponent)
 
                     alert.addButton(withTitle: IFUtility.localizedString("Retry"))
                     alert.addButton(withTitle: IFUtility.localizedString("Cancel"))
