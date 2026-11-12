@@ -120,6 +120,7 @@
 #import "IFNewsCustomSchemeHandler.h"
 #import "IFNewsManager.h"
 #import "IFWelcomeWindow.h"
+#import "IFLinkButton.h"
 #import "IFInformProtocol.h"
 #import "IFNewInform7Project.h"
 #import "IFNewInform7ExtensionProject.h"

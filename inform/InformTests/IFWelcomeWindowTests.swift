@@ -255,6 +255,33 @@ final class IFWelcomeWindowTests: XCTestCase, @unchecked Sendable {
         }
     }
 
+    /// The links to websites and to advice show a pointing hand
+    func testTheLinksShowAPointingHand() throws {
+        let links = try buttons(sending: NSSelectorFromString("clickedWebLink:"))
+        XCTAssertEqual(links.map(\.tag).sorted(), Array(0...11))
+        for link in links {
+            let linkButton = try XCTUnwrap(link as? IFLinkButton, "\(link.tag)")
+            XCTAssertTrue(linkButton.showsPointingHand, "\(link.tag)")
+        }
+    }
+
+    /// The banner shows a pointing hand only while it goes back to the lists, from the advice
+    func testTheBannerShowsAPointingHandWhileAdviceIsShown() throws {
+        let banner = try XCTUnwrap(buttons(sending: #selector(IFWelcomeWindow.clickImage(_:))).first as? IFLinkButton)
+        XCTAssertFalse(banner.showsPointingHand)
+
+        // The links to websites open in the browser, so only the links to advice are clicked
+        let adviceLinks = try buttons(sending: NSSelectorFromString("clickedWebLink:")).filter { $0.tag >= 7 }
+        XCTAssertEqual(adviceLinks.count, 5)
+        for link in adviceLinks {
+            link.performClick(nil)
+            XCTAssertTrue(banner.showsPointingHand, "\(link.tag)")
+
+            banner.performClick(nil)
+            XCTAssertFalse(banner.showsPointingHand, "\(link.tag)")
+        }
+    }
+
     /// The advice is shown in one web view, made once, though the window is shown again and again
     func testTheAdviceHasOneWebView() throws {
         _ = controller.window

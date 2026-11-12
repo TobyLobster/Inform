@@ -39,8 +39,8 @@ private let maxItemsInRecentMenu = 8
 
     /// Show the middle section
     @IBOutlet private final var middleView: NSView?
-    /// Top banner image, as a button
-    @IBOutlet private final var imageButton: NSButton?
+    /// Top banner image, as a button, which goes back to the lists from the advice
+    @IBOutlet private final var imageButton: IFLinkButton?
 
     /// Array of recent file info
     private final var recentInfoArray: [IFRecentFileCellInfo] = []
@@ -148,11 +148,13 @@ private let maxItemsInRecentMenu = 8
     func hideWebView() {
         webViewParent?.isHidden = true
         middleView?.isHidden = false
+        imageButton?.showsPointingHand = false
     }
 
     func showWebView() {
         webViewParent?.isHidden = false
         middleView?.isHidden = true
+        imageButton?.showsPointingHand = true
     }
 
     private final func checkIfNewsRefreshIsNeeded() {
@@ -371,6 +373,8 @@ private let maxItemsInRecentMenu = 8
 
         // Don't darken the image when clicked, show the alternate image
         (imageButton?.cell as? NSButtonCell)?.highlightsBy = .contentsCellMask
+        // The banner only goes back to the lists from the advice, which isn't shown yet
+        imageButton?.showsPointingHand = false
     }
 
     // MARK: - Actions
