@@ -6,9 +6,20 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "IFError.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+/// The kinds of line that IFCompilerOutputScanner finds in the compiler's output
+typedef enum IFLex {
+    IFLexCompilerVersion = 1,
+    IFLexCompilerMessage,
+    IFLexCompilerWarning,
+    IFLexCompilerError,
+    IFLexCompilerFatalError,
+
+    IFLexProgress,
+    IFLexEndText,
+} IFLex;
 
 @class IFCompilerOutputScanner;
 
