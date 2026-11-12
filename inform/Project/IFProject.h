@@ -117,9 +117,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Skein support
 @property (NS_NONATOMIC_IOSONLY, readonly, strong, nullable) IFSkeinItem *nodeToReport;
-/// A skein of the commands in a recording (a .rec or .txt file), as Import Into Skein makes one;
-/// nil if the file doesn't look like a recording. Declared here for the unit tests.
-- (nullable IFSkein*) skeinFromRecording: (NSString*) path;
 
 #pragma mark - Compiler support
 /// The compiler, ready to launch; nil if it can't be prepared

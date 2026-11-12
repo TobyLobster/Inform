@@ -208,6 +208,60 @@ final class IFProjectSkeinsTests: XCTestCase {
         XCTAssertEqual(commands(skeins.currentSkein), [])
     }
 
+    // MARK: - Recordings
+
+    /// A recording in a new folder; returns its path
+    private func recording(_ contents: String) throws -> String {
+        let file = try makeFolder().appendingPathComponent("Recording.rec")
+        try Data(contents.utf8).write(to: file)
+        return file.path
+    }
+
+    func testMakesASkeinFromARecording() throws {
+        let skein = try XCTUnwrap(IFProjectSkeins(project: nil).skein(fromRecording: recording("look\nx lamp\n")))
+
+        XCTAssertEqual(commands(skein), ["look", "x lamp"])
+        XCTAssertIdentical(skein.activeItem, skein.rootItem.children.first?.children.first)
+    }
+
+    func testReadsARecordingsLineBreaks() throws {
+        let skeins = IFProjectSkeins(project: nil)
+        for lineBreak in ["\n", "\r", "\r\n", "\n\r"] {
+            let contents = ["look", "x lamp", "wait"].joined(separator: lineBreak) + lineBreak
+            let skein = try XCTUnwrap(skeins.skein(fromRecording: recording(contents)), lineBreak.debugDescription)
+            XCTAssertEqual(commands(skein), ["look", "x lamp", "wait"], lineBreak.debugDescription)
+        }
+    }
+
+    func testReadsARecordingsLastCommandWithoutALineBreak() throws {
+        let skeins = IFProjectSkeins(project: nil)
+
+        XCTAssertEqual(commands(try XCTUnwrap(skeins.skein(fromRecording: recording("look\nwait")))), ["look", "wait"])
+        XCTAssertEqual(commands(try XCTUnwrap(skeins.skein(fromRecording: recording("look")))), ["look"])
+        // As long as it's no longer than any other
+        XCTAssertNil(skeins.skein(fromRecording: try recording("look\n" + String(repeating: "a", count: 51))))
+    }
+
+    func testMakesNoSkeinFromWhatIsntARecording() throws {
+        let skeins = IFProjectSkeins(project: nil)
+
+        // No commands
+        XCTAssertNil(skeins.skein(fromRecording: try recording("")))
+        // A command longer than 50 characters
+        XCTAssertNotNil(skeins.skein(fromRecording: try recording(String(repeating: "a", count: 50) + "\n")))
+        XCTAssertNil(skeins.skein(fromRecording: try recording(String(repeating: "a", count: 51) + "\n")))
+        // More than 10,000 commands
+        XCTAssertNil(skeins.skein(fromRecording: try recording(String(repeating: "z\n", count: 10_001))))
+        // More than 500,000 characters
+        XCTAssertNil(skeins.skein(fromRecording: try recording(String(repeating: "z", count: 500_001))))
+        // Not UTF-8
+        let latin1 = try makeFolder().appendingPathComponent("Latin1.rec")
+        try Data([0x43, 0x61, 0x66, 0xE9, 0x0A]).write(to: latin1)
+        XCTAssertNil(skeins.skein(fromRecording: latin1.path))
+        // No file
+        XCTAssertNil(skeins.skein(fromRecording: try makeFolder().appendingPathComponent("Missing.rec").path))
+    }
+
     // MARK: - Importing
 
     /// A project's skeins, showing a skein with a line of play

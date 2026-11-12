@@ -798,10 +798,6 @@ extension IFProject {
 
     // MARK: - Importing skein information
 
-    func skein(fromRecording path: String) -> IFSkein? {
-        return projectSkeins.skein(fromRecording: path)
-    }
-
     @objc(importIntoSkeinWithWindow:)
     func importIntoSkein(with window: NSWindow) {
         // Set up an open panel
