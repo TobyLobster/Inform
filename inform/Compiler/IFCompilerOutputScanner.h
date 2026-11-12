@@ -45,8 +45,8 @@ NS_SWIFT_UI_ACTOR
 @end
 
 ///
-/// Scans each line of the compiler's output with the lexer in IFError.l, for the style to show the line in and for what
-/// it tells the app: progress, how the compiler ended, errors, and where to copy the blorb file.
+/// Scans each line of the compiler's output for the style to show the line in and for what it tells the app: progress,
+/// how the compiler ended, errors, and where to copy the blorb file.
 ///
 NS_SWIFT_UI_ACTOR
 @interface IFCompilerOutputScanner : NSObject
