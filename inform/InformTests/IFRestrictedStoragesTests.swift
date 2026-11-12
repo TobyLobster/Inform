@@ -104,7 +104,8 @@ final class IFRestrictedStoragesTests: XCTestCase {
         XCTAssertEqual(text.string, chapters)
     }
 
-    /// Restricting a view again gives it a new storage, and the old one is let go
+    /// Restricting a view again shows the new range in the same storage, as the text view undoes what was typed in the
+    /// storage it was typed in
     func testRestrictingAViewAgain() throws {
         let text = text(chapters)
         let storages = IFRestrictedStorages(textStorage: text)
@@ -114,18 +115,19 @@ final class IFRestrictedStoragesTests: XCTestCase {
 
         storages.restrict(to: NSRange(location: 10, length: 10), for: view, delegate: delegate)
         let new = try XCTUnwrap(storages.restrictedTextStorage(for: view))
-        XCTAssertFalse(new === old)
+        XCTAssertTrue(new === old)
         XCTAssertTrue(view.textStorage === new)
-        XCTAssertNil(old.delegate)
+        XCTAssertTrue(new.delegate === delegate)
         assertView(view, in: storages, of: text, shows: "Chapter 2\n")
 
-        // The old storage is no longer kept in step
+        // Only the new range is kept in step
         edit(text, of: storages, text: text, at: 8, replacing: 1, with: "One")
-        XCTAssertEqual(old.string, "Chapter 1\n")
         assertView(view, in: storages, of: text, shows: "Chapter 2\n")
+        edit(text, of: storages, text: text, at: 20, replacing: 1, with: "Two")
+        assertView(view, in: storages, of: text, shows: "Chapter Two\n")
     }
 
-    /// Removing a view's restriction empties its storage and lets it go, though the view still shows it
+    /// Removing a view's restriction lets go of its storage, though the view still shows it, and it keeps its text
     func testRemovingARestriction() throws {
         let text = text(chapters)
         let storages = IFRestrictedStorages(textStorage: text)
@@ -137,14 +139,19 @@ final class IFRestrictedStoragesTests: XCTestCase {
         XCTAssertFalse(storages.isRestricted(for: view))
         XCTAssertEqual(storages.restrictedRange(for: view).location, NSNotFound)
         XCTAssertNil(storages.restrictedTextStorage(for: view))
-        XCTAssertEqual(storage.length, 0)
+        XCTAssertEqual(storage.string, "Chapter 2\n")
         XCTAssertNil(storage.delegate)
         XCTAssertTrue(view.textStorage === storage)
         XCTAssertEqual(text.string, chapters)
 
         // It's no longer kept in step
         edit(text, of: storages, text: text, at: 18, replacing: 1, with: "Two")
-        XCTAssertEqual(storage.length, 0)
+        XCTAssertEqual(storage.string, "Chapter 2\n")
+
+        // The view's next restriction shows its range in the same storage
+        storages.restrict(to: NSRange(location: 0, length: 10), for: view, delegate: delegate)
+        XCTAssertTrue(storages.restrictedTextStorage(for: view) === storage)
+        assertView(view, in: storages, of: text, shows: "Chapter 1\n")
     }
 
     /// Removing a restriction from a view that has none does nothing

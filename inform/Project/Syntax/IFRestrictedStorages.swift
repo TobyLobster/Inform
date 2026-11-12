@@ -13,8 +13,8 @@ import Cocoa
 @MainActor
 private final class IFSyntaxRestricted {
 
-    var textView: NSTextView
-    var restrictedTextStorage: NSTextStorage
+    weak var textView: NSTextView?
+    let restrictedTextStorage: NSTextStorage
     var restrictedRange: NSRange
 
     init(textView view: NSTextView, range: NSRange) {
@@ -31,6 +31,9 @@ private final class IFSyntaxRestricted {
 
     /// Restricted storage
     private final var restrictions: [IFSyntaxRestricted]
+
+    /// The storages of views whose restrictions were removed, kept for each view's next restriction
+    private final var unused: [IFSyntaxRestricted] = []
 
     init(textStorage: NSTextStorage) {
         self.textStorage = textStorage
@@ -55,39 +58,41 @@ private final class IFSyntaxRestricted {
         // Get text for the given range
         let attributedString = textStorage.attributedSubstring(from: range)
 
-        // Remove old restricted region
-        if let restricted = restrictedData(for: view) {
-            // Remove delegate
-            restricted.restrictedTextStorage.delegate = nil
-            restrictions.removeAll { $0 === restricted }
-        }
-
-        // Create new restricted region
-        let restricted = IFSyntaxRestricted(textView: view,
+        // A view keeps its storage from one restriction to the next, as the text view undoes what was typed in the
+        // storage it was typed in, which an earlier restriction may have shown
+        let restricted: IFSyntaxRestricted
+        if let current = restrictedData(for: view) {
+            restricted = current
+        } else if let index = unused.firstIndex(where: { $0.textView === view }) {
+            restricted = unused.remove(at: index)
+            restrictions.append(restricted)
+        } else {
+            restricted = IFSyntaxRestricted(textView: view,
                                             range: range)
+            restrictions.append(restricted)
+        }
+        unused.removeAll { $0.textView == nil }
 
-        // Set up the restricted text
+        // Set up the restricted text, which isn't an edit for the delegate
+        restricted.restrictedTextStorage.delegate = nil
+        restricted.restrictedRange = range
         restricted.restrictedTextStorage.setAttributedString(attributedString)
-
-        // Add new text storage
         restricted.restrictedTextStorage.delegate = delegate
-        restrictions.append(restricted)
-        view.layoutManager?.replaceTextStorage(restricted.restrictedTextStorage)
+
+        if view.textStorage !== restricted.restrictedTextStorage {
+            view.layoutManager?.replaceTextStorage(restricted.restrictedTextStorage)
+        }
     }
 
     @objc(removeRestrictionForTextView:)
     func removeRestriction(for view: NSTextView) {
         // Find an existing restriction
         if let restricted = restrictedData(for: view) {
-            // Set restricted storage to an empty string
-            let attributedString = NSAttributedString(string: "")
-            restricted.restrictedTextStorage.setAttributedString(attributedString)
-
-            // Remove delegate
+            // The storage is no longer kept in step with the text, but keeps what it showed, for the view's next
+            // restriction, and for undoing what was typed in it
             restricted.restrictedTextStorage.delegate = nil
-
-            // Remove from list of restrictions
             restrictions.removeAll { $0 === restricted }
+            unused.append(restricted)
         }
     }
 

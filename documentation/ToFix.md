@@ -12,9 +12,6 @@ Each says how it was found, and none has been seen in the app unless it says so.
 
 Found checking the fixes in the app, in a Debug build (12 November 2026), and not yet compared with the released app.
 
-- **Undo after a heading is numbered spoils the text.** Typing a heading's first word and a space fills in its number (`IFNaturalIntel`'s `rewriteInput`), and renumbers the headings after it; undoing that left the text corrupted. `IFSyntaxData` puts the number in as the text storage processes the typing (`textStorage(_:willProcessEditing:…)`), as the Objective-C did before this work, so it may be older than it.
-- **A section shown on its own isn't redrawn as it's edited.** Making the section longer drew its text over the arrow in the tear at its bottom, and making it shorter left pieces of the tear behind.
-- **Undo in a section shown on its own spoils the text, and then stops the app,** in `-[NSUndoStack popAndInvoke]`. There's no backtrace yet.
 - **Renumber All Sections leaves headings numbered in words.** It renumbers only headings numbered in figures, so with a chapter taken out, `Chapter Four` stays as it is. Typing a heading renumbers the ones after it in words or figures (65bca6c8).
 - **Opening a large project may be slow.** Monkey.inform took over 15 seconds to open. Not yet timed in a release build.
 

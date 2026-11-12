@@ -537,6 +537,116 @@ final class IFSourcePageTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(textView.string, section1)
     }
 
+    /// Does something in an undo group of its own, as an event does, with the run loop going round before the group
+    /// ends. The groups are the test's, as the undo manager's own groups for events don't end in the tests.
+    private func event(_ body: () throws -> Void) throws {
+        let undo = try self.undo
+        undo.groupsByEvent = false
+        undo.beginUndoGrouping()
+        try body()
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+        undo.endUndoGrouping()
+    }
+
+    /// Types text at the insertion point, as an event
+    private func type(_ text: String) throws {
+        try event {
+            textView.insertText(text, replacementRange: NSRange(location: NSNotFound, length: 0))
+        }
+    }
+
+    /// Shows the section with some text in it, as an event
+    private func showSection(with find: String) throws {
+        try event {
+            putCursor(before: find)
+            page.showCurrentSectionOnly(nil)
+        }
+    }
+
+    func testTypingInTheSectionShownCanBeUndoneAndRedone() throws {
+        let typed = story.replacingOccurrences(of: "Cupboard is", with: "big Cupboard is")
+        let typedSection = section1.replacingOccurrences(of: "Cupboard is", with: "big Cupboard is")
+        try showSection(with: "Cupboard is")
+
+        try type("big ")
+        XCTAssertEqual(textView.string, typedSection)
+        XCTAssertEqual(try storage.string, typed)
+
+        try undo.undo()
+        XCTAssertEqual(textView.string, section1)
+        XCTAssertEqual(try storage.string, story)
+
+        try undo.redo()
+        XCTAssertEqual(textView.string, typedSection)
+        XCTAssertEqual(try storage.string, typed)
+    }
+
+    /// Undoing the typing and then the section's being shown, and redoing them
+    func testTypingInASectionCanBeRedoneOnceTheSectionIsShownAgain() throws {
+        let typed = story.replacingOccurrences(of: "Cupboard is", with: "big Cupboard is")
+        let typedSection = section1.replacingOccurrences(of: "Cupboard is", with: "big Cupboard is")
+        try showSection(with: "Cupboard is")
+        try type("big ")
+
+        try undo.undo()
+        try undo.undo()
+        XCTAssertEqual(textView.string, story)
+        XCTAssertFalse(try isRestricted)
+
+        try undo.redo()
+        XCTAssertEqual(textView.string, section1)
+        try undo.redo()
+        XCTAssertEqual(textView.string, typedSection)
+        XCTAssertEqual(try storage.string, typed)
+    }
+
+    func testTypingInASectionCanBeUndoneOnceTheWholeSourceIsShown() throws {
+        let typed = story.replacingOccurrences(of: "Cupboard is", with: "big Cupboard is")
+        let typedSection = section1.replacingOccurrences(of: "Cupboard is", with: "big Cupboard is")
+        try showSection(with: "Cupboard is")
+        try type("big ")
+        try event {
+            page.showEntireSource(nil)
+        }
+        XCTAssertEqual(textView.string, typed)
+
+        // The section is shown again, and then the typing undone
+        try undo.undo()
+        XCTAssertEqual(textView.string, typedSection)
+        try undo.undo()
+        XCTAssertEqual(textView.string, section1)
+        XCTAssertEqual(try storage.string, story)
+
+        try undo.redo()
+        XCTAssertEqual(textView.string, typedSection)
+        XCTAssertEqual(try storage.string, typed)
+        try undo.redo()
+        XCTAssertEqual(textView.string, typed)
+    }
+
+    func testTypingInASectionCanBeUndoneOnceAnotherIsShown() throws {
+        let typed = story.replacingOccurrences(of: "Cupboard is", with: "big Cupboard is")
+        let typedSection = section1.replacingOccurrences(of: "Cupboard is", with: "big Cupboard is")
+        try showSection(with: "Cupboard is")
+        try type("big ")
+        try event {
+            page.sourceFileShowNextSection(nil)
+            waitForAnimations()
+        }
+        XCTAssertEqual(textView.string, chapter2)
+
+        // The section is shown again, and then the typing undone
+        try undo.undo()
+        XCTAssertEqual(textView.string, typedSection)
+        try undo.undo()
+        XCTAssertEqual(textView.string, section1)
+        XCTAssertEqual(try storage.string, story)
+
+        try undo.redo()
+        XCTAssertEqual(textView.string, typedSection)
+        XCTAssertEqual(try storage.string, typed)
+    }
+
     // MARK: - Highlighting lines
 
     func testHighlightsLines() {

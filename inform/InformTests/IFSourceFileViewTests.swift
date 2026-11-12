@@ -5,6 +5,16 @@
 
 import XCTest
 
+/// A source view that records the rectangles it's asked to draw
+private final class DrawingRecorder: IFSourceFileView {
+    var drawn: [NSRect] = []
+
+    override func draw(_ dirtyRect: NSRect) {
+        drawn.append(dirtyRect)
+        super.draw(dirtyRect)
+    }
+}
+
 @MainActor
 final class IFSourceFileViewTests: XCTestCase, @unchecked Sendable {
 
@@ -59,8 +69,8 @@ final class IFSourceFileViewTests: XCTestCase, @unchecked Sendable {
             scrollView.autoresizingMask = [.width, .height]
             let contentSize = scrollView.contentSize
 
-            textView = IFSourceFileView(frame: NSRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height),
-                                        textContainer: textContainer)
+            textView = DrawingRecorder(frame: NSRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height),
+                                       textContainer: textContainer)
             textView.minSize = NSSize(width: 0, height: contentSize.height)
             textView.maxSize = NSSize(width: CGFloat(Float.greatestFiniteMagnitude),
                                       height: CGFloat(Float.greatestFiniteMagnitude))
@@ -235,6 +245,75 @@ final class IFSourceFileViewTests: XCTestCase, @unchecked Sendable {
         textView.setTornAtTop(true)
         let after = picture()
         XCTAssertFalse(band.allSatisfy { isWhite(colour(in: after, at: $0)) }, "Nothing was drawn for the tear")
+    }
+
+    /// Lets the run loop go round, when the text system says what needs drawing, and draws it, laying the text out.
+    /// The rectangles drawn.
+    private func redraw() -> [NSRect] {
+        let recorder = textView as? DrawingRecorder
+        recorder?.drawn = []
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.05))
+        window.displayIfNeeded()
+        textView.displayIfNeeded()
+        if let textContainer = textView.textContainer {
+            textView.layoutManager?.ensureLayout(for: textContainer)
+        }
+        return recorder?.drawn ?? []
+    }
+
+    /// Checks that what was drawn covers where the bottom tear was and is now, with the text ending at two places
+    private func assertTheTearIsRedrawn(_ drawn: [NSRect], between top: CGFloat, and bottom: CGFloat,
+                                        file: StaticString = #filePath, line: UInt = #line) {
+        let tear = NSRect(x: 0, y: top, width: textView.bounds.width, height: bottom + bottomTearHeight - top)
+        let union = drawn.reduce(NSRect.null) { $0.union($1) }
+        XCTAssertTrue(union.contains(tear), "\(drawn) doesn't cover \(tear)", file: file, line: line)
+    }
+
+    func testTheBottomTearIsRedrawnAsTextIsTypedAtTheEnd() {
+        textView.setTornAtBottom(true)
+        _ = redraw()
+        let before = endOfText
+
+        textView.setSelectedRange(NSRange(location: (textView.string as NSString).length, length: 0))
+        textView.insertText("\nfour\nfive", replacementRange: NSRange(location: NSNotFound, length: 0))
+        let drawn = redraw()
+        XCTAssertGreaterThan(endOfText, before)
+        assertTheTearIsRedrawn(drawn, between: before, and: endOfText)
+    }
+
+    /// As text typed in another view is, or changed in a section by renumbering or undo
+    func testTheBottomTearIsRedrawnAsTextIsAddedAtTheEnd() {
+        textView.setTornAtBottom(true)
+        _ = redraw()
+        let before = endOfText
+
+        textView.textStorage?.append(NSAttributedString(string: "\nfour\nfive"))
+        let drawn = redraw()
+        XCTAssertGreaterThan(endOfText, before)
+        assertTheTearIsRedrawn(drawn, between: before, and: endOfText)
+    }
+
+    func testTheBottomTearIsRedrawnAsTextIsDeletedAtTheEnd() {
+        textView.setTornAtBottom(true)
+        _ = redraw()
+        let before = endOfText
+
+        textView.setSelectedRange(NSRange(location: 7, length: 6))
+        textView.insertText("", replacementRange: NSRange(location: NSNotFound, length: 0))
+        let drawn = redraw()
+        XCTAssertLessThan(endOfText, before)
+        assertTheTearIsRedrawn(drawn, between: endOfText, and: before)
+    }
+
+    func testTheBottomTearIsRedrawnAsTextIsTakenAwayAtTheEnd() {
+        textView.setTornAtBottom(true)
+        _ = redraw()
+        let before = endOfText
+
+        textView.textStorage?.replaceCharacters(in: NSRange(location: 7, length: 6), with: "")
+        let drawn = redraw()
+        XCTAssertLessThan(endOfText, before)
+        assertTheTearIsRedrawn(drawn, between: endOfText, and: before)
     }
 
     func testBelowTheBottomTearIsPaper() throws {

@@ -18,8 +18,6 @@ private let arrowNotPressed = NSImage(named: "App/TornPages/TearArrow")
     private final var tornAtTop = false
     /// `true` if we should draw a 'tear' at the bottom of the view
     private final var tornAtBottom = false
-    /// The last known 'used' rect (used to determine whether or not to update the bottom tear)
-    private final var lastUsedRect = NSRect.zero
 
     /// The rect the text uses in the text container, or none without a layout manager or text container
     private final var usedRect: NSRect {
@@ -205,35 +203,25 @@ private let arrowNotPressed = NSImage(named: "App/TornPages/TearArrow")
         // Update the display
         textContainerInset = inset
 
-        lastUsedRect = usedRect
         needsDisplay = true
     }
 
-    @discardableResult
-    private final func checkForRedraw() -> Bool {
-        if tornAtBottom {
-            // If the last used rect is different from the current used rect, then redraw the bottom of the display as well
-            let newUsedRect = usedRect
+    /// What's redrawn when part of the view needs to be. The bottom tear is drawn the width of the view below the text,
+    /// and moves with the text, so where the text changes, everything below it is redrawn, across the view, before the
+    /// text is laid out again.
+    private final func rectToRedraw(_ invalidRect: NSRect) -> NSRect {
+        guard tornAtBottom, !invalidRect.isEmpty, invalidRect.minY < bounds.maxY else { return invalidRect }
 
-            if NSMaxY(newUsedRect) != NSMaxY(lastUsedRect) {
-                let bounds = self.bounds
-                lastUsedRect = newUsedRect
-
-                let minY = NSMinY(lastUsedRect)
-
-                let needsDisplay = NSRect(x: NSMinX(bounds), y: minY, width: bounds.size.width, height: NSMaxY(bounds) - minY)
-                super.setNeedsDisplay(needsDisplay)
-
-                return true
-            }
-        }
-
-        return false
+        return NSRect(x: bounds.minX, y: invalidRect.minY, width: bounds.width, height: bounds.maxY - invalidRect.minY)
     }
 
     public override func setNeedsDisplay(_ invalidRect: NSRect) {
-        super.setNeedsDisplay(invalidRect)
-        checkForRedraw()
+        super.setNeedsDisplay(rectToRedraw(invalidRect))
+    }
+
+    // The layout manager says what's to be redrawn as the text changes with this
+    public override func setNeedsDisplay(_ invalidRect: NSRect, avoidAdditionalLayout flag: Bool) {
+        super.setNeedsDisplay(rectToRedraw(invalidRect), avoidAdditionalLayout: flag)
     }
 
     public override var textContainerOrigin: NSPoint {

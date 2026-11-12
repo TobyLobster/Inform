@@ -157,11 +157,11 @@ final class IFSyntaxManagerTests: XCTestCase {
         XCTAssertTrue(textView.textStorage === shown)
         XCTAssertTrue(IFSyntaxManager.registeredStorage(for: textView) === storage)
 
-        // The view is left showing the restricted copy, now empty, until it's given the full text again
+        // The view is left showing the restricted copy, with its text, until it's given the full text again
         IFSyntaxManager.removeRestriction(storage, for: textView)
         XCTAssertFalse(IFSyntaxManager.isRestricted(storage, for: textView))
         XCTAssertNil(IFSyntaxManager.restrictedTextStorage(storage, for: textView))
-        XCTAssertEqual(textView.string, "")
+        XCTAssertEqual(textView.string, "Chapter 1 - The Start\n")
         XCTAssertNil(IFSyntaxManager.registeredStorage(for: textView))
     }
 
