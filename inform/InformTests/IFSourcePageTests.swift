@@ -246,6 +246,27 @@ final class IFSourcePageTests: XCTestCase, @unchecked Sendable {
         XCTAssertIdentical(page.currentIntelligence, IFSyntaxManager.intelligenceData(for: try storage))
     }
 
+    /// The source isn't laid out as the page is made, in a view that doesn't yet have its width. All of a large
+    /// source was, once for each pane, which took 16 seconds for one of 1.7 MB.
+    func testTheSourceIsNotLaidOutAsThePageIsMade() throws {
+        let long = (1...2000).map { "Room \($0) is a room.\n\n" }.joined()
+        let source = folder.appendingPathComponent("Long.inform/Source", isDirectory: true)
+        try FileManager.default.createDirectory(at: source, withIntermediateDirectories: true)
+        try Data(long.utf8).write(to: source.appendingPathComponent("story.ni"))
+        let longProject = try IFProject(contentsOf: folder.appendingPathComponent("Long.inform"),
+                                        ofType: "org.inform-fiction.project")
+        addTeardownBlock { longProject.close() }
+        let longController = ProjectControllerStandIn()
+        NotificationCenter.default.removeObserver(longController as Any)
+        longController.project = longProject
+
+        let longPage = IFSourcePage(projectController: longController)
+        let longView = try XCTUnwrap((longPage.view.subviews.first as? NSScrollView)?.documentView as? IFSourceFileView)
+        XCTAssertEqual(longView.string, long)
+        let layoutManager = try XCTUnwrap(longView.layoutManager)
+        XCTAssertLessThan(layoutManager.firstUnlaidCharacterIndex(), (long as NSString).length / 2)
+    }
+
     func testShowsAnotherSourceFile() {
         page.showSourceFile("Notes.txt")
         XCTAssertEqual(textView.string, notes)
