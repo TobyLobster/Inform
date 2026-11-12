@@ -187,20 +187,11 @@ import WebKit
         }
     }
 
-    /// The history, as the page: what's sent to it is recorded, and sent to the page when the history is replayed.
-    /// The history is a proxy, which records any message it's sent, so it isn't cast, as a cast asks it its class.
-    private final var historicalPage: IFExtensionsPage? {
-        guard let history else {
-            return nil
-        }
-        return unsafeBitCast(history as AnyObject, to: IFExtensionsPage.self)
-    }
-
     public override func didSwitchToPage() {
         let url = (failedURL as URL?) ?? wView.url
 
         NSLog("HISTORY: Extensions Page: (didSwitchToPage) URL %@", url?.absoluteString ?? "(null)")
-        historicalPage?.openHistoricalURL(url)
+        recordInHistory { self.openHistoricalURL(url) }
         leaveOutOfHistory(reloadPage())
     }
 
@@ -266,8 +257,9 @@ extension IFExtensionsPage {
         } else if pageIsVisible && webView.url?.scheme != "library" {
             NSLog("HISTORY: Extensions Page: (didStartProvisionalLoadForFrame) URL %@",
                   webView.url?.absoluteString ?? "(null)")
-            historicalPage?.switchToPage()
-            historicalPage?.openHistoricalURL(webView.url)
+            let url = webView.url
+            recordInHistory { self.switchToPage() }
+            recordInHistory { self.openHistoricalURL(url) }
         }
     }
 

@@ -273,21 +273,12 @@ import WebKit
         }
     }
 
-    /// The history, as the page: what's sent to it is recorded, and sent to the page when the history is replayed.
-    /// The history is a proxy, which records any message it's sent, so it isn't cast, as a cast asks it its class.
-    private final var historicalPage: IFIndexPage? {
-        guard let history else {
-            return nil
-        }
-        return unsafeBitCast(history as AnyObject, to: IFIndexPage.self)
-    }
-
     // MARK: - Switching cells
 
     public override func didSwitchToPage() {
         let url = webView.url
         NSLog("HISTORY: Index Page: (didSwitchToPage) requestURL %@", url?.absoluteString ?? "(null)")
-        historicalPage?.openHistoricalURL(url)
+        recordInHistory { self.openHistoricalURL(url) }
 
         // Highlight the indexCell to something appropriate for the new URL
         highlightAppropriateIndexCell(for: url)
@@ -347,8 +338,8 @@ extension IFIndexPage {
         if let index = unrecordedNavigations.firstIndex(where: { $0 === navigation }) {
             unrecordedNavigations.remove(at: index)
         } else if pageIsVisible {
-            historicalPage?.switchToPage()
-            historicalPage?.openHistoricalURL(url)
+            recordInHistory { self.switchToPage() }
+            recordInHistory { self.openHistoricalURL(url) }
         }
 
         // Highlight the indexCell to something appropriate for the new URL

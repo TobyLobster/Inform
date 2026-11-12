@@ -85,18 +85,10 @@ import WebKit
 
     // MARK: - History
 
-    /// The history, as the page: what's sent to it is recorded, and sent to the page when the history is replayed.
-    /// The history is a proxy, which records any message it's sent, so it isn't cast, as a cast asks it its class.
-    private final var historicalPage: IFErrorsPage? {
-        guard let history else {
-            return nil
-        }
-        return unsafeBitCast(history as AnyObject, to: IFErrorsPage.self)
-    }
-
     public override func didSwitchToPage() {
         NSLog("HISTORY: Errors Page: (didSwitchToPage) tab %d", Int32(bitPattern: compilerController.selectedTabId.rawValue))
-        historicalPage?.switchToPage(with: compilerController.selectedTabId)
+        let tabId = compilerController.selectedTabId
+        recordInHistory { self.switchToPage(with: tabId) }
         super.didSwitchToPage()
     }
 
@@ -182,7 +174,7 @@ extension IFErrorsPage {
         // Remember this in the history
         let tabId = IFCompilerTabId(rawValue: UInt32(bitPattern: compilerController.tabId(withTabIndex: viewIndex)))!
         NSLog("HISTORY: Errors Page: (switchedToView) tab %d", Int32(bitPattern: tabId.rawValue))
-        historicalPage?.switchToPage(with: tabId)
+        recordInHistory { self.switchToPage(with: tabId) }
 
         // Turn the newly selected cell on
         guard let pageCells, !pageCells.isEmpty else {
@@ -224,8 +216,9 @@ extension IFErrorsPage {
             if inhibitAddToHistory <= 0 {
                 NSLog("HISTORY: Compiler Controller Page: (didStartProvisionalNavigation) URL %@",
                       webView.url?.absoluteString ?? "(null)")
-                historicalPage?.switchToPage()
-                historicalPage?.openHistoricalURL(webView.url)
+                let url = webView.url
+                recordInHistory { self.switchToPage() }
+                recordInHistory { self.openHistoricalURL(url) }
             }
         }
 

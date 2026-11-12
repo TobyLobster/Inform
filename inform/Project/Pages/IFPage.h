@@ -72,6 +72,9 @@ NS_SWIFT_UI_ACTOR
 
 /// Returns a proxy object that can be used to record history actions (nil if there's no recorder)
 @property (atomic, readonly, strong, nullable) id history;
+/// Adds an action to the recorder's history event, which going back or forwards to the event performs (does nothing
+/// if there's no event)
+- (void) recordInHistory: (void (^)(void)) action NS_SWIFT_NAME(recordInHistory(_:));
 
 #pragma mark - Page properties
 /// The name of the tab this page appears under

@@ -157,20 +157,11 @@ import WebKit
         }
     }
 
-    /// The history, as the page: what's sent to it is recorded, and sent to the page when the history is replayed.
-    /// The history is a proxy, which records any message it's sent, so it isn't cast, as a cast sends it one.
-    private final var historicalPage: IFDocumentationPage? {
-        guard let history else {
-            return nil
-        }
-        return unsafeBitCast(history as AnyObject, to: IFDocumentationPage.self)
-    }
-
     public override func didSwitchToPage() {
         let url = wView.url
 
         NSLog("HISTORY: Documentation Page: (didSwitchToPage) URL %@", url?.absoluteString ?? "(null)")
-        historicalPage?.openHistoricalURL(url)
+        recordInHistory { self.openHistoricalURL(url) }
         leaveOutOfHistory(wView.reload())
     }
 
@@ -228,8 +219,9 @@ extension IFDocumentationPage {
         } else if pageIsVisible {
             NSLog("HISTORY: Documentation Page: (didStartProvisionalNavigation) URL %@",
                   webView.url?.absoluteString ?? "(null)")
-            historicalPage?.switchToPage()
-            historicalPage?.openHistoricalURL(webView.url)
+            let url = webView.url
+            recordInHistory { self.switchToPage() }
+            recordInHistory { self.openHistoricalURL(url) }
         }
     }
 }

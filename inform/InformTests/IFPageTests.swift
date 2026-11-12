@@ -181,6 +181,24 @@ final class IFPageTests: XCTestCase {
         XCTAssertEqual(posted.count, 1)
     }
 
+    /// What's recorded in the history is added to the recorder's event, which performs it when it's replayed, and
+    /// without an event it isn't kept
+    func testRecordingInTheHistory() {
+        let page = makePage()
+        var performed: [String] = []
+        page.recordInHistory { performed.append("no recorder") }
+        let recorder = Recorder()
+        page.recorder = recorder
+        page.recordInHistory { performed.append("no event") }
+
+        let event = IFHistoryEvent(object: NSNull())
+        recorder.historyEvent = event
+        page.recordInHistory { performed.append("recorded") }
+        XCTAssertEqual(performed, [])
+        event.replay()
+        XCTAssertEqual(performed, ["recorded"])
+    }
+
     /// The recorder isn't kept by the page
     func testTheRecorderIsWeak() {
         let page = makePage()

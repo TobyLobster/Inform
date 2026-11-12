@@ -125,6 +125,10 @@ import Cocoa
         return nil
     }
 
+    func recordInHistory(_ action: @escaping () -> Void) {
+        recorder?.historyEvent?.addAction(action)
+    }
+
     func didSwitchToPage() {
         // Do nothing
     }
