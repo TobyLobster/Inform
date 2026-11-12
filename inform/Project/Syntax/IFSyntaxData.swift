@@ -58,8 +58,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
     //
     // Syntax state - Line and character information
     //
-    private final var nLines: Int                                     // Number of lines
-    private final var lineStarts: [Int]                               // Start positions of each line
+    private final var lineStarts: IFLineStarts                        // Start positions of each line
     private final var lineStates: [[IFSyntaxStackEntry]]              // Syntax stack at the start of lines
 
     private final var charStyles: IFSyntaxStyles                      // Syntax state for each character
@@ -134,8 +133,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
         isHighlighting = false
 
         // Initial state
-        lineStarts = [0]
-        nLines = 1
+        lineStarts = IFLineStarts()
         lineStates = [[IFSyntaxStackEntry(state: IFSyntaxState(IFSyntaxStateDefault), mode: 0)]]    // Initial stack starts with the default state
 
         tabStops = nil
@@ -201,35 +199,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
     // Which line of text does the character index occur on?
     //
     private final func lineForIndex(_ index: Int) -> Int {
-        // Yet Another Binary Search
-        var low = 0
-        var high = nLines - 1
-
-        while low <= high {
-            let middle = (low + high) >> 1
-
-            let lineStart = lineStarts[middle]
-
-            if index < lineStart {
-                // Not this line: search the lower half
-                high = middle - 1
-                continue
-            }
-
-            let lineEnd = middle < (nLines - 1) ? lineStarts[middle + 1] : textStorage.length
-
-            if index >= lineEnd {
-                // Not this line: search the upper half
-                low = middle + 1
-                continue
-            }
-
-            // Must be this line
-            return middle
-        }
-
-        // If we fell off, must be the last line (lines are unsigned, so we can't fall off the bottom)
-        return nLines - 1
+        return lineStarts.line(forIndex: index, textLength: textStorage.length)
     }
 
     //
@@ -509,7 +479,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
                                                forceUpdateTabs: Bool) -> NSRange {
         var newRange      = newRange
         let oldRange      = NSRange(location: newRange.location, length: newRange.length - changeInLength)
-        let newString     = textStorage.mutableString.substring(with: newRange) as NSString
+        let newString     = textStorage.mutableString.substring(with: newRange)
         let newFullLength = textStorage.length
         let oldFullLength = newFullLength - changeInLength
 
@@ -521,76 +491,41 @@ private func isWhitespace(_ c: unichar) -> Bool {
         NSLog("Highlighter: editing lines in the range %ld-%ld", firstLine, lastLine)
 #endif
 
-        //
-        // Build the array of new lines.
-        // Variables are:
-        //      (a) newLineStarts - an array holding the start character index of each line
-        //      (b) newLineStates - an array of 'stacks' (one stack per line). Each 'stack' is a dictionary of the current highlighter state and inform6/7 'mode'.
-        //
-        var newLineStarts: [Int] = []
-        var nNewLines = 0
-        var newLineStates: [[IFSyntaxStackEntry]] = []
+        // Replace the line start positions (first line is still at the same position, with the same initial state, of course)
+        let nNewLines = lineStarts.replaceLines(after: firstLine,
+                                                through: lastLine,
+                                                withLinesIn: newString,
+                                                at: oldRange.location,
+                                                changeInLength: changeInLength)
 
-        var x = 0
-        while x < newRange.length {
-            let thisChar = newString.character(at: x)
-
-            if thisChar == lineFeed || thisChar == carriageReturn {
-                nNewLines += 1
-                newLineStarts.append(x + oldRange.location + 1)
-
-                newLineStates.append([IFSyntaxStackEntry(state: IFSyntaxState(IFSyntaxStateNotHighlighted), mode: 0)])
-            }
-            x += 1
-        }
+        // newLineStates - an array of 'stacks' (one stack per line). Each 'stack' is a dictionary of the current
+        // highlighter state and inform6/7 'mode'.
+        let notHighlighted = [IFSyntaxStackEntry(state: IFSyntaxState(IFSyntaxStateNotHighlighted), mode: 0)]
+        let newLineStates = [[IFSyntaxStackEntry]](repeating: notHighlighted, count: nNewLines)
 
         // Number of lines that have been added or taken away
         let lineDifference = nNewLines - (lastLine - firstLine)
 
 #if HighlighterDebug
-        NSLog("Highlighter: %ld %@ lines (%ld total)", lineDifference, nNewLines < (lastLine - firstLine) ? "new" : "removed", nLines)
+        NSLog("Highlighter: %ld %@ lines (%ld total)", lineDifference, nNewLines < (lastLine - firstLine) ? "new" : "removed", lineStarts.count - lineDifference)
 #endif
 
-        // Replace the line start positions (first line is still at the same position, with the same initial state, of course)
         if nNewLines < (lastLine - firstLine) {
-            // Update first
-            for x in 0..<nNewLines {
-                lineStarts[firstLine + 1 + x] = newLineStarts[x]
-            }
-
             // Remove the appropriate lines from the intelligence data
             intelData.removeLines(NSRange(location: firstLine + 1, length: -lineDifference))
             lineStyles.removeSubrange((firstLine + 1)..<(firstLine + 1 - lineDifference))
-
-            // Move lines down
-            lineStarts.removeSubrange((firstLine + nNewLines + 1)..<(lastLine + 1))
         } else {
-            // Move lines up
-            lineStarts.insert(contentsOf: repeatElement(0, count: lineDifference), at: lastLine + 1)
-
             lineStyles.removeSubrange((firstLine + 1)..<(lastLine + 1))
             intelData.removeLines(NSRange(location: firstLine + 1, length: lastLine - firstLine))
 
-            // Update last
-            for x in 0..<nNewLines {
+            for _ in 0..<nNewLines {
                 lineStyles.insert(paragraphStyle(forTabStops: 0), at: firstLine + 1)
                 intelData.insertLine(beforeLine: Int32(firstLine + 1))
-
-                lineStarts[firstLine + 1 + x] = newLineStarts[x]
             }
         }
 
         // Update the line states
         lineStates.replaceSubrange((firstLine + 1)..<(lastLine + 1), with: newLineStates)
-
-        // Update the remaining line start positions
-        nLines += lineDifference
-
-        x = firstLine + nNewLines + 1
-        while x < nLines {
-            lineStarts[x] += changeInLength
-            x += 1
-        }
 
         // Update the character styles of everything beyond our change
         let charactersToCopy = oldFullLength - oldRange.location - oldRange.length
@@ -618,7 +553,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
 
         // Characters in the edited range no longer have valid states
         precondition((newRange.length == 0) || ((newRange.length + newRange.location - 1) < Int(charStyles.numCharStyles)), "index out of range")
-        x = 0
+        var x = 0
         while x < newRange.length {
             charStyles.write(x + newRange.location, value: .styleNotHighlighted)
             x += 1
@@ -758,8 +693,8 @@ private func isWhitespace(_ c: unichar) -> Bool {
     /// Apply the paragraph style recorded in lineStyles[] for the given line to the text.
     ///
     private final func applyLineStyle(forLine line: Int) {
-        let firstChar = lineStarts[line]
-        let lastChar  = (line + 1) < nLines ? lineStarts[line + 1] : textStorage.length
+        let firstChar = lineStarts.start(ofLine: line)
+        let lastChar  = (line + 1) < lineStarts.count ? lineStarts.start(ofLine: line + 1) : textStorage.length
         let lineRange = NSRange(location: firstChar, length: lastChar - firstChar)
 
         textStorage.addAttributes(lineStyles[line],
@@ -804,8 +739,8 @@ private func isWhitespace(_ c: unichar) -> Bool {
 
         for line in firstLine...lastLine {
             // The range of characters in this line
-            let firstChar = lineStarts[line]
-            let lastChar  = (line + 1) < nLines ? lineStarts[line + 1] : textStorage.length
+            let firstChar = lineStarts.start(ofLine: line)
+            let lastChar  = (line + 1) < lineStarts.count ? lineStarts.start(ofLine: line + 1) : textStorage.length
 
             // Set up the state
             syntaxStack = lineStates[line]
@@ -921,8 +856,8 @@ private func isWhitespace(_ c: unichar) -> Bool {
         //
         // Phase Two: Apply the character styles as attributes
         //
-        let firstRangeChar = lineStarts[firstLine]
-        let lastRangeChar = (lastLine + 1) < nLines ? lineStarts[lastLine + 1] : textStorage.length
+        let firstRangeChar = lineStarts.start(ofLine: firstLine)
+        let lastRangeChar = (lastLine + 1) < lineStarts.count ? lineStarts.start(ofLine: lastLine + 1) : textStorage.length
 
         updateHighlightingForAttributedString(in: NSRange(location: firstRangeChar, length: lastRangeChar - firstRangeChar))
 
@@ -949,11 +884,11 @@ private func isWhitespace(_ c: unichar) -> Bool {
             // a table in two. Checking an extra line is cheap when it is not in a table, and
             // the comparison against lineStyles[] below skips any row whose stops are unchanged.
             let firstTabLine = (firstLine > 0) ? firstLine - 1 : firstLine
-            let lastTabLine  = (lastLine + 1 < nLines) ? lastLine + 1 : lastLine
+            let lastTabLine  = (lastLine + 1 < lineStarts.count) ? lastLine + 1 : lastLine
             var line = firstTabLine
             while line <= lastTabLine {
                 // The range of characters on the line
-                let firstChar = lineStarts[line]
+                let firstChar = lineStarts.start(ofLine: line)
 
                 // Get the region affected by these elastic tabs
                 let elasticRange = tables.rangeOfRegion(at: UInt(firstChar))
@@ -1235,7 +1170,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
         let str = textStorage.mutableString
 
         // Our current location, and the number of acquired tab stops
-        var lineStart = lineStarts[Int(lineNumber)]
+        var lineStart = lineStarts.start(ofLine: Int(lineNumber))
         var nTabStops: Int32 = 0
 
         while lineStart < strLen && str.character(at: lineStart) == tab {
@@ -1248,24 +1183,24 @@ private func isWhitespace(_ c: unichar) -> Bool {
 
     func text(forLine lineNumber: Int32) -> String {
         let line = Int(lineNumber)
-        if line < 0 || line >= nLines {
+        if line < 0 || line >= lineStarts.count {
             return ""
         }
 
         // Get the start/end of the line
-        let lineStart = lineStarts[line]
-        let lineEnd = line + 1 < nLines ? lineStarts[line + 1] : textStorage.length
+        let lineStart = lineStarts.start(ofLine: line)
+        let lineEnd = line + 1 < lineStarts.count ? lineStarts.start(ofLine: line + 1) : textStorage.length
 
         return textStorage.mutableString.substring(with: NSRange(location: lineStart, length: lineEnd - lineStart))
     }
 
     func style(atStartOfLine lineNumber: Int32) -> IFSyntaxStyle {
-        return charStyles.read(lineStarts[Int(lineNumber)])
+        return charStyles.read(lineStarts.start(ofLine: Int(lineNumber)))
     }
 
     func style(atEndOfLine lineNumber: Int32) -> IFSyntaxStyle {
         let line = Int(lineNumber)
-        let pos = line + 1 < nLines ? lineStarts[line + 1] - 1 : textStorage.length - 1
+        let pos = line + 1 < lineStarts.count ? lineStarts.start(ofLine: line + 1) - 1 : textStorage.length - 1
 
         if pos < 0 {
             return .styleNotHighlighted
@@ -1285,9 +1220,9 @@ private func isWhitespace(_ c: unichar) -> Bool {
         let line = Int(lineNumber)
         let pos: Int
 
-        if line + 1 < nLines {
+        if line + 1 < lineStarts.count {
             // Move back -2 to skip the newline at the end of the previous line
-            pos = lineStarts[line + 1] - 2
+            pos = lineStarts.start(ofLine: line + 1) - 2
         } else {
             // Final character of the document
             pos = textStorage.length - 1
@@ -1315,13 +1250,13 @@ private func isWhitespace(_ c: unichar) -> Bool {
 
     func replaceLine(_ lineNumber: Int32, withLine newLine: String) {
         let line = Int(lineNumber)
-        if line >= nLines {
-            NSLog("Attempt to replace line %i (but we only have %ld lines)", lineNumber, nLines)
+        if line >= lineStarts.count {
+            NSLog("Attempt to replace line %i (but we only have %ld lines)", lineNumber, lineStarts.count)
         }
 
         // Get the start/end of the line
-        let lineStart = lineStarts[line]
-        let lineEnd = line + 1 < nLines ? lineStarts[line + 1] : textStorage.length
+        let lineStart = lineStarts.start(ofLine: line)
+        let lineEnd = line + 1 < lineStarts.count ? lineStarts.start(ofLine: line + 1) : textStorage.length
 
         // Make sure the undo manager can undo this change
         if let undoManager {
