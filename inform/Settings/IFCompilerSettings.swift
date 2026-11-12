@@ -129,15 +129,6 @@ private let libraryPaths: [String] = {
         }
     }
 
-    deinit {
-        // The project lets go of its settings on the main thread
-        MainActor.assumeIsolated {
-            for setting in genericSettings {
-                setting.compilerSettings = nil
-            }
-        }
-    }
-
     // MARK: - Getting information on what is going on
 
     var primaryCompilerType: String {
