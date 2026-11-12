@@ -215,6 +215,16 @@ private let tab: unichar            = 0x09      // \t
         if let rewritten = rewriteInput(newString) {
             // Actually make the change
             storage.replaceCharacters(in: newRange, with: rewritten)
+
+            // The text view undoes what was typed, so the rewriting is undone first, putting back what was typed. It's
+            // undone in the main text, where the restricted storage's change is about to be mirrored.
+            if let undoManager {
+                IFSyntaxData.registerUndo(ofChangeAt: editingRange.location,
+                                          from: newString,
+                                          to: rewritten,
+                                          in: textStorage,
+                                          with: undoManager)
+            }
         }
     }
 
@@ -710,6 +720,20 @@ private let tab: unichar            = 0x09      // \t
         return textStorage.mutableString.character(at: pos)
     }
 
+    /// Lets the undo manager undo a change to the text that wasn't typed, such as a heading's number, by putting back
+    /// what it replaced, and then redo it
+    private static func registerUndo(ofChangeAt location: Int,
+                                     from oldText: String,
+                                     to newText: String,
+                                     in storage: NSTextStorage,
+                                     with undoManager: UndoManager) {
+        undoManager.registerUndo(withTarget: storage) { storage in
+            registerUndo(ofChangeAt: location, from: newText, to: oldText, in: storage, with: undoManager)
+            storage.replaceCharacters(in: NSRange(location: location, length: (newText as NSString).length),
+                                      with: oldText)
+        }
+    }
+
     func callback(forEditing selector: Selector, withValue parameter: Any?) {
         if let intelSource {
             RunLoop.current.perform(selector,
@@ -732,11 +756,12 @@ private let tab: unichar            = 0x09      // \t
 
         // Make sure the undo manager can undo this change
         if let undoManager {
-            let newLineRange = NSRange(location: lineStart, length: (newLine as NSString).length)
             let oldLine = textStorage.mutableString.substring(with: NSRange(location: lineStart, length: lineEnd - lineStart))
-            undoManager.registerUndo(withTarget: textStorage) { storage in
-                storage.replaceCharacters(in: newLineRange, with: oldLine)
-            }
+            IFSyntaxData.registerUndo(ofChangeAt: lineStart,
+                                      from: oldLine,
+                                      to: newLine,
+                                      in: textStorage,
+                                      with: undoManager)
         }
 
         // Perform the operation

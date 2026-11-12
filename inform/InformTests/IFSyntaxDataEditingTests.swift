@@ -25,9 +25,25 @@ private final class LineRecordingIntelligence: NSObject, IFSyntaxIntelligence {
     }
 }
 
+/// Gives a text view the undo manager its text was registered with, as a project's views have its document's
+private final class UndoManagerGiver: NSObject, NSTextViewDelegate {
+    let undoManager: UndoManager
+
+    init(_ undoManager: UndoManager) {
+        self.undoManager = undoManager
+    }
+
+    func undoManager(for view: NSTextView) -> UndoManager? {
+        return undoManager
+    }
+}
+
 /// Editing highlighted text: keeping the views restricted to part of it in step, and rewriting what's typed.
 @MainActor
 final class IFSyntaxDataEditingTests: XCTestCase {
+
+    /// The text views' delegates, which they don't keep
+    private var undoManagerGivers: [UndoManagerGiver] = []
 
     private let source = """
         "Editing" by Tester
@@ -329,6 +345,78 @@ final class IFSyntaxDataEditingTests: XCTestCase {
         // The sections after it are renumbered next time round the run loop
         RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
         XCTAssertEqual(storage.string, numbered.replacingOccurrences(of: "Section 2", with: "Section 2 - \n\nSection 3"))
+    }
+
+    // MARK: - Undoing what was rewritten
+
+    /// A text view onto a text registered with an undo manager, which undoes what's typed in it with that manager, as
+    /// a project's views do. The test makes the manager's groups, as each event does in the app.
+    private func undoableView(of text: String, intelligence: IFSyntaxIntelligence) -> (NSTextView, UndoManager) {
+        let undoManager = UndoManager()
+        undoManager.groupsByEvent = false
+        let storage = registered(text, intelligence: intelligence, undoManager: undoManager)
+        let textView = NSTextView(frame: NSRect(x: 0, y: 0, width: 400, height: 400))
+        textView.layoutManager?.replaceTextStorage(storage)
+        textView.allowsUndo = true
+        let giver = UndoManagerGiver(undoManager)
+        undoManagerGivers.append(giver)
+        textView.delegate = giver
+        return (textView, undoManager)
+    }
+
+    /// Types text into a view after the first match of some text, as one event: in a group of its own, with the run
+    /// loop going round before the group ends
+    private func type(_ text: String, after find: String, in view: NSTextView, undoManager: UndoManager,
+                      file: StaticString = #filePath, line: UInt = #line) {
+        let found = (view.string as NSString).range(of: find)
+        XCTAssertNotEqual(found.location, NSNotFound, find, file: file, line: line)
+        view.setSelectedRange(NSRange(location: NSMaxRange(found), length: 0))
+        undoManager.beginUndoGrouping()
+        view.insertText(text, replacementRange: NSRange(location: NSNotFound, length: 0))
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+        undoManager.endUndoGrouping()
+    }
+
+    /// Undoing takes away the number, and the space that was typed, and puts back the numbers of the headings after it
+    func testUndoingAHeadingThatWasNumbered() throws {
+        try XCTSkipUnless(IFPreferences.shared.autoNumberSections,
+                          "Numbering sections is turned off in Inform's preferences")
+        let numbered = """
+            "Numbering" by Tester
+
+            Section 1 - Doors
+
+            Section 2 - Windows
+
+            """
+        let before = numbered.replacingOccurrences(of: "Section 2", with: "Section\n\nSection 2")
+        let renumbered = numbered.replacingOccurrences(of: "Section 2", with: "Section 2 - \n\nSection 3")
+        let (view, undoManager) = undoableView(of: before, intelligence: IFNaturalIntel())
+
+        type(" ", after: "Doors\n\nSection", in: view, undoManager: undoManager)
+        XCTAssertEqual(view.string, renumbered)
+
+        undoManager.undo()
+        XCTAssertEqual(view.string, before)
+        undoManager.redo()
+        XCTAssertEqual(view.string, renumbered)
+        undoManager.undo()
+        XCTAssertEqual(view.string, before)
+    }
+
+    func testUndoingANewLineThatWasIndented() throws {
+        try XCTSkipUnless(IFPreferences.shared.indentAfterNewline,
+                          "Indenting new lines is turned off in Inform's preferences")
+        let indented = source.replacingOccurrences(of: "Every turn:\n", with: "Every turn:\n\t\n")
+        let (view, undoManager) = undoableView(of: source, intelligence: IFNaturalIntel())
+
+        type("\n", after: "Every turn:", in: view, undoManager: undoManager)
+        XCTAssertEqual(view.string, indented)
+
+        undoManager.undo()
+        XCTAssertEqual(view.string, source)
+        undoManager.redo()
+        XCTAssertEqual(view.string, indented)
     }
 
     // MARK: - Lines
