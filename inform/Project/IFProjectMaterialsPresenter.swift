@@ -17,7 +17,7 @@ extension IFProjectMaterialsPresenter {
 
     private final let queue: OperationQueue
 
-    @objc(initWithURL:)
+    @MainActor @objc(initWithURL:)
     init(url mainURL: URL?) {
         if let mainURL, mainURL.isFileURL {
             primaryURL          = mainURL as NSURL
@@ -56,7 +56,7 @@ extension IFProjectMaterialsPresenter {
         return primaryURL as URL?
     }
 
-    private final func createFolder() {
+    @MainActor private final func createFolder() {
         // Without a file URL, there's nowhere to create it
         guard let secondaryURL = secondaryURL as URL?, let moveURL = moveURL as URL? else {
             NSLog("WARNING: Could not create materials folder at URL (null)")

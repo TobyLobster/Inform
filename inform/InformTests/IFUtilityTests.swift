@@ -622,12 +622,26 @@ final class IFUtilityTests: XCTestCase, @unchecked Sendable {
     /// IFUtility, recording the alerts it's asked to show instead of showing them
     private final class AlertRecorder: IFUtility {
         nonisolated(unsafe) static var shown: [(alert: NSAlert, window: NSWindow?)] = []
+        /// The response each alert ends with at once, if any
+        nonisolated(unsafe) static var response: NSApplication.ModalResponse?
 
         override class func show(_ alert: NSAlert,
                                  for window: NSWindow?,
                                  completionHandler handler:
                                     @escaping @MainActor @Sendable (NSApplication.ModalResponse) -> Void) {
             shown.append((alert, window))
+            if let response {
+                MainActor.assumeIsolated { handler(response) }
+            }
+        }
+    }
+
+    /// A yes/no alert's delegate, recording what it's sent when the alert ends
+    private final class YesNoDelegate: NSObject {
+        var ended: [(window: NSWindow?, returnCode: Int, contextInfo: UnsafeMutableRawPointer?)] = []
+
+        @objc func alertDidEnd(_ window: NSWindow?, returnCode: Int, contextInfo: UnsafeMutableRawPointer?) {
+            ended.append((window, returnCode, contextInfo))
         }
     }
 
@@ -726,6 +740,173 @@ final class IFUtilityTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(shown.alert.informativeText, "100% sure")
         XCTAssertEqual(shown.alert.buttons.map(\.title), ["Delete", "Cancel"])
         XCTAssertEqual(shown.alert.buttons.map(\.hasDestructiveAction), [true, false])
+    }
+
+    /// An information alert looks its title up in the localised strings, and shows its text as it is
+    func testAnInformationAlertShowsItsTextAsItIs() throws {
+        AlertRecorder.shown = []
+        defer { AlertRecorder.shown = [] }
+        let window = makeWindow()
+
+        AlertRecorder.runAlertInformationWindow(window, title: "Failed to Install Extension",
+                                                informativeText: "100% sure")
+
+        XCTAssertEqual(AlertRecorder.shown.count, 1)
+        let shown = try XCTUnwrap(AlertRecorder.shown.first)
+        XCTAssertTrue(shown.window === window)
+        XCTAssertEqual(shown.alert.messageText, "Inform was unable to install the extension")
+        XCTAssertEqual(shown.alert.informativeText, "100% sure")
+        XCTAssertEqual(shown.alert.alertStyle, .informational)
+        XCTAssertEqual(shown.alert.buttons.map(\.title), ["OK"])
+    }
+
+    /// A warning looks its title up too, and shows its text as it is
+    func testAWarningShowsItsTextAsItIs() throws {
+        AlertRecorder.shown = []
+        defer { AlertRecorder.shown = [] }
+
+        AlertRecorder.runAlertWarning(nil, title: "Failed to Install Extension", informativeText: "100% sure")
+
+        XCTAssertEqual(AlertRecorder.shown.count, 1)
+        let shown = try XCTUnwrap(AlertRecorder.shown.first)
+        XCTAssertNil(shown.window)
+        XCTAssertEqual(shown.alert.messageText, "Inform was unable to install the extension")
+        XCTAssertEqual(shown.alert.informativeText, "100% sure")
+        XCTAssertEqual(shown.alert.alertStyle, .warning)
+        XCTAssertEqual(shown.alert.buttons.map(\.title), ["OK"])
+    }
+
+    /// ...but not when its title is already localised
+    func testAWarningWithALocalizedTitleDoesntLookItUp() throws {
+        AlertRecorder.shown = []
+        defer { AlertRecorder.shown = [] }
+
+        AlertRecorder.runAlertWarning(nil, localizedTitle: "Failed to Install Extension", informativeText: "100% sure")
+
+        XCTAssertEqual(AlertRecorder.shown.count, 1)
+        let shown = try XCTUnwrap(AlertRecorder.shown.first)
+        XCTAssertEqual(shown.alert.messageText, "Failed to Install Extension")
+        XCTAssertEqual(shown.alert.informativeText, "100% sure")
+        XCTAssertEqual(shown.alert.alertStyle, .warning)
+        XCTAssertEqual(shown.alert.buttons.map(\.title), ["OK"])
+    }
+
+    /// A yes/no alert shows its title and buttons as they're given, and has no destructive button unless asked
+    func testAYesNoAlertDoesntLookUpItsTitleOrButtons() throws {
+        AlertRecorder.shown = []
+        defer { AlertRecorder.shown = [] }
+
+        AlertRecorder.runAlertYesNoWindow(nil, title: "Failed to Install Extension", yes: "Failed to Install Extension",
+                                          no: "Error", modalDelegate: nil, didEnd: nil, contextInfo: nil,
+                                          informativeText: "Failed to Install Extension")
+
+        XCTAssertEqual(AlertRecorder.shown.count, 1)
+        let shown = try XCTUnwrap(AlertRecorder.shown.first)
+        XCTAssertNil(shown.window)
+        XCTAssertEqual(shown.alert.messageText, "Failed to Install Extension")
+        XCTAssertEqual(shown.alert.informativeText, "Failed to Install Extension")
+        XCTAssertEqual(shown.alert.alertStyle, .informational)
+        XCTAssertEqual(shown.alert.buttons.map(\.title), ["Failed to Install Extension", "Error"])
+        XCTAssertEqual(shown.alert.buttons.map(\.hasDestructiveAction), [false, false])
+    }
+
+    /// The destructive button can be the second, but no other index marks one
+    func testAYesNoAlertsDestructiveButtonIsTheFirstOrSecond() {
+        AlertRecorder.shown = []
+        defer { AlertRecorder.shown = [] }
+
+        for index in [1, 2, -1, NSNotFound] {
+            AlertRecorder.runAlertYesNoWindow(nil, title: "Are you sure?", yes: "Delete", no: "Cancel",
+                                              modalDelegate: nil, didEnd: nil, contextInfo: nil,
+                                              destructiveIndex: index, informativeText: "Text")
+        }
+
+        XCTAssertEqual(AlertRecorder.shown.map { $0.alert.buttons.map(\.hasDestructiveAction) },
+                       [[false, true], [false, false], [false, false], [false, false]])
+    }
+
+    /// When a yes/no alert ends, its delegate is sent the selector with the window, the response and the context
+    func testAYesNoAlertTellsItsDelegateHowItEnded() throws {
+        AlertRecorder.shown = []
+        AlertRecorder.response = .alertSecondButtonReturn
+        defer {
+            AlertRecorder.shown = []
+            AlertRecorder.response = nil
+        }
+        let window = makeWindow()
+        let delegate = YesNoDelegate()
+        let selector = #selector(YesNoDelegate.alertDidEnd(_:returnCode:contextInfo:))
+        let context = UnsafeMutableRawPointer.allocate(byteCount: 1, alignment: 1)
+        defer { context.deallocate() }
+
+        AlertRecorder.runAlertYesNoWindow(window, title: "Are you sure?", yes: "Create", no: "Cancel",
+                                          modalDelegate: delegate, didEnd: selector, contextInfo: context,
+                                          informativeText: "Text")
+        AlertRecorder.runAlertYesNoWindow(nil, title: "Are you sure?", yes: "Delete", no: "Cancel",
+                                          modalDelegate: delegate, didEnd: selector, contextInfo: nil,
+                                          destructiveIndex: 0, informativeText: "Text")
+
+        XCTAssertEqual(delegate.ended.count, 2)
+        let first = try XCTUnwrap(delegate.ended.first)
+        XCTAssertTrue(first.window === window)
+        XCTAssertEqual(first.returnCode, NSApplication.ModalResponse.alertSecondButtonReturn.rawValue)
+        XCTAssertEqual(first.contextInfo, context)
+        let last = try XCTUnwrap(delegate.ended.last)
+        XCTAssertNil(last.window)
+        XCTAssertEqual(last.returnCode, NSApplication.ModalResponse.alertSecondButtonReturn.rawValue)
+        XCTAssertNil(last.contextInfo)
+    }
+
+    /// ...but only if it has a selector to send
+    func testAYesNoAlertWithoutASelectorTellsNobody() {
+        AlertRecorder.shown = []
+        AlertRecorder.response = .alertFirstButtonReturn
+        defer {
+            AlertRecorder.shown = []
+            AlertRecorder.response = nil
+        }
+        let delegate = YesNoDelegate()
+
+        AlertRecorder.runAlertYesNoWindow(nil, title: "Are you sure?", yes: "Create", no: "Cancel",
+                                          modalDelegate: delegate, didEnd: nil, contextInfo: nil,
+                                          informativeText: "Text")
+        AlertRecorder.runAlertYesNoWindow(nil, title: "Are you sure?", yes: "Create", no: "Cancel",
+                                          modalDelegate: nil,
+                                          didEnd: #selector(YesNoDelegate.alertDidEnd(_:returnCode:contextInfo:)),
+                                          contextInfo: nil, informativeText: "Text")
+
+        XCTAssertEqual(AlertRecorder.shown.count, 2)
+        XCTAssertTrue(delegate.ended.isEmpty)
+    }
+
+    /// An extension that couldn't be installed gets a warning, whatever went wrong
+    func testAnExtensionThatCouldntBeInstalledGetsAWarning() {
+        AlertRecorder.shown = []
+        defer { AlertRecorder.shown = [] }
+        let window = makeWindow()
+        let failures: [IFExtensionResult] = [.notFound, .notValid, .alreadyExists, .cantWriteDestination]
+
+        for result in failures {
+            AlertRecorder.showExtensionError(result, with: window)
+        }
+
+        XCTAssertEqual(AlertRecorder.shown.count, failures.count)
+        XCTAssertTrue(AlertRecorder.shown.allSatisfy { $0.window === window })
+        XCTAssertEqual(Set(AlertRecorder.shown.map(\.alert.messageText)),
+                       ["Inform was unable to install the extension"])
+        XCTAssertEqual(Set(AlertRecorder.shown.map(\.alert.informativeText)),
+                       [IFUtility.localizedString("Failed to Install Extension Explanation")])
+        XCTAssertEqual(Set(AlertRecorder.shown.map(\.alert.alertStyle)), [.warning])
+    }
+
+    /// ...but one that was installed gets none
+    func testAnExtensionThatWasInstalledGetsNoWarning() {
+        AlertRecorder.shown = []
+        defer { AlertRecorder.shown = [] }
+
+        AlertRecorder.showExtensionError(.success, with: makeWindow())
+
+        XCTAssertTrue(AlertRecorder.shown.isEmpty)
     }
 
     // MARK: - The tests' home folder

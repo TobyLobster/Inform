@@ -304,7 +304,7 @@ private let kPositionEpsilon: CGFloat   = 0.01
 
         linkView.frame = NSRect(x: finalFrom.x, y: finalFrom.y, width: round(finalLength), height: round(kSkeinLinkViewThickness))
 
-        // RADIANS_TO_DEGREES
+        // Radians to degrees
         let rot = finalAngleRadians * (180.0 / CGFloat.pi)
 
         // Set final frame rotation (but for performance - only if it's changed)

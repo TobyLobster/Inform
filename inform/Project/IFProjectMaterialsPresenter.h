@@ -17,7 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, readonly, copy, nullable)    NSURL *             primaryPresentedItemURL;
 
 - (instancetype) init NS_UNAVAILABLE;
-- (instancetype) initWithURL:(nullable NSURL*) mainURL NS_DESIGNATED_INITIALIZER;
+/// Creates the materials folder if it isn't there, telling the user if it moved an old one
+- (instancetype) initWithURL:(nullable NSURL*) mainURL NS_DESIGNATED_INITIALIZER NS_SWIFT_UI_ACTOR;
 
 /// Stops presenting the materials folder. NSFileCoordinator keeps the presenters it has alive, so
 /// this must be called before letting go of one.

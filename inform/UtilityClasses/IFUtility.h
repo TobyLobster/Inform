@@ -13,16 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
-#define DEGREES_TO_RADIANS(degrees) ((degrees) * (M_PI / 180.0))
-extern NSTimeInterval const defaultTimeoutInterval;
-extern NSErrorDomain        INFORM_ERROR_DOMAIN;
-
-CGFloat lerp(CGFloat progress, CGFloat from, CGFloat to);
-CGFloat smoothstep(CGFloat t);
-CGFloat smootherstep(CGFloat t);
-CGFloat easeOutQuad(CGFloat t);
-CGFloat easeOutCubic(CGFloat t);
+static NSErrorDomain const INFORM_ERROR_DOMAIN = @"com.inform7.errors";
 
 @interface IFUtility : NSObject
 
@@ -40,42 +31,33 @@ CGFloat easeOutCubic(CGFloat t);
 + (BOOL) isTestHostWithLeftoverHomeInEnvironment: (NSDictionary<NSString*, NSString*>*) environment;
 
 // Convenience methods for alerts
+/// An informational alert with an OK button, its title looked up in the localised strings and its text as it is
 + (void) runAlertInformationWindow: (nullable NSWindow*) window
                              title: (NSString*) title
-                           message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(3,4);
+                   informativeText: (NSString*) text NS_SWIFT_UI_ACTOR;
+/// The same, as a warning
 + (void) runAlertWarningWindow: (nullable NSWindow*) window
                          title: (NSString*) title
-                       message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(3,4);
-/// The same, for Swift, which can't call the methods taking a format
-+ (void) runAlertInformationWindow: (nullable NSWindow*) window
-                             title: (NSString*) title
-                   informativeText: (NSString*) text;
-+ (void) runAlertWarningWindow: (nullable NSWindow*) window
-                         title: (NSString*) title
-               informativeText: (NSString*) text;
-/// A warning whose title is already localised, with its text as it is, for Swift
+               informativeText: (NSString*) text NS_SWIFT_UI_ACTOR;
+/// A warning whose title is already localised
 + (void) runAlertWarningWindow: (nullable NSWindow*) window
                 localizedTitle: (NSString*) title
-               informativeText: (NSString*) text;
-
-+ (void) runAlertWindow: (nullable NSWindow*) window
-              localized: (BOOL) alreadyLocalized
-                warning: (BOOL) warningStyle
-                  title: (NSString*) title
-                message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(5,6);
+               informativeText: (NSString*) text NS_SWIFT_UI_ACTOR;
 
 /// Shows the alert in a sheet on the window, or with no window runs it app-modally. While the app is
 /// hosting the unit tests an alert with no window is only logged, and ends at once with NSModalResponseAbort.
 + (void) showAlert: (NSAlert*) alert
          forWindow: (nullable NSWindow*) window
- completionHandler: (void (NS_SWIFT_UI_ACTOR ^)(NSModalResponse response)) handler;
+ completionHandler: (void (NS_SWIFT_UI_ACTOR ^)(NSModalResponse response)) handler NS_SWIFT_UI_ACTOR;
 
 /// Begins the save panel in a sheet on the window, or with no window as an app-modal panel that doesn't wait,
 /// which is what AppKit makes of a sheet on no window. For Swift, which can't begin a sheet on no window.
 + (void) beginSavePanel: (NSSavePanel*) panel
               forWindow: (nullable NSWindow*) window
-      completionHandler: (void (NS_SWIFT_UI_ACTOR ^)(NSModalResponse result)) handler;
+      completionHandler: (void (NS_SWIFT_UI_ACTOR ^)(NSModalResponse result)) handler NS_SWIFT_UI_ACTOR;
 
+/// An alert asking yes or no, with its title, buttons and text as they're given. When it ends, the delegate is sent
+/// the selector, if both are given, with the window, the response and the context.
 + (void) runAlertYesNoWindow: (nullable NSWindow*) window
                        title: (NSString*) title
                          yes: (NSString*) yes
@@ -83,8 +65,8 @@ CGFloat easeOutCubic(CGFloat t);
                modalDelegate: (nullable id) modalDelegate
               didEndSelector: (nullable SEL) alertDidEndSelector
                  contextInfo: (nullable void *) contextInfo
-                     message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(8,9);
-
+             informativeText: (NSString*) text NS_SWIFT_UI_ACTOR;
+/// The same, with the button at the index given (0 or 1) marked as destructive
 + (void) runAlertYesNoWindow: (nullable NSWindow*) window
                        title: (NSString*) title
                          yes: (NSString*) yes
@@ -93,30 +75,11 @@ CGFloat easeOutCubic(CGFloat t);
               didEndSelector: (nullable SEL) alertDidEndSelector
                  contextInfo: (nullable void *) contextInfo
             destructiveIndex: (NSInteger) desIdx
-                     message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(9,10);
-/// The same, for Swift, which can't call the methods taking a format
-+ (void) runAlertYesNoWindow: (nullable NSWindow*) window
-                       title: (NSString*) title
-                         yes: (NSString*) yes
-                          no: (NSString*) no
-               modalDelegate: (nullable id) modalDelegate
-              didEndSelector: (nullable SEL) alertDidEndSelector
-                 contextInfo: (nullable void *) contextInfo
-             informativeText: (NSString*) text;
-/// The same, with the button at the index given (0 or 1) marked as destructive, for Swift
-+ (void) runAlertYesNoWindow: (nullable NSWindow*) window
-                       title: (NSString*) title
-                         yes: (NSString*) yes
-                          no: (NSString*) no
-               modalDelegate: (nullable id) modalDelegate
-              didEndSelector: (nullable SEL) alertDidEndSelector
-                 contextInfo: (nullable void *) contextInfo
-            destructiveIndex: (NSInteger) desIdx
-             informativeText: (NSString*) text;
+             informativeText: (NSString*) text NS_SWIFT_UI_ACTOR;
 
 /// Show an error for an operation on an extension (e.g. error while installing an extension)
 + (void) showExtensionError: (IFExtensionResult) result
-                 withWindow: (nullable NSWindow*) window;
+                 withWindow: (nullable NSWindow*) window NS_SWIFT_UI_ACTOR;
 
 @end
 
