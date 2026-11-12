@@ -19,8 +19,9 @@ private let autoNumberHeading = [false, true, true, true, true, true, false]
 
 @objc @implementation extension IFNaturalIntel {
 
-    /// The highlighter that wants us to gather intelligence
-    private final var highlighter: IFSyntaxData? = nil
+    /// The highlighter that wants us to gather intelligence. It holds this intelligence, so it's held weakly, or
+    /// neither would ever be let go.
+    private final weak var highlighter: IFSyntaxData? = nil
 
     // MARK: - Useful parsing functions
 
