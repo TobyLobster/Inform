@@ -115,9 +115,11 @@ func easeOutCubic(_ t: CGFloat) -> CGFloat {
                                 for window: NSWindow?,
                                 completionHandler handler:
                                     @escaping @MainActor @Sendable (NSApplication.ModalResponse) -> Void) {
-        // Swift's beginSheetModal(for:) needs a window, so the method is called through its implementation
+        // Swift's beginSheetModal(for:) needs a window, so the method is called through its implementation.
+        // The panel keeps the handler, so it's passed as escaping, which a closure in a function type isn't by default.
         typealias BeginSheet = @convention(c) (NSSavePanel, Selector, NSWindow?,
-                                               @convention(block) @MainActor (NSApplication.ModalResponse) -> Void)
+                                               @escaping @convention(block) @MainActor
+                                                   (NSApplication.ModalResponse) -> Void)
                                                -> Void
         let selector = #selector(NSSavePanel.beginSheetModal(for:completionHandler:))
         let beginSheet = unsafeBitCast(panel.method(for: selector), to: BeginSheet.self)
