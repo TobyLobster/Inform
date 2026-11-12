@@ -86,6 +86,7 @@
 #import "IFToolRun.h"
 #import "IFTestCaseRun.h"
 #import "IFTestReport.h"
+#import "IFExtensionTestCases.h"
 #import "IFCompileCheck.h"
 #import "IFProjectMenuValidation.h"
 #import "IFPaneChoice.h"
