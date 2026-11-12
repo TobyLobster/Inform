@@ -62,6 +62,7 @@
 #import "IFInform7MutableString.h"
 #import "IFProject.h"
 #import "IFProjectFile.h"
+#import "IFSourceTexts.h"
 #import "IFProjectController.h"
 #import "IFSingleFile.h"
 #import "IFSingleController.h"
