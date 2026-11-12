@@ -179,13 +179,17 @@ private func isLineEnd(_ c: unichar) -> Bool {
             }
 
             // If this is a newline or a tab, add a new column. We ignore tabs at the start of the line
-            if (chr == tab && !tabsAtStart) || chr == lineFeed || chr == carriageReturn || (lastTabPos != chrPos && chrPos + 1 == region.location + region.length) {
+            if (chr == tab && !tabsAtStart) || chr == lineFeed || chr == carriageReturn {
                 // Store this column
                 lines[lines.count - 1].append(NSValue(range: NSRange(location: lastTabPos,
                                                                      length: chrPos - lastTabPos)))
 
                 // Start the next column on the character after this one
                 lastTabPos = chrPos + 1
+            } else if chrPos + 1 == region.location + region.length {
+                // At the end of a region that doesn't end its last line, store the last column, with this character
+                lines[lines.count - 1].append(NSValue(range: NSRange(location: lastTabPos,
+                                                                     length: chrPos + 1 - lastTabPos)))
             }
 
             // Add a new line if necessary

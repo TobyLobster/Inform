@@ -144,6 +144,11 @@ final class IFElasticTabsTests: XCTestCase {
         XCTAssertEqual(cells(in: "\ta\tb\n\t\tc\td\n"), [["\ta", "b"], ["\t\tc", "d"], []])
     }
 
+    func testTheLastCellOfATableAtTheEndOfTheText() {
+        XCTAssertEqual(cells(in: "a\tb\ncc\tdd"), [["a", "b"], ["cc", "dd"]])
+        XCTAssertEqual(cells(in: "a\tb\nc\td"), [["a", "b"], ["c", "d"]])
+    }
+
     func testLinesEndingInReturnsHaveCells() {
         XCTAssertEqual(cells(in: "a\tb\rc\td\r"), [["a", "b"], ["c", "d"], []])
     }
