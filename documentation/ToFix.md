@@ -11,7 +11,6 @@ Each says how it was found, and none has been seen in the app unless it says so.
 ## Documentation
 
 - **Searching the documentation is slow.** Find in Files reads and parses every documentation page for each search, and the pages the app has shown since May 2024 are about 100 MB, five times the old ones. A search of the documentation takes about 15 seconds in the tests, in a Debug build, against 4 with the old pages, and the whole test run went from about 205 seconds to 374. The parsed text could be kept between searches, or made when the app is built. Found while making Find in Files search the new documentation (11 November 2026); not timed in the app.
-- **The app has the old documentation, which nothing in it opens.** `inform/StagingArea`'s `en.lproj` still has the 558 `doc…` and `Rdoc…` pages (about 20 MB) and `allegs.html`, `Rallegs.html` and `examples_alphabetical.html`, all last changed in August 2023 and linking only to the old pages, and 28 `WI_…` pages from an older version (`WI_25_8` to `WI_25_15`, `WI_26_8` to `WI_26_10`, `WI_27_15` to `WI_27_24` and `WI_30_9` to `WI_30_15`), which have no search markers and which the contents page doesn't link to. They come from Inform Core's `resources/App HTML` folder, which git ignores, and which in the local checkout still has them beside the new pages (its `doc1.html` is from January 2024, its `WI_1_1.html` from 3 November 2026); `compiler_injection.sh` copies the whole folder. Found while making Find in Files search the new documentation (11 November 2026).
 
 ## Source editing
 

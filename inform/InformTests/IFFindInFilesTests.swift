@@ -228,8 +228,7 @@ final class IFFindInFilesTests: XCTestCase {
         }
     }
 
-    /// The contents pages, and the pages left from older documentation that nothing leads to, have no search title
-    /// and section, and aren't searched
+    /// The contents pages have no search title and section, and aren't searched
     func testLeavesOutPagesWithoutASearchTitle() {
         let results = search("Declaring files", .documentationBasic).results
 

@@ -378,7 +378,7 @@ final class IFWebViewHelperTests: XCTestCase, @unchecked Sendable {
     }
 
     func testLoadsAPageOfTheDocumentation() throws {
-        assertLoaded(load("inform:/doc1.html"), try resource("en.lproj/doc1.html"), type: "text/html")
+        assertLoaded(load("inform:/WI_1_1.html"), try resource("en.lproj/WI_1_1.html"), type: "text/html")
     }
 
     /// The compiler writes some links in lower case, and the files' names aren't
@@ -394,7 +394,7 @@ final class IFWebViewHelperTests: XCTestCase, @unchecked Sendable {
         let files = ["inform:/doc_images/Below.png": ("doc_images/Below.png", "image/png"),
                      "inform:/doc_images/Below.tif": ("doc_images/Below.tif", "image/tiff"),
                      "inform:/Internal/Templates/Quixe/waiting.gif": ("Internal/Templates/Quixe/waiting.gif", "image/gif"),
-                     "inform:/indoc_WI.css": ("en.lproj/indoc_WI.css", "text/css"),
+                     "inform:/Internal/HTML/main.css": ("Internal/HTML/main.css", "text/css"),
                      "inform:/messages_to_objc.js": ("messages_to_objc.js", "text/javascript"),
                      "inform:/InformCoreVersion.txt": ("InformCoreVersion.txt", "text/plain")]
         for (url, (path, type)) in files {
