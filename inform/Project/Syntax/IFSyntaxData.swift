@@ -61,7 +61,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
     private final var lineStarts: IFLineStarts                        // Start positions of each line
     private final var lineStates: [[IFSyntaxStackEntry]]              // Syntax stack at the start of lines
 
-    private final var charStyles: IFSyntaxStyles                      // Syntax state for each character
+    private final var charStyles: IFCharacterStyles                   // Syntax state for each character
     private final var lineStyles: [[NSAttributedString.Key: Any]]     // NSParagraphStyles for each line
 
     //
@@ -107,7 +107,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
         self.undoManager = aUndoManager
 
         // Setup variables for syntax highlighting
-        charStyles = IFSyntaxStyles()
+        charStyles = IFCharacterStyles()
         lineStyles = [[:]]
 
         syntaxStack = []
@@ -184,12 +184,6 @@ private func isWhitespace(_ c: unichar) -> Bool {
         MainActor.assumeIsolated {
             NotificationCenter.default.removeObserver(self)
 
-            if charStyles.styles != nil {
-                free(charStyles.styles)
-                charStyles.styles = nil
-                charStyles.numCharStyles = 0
-            }
-
             highlighter?.setSyntaxData(nil)
 
             intelSource?.setSyntaxData(nil)
@@ -204,36 +198,6 @@ private func isWhitespace(_ c: unichar) -> Bool {
     //
     private final func lineForIndex(_ index: Int) -> Int {
         return lineStarts.line(forIndex: index)
-    }
-
-    //
-    // Helper method.
-    // What's the range of the current style at the given character index?
-    //
-    private final func rangeOfStyle(at index: Int) -> NSRange {
-        let style = charStyles.read(index)
-
-        var localRange = NSRange(location: index, length: 0)       // Optimisation suggested by Shark
-
-        while localRange.location > 0 {
-            if charStyles.read(localRange.location - 1) == style {
-                localRange.location -= 1
-            } else {
-                break
-            }
-        }
-
-        let strLen = textStorage.length
-
-        while localRange.location + localRange.length < strLen {
-            if charStyles.read(localRange.location + localRange.length) == style {
-                localRange.length += 1
-            } else {
-                break
-            }
-        }
-
-        return localRange
     }
 
     //
@@ -481,7 +445,6 @@ private func isWhitespace(_ c: unichar) -> Bool {
         let oldRange      = NSRange(location: newRange.location, length: newRange.length - changeInLength)
         let newString     = textStorage.mutableString.substring(with: newRange)
         let newFullLength = textStorage.length
-        let oldFullLength = newFullLength - changeInLength
 
         // The range of lines to be replaced
         let firstLine = lineForIndex(oldRange.location)
@@ -527,37 +490,8 @@ private func isWhitespace(_ c: unichar) -> Bool {
         // Update the line states
         lineStates.replaceSubrange((firstLine + 1)..<(lastLine + 1), with: newLineStates)
 
-        // Update the character styles of everything beyond our change
-        let charactersToCopy = oldFullLength - oldRange.location - oldRange.length
-        if changeInLength > 0 {
-            // Move characters down (i.e. towards the back of the string)
-            charStyles.styles = realloc(charStyles.styles, newFullLength)?.bindMemory(to: IFSyntaxStyle.self, capacity: newFullLength)
-            charStyles.numCharStyles = UInt(newFullLength)
-
-            if let styles = charStyles.styles {
-                memmove(styles + newRange.location + newRange.length,
-                        styles + oldRange.location + oldRange.length,
-                        MemoryLayout<IFSyntaxStyle>.size * charactersToCopy)
-            }
-        } else {
-            // Move characters up (i.e. towards the front of the string)
-            if let styles = charStyles.styles {
-                memmove(styles + newRange.location + newRange.length,
-                        styles + oldRange.location + oldRange.length,
-                        MemoryLayout<IFSyntaxStyle>.size * charactersToCopy)
-            }
-
-            charStyles.styles = realloc(charStyles.styles, newFullLength)?.bindMemory(to: IFSyntaxStyle.self, capacity: newFullLength)
-            charStyles.numCharStyles = UInt(newFullLength)
-        }
-
-        // Characters in the edited range no longer have valid states
-        precondition((newRange.length == 0) || ((newRange.length + newRange.location - 1) < Int(charStyles.numCharStyles)), "index out of range")
-        var x = 0
-        while x < newRange.length {
-            charStyles.write(x + newRange.location, value: .styleNotHighlighted)
-            x += 1
-        }
+        // Update the character styles of everything beyond our change, and mark the edited range's as no longer valid
+        charStyles.replaceStyles(afterEditingRange: newRange, changeInLength: changeInLength)
 
         // Syntax highlight (up to) the rest of the text
         newRange.length = newFullLength - newRange.location
@@ -588,8 +522,8 @@ private func isWhitespace(_ c: unichar) -> Bool {
 
         while range.length > 0 {
             // What's the current style and it's range?
-            let style = charStyles.read(range.location)
-            var styleRange = rangeOfStyle(at: range.location)
+            let style = charStyles.style(at: range.location)
+            var styleRange = charStyles.rangeOfStyle(at: range.location)
 
             // The run of this style can extend past either end of the range we were asked
             // to update, across line boundaries. Never touch text outside the range: those
@@ -641,10 +575,10 @@ private func isWhitespace(_ c: unichar) -> Bool {
     @objc(backtrackWithStyle:length:)
     func backtrack(with newStyle: IFSyntaxStyle, length backtrackLength: Int32) {
         // Change the character style, going backwards for the specified length
-        precondition(syntaxPos < Int(charStyles.numCharStyles), "index out of range")
+        precondition(syntaxPos < charStyles.count, "index out of range")
         for x in stride(from: syntaxPos - Int(backtrackLength), to: syntaxPos, by: 1) {
             if x >= 0 {
-                charStyles.write(x, value: newStyle)
+                charStyles.setStyle(newStyle, at: x)
             }
         }
     }
@@ -733,6 +667,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
         var previousOldStack: [IFSyntaxStackEntry]? = nil                  // The 'old' stack for the previous line
         var previousElasticRange = NSRange(location: NSNotFound, length: 0) // The previous range formatted with elastic tabs
         let styles = IFSyntaxStyles()
+        let allStyles = charStyles.styles(from: 0)                           // Shared until the next edit
         let str = textStorage.mutableString
         let highlighter = self.highlighter
 
@@ -766,8 +701,8 @@ private func isWhitespace(_ c: unichar) -> Bool {
                                                    lastState: syntaxState) ?? []
 
                 // Store the style
-                precondition(syntaxPos < Int(charStyles.numCharStyles), "index out of range")
-                charStyles.styles![syntaxPos] = nextStyle
+                precondition(syntaxPos < Int(allStyles.numCharStyles), "index out of range")
+                allStyles.styles![syntaxPos] = nextStyle
 
                 // Store the state
                 syntaxState = nextState
@@ -780,8 +715,8 @@ private func isWhitespace(_ c: unichar) -> Bool {
 #if HighlighterDebug
             NSLog("Highlighter: finished line %ld: '%@', rehinting", line, lineToHint)
 #endif
-            styles.styles = charStyles.styles.map { $0 + firstChar }
-            styles.numCharStyles = charStyles.numCharStyles - UInt(firstChar)
+            styles.styles = allStyles.styles.map { $0 + firstChar }
+            styles.numCharStyles = allStyles.numCharStyles - UInt(firstChar)
             highlighter?.rehintLine(lineToHint,
                                     styles: styles,
                                     initialState: initialState)
@@ -1103,7 +1038,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
     }
 
     func style(atStartOfLine lineNumber: Int32) -> IFSyntaxStyle {
-        return charStyles.read(lineStarts.start(ofLine: Int(lineNumber)))
+        return charStyles.style(at: lineStarts.start(ofLine: Int(lineNumber)))
     }
 
     func style(atEndOfLine lineNumber: Int32) -> IFSyntaxStyle {
@@ -1113,7 +1048,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
         if pos < 0 {
             return .styleNotHighlighted
         }
-        return charStyles.read(pos)
+        return charStyles.style(at: pos)
     }
 
     @objc(styleAtIndex:)
@@ -1121,7 +1056,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
         if index >= textStorage.length {
             return .styleNotHighlighted
         }
-        return charStyles.read(Int(index))
+        return charStyles.style(at: Int(index))
     }
 
     func character(atEndOfLine lineNumber: Int32) -> unichar {
