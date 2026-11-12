@@ -207,6 +207,10 @@ final class IFCompilerOutputScannerTests: XCTestCase, @unchecked Sendable {
     func testAnInform6MessageNeedsItsLabelFirst() {
         assertLine(inform6("Not an Error:  Oops"), IFStyleCompilerMessage,
                    [.error(file: "auto.inf", line: 10, type: IFLexCompilerMessage, message: "Not an Error:  Oops")])
+        assertLine(inform6("wwError:  Oops"), IFStyleCompilerMessage,
+                   [.error(file: "auto.inf", line: 10, type: IFLexCompilerMessage, message: "wwError:  Oops")])
+        assertLine(inform6("wwWarning:  Oops"), IFStyleCompilerMessage,
+                   [.error(file: "auto.inf", line: 10, type: IFLexCompilerMessage, message: "wwWarning:  Oops")])
     }
 
     func testAnErrorThatRunsOutOfMemoryHasAPageOfItsOwn() {

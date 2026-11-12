@@ -103,7 +103,7 @@ File\ \".*\";\ Line\ [0-9]+(:\ \(.*\))?\t#\  {
     BEGIN(ERRORMESSAGE);
 }
 
-<ERRORMESSAGE>\w*\*\*\*\ Compiler\ error:.*\n {
+<ERRORMESSAGE>\*\*\*\ Compiler\ error:.*\n {
     char* message = messageAfterLabel(yytext, "Compiler error:");
 
     IFErrorAddError(currentError.file,
@@ -117,7 +117,7 @@ File\ \".*\";\ Line\ [0-9]+(:\ \(.*\))?\t#\  {
     BEGIN(0);
     return IFLexCompilerFatalError;
 }
-<ERRORMESSAGE>\w*Fatal\ error:.*\n {
+<ERRORMESSAGE>Fatal\ error:.*\n {
     char* message = messageAfterLabel(yytext, "Fatal error:");
 
     IFErrorAddError(currentError.file,
@@ -131,7 +131,7 @@ File\ \".*\";\ Line\ [0-9]+(:\ \(.*\))?\t#\  {
     BEGIN(0);
     return IFLexCompilerFatalError;
 }
-<ERRORMESSAGE>\w*Error:.*\n {
+<ERRORMESSAGE>Error:.*\n {
     char* message = messageAfterLabel(yytext, "Error:");
 
     IFErrorAddError(currentError.file,
@@ -145,7 +145,7 @@ File\ \".*\";\ Line\ [0-9]+(:\ \(.*\))?\t#\  {
     BEGIN(0);
     return IFLexCompilerError;
 }
-<ERRORMESSAGE>\w*Warning:.*\n {
+<ERRORMESSAGE>Warning:.*\n {
     char* message = messageAfterLabel(yytext, "Warning:");
 
     IFErrorAddError(currentError.file,
