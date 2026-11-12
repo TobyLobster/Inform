@@ -43,8 +43,6 @@ private let tab: unichar            = 0x09      // \t
     // Paragraph styles
     //
 
-    /// Tab stop array
-    private final var tabStops: [NSTextTab]?
     /// The paragraph style of each line, until elastic tabs give a table's lines their own
     private final var lineParagraphStyle: [NSAttributedString.Key: Any]?
 
@@ -91,7 +89,6 @@ private let tab: unichar            = 0x09      // \t
         lineStarts = IFLineStarts()
         highlighterState = IFHighlighterState(text: aStorage, characterStyles: charStyles)
 
-        tabStops = nil
         lineParagraphStyle = nil
 
         intelSource = nil
@@ -100,9 +97,6 @@ private let tab: unichar            = 0x09      // \t
         editingRange = NSRange(location: 0, length: 0)
 
         super.init()
-
-        // Set up default tabs
-        _ = paragraphStyle()
 
         // Set up intelligence
         self.intelligence = intelligence
@@ -723,8 +717,6 @@ private let tab: unichar            = 0x09      // \t
         // Flush out old indents / tabs if we force an update of tabs
         if forceUpdateTabs {
             lineParagraphStyle = nil
-
-            tabStops = nil
         }
 
         // Update highlighting for entire range
@@ -741,24 +733,11 @@ private let tab: unichar            = 0x09      // \t
 
     // MARK: - Tabbing
 
-    private final func standardTabStops() -> [NSTextTab] {
-        // Set up member variable 'tabStops' - a standard set of tabs at the current width
-        let newTabStops = IFTabStops.standardTabStops(forTabWidth: highlighter?.tabStopWidth ?? 0)
-        tabStops = newTabStops
-
-        return newTabStops
-    }
-
     private final func generateParagraphStyle() -> [NSAttributedString.Key: Any] {
         let res = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
 
-        // Create standard tab stops if needed
-        if tabStops == nil {
-            _ = standardTabStops()
-        }
-
-        // Set tabs
-        res.tabStops = tabStops
+        // Set the standard tabs, at the current width
+        res.tabStops = IFTabStops.standardTabStops(forTabWidth: highlighter?.tabStopWidth ?? 0)
 
         return [.paragraphStyle: res]
     }
