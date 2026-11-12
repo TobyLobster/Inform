@@ -416,6 +416,7 @@ Started November 2026, on the `extensions` branch. This is a living document: up
 
 - Quick Look preview and thumbnail extensions to replace InformQL.
 - Replacing Distributed Objects with `NSXPCConnection`, coordinated with MaddTheSane upstream.
+- [x] Pointing hands in the launcher (12 November 2026, c1796759), asked for by the maintainer after trying it. The links to websites and to advice show a pointing-hand cursor, as the links in the news already did in their web view. They're `IFLinkButton`s (4d06ccbc), buttons that add a pointing-hand cursor rectangle over themselves. The banner is one too, but shows the hand only while an advice page is shown, when clicking it goes back to the lists: `showWebView` and `hideWebView` turn it on and off, and the window then sets up the banner's cursor rectangles again. The links are hidden while the advice is shown, and AppKit disables a hidden view's cursor rectangles. Tests check that the links and the banner are link buttons, the cursor rectangle a button adds, that its window is told when that changes, and when the banner shows the hand. Not checked in the app.
 
 ## Decisions
 
