@@ -57,6 +57,7 @@
 #import "IFSyntaxManager.h"
 #import "IFSyntaxData.h"
 #import "IFElasticTabs.h"
+#import "IFRestrictedRanges.h"
 #import "IFInform6Highlighter.h"
 #import "IFNaturalHighlighter.h"
 #import "IFProjectPane.h"
