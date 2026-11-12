@@ -192,6 +192,17 @@ final class IFSourceTextsTests: XCTestCase {
                           project: project))
     }
 
+    /// A folder beside the Source folder is outside it, though its name starts with "Source", and the Source folder
+    /// itself has no text
+    func testAFolderBesideTheSourceFolderIsOutsideIt() throws {
+        let project = try makeProject(source: ["story.ni": Data("Story".utf8)],
+                                      others: ["Source Copy/story.ni": Data("Copy".utf8)])
+        let texts = try read(project)
+        XCTAssertNil(text(of: project.appendingPathComponent("Source Copy/story.ni").path, in: texts,
+                          project: project))
+        XCTAssertNil(text(of: project.appendingPathComponent("Source").path, in: texts, project: project))
+    }
+
     /// A file in a folder within the Source folder, by its path or by its path relative to the Source folder, is read
     /// from the disk, as UTF-8 or else Latin-1, into a new text each time, registered with the undo manager given
     func testReadsAFileInAFolderWithinTheSourceFolder() throws {

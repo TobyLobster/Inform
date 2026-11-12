@@ -188,9 +188,10 @@ import Cocoa
         let originalSourceFile  = sourceFile
         let sourceDir           = projectURL?.appendingPathComponent("Source").path
 
-        // Refuse to return storage for files outside the project directory
+        // Refuse to return storage for files outside the Source folder, by their paths: not in a folder beside it
+        // whose name starts with "Source", nor the folder itself
         if let sourceDir, (sourceFile as NSString).isAbsolutePath {
-            if !(sourceFile as NSString).standardizingPath.hasPrefix(sourceDir) {
+            if !(sourceFile as NSString).standardizingPath.hasPrefix(sourceDir + "/") {
                 return nil
             }
         }
