@@ -11,17 +11,15 @@ private let lineFeed: unichar       = 0x0A      // \n
 private let carriageReturn: unichar = 0x0D      // \r
 
 @objc @implementation extension IFLineStarts {
-    private final var nLines: Int                                     // Number of lines
     private final var lineStarts: [Int]                               // Start positions of each line
 
     override init() {
         lineStarts = [0]
-        nLines = 1
         super.init()
     }
 
     var count: Int {
-        return nLines
+        return lineStarts.count
     }
 
     func start(ofLine line: Int) -> Int {
@@ -34,7 +32,7 @@ private let carriageReturn: unichar = 0x0D      // \r
     func line(forIndex index: Int) -> Int {
         // Yet Another Binary Search
         var low = 0
-        var high = nLines - 1
+        var high = lineStarts.count - 1
 
         while low <= high {
             let middle = (low + high) >> 1
@@ -48,7 +46,7 @@ private let carriageReturn: unichar = 0x0D      // \r
             }
 
             // The last line runs on to the end of the text
-            let lineEnd = middle < (nLines - 1) ? lineStarts[middle + 1] : Int.max
+            let lineEnd = middle < (lineStarts.count - 1) ? lineStarts[middle + 1] : Int.max
 
             if index >= lineEnd {
                 // Not this line: search the upper half
@@ -61,7 +59,7 @@ private let carriageReturn: unichar = 0x0D      // \r
         }
 
         // If we fell off, must be the last line (lines are unsigned, so we can't fall off the bottom)
-        return nLines - 1
+        return lineStarts.count - 1
     }
 
     @objc(replaceLinesAfter:through:withLinesIn:atLocation:changeInLength:)
@@ -112,10 +110,8 @@ private let carriageReturn: unichar = 0x0D      // \r
         }
 
         // Update the remaining line start positions
-        nLines += lineDifference
-
         x = firstLine + nNewLines + 1
-        while x < nLines {
+        while x < lineStarts.count {
             lineStarts[x] += changeInLength
             x += 1
         }
