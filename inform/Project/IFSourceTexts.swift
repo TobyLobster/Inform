@@ -11,8 +11,12 @@ import Cocoa
 
     private final var _sourceFiles: [String: NSTextStorage]?
 
+    /// The texts read from the disk, for files not in the Source folder itself, to be unregistered with the rest
+    private final var otherTexts: [NSTextStorage]
+
     override init() {
         _sourceFiles = nil
+        otherTexts = []
 
         super.init()
     }
@@ -25,6 +29,12 @@ import Cocoa
         for (_, storage) in _sourceFiles ?? [:] {
             IFSyntaxManager.unregisterTextStorage(storage)
         }
+
+        // The texts read from the disk are let go too, as nothing else would unregister them
+        for storage in otherTexts {
+            IFSyntaxManager.unregisterTextStorage(storage)
+        }
+        otherTexts = []
     }
 
     // == storage ==
@@ -227,9 +237,11 @@ import Cocoa
                 textData = NSString(data: data, encoding: String.Encoding.isoLatin1.rawValue) as String?
             }
 
-            return storage(withString: textData ?? "",
-                           forFilename: sourceFile,
-                           undoManager: undoManager)
+            let text = storage(withString: textData ?? "",
+                               forFilename: sourceFile,
+                               undoManager: undoManager)
+            otherTexts.append(text)
+            return text
         }
 
         return _sourceFiles?[sourceFile]

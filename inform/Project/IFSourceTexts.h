@@ -31,7 +31,7 @@ NS_SWIFT_UI_ACTOR
 /// Writes each text into a Source folder, in place of any file of its name: as RTF for an RTF file, and otherwise in
 /// UTF-8
 - (void) writeIntoSourceDirectory: (nullable NSFileWrapper*) sourceDirectory NS_SWIFT_NAME(write(into:));
-/// Unregisters the texts, as the project closes
+/// Unregisters the texts, as the project closes, and lets go of those read from the disk for other files
 - (void) unregisterTexts;
 
 /// The text of a file: one of the texts, for a file in the Source folder, by its name or its path; otherwise a new text

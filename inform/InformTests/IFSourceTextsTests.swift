@@ -237,4 +237,27 @@ final class IFSourceTextsTests: XCTestCase {
         XCTAssertFalse(story === texts.texts?["story.ni"])
         XCTAssertEqual(story.string, "Story")
     }
+
+    /// A text read from the disk is let go when the texts are unregistered, as the project closes, with the undo
+    /// manager that its syntax data holds
+    func testLetsGoOfTheTextsReadFromTheDisk() throws {
+        let project = try makeProject(source: ["story.ni": Data("Story".utf8), "Folder/Other.ni": Data("Other".utf8)])
+        let texts = try read(project)
+
+        weak var other: NSTextStorage?
+        weak var undoManager: UndoManager?
+        autoreleasepool {
+            let manager = UndoManager()
+            undoManager = manager
+            other = texts.text(forFile: "Folder/Other.ni", inProjectAt: project, undoManager: manager)
+        }
+        XCTAssertNotNil(other)
+        XCTAssertNotNil(undoManager)
+
+        autoreleasepool {
+            texts.unregisterTexts()
+        }
+        XCTAssertNil(other)
+        XCTAssertNil(undoManager)
+    }
 }
