@@ -488,6 +488,10 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
         }
     }
 
+    var hasCurrentSkein: Bool {
+        return project?.currentSkein != nil
+    }
+
     func canSelectIndexTab(_ tab: Int32) -> Bool {
         return projectPanes?[0].indexPage.canSelectIndexTab(tab) ?? false
     }
@@ -1985,7 +1989,7 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
 
     // MARK: - Importing skein information
 
-    @IBAction private final func importIntoSkein(_ sender: Any?) {
+    @IBAction func importIntoSkein(_ sender: Any?) {
         if let window, let project {
             IFProjectPanels(project: project).importIntoSkein(with: window)
         }

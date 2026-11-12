@@ -442,18 +442,23 @@ final class IFProjectControllerTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(controller.windowTitle(forDocumentDisplayName: "Lighthouse"), "Lighthouse")
     }
 
-    func testAnExtensionProjectsWindowSaysSo() throws {
+    /// An extension project, Lamplighting, with a controller whose window isn't loaded
+    private func makeExtensionProject() throws -> (IFProject, TestProjectController) {
         let extensionURL = folder.appendingPathComponent("Lamplighting.i7xp")
         let source = extensionURL.appendingPathComponent("Source", isDirectory: true)
         try FileManager.default.createDirectory(at: source, withIntermediateDirectories: true)
         try Data("Lamplighting by Jane Doe begins here.\n\nLamplighting ends here.\n".utf8)
             .write(to: source.appendingPathComponent("extension.i7x"))
         let extensionProject = try IFProject(contentsOf: extensionURL, ofType: "org.inform-fiction.xproject")
-        defer { extensionProject.close() }
 
-        // Its window isn't loaded
         let extensionController = TestProjectController()
         extensionController.document = extensionProject
+        return (extensionProject, extensionController)
+    }
+
+    func testAnExtensionProjectsWindowSaysSo() throws {
+        let (extensionProject, extensionController) = try makeExtensionProject()
+        defer { extensionProject.close() }
 
         XCTAssertEqual(extensionController.windowTitle(forDocumentDisplayName: "Lamplighting"),
                        IFUtility.localizedString("Extension Project") + " - Lamplighting")
@@ -472,8 +477,19 @@ final class IFProjectControllerTests: XCTestCase, @unchecked Sendable {
         XCTAssertTrue(controller.isUsingNaturalInform)
         XCTAssertFalse(controller.hasCurrentTabView)
         XCTAssertFalse(controller.isSourcePaneCurrent)
+        XCTAssertTrue(controller.hasCurrentSkein)
         XCTAssertTrue(controller.canSelectIndexTab(IFIndexTabType.actions.rawValue))
         XCTAssertFalse(controller.canSelectIndexTab(IFIndexTabType.world.rawValue))
+    }
+
+    func testAnExtensionProjectShowsNoSkeinUntilATestCaseIsChosen() throws {
+        let (extensionProject, extensionController) = try makeExtensionProject()
+        defer { extensionProject.close() }
+
+        XCTAssertFalse(extensionController.hasCurrentSkein)
+
+        extensionProject.selectSkein(0)
+        XCTAssertTrue(extensionController.hasCurrentSkein)
     }
 
     func testTheMenuIsEnabledFromTheControllersState() {
