@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// showed, in order, and which of them is the current one. What's recorded in one pass of the run loop goes in one
 /// event, and while an event is replayed, nothing is recorded.
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFPaneHistory : NSObject
 
 - (instancetype) init NS_UNAVAILABLE;

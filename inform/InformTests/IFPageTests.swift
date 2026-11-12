@@ -26,6 +26,7 @@ private final class ProjectControllerStandIn: IFProjectController {
 }
 
 /// Gives a page the history event that a pane would
+@MainActor
 private final class Recorder: NSObject, IFHistoryRecorder {
     var historyEvent: IFHistoryEvent?
 }

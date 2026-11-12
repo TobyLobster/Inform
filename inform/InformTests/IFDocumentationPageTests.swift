@@ -28,6 +28,7 @@ private final class ProjectControllerStandIn: IFProjectController {
 
 /// Gives the page a history event, as a pane would, and counts how often it's asked for one, which the page only
 /// does to record something
+@MainActor
 private final class Recorder: NSObject, IFHistoryRecorder {
     /// The event that what the page records goes in
     var event = IFHistoryEvent(object: NSNull())

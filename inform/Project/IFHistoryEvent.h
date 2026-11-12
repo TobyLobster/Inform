@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 // This represents an event in the history of a project pane. (Ie, an action
 // to perform when the backwards or forwards buttons are pressed)
 //
+NS_SWIFT_UI_ACTOR
 @interface IFHistoryEvent : NSObject
 
 // Initialisation
