@@ -16,9 +16,6 @@ import Foundation
         let res = scan(line)
 
         switch res {
-        case IFLexBase:
-            return IFStyleBase
-
         case IFLexCompilerVersion:
             return IFStyleCompilerVersion
 
@@ -33,15 +30,6 @@ import Foundation
 
         case IFLexCompilerFatalError:
             return IFStyleCompilerFatalError
-
-        case IFLexAssembly:
-            return IFStyleAssembly
-
-        case IFLexHexDump:
-            return IFStyleHexDump
-
-        case IFLexStatistics:
-            return IFStyleStatistics
 
         case IFLexProgress:
             return IFStyleProgress

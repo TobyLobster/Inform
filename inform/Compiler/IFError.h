@@ -14,19 +14,13 @@
 //
 
 typedef enum IFLex {
-    IFLexBase = 1,
-
-    IFLexCompilerVersion,
+    IFLexCompilerVersion = 1,
     IFLexCompilerMessage,
     IFLexCompilerWarning,
     IFLexCompilerError,
     IFLexCompilerFatalError,
 
-    IFLexAssembly,
-    IFLexHexDump,
-    IFLexStatistics,
-	
-	IFLexProgress,
+    IFLexProgress,
     IFLexEndText,
 } IFLex;
 
