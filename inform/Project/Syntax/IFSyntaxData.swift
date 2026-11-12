@@ -1006,17 +1006,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
 
     private final func standardTabStops() -> [NSTextTab] {
         // Set up member variable 'tabStops' - a standard set of tabs at the current width
-        var stopWidth = highlighter?.tabStopWidth ?? 0
-        if stopWidth < 1.0 {
-            stopWidth = 1.0
-        }
-
-        var newTabStops: [NSTextTab] = []
-        for x in 0..<48 {
-            let tabStop = NSTextTab(type: .leftTabStopType,
-                                    location: stopWidth * CGFloat(x + 1))
-            newTabStops.append(tabStop)
-        }
+        let newTabStops = IFTabStops.standardTabStops(forTabWidth: highlighter?.tabStopWidth ?? 0)
         tabStops = newTabStops
 
         return newTabStops
@@ -1051,8 +1041,6 @@ private func isWhitespace(_ c: unichar) -> Bool {
 
     // MARK: - Elastic tabs
 
-    // See http://nickgravgaard.com/elastictabstops/ for more information on these
-
     // Given a character range, calculate the positions the 'elastic' tab stops should go at
     private final func elasticTabs(inRegion region: NSRange, of tables: IFElasticTabs) -> [NSTextTab] {
         // Now, chop up into lines and columns. Columns are separated by tabs. The last of the
@@ -1060,46 +1048,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
         let lines = tables.cells(inRegion: region).map { line in
             line.map { textStorage.attributedSubstring(from: $0.rangeValue) }
         }
-        let numColumns = lines.map(\.count).max() ?? 0
-
-        // Work out the widths for each column
-        let margin: CGFloat = 8.0                           // size of column margin
-
-        var columnWidths: [CGFloat] = []
-        for _ in 0..<numColumns {
-            columnWidths.append(highlighter?.tabStopWidth ?? 0)
-        }
-
-        for line in lines {
-            for colNum in 0..<line.count {
-                // Get the size of the line
-                let colString   = line[colNum]
-                let thisSize    = colString.size()
-
-                // Get the current width of this column
-                let currentWidth = columnWidths[colNum]
-
-                // Adjust as necessary
-                if thisSize.width + margin > currentWidth {
-                    columnWidths[colNum] = floor(thisSize.width + margin)
-                }
-            }
-        }
-
-        // Tab stops are currently widths: need to change them to NSTextTab objects locations
-        var elasticTabStops: [NSTextTab] = []
-        var lastPosition: CGFloat = 0
-        for colNum in 0..<numColumns {
-            let currentValue    = columnWidths[colNum]
-            let newValue        = floor(currentValue + lastPosition)
-            lastPosition = newValue
-
-            elasticTabStops.append(NSTextTab(type: .leftTabStopType,
-                                             location: newValue))
-        }
-
-        // elasticTabStops now contains the set of tab stops for this region
-        return elasticTabStops
+        return IFTabStops.elasticTabStops(forCells: lines, tabWidth: highlighter?.tabStopWidth ?? 0)
     }
 
     // MARK: - Gathering/retrieving intelligence data
