@@ -116,6 +116,20 @@ final class IFPaneHistoryTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(shown.shown, ["b", "c", "a"])
     }
 
+    /// An event can record actions as well as messages sent to its proxy, and replays them in the order they were
+    /// recorded
+    func testAnEventReplaysActionsAndMessagesInTheOrderTheyWereRecorded() throws {
+        let event = try XCTUnwrap(history.event(for: NSNull()))
+        event.addAction { self.shown.show("a") }
+        event.target = shown
+        unsafeBitCast(event.proxy as AnyObject, to: Shown.self).show("b")
+        event.addAction { self.shown.show("c") }
+        XCTAssertEqual(shown.shown, [])
+
+        event.replay()
+        XCTAssertEqual(shown.shown, ["a", "b", "c"])
+    }
+
     // MARK: - Going backwards and forwards
 
     func testGoingBackReplaysTheEventBeforeTheCurrentOneAndGoingForwardTheOneAfter() throws {

@@ -18,8 +18,8 @@
 @end
 
 @implementation IFHistoryEvent {
-    /// The action(s) to perform when this history item is replayed
-    NSMutableArray* invocations;
+    /// The actions to perform when this history item is replayed, in order
+    NSMutableArray<void (^)(void)>* actions;
     /// The target to use when building the invocation by proxy
     id target;
 }
@@ -31,7 +31,7 @@
 	self = [super init];
 	
 	if (self) {
-		invocations = [[NSMutableArray alloc] init];
+		actions = [[NSMutableArray alloc] init];
 		target = newTarget;
 	}
 	
@@ -47,9 +47,15 @@
 	return [[IFHistoryEventProxy alloc] initWithEvent: self];
 }
 
+- (void) addAction: (void (^)(void)) action {
+    [actions addObject: [action copy]];
+}
+
 - (void) addInvocation: (NSInvocation*) newInvocation {
 	[newInvocation retainArguments];
-	[invocations addObject: newInvocation];
+	[self addAction: ^{
+        [newInvocation invoke];
+    }];
 	
     target = nil;
 }
@@ -57,7 +63,9 @@
 #pragma mark - Replaying
 
 - (void) replay {
-	[invocations makeObjectsPerformSelector: @selector(invoke)];
+    for (void (^action)(void) in actions) {
+        action();
+    }
 }
 
 @end

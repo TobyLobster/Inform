@@ -31,9 +31,12 @@ NS_SWIFT_UI_ACTOR
 /// The proxy object to use for this history item
 @property (atomic, readonly, strong) id proxy;
 
+/// Adds an action to the event, which replaying it performs after what was recorded before
+- (void) addAction: (void (^)(void)) action;
+
 // Replaying
 
-/// Replays the event specified by this object
+/// Replays the event: performs its actions, and sends the messages sent to its proxy, in the order they were recorded
 - (void) replay;
 
 @end
