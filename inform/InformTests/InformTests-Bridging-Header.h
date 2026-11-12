@@ -52,6 +52,7 @@
 #import "IFRestrictedRanges.h"
 #import "IFLineStarts.h"
 #import "IFTabStops.h"
+#import "IFCharacterStyles.h"
 #import "IFSyntaxStyles.h"
 #import "IFNaturalHighlighter.h"
 #import "IFInform6Highlighter.h"
