@@ -56,6 +56,7 @@
 #import "IFInform7MutableString.h"
 #import "IFSyntaxManager.h"
 #import "IFSyntaxData.h"
+#import "IFElasticTabs.h"
 #import "IFInform6Highlighter.h"
 #import "IFNaturalHighlighter.h"
 #import "IFProjectPane.h"
