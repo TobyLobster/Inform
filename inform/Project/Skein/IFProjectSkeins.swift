@@ -40,6 +40,9 @@ import Foundation
 
     func selectSkein(_ index: Int32) {
         if index < 0 {
+            // Clear skein undos when setting no skein too, as undo mustn't change a skein that isn't shown
+            if let currentSkein = _currentSkein { project?.undoManager?.removeAllActions(withTarget: currentSkein) }
+
             _currentSkein = nil
             let userDictionary: [AnyHashable: Any] = [:]
             NotificationCenter.default.post(name: .IFSkeinReplaced,

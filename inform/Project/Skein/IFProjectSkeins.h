@@ -29,9 +29,9 @@ NS_SWIFT_UI_ACTOR
 /// The skein shown; nil for none
 @property (atomic, readonly, strong, nullable) IFSkein *currentSkein;
 
-/// Shows the skein at the index given, made if there isn't one yet, or none for an index below 0. Showing another skein
-/// takes the old one's actions off the undo stack, titles the skeins with the project's test cases, and posts
-/// IFSkeinReplacedNotification from the project, as showing none always does.
+/// Shows the skein at the index given, made if there isn't one yet, or none for an index below 0. Showing another
+/// skein, or none, takes the old one's actions off the undo stack. Showing another titles the skeins with the
+/// project's test cases, and posts IFSkeinReplacedNotification from the project, as showing none always does.
 - (void) selectSkein: (int) index;
 /// Reads the skeins from the project's files, in place of any read before, as by Revert To Saved, and shows a project's
 /// first skein, or none of an extension project's

@@ -146,18 +146,36 @@ final class IFProjectSkeinsTests: XCTestCase {
         XCTAssertEqual((skeins.skeins[1] as? IFSkein)?.rootItem.command, "Café")
     }
 
+    /// The project's undo manager, with an action on the skein given, as editing it leaves
+    private func undoManager(of project: IFProject, withAnActionOn skein: IFSkein?) throws -> UndoManager {
+        let undoManager = try XCTUnwrap(project.undoManager)
+        undoManager.groupsByEvent = false
+        undoManager.beginUndoGrouping()
+        undoManager.registerUndo(withTarget: try XCTUnwrap(skein)) { _ in }
+        undoManager.endUndoGrouping()
+        XCTAssertTrue(undoManager.canUndo)
+        return undoManager
+    }
+
     func testTakesTheSkeinsActionsOffTheUndoStackWhenAnotherIsShown() throws {
         let project = IFProject()
         let skeins = IFProjectSkeins(project: project)
         skeins.selectSkein(0)
-        let undoManager = try XCTUnwrap(project.undoManager)
-        undoManager.groupsByEvent = false
-        undoManager.beginUndoGrouping()
-        undoManager.registerUndo(withTarget: try XCTUnwrap(skeins.currentSkein)) { _ in }
-        undoManager.endUndoGrouping()
-        XCTAssertTrue(undoManager.canUndo)
+        let undoManager = try undoManager(of: project, withAnActionOn: skeins.currentSkein)
 
         skeins.selectSkein(1)
+
+        XCTAssertFalse(undoManager.canUndo)
+    }
+
+    /// Undo mustn't change a skein that isn't shown
+    func testTakesTheSkeinsActionsOffTheUndoStackWhenNoneIsShown() throws {
+        let project = IFProject()
+        let skeins = IFProjectSkeins(project: project)
+        skeins.selectSkein(0)
+        let undoManager = try undoManager(of: project, withAnActionOn: skeins.currentSkein)
+
+        skeins.selectSkein(-1)
 
         XCTAssertFalse(undoManager.canUndo)
     }
