@@ -69,6 +69,7 @@
 #import "IFProjectPane.h"
 #import "IFProject.h"
 #import "IFProjectFile.h"
+#import "IFSourceTexts.h"
 #import "IFCompileCheck.h"
 #import "IFProjectMenuValidation.h"
 #import "IFPaneChoice.h"
