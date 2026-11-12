@@ -81,11 +81,27 @@ final class IFCompilerOutputScannerTests: XCTestCase, @unchecked Sendable {
         assertLine("++ 12% (Étape café)\n", IFStyleProgress, [.progress(12, "Étape café")])
     }
 
+    func testProgressStagesWithBracketsInThem() {
+        assertLine("++ 45% (Reading (more) text)\n", IFStyleProgress, [.progress(45, "Reading (more) text")])
+        assertLine("++ 45% ()\n", IFStyleProgress, [.progress(45, "")])
+    }
+
+    func testLinesThatAreNotQuiteProgress() {
+        assertLine("++ 45%  (Reading text)\n", nil)
+        assertLine("++ 45% (Reading text) again\n", nil)
+        assertLine("++ %\n", nil)
+    }
+
     func testHowTheCompilerEnded() {
         assertLine("++ Ended: Translation succeeded: 13 rooms, 4 things\n", IFStyleCompilerMessage,
                    [.endText("Translation succeeded: 13 rooms, 4 things")])
         assertLine("++ Ended: Translation failed: 2 problems found\n", IFStyleCompilerMessage,
                    [.endText("Translation failed: 2 problems found")])
+    }
+
+    func testAnEndWithNothingToSay() {
+        assertLine("++ Ended: \n", IFStyleCompilerMessage, [.endText("")])
+        assertLine("++ Ended:\n", nil)
     }
 
     func testInform6Errors() {
@@ -145,9 +161,30 @@ final class IFCompilerOutputScannerTests: XCTestCase, @unchecked Sendable {
                    [.error(file: file, line: 10, type: IFLexCompilerError, message: "Oops")])
     }
 
+    func testAFileWithATabInItsName() {
+        assertLine(inform6("Error:  Oops", file: "A\tB.inf"), IFStyleCompilerError,
+                   [.error(file: "A\tB.inf", line: 10, type: IFLexCompilerError, message: "Oops")])
+    }
+
+    func testAFileWithNoName() {
+        assertLine(inform6("Error:  Oops", file: ""), IFStyleCompilerError,
+                   [.error(file: "", line: 10, type: IFLexCompilerError, message: "Oops")])
+    }
+
+    func testTheLongestHeaderIsTaken() {
+        // A message that seems to end another header loses its start, though Inform 6 puts no tabs in its messages
+        assertLine(inform6("Error:  Expected \"; Line 2\t# x\" here"), IFStyleCompilerMessage,
+                   [.error(file: "auto.inf", line: 10, type: IFLexCompilerMessage, message: "x\" here")])
+    }
+
     func testOtherInform6Messages() {
         assertLine(inform6("Something else entirely", line: 5), IFStyleCompilerMessage,
                    [.error(file: "auto.inf", line: 5, type: IFLexCompilerMessage, message: "Something else entirely")])
+    }
+
+    func testAnInform6MessageNeedsItsLabelFirst() {
+        assertLine(inform6("Not an Error:  Oops"), IFStyleCompilerMessage,
+                   [.error(file: "auto.inf", line: 10, type: IFLexCompilerMessage, message: "Not an Error:  Oops")])
     }
 
     func testAnErrorThatRunsOutOfMemoryHasAPageOfItsOwn() {
@@ -202,6 +239,17 @@ final class IFCompilerOutputScannerTests: XCTestCase, @unchecked Sendable {
         assertLine("line 10: Error: No such constant\n", IFStyleCompilerError)
     }
 
+    func testLinesThatAreNotQuiteInform6Errors() {
+        assertLine("File \"auto.inf\"; Line 10\t#Error:  Oops\n", nil)
+        assertLine("File \"auto.inf\"; Line 10 # Error:  Oops\n", nil)
+        assertLine("File \"auto.inf\"; Line 10: (BasicInformKit\t# Error:  Oops\n", nil)
+    }
+
+    func testLinesThatAreNotQuiteRiscOSStyleErrors() {
+        assertLine("line 10:Error: No such constant\n", nil)
+        assertLine("\"auto.inf\" line 10: Error: No such constant\n", nil)
+    }
+
     func testLinesThatAreMessages() {
         assertLine("> look\n", IFStyleCompilerMessage)
         assertLine(">\n", IFStyleCompilerMessage)
@@ -212,12 +260,32 @@ final class IFCompilerOutputScannerTests: XCTestCase, @unchecked Sendable {
                    [.copyBlorb("/Users/me/Release/Bronze Materials/Bronze.gblorb")])
     }
 
+    func testBlorbLocationsWithBracketsInThem() {
+        assertLine("Copy blorb to: [[/Release/A]]B.gblorb]]\n", IFStyleCompilerMessage,
+                   [.copyBlorb("/Release/A]]B.gblorb")])
+        assertLine("Copy blorb to: [[]]\n", IFStyleCompilerMessage, [.copyBlorb("")])
+    }
+
+    func testLinesThatAreNotQuiteBlorbLocations() {
+        assertLine("Copy blorb to: [[/Release/Story.gblorb]] now\n", nil)
+        assertLine("Copy blorb to: [/Release/Story.gblorb]\n", nil)
+    }
+
     func testOtherLinesAreLeftAsTheyAre() {
         assertLine("Compiling Inform 6 source...\n", nil)
         assertLine("  Inform 7 v10.2.0\n", nil)
         assertLine("++ Starting\n", nil)
         assertLine("\n", nil)
         assertLine("", nil)
+    }
+
+    func testLinesWithoutTheirNewline() {
+        assertLine("Inform 7 v10.2.0 has started.", IFStyleCompilerVersion)
+        assertLine("++ 45% (Reading text)", nil)
+        assertLine("++ Ended: Translation succeeded", nil)
+        assertLine("Copy blorb to: [[/Release/Story.gblorb]]", nil)
+        assertLine("\"auto.inf\", line 10: Error: No such constant", nil)
+        assertLine("> look", nil)
     }
 
     func testEachScannerTellsItsOwnDelegate() {
