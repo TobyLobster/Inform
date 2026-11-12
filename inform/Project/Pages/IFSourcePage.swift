@@ -72,10 +72,9 @@ import Cocoa
         }
 
         //
-        // Create a layoutManager, and connect it to our textStorage
+        // Create a layoutManager, connected to our textStorage once the text view is set up
         //
         layoutManager = NSLayoutManager()
-        textStorage.addLayoutManager(layoutManager)
 
         //
         // Create a text container, and add it to our layoutManager
@@ -119,6 +118,11 @@ import Cocoa
         //
         scrollView.documentView = textView
         view.addSubview(scrollView)
+
+        // The text is connected only now. Setting the inset redraws the view, which with the text there lays all of it
+        // out, at a width the view hasn't grown to yet. That took 8 seconds for a source of 1.7 MB, for each pane.
+        // Connected now, it's laid out as it's shown.
+        textStorage.addLayoutManager(layoutManager)
 
         //
         // Remember the filename

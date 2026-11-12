@@ -13,7 +13,6 @@ Each says how it was found, and none has been seen in the app unless it says so.
 Found checking the fixes in the app, in a Debug build (12 November 2026), and not yet compared with the released app.
 
 - **Renumber All Sections leaves headings numbered in words.** It renumbers only headings numbered in figures, so with a chapter taken out, `Chapter Four` stays as it is. Typing a heading renumbers the ones after it in words or figures (65bca6c8).
-- **Opening a large project may be slow.** Monkey.inform took over 15 seconds to open. Not yet timed in a release build.
 
 ## Documentation
 
