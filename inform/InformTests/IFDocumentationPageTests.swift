@@ -207,9 +207,31 @@ final class IFDocumentationPageTests: XCTestCase, @unchecked Sendable {
         XCTAssertTrue(shown.watcher.errors.isEmpty)
     }
 
+    /// The app has the documentation as Inform Core writes it now: the sections of Writing with Inform and the Recipe
+    /// Book that the documentation's manifest lists, and none of the pages it wrote until 2024.
+    func testTheAppHasOnlyTheCurrentDocumentation() throws {
+        let contents = try XCTUnwrap(Bundle.main.url(forResource: "index", withExtension: "html"))
+        let folder = contents.deletingLastPathComponent()
+        let manifest = try String(contentsOf: folder.appendingPathComponent("manifest.txt"), encoding: .utf8)
+        let listed = Set(manifest.split(separator: "\n").compactMap { $0.split(separator: ":").first.map(String.init) })
+        XCTAssertGreaterThan(listed.count, 600)
+
+        let files = try FileManager.default.contentsOfDirectory(atPath: folder.path)
+        let section = #"^(WI|RB)_\d+_\d+\.html$"#
+        let sections = Set(files.filter { $0.range(of: section, options: .regularExpression) != nil })
+        XCTAssertEqual(sections.subtracting(listed).sorted(), [])
+        XCTAssertEqual(listed.subtracting(sections).sorted(), [])
+
+        let old = files.filter {
+            $0.range(of: #"^(R?doc\d+\.html|R?allegs\.html|examples_alphabetical\.html|indoc_(WI|RB)\.css)$"#,
+                     options: .regularExpression) != nil
+        }
+        XCTAssertEqual(old.count, 0)
+    }
+
     /// The page bar's cells show the general index, the examples and the contents, each switching to the page and
     /// showing its page, and each highlighted while its page is shown. (Until 2024 the examples' index was
-    /// examples_alphabetical.html, which the app still has.)
+    /// examples_alphabetical.html.)
     func testThePageBarCells() throws {
         let shown = try makePage()
         let cells = shown.page.toolbarCells

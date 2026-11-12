@@ -168,28 +168,4 @@ final class IFDocParserTests: XCTestCase {
         let firstCodeText = (parser.plainText as NSString).substring(with: firstCode.range)
         XCTAssertTrue(firstCodeText.contains("(About the paranormal.)"), firstCodeText)
     }
-
-    /// A page of Writing with Inform as it was until 2024, as Find in Files searches it.
-    func testReadsADocumentationPage() throws {
-        let url = try XCTUnwrap(Bundle.main.url(forResource: "doc159", withExtension: "html"))
-        let parser = IFDocParser(html: try String(contentsOf: url, encoding: .utf8))
-
-        XCTAssertEqual(parser.attributes[.htmlTitle] as? String, "11.3. Pattern matching")
-        XCTAssertEqual(parser.attributes[.title] as? String, "Pattern matching")
-        XCTAssertEqual(parser.attributes[.section] as? String, "11.3")
-        XCTAssertEqual(parser.attributes[.sort] as? String, "000-011-003-000")
-        XCTAssertFalse(parser.plainText.contains("<"))
-
-        XCTAssertEqual(parser.exampleInfo.keys.sorted(), ["169: Ahem", "170: Ferragamo Again"])
-        XCTAssertEqual(parser.exampleInfo["169: Ahem"]?.anchorTag, "e12")
-        // (Its banner's spans give "ExampleAhem", as they're inline, where CSS spaces them)
-        XCTAssertEqual(parser.exampleInfo["169: Ahem"]?.range, NSRange(location: 3939, length: 1525))
-
-        XCTAssertEqual(parser.codeInfo.count, 39)
-        XCTAssertEqual(parser.definitionInfo.count, 0)
-        let firstCode = try XCTUnwrap(parser.codeInfo.first)
-        XCTAssertEqual(firstCode.anchorTag, "c2817")
-        XCTAssertEqual((parser.plainText as NSString).substring(with: firstCode.range),
-                       "\nTo admire (item - an object): \n    say \"You take a long look at [item].\". \n")
-    }
 }

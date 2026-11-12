@@ -109,6 +109,8 @@ else
     set -x
 
     cp -fr "${INFORM_CORE}/resources/App HTML/"                                 "${TEMP_STAGING_AREA}/Resources/"
+    # Inform Core doesn't remove the documentation's pages from earlier builds, so leave out those it no longer writes
+    "${SRCROOT}/Scripts/remove_old_documentation.sh" "${TEMP_STAGING_AREA}/Resources/en.lproj"
 
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/blurbfile.icns"          "${STAGING_AREA}/Resources/App/Icons/blurbfile.icns"
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/i6file.icns"             "${STAGING_AREA}/Resources/App/Icons/i6file.icns"
@@ -217,6 +219,10 @@ echo Copy resources from StagingArea - start
 # no longer has, and Inform finds anything left there (such as old kits) when compiling a project.
 rm -rf "${INFORM_APP_DIR}/Inform.app/Contents/Resources/Internal"
 cp -rf ${STAGING_AREA} ${INFORM_APP_DIR}/Inform.app
+
+# For the same reason, remove pages of the documentation that Inform Core no longer writes, which earlier builds may
+# have put in the app.
+"${SRCROOT}/Scripts/remove_old_documentation.sh" "${INFORM_APP_DIR}/Inform.app/Contents/Resources/en.lproj" || exit 1
 
 # Make the kit binaries newer than their sources, or compiling a project tries to rebuild the kits
 # inside the app, which fails where the app can't be written (signed, or sandboxed). Inform Core

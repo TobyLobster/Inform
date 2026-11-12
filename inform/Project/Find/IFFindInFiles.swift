@@ -225,8 +225,7 @@ extension IFFindInFiles {
                             let section = fileContents.attributes[.section] as? String
 
                             // Retrieve the storage contents. A page of the documentation without a search title
-                            // and section isn't searched: the contents pages, and a few left from older versions
-                            // that nothing leads to, have none.
+                            // and section isn't searched: the contents pages have none.
                             if !locationType.contains(.documentationBasic) || (title != nil && section != nil) {
                                 storage = fileContents.plainText
                             }
@@ -428,7 +427,7 @@ extension IFFindInFiles {
             let description = (((path as NSString).lastPathComponent as NSString).deletingPathExtension as NSString).lowercased
 
             // Must be an html file of the documentation the app shows: Writing with Inform (WI_), the Recipe Book
-            // (RB_) and the examples (eg_). (The doc and Rdoc pages are the documentation as it was until 2024.)
+            // (RB_) and the examples (eg_).
             if extn == "html" ||
                extn == "htm" {
                 if description.hasPrefix("wi_") ||
