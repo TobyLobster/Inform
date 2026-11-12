@@ -12,23 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 // *******************************************************************************************
 ///
-/// Data about a restricted region of text storage
-///
-@interface IFSyntaxRestricted : NSObject
-
-- (instancetype) init NS_UNAVAILABLE;
-- (instancetype) initWithTextView: (NSTextView*)view
-                            range: (NSRange) range NS_DESIGNATED_INITIALIZER;
-
-@property (nonatomic, strong) NSTextView*      textView;
-@property (nonatomic, strong) NSTextStorage*   restrictedTextStorage;
-@property (nonatomic)         NSRange          restrictedRange;
-
-@end
-
-
-// *******************************************************************************************
-///
 /// Class holds the model for a text file currently being shown in a project. Each object owns
 /// the full text of a file, and up to two restricted versions (for the left/right hand panes of
 /// the project).
@@ -38,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_UI_ACTOR
 @interface IFSyntaxData : NSObject<NSTextStorageDelegate>
 
-@property (nonatomic, strong) NSTextStorage*  textStorage;
+@property (nonatomic, strong, readonly) NSTextStorage* textStorage;
 @property (nonatomic, strong) NSString*       name;
 @property (nonatomic)         IFHighlightType type;
 @property (nonatomic, strong, nullable) NSUndoManager* undoManager;

@@ -30,7 +30,8 @@ private func isWhitespace(_ c: unichar) -> Bool {
 //
 // Represents a restricted region of text. Used when viewing a limited section of Source.
 //
-@objc @implementation extension IFSyntaxRestricted {
+@MainActor
+private final class IFSyntaxRestricted {
 
     var textView: NSTextView
     var restrictedTextStorage: NSTextStorage
@@ -40,13 +41,12 @@ private func isWhitespace(_ c: unichar) -> Bool {
         self.textView               = view
         self.restrictedTextStorage  = NSTextStorage()
         self.restrictedRange        = range
-        super.init()
     }
 }
 
 @objc @implementation extension IFSyntaxData {
 
-    var textStorage: NSTextStorage
+    let textStorage: NSTextStorage
     var name: String
     var type: IFHighlightType
     var undoManager: UndoManager?
@@ -1147,7 +1147,6 @@ private func isWhitespace(_ c: unichar) -> Bool {
                                             range: range)
 
         // Set up the restricted text
-        restricted.restrictedRange = range
         restricted.restrictedTextStorage.setAttributedString(attributedString)
 
         // Add new text storage
@@ -1165,8 +1164,6 @@ private func isWhitespace(_ c: unichar) -> Bool {
         if let restricted = restrictedData(for: view) {
             // Start editing the text
             isHighlighting = true
-
-            restricted.restrictedRange = NSRange(location: NSNotFound, length: 0)
 
             // Set restricted storage to an empty string
             let attributedString = NSAttributedString(string: "")
