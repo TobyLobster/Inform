@@ -27,23 +27,6 @@ private func isWhitespace(_ c: unichar) -> Bool {
     }
 }
 
-//
-// Represents a restricted region of text. Used when viewing a limited section of Source.
-//
-@MainActor
-private final class IFSyntaxRestricted {
-
-    var textView: NSTextView
-    var restrictedTextStorage: NSTextStorage
-    var restrictedRange: NSRange
-
-    init(textView view: NSTextView, range: NSRange) {
-        self.textView               = view
-        self.restrictedTextStorage  = NSTextStorage()
-        self.restrictedRange        = range
-    }
-}
-
 @objc @implementation extension IFSyntaxData {
 
     let textStorage: NSTextStorage
@@ -53,7 +36,7 @@ private final class IFSyntaxRestricted {
     var isHighlighting: Bool
 
     // Restricted storage
-    private final var restrictions: [IFSyntaxRestricted]
+    private final let restrictedStorages: IFRestrictedStorages
 
     //
     // Syntax state - Line and character information
@@ -124,8 +107,8 @@ private final class IFSyntaxRestricted {
             highlighter = nil
         }
 
-        // Array of IFSyntaxRestricted storage (up to two)
-        restrictions = []
+        // The views' restricted storages (up to two)
+        restrictedStorages = IFRestrictedStorages(textStorage: aStorage)
 
         // Are we currently syntax highlighting?
         isHighlighting = false
@@ -200,27 +183,6 @@ private final class IFSyntaxRestricted {
         return lineStarts.line(forIndex: index)
     }
 
-    //
-    // Copy a change made to one of the restricted storages into the main text
-    //
-    private final func mirrorChange(in storage: NSTextStorage,
-                                    replaceRange range: NSRange,
-                                    withAttributedString attributedString: NSAttributedString) {
-        var range = range
-        for restricted in restrictions {
-            if restricted.restrictedTextStorage === storage {
-                // Convert range to refer to full text
-                range.location += restricted.restrictedRange.location
-
-                // Change the main text
-                textStorage.replaceCharacters(in: range, with: attributedString)
-                return
-            }
-        }
-
-        preconditionFailure("something not right with the text storage")
-    }
-
     // Update the text to account for different line endings and intelligence changes
     private final func rewriteInput(_ newString: String) -> String? {
         var result = newString
@@ -283,12 +245,7 @@ private final class IFSyntaxRestricted {
         // The intelligence reads the main text, so a change to a restricted storage is offset by
         // its restricted range
         editingRange = newRange
-        for restricted in restrictions {
-            if restricted.restrictedTextStorage === storage {
-                editingRange.location += restricted.restrictedRange.location
-                break
-            }
-        }
+        editingRange.location += restrictedStorages.locationInText(of: storage)
 
         // Rewrite the change if needed (e.g. to auto-insert tabs when user presses return)
         if let rewritten = rewriteInput(newString) {
@@ -327,7 +284,7 @@ private final class IFSyntaxRestricted {
         isHighlighting = true
 
         var newRange = editedRange
-        var oldRange = NSRange(location: newRange.location, length: newRange.length - changeInLength)
+        let oldRange = NSRange(location: newRange.location, length: newRange.length - changeInLength)
 
         // Start editing
         textStorage.beginEditing()
@@ -339,19 +296,12 @@ private final class IFSyntaxRestricted {
         if storage !== textStorage {
             let newString = storage.attributedSubstring(from: newRange)
 
-            mirrorChange(in: storage,
-                         replaceRange: oldRange,
-                         withAttributedString: newString)
+            restrictedStorages.mirrorChange(in: storage,
+                                            replaceRange: oldRange,
+                                            withAttributedString: newString)
 
             // Convert local ranges to refer to full text
-            for restricted in restrictions {
-                if restricted.restrictedTextStorage === storage {
-                    let restrictedRange = restricted.restrictedRange
-                    newRange.location += restrictedRange.location
-                    oldRange.location += restrictedRange.location
-                    break
-                }
-            }
+            newRange.location += restrictedStorages.locationInText(of: storage)
         }
 
         //
@@ -366,69 +316,10 @@ private final class IFSyntaxRestricted {
         // This copies not just the characters that have changed, but also the syntax highlighting
         // attributes too.
         //
-        for restricted in restrictions {
-            // Adjust restricted range as appropriate to reflect the edit that's just occured
-            // to the main text
-            let oldRestrictedRange = restricted.restrictedRange
-            let newRestrictedRange = IFRestrictedRanges.adjust(oldRestrictedRange,
-                                                               editedRange: newRange,
-                                                               changeInLength: changeInLength)
-            restricted.restrictedRange = newRestrictedRange
-
-            // Start editing
-            restricted.restrictedTextStorage.beginEditing()
-
-            //
-            // Apply character changes
-            //
-            var newIntersectRange: NSRange
-
-            // If this restricted storage was not the one that has already updated...
-            if storage !== restricted.restrictedTextStorage {
-                newIntersectRange = IFRestrictedRanges.intersect(newRange,
-                                                                 withRestrictedRange: newRestrictedRange)
-                let oldIntersectRange = IFRestrictedRanges.intersect(oldRange,
-                                                                     withRestrictedRange: oldRestrictedRange)
-                if oldIntersectRange.location != NSNotFound && newIntersectRange.location != NSNotFound {
-                    let attributedString = textStorage.attributedSubstring(from: newIntersectRange)
-                    let localRange = NSRange(location: oldIntersectRange.location - oldRestrictedRange.location,
-                                             length: oldIntersectRange.length)
-                    restricted.restrictedTextStorage.replaceCharacters(in: localRange,
-                                                                       with: attributedString)
-                }
-            }
-
-            //
-            // Apply attribute changes
-            //
-            newIntersectRange = IFRestrictedRanges.intersect(changedAttributesRange,
-                                                             withRestrictedRange: newRestrictedRange)
-            if newIntersectRange.location != NSNotFound {
-                let localRange = NSRange(location: newIntersectRange.location - newRestrictedRange.location,
-                                         length: newIntersectRange.length)
-
-                // Get the new attributed string
-                let attributedString = textStorage.attributedSubstring(from: newIntersectRange)
-
-                // Make sure we have got our calculations right and we are only changing attributes
-                do {
-                    let oldText = restricted.restrictedTextStorage.mutableString.substring(with: localRange)
-                    let newText = attributedString.string
-
-                    if (newText as NSString).isEqual(to: oldText) {
-                        // Make the change
-                        restricted.restrictedTextStorage.replaceCharacters(in: localRange,
-                                                                           with: attributedString)
-                    } else {
-                        NSLog("Should be changing attributes only. Found oldText '%@' new Text '%@' differ", oldText, newText)
-                        preconditionFailure("Should be changing attributes only")
-                    }
-                }
-            }
-
-            // End editing
-            restricted.restrictedTextStorage.endEditing()
-        }
+        restrictedStorages.update(afterEditingRange: newRange,
+                                  changeInLength: changeInLength,
+                                  changedAttributesRange: changedAttributesRange,
+                                  editedStorage: storage)
 
         textStorage.endEditing()
 
@@ -1118,41 +1009,12 @@ private final class IFSyntaxRestricted {
     //
     // Restricted text storage
     //
-    private final func restrictedData(for view: NSTextView) -> IFSyntaxRestricted? {
-        for restricted in restrictions {
-            if restricted.textView === view {
-                return restricted
-            }
-        }
-        return nil
-    }
-
     @objc(restrictToRange:forTextView:)
     func restrict(to range: NSRange, for view: NSTextView) {
-        // Get text for the given range
-        let attributedString = textStorage.attributedSubstring(from: range)
-
         // Start editing the text
         isHighlighting = true
 
-        // Remove old restricted region
-        if let restricted = restrictedData(for: view) {
-            // Remove delegate
-            restricted.restrictedTextStorage.delegate = nil
-            restrictions.removeAll { $0 === restricted }
-        }
-
-        // Create new restricted region
-        let restricted = IFSyntaxRestricted(textView: view,
-                                            range: range)
-
-        // Set up the restricted text
-        restricted.restrictedTextStorage.setAttributedString(attributedString)
-
-        // Add new text storage
-        restricted.restrictedTextStorage.delegate = self
-        restrictions.append(restricted)
-        view.layoutManager?.replaceTextStorage(restricted.restrictedTextStorage)
+        restrictedStorages.restrict(to: range, for: view, delegate: self)
 
         // Finish editing the text
         isHighlighting = false
@@ -1161,19 +1023,11 @@ private final class IFSyntaxRestricted {
     @objc(removeRestrictionForTextView:)
     func removeRestriction(for view: NSTextView) {
         // Find an existing restriction
-        if let restricted = restrictedData(for: view) {
+        if restrictedStorages.isRestricted(for: view) {
             // Start editing the text
             isHighlighting = true
 
-            // Set restricted storage to an empty string
-            let attributedString = NSAttributedString(string: "")
-            restricted.restrictedTextStorage.setAttributedString(attributedString)
-
-            // Remove delegate
-            restricted.restrictedTextStorage.delegate = nil
-
-            // Remove from list of restrictions
-            restrictions.removeAll { $0 === restricted }
+            restrictedStorages.removeRestriction(for: view)
 
             // Finish editing the text
             isHighlighting = false
@@ -1182,26 +1036,16 @@ private final class IFSyntaxRestricted {
 
     @objc(isRestrictedForTextView:)
     func isRestricted(for view: NSTextView) -> Bool {
-        // Find an existing restriction
-        let restricted = restrictedData(for: view)
-        return restricted != nil
+        return restrictedStorages.isRestricted(for: view)
     }
 
     @objc(restrictedRangeForTextView:)
     func restrictedRange(for view: NSTextView) -> NSRange {
-        // Find an existing restriction
-        if let restricted = restrictedData(for: view) {
-            return restricted.restrictedRange
-        }
-        return NSRange(location: NSNotFound, length: 0)
+        return restrictedStorages.restrictedRange(for: view)
     }
 
     @objc(restrictedTextStorageForTextView:)
     func restrictedTextStorage(for view: NSTextView) -> NSTextStorage? {
-        // Find an existing restriction
-        if let restricted = restrictedData(for: view) {
-            return restricted.restrictedTextStorage
-        }
-        return nil
+        return restrictedStorages.restrictedTextStorage(for: view)
     }
 }
