@@ -139,7 +139,7 @@ extension IFProject {
         return true
     }
 
-    private final var metadataURL: URL? {
+    var metadataURL: URL? {
         return fileURL?.appendingPathComponent("Metadata.ifiction")
     }
 
@@ -603,45 +603,6 @@ extension IFProject {
                                                 inExtensionProject: projectFileType == .inform7ExtensionProject)
     }
 
-    // Save iFiction
-    @objc(saveIFictionWithWindow:)
-    func saveIFiction(with window: NSWindow) {
-        // Work out where the iFiction file should be
-        let iFictionURL = metadataURL
-
-        // Prompt the user to save the iFiction file if it exists
-        if let iFictionURL, FileManager.default.fileExists(atPath: iFictionURL.path) {
-            // Setup a save panel
-            let panel = NSSavePanel()
-
-            panel.accessoryView = nil
-            panel.allowedContentTypes = IFUtility.contentTypes(forFilenameExtensions: ["iFiction"])
-            panel.canSelectHiddenExtension = true
-            panel.prompt = IFUtility.localizedString("Save iFiction record")
-            panel.treatsFilePackagesAsDirectories = false
-            panel.directoryURL = fileURL?.deletingLastPathComponent()
-            panel.nameFieldStringValue = ((fileURL?.lastPathComponent ?? "") as NSString).deletingPathExtension
-
-            // Show it
-            panel.beginSheetModal(for: window) { result in
-                // Copy the file to the specified path
-                if result == .OK, let url = panel.url {
-                    do {
-                        try self.saveIFiction(to: url, hidingExtension: panel.isExtensionHidden)
-                    } catch {
-                        panel.close()
-                        NSAlert(error: error).beginSheetModal(for: window)
-                    }
-                }
-            }
-        } else {
-            // Oops, failed to generate an iFiction record
-            IFUtility.runAlertWarning(window,
-                                      title: "The compiler failed to produce an iFiction record",
-                                      informativeText: IFUtility.localizedString("The compiler failed to create an iFiction record; check the errors page to see why."))
-        }
-    }
-
     @objc(saveIFictionToURL:hidingExtension:error:)
     func saveIFiction(to url: URL, hidingExtension hideExtension: Bool) throws {
         guard let iFictionURL = metadataURL else {
@@ -704,57 +665,6 @@ extension IFProject {
         }
     }
 
-    @objc(saveCompilerOutputWithWindow:)
-    func saveCompilerOutput(with window: NSWindow) {
-        // Setup a save panel
-        let panel = NSSavePanel()
-
-        panel.accessoryView = nil
-        panel.allowedContentTypes = IFUtility.contentTypes(forFilenameExtensions: [(compiler.outputFile as NSString).pathExtension])
-        panel.canSelectHiddenExtension = true
-        panel.prompt = IFUtility.localizedString("Save")
-        panel.treatsFilePackagesAsDirectories = false
-        panel.nameFieldStringValue = ((fileURL?.lastPathComponent ?? "") as NSString).deletingPathExtension
-
-        // Show it
-        panel.beginSheetModal(for: window) { result in
-            if result == .OK, let whereToSave = panel.url?.path {
-                // Remove existing file then copy
-                try? FileManager.default.removeItem(atPath: whereToSave)
-                do {
-                    try FileManager.default.copyItem(atPath: self.compiler.outputFile,
-                                                     toPath: whereToSave)
-                } catch {
-                    panel.close()
-
-                    // File failed to save
-                    // Report that a file failed to save
-                    let alert = NSAlert()
-                    let contents = String(format: IFUtility.localizedString("An error was encountered while trying to save the file '%@'"),
-                                          (whereToSave as NSString).lastPathComponent)
-
-                    alert.addButton(withTitle: IFUtility.localizedString("Retry"))
-                    alert.addButton(withTitle: IFUtility.localizedString("Cancel"))
-                    alert.messageText = IFUtility.localizedString("Unable to save file")
-                    alert.informativeText = contents
-                    alert.alertStyle = .warning
-
-                    alert.beginSheetModal(for: window) { returnCode in
-                        if returnCode == .alertFirstButtonReturn {
-                            // Try again, in the same window
-                            RunLoop.current.perform(#selector(self.saveCompilerOutput(with:)),
-                                                    target: self,
-                                                    argument: window,
-                                                    order: 128,
-                                                    modes: [.default])
-                        }
-                    }
-                    return
-                }
-            }
-        }
-    }
-
     private final func buildBlorbSetting() -> Bool {
         let outputSettings = settings.setting(for: IFI7OutputSettings.self) as? IFI7OutputSettings
         return outputSettings?.createBlorbForRelease ?? false
@@ -798,65 +708,9 @@ extension IFProject {
 
     // MARK: - Importing skein information
 
-    @objc(importIntoSkeinWithWindow:)
-    func importIntoSkein(with window: NSWindow) {
-        // Set up an open panel
-        let importPanel = NSOpenPanel()
-
-        importPanel.accessoryView = nil
-        importPanel.canChooseFiles = true
-        importPanel.canChooseDirectories = false
-        importPanel.resolvesAliases = true
-        importPanel.allowsMultipleSelection = false
-        importPanel.title = IFUtility.localizedString("Choose a recording, skein or Zoom save game file")
-        importPanel.allowedContentTypes = IFUtility.contentTypes(forFilenameExtensions: ["rec", "txt", "zoomSave", "skein"])
-
-        // Display the panel
-        importPanel.beginSheetModal(for: window) { result in
-            if result == .OK, let path = importPanel.url?.path {
-                if let loadError = self.projectSkeins.importIntoCurrentSkein(fromFile: path) {
-                    importPanel.close()
-                    let alert = NSAlert()
-                    alert.messageText = IFUtility.localizedString("Could not import skein")
-                    alert.informativeText = loadError
-                    alert.addButton(withTitle: IFUtility.localizedString("Cancel"))
-                    alert.beginSheetModal(for: window) { returnCode in
-                        // do nothing.
-                    }
-                }
-            }
-        }
-    }
-
-    func exportExtension(_ window: NSWindow) {
-        if isExtensionProject {
-            // Save the project, without user interaction.
-            save(self)
-
-            // Set up an open panel
-            let panel = NSSavePanel()
-
-            panel.accessoryView = nil
-            panel.allowedContentTypes = IFUtility.contentTypes(forFilenameExtensions: ["i7x"])
-            panel.canSelectHiddenExtension = true
-            panel.prompt = IFUtility.localizedString("Export Extension (.i7x)")
-            panel.treatsFilePackagesAsDirectories = false
-            panel.directoryURL = fileURL?.deletingLastPathComponent()
-            panel.nameFieldStringValue = ((fileURL?.lastPathComponent ?? "") as NSString).deletingPathExtension
-
-            // Show it
-            panel.beginSheetModal(for: window) { result in
-                // Copy the file to the specified path
-                if result == .OK, let url = panel.url {
-                    do {
-                        try self.exportExtension(to: url, hidingExtension: panel.isExtensionHidden)
-                    } catch {
-                        panel.close()
-                        NSAlert(error: error).beginSheetModal(for: window)
-                    }
-                }
-            }
-        }
+    @objc(importIntoCurrentSkeinFromFile:)
+    func importIntoCurrentSkein(fromFile path: String) -> String? {
+        return projectSkeins.importIntoCurrentSkein(fromFile: path)
     }
 
     @objc(exportExtensionToURL:hidingExtension:error:)

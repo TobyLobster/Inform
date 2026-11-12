@@ -812,8 +812,8 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
 
     @objc private final func saveIFiction() {
         // IFiction compilation has finished
-        if let window {
-            project?.saveIFiction(with: window)
+        if let window, let project {
+            IFProjectPanels(project: project).saveIFiction(with: window)
         }
     }
 
@@ -852,8 +852,8 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
                                                   toPath: copyLocation)
             }
         } else {
-            if let window {
-                project?.saveCompilerOutput(with: window)
+            if let window, let project {
+                IFProjectPanels(project: project).saveCompilerOutput(with: window)
             }
         }
     }
@@ -1986,14 +1986,14 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
     // MARK: - Importing skein information
 
     @IBAction private final func importIntoSkein(_ sender: Any?) {
-        if let window {
-            project?.importIntoSkein(with: window)
+        if let window, let project {
+            IFProjectPanels(project: project).importIntoSkein(with: window)
         }
     }
 
     @IBAction func exportExtension(_ sender: Any?) {
-        if let window {
-            project?.exportExtension(window)
+        if let window, let project {
+            IFProjectPanels(project: project).exportExtension(with: window)
         }
     }
 

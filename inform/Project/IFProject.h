@@ -50,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, readonly, copy, nullable) NSURL *mainSourceFileURL;
 @property (atomic, readonly, copy, nullable) NSURL *buildOutputFileURL;
 @property (atomic, readonly, copy, nullable) NSURL *settingsFileURL;
+@property (atomic, readonly, copy, nullable) NSURL *metadataURL;
 @property (atomic, readonly, copy, nullable) NSURL *indexDirectoryURL;
 @property (atomic, readonly, copy, nullable) NSURL *currentReportURL;
 @property (atomic, readonly, copy, nullable) NSURL *extensionReportURL;
@@ -66,20 +67,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) reloadIndexDirectory;
 - (void) reloadDirectory;
 - (void) reloadSourceDirectory;
-- (void) importIntoSkeinWithWindow: (NSWindow*) window;
 
-- (void) saveIFictionWithWindow:(NSWindow*) window;
 /// Copies the iFiction record to a file the user chose, with its extension hidden or not, in place of any file there.
 /// NO, with the error, if it couldn't
 - (BOOL) saveIFictionToURL: (NSURL*) url hidingExtension: (BOOL) hideExtension error: (NSError**) error;
 - (void) saveDocumentWithoutUserInteraction;
-- (void) saveCompilerOutputWithWindow:(NSWindow*) window;
 
 #pragma mark - Extension projects
 @property (atomic, readonly) BOOL isExtensionProject;
 - (void) selectSkein: (int) index;
-/// Saves an extension project, then asks where to save a copy of its extension
-- (void) exportExtension: (NSWindow*) window;
 /// Copies an extension project's extension to a file the user chose, with its extension hidden or not, in place of
 /// any file there. NO, with the error, if it couldn't
 - (BOOL) exportExtensionToURL: (NSURL*) url hidingExtension: (BOOL) hideExtension error: (NSError**) error;
@@ -117,6 +113,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Skein support
 @property (NS_NONATOMIC_IOSONLY, readonly, strong, nullable) IFSkeinItem *nodeToReport;
+/// Adds the threads of a recording (.rec or .txt), a skein (.skein) or a Zoom saved game (.zoomSave) to the skein
+/// shown, as Import Into Skein does. nil once they're added, or else why the file couldn't be read.
+- (nullable NSString*) importIntoCurrentSkeinFromFile: (NSString*) path;
 
 #pragma mark - Compiler support
 /// The compiler, ready to launch; nil if it can't be prepared

@@ -71,6 +71,7 @@
 #import "IFProject.h"
 #import "IFProjectFile.h"
 #import "IFSourceTexts.h"
+#import "IFProjectPanels.h"
 #import "IFCompileCheck.h"
 #import "IFProjectMenuValidation.h"
 #import "IFPaneChoice.h"
