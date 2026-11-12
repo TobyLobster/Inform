@@ -160,6 +160,12 @@ private func isWhitespace(_ c: unichar) -> Bool {
         textStorage.beginEditing()
         isHighlighting = true
 
+        // Lines end with newlines: the highlighting takes a return as the end of a line too, and so a return and a
+        // newline as two. (What's typed later is converted as it's typed.)
+        let text = textStorage.mutableString
+        text.replaceOccurrences(of: "\r\n", with: "\n", options: [], range: NSRange(location: 0, length: text.length))
+        text.replaceOccurrences(of: "\r", with: "\n", options: [], range: NSRange(location: 0, length: text.length))
+
         let length = textStorage.length
         _ = updateAfterEditingRange(NSRange(location: 0, length: length),
                                     changeInLength: length,
