@@ -43,8 +43,8 @@ NS_SWIFT_UI_ACTOR
 /// A skein of the commands in a recording (a .rec or .txt file), as Import Into Skein makes one;
 /// nil if the file doesn't look like a recording
 - (nullable IFSkein*) skeinFromRecording: (NSString*) path;
-/// Adds the threads of a recording (.rec or .txt), a skein (.skein) or a Zoom saved game (.zoomSave) to the skein shown,
-/// as Import Into Skein does. nil once they're added, or else why the file couldn't be read.
+/// Adds the threads of a recording (.rec or .txt), a skein (.skein) or a Zoom saved game (.zoomSave) to the skein
+/// shown, as Import Into Skein does. nil once they're added, or else why the file couldn't be read.
 - (nullable NSString*) importIntoCurrentSkeinFromFile: (NSString*) path;
 
 @end
