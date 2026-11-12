@@ -87,6 +87,29 @@ final class IFSyntaxManagerTests: XCTestCase {
         XCTAssertEqual(second.name, "Second")
     }
 
+    /// Once unregistered, a storage and its data are let go, with the undo manager that the data holds, though the data
+    /// and its intelligence refer to each other
+    func testUnregisteringLetsGoOfTheStorageAndItsData() {
+        weak var storage: NSTextStorage?
+        weak var data: IFSyntaxData?
+        weak var undoManager: UndoManager?
+        autoreleasepool {
+            let text = NSTextStorage(string: source)
+            let undo = UndoManager()
+            IFSyntaxManager.register(text, name: "Story", type: .inform7, intelligence: IFNaturalIntel(),
+                                     undoManager: undo)
+            storage = text
+            data = IFSyntaxManager.data(for: text)
+            undoManager = undo
+            XCTAssertNotNil(data)
+
+            IFSyntaxManager.unregisterTextStorage(text)
+        }
+        XCTAssertNil(storage)
+        XCTAssertNil(data)
+        XCTAssertNil(undoManager)
+    }
+
     func testUnregisteringAStorageThatIsntRegistered() {
         let storage = registered(source)
         IFSyntaxManager.unregisterTextStorage(NSTextStorage(string: source))

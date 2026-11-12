@@ -584,6 +584,21 @@ final class IFProjectTests: XCTestCase {
         XCTAssertEqual(files(in: "Index", of: url), ["Details", "Welcome.html"])
     }
 
+    /// Once a project has closed and gone, a moment later, so have its source files' texts
+    func testClosingLetsGoOfTheSourceFilesTexts() throws {
+        let url = try makeProject(source: ["story.ni": Data("\"Lighthouse\"\n\nThe Lamp Room is a room.\n".utf8)])
+        weak var story: NSTextStorage?
+        try autoreleasepool {
+            let project = try IFProject(contentsOf: url, ofType: projectType)
+            story = project.sourceFiles?["story.ni"]
+            XCTAssertNotNil(story)
+            project.close()
+        }
+
+        let released = expectation(for: NSPredicate { _, _ in story == nil }, evaluatedWith: nil)
+        wait(for: [released], timeout: 10)
+    }
+
     /// Saving cleans out the build files, but not the index files, which the Index page shows
     func testSavingLeavesTheIndexFiles() throws {
         let (project, _) = try openProjectWithBuildFiles(cleanOnClose: true, alsoCleanIndex: true)
