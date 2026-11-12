@@ -51,6 +51,7 @@
 #import "IFSourceSharedActions.h"
 #import "IFSourceFileView.h"
 #import "IFWelcomeWindow.h"
+#import "IFLinkButton.h"
 #import "IFWebViewHelper.h"
 #import "IFNaturalIntel.h"
 #import "IFSyntaxStyles.h"
