@@ -27,10 +27,6 @@ private func isWhitespace(_ c: unichar) -> Bool {
     }
 }
 
-private func isLineEnd(_ c: unichar) -> Bool {
-    return c == lineFeed || c == carriageReturn
-}
-
 //
 // Represents a restricted region of text. Used when viewing a limited section of Source.
 //
@@ -1038,6 +1034,9 @@ private func isLineEnd(_ c: unichar) -> Bool {
         // Phase Three: Add elastic tabs
         //
         if IFPreferences.shared.elasticTabs {
+            // The tables in the text
+            let tables = IFElasticTabs(string: textStorage.string)
+
             // Look one line either side of the edited lines as well. An edit can change the
             // layout of a table that it is not (or is no longer) part of: deleting a table's
             // last row, removing the tab from a row so that it leaves the table, or splitting
@@ -1051,7 +1050,7 @@ private func isLineEnd(_ c: unichar) -> Bool {
                 let firstChar = lineStarts[line]
 
                 // Get the region affected by these elastic tabs
-                let elasticRange = rangeOfElasticRegion(at: UInt(firstChar))
+                let elasticRange = tables.rangeOfRegion(at: UInt(firstChar))
 
                 // If this was not the same as the region just handled...
                 if elasticRange.location != NSNotFound &&
@@ -1060,7 +1059,7 @@ private func isLineEnd(_ c: unichar) -> Bool {
                     previousElasticRange = elasticRange
 
                     // Lay out the tabs properly
-                    let newTabStops = elasticTabs(inRegion: elasticRange)
+                    let newTabStops = elasticTabs(inRegion: elasticRange, of: tables)
 
                     // Update the tabs over this region if necessary
                     let firstElasticLine    = lineForIndex(elasticRange.location)
@@ -1235,124 +1234,8 @@ private func isLineEnd(_ c: unichar) -> Bool {
 
     // See http://nickgravgaard.com/elastictabstops/ for more information on these
 
-    // Given a character index, returns the range of the line it is on
-    private final func lineRange(at charIndex: Int) -> NSRange {
-        // Start and end of this line are initially the same
-        var start   = charIndex
-        var end     = charIndex
-
-        let text = textStorage.mutableString
-
-        // Move backwards to the beginning of the line
-        start -= 1
-        while start >= 0 && !isLineEnd(text.character(at: start)) {
-            start -= 1
-        }
-
-        // Move forwards to the end of the line
-        let len = text.length
-        var lastChr: unichar = 0
-        while end < len {
-            lastChr = text.character(at: end)
-            if isLineEnd(lastChr) {
-                break
-            }
-            end += 1
-        }
-
-        // Include the line ending characters
-        if end + 1 < len && lastChr == carriageReturn && text.character(at: end + 1) == lineFeed {
-            end += 1
-        }
-
-        if end >= len {
-            end = len - 1
-        }
-
-        // Start now points to the newline preceeding this line, end to the final newline character, which we want to include in the result
-        return NSRange(location: start + 1, length: end - start)
-    }
-
-    //
-    // Given a range, returns YES if it contains no tabs, or has a tab at the start (before any
-    // non-whitespace character).
-    //
-    private final func isTabLess(_ range: NSRange) -> Bool {
-        let text = textStorage.mutableString
-        var isBlank = true
-
-        var chrPos = range.location
-        while chrPos < range.location + range.length {
-            let chr = text.character(at: chrPos)
-            if chr == tab {
-                // Don't apply elastic tabs to lines that already begin with a tab
-                if isBlank {
-                    return true
-                }
-                return false
-            }
-
-            if !isWhitespace(chr) && !isLineEnd(chr) {
-                isBlank = false
-            }
-            chrPos += 1
-        }
-
-        return true
-    }
-
-    // Given a character index, work out the corresponding range where elastic tabs must apply
-    @objc(rangeOfElasticRegionAtIndex:)
-    func rangeOfElasticRegion(at charIndex: UInt) -> NSRange {
-        // Hunt backwards for the beginning of the file, or the first blank line that preceeds this index
-        var firstLine   = lineRange(at: Int(charIndex))
-        var lastLine    = firstLine
-
-        // Lines without tabs never use elastic tabs
-        if isTabLess(firstLine) {
-            return NSRange(location: NSNotFound, length: 0)
-        }
-
-        // Look backwards through the lines, looking for the first one without tabs
-        while firstLine.location > 0 {
-            // Get the range of the preceeding line
-            let previousLine = lineRange(at: firstLine.location - 1)
-
-            // Give up if we've found a tabless line
-            if isTabLess(previousLine) {
-                break
-            }
-
-            // Continue searching from this line
-            firstLine = previousLine
-        }
-
-        // Hunt forwards for the end of the file or the next tabless line that follows this index
-        let len = textStorage.length
-        while lastLine.location + lastLine.length < len {
-            // Get the range of the following line
-            let nextLine = lineRange(at: lastLine.location + lastLine.length)
-
-            // Give up if we've found a tabless line
-            if isTabLess(nextLine) {
-                break
-            }
-
-            // Continue searching from this line
-            lastLine = nextLine
-        }
-
-        // If the first and last lines are different then this defines the region
-        if firstLine.location != lastLine.location {
-            return NSRange(location: firstLine.location, length: (lastLine.location + lastLine.length) - firstLine.location)
-        }
-
-        // By default, elastic tabs do not apply to a character range
-        return NSRange(location: NSNotFound, length: 0)
-    }
-
     // Given a character range, calculate the positions the 'elastic' tab stops should go at
-    func elasticTabs(inRegion region: NSRange) -> [NSTextTab] {
+    private final func elasticTabs(inRegion region: NSRange, of tables: IFElasticTabs) -> [NSTextTab] {
         // Nothing to do if the region is 'not found'
         if region.location == NSNotFound {
             return standardTabStops()
@@ -1364,56 +1247,12 @@ private func isLineEnd(_ c: unichar) -> Bool {
         // Flag up that we're searching for tab stops to avoid possible re-entrancy issues
         computingElasticTabs = true
 
-        // Get the text stored in this object
-        let text = textStorage.mutableString
-
         // Now, chop up into lines and columns. Columns are separated by tabs. The last of the
         // lines is the current line.
-        var lines: [[NSAttributedString]] = [[]]
-        var numColumns = 0
-
-        var lastTabPos = region.location
-        var tabsAtStart = true
-        var chrPos = region.location
-        while chrPos < region.location + region.length {
-            // Read the next character
-            let chr = text.character(at: chrPos)
-
-            // Skip the next character to deal with DOS line endings
-            if chr == carriageReturn && chrPos + 1 < region.location + region.length {
-                if text.character(at: chrPos + 1) == lineFeed {
-                    chrPos += 1
-                }
-            }
-
-            // Specify that we ignore tabs at the start of the line
-            if chr != tab {
-                tabsAtStart = false
-            }
-            if chr == carriageReturn || chr == lineFeed {
-                tabsAtStart = true
-            }
-
-            // If this is a newline or a tab, add a new column. We ignore tabs at the start of the line
-            if (chr == tab && !tabsAtStart) || chr == lineFeed || chr == carriageReturn || (lastTabPos != chrPos && chrPos + 1 == region.location + region.length) {
-                // Store this column
-                lines[lines.count - 1].append(textStorage.attributedSubstring(from: NSRange(location: lastTabPos, length: chrPos - lastTabPos)))
-
-                if lines[lines.count - 1].count > numColumns {
-                    numColumns = lines[lines.count - 1].count
-                }
-
-                // Start the next column on the character after this one
-                lastTabPos = chrPos + 1
-            }
-
-            // Add a new line if necessary
-            if chr == lineFeed || chr == carriageReturn {
-                lines.append([])
-            }
-
-            chrPos += 1
+        let lines = tables.cells(inRegion: region).map { line in
+            line.map { textStorage.attributedSubstring(from: $0.rangeValue) }
         }
+        let numColumns = lines.map(\.count).max() ?? 0
 
         // Work out the widths for each column
         let margin: CGFloat = 8.0                           // size of column margin

@@ -48,6 +48,7 @@
 #import "IFEditingPreferencesSet.h"
 #import "IFSyntaxManager.h"
 #import "IFSyntaxData.h"
+#import "IFElasticTabs.h"
 #import "IFSyntaxStyles.h"
 #import "IFNaturalHighlighter.h"
 #import "IFInform6Highlighter.h"

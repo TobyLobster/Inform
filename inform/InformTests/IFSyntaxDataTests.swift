@@ -139,4 +139,15 @@ final class IFSyntaxDataTests: XCTestCase {
     func testDeletingACellsTab() {
         checkEdits([("apple\tred", "applered")])
     }
+
+    /// A table at the end of the source, with no newline after its last row, as while that row is typed, is laid out
+    /// as it is with one.
+    func testATableAtTheEndOfTheSource() {
+        let text = "Table of Fruit\nname\tcolour\tprice\napple\tred\t3\ncherry\tdark red and black"
+        let storage = highlightedStorage(text)
+        defer { IFSyntaxManager.unregisterTextStorage(storage) }
+        let withNewline = highlightedStorage(text + "\n")
+        defer { IFSyntaxManager.unregisterTextStorage(withNewline) }
+        XCTAssertEqual(tabStops(storage), tabStops(withNewline))
+    }
 }
