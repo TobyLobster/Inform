@@ -23,6 +23,7 @@ final class IFProjectMenuValidationTests: XCTestCase {
         var firstResponderHasIntelligence = false
         var hasCurrentTabView = false
         var isSourcePaneCurrent = false
+        var hasCurrentSkein = true
 
         /// The index tabs that can be shown
         var indexTabs: Set<Int32> = []
@@ -282,6 +283,16 @@ final class IFProjectMenuValidationTests: XCTestCase {
 
         state.isExtensionProject = true
         XCTAssertTrue(isEnabled(export))
+    }
+
+    // MARK: - Importing into the skein
+
+    func testImportingIntoTheSkeinNeedsASkeinShown() {
+        let importIntoSkein = #selector(IFProjectController.importIntoSkein(_:))
+        XCTAssertTrue(isEnabled(importIntoSkein))
+
+        state.hasCurrentSkein = false
+        XCTAssertFalse(isEnabled(importIntoSkein))
     }
 
     // MARK: - Everything else

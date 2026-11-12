@@ -6,7 +6,6 @@ Each says how it was found, and none has been seen in the app unless it says so.
 
 ## Extension projects
 
-- **Import Into Skein drops what it imports while no skein is shown.** An extension project shows no skein until a test case is chosen, nor while all its test cases are chosen. Import Into Skein is still enabled then, as `IFProjectMenuValidation` enables any command it doesn't know, and it reads the file, but `IFProjectSkeins` has no skein to add the threads to, so they're dropped, without an alert. The command could be disabled while no skein is shown: the validation would need to be told whether one is, and the controller's `importIntoSkein:`, which is private, would need to be visible to it. Found by reading (12 November 2026).
 - **The Public Library page and the app disagree about their messages.** `messages_to_objc.js` posts `askInterfaceForLocalVersion`, `askInterfaceForLocalVersionText` and `downloadMultipleExtensions`, which `IFWebViewHelper` doesn't act on, and its `openURL` posts `openFile`, so the helper takes the URL for a file's path. Inform Core's `pl404.html` also uses the first two's return values at once, which WKWebView messages can't give, so this needs an asynchronous design on both sides (see `for_g.txt`). The helper had handlers for the first two under other names, which nothing reached and whose answers were thrown away; they were taken out (a84b8641), and the lookup of an installed extension's version will have to be written for that design. Older than this work; found reading the scripts (November 2026).
 
 ## Documentation

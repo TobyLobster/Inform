@@ -40,6 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, readonly) BOOL hasCurrentTabView;
 /// Whether the current pane shows the source page
 @property (atomic, getter=isSourcePaneCurrent, readonly) BOOL sourcePaneCurrent;
+/// Whether the project shows a skein, which an extension project doesn't until a test case is chosen, nor while Test
+/// All is chosen
+@property (atomic, readonly) BOOL hasCurrentSkein;
 /// Whether the index page can show the tab given, for the menu's commands that show the index's tabs
 - (BOOL) canSelectIndexTab: (int) tab;
 

@@ -195,6 +195,7 @@ final class IFProjectTests: XCTestCase {
         XCTAssertNil(project.mainSourceFileURL)
         XCTAssertNil(project.buildOutputFileURL)
         XCTAssertNil(project.settingsFileURL)
+        XCTAssertNil(project.metadataURL)
         XCTAssertNil(project.indexDirectoryURL)
         XCTAssertNil(project.extensionReportURL)
         XCTAssertNil(project.path(forSourceFile: "story.ni"))
@@ -231,6 +232,7 @@ final class IFProjectTests: XCTestCase {
         XCTAssertEqual(project.buildOutputFileURL?.path,
                        try fileURL("Build/output." + project.settings.fileExtension, in: project).path)
         XCTAssertEqual(project.settingsFileURL?.path, try fileURL("Settings.plist", in: project).path)
+        XCTAssertEqual(project.metadataURL?.path, try fileURL("Metadata.ifiction", in: project).path)
         XCTAssertEqual(project.indexDirectoryURL?.path, try fileURL("Index", in: project).path)
         XCTAssertEqual(project.extensionReportURL?.path, try fileURL("Build/Inbuild.html", in: project).path)
         XCTAssertEqual(project.path(forSourceFile: "Other.ni"), try fileURL("Source/Other.ni", in: project).path)
@@ -401,6 +403,42 @@ final class IFProjectTests: XCTestCase {
         XCTAssertThrowsError(try project.saveIFiction(to: copy, hidingExtension: false))
     }
 
+    /// The save panel has asked whether to replace the file
+    func testSavesTheCompilerOutputOverAFileThatsThere() throws {
+        let project = try open(makeProject(source: ["story.ni": Data()]))
+        let output = try makeFolder().appendingPathComponent("output.ulx")
+        try Data("Story".utf8).write(to: output)
+        project.compiler.outputFile = output.path
+        let copy = try makeFolder().appendingPathComponent("Lighthouse.ulx")
+        try Data("Old".utf8).write(to: copy)
+
+        try project.saveCompilerOutput(to: copy, hidingExtension: false)
+
+        XCTAssertEqual(try String(contentsOf: copy, encoding: .utf8), "Story")
+        XCTAssertEqual(try copy.resourceValues(forKeys: [.hasHiddenExtensionKey]).hasHiddenExtension, false)
+    }
+
+    func testSavesTheCompilerOutputWithItsExtensionHiddenWhenAsked() throws {
+        let project = try open(makeProject(source: ["story.ni": Data()]))
+        let output = try makeFolder().appendingPathComponent("output.ulx")
+        try Data("Story".utf8).write(to: output)
+        project.compiler.outputFile = output.path
+        let copy = try makeFolder().appendingPathComponent("Lighthouse.ulx")
+
+        try project.saveCompilerOutput(to: copy, hidingExtension: true)
+
+        XCTAssertEqual(try copy.resourceValues(forKeys: [.hasHiddenExtensionKey]).hasHiddenExtension, true)
+    }
+
+    func testSavingTheCompilerOutputSaysWhenThereIsNone() throws {
+        let project = try open(makeProject(source: ["story.ni": Data()]))
+        let folder = try makeFolder()
+        project.compiler.outputFile = folder.appendingPathComponent("output.ulx").path
+
+        XCTAssertThrowsError(try project.saveCompilerOutput(to: folder.appendingPathComponent("Lighthouse.ulx"),
+                                                            hidingExtension: false))
+    }
+
     func testExportsAnExtensionOverAFileThatsThere() throws {
         let project = try openExtensionProject()
         let copy = try makeFolder().appendingPathComponent("Lamplighting.i7x")
@@ -409,6 +447,26 @@ final class IFProjectTests: XCTestCase {
         try project.exportExtension(to: copy, hidingExtension: false)
 
         XCTAssertEqual(try String(contentsOf: copy, encoding: .utf8), extensionText)
+    }
+
+    func testImportsIntoTheSkeinShown() throws {
+        let project = try open(makeProject(source: ["story.ni": Data()]))
+        let recording = try makeFolder().appendingPathComponent("Recording.rec")
+        try Data("look\nx lamp\n".utf8).write(to: recording)
+
+        XCTAssertNil(project.importIntoCurrentSkein(fromFile: recording.path))
+
+        XCTAssertEqual(commands(try XCTUnwrap(project.currentSkein)), ["look", "x lamp"])
+    }
+
+    func testSaysWhyAFileCouldntBeImportedIntoTheSkein() throws {
+        let project = try open(makeProject(source: ["story.ni": Data()]))
+        let file = try makeFolder().appendingPathComponent("Broken.skein")
+        try Data("<no".utf8).write(to: file)
+
+        XCTAssertEqual(project.importIntoCurrentSkein(fromFile: file.path),
+                       IFUtility.localizedString("Skein Load Failure", default: nil))
+        XCTAssertEqual(project.currentSkein?.rootItem.children.count, 0)
     }
 
     func testExportingAnExtensionSaysWhenItCant() throws {

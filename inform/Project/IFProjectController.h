@@ -124,6 +124,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction) testSelector:      (nullable id) sender;
 - (IBAction) installLegacyExtension:  (nullable id) sender;
 - (IBAction) exportExtension:   (nullable id) sender;
+- (IBAction) importIntoSkein:   (nullable id) sender;
 - (IBAction) testMe:            (nullable id) sender;
 
 - (void) changeFirstResponder: (nullable NSResponder*) first;

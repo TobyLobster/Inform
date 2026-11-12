@@ -138,6 +138,11 @@ import Foundation
             return state.isExtensionProject
         }
 
+        // What's imported is added to the skein shown
+        if itemSelector == #selector(IFProjectController.importIntoSkein(_:)) {
+            return state.hasCurrentSkein
+        }
+
         return true
     }
 }
