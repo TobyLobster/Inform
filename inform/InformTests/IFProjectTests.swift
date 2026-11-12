@@ -714,16 +714,36 @@ final class IFProjectTests: XCTestCase {
         wait(for: [replaced], timeout: 0.1)
     }
 
+    /// The folder of a project's reports on its test cases, removed when the test ends
+    private func reportsFolder(of project: IFProject) throws -> URL {
+        let folder = try XCTUnwrap(project.baseReportURL).deletingLastPathComponent()
+        addTeardownBlock { try? FileManager.default.removeItem(at: folder) }
+        return folder
+    }
+
     func testGivesAnExtensionProjectsReportURLs() throws {
         let project = try openExtensionProject()
-        let temporary = IFUtility.temporaryDirectoryURL()
+        let reports = try reportsFolder(of: project)
 
-        XCTAssertEqual(project.baseReportURL?.path, temporary.appendingPathComponent("Inform-Report.html").path)
+        XCTAssertEqual(reports.deletingLastPathComponent().path, IFUtility.temporaryDirectoryURL().path)
+        XCTAssertEqual(project.baseReportURL?.path, reports.appendingPathComponent("Inform-Report.html").path)
         XCTAssertEqual(project.combinedReportURL?.path, try fileURL("Build/Problems.html", in: project).path)
         // The current report is the selected skein's
         XCTAssertNil(project.currentReportURL)
         project.selectSkein(1)
-        XCTAssertEqual(project.currentReportURL?.path, temporary.appendingPathComponent("Inform-Report-2.html").path)
+        XCTAssertEqual(project.currentReportURL?.path, reports.appendingPathComponent("Inform-Report-2.html").path)
+    }
+
+    /// Two projects' test cases can be tested at the same time, so their reports mustn't overwrite each other's
+    func testEachExtensionProjectHasItsOwnReports() throws {
+        let first = try openExtensionProject()
+        let second = try openExtensionProject()
+        first.selectSkein(0)
+        second.selectSkein(0)
+
+        XCTAssertNotEqual(try reportsFolder(of: first), try reportsFolder(of: second))
+        XCTAssertNotEqual(first.baseReportURL, second.baseReportURL)
+        XCTAssertNotEqual(first.currentReportURL, second.currentReportURL)
     }
 
     func testGivesATestCasesCommands() throws {

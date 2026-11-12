@@ -45,10 +45,11 @@ NS_SWIFT_UI_ACTOR
                                                       ofExtension: (NSString*) extensionPathName;
 
 /// Where the reports on the test cases go, which intest combines: each test case's report is numbered after this one's
-/// name
-@property (class, atomic, readonly) NSURL *baseReportURL;
+/// name. They're in a folder of their own in the app's temporary folder, made when one's first asked for, so that
+/// another project's test cases can be tested at the same time.
+@property (atomic, readonly) NSURL *baseReportURL;
 /// Where the report on the test case at the index given goes
-+ (NSURL*) reportURLForTestCaseAtIndex: (NSInteger) index NS_SWIFT_NAME(reportURL(forTestCaseAt:));
+- (NSURL*) reportURLForTestCaseAtIndex: (NSInteger) index NS_SWIFT_NAME(reportURL(forTestCaseAt:));
 
 /// Writes intest's report on a test case to the URL given; NO, logging intest's exit code, if it couldn't
 - (BOOL) generateReportForTestCase: (NSString*) testCase

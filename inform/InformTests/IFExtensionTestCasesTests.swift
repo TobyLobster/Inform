@@ -186,15 +186,31 @@ final class IFExtensionTestCasesTests: XCTestCase {
                                                 outputURL: report))
     }
 
-    func testPutsTheReportsInTheAppsTemporaryFolder() {
-        let temporary = IFUtility.temporaryDirectoryURL()
+    /// The folder of the reports on the test cases, removed when the test ends
+    private func reportsFolder(of testCases: IFExtensionTestCases) -> URL {
+        let folder = testCases.baseReportURL.deletingLastPathComponent()
+        addTeardownBlock { try? FileManager.default.removeItem(at: folder) }
+        return folder
+    }
 
-        XCTAssertEqual(IFExtensionTestCases.baseReportURL.path,
-                       temporary.appendingPathComponent("Inform-Report.html").path)
-        XCTAssertEqual(IFExtensionTestCases.reportURL(forTestCaseAt: 0).path,
-                       temporary.appendingPathComponent("Inform-Report-1.html").path)
-        XCTAssertEqual(IFExtensionTestCases.reportURL(forTestCaseAt: 1).path,
-                       temporary.appendingPathComponent("Inform-Report-2.html").path)
+    func testPutsTheReportsInAFolderInTheAppsTemporaryFolder() {
+        let testCases = IFExtensionTestCases()
+        let reports = reportsFolder(of: testCases)
+
+        XCTAssertEqual(reports.deletingLastPathComponent().path, IFUtility.temporaryDirectoryURL().path)
+        var isFolder: ObjCBool = false
+        XCTAssertTrue(FileManager.default.fileExists(atPath: reports.path, isDirectory: &isFolder))
+        XCTAssertTrue(isFolder.boolValue)
+        XCTAssertEqual(testCases.baseReportURL.path, reports.appendingPathComponent("Inform-Report.html").path)
+        XCTAssertEqual(testCases.reportURL(forTestCaseAt: 0).path,
+                       reports.appendingPathComponent("Inform-Report-1.html").path)
+        XCTAssertEqual(testCases.reportURL(forTestCaseAt: 1).path,
+                       reports.appendingPathComponent("Inform-Report-2.html").path)
+    }
+
+    /// Two projects' test cases can be tested at the same time, so their reports mustn't overwrite each other's
+    func testEachHasAFolderOfReportsOfItsOwn() {
+        XCTAssertNotEqual(reportsFolder(of: IFExtensionTestCases()), reportsFolder(of: IFExtensionTestCases()))
     }
 
     /// intest finds each test case's report where it goes, from the base report's URL
@@ -203,15 +219,14 @@ final class IFExtensionTestCasesTests: XCTestCase {
         let problems = try makeProblemsPage()
         let combined = try makeFolder().appendingPathComponent("Combined.html")
         let testCases = IFExtensionTestCases()
+        _ = reportsFolder(of: testCases)
         for (index, testCase) in ["A", "B"].enumerated() {
-            let report = IFExtensionTestCases.reportURL(forTestCaseAt: index)
-            addTeardownBlock { try? FileManager.default.removeItem(at: report) }
             XCTAssertTrue(testCases.generateReport(forTestCase: testCase, ofExtension: file, errorCode: "right",
                                                    problemsURL: problems, skeinNodeId: 0, skeinNodes: 0,
-                                                   outputURL: report))
+                                                   outputURL: testCases.reportURL(forTestCaseAt: index)))
         }
 
-        XCTAssertTrue(testCases.generateCombinedReport(forBaseInputURL: IFExtensionTestCases.baseReportURL,
+        XCTAssertTrue(testCases.generateCombinedReport(forBaseInputURL: testCases.baseReportURL,
                                                        ofExtension: file, numTests: 2, outputURL: combined))
 
         let page = try String(contentsOf: combined, encoding: .utf8)

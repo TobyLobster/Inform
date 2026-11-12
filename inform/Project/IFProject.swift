@@ -155,7 +155,7 @@ extension IFProject {
 
     var baseReportURL: URL? {
         if isExtensionProject {
-            return IFExtensionTestCases.baseReportURL
+            return extensionTestCases.baseReportURL
         }
         preconditionFailure("Asking for report when not an extension project")
     }
@@ -167,7 +167,7 @@ extension IFProject {
                 return nil
             }
 
-            return IFExtensionTestCases.reportURL(forTestCaseAt: index)
+            return extensionTestCases.reportURL(forTestCaseAt: index)
         }
         preconditionFailure("Asking for report when not an extension project")
     }

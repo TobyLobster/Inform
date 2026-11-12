@@ -13,9 +13,12 @@ import Foundation
 
     private final var _testCases: [[String: Any]]?
 
+    private final var _reportsFolder: NSURL?
+
     override init() {
-        inTest      = IFInTest()
-        _testCases  = nil
+        inTest          = IFInTest()
+        _testCases      = nil
+        _reportsFolder  = nil
 
         super.init()
     }
@@ -58,15 +61,30 @@ import Foundation
         return commandString.components(separatedBy: "\n")
     }
 
-    class var baseReportURL: URL {
+    /// The folder of the reports, made when it's first asked for. intest finds each test case's report by the base
+    /// report's name, cut to 16 characters, so the names can't tell one project's reports from another's.
+    private final var reportsFolder: URL {
+        if let _reportsFolder {
+            return _reportsFolder as URL
+        }
+
+        let folder = IFUtility.temporaryDirectoryURL().appendingPathComponent(UUID().uuidString, isDirectory: true)
+        try? FileManager.default.createDirectory(at: folder,
+                                                 withIntermediateDirectories: true,
+                                                 attributes: nil)
+        _reportsFolder = folder as NSURL
+        return folder
+    }
+
+    var baseReportURL: URL {
         let fileName = "Inform-Report.html"
-        return IFUtility.temporaryDirectoryURL().appendingPathComponent(fileName)
+        return reportsFolder.appendingPathComponent(fileName)
     }
 
     @objc(reportURLForTestCaseAtIndex:)
-    class func reportURL(forTestCaseAt index: Int) -> URL {
+    func reportURL(forTestCaseAt index: Int) -> URL {
         let fileName = "Inform-Report-\(index + 1).html"
-        return IFUtility.temporaryDirectoryURL().appendingPathComponent(fileName)
+        return reportsFolder.appendingPathComponent(fileName)
     }
 
     func generateReport(forTestCase testCase: String,
