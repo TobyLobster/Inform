@@ -206,6 +206,41 @@ final class IFSingleFileTests: XCTestCase {
         XCTAssertFalse(IFSyntaxManager.isRegistered(storage))
     }
 
+    /// Closing the file stops its text storage being highlighted at once, as a project's texts are as it closes
+    func testClosingUnregistersTheStorage() throws {
+        let file = try file(Data("The Lamp Room is a room.\n".utf8), ofType: inform7SourceType)
+        XCTAssertTrue(IFSyntaxManager.isRegistered(file.storage))
+
+        file.close()
+
+        XCTAssertFalse(IFSyntaxManager.isRegistered(file.storage))
+    }
+
+    /// NSDocument can let go of a file on another thread after it has closed, which mustn't stop the app
+    func testAClosedFileCanBeLetGoOfOnAnotherThread() throws {
+        nonisolated(unsafe) var file: IFSingleFile?
+        var storage: NSTextStorage!
+        weak var gone: IFSingleFile?
+        try autoreleasepool {
+            let made = try self.file(Data("The Lamp Room is a room.\n".utf8), ofType: inform7SourceType)
+            made.close()
+            storage = made.storage
+            gone = made
+            file = made
+        }
+
+        let done = expectation(description: "The file was let go of on another thread")
+        DispatchQueue.global().async {
+            file = nil
+            done.fulfill()
+        }
+        wait(for: [done], timeout: 5)
+
+        XCTAssertNil(file)
+        XCTAssertNil(gone)
+        XCTAssertFalse(IFSyntaxManager.isRegistered(storage))
+    }
+
     // MARK: - Read-only files
 
     /// The extensions built into the app are read-only, and can't be saved
