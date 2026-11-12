@@ -23,10 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Where a line starts
 - (NSInteger) startOfLine: (NSInteger) line NS_SWIFT_NAME(start(ofLine:));
-/// The line that the character at an index is on, in a text of the given length. An index at or past the end of the
-/// text is on the last line.
-- (NSInteger) lineForIndex: (NSInteger) index
-                textLength: (NSInteger) textLength NS_SWIFT_NAME(line(forIndex:textLength:));
+/// The line that the character at an index is on. An index at or past the end of the text is on the last line.
+- (NSInteger) lineForIndex: (NSInteger) index NS_SWIFT_NAME(line(forIndex:));
 
 /// Updates the lines for an edit. The lines after firstLine, up to and including lastLine, are replaced by a line for
 /// each line end in newText, which the edit put at location, and the lines after them move by changeInLength. Returns

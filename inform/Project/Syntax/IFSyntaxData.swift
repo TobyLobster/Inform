@@ -199,7 +199,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
     // Which line of text does the character index occur on?
     //
     private final func lineForIndex(_ index: Int) -> Int {
-        return lineStarts.line(forIndex: index, textLength: textStorage.length)
+        return lineStarts.line(forIndex: index)
     }
 
     //

@@ -31,7 +31,7 @@ private let carriageReturn: unichar = 0x0D      // \r
     //
     // Which line of text does the character index occur on?
     //
-    func line(forIndex index: Int, textLength: Int) -> Int {
+    func line(forIndex index: Int) -> Int {
         // Yet Another Binary Search
         var low = 0
         var high = nLines - 1
@@ -47,7 +47,8 @@ private let carriageReturn: unichar = 0x0D      // \r
                 continue
             }
 
-            let lineEnd = middle < (nLines - 1) ? lineStarts[middle + 1] : textLength
+            // The last line runs on to the end of the text
+            let lineEnd = middle < (nLines - 1) ? lineStarts[middle + 1] : Int.max
 
             if index >= lineEnd {
                 // Not this line: search the upper half

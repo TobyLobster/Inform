@@ -33,8 +33,8 @@ final class IFLineStartsTests: XCTestCase {
         text.replaceCharacters(in: range, with: replacement)
         let changeInLength = (replacement as NSString).length - range.length
 
-        let firstLine = lines.line(forIndex: range.location, textLength: text.length)
-        let lastLine = lines.line(forIndex: range.location + range.length, textLength: text.length)
+        let firstLine = lines.line(forIndex: range.location)
+        let lastLine = lines.line(forIndex: range.location + range.length)
         return lines.replaceLines(after: firstLine,
                                   through: lastLine,
                                   withLinesIn: replacement,
@@ -93,19 +93,19 @@ final class IFLineStartsTests: XCTestCase {
 
     func testTheLineForAnIndex() {
         let (text, lines) = lines(of: "ab\ncd\nef")
-        let found = (0...text.length).map { lines.line(forIndex: $0, textLength: text.length) }
+        let found = (0...text.length).map { lines.line(forIndex: $0) }
         XCTAssertEqual(found, [0, 0, 0, 1, 1, 1, 2, 2, 2])
     }
 
     func testAnIndexPastTheEndIsOnTheLastLine() {
-        let (text, lines) = lines(of: "ab\ncd")
-        XCTAssertEqual(lines.line(forIndex: 100, textLength: text.length), 1)
+        let (_, lines) = lines(of: "ab\ncd")
+        XCTAssertEqual(lines.line(forIndex: 100), 1)
     }
 
     func testTheEndOfATextEndingWithANewlineIsOnTheEmptyLastLine() {
-        let (text, lines) = lines(of: "ab\n")
-        XCTAssertEqual(lines.line(forIndex: 2, textLength: text.length), 0)
-        XCTAssertEqual(lines.line(forIndex: 3, textLength: text.length), 1)
+        let (_, lines) = lines(of: "ab\n")
+        XCTAssertEqual(lines.line(forIndex: 2), 0)
+        XCTAssertEqual(lines.line(forIndex: 3), 1)
     }
 
     func testTheLineForAnIndexInManyLines() {
@@ -114,7 +114,7 @@ final class IFLineStartsTests: XCTestCase {
         let lineStarts = expectedStarts(string)
         for index in 0...text.length {
             let expected = lineStarts.lastIndex { $0 <= index }!
-            XCTAssertEqual(lines.line(forIndex: index, textLength: text.length), expected, "index \(index)")
+            XCTAssertEqual(lines.line(forIndex: index), expected, "index \(index)")
         }
     }
 
