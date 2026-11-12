@@ -5,6 +5,26 @@
 
 import XCTest
 
+/// An intelligence that records the lines it's asked to gather from, as each is highlighted, and gathers nothing.
+private final class LineRecordingIntelligence: NSObject, IFSyntaxIntelligence {
+    var lineNumbers: [Int32] = []
+
+    func setSyntaxData(_ data: IFSyntaxData?) {
+    }
+
+    func gatherIntel(forLine line: String,
+                     styles: IFSyntaxStyles,
+                     initialState state: IFSyntaxState,
+                     lineNumber: Int32,
+                     intoData data: IFIntelFile) {
+        lineNumbers.append(lineNumber)
+    }
+
+    func rewriteInput(_ input: String) -> String? {
+        return nil
+    }
+}
+
 /// Editing highlighted text: keeping the views restricted to part of it in step, and rewriting what's typed.
 @MainActor
 final class IFSyntaxDataEditingTests: XCTestCase {
@@ -214,6 +234,13 @@ final class IFSyntaxDataEditingTests: XCTestCase {
     }
 
     // MARK: - Registering
+
+    /// Each line is highlighted once as a text is registered
+    func testATextIsHighlightedOnceAsItsRegistered() throws {
+        let intelligence = LineRecordingIntelligence()
+        _ = registered("One.\nTwo.\nThree.", intelligence: intelligence)
+        XCTAssertEqual(intelligence.lineNumbers, [0, 1, 2])
+    }
 
     /// A text's line endings are newlines once it's registered, as the single-file window doesn't convert them
     func testRegisteringATextConvertsItsLineEndings() throws {

@@ -171,8 +171,9 @@ private func isWhitespace(_ c: unichar) -> Bool {
                                     changeInLength: length,
                                     forceUpdateTabs: true)
 
-        isHighlighting = false
+        // The text storage processes the highlighting as the editing ends, which mustn't be taken for an edit
         textStorage.endEditing()
+        isHighlighting = false
 
         // Register for preference change notifications
         NotificationCenter.default.addObserver(self,
