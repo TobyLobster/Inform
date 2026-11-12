@@ -85,8 +85,6 @@ private func isWhitespace(_ c: unichar) -> Bool {
     private final var tabStops: [NSTextTab]?
     /// Maps number of tabs at the start of a line to the appropriate paragraph style
     private final var paragraphStyles: [[NSAttributedString.Key: Any]]?
-    /// `true` if we're currently computing elastic tab sizes
-    private final var computingElasticTabs: Bool
 
     //
     // 'Intelligence'
@@ -138,7 +136,6 @@ private func isWhitespace(_ c: unichar) -> Bool {
 
         tabStops = nil
         paragraphStyles = nil
-        computingElasticTabs = false
 
         intelSource = nil
         intelData = IFIntelFile()
@@ -1052,7 +1049,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
         return [.paragraphStyle: res]
     }
 
-    func paragraphStyle(forTabStops numberOfTabStops: Int32) -> [NSAttributedString.Key: Any] {
+    private final func paragraphStyle(forTabStops numberOfTabStops: Int32) -> [NSAttributedString.Key: Any] {
         var numberOfTabStops = numberOfTabStops
 
         if paragraphStyles == nil {
@@ -1084,17 +1081,6 @@ private func isWhitespace(_ c: unichar) -> Bool {
 
     // Given a character range, calculate the positions the 'elastic' tab stops should go at
     private final func elasticTabs(inRegion region: NSRange, of tables: IFElasticTabs) -> [NSTextTab] {
-        // Nothing to do if the region is 'not found'
-        if region.location == NSNotFound {
-            return standardTabStops()
-        }
-        if computingElasticTabs {
-            return standardTabStops()
-        }
-
-        // Flag up that we're searching for tab stops to avoid possible re-entrancy issues
-        computingElasticTabs = true
-
         // Now, chop up into lines and columns. Columns are separated by tabs. The last of the
         // lines is the current line.
         let lines = tables.cells(inRegion: region).map { line in
@@ -1137,9 +1123,6 @@ private func isWhitespace(_ c: unichar) -> Bool {
             elasticTabStops.append(NSTextTab(type: .leftTabStopType,
                                              location: newValue))
         }
-
-        // Done: no longer working out tab stops
-        computingElasticTabs = false
 
         // elasticTabStops now contains the set of tab stops for this region
         return elasticTabStops

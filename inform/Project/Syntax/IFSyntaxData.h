@@ -76,10 +76,6 @@ NS_SWIFT_UI_ACTOR
 /// Forces a rehighlight (to take account of new preferences)
 - (void) preferencesChanged: (nullable NSNotification*) not;
 
-// Tabs
-/// Gets a paragraph style for the given number of tab stops
-- (NSDictionary<NSAttributedStringKey,id>*) paragraphStyleForTabStops: (int) numberOfTabstops;
-
 // Gathering/retrieving intelligence data
 /// The intelligence object for this highlighter
 @property (nonatomic, strong, nullable) id<IFSyntaxIntelligence> intelligence;
