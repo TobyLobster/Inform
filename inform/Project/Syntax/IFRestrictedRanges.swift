@@ -85,12 +85,6 @@ import Foundation
             return NSRange(location: NSNotFound, length: 0)
         }
 
-        // If our new range has length > 0 and ends exactly at the start of the location,
-        // this doesn't count as an intersection.
-        if (start < end) && end == restrictedRange.location {
-            return NSRange(location: NSNotFound, length: 0)
-        }
-
         return NSRange(location: start, length: end - start)
     }
 }
