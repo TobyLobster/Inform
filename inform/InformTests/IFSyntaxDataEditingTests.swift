@@ -233,6 +233,21 @@ final class IFSyntaxDataEditingTests: XCTestCase {
                     .replacingOccurrences(of: "room.", with: "room.]"))
     }
 
+    /// A line typed in a restricted view becomes a heading once its number is typed, and all of it is highlighted,
+    /// not just the number.
+    func testTypingAHeadingInARestrictedView() throws {
+        let storage = registered(source)
+        let data = try XCTUnwrap(IFSyntaxManager.data(for: storage))
+        let (view, shown) = try view(of: storage, restrictedTo: chapter1)
+        let (otherView, _) = try self.view(of: storage, restrictedTo: chapter1)
+
+        type("\nChapter 3\n", after: "The Start\n", in: shown)
+        XCTAssertEqual(data.style(at: UInt(range(of: "Chapter 3", in: storage).location)), .heading)
+        let typed = chapter1.replacingOccurrences(of: "The Start\n", with: "The Start\n\nChapter 3\n")
+        assertView(view, of: storage, shows: typed)
+        assertView(otherView, of: storage, shows: typed)
+    }
+
     func testTwoRestrictedViews() throws {
         let storage = registered(source)
         let (first, firstShown) = try view(of: storage, restrictedTo: chapter1)

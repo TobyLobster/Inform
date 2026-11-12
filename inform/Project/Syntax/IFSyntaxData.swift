@@ -561,7 +561,12 @@ private let tab: unichar            = 0x09      // \t
         let firstRangeChar = lineStarts.start(ofLine: firstLine)
         let lastRangeChar = (lastLine + 1) < lineStarts.count ? lineStarts.start(ofLine: lastLine + 1) : textStorage.length
 
-        updateHighlightingForAttributedString(in: NSRange(location: firstRangeChar, length: lastRangeChar - firstRangeChar))
+        let highlightedRange = NSRange(location: firstRangeChar, length: lastRangeChar - firstRangeChar)
+        updateHighlightingForAttributedString(in: highlightedRange)
+
+        // Whole lines are restyled, from before the edit when it wasn't at the start of a line. Typing the number of
+        // a heading turns the start of its line into a heading too.
+        changedRange = NSUnionRange(changedRange, highlightedRange)
 
         // The call above uses -setAttributes:, which replaces *every* attribute on the edited
         // lines. The highlighter's attributes have no paragraph style, so the lines are left
