@@ -24,6 +24,13 @@ struct errorValue {
 };
 
 static struct errorValue currentError;
+
+// The message in an Inform 6 error, after its label and the spaces after that, without the newline
+static char* messageAfterLabel(const char* text, const char* label) {
+    const char* message = strstr(text, label) + strlen(label);
+    message += strspn(message, " ");
+    return strndup(message, strlen(message) - 1);
+}
 %}
 
 %option noyywrap
@@ -97,11 +104,8 @@ File\ \".*\";\ Line\ [0-9]+(:\ \(.*\))?\t#\  {
 }
 
 <ERRORMESSAGE>\w*\*\*\*\ Compiler\ error:.*\n {
-    // (Inform 6 puts two spaces after the colon)
-    char* comerr  = strstr(yytext, "Compiler error:");
-    char* message = calloc(strlen(comerr), 1);
-    strncpy(message, comerr + 17, strlen(comerr)-18);
-    
+    char* message = messageAfterLabel(yytext, "Compiler error:");
+
     IFErrorAddError(currentError.file,
                     currentError.line,
                     IFLexCompilerFatalError,
@@ -114,9 +118,7 @@ File\ \".*\";\ Line\ [0-9]+(:\ \(.*\))?\t#\  {
     return IFLexCompilerFatalError;
 }
 <ERRORMESSAGE>\w*Fatal\ error:.*\n {
-    char* comerr  = strstr(yytext, "Fatal error:");
-    char* message = calloc(strlen(comerr), 1);
-    strncpy(message, comerr + 13, strlen(comerr)-14);
+    char* message = messageAfterLabel(yytext, "Fatal error:");
 
     IFErrorAddError(currentError.file,
                     currentError.line,
@@ -130,9 +132,7 @@ File\ \".*\";\ Line\ [0-9]+(:\ \(.*\))?\t#\  {
     return IFLexCompilerFatalError;
 }
 <ERRORMESSAGE>\w*Error:.*\n {
-    char* comerr  = strstr(yytext, "Error:");
-    char* message = calloc(strlen(comerr), 1);
-    strncpy(message, comerr + 8, strlen(comerr)-9);
+    char* message = messageAfterLabel(yytext, "Error:");
 
     IFErrorAddError(currentError.file,
                     currentError.line,
@@ -146,9 +146,7 @@ File\ \".*\";\ Line\ [0-9]+(:\ \(.*\))?\t#\  {
     return IFLexCompilerError;
 }
 <ERRORMESSAGE>\w*Warning:.*\n {
-    char* comerr  = strstr(yytext, "Warning:");
-    char* message = calloc(strlen(comerr), 1);
-    strncpy(message, comerr + 10, strlen(comerr)-11);
+    char* message = messageAfterLabel(yytext, "Warning:");
 
     IFErrorAddError(currentError.file,
                     currentError.line,

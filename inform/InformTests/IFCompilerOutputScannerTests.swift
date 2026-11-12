@@ -131,6 +131,28 @@ final class IFCompilerOutputScannerTests: XCTestCase, @unchecked Sendable {
                            message: "Paged size exceeds rough estimate.")])
     }
 
+    func testInform6LabelsWithMoreOrFewerSpacesAfterThem() {
+        assertLine(inform6("Error: Oops"), IFStyleCompilerError,
+                   [.error(file: "auto.inf", line: 10, type: IFLexCompilerError, message: "Oops")])
+        assertLine(inform6("Warning: Oops"), IFStyleCompilerWarning,
+                   [.error(file: "auto.inf", line: 10, type: IFLexCompilerWarning, message: "Oops")])
+        assertLine(inform6("*** Compiler error: Oops"), IFStyleCompilerFatalError,
+                   [.error(file: "auto.inf", line: 10, type: IFLexCompilerFatalError, message: "Oops")])
+        assertLine(inform6("Fatal error:  Oops"), IFStyleCompilerFatalError,
+                   [.error(file: "auto.inf", line: 10, type: IFLexCompilerFatalError, message: "Oops")])
+    }
+
+    func testInform6MessagesWithNothingAfterTheirLabels() {
+        assertLine(inform6("Error:"), IFStyleCompilerError,
+                   [.error(file: "auto.inf", line: 10, type: IFLexCompilerError, message: "")])
+        assertLine(inform6("Warning:"), IFStyleCompilerWarning,
+                   [.error(file: "auto.inf", line: 10, type: IFLexCompilerWarning, message: "")])
+        assertLine(inform6("*** Compiler error:"), IFStyleCompilerFatalError,
+                   [.error(file: "auto.inf", line: 10, type: IFLexCompilerFatalError, message: "")])
+        assertLine(inform6("Fatal error:"), IFStyleCompilerFatalError,
+                   [.error(file: "auto.inf", line: 10, type: IFLexCompilerFatalError, message: "")])
+    }
+
     func testInform6ErrorsInCodeThatCameFromElsewhere() {
         // As Inform 6.45 gives it, for code after an #OrigSource directive, which Inform 7 writes
         assertLine("File \"err.inf\"; Line 4: (\"source/story.ni\"; Line 12)\t# Error:  No such constant as \"undefined_thing\"\n",
