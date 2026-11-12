@@ -442,4 +442,32 @@ final class IFCompilerSettingsTests: XCTestCase {
         XCTAssertEqual(copy.compilerVersion, "6M62")
         XCTAssertNotNil(copy.setting(for: try settingsClass("IFMiscSettings")))
     }
+
+    // MARK: - Letting go
+
+    /// NSDocument can let go of a closed project, and so its settings, on another thread, which mustn't stop the
+    /// app. Each settings object then has none.
+    func testSettingsCanBeLetGoOfOnAnotherThread() throws {
+        nonisolated(unsafe) var settings: IFCompilerSettings?
+        weak var gone: IFCompilerSettings?
+        var setting: IFSetting?
+        try autoreleasepool {
+            let made = IFCompilerSettings()
+            setting = made.setting(for: try settingsClass("IFMiscSettings"))
+            gone = made
+            settings = made
+        }
+        XCTAssertNotNil(setting?.compilerSettings)
+
+        let done = expectation(description: "The settings were let go of on another thread")
+        DispatchQueue.global().async {
+            settings = nil
+            done.fulfill()
+        }
+        wait(for: [done], timeout: 5)
+
+        XCTAssertNil(settings)
+        XCTAssertNil(gone)
+        XCTAssertNil(setting?.compilerSettings)
+    }
 }

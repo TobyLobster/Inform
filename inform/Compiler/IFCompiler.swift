@@ -102,11 +102,15 @@ extension IFCompiler {
     }
 
     deinit {
-        // The project controller lets go of its compilers on the main thread
-        MainActor.assumeIsolated {
-            if deleteOutputFile { deleteOutput() }
+        // NSDocument can let go of a project, and so its compiler, on another thread after it has closed, as it can
+        // a file opened on its own. Tidying up is main-actor work, so it's only done when a compiler is let go of on
+        // the main thread, as the project controller's are.
+        if Thread.isMainThread {
+            MainActor.assumeIsolated {
+                if deleteOutputFile { deleteOutput() }
 
-            NotificationCenter.default.removeObserver(self)
+                NotificationCenter.default.removeObserver(self)
+            }
         }
     }
 

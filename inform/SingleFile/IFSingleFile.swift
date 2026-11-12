@@ -27,10 +27,21 @@ import Cocoa
     }
 
     deinit {
-        // Documents are closed, and let go of, on the main thread
-        MainActor.assumeIsolated {
-            IFSyntaxManager.unregisterTextStorage(fileStorage)
+        // A file that has closed has unregistered its text storage already, and NSDocument can let go of one on
+        // another thread after it has closed. A file that never closed, as one read but never shown, is let go of on
+        // the main thread, and unregisters its storage here.
+        if Thread.isMainThread {
+            MainActor.assumeIsolated {
+                IFSyntaxManager.unregisterTextStorage(fileStorage)
+            }
         }
+    }
+
+    public override func close() {
+        // The text stops being highlighted as the file closes, as a project's texts do
+        IFSyntaxManager.unregisterTextStorage(fileStorage)
+
+        super.close()
     }
 
     // MARK: - Data

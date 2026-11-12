@@ -655,4 +655,27 @@ final class IFCompilerTests: XCTestCase {
         XCTAssertEqual(posted.last?.problemType, Int(ECompilerProblemType.unknown.rawValue))
         XCTAssertEqual(compiler.problemsURL?.path, results)
     }
+
+    // MARK: - Letting go
+
+    /// NSDocument can let go of a closed project, and so its compiler, on another thread, which mustn't stop the app
+    func testACompilerCanBeLetGoOfOnAnotherThread() {
+        nonisolated(unsafe) var compiler: IFCompiler?
+        weak var gone: IFCompiler?
+        autoreleasepool {
+            let made = IFCompiler()
+            gone = made
+            compiler = made
+        }
+
+        let done = expectation(description: "The compiler was let go of on another thread")
+        DispatchQueue.global().async {
+            compiler = nil
+            done.fulfill()
+        }
+        wait(for: [done], timeout: 5)
+
+        XCTAssertNil(compiler)
+        XCTAssertNil(gone)
+    }
 }
