@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class IFSkein;
 @class IFSkeinItem;
 
-@interface IFProject : NSDocument<NSTextStorageDelegate>
+@interface IFProject : NSDocument
 
 #pragma mark - Properties
 // The files and settings associated with the project

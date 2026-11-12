@@ -607,7 +607,7 @@ extension IFProject {
         }
     }
 
-    private final func writeAllSourceFiles(_ sourceFileWrapper: FileWrapper?) -> Bool {
+    private final func writeAllSourceFiles(_ sourceFileWrapper: FileWrapper?) {
         // Output all the source files to the project file wrapper
         for key in (_sourceFiles ?? [:]).keys {
             let data = dataForSourceFile(withKey: key)
@@ -618,7 +618,6 @@ extension IFProject {
             }
             sourceFileWrapper?.addRegularFile(withContents: data ?? Data(), preferredFilename: key)
         }
-        return true
     }
 
     @discardableResult
@@ -646,16 +645,14 @@ extension IFProject {
         }
     }
 
-    private final func writeProject() throws -> FileWrapper {
+    private final func writeProject() -> FileWrapper {
         writeBegin()
 
         // Create new 'project file', based on the document's file wrapper
         projectFile = IFProjectFile(fileWrapper: documentFileWrapper)
         let source = projectFile?.sourceDirectory
 
-        if !writeAllSourceFiles(source) {
-            throw CocoaError(.fileWriteUnknown)
-        }
+        writeAllSourceFiles(source)
 
         // Replace the current source directory with the new source directory files
         projectFile?.replaceSourceDirectoryWrapper(source)
@@ -689,7 +686,7 @@ extension IFProject {
         switch IFProjectTypes.fileType(from: typeName) {
         // Inform project file
         case .inform7Project, .inform7ExtensionProject:
-            return try writeProject()
+            return writeProject()
 
         // Unknown
         default:
