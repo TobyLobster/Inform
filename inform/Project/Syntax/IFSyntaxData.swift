@@ -9,8 +9,6 @@
 import Cocoa
 
 private let tab: unichar            = 0x09      // \t
-private let lineFeed: unichar       = 0x0A      // \n
-private let carriageReturn: unichar = 0x0D      // \r
 private let space: unichar          = 0x20      // ' '
 
 /// An entry on a syntax stack: the highlighter's state, and its mode
@@ -41,10 +39,10 @@ private func isWhitespace(_ c: unichar) -> Bool {
     //
     // Syntax state - Line and character information
     //
-    private final var lineStarts: IFLineStarts                        // Start positions of each line
+    private final let lineStarts: IFLineStarts                        // Start positions of each line
     private final var lineStates: [[IFSyntaxStackEntry]]              // Syntax stack at the start of lines
 
-    private final var charStyles: IFCharacterStyles                   // Syntax state for each character
+    private final let charStyles: IFCharacterStyles                   // Syntax state for each character
     private final var lineStyles: [[NSAttributedString.Key: Any]]     // NSParagraphStyles for each line
 
     //
@@ -58,7 +56,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
     //
     // The highlighter
     //
-    private final var highlighter: IFSyntaxHighlighter?
+    private final let highlighter: IFSyntaxHighlighter?
 
     //
     // Paragraph styles
