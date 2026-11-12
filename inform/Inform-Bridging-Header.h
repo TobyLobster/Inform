@@ -107,6 +107,7 @@
 #import "IFToolRun.h"
 #import "IFTestCaseRun.h"
 #import "IFTestReport.h"
+#import "IFExtensionTestCases.h"
 #import "IFScanner.h"
 #import "IFDocParser.h"
 #import "IFFindInFiles.h"

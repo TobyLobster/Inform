@@ -24,7 +24,7 @@ extension IFProject {
     var initialSelectionRange: NSRange
     var projectFileType: IFFileType
 
-    private final var _testCases: [[String: Any]]?
+    private final let extensionTestCases: IFExtensionTestCases
 
     private final var _currentSkein: IFSkein?
     let skeins: NSMutableArray
@@ -36,7 +36,6 @@ extension IFProject {
 
     private final var _documentFileWrapper: FileWrapper?
 
-    let inTest: IFInTest
     var inBuild: IFInBuild
 
     var preferences: IFPreferences
@@ -54,7 +53,7 @@ extension IFProject {
         compiler                = IFCompiler()
         notes                   = NSTextStorage(string: "")
         materialsAccess         = nil
-        inTest                  = IFInTest()
+        extensionTestCases      = IFExtensionTestCases()
         inBuild                 = IFInBuild()
         preferences             = IFPreferences.shared
 
@@ -156,8 +155,7 @@ extension IFProject {
 
     var baseReportURL: URL? {
         if isExtensionProject {
-            let fileName = "Inform-Report.html"
-            return IFUtility.temporaryDirectoryURL().appendingPathComponent(fileName)
+            return IFExtensionTestCases.baseReportURL
         }
         preconditionFailure("Asking for report when not an extension project")
     }
@@ -169,8 +167,7 @@ extension IFProject {
                 return nil
             }
 
-            let fileName = "Inform-Report-\(index + 1).html"
-            return IFUtility.temporaryDirectoryURL().appendingPathComponent(fileName)
+            return IFExtensionTestCases.reportURL(forTestCaseAt: index)
         }
         preconditionFailure("Asking for report when not an extension project")
     }
@@ -233,22 +230,18 @@ extension IFProject {
         return testSourceFileURL?.path
     }
 
+    var inTest: IFInTest {
+        return extensionTestCases.inTest
+    }
+
     func refreshTestCases() {
-        _testCases = []
-
         // Only relevant for Inform7 extension projects
-        if projectFileType != .inform7ExtensionProject {
-            return
-        }
-        guard let mainSourcePathName else {
-            return
-        }
-
-        _testCases = inTest.refreshExtensionCatalogue(mainSourcePathName)
+        let isExtensionProject = projectFileType == .inform7ExtensionProject
+        extensionTestCases.refreshTestCases(forExtension: isExtensionProject ? mainSourcePathName : nil)
     }
 
     var testCases: [[String: Any]]? {
-        return _testCases
+        return extensionTestCases.testCases
     }
 
     func extractSourceTask(forExtensionTestCase testCase: String?) {
@@ -256,22 +249,15 @@ extension IFProject {
         if projectFileType != .inform7ExtensionProject {
             return
         }
-        guard let testCase else {
-            return
-        }
 
-        inTest.extractSourceTask(forExtensionFile: mainSourcePathName ?? "",
-                                 forTestCase: testCase,
-                                 outputToSourceFile: testSourcePathName ?? "")
+        extensionTestCases.extractSourceTask(forExtensionTestCase: testCase,
+                                             fromExtension: mainSourcePathName ?? "",
+                                             outputToSourceFile: testSourcePathName ?? "")
     }
 
     func testCommands(forExtensionTestCase testCase: String) -> [String]? {
-        let commandString = inTest.testCommands(forExtension: mainSourcePathName ?? "",
-                                                testCase: testCase)
-        guard let commandString = (commandString as NSString?)?.removingTrailingWhitespace else {
-            return nil
-        }
-        return commandString.components(separatedBy: "\n")
+        return extensionTestCases.testCommands(forExtensionTestCase: testCase,
+                                               ofExtension: mainSourcePathName ?? "")
     }
 
     var nodeToReport: IFSkeinItem? {
@@ -286,42 +272,30 @@ extension IFProject {
                         skeinNodeId: UInt,
                         skeinNodes: Int32,
                         outputURL: URL) -> Bool {
-        let exitCode = inTest.generateReport(forExtension: mainSourcePathName ?? "",
-                                             testCase: testCase,
-                                             errorCode: errorCode,
-                                             problemsURL: normalProblemsURL!,
-                                             skeinNodeId: skeinNodeId,
-                                             skeinNodes: skeinNodes,
-                                             outputURL: outputURL)
-        if exitCode == 0 {
-            return true
-        }
-
-        NSLog("Intest report returned exit code %d\n", exitCode)
-        return false
+        return extensionTestCases.generateReport(forTestCase: testCase,
+                                                 ofExtension: mainSourcePathName ?? "",
+                                                 errorCode: errorCode,
+                                                 problemsURL: normalProblemsURL!,
+                                                 skeinNodeId: skeinNodeId,
+                                                 skeinNodes: skeinNodes,
+                                                 outputURL: outputURL)
     }
 
     // Outputs an HTML report that combinines the individual reports
     func generateCombinedReport(forBaseInputURL baseInputURL: URL,
                                 numTests: Int32,
                                 outputURL: URL) -> Bool {
-        let exitCode = inTest.generateCombinedReport(forExtension: mainSourcePathName ?? "",
-                                                     baseInputURL: baseInputURL,
-                                                     numTests: numTests,
-                                                     outputURL: outputURL)
-        if exitCode == 0 {
-            return true
-        }
-
-        NSLog("Intest combined report returned exit code %d\n", exitCode)
-        return false
+        return extensionTestCases.generateCombinedReport(forBaseInputURL: baseInputURL,
+                                                         ofExtension: mainSourcePathName ?? "",
+                                                         numTests: numTests,
+                                                         outputURL: outputURL)
     }
 
     private final func setSkeinTestCaseTitles() {
         if skeins.count > 0 {
             var index = 0
             for case let skein as IFSkein in skeins {
-                if let testCases = _testCases, testCases.count > index {
+                if let testCases, testCases.count > index {
                     skein.rootItem.command = testCases[index]["testTitle"] as? String
                 }
                 index += 1
@@ -696,20 +670,8 @@ extension IFProject {
 
     // Extension project compilation problems need redirecting back to extension.i7x source, not story.ni
     func redirectLinks(toExtensionSourceCode link: [Any]) -> [Any] {
-        if link.count == 3 {
-            if projectFileType == .inform7ExtensionProject {
-                if let file = link[0] as? NSString, file.isEqual(toStringCaseInsensitive: "story.ni") {
-                    let lineNumber = link[2] as AnyObject
-                    let extensionLineNumber = inTest.adjustLine(lineNumber.intValue,
-                                                                forTestCase: link[1] as? String ?? "")
-                    return ["extension.i7x", NSNumber(value: extensionLineNumber)]
-                }
-            }
-            // Remove the test case parameter
-            return [link[0], link[2]]
-        }
-
-        return link
+        return extensionTestCases.redirectLinks(toExtensionSourceCode: link,
+                                                inExtensionProject: projectFileType == .inform7ExtensionProject)
     }
 
     // Save iFiction
