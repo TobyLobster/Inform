@@ -9,23 +9,6 @@
 import Cocoa
 
 private let tab: unichar            = 0x09      // \t
-private let lineFeed: unichar       = 0x0A      // \n
-private let carriageReturn: unichar = 0x0D      // \r
-private let space: unichar          = 0x20      // ' '
-
-/// An entry on a syntax stack: the highlighter's state, and its mode
-private struct IFSyntaxStackEntry: Equatable {
-    var state: IFSyntaxState
-    var mode: IFHighlighterMode
-}
-
-private func isWhitespace(_ c: unichar) -> Bool {
-    if c == space || c == tab {
-        return true
-    } else {
-        return false
-    }
-}
 
 @objc @implementation extension IFSyntaxData {
 
@@ -41,24 +24,20 @@ private func isWhitespace(_ c: unichar) -> Bool {
     //
     // Syntax state - Line and character information
     //
-    private final var lineStarts: IFLineStarts                        // Start positions of each line
-    private final var lineStates: [[IFSyntaxStackEntry]]              // Syntax stack at the start of lines
+    private final let lineStarts: IFLineStarts                        // Start positions of each line
 
-    private final var charStyles: IFCharacterStyles                   // Syntax state for each character
+    private final let charStyles: IFCharacterStyles                   // Syntax state for each character
     private final var lineStyles: [[NSAttributedString.Key: Any]]     // NSParagraphStyles for each line
 
     //
-    // Syntax state - current highlighter state
+    // Syntax state - the highlighter's state at the start of each line, and as it runs
     //
-    private final var syntaxStack: [IFSyntaxStackEntry]               // Current syntax stack
-    private final var syntaxPos: Int                                  // Current highlighter position
-    private final var syntaxState: IFSyntaxState                      // Active state
-    private final var syntaxMode: IFHighlighterMode                   // 'Mode' - possible extra state from the highlighter
+    private final let highlighterState: IFHighlighterState
 
     //
     // The highlighter
     //
-    private final var highlighter: IFSyntaxHighlighter?
+    private final let highlighter: IFSyntaxHighlighter?
 
     //
     // Paragraph styles
@@ -93,11 +72,6 @@ private func isWhitespace(_ c: unichar) -> Bool {
         charStyles = IFCharacterStyles()
         lineStyles = [[:]]
 
-        syntaxStack = []
-        syntaxPos = 0
-        syntaxState = IFSyntaxState(IFSyntaxStateDefault)
-        syntaxMode = 0
-
         switch aType {
         case .inform6:
             highlighter = IFInform6Highlighter()
@@ -115,7 +89,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
 
         // Initial state
         lineStarts = IFLineStarts()
-        lineStates = [[IFSyntaxStackEntry(state: IFSyntaxState(IFSyntaxStateDefault), mode: 0)]]    // Initial stack starts with the default state
+        highlighterState = IFHighlighterState(text: aStorage, characterStyles: charStyles)
 
         tabStops = nil
         lineParagraphStyle = nil
@@ -352,11 +326,6 @@ private func isWhitespace(_ c: unichar) -> Bool {
                                                 at: oldRange.location,
                                                 changeInLength: changeInLength)
 
-        // newLineStates - an array of 'stacks' (one stack per line). Each 'stack' is a dictionary of the current
-        // highlighter state and inform6/7 'mode'.
-        let notHighlighted = [IFSyntaxStackEntry(state: IFSyntaxState(IFSyntaxStateNotHighlighted), mode: 0)]
-        let newLineStates = [[IFSyntaxStackEntry]](repeating: notHighlighted, count: nNewLines)
-
         // Number of lines that have been added or taken away
         let lineDifference = nNewLines - (lastLine - firstLine)
 
@@ -379,7 +348,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
         }
 
         // Update the line states
-        lineStates.replaceSubrange((firstLine + 1)..<(lastLine + 1), with: newLineStates)
+        highlighterState.replaceLines(after: firstLine, through: lastLine, with: nNewLines)
 
         // Update the character styles of everything beyond our change, and mark the edited range's as no longer valid
         charStyles.replaceStyles(afterEditingRange: newRange, changeInLength: changeInLength)
@@ -449,68 +418,29 @@ private func isWhitespace(_ c: unichar) -> Bool {
     // MARK: - Communication from the highlighter
 
     func pushState() {
-        // When the highlighter opens a comment bracket (etc), it pushes the current state onto a stack.
-        syntaxStack.append(IFSyntaxStackEntry(state: syntaxState,
-                                              mode: syntaxMode))
+        highlighterState.pushState()
     }
 
     func popState() -> IFSyntaxState {
-        // When the highlighter closes a comment bracket (etc), it pops the state off the current stack.
-        let poppedState = syntaxStack.last?.state ?? 0
-        syntaxMode = syntaxStack.last?.mode ?? 0
-        _ = syntaxStack.popLast()
-
-        return poppedState
+        return highlighterState.popState()
     }
 
     @objc(backtrackWithStyle:length:)
     func backtrack(with newStyle: IFSyntaxStyle, length backtrackLength: Int32) {
-        // Change the character style, going backwards for the specified length
-        precondition(syntaxPos < charStyles.count, "index out of range")
-        for x in stride(from: syntaxPos - Int(backtrackLength), to: syntaxPos, by: 1) {
-            if x >= 0 {
-                charStyles.setStyle(newStyle, at: x)
-            }
-        }
+        highlighterState.backtrack(with: newStyle, length: backtrackLength)
     }
 
     var highlighterMode: IFHighlighterMode {
         get {
-            // Retrieves the mode
-            return syntaxMode
+            return highlighterState.mode
         }
         set {
-            // Sets the 'mode' of the highlighter (additional state info, basically)
-            syntaxMode = newValue
+            highlighterState.mode = newValue
         }
     }
 
     func preceeded(byKeyword keyword: String, offset: Int32) -> Bool {
-        // If the given keyword preceeds the current position (case insensitively), this returns true
-        if syntaxPos == 0 {
-            return false
-        }
-
-        var pos = syntaxPos - 1 - Int(offset)
-        let str = textStorage.mutableString
-
-        // Skip whitespace
-        while pos > 0 && isWhitespace(str.character(at: pos)) {
-            pos -= 1
-        }
-
-        // pos should now point at the last letter of the keyword (if it is the keyword)
-        pos += 1
-
-        // See if the keyword is there
-        let keywordLen = (keyword as NSString).length
-        if pos < keywordLen {
-            return false
-        }
-
-        let substring = str.substring(with: NSRange(location: pos - keywordLen, length: keywordLen))
-
-        return (substring as NSString).caseInsensitiveCompare(keyword) == .orderedSame
+        return highlighterState.preceeded(byKeyword: keyword, offset: offset)
     }
 
     ///
@@ -555,7 +485,6 @@ private func isWhitespace(_ c: unichar) -> Bool {
         //
         // Phase One: Calculate charStyles, hint keywords, gather intelligence, indent paragraphs.
         //
-        var previousOldStack: [IFSyntaxStackEntry]? = nil                  // The 'old' stack for the previous line
         var previousElasticRange = NSRange(location: NSNotFound, length: 0) // The previous range formatted with elastic tabs
         let styles = IFSyntaxStyles()
         let allStyles = charStyles.styles(from: 0)                           // Shared until the next edit
@@ -568,37 +497,32 @@ private func isWhitespace(_ c: unichar) -> Bool {
             let lastChar  = (line + 1) < lineStarts.count ? lineStarts.start(ofLine: line + 1) : textStorage.length
 
             // Set up the state
-            syntaxStack = lineStates[line]
+            highlighterState.startLine(line, at: firstChar)
 
-            syntaxState = syntaxStack.last?.state ?? 0
-            syntaxMode  = syntaxStack.last?.mode ?? 0
-            _ = syntaxStack.popLast()
-
-            let initialState = syntaxState
+            let initialState = highlighterState.state
 
             // Highlight this line
-            syntaxPos = firstChar
-            while syntaxPos < lastChar {
+            while highlighterState.position < lastChar {
                 // Current state
-                let curChar = str.character(at: syntaxPos)
+                let curChar = str.character(at: highlighterState.position)
 
                 // Next state
                 let nextState = highlighter?.state(forCharacter: curChar,
-                                                   afterState: syntaxState) ?? 0
+                                                   afterState: highlighterState.state) ?? 0
 
                 // Next style
                 let nextStyle = highlighter?.style(forCharacter: curChar,
                                                    nextState: nextState,
-                                                   lastState: syntaxState) ?? []
+                                                   lastState: highlighterState.state) ?? []
 
                 // Store the style
-                precondition(syntaxPos < Int(allStyles.numCharStyles), "index out of range")
-                allStyles.styles![syntaxPos] = nextStyle
+                precondition(highlighterState.position < Int(allStyles.numCharStyles), "index out of range")
+                allStyles.styles![highlighterState.position] = nextStyle
 
                 // Store the state
-                syntaxState = nextState
+                highlighterState.state = nextState
 
-                syntaxPos += 1
+                highlighterState.position += 1
             }
 
             // Provide an opportunity for the highlighter to hint keywords, etc
@@ -636,29 +560,21 @@ private func isWhitespace(_ c: unichar) -> Bool {
             }
             lineStyles[line] = newStyle
 
-            // Store the current state on the stack
-            syntaxStack.append(IFSyntaxStackEntry(state: syntaxState,
-                                                  mode: syntaxMode))
+            // Store the current state on the stack, as the next line's, and compare it with the old one
+            let nextLineUnchanged = highlighterState.finishLine(line)
 
-            // Compare the new stack against the old version to see if anything has changed
-            previousOldStack = nil
-            if line + 1 < lineStates.count {
-                previousOldStack = lineStates[line + 1]
-
-                //
-                // Optimisation: If the state stack for the next line hasn't changed from what it
-                // was previously, then we are done. (However, if we are reformatting due to a tab
-                // setting change, then we can't optimise this way, we must format the entire rest
-                // of the text).
-                //
-                if !forceUpdateTabs {
-                    // If our state for the next line has not changed, then we are done syntax highlighting
-                    if previousOldStack == syntaxStack {
-                        lastLine = line
-                        break
-                    }
+            //
+            // Optimisation: If the state stack for the next line hasn't changed from what it
+            // was previously, then we are done. (However, if we are reformatting due to a tab
+            // setting change, then we can't optimise this way, we must format the entire rest
+            // of the text).
+            //
+            if !forceUpdateTabs {
+                // If our state for the next line has not changed, then we are done syntax highlighting
+                if nextLineUnchanged {
+                    lastLine = line
+                    break
                 }
-                lineStates[line + 1] = syntaxStack
             }
         }
 
