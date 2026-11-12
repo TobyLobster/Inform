@@ -119,6 +119,12 @@ final class IFElasticTabsTests: XCTestCase {
         XCTAssertEqual(table(at: "c", in: text), "a\tb\rc\td\r")
     }
 
+    func testLinesEndingInReturnsAndNewlines() {
+        let text = "Text.\r\na\tb\r\nc\td\r\nText.\r\n"
+        XCTAssertEqual(table(at: "a", in: text), "a\tb\r\nc\td\r\n")
+        XCTAssertEqual(table(at: "c", in: text), "a\tb\r\nc\td\r\n")
+    }
+
     // MARK: - Cells
 
     func testTheCellsOfATablesLines() {
@@ -151,5 +157,9 @@ final class IFElasticTabsTests: XCTestCase {
 
     func testLinesEndingInReturnsHaveCells() {
         XCTAssertEqual(cells(in: "a\tb\rc\td\r"), [["a", "b"], ["c", "d"], []])
+    }
+
+    func testLinesEndingInReturnsAndNewlinesHaveCells() {
+        XCTAssertEqual(cells(in: "a\tb\r\nc\td\r\n"), [["a", "b"], ["c", "d"], []])
     }
 }

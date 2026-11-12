@@ -43,8 +43,12 @@ private func isLineEnd(_ c: unichar) -> Bool {
 
         let text = self.text
 
-        // Move backwards to the beginning of the line
+        // Move backwards to the beginning of the line (from the newline of a return and a newline, past the return)
         start -= 1
+        if start >= 0 && charIndex < text.length
+            && text.character(at: charIndex) == lineFeed && text.character(at: start) == carriageReturn {
+            start -= 1
+        }
         while start >= 0 && !isLineEnd(text.character(at: start)) {
             start -= 1
         }
@@ -163,6 +167,9 @@ private func isLineEnd(_ c: unichar) -> Bool {
             // Read the next character
             let chr = text.character(at: chrPos)
 
+            // Where a column ending here ends, before the line ending if this is its return
+            let columnEnd = chrPos
+
             // Skip the next character to deal with DOS line endings
             if chr == carriageReturn && chrPos + 1 < region.location + region.length {
                 if text.character(at: chrPos + 1) == lineFeed {
@@ -182,7 +189,7 @@ private func isLineEnd(_ c: unichar) -> Bool {
             if (chr == tab && !tabsAtStart) || chr == lineFeed || chr == carriageReturn {
                 // Store this column
                 lines[lines.count - 1].append(NSValue(range: NSRange(location: lastTabPos,
-                                                                     length: chrPos - lastTabPos)))
+                                                                     length: columnEnd - lastTabPos)))
 
                 // Start the next column on the character after this one
                 lastTabPos = chrPos + 1
