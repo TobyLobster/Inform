@@ -208,36 +208,32 @@ private func isWhitespace(_ c: unichar) -> Bool {
 
     //
     // Helper method.
-    // What's the current style and range at the given character index?
+    // What's the range of the current style at the given character index?
     //
-    private final func style(at index: Int, effectiveRange range: UnsafeMutablePointer<NSRange>?) -> IFSyntaxStyle {
+    private final func rangeOfStyle(at index: Int) -> NSRange {
         let style = charStyles.read(index)
 
-        if let range {
-            var localRange = NSRange(location: index, length: 0)       // Optimisation suggested by Shark
+        var localRange = NSRange(location: index, length: 0)       // Optimisation suggested by Shark
 
-            while localRange.location > 0 {
-                if charStyles.read(localRange.location - 1) == style {
-                    localRange.location -= 1
-                } else {
-                    break
-                }
+        while localRange.location > 0 {
+            if charStyles.read(localRange.location - 1) == style {
+                localRange.location -= 1
+            } else {
+                break
             }
-
-            let strLen = textStorage.length
-
-            while localRange.location + localRange.length < strLen {
-                if charStyles.read(localRange.location + localRange.length) == style {
-                    localRange.length += 1
-                } else {
-                    break
-                }
-            }
-
-            range.pointee = localRange
         }
 
-        return style
+        let strLen = textStorage.length
+
+        while localRange.location + localRange.length < strLen {
+            if charStyles.read(localRange.location + localRange.length) == style {
+                localRange.length += 1
+            } else {
+                break
+            }
+        }
+
+        return localRange
     }
 
     //
@@ -592,9 +588,8 @@ private func isWhitespace(_ c: unichar) -> Bool {
 
         while range.length > 0 {
             // What's the current style and it's range?
-            var styleRange = NSRange(location: 0, length: 0)
-            let style = self.style(at: range.location,
-                                   effectiveRange: &styleRange)
+            let style = charStyles.read(range.location)
+            var styleRange = rangeOfStyle(at: range.location)
 
             // The run of this style can extend past either end of the range we were asked
             // to update, across line boundaries. Never touch text outside the range: those
