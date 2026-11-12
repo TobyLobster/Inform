@@ -76,11 +76,7 @@ NS_SWIFT_UI_ACTOR
 /// Forces a rehighlight (to take account of new preferences)
 - (void) preferencesChanged: (nullable NSNotification*) not;
 
-// Elastic Tabs
-/// Given a character index, works out the character range that elastic tabs should be applied to. Uses \c NSNotFound if elastic tabs shouldn't be applied to this range
-- (NSRange) rangeOfElasticRegionAtIndex: (NSUInteger) charIndex;
-/// Given a region, returns the set of tab stops to use for elastic tabs
-- (NSArray<NSTextTab*>*) elasticTabsInRegion: (NSRange) region;
+// Tabs
 /// Gets a paragraph style for the given number of tab stops
 - (NSDictionary<NSAttributedStringKey,id>*) paragraphStyleForTabStops: (int) numberOfTabstops;
 

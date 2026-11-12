@@ -1302,8 +1302,7 @@ private func isLineEnd(_ c: unichar) -> Bool {
     }
 
     // Given a character index, work out the corresponding range where elastic tabs must apply
-    @objc(rangeOfElasticRegionAtIndex:)
-    func rangeOfElasticRegion(at charIndex: UInt) -> NSRange {
+    private final func rangeOfElasticRegion(at charIndex: UInt) -> NSRange {
         // Hunt backwards for the beginning of the file, or the first blank line that preceeds this index
         var firstLine   = lineRange(at: Int(charIndex))
         var lastLine    = firstLine
@@ -1352,7 +1351,7 @@ private func isLineEnd(_ c: unichar) -> Bool {
     }
 
     // Given a character range, calculate the positions the 'elastic' tab stops should go at
-    func elasticTabs(inRegion region: NSRange) -> [NSTextTab] {
+    private final func elasticTabs(inRegion region: NSRange) -> [NSTextTab] {
         // Nothing to do if the region is 'not found'
         if region.location == NSNotFound {
             return standardTabStops()
