@@ -15,6 +15,7 @@
 #import "IFSemVer.h"
 #import "IFDiffer.h"
 #import "IFSkein.h"
+#import "IFProjectSkeins.h"
 #import "IFSkeinItem.h"
 #import "IFSkeinPlayAll.h"
 #import "IFSourceHighlights.h"
