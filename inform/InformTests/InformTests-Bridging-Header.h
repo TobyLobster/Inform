@@ -10,6 +10,7 @@
 #import "IFSemVer.h"
 #import "IFUtility.h"
 #import "IFSkein.h"
+#import "IFProjectSkeins.h"
 #import "IFSkeinItem.h"
 #import "IFSkeinPlayAll.h"
 #import "IFSourceHighlights.h"
