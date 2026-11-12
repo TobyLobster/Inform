@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// showed, in order, and which of them is the current one. What's recorded in one pass of the run loop goes in one
 /// event, and while an event is replayed, nothing is recorded.
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFPaneHistory : NSObject
 
 - (instancetype) init NS_UNAVAILABLE;
@@ -24,9 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype) initWithChangeHandler: (void (^)(void)) changed NS_DESIGNATED_INITIALIZER;
 
 /// The event to record what's done in this pass of the run loop in: the one added in it already, if there is one, or
-/// else a new one with the object given as its target, added after the current event, in place of any after it; nil
-/// while an event is replayed
-- (nullable IFHistoryEvent*) eventForObject: (id) object;
+/// else a new one, added after the current event, in place of any after it; nil while an event is replayed
+- (nullable IFHistoryEvent*) eventForThisPass;
 
 /// Whether there's an event before the current one
 @property (atomic, readonly) BOOL canGoBackwards;

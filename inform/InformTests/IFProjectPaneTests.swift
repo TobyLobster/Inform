@@ -279,15 +279,13 @@ final class IFProjectPaneTests: XCTestCase, @unchecked Sendable {
 
     // MARK: - The history
 
-    /// The history is a proxy, which records any message it's sent, so it's only compared with nil, as XCTest would
-    /// ask it for its description
-    func testThePanesHistoryIsAProxyAimedAtThePane() throws {
+    func testThePanesHistoryEventIsTheOneForThisPassOfTheRunLoop() throws {
         RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
         let event = try XCTUnwrap(right.historyEvent)
-        let history = right.history as AnyObject?
-        XCTAssertTrue(history != nil)
         XCTAssertTrue(right.historyEvent === event)
-        XCTAssertTrue(event.target as AnyObject? === right)
+
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+        XCTAssertFalse(right.historyEvent === event)
     }
 
     func testOnceClosedThePaneHasNoHistory() {
@@ -317,16 +315,15 @@ final class IFProjectPaneTests: XCTestCase, @unchecked Sendable {
         }
     }
 
-    /// A pane that's never given a controller isn't set up, but records its history, which holds on to the pane until
-    /// it's closed
+    /// A pane that's never given a controller isn't set up, but records its history, which can hold on to the pane
+    /// until it's closed
     func testAStandardPaneIsANewOne() throws {
         weak var freed: IFProjectPane?
         try autoreleasepool {
             let pane = IFProjectPane.standard()
             freed = pane
             XCTAssertFalse(pane === IFProjectPane.standard())
-            let event = try XCTUnwrap(pane.historyEvent)
-            XCTAssertTrue(event.target as AnyObject? === pane)
+            try XCTUnwrap(pane.historyEvent).addAction { pane.selectView(of: .sourcePane) }
             pane.willClose()
         }
         RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))

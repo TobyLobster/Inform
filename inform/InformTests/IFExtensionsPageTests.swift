@@ -31,9 +31,10 @@ private final class ProjectControllerStandIn: IFProjectController {
 
 /// Gives the page a history event, as a pane would, and counts how often it's asked for one, which the page only
 /// does to record something
+@MainActor
 private final class Recorder: NSObject, IFHistoryRecorder {
     /// The event that what the page records goes in
-    var event = IFHistoryEvent(object: NSNull())
+    var event = IFHistoryEvent()
     /// How often the page has asked for the event
     private(set) var timesAsked = 0
 
@@ -508,7 +509,7 @@ final class IFExtensionsPageTests: XCTestCase, @unchecked Sendable {
         // To switch to the page, and to show its page
         XCTAssertEqual(recorder.timesAsked, 2)
 
-        recorder.event = IFHistoryEvent(object: NSNull())
+        recorder.event = IFHistoryEvent()
         open(catalogueURL, in: shown)
         XCTAssertEqual(recorder.timesAsked, 4)
 
@@ -564,7 +565,7 @@ final class IFExtensionsPageTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(recorder.timesAsked, 1)
         XCTAssertEqual(shown.watcher.started.suffix(2), ["inform:/index.html", "inform:/index.html"])
 
-        recorder.event = IFHistoryEvent(object: NSNull())
+        recorder.event = IFHistoryEvent()
         open(catalogueURL, in: shown)
         waitForNavigation(shown.watcher) {
             switched.replay()

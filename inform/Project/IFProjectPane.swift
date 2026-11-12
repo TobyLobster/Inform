@@ -192,11 +192,7 @@ private let zoomShowsWarnings: Void = {
         _documentationPage = documentationPage
         add(documentationPage)
         NSLog("HISTORY: ProjectPane (%@): (setupFromController) documentationPage:showToc", self)
-        if let history = documentationPage.history {
-            // The history is a proxy, which records any message it's sent, so it isn't cast, as a cast asks it its
-            // class
-            unsafeBitCast(history as AnyObject, to: IFDocumentationPage.self).showToc(self)
-        }
+        documentationPage.recordInHistory { documentationPage.showToc(self) }
 
         // Extensions page
         let extensionsPage = IFExtensionsPage(projectController: ourParent,
@@ -204,9 +200,7 @@ private let zoomShowsWarnings: Void = {
         _extensionsPage = extensionsPage
         add(extensionsPage)
         NSLog("HISTORY: ProjectPane (%@): (setupFromController) extensionsPage:showHome", self)
-        if let history = extensionsPage.history {
-            unsafeBitCast(history as AnyObject, to: IFExtensionsPage.self).showHome(self)
-        }
+        extensionsPage.recordInHistory { extensionsPage.showHome(self) }
 
         // Settings
         let settingsPage = IFSettingsPage(projectController: ourParent)
@@ -237,7 +231,7 @@ private let zoomShowsWarnings: Void = {
             tabView.frame = tabRect
         }
 
-        historicalPane?.selectView(of: .sourcePane)
+        historyEvent?.addAction { self.selectView(of: .sourcePane) }
     }
 
     nonisolated public override func awakeFromNib() {
@@ -468,9 +462,9 @@ private let zoomShowsWarnings: Void = {
         NSLog("HISTORY: Project Pane (%@): (willSelectTabViewItem) page %@ tabViewItem %@",
               self, page.map { "\($0)" } ?? "(null)", tabViewItem.map { "\($0)" } ?? "(null)")
         if let tabViewItem {
-            historicalPane?.select(tabViewItem)
+            historyEvent?.addAction { self.select(tabViewItem) }
         }
-        historicalPane?.activate(page)
+        historyEvent?.addAction { self.activate(page) }
 
         // Notify the page that it has been selected
         page?.pageIsVisible = true
@@ -569,26 +563,7 @@ private let zoomShowsWarnings: Void = {
     }
 
     var historyEvent: IFHistoryEvent? {
-        return paneHistory.event(for: self)
-    }
-
-    var history: Any? {
-        guard let event = paneHistory.event(for: self) else {
-            return nil
-        }
-
-        // Return a suitable proxy
-        event.target = self
-        return event.proxy
-    }
-
-    /// The history, as the pane: what's sent to it is recorded, and sent to the pane when the history is replayed.
-    /// The history is a proxy, which records any message it's sent, so it isn't cast, as a cast asks it its class.
-    private final var historicalPane: IFProjectPane? {
-        guard let history else {
-            return nil
-        }
-        return unsafeBitCast(history as AnyObject, to: IFProjectPane.self)
+        return paneHistory.eventForThisPass()
     }
 
     func goBackwards(_ sender: Any?) {

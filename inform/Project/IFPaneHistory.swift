@@ -63,8 +63,7 @@ import Foundation
         changed()
     }
 
-    @objc(eventForObject:)
-    func event(for object: Any) -> IFHistoryEvent? {
+    func eventForThisPass() -> IFHistoryEvent? {
         if replaying {
             return nil
         }
@@ -73,8 +72,8 @@ import Foundation
         if let lastEvent {
             event = lastEvent
         } else {
-            // Construct a new event based on this obejct
-            let newEvent = IFHistoryEvent(object: object)
+            // Construct a new event
+            let newEvent = IFHistoryEvent()
             addHistoryEvent(newEvent)
 
             event = newEvent

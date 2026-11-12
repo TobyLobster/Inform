@@ -110,19 +110,8 @@ import Cocoa
 
     // MARK: - History
 
-    var history: Any? {
-        var event: IFHistoryEvent? = nil
-
-        if let recorder {
-            event = recorder.historyEvent
-        }
-
-        if let event {
-            event.target = self
-            return event.proxy
-        }
-
-        return nil
+    func recordInHistory(_ action: @escaping () -> Void) {
+        recorder?.historyEvent?.addAction(action)
     }
 
     func didSwitchToPage() {
