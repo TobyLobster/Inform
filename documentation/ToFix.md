@@ -8,6 +8,16 @@ Each says how it was found, and none has been seen in the app unless it says so.
 
 - **The Public Library page and the app disagree about their messages.** `messages_to_objc.js` posts `askInterfaceForLocalVersion`, `askInterfaceForLocalVersionText` and `downloadMultipleExtensions`, which `IFWebViewHelper` doesn't act on, and its `openURL` posts `openFile`, so the helper takes the URL for a file's path. Inform Core's `pl404.html` also uses the first two's return values at once, which WKWebView messages can't give, so this needs an asynchronous design on both sides (see `for_g.txt`). The helper had handlers for the first two under other names, which nothing reached and whose answers were thrown away; they were taken out (a84b8641), and the lookup of an installed extension's version will have to be written for that design. Older than this work; found reading the scripts (November 2026).
 
+## Source editing
+
+Found checking the fixes in the app, in a Debug build (12 November 2026), and not yet compared with the released app.
+
+- **Undo after a heading is numbered spoils the text.** Typing a heading's first word and a space fills in its number (`IFNaturalIntel`'s `rewriteInput`), and renumbers the headings after it; undoing that left the text corrupted. `IFSyntaxData` puts the number in as the text storage processes the typing (`textStorage(_:willProcessEditing:…)`), as the Objective-C did before this work, so it may be older than it.
+- **A section shown on its own isn't redrawn as it's edited.** Making the section longer drew its text over the arrow in the tear at its bottom, and making it shorter left pieces of the tear behind.
+- **Undo in a section shown on its own spoils the text, and then stops the app,** in `-[NSUndoStack popAndInvoke]`. There's no backtrace yet.
+- **Renumber All Sections leaves headings numbered in words.** It renumbers only headings numbered in figures, so with a chapter taken out, `Chapter Four` stays as it is. Typing a heading renumbers the ones after it in words or figures (65bca6c8).
+- **Opening a large project may be slow.** Monkey.inform took over 15 seconds to open. Not yet timed in a release build.
+
 ## Documentation
 
 - **Searching the documentation is slow.** Find in Files reads and parses every documentation page for each search, and the pages the app has shown since May 2024 are about 100 MB, five times the old ones. A search of the documentation takes about 15 seconds in the tests, in a Debug build, against 4 with the old pages, and the whole test run went from about 205 seconds to 374. The parsed text could be kept between searches, or made when the app is built. Found while making Find in Files search the new documentation (11 November 2026); not timed in the app.
