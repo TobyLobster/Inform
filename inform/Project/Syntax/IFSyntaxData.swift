@@ -83,8 +83,8 @@ private func isWhitespace(_ c: unichar) -> Bool {
 
     /// Tab stop array
     private final var tabStops: [NSTextTab]?
-    /// Maps number of tabs at the start of a line to the appropriate paragraph style
-    private final var paragraphStyles: [[NSAttributedString.Key: Any]]?
+    /// The paragraph style of each line, until elastic tabs give a table's lines their own
+    private final var lineParagraphStyle: [NSAttributedString.Key: Any]?
 
     //
     // 'Intelligence'
@@ -135,7 +135,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
         lineStates = [[IFSyntaxStackEntry(state: IFSyntaxState(IFSyntaxStateDefault), mode: 0)]]    // Initial stack starts with the default state
 
         tabStops = nil
-        paragraphStyles = nil
+        lineParagraphStyle = nil
 
         intelSource = nil
         intelData = IFIntelFile()
@@ -145,7 +145,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
         super.init()
 
         // Set up default tabs
-        _ = paragraphStyle(forTabStops: 8)
+        _ = paragraphStyle()
 
         // Set up intelligence
         self.intelligence = intelligence
@@ -523,7 +523,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
             intelData.removeLines(NSRange(location: firstLine + 1, length: lastLine - firstLine))
 
             for _ in 0..<nNewLines {
-                lineStyles.insert(paragraphStyle(forTabStops: 0), at: firstLine + 1)
+                lineStyles.insert(paragraphStyle(), at: firstLine + 1)
                 intelData.insertLine(beforeLine: Int32(firstLine + 1))
             }
         }
@@ -755,24 +755,11 @@ private func isWhitespace(_ c: unichar) -> Bool {
 
             let initialState = syntaxState
 
-            // Number of tab stops (used for paragraph styles later)
-            var numTabStops: Int32 = 0
-            var countingTabs = true
-
             // Highlight this line
             syntaxPos = firstChar
             while syntaxPos < lastChar {
                 // Current state
                 let curChar = str.character(at: syntaxPos)
-
-                // Count tab stops at the start of the line
-                if countingTabs {
-                    if curChar == tab {
-                        numTabStops += 1
-                    } else {
-                        countingTabs = false
-                    }
-                }
 
                 // Next state
                 let nextState = highlighter?.state(forCharacter: curChar,
@@ -822,7 +809,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
             // applies it to the text, and Phase Three replaces it with an elastic one for
             // lines that turn out to be part of a table. Lines that are not edited keep
             // whatever they already have, in both lineStyles[] and the text.
-            let newStyle = paragraphStyle(forTabStops: numTabStops)
+            let newStyle = paragraphStyle()
             while lineStyles.count <= line {
                 lineStyles.append(newStyle)
             }
@@ -916,7 +903,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
                         // Create a default line style for all unstyled lines,
                         // in case stage 1 didn't get here (for example, if this
                         // table runs past the edited region)
-                        lineStyles.append(paragraphStyle(forTabStops: 0))
+                        lineStyles.append(paragraphStyle())
                     }
                     for formatLine in stride(from: firstElasticLine, to: lastElasticLine, by: 1) {
                         // Skip lines that already carry these tab stops. lineStyles[] is
@@ -998,7 +985,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
 
         // Flush out old indents / tabs if we force an update of tabs
         if forceUpdateTabs {
-            paragraphStyles = nil
+            lineParagraphStyle = nil
 
             tabStops = nil
         }
@@ -1035,7 +1022,7 @@ private func isWhitespace(_ c: unichar) -> Bool {
         return newTabStops
     }
 
-    private final func generateParagraphStyle(forTabStops numberOfTabStops: Int32) -> [NSAttributedString.Key: Any] {
+    private final func generateParagraphStyle() -> [NSAttributedString.Key: Any] {
         let res = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
 
         // Create standard tab stops if needed
@@ -1049,30 +1036,17 @@ private func isWhitespace(_ c: unichar) -> Bool {
         return [.paragraphStyle: res]
     }
 
-    private final func paragraphStyle(forTabStops numberOfTabStops: Int32) -> [NSAttributedString.Key: Any] {
-        var numberOfTabStops = numberOfTabStops
-
-        if paragraphStyles == nil {
-            paragraphStyles = []
-        }
-
-        precondition(numberOfTabStops >= 0, "Asking for a negative number of tabstops?! \(numberOfTabStops)")
-
-        if numberOfTabStops < 0 { numberOfTabStops = 0 }       // Technically an error
-        if numberOfTabStops > 48 { numberOfTabStops = 48 }     // Avoid eating all the pies^Wmemory
-
+    /// The paragraph style of a line, with the standard tab stops. (Each number of tabs at the start of a line had a
+    /// style of its own, to indent the line's wrapped text past them, until 515e4ae0 stopped indenting it.)
+    private final func paragraphStyle() -> [NSAttributedString.Key: Any] {
         // Use the cached version if available
-        if numberOfTabStops < paragraphStyles!.count {
-            return paragraphStyles![Int(numberOfTabStops)]
+        if let lineParagraphStyle {
+            return lineParagraphStyle
         }
 
-        // Generate missing tab stops if not
-        for x in paragraphStyles!.count...Int(numberOfTabStops) {
-            let style = generateParagraphStyle(forTabStops: Int32(x))
-            paragraphStyles!.append(style)
-        }
-
-        return paragraphStyles![Int(numberOfTabStops)]
+        let style = generateParagraphStyle()
+        lineParagraphStyle = style
+        return style
     }
 
     // MARK: - Elastic tabs
