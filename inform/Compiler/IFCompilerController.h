@@ -10,7 +10,7 @@
 #import <AppKit/AppKit.h>
 
 #import "IFCompiler.h"
-#import "IFError.h"
+#import "IFCompilerOutputScanner.h"
 #import "IFCompilerResultFiles.h"
 
 NS_ASSUME_NONNULL_BEGIN

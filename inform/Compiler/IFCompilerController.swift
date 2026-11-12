@@ -76,7 +76,7 @@ import WebKit
     // Styles
     /// The attributes used to render various strings recognised by the parser
     private final var styles: [String: [NSAttributedString.Key: Any]] = [:]
-    /// The position the highlighter has reached (see IFError.[hl])
+    /// The position the highlighter has reached (see IFCompilerOutputScanner)
     private final var highlightPos = 0
     /// Scans each line of output for its style and what it says
     private final let outputScanner = IFCompilerOutputScanner()
