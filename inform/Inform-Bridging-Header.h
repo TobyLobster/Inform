@@ -63,6 +63,7 @@
 #import "IFCharacterStyles.h"
 #import "IFRestrictedStorages.h"
 #import "IFHighlighterState.h"
+#import "IFLineStyles.h"
 #import "IFInform6Highlighter.h"
 #import "IFNaturalHighlighter.h"
 #import "IFProjectPane.h"
