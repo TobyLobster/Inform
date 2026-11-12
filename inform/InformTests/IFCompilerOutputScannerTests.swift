@@ -314,6 +314,11 @@ final class IFCompilerOutputScannerTests: XCTestCase, @unchecked Sendable {
         assertLine("> look", nil)
     }
 
+    func testAnInform6ErrorWithoutItsNewlineLeavesTheNextLineAlone() {
+        assertLine(String(inform6("Error:  Oops").dropLast()), nil)
+        assertLine("Inform 7 v10.2.0 has started.\n", IFStyleCompilerVersion)
+    }
+
     func testEachScannerTellsItsOwnDelegate() {
         let other = IFCompilerOutputScanner()
         let otherDelegate = Delegate()

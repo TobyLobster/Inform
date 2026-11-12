@@ -190,6 +190,12 @@ File\ \".*\";\ Line\ [0-9]+(:\ \(.*\))?\t#\  {
 int IFErrorScanString(const char* string) {
     int len = (int)strlen(string);
 
+    // Each line is scanned afresh, even if the last one stopped partway through an Inform 6 error
+    if (YY_START == ERRORMESSAGE) {
+        if (currentError.file) free(currentError.file);
+        BEGIN(0);
+    }
+
     yy_delete_buffer(YY_CURRENT_BUFFER);
     
     YY_BUFFER_STATE b;
