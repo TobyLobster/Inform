@@ -64,7 +64,6 @@ final class IFPageTests: XCTestCase {
         XCTAssertNil(page.otherPane)
         XCTAssertNil(page.thisPane)
         XCTAssertNil(page.recorder)
-        XCTAssertNil(page.history)
         XCTAssertFalse(page.pageIsVisible)
         XCTAssertEqual(page.title, "Untitled")
         XCTAssertEqual(page.identifier, "IFPage")
@@ -158,29 +157,6 @@ final class IFPageTests: XCTestCase {
         XCTAssertNil(posted.first?.userInfo)
     }
 
-    /// The history is a proxy for the recorder's event, aimed at the page, or nil without an event
-    func testHistory() throws {
-        let page = makePage()
-        let recorder = Recorder()
-        page.recorder = recorder
-        XCTAssertTrue(page.recorder === recorder)
-        XCTAssertNil(page.history)
-
-        let event = IFHistoryEvent(object: NSNull())
-        recorder.historyEvent = event
-        let history = try XCTUnwrap(page.history as AnyObject?)
-        XCTAssertTrue(event.target as AnyObject? === page)
-
-        // What's sent to the history is recorded, and sent to the page when the event is replayed, as the pane
-        // does for Back and Forward. Objective-C sends it to an id, which unsafeBitCast does here.
-        unsafeBitCast(history, to: IFPage.self).toolbarCellsHaveUpdated()
-        XCTAssertNil(event.target)
-        let posted = notifications(.IFUpdatePageBarCells, from: page) {
-            event.replay()
-        }
-        XCTAssertEqual(posted.count, 1)
-    }
-
     /// What's recorded in the history is added to the recorder's event, which performs it when it's replayed, and
     /// without an event it isn't kept
     func testRecordingInTheHistory() {
@@ -189,9 +165,10 @@ final class IFPageTests: XCTestCase {
         page.recordInHistory { performed.append("no recorder") }
         let recorder = Recorder()
         page.recorder = recorder
+        XCTAssertTrue(page.recorder === recorder)
         page.recordInHistory { performed.append("no event") }
 
-        let event = IFHistoryEvent(object: NSNull())
+        let event = IFHistoryEvent()
         recorder.historyEvent = event
         page.recordInHistory { performed.append("recorded") }
         XCTAssertEqual(performed, [])

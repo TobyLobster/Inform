@@ -11,8 +11,7 @@ private final class Shown: NSObject {
     /// Called as something is shown, as a pane's page might record more
     var whileShowing: (() -> Void)?
 
-    /// Dynamic, so that it's sent as a message, as the history's proxy needs
-    @objc dynamic func show(_ name: String) {
+    func show(_ name: String) {
         shown.append(name)
         whileShowing?()
     }
@@ -51,13 +50,10 @@ final class IFPaneHistoryTests: XCTestCase, @unchecked Sendable {
         RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
     }
 
-    /// Records showing the name given in the event for this pass of the run loop, as a pane's page does through its
-    /// history's proxy
+    /// Records showing the name given in the event for this pass of the run loop, as a pane or its page does
     private func recordInThisPass(_ name: String) throws {
-        let event = try XCTUnwrap(history.event(for: NSNull()))
-        event.target = shown
-        // Objective-C sends it to an id, which unsafeBitCast does here
-        unsafeBitCast(event.proxy as AnyObject, to: Shown.self).show(name)
+        let shown = try XCTUnwrap(shown)
+        try XCTUnwrap(history.eventForThisPass()).addAction { shown.show(name) }
     }
 
     /// Records showing the name given in an event of its own
@@ -79,23 +75,21 @@ final class IFPaneHistoryTests: XCTestCase, @unchecked Sendable {
         XCTAssertFalse(history.canGoForwards)
     }
 
-    func testTheFirstEventIsAimedAtTheObjectGivenAndIsTheCurrentOne() throws {
-        let event = try XCTUnwrap(history.event(for: shown!))
-        XCTAssertTrue(event.target as AnyObject? === shown)
+    func testTheFirstEventIsTheCurrentOne() throws {
+        XCTAssertNotNil(history.eventForThisPass())
         XCTAssertEqual(changes, 1)
         XCTAssertFalse(history.canGoBackwards)
         XCTAssertFalse(history.canGoForwards)
     }
 
     func testWhatsRecordedInOnePassOfTheRunLoopGoesInOneEvent() throws {
-        let first = try XCTUnwrap(history.event(for: shown!))
-        let again = try XCTUnwrap(history.event(for: NSNull()))
+        let first = try XCTUnwrap(history.eventForThisPass())
+        let again = try XCTUnwrap(history.eventForThisPass())
         XCTAssertTrue(again === first)
-        XCTAssertTrue(again.target as AnyObject? === shown)
         XCTAssertEqual(changes, 1)
 
         nextPass()
-        let next = try XCTUnwrap(history.event(for: NSNull()))
+        let next = try XCTUnwrap(history.eventForThisPass())
         XCTAssertFalse(next === first)
         XCTAssertEqual(changes, 2)
         XCTAssertTrue(history.canGoBackwards)
@@ -116,13 +110,10 @@ final class IFPaneHistoryTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(shown.shown, ["b", "c", "a"])
     }
 
-    /// An event can record actions as well as messages sent to its proxy, and replays them in the order they were
-    /// recorded
-    func testAnEventReplaysActionsAndMessagesInTheOrderTheyWereRecorded() throws {
-        let event = try XCTUnwrap(history.event(for: NSNull()))
+    func testAnEventReplaysItsActionsInTheOrderTheyWereAdded() throws {
+        let event = try XCTUnwrap(history.eventForThisPass())
         event.addAction { self.shown.show("a") }
-        event.target = shown
-        unsafeBitCast(event.proxy as AnyObject, to: Shown.self).show("b")
+        event.addAction { self.shown.show("b") }
         event.addAction { self.shown.show("c") }
         XCTAssertEqual(shown.shown, [])
 
@@ -193,7 +184,7 @@ final class IFPaneHistoryTests: XCTestCase, @unchecked Sendable {
 
         var recordedWhileShowing: [IFHistoryEvent?] = []
         shown.whileShowing = { [unowned self] in
-            recordedWhileShowing.append(history.event(for: NSNull()))
+            recordedWhileShowing.append(history.eventForThisPass())
         }
         history.goBackwards()
         XCTAssertEqual(recordedWhileShowing.count, 1)
@@ -205,22 +196,22 @@ final class IFPaneHistoryTests: XCTestCase, @unchecked Sendable {
 
     // MARK: - Clearing
 
-    func testClearingLetsTheEventsGoWithWhatTheyreAimedAt() throws {
+    func testClearingLetsTheEventsGoWithWhatTheirActionsHold() throws {
         weak var event: IFHistoryEvent?
-        weak var target: Shown?
+        weak var held: Shown?
         try autoreleasepool {
-            let aimedAt = Shown()
-            target = aimedAt
-            let recorded = try XCTUnwrap(history.event(for: aimedAt))
+            let shown = Shown()
+            held = shown
+            let recorded = try XCTUnwrap(history.eventForThisPass())
             event = recorded
-            unsafeBitCast(recorded.proxy as AnyObject, to: Shown.self).show("a")
+            recorded.addAction { shown.show("a") }
         }
         XCTAssertNotNil(event)
-        XCTAssertNotNil(target)
+        XCTAssertNotNil(held)
 
         history.clear()
         XCTAssertNil(event)
-        XCTAssertNil(target)
+        XCTAssertNil(held)
         XCTAssertFalse(history.canGoBackwards)
     }
 

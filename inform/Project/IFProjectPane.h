@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_UI_ACTOR
 @protocol IFHistoryRecorder <NSObject>
 
-/// Retrieves a history event that can have new events recorded via the proxy (nil while replaying history)
+/// Retrieves a history event that actions can be added to, for going back or forwards to (nil while replaying history)
 @property (NS_NONATOMIC_IOSONLY, readonly, strong, nullable) IFHistoryEvent *historyEvent;
 
 @end
@@ -126,8 +126,6 @@ NS_SWIFT_UI_ACTOR
 // History
 /// Gets the current history event for this run through the loop (nil while replaying history)
 @property (atomic, readonly, strong, nullable) IFHistoryEvent * historyEvent;
-/// Returns a proxy for this object for a new history item (nil while replaying history)
-@property (atomic, readonly, strong, nullable) id               history;
 /// Shows the tab given, as the history records doing
 - (void) selectTabViewItem: (NSTabViewItem*) item;
 /// Makes the page's active view the window's first responder, as the history records doing

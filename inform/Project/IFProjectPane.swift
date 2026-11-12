@@ -563,17 +563,7 @@ private let zoomShowsWarnings: Void = {
     }
 
     var historyEvent: IFHistoryEvent? {
-        return paneHistory.event(for: self)
-    }
-
-    var history: Any? {
-        guard let event = paneHistory.event(for: self) else {
-            return nil
-        }
-
-        // Return a suitable proxy
-        event.target = self
-        return event.proxy
+        return paneHistory.eventForThisPass()
     }
 
     func goBackwards(_ sender: Any?) {

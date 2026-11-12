@@ -31,7 +31,7 @@ private final class ProjectControllerStandIn: IFProjectController {
 @MainActor
 private final class Recorder: NSObject, IFHistoryRecorder {
     /// The event that what the page records goes in
-    var event = IFHistoryEvent(object: NSNull())
+    var event = IFHistoryEvent()
     /// How often the page has asked for the event
     private(set) var timesAsked = 0
 
@@ -266,7 +266,7 @@ final class IFDocumentationPageTests: XCTestCase, @unchecked Sendable {
         // To switch to the page, and to show its page
         XCTAssertEqual(recorder.timesAsked, 2)
 
-        recorder.event = IFHistoryEvent(object: NSNull())
+        recorder.event = IFHistoryEvent()
         open("inform:/general_index.html", in: shown)
         XCTAssertEqual(recorder.timesAsked, 4)
 
@@ -330,7 +330,7 @@ final class IFDocumentationPageTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(shown.watcher.started.suffix(2),
                        ["inform:/alphabetical_index.html", "inform:/alphabetical_index.html"])
 
-        recorder.event = IFHistoryEvent(object: NSNull())
+        recorder.event = IFHistoryEvent()
         open("inform:/general_index.html", in: shown)
         waitForNavigation(shown.watcher) {
             switched.replay()

@@ -20,23 +20,17 @@ NS_SWIFT_UI_ACTOR
 
 // Initialisation
 
-- (instancetype) init NS_UNAVAILABLE;
-/// Initialise with the specified object as an invocation target
-- (instancetype) initWithObject: (id) target NS_DESIGNATED_INITIALIZER;
+/// An event with no actions
+- (instancetype) init NS_DESIGNATED_INITIALIZER;
 
-// Building the invocation
+// Recording
 
-/// The target for the proxy object; nil once the proxy has recorded an action
-@property (atomic, readwrite, strong, nullable) id target;
-/// The proxy object to use for this history item
-@property (atomic, readonly, strong) id proxy;
-
-/// Adds an action to the event, which replaying it performs after what was recorded before
+/// Adds an action to the event, which replaying it performs after those added before
 - (void) addAction: (void (^)(void)) action;
 
 // Replaying
 
-/// Replays the event: performs its actions, and sends the messages sent to its proxy, in the order they were recorded
+/// Replays the event: performs its actions, in the order they were added
 - (void) replay;
 
 @end

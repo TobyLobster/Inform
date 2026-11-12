@@ -26,11 +26,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, readonly, strong) IBOutlet IFCompilerController *compilerController;
 
 // The history
-/// Switches to this page, and its compiler controller to a tab. The page records it in the history by sending it to
-/// the history's proxy, which Swift can only do with a method declared here.
+/// Switches to this page, and its compiler controller to a tab, as the page records in the history
 - (void) switchToPageWithTabId: (IFCompilerTabId) tabId;
 /// Opens a URL from the history in the compiler controller's current web view, without recording it in the history
-/// again. The page records it in the history the same way.
+/// again
 - (void) openHistoricalURL: (nullable NSURL*) url;
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller

@@ -57,7 +57,7 @@ private final class ProjectControllerStandIn: IFProjectController {
 @MainActor
 private final class Recorder: NSObject, IFHistoryRecorder {
     /// The event that what the page records goes in
-    var event = IFHistoryEvent(object: NSNull())
+    var event = IFHistoryEvent()
     /// How often the page has asked for the event, other than while replaying
     private(set) var timesAsked = 0
     private var replaying = false
@@ -260,7 +260,7 @@ final class IFErrorsPageTests: XCTestCase, @unchecked Sendable {
         page.compilerController.switchToView(with: .tabDebugging)
         XCTAssertEqual(recorder.timesAsked, 1)
 
-        recorder.event = IFHistoryEvent(object: NSNull())
+        recorder.event = IFHistoryEvent()
         page.compilerController.switchToView(with: .tabInform6)
         XCTAssertEqual(recorder.timesAsked, 2)
 
@@ -283,7 +283,7 @@ final class IFErrorsPageTests: XCTestCase, @unchecked Sendable {
         page.didSwitchToPage()
         XCTAssertEqual(recorder.timesAsked, 1)
 
-        recorder.event = IFHistoryEvent(object: NSNull())
+        recorder.event = IFHistoryEvent()
         page.compilerController.switchToView(with: .tabDebugging)
 
         let posted = notifications(.IFSwitchToPage, from: page) {
@@ -362,7 +362,7 @@ final class IFErrorsPageTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(recorder.timesAsked, 2)
 
         // Switching to the report's tab makes its web view the one that's shown, and is recorded
-        recorder.event = IFHistoryEvent(object: NSNull())
+        recorder.event = IFHistoryEvent()
         page.compilerController.switchToView(with: .tabReport)
         XCTAssertTrue(page.compilerController.currentWebView === webView)
         XCTAssertEqual(recorder.timesAsked, 3)

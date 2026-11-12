@@ -34,7 +34,7 @@ private final class ProjectControllerStandIn: IFProjectController {
 @MainActor
 private final class Recorder: NSObject, IFHistoryRecorder {
     /// The event that what the page records goes in
-    var event = IFHistoryEvent(object: NSNull())
+    var event = IFHistoryEvent()
     /// How often the page has asked for the event
     private(set) var timesAsked = 0
 
@@ -422,13 +422,13 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
         shown.page.pageIsVisible = true
         let asked = recorder.timesAsked
 
-        let kinds = IFHistoryEvent(object: NSNull())
+        let kinds = IFHistoryEvent()
         recorder.event = kinds
         switchToTab(.kinds, in: shown)
         // To switch to the page, and to show its page
         XCTAssertEqual(recorder.timesAsked, asked + 2)
 
-        recorder.event = IFHistoryEvent(object: NSNull())
+        recorder.event = IFHistoryEvent()
         switchToTab(.world, in: shown)
         XCTAssertEqual(recorder.timesAsked, asked + 4)
 
@@ -486,7 +486,7 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
             cell.state = .off
         }
 
-        let switched = IFHistoryEvent(object: NSNull())
+        let switched = IFHistoryEvent()
         recorder.event = switched
         let asked = recorder.timesAsked
         expectNoNavigation(shown.watcher) {
@@ -495,7 +495,7 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(recorder.timesAsked, asked + 1)
         XCTAssertEqual(highlightedTabs(shown), [Int(IFIndexTabType.phrasebook.rawValue)])
 
-        recorder.event = IFHistoryEvent(object: NSNull())
+        recorder.event = IFHistoryEvent()
         switchToTab(.actions, in: shown)
         waitForNavigation(shown.watcher) {
             switched.replay()
