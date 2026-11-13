@@ -538,14 +538,18 @@ final class IFExtensionsPageTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(recorder.timesAsked, 0)
     }
 
-    /// A link to install an extension from the Public Library isn't recorded in the history
-    func testLibraryLinksAreNotRecorded() throws {
+    /// A link that does something rather than show a page isn't recorded in the history: one to install an extension
+    /// from the Public Library, or to the source or a knot of the skein
+    func testLinksThatShowNoPageAreNotRecorded() throws {
         let recorder = Recorder()
         let shown = try makePageWithCatalogue(recorder: recorder)
         shown.page.pageIsVisible = true
 
-        tellPageNavigationStarted("library:/resources/Extensions/Emily%20Short/Locksmith-v14.zip?id=1", in: shown)
-        XCTAssertEqual(recorder.timesAsked, 0)
+        for link in ["library:/resources/Extensions/Emily%20Short/Locksmith-v14.zip?id=1", "source:story.ni#line3",
+                     "skein:1003?case=B"] {
+            tellPageNavigationStarted(link, in: shown)
+            XCTAssertEqual(recorder.timesAsked, 0, link)
+        }
 
         tellPageNavigationStarted("inform:/index.html", in: shown)
         XCTAssertEqual(recorder.timesAsked, 2)

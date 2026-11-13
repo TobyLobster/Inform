@@ -250,11 +250,11 @@ extension IFExtensionsPage {
         // Highlight appropriate tab
         highlightTab(forURL: webView.url?.absoluteString)
 
-        // Add to history, except for the loads left out of it, and downloads from the Public Library (scheme
-        // "library")
+        // Add to history, except for the loads left out of it, and links that do something rather than show a page,
+        // as downloads from the Public Library do
         if let index = unrecordedNavigations.firstIndex(where: { $0 === navigation }) {
             unrecordedNavigations.remove(at: index)
-        } else if pageIsVisible && webView.url?.scheme != "library" {
+        } else if pageIsVisible && IFWebViewHelper.showsPage(webView.url) {
             NSLog("HISTORY: Extensions Page: (didStartProvisionalLoadForFrame) URL %@",
                   webView.url?.absoluteString ?? "(null)")
             let url = webView.url
