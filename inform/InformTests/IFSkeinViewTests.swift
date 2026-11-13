@@ -1102,6 +1102,62 @@ final class IFSkeinViewTests: XCTestCase {
         XCTAssertIdentical(skein.winningItem, north)
     }
 
+    // MARK: - Undo
+
+    /// A knot and the knots after it, as "command(child, child)"
+    private func tree(_ item: IFSkeinItem) -> String {
+        let children = item.children.map { tree($0) }
+        return children.isEmpty ? item.command : "\(item.command!)(\(children.joined(separator: ", ")))"
+    }
+
+    /// Editing a command and deleting one can be undone and redone, though each takes a knot out of the skein to
+    /// change it
+    func testUndoingEditCommandAndDeleteCommand() throws {
+        // A skein in a project that the document controller knows, so that changes to its knots can be undone, and
+        // the project's undo manager, which makes a step to undo only when told to
+        let project = IFProject()
+        let skein = try XCTUnwrap(project.currentSkein)
+        project.skeins.add(skein)
+        let undoManager = try XCTUnwrap(project.undoManager)
+        undoManager.groupsByEvent = false
+        NSDocumentController.shared.addDocument(project)
+        defer { NSDocumentController.shared.removeDocument(project) }
+
+        undoManager.disableUndoRegistration()
+        let look = add("look", to: skein.rootItem, in: skein)
+        let north = add("north", to: look, in: skein)
+        add("jump", to: add("east", to: north, in: skein), in: skein)
+        add("east", to: look, in: skein)
+        undoManager.enableUndoRegistration()
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        // Editing a command, which puts the knot back among its siblings in order
+        try choose("Edit Command", for: north, in: skeinView)
+        try typeText("away", in: window)
+        undoManager.beginUndoGrouping()
+        try fieldEditor(in: window).insertNewline(nil)
+        undoManager.endUndoGrouping()
+        XCTAssertEqual(tree(look), "look(away(east(jump)), east)")
+        undoManager.undo()
+        XCTAssertEqual(tree(look), "look(east, north(east(jump)))")
+        undoManager.redo()
+        XCTAssertEqual(tree(look), "look(away(east(jump)), east)")
+        undoManager.undo()
+
+        // Deleting a command, which merges the knots after it into the knots before
+        undoManager.beginUndoGrouping()
+        try choose("Delete Command", for: north, in: skeinView)
+        undoManager.endUndoGrouping()
+        XCTAssertEqual(tree(look), "look(east(jump))")
+        undoManager.undo()
+        XCTAssertEqual(tree(look), "look(east, north(east(jump)))")
+        XCTAssertIdentical(north.parent, look)
+        undoManager.redo()
+        XCTAssertEqual(tree(look), "look(east(jump))")
+        XCTAssertNil(north.parent)
+    }
+
     // MARK: - The font size
 
     func testTheFontSize() throws {

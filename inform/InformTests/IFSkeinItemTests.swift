@@ -509,4 +509,60 @@ final class IFSkeinItemTests: XCTestCase {
             XCTAssertEqual(jump.command, "jump")
         }
     }
+
+    /// Redoing the removal of a knot takes it out of the skein again
+    func testRedoingARemoval() throws {
+        try withUndo { skein, undoManager in
+            var look: IFSkeinItem!
+            var north: IFSkeinItem!
+            change(undoManager) {
+                look = skein.rootItem.addChild(IFSkeinItem(skein: skein, command: "look"))
+                north = look.addChild(IFSkeinItem(skein: skein, command: "north"))
+            }
+            change(undoManager) { north.removeFromParent() }
+            undoManager.undo()
+            XCTAssertTrue(north.parent === look)
+
+            undoManager.redo()
+            XCTAssertEqual(look.children.count, 0)
+            XCTAssertNil(north.parent)
+            XCTAssertNil(north.skein)
+
+            undoManager.undo()
+            XCTAssertTrue(look.children.first === north)
+            XCTAssertTrue(north.parent === look)
+            XCTAssertTrue(north.skein === skein)
+        }
+    }
+
+    /// A knot changed while it's out of the skein, as the skein view takes a knot out to rename it and puts it back
+    /// among its siblings in order, is changed back by an undo, and again by a redo
+    func testUndoingAChangeToAKnotOutOfTheSkein() throws {
+        try withUndo { skein, undoManager in
+            var look: IFSkeinItem!
+            var north: IFSkeinItem!
+            change(undoManager) {
+                look = skein.rootItem.addChild(IFSkeinItem(skein: skein, command: "look"))
+                north = look.addChild(IFSkeinItem(skein: skein, command: "north"))
+                look.addChild(IFSkeinItem(skein: skein, command: "east"))
+            }
+            change(undoManager) {
+                north.removeFromParent()
+                north.command = "away"
+                look.addChild(north)
+            }
+            XCTAssertEqual(look.children.map(\.command), ["away", "east"])
+
+            undoManager.undo()
+            XCTAssertEqual(north.command, "north")
+            XCTAssertEqual(look.children.map(\.command), ["east", "north"])
+            XCTAssertTrue(north.parent === look)
+            XCTAssertTrue(north.skein === skein)
+
+            undoManager.redo()
+            XCTAssertEqual(north.command, "away")
+            XCTAssertEqual(look.children.map(\.command), ["away", "east"])
+            XCTAssertTrue(north.parent === look)
+        }
+    }
 }
