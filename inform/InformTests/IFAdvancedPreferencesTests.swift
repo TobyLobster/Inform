@@ -118,6 +118,25 @@ final class IFAdvancedPreferencesTests: XCTestCase {
         XCTAssertEqual(pane.maxHeight, view.frame.height)
     }
 
+    /// Laid out at its own height, as the preferences window shows it, the pane fits its controls, and the
+    /// interpreter menu is inside its box
+    func testTheInterpreterMenuFitsInItsBox() throws {
+        let (pane, _, _, controls) = try makePane()
+        let view = try XCTUnwrap(pane.preferenceView)
+        let window = NSWindow(contentRect: view.frame, styleMask: [.titled], backing: .buffered, defer: true)
+        window.isReleasedWhenClosed = false
+        window.setFrameOrigin(NSPoint(x: -20000, y: -20000))
+        window.contentView = view
+        view.layoutSubtreeIfNeeded()
+
+        let menu = controls.glulxInterpreter
+        let box = try XCTUnwrap(menu.superview)
+        XCTAssertTrue(box.bounds.contains(menu.frame), "\(menu.frame) is in \(box.bounds)")
+        XCTAssertEqual(menu.alignmentRect(forFrame: menu.frame).height, menu.intrinsicContentSize.height,
+                       "the menu isn't squashed")
+        XCTAssertLessThanOrEqual(view.fittingSize.height, view.frame.height)
+    }
+
     // MARK: - Showing the preferences
 
     func testTheCheckBoxesShowThePreferences() throws {
