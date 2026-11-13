@@ -247,14 +247,19 @@ extension IFExtensionsPage {
     @objc(webView:didStartProvisionalNavigation:)
     public func webView(_ webView: WKWebView,
                         didStartProvisionalNavigation navigation: WKNavigation!) {
-        // Highlight appropriate tab
-        highlightTab(forURL: webView.url?.absoluteString)
+        // A link that does something rather than show a page, as a download from the Public Library does, leaves the
+        // page shown as it was
+        let showsPage = IFWebViewHelper.showsPage(webView.url)
 
-        // Add to history, except for the loads left out of it, and links that do something rather than show a page,
-        // as downloads from the Public Library do
+        // Highlight appropriate tab
+        if showsPage {
+            highlightTab(forURL: webView.url?.absoluteString)
+        }
+
+        // Add to history, except for the loads left out of it, and links that show no page
         if let index = unrecordedNavigations.firstIndex(where: { $0 === navigation }) {
             unrecordedNavigations.remove(at: index)
-        } else if pageIsVisible && IFWebViewHelper.showsPage(webView.url) {
+        } else if pageIsVisible && showsPage {
             NSLog("HISTORY: Extensions Page: (didStartProvisionalLoadForFrame) URL %@",
                   webView.url?.absoluteString ?? "(null)")
             let url = webView.url

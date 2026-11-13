@@ -538,6 +538,15 @@ final class IFExtensionsPageTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(recorder.timesAsked, 0)
     }
 
+    /// A link that does something rather than show a page, as one to install an extension from the Public Library,
+    /// leaves the cells as they were, as the page shown stays
+    func testALinkThatShowsNoPageLeavesTheCells() throws {
+        let shown = try makePageWithCatalogue()
+        tellPageNavigationStarted(try publicLibraryURL.absoluteString, in: shown)
+        tellPageNavigationStarted("library:/resources/Extensions/Emily%20Short/Locksmith-v14.zip?id=1", in: shown)
+        XCTAssertEqual(shown.page.toolbarCells.map { $0.state }, [.on, .off])
+    }
+
     /// A link that does something rather than show a page isn't recorded in the history: one to install an extension
     /// from the Public Library, or to the source or a knot of the skein
     func testLinksThatShowNoPageAreNotRecorded() throws {
