@@ -503,6 +503,33 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(shown.webView.url, try indexURL("Phrasebook.html"))
     }
 
+    /// A tab asked for just before the page is switched to, as Show Index asks for one and then switches to the page,
+    /// is recorded once, with the switch, whose event shows the tab
+    func testATabAskedForAsThePageIsSwitchedTo() throws {
+        let recorder = Recorder()
+        let shown = try makePageShowingTheIndex(recorder: recorder)
+
+        let switched = IFHistoryEvent()
+        recorder.event = switched
+        waitForNavigation(shown.watcher) {
+            shown.page.switch(toTab: IFIndexTabType.rules.rawValue)
+            shown.page.pageIsVisible = true
+            shown.page.didSwitchToPage()
+        }
+        XCTAssertEqual(recorder.timesAsked, 1)
+        XCTAssertEqual(highlightedTabs(shown), [Int(IFIndexTabType.rules.rawValue)])
+
+        // What's shown next is recorded
+        recorder.event = IFHistoryEvent()
+        switchToTab(.kinds, in: shown)
+        XCTAssertEqual(recorder.timesAsked, 3)
+
+        waitForNavigation(shown.watcher) {
+            switched.replay()
+        }
+        XCTAssertEqual(shown.webView.url, try indexURL("Rules.html"))
+    }
+
     /// After a project's first translation, the page shows its welcome page, which the pane asked for as it was set
     /// up, when there was no index to show. It isn't recorded in the history, as the reload in its place isn't.
     func testTheFirstIndexShowsTheWelcomePage() throws {

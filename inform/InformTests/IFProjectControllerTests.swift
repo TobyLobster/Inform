@@ -288,6 +288,33 @@ final class IFProjectControllerTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(right.currentView, .indexPane)
     }
 
+    /// Shows the Settings page on the right, as the page shown before the index, once the documentation has loaded,
+    /// and then an index tab, waiting for it to load
+    private func showAnIndexTabAfterTheSettings() {
+        waitForPagesToLoad(in: [right])
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+        right.tabView.selectTabViewItem(withIdentifier: IFSettingsPage.description())
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+
+        let item = NSMenuItem()
+        item.tag = Int(IFIndexTabType.actions.rawValue)
+        controller.showIndexTab(item)
+        waitForPagesToLoad(in: [right])
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+        XCTAssertEqual(pageShown(right), IFIndexPage.description())
+    }
+
+    /// Showing an index tab from another page is one step in the pane's history, though the tab starts to load in a
+    /// later pass of the run loop than the page is shown in
+    func testOneBackLeavesAnIndexTabShownFromAnotherPage() {
+        showAnIndexTabAfterTheSettings()
+
+        right.goBackwards(nil)
+        XCTAssertEqual(pageShown(right), IFSettingsPage.description())
+        right.goForwards(nil)
+        XCTAssertEqual(pageShown(right), IFIndexPage.description())
+    }
+
     func testWithNoIndexTheIndexCantBeShown() throws {
         try FileManager.default.removeItem(at: folder.appendingPathComponent("Lighthouse.inform/Index"))
         left.indexPage.updateIndexView()
