@@ -315,6 +315,23 @@ final class IFProjectControllerTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(pageShown(right), IFIndexPage.description())
     }
 
+    /// A link in the index to the source shows its line, and isn't a step in the pane's history, as the index stays
+    /// as it was
+    func testALinkFromTheIndexToTheSourceIsntAStepBack() throws {
+        showAnIndexTabAfterTheSettings()
+        let webView = try XCTUnwrap(right.indexPage.view.subviews.compactMap { $0 as? WKWebView }.first)
+        let indexURL = webView.url
+
+        webView.load(URLRequest(url: try XCTUnwrap(URL(string: "source:story.ni#line3"))))
+        waitForPagesToLoad(in: [right])
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+        XCTAssertTrue(highlights("story.ni")?.contains([3, IFLineStyle.error.rawValue]) ?? false)
+        XCTAssertEqual(webView.url, indexURL)
+
+        right.goBackwards(nil)
+        XCTAssertEqual(pageShown(right), IFSettingsPage.description())
+    }
+
     func testWithNoIndexTheIndexCantBeShown() throws {
         try FileManager.default.removeItem(at: folder.appendingPathComponent("Lighthouse.inform/Index"))
         left.indexPage.updateIndexView()

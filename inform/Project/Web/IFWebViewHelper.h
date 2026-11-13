@@ -38,6 +38,13 @@ NS_ASSUME_NONNULL_BEGIN
                     story: (NSString*) code;
 - (void) openUrl: (NSString*) url;
 
+#pragma mark - Links
+
+/// Whether following a link to the URL shows a page. A link to the source, to a knot of the skein or to an extension
+/// in the Public Library doesn't: its scheme's handler does what it asks for, and then fails its load, leaving the
+/// page that was shown.
++ (BOOL) showsPageForURL: (nullable NSURL*) url NS_SWIFT_NAME(showsPage(_:));
+
 #pragma mark - Preferences changed
 
 - (void) fontSizePreferenceChanged: (WKWebView*) wView;

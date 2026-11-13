@@ -351,14 +351,18 @@ extension IFIndexPage {
         if navigation === unstartedNavigation {
             unstartedNavigation = nil
         }
+        // A link that does something rather than show a page, as one to the source, leaves the page shown as it was
+        let showsPage = IFWebViewHelper.showsPage(url)
         if let index = unrecordedNavigations.firstIndex(where: { $0 === navigation }) {
             unrecordedNavigations.remove(at: index)
-        } else if pageIsVisible {
+        } else if pageIsVisible && showsPage {
             recordInHistory { self.switchToPage() }
             recordInHistory { self.openHistoricalURL(url) }
         }
 
         // Highlight the indexCell to something appropriate for the new URL
-        highlightAppropriateIndexCell(for: url)
+        if showsPage {
+            highlightAppropriateIndexCell(for: url)
+        }
     }
 }

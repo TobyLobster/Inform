@@ -580,6 +580,16 @@ private let resourcePathsByLowercaseName: [String: String] = {
         }
     }
 
+    // MARK: - Links
+
+    @objc(showsPageForURL:)
+    class func showsPage(_ url: URL?) -> Bool {
+        guard let scheme = url?.scheme?.lowercased() else {
+            return true
+        }
+        return !["source", "skein", "library"].contains(scheme)
+    }
+
     // MARK: - Preferences
 
     func fontSizePreferenceChanged(_ wView: WKWebView) {

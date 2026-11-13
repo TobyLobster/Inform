@@ -503,6 +503,22 @@ final class IFIndexPageTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(shown.webView.url, try indexURL("Phrasebook.html"))
     }
 
+    /// A link that does something rather than show a page, as one to the source or to a knot of the skein, isn't
+    /// recorded in the history, and leaves the cells as they were, as the page shown stays
+    func testALinkThatShowsNoPage() throws {
+        let recorder = Recorder()
+        let shown = try makePageShowingTheIndex(recorder: recorder)
+        shown.page.pageIsVisible = true
+        switchToTab(.rules, in: shown)
+        let asked = recorder.timesAsked
+
+        for link in ["source:story.ni#line3", "skein:1003?case=B"] {
+            tellPageNavigationStarted(try XCTUnwrap(URL(string: link)), in: shown)
+            XCTAssertEqual(recorder.timesAsked, asked, link)
+            XCTAssertEqual(highlightedTabs(shown), [Int(IFIndexTabType.rules.rawValue)], link)
+        }
+    }
+
     /// A tab asked for just before the page is switched to, as Show Index asks for one and then switches to the page,
     /// is recorded once, with the switch, whose event shows the tab
     func testATabAskedForAsThePageIsSwitchedTo() throws {
