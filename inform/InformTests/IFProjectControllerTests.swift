@@ -315,6 +315,22 @@ final class IFProjectControllerTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(pageShown(right), IFIndexPage.description())
     }
 
+    /// Opening a page of the documentation from another page is one step in the pane's history
+    func testOneBackLeavesADocumentationPageOpenedFromAnotherPage() {
+        waitForPagesToLoad(in: [right])
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+        right.tabView.selectTabViewItem(withIdentifier: IFSettingsPage.description())
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+
+        controller.docRecipes(nil)
+        waitForPagesToLoad(in: [right])
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+        XCTAssertEqual(pageShown(right), IFDocumentationPage.description())
+
+        right.goBackwards(nil)
+        XCTAssertEqual(pageShown(right), IFSettingsPage.description())
+    }
+
     /// A link in the index to the source shows its line, and isn't a step in the pane's history, as the index stays
     /// as it was
     func testALinkFromTheIndexToTheSourceIsntAStepBack() throws {

@@ -29,6 +29,10 @@ import WebKit
     /// reload, the reload as the page is switched to, and a page from the history. (A load that another overtakes
     /// before it starts is left here, never matched.)
     private final var unrecordedNavigations: [WKNavigation] = []
+    /// A page opened, until a load starts. The web view gives its URL as soon as it's asked for, so the switch to the
+    /// page as it's opened records the page with it, and it isn't recorded again as it starts. (The switch comes
+    /// straight after the page is asked for, so a load that starts before then is the page, or one that overtook it.)
+    private final var unstartedNavigation: WKNavigation?
 
     // MARK: - Initialisation
 
@@ -123,9 +127,12 @@ import WebKit
 
     @discardableResult
     private final func load(_ url: URL) -> WKNavigation? {
+        // The page is asked for before switching to the page, so that the switch records it
+        let navigation = wView.load(URLRequest(url: url))
+        unstartedNavigation = navigation
         switchToPage()
 
-        return wView.load(URLRequest(url: url))
+        return navigation
     }
 
     func openHistoricalURL(_ url: URL?) {
@@ -152,7 +159,7 @@ import WebKit
 
     /// Leaves a load out of the history
     private final func leaveOutOfHistory(_ navigation: WKNavigation?) {
-        if let navigation {
+        if let navigation, !unrecordedNavigations.contains(where: { $0 === navigation }) {
             unrecordedNavigations.append(navigation)
         }
     }
@@ -162,7 +169,12 @@ import WebKit
 
         NSLog("HISTORY: Documentation Page: (didSwitchToPage) URL %@", url?.absoluteString ?? "(null)")
         recordInHistory { self.openHistoricalURL(url) }
-        leaveOutOfHistory(wView.reload())
+        // A page opened that hasn't started to load is the one just recorded, and is shown in place of the reload
+        if let unstartedNavigation {
+            leaveOutOfHistory(unstartedNavigation)
+        } else {
+            leaveOutOfHistory(wView.reload())
+        }
     }
 
     // MARK: - Page bar cells
@@ -210,6 +222,8 @@ extension IFDocumentationPage {
     @objc(webView:didStartProvisionalNavigation:)
     public func webView(_ webView: WKWebView,
                         didStartProvisionalNavigation navigation: WKNavigation!) {
+        unstartedNavigation = nil
+
         // Highlight appropriate tab
         highlightTab(forURL: webView.url?.absoluteString)
 
