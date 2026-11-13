@@ -13,6 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class GlkView;
+@class IFPreferences;
 @class IFSkeinItem;
 @class ZoomView;
 
@@ -33,6 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Methods
 - (instancetype) initWithProjectController: (nullable IFProjectController*) controller NS_DESIGNATED_INITIALIZER;
+
+/// The scale factor of the Zoom view that shows a Z-machine story, for the app's text size in the given preferences
++ (CGFloat) zoomScaleFactorForPreferences: (IFPreferences*) preferences;
 
 /// Notify that the next game run should be run with debugging on (breakpoints will be set)
 - (void) activateDebug;

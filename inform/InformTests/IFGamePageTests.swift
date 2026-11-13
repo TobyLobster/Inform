@@ -5,6 +5,28 @@
 
 import XCTest
 
+/// User defaults kept in memory, so that preferences made with them never write the user's
+private final class MemoryDefaults: UserDefaults {
+    var values: [String: Any]
+
+    init(_ values: [String: Any] = [:]) {
+        self.values = values
+        super.init(suiteName: "IFGamePageTests.never-written")!
+    }
+
+    override func object(forKey defaultName: String) -> Any? {
+        return values[defaultName]
+    }
+
+    override func set(_ value: Any?, forKey defaultName: String) {
+        values[defaultName] = value
+    }
+
+    override func removeObject(forKey defaultName: String) {
+        values[defaultName] = nil
+    }
+}
+
 /// A project controller with no window, whose document is the project the test gives it, and which records what the
 /// game page tells it
 private final class ProjectControllerStandIn: IFProjectController {
@@ -324,6 +346,20 @@ final class IFGamePageTests: XCTestCase, @unchecked Sendable {
         let controller = try XCTUnwrap(controller)
         XCTAssertEqual(controller.finishedSources.count, 1)
         XCTAssertTrue(controller.finishedSources.allSatisfy { $0 == nil })
+    }
+
+    /// A Z-machine story's text is shown at the app's text size, as Zoom multiplies the sizes of its view's fonts by
+    /// the view's scale factor. (No story runs here: the view only has its fonts.)
+    func testAZMachineStorysTextIsShownAtTheAppTextSize() throws {
+        let largest = ["appFontSizeMultiplierFineEnum": IFAppFontSize.plus100.rawValue]
+        let preferences = IFPreferences(userDefaults: MemoryDefaults([IFPreferencesDefault: largest]))
+        XCTAssertEqual(preferences.appFontSizeMultiplier, 1.375, accuracy: 0.001)
+
+        let zoomView = ZoomView()
+        let normalSize = try XCTUnwrap(zoomView.font(from: [])).pointSize
+        zoomView.scaleFactor = IFGamePage.zoomScaleFactor(for: preferences)
+
+        XCTAssertEqual(try XCTUnwrap(zoomView.font(from: [])).pointSize, normalSize * 1.375, accuracy: 0.001)
     }
 
     // MARK: - Stopping
