@@ -643,6 +643,59 @@ final class IFPreferencesTests: XCTestCase {
         XCTAssertFalse(NSFontManager.shared.traits(of: mainText).contains(.boldFontMask))
     }
 
+    /// How far right the top of an "l" drawn in a font is from its bottom, in pixels: 0 for an upright font
+    private func slant(of font: NSFont) throws -> Int {
+        let rep = try XCTUnwrap(NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: 100, pixelsHigh: 100,
+                                                 bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true,
+                                                 isPlanar: false, colorSpaceName: .deviceRGB,
+                                                 bytesPerRow: 0, bitsPerPixel: 0))
+        NSGraphicsContext.saveGraphicsState()
+        NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: rep)
+        NSColor.white.setFill()
+        NSRect(x: 0, y: 0, width: 100, height: 100).fill()
+        NSAttributedString(string: "l", attributes: [.font: font, .foregroundColor: NSColor.black])
+            .draw(at: NSPoint(x: 40, y: 10))
+        NSGraphicsContext.restoreGraphicsState()
+
+        // The leftmost ink in each row with ink, from the top
+        var edges: [(row: Int, x: Int)] = []
+        for row in 0..<100 {
+            if let x = (0..<100).first(where: { (rep.colorAt(x: $0, y: row)?.brightnessComponent ?? 1) < 0.5 }) {
+                edges.append((row, x))
+            }
+        }
+        let top = try XCTUnwrap(edges.first?.row)
+        let bottom = try XCTUnwrap(edges.last?.row)
+        let quarter = (bottom - top) / 4
+        let topEdge = try XCTUnwrap(edges.filter { $0.row <= top + quarter }.map(\.x).min())
+        let bottomEdge = try XCTUnwrap(edges.filter { $0.row >= bottom - quarter }.map(\.x).min())
+        return topEdge - bottomEdge
+    }
+
+    /// Text in italics is slanted though its font has no italic face, as Lucida Grande, the default, hasn't, and
+    /// keeps its font's family and size
+    func testItalicsInAFontWithNoItalicFace() throws {
+        let (prefs, _) = makePreferences()
+        prefs.sourceFontFamily = "Lucida Grande"
+        prefs.sourceFontSize = 40
+        prefs.setSourceFontStyle(.regular, for: .mainText)
+        prefs.setSourceFontStyle(.italic, for: .comments)
+        prefs.setSourceRelativeFontSize(.fontSizeNormal, for: .comments)
+        prefs.setSourceFontStyle(.boldItalic, for: .headings)
+
+        let mainText = try XCTUnwrap(style(prefs, .naturalInform)[.font] as? NSFont)
+        let comment = try XCTUnwrap(style(prefs, .comment)[.font] as? NSFont)
+        let heading = try XCTUnwrap(style(prefs, .heading)[.font] as? NSFont)
+        XCTAssertEqual(try slant(of: mainText), 0)
+        XCTAssertGreaterThan(try slant(of: comment), 0)
+        XCTAssertGreaterThan(try slant(of: heading), 0)
+
+        XCTAssertEqual(comment.familyName, "Lucida Grande")
+        XCTAssertEqual(comment.pointSize, 40)
+        XCTAssertEqual(heading.familyName, "Lucida Grande")
+        XCTAssertTrue(NSFontManager.shared.traits(of: heading).contains(.boldFontMask))
+    }
+
     /// Inform 6's styles have colours of their own, and the main text's font
     func testInform6StylesHaveTheirOwnColours() throws {
         let (prefs, _) = makePreferences()
