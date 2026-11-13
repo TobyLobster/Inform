@@ -38,6 +38,21 @@ private final class UndoManagerGiver: NSObject, NSTextViewDelegate {
     }
 }
 
+/// A layout manager that records the ranges of the text it's told to lay out again
+private final class LayoutRecorder: NSLayoutManager {
+    var invalidated: [NSRange] = []
+
+    override func processEditing(for textStorage: NSTextStorage,
+                                 edited editMask: NSTextStorageEditActions,
+                                 range newCharRange: NSRange,
+                                 changeInLength delta: Int,
+                                 invalidatedRange invalidatedCharRange: NSRange) {
+        invalidated.append(invalidatedCharRange)
+        super.processEditing(for: textStorage, edited: editMask, range: newCharRange, changeInLength: delta,
+                             invalidatedRange: invalidatedCharRange)
+    }
+}
+
 /// Editing highlighted text: keeping the views restricted to part of it in step, and rewriting what's typed.
 @MainActor
 final class IFSyntaxDataEditingTests: XCTestCase {
@@ -246,6 +261,25 @@ final class IFSyntaxDataEditingTests: XCTestCase {
         let typed = chapter1.replacingOccurrences(of: "The Start\n", with: "The Start\n\nChapter 3\n")
         assertView(view, of: storage, shows: typed)
         assertView(otherView, of: storage, shows: typed)
+    }
+
+    /// Typing that changes the highlighting of only the line typed in changes only that line of a restricted view's
+    /// text. The highlighting was copied into it from the line to the end of the view, as the text there, which was
+    /// then laid out again with every keystroke.
+    func testTypingInARestrictedViewChangesOnlyTheLineTypedIn() throws {
+        let storage = registered(source)
+        let (view, shown) = try view(of: storage, restrictedTo: chapter1)
+        let recorder = LayoutRecorder()
+        shown.addLayoutManager(recorder)
+        defer { shown.removeLayoutManager(recorder) }
+
+        type("x", after: "The Start", in: shown)
+        assertView(view, of: storage, shows: chapter1.replacingOccurrences(of: "The Start", with: "The Startx"))
+        let line = (shown.string as NSString).lineRange(for: range(of: "The Startx", in: shown))
+        XCTAssertFalse(recorder.invalidated.isEmpty)
+        for invalidated in recorder.invalidated {
+            XCTAssertLessThanOrEqual(NSMaxRange(invalidated), NSMaxRange(line), "\(invalidated) is beyond \(line)")
+        }
     }
 
     func testTwoRestrictedViews() throws {
