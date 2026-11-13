@@ -619,6 +619,43 @@ final class IFExtensionsPageTests: XCTestCase, @unchecked Sendable {
 
     /// Switching to the page while the failure page is shown records the page that failed in the history, not the
     /// failure page, and tries it again
+    /// Opening a page while the page is hidden switches to it, which records the page opened, once, as the switch
+    /// is recorded, and doesn't reload what was shown before
+    func testOpeningAURLSwitchesToThePageAndRecordsItOnce() throws {
+        let recorder = Recorder()
+        let shown = try makePageWithCatalogue(recorder: recorder)
+        let switched = recorder.event
+
+        // The page is switched to as a pane switches to it
+        let page = shown.page
+        let observer = NotificationCenter.default.addObserver(forName: .IFSwitchToPage, object: page, queue: nil) { _ in
+            MainActor.assumeIsolated {
+                if !page.pageIsVisible {
+                    page.pageIsVisible = true
+                    page.didSwitchToPage()
+                }
+            }
+        }
+        defer {
+            NotificationCenter.default.removeObserver(observer)
+        }
+
+        let started = shown.watcher.started.count
+        open("inform:/index.html", in: shown)
+        XCTAssertEqual(recorder.timesAsked, 1)
+        XCTAssertEqual(Array(shown.watcher.started.dropFirst(started)), ["inform:/index.html"])
+
+        // What's shown next is recorded
+        recorder.event = IFHistoryEvent()
+        open(catalogueURL, in: shown)
+        XCTAssertEqual(recorder.timesAsked, 3)
+
+        waitForNavigation(shown.watcher) {
+            switched.replay()
+        }
+        XCTAssertEqual(shown.webView.url?.absoluteString, "inform:/index.html")
+    }
+
     func testSwitchingToThePageRetriesAMissingCatalogue() throws {
         let recorder = Recorder()
         let shown = try makePage(project: makeProject(catalogue: nil), recorder: recorder)

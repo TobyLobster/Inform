@@ -31,6 +31,10 @@ import WebKit
     /// reload as the page is switched to, a page from the history, and the failure page. (A load that another
     /// overtakes before it starts is left here, never matched.)
     private final var unrecordedNavigations: [WKNavigation] = []
+    /// A page opened, until a load starts. The web view gives its URL as soon as it's asked for, so the switch to the
+    /// page as it's opened records the page with it, and it isn't recorded again as it starts. (The switch comes
+    /// straight after the page is asked for, so a load that starts before then is the page, or one that overtook it.)
+    private final var unstartedNavigation: WKNavigation?
 
     // MARK: - Initialisation
 
@@ -125,12 +129,15 @@ import WebKit
 
     @discardableResult
     private final func load(_ url: URL) -> WKNavigation? {
-        switchToPage()
-
         failedURL = nil
 
+        // The page is asked for before switching to the page, so that the switch records it
         let urlRequest = URLRequest(url: url)
-        return wView.load(urlRequest)
+        let navigation = wView.load(urlRequest)
+        unstartedNavigation = navigation
+        switchToPage()
+
+        return navigation
     }
 
     func openHistoricalURL(_ url: URL?) {
@@ -182,7 +189,7 @@ import WebKit
 
     /// Leaves a load out of the history
     private final func leaveOutOfHistory(_ navigation: WKNavigation?) {
-        if let navigation {
+        if let navigation, !unrecordedNavigations.contains(where: { $0 === navigation }) {
             unrecordedNavigations.append(navigation)
         }
     }
@@ -192,7 +199,12 @@ import WebKit
 
         NSLog("HISTORY: Extensions Page: (didSwitchToPage) URL %@", url?.absoluteString ?? "(null)")
         recordInHistory { self.openHistoricalURL(url) }
-        leaveOutOfHistory(reloadPage())
+        // A page opened that hasn't started to load is the one just recorded, and is shown in place of the reload
+        if let unstartedNavigation {
+            leaveOutOfHistory(unstartedNavigation)
+        } else {
+            leaveOutOfHistory(reloadPage())
+        }
     }
 
     // MARK: - Preferences
@@ -247,6 +259,8 @@ extension IFExtensionsPage {
     @objc(webView:didStartProvisionalNavigation:)
     public func webView(_ webView: WKWebView,
                         didStartProvisionalNavigation navigation: WKNavigation!) {
+        unstartedNavigation = nil
+
         // A link that does something rather than show a page, as a download from the Public Library does, leaves the
         // page shown as it was
         let showsPage = IFWebViewHelper.showsPage(webView.url)
