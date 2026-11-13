@@ -514,14 +514,8 @@ final class IFFindInFilesControllerTests: XCTestCase {
             XCTAssertEqual(below(window), [.results])
 
             // The project's window isn't shown, and is only said to close
-            let projectWindow = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 200, height: 100),
-                                         styleMask: [.titled],
-                                         backing: .buffered,
-                                         defer: true)
-            projectWindow.setFrameOrigin(NSPoint(x: -20000, y: -20000))
-            projectWindow.isReleasedWhenClosed = false
-            projectWindow.windowController = projectController
-            NotificationCenter.default.post(name: NSWindow.willCloseNotification, object: projectWindow)
+            NotificationCenter.default.post(name: NSWindow.willCloseNotification,
+                                            object: projectWindow(projectController))
         }
 
         XCTAssertNil(closedController)
