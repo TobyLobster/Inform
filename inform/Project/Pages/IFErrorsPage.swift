@@ -205,6 +205,12 @@ extension IFErrorsPage {
     @objc(webView:didStartProvisionalNavigation:)
     public func webView(_ webView: WKWebView,
                         didStartProvisionalNavigation navigation: WKNavigation!) {
+        // A link that does something rather than show a page, as one to the source, isn't recorded, and isn't one of
+        // the loads counted to be left out
+        guard IFWebViewHelper.showsPage(webView.url) else {
+            return
+        }
+
         // Add to history...
         // ... except when reloading after the census
         // ... except on initial load

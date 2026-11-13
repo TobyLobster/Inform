@@ -378,6 +378,23 @@ final class IFErrorsPageTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(recorder.timesAsked, 3)
     }
 
+    /// A link that does something rather than show a page, as one to the source or to a knot of the skein, isn't
+    /// recorded in the history
+    func testALinkThatShowsNoPageIsntRecorded() throws {
+        let recorder = Recorder()
+        let page = try makePage(visible: true, recorder: recorder)
+        let (webView, watcher) = try showPage("Problems.html", in: page)
+        XCTAssertEqual(recorder.timesAsked, 2)
+
+        for link in ["source:story.ni#line3", "skein:1003?case=B"] {
+            let url = try XCTUnwrap(URL(string: link))
+            webView.load(URLRequest(url: url))
+            waitForNavigation(watcher)
+            XCTAssertEqual(watcher.started.last, url)
+            XCTAssertEqual(recorder.timesAsked, 2, link)
+        }
+    }
+
     /// Nothing that the web views show is recorded while the page isn't visible
     func testThePagesShownWhileHidden() throws {
         let recorder = Recorder()
