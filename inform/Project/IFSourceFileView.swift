@@ -19,9 +19,15 @@ private let arrowNotPressed = NSImage(named: "App/TornPages/TearArrow")
     /// `true` if we should draw a 'tear' at the bottom of the view
     private final var tornAtBottom = false
 
-    /// The rect the text uses in the text container, or none without a layout manager or text container
+    /// The rect the text uses in the text container, or none without a layout manager or text container. While the
+    /// view is torn at the bottom, where the tear is drawn and clicked, all of the text is laid out first: the view
+    /// can be drawn a piece at a time before the text below the piece is laid out again, and the tear was drawn where
+    /// the text laid out so far ended. A view torn at the bottom shows a single section, which is quick to lay out.
     private final var usedRect: NSRect {
         guard let layoutManager, let textContainer else { return .zero }
+        if tornAtBottom {
+            layoutManager.ensureLayout(for: textContainer)
+        }
         return layoutManager.usedRect(for: textContainer)
     }
 

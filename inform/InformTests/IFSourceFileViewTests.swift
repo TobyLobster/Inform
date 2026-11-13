@@ -8,10 +8,15 @@ import XCTest
 /// A source view that records the rectangles it's asked to draw
 private final class DrawingRecorder: IFSourceFileView {
     var drawn: [NSRect] = []
+    /// Where the bottom tear was drawn each time, at the end of the text laid out as the view drew
+    var tearsDrawn: [CGFloat] = []
 
     override func draw(_ dirtyRect: NSRect) {
         drawn.append(dirtyRect)
         super.draw(dirtyRect)
+        if let layoutManager, let textContainer {
+            tearsDrawn.append(textContainerOrigin.y + layoutManager.usedRect(for: textContainer).maxY)
+        }
     }
 }
 
@@ -314,6 +319,30 @@ final class IFSourceFileViewTests: XCTestCase, @unchecked Sendable {
         let drawn = redraw()
         XCTAssertLessThan(endOfText, before)
         assertTheTearIsRedrawn(drawn, between: endOfText, and: before)
+    }
+
+    /// The bottom tear is drawn below all of the text when part of the view is drawn before the text below it has been
+    /// laid out again. It was drawn where the text laid out so far ended, below the line typed in a section, until
+    /// the rest was drawn.
+    func testTheBottomTearIsDrawnBelowTheTextWhenPartOfTheViewIsDrawn() throws {
+        let recorder = try XCTUnwrap(textView as? DrawingRecorder)
+        let storage = try XCTUnwrap(textView.textStorage)
+        textView.string = (1...500).map { "Line \($0)" }.joined(separator: "\n")
+        textView.setTornAtBottom(true)
+        _ = redraw()
+        let end = endOfText
+
+        // As a section's highlighting is copied into its view, after what was typed
+        textView.layoutManager?.backgroundLayoutEnabled = false
+        let rest = NSRange(location: 10, length: storage.length - 10)
+        storage.replaceCharacters(in: rest, with: storage.attributedSubstring(from: rest))
+        recorder.tearsDrawn = []
+        let piece = NSRect(x: 0, y: 0, width: textView.bounds.width, height: 30)
+        textView.cacheDisplay(in: piece, to: try XCTUnwrap(textView.bitmapImageRepForCachingDisplay(in: piece)))
+        XCTAssertFalse(recorder.tearsDrawn.isEmpty)
+        for tear in recorder.tearsDrawn {
+            XCTAssertEqual(tear, end, accuracy: 0.5)
+        }
     }
 
     func testBelowTheBottomTearIsPaper() throws {
