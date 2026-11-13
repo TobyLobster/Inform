@@ -105,8 +105,14 @@ private final class IFSemiTransparentView: NSView {
 
     // MARK: - The game view
 
+    @objc(zoomScaleFactorForPreferences:)
+    class func zoomScaleFactor(for preferences: IFPreferences) -> CGFloat {
+        // Zoom multiplies its fonts' sizes by the scale factor, as Glk does (it divided them until 2023)
+        return preferences.appFontSizeMultiplier
+    }
+
     @objc private final func preferencesChanged(_ not: Notification) {
-        zView?.scaleFactor = 1.0 / IFPreferences.shared.appFontSizeMultiplier
+        zView?.scaleFactor = IFGamePage.zoomScaleFactor(for: IFPreferences.shared)
         gView?.scaleFactor = IFPreferences.shared.appFontSizeMultiplier
     }
 
@@ -222,7 +228,7 @@ private final class IFSemiTransparentView: NSView {
                               NSColor(deviceRed: 0.53, green: 0.53, blue: 0.53, alpha: 1),
                               NSColor(deviceRed: 0.26, green: 0.26, blue: 0.26, alpha: 1)])
 
-            zView.scaleFactor = 1.0 / IFPreferences.shared.appFontSizeMultiplier
+            zView.scaleFactor = IFGamePage.zoomScaleFactor(for: IFPreferences.shared)
 
             zView.frame = view.bounds
             zView.autoresizingMask = [.width, .height]
