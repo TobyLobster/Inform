@@ -308,6 +308,19 @@ final class IFWebViewHelperTests: XCTestCase, @unchecked Sendable {
         }
     }
 
+    /// A link to the source, a knot of the skein or an extension in the Public Library does something, which its
+    /// scheme's handler is asked for, rather than show a page
+    func testWhichLinksShowAPage() {
+        for link in ["source:story.ni#line3", "skein:1003?case=B", "library:/resources/Extensions/A.zip?id=0",
+                     "Source:story.ni#line3"] {
+            XCTAssertFalse(IFWebViewHelper.showsPage(URL(string: link)), link)
+        }
+        for link in ["inform:/WI_1_1.html", "file:///Index/Rules.html", "https://example.com/"] {
+            XCTAssertTrue(IFWebViewHelper.showsPage(URL(string: link)), link)
+        }
+        XCTAssertTrue(IFWebViewHelper.showsPage(nil))
+    }
+
     /// The tests' web views keep their website data in memory, not in the user's Library.
     func testWebViewsKeepTheirDataInMemory() {
         let helper: IFWebViewHelper = IFWebViewHelper(projectController: nil, with: nil)

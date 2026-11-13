@@ -375,6 +375,44 @@ final class IFDocumentationPageTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(recorder.timesAsked, 3)
     }
 
+    /// Opening a page while the page is hidden switches to it, which records the page opened, once, as the switch
+    /// is recorded, and doesn't reload what was shown before
+    func testOpeningAURLSwitchesToThePageAndRecordsItOnce() throws {
+        let recorder = Recorder()
+        let shown = try makePage(recorder: recorder)
+        let switched = recorder.event
+
+        // The page is switched to as a pane switches to it
+        let page = shown.page
+        let observer = NotificationCenter.default.addObserver(forName: .IFSwitchToPage, object: page, queue: nil) { _ in
+            MainActor.assumeIsolated {
+                if !page.pageIsVisible {
+                    page.pageIsVisible = true
+                    page.didSwitchToPage()
+                }
+            }
+        }
+        defer {
+            NotificationCenter.default.removeObserver(observer)
+        }
+
+        let started = shown.watcher.started.count
+        open("inform:/alphabetical_index.html", in: shown)
+        XCTAssertEqual(recorder.timesAsked, 1)
+        XCTAssertEqual(Array(shown.watcher.started.dropFirst(started)), ["inform:/alphabetical_index.html"])
+
+        // What's shown next is recorded
+        recorder.event = IFHistoryEvent()
+        open("inform:/general_index.html", in: shown)
+        XCTAssertEqual(recorder.timesAsked, 3)
+
+        waitForNavigation(shown.watcher) {
+            switched.replay()
+        }
+        XCTAssertEqual(shown.webView.url?.absoluteString, "inform:/alphabetical_index.html")
+        XCTAssertTrue(shown.watcher.errors.isEmpty)
+    }
+
     /// Going back to the page loads a page from the history straight after the reload as it's switched to. Neither
     /// is recorded, whichever starts, and what's shown next is.
     func testAPageFromTheHistoryAsThePageIsSwitchedTo() throws {

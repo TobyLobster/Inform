@@ -26,6 +26,10 @@ import WebKit
     /// and the reload as the index is updated. (A load that another overtakes before it starts is left here, never
     /// matched.)
     private final var unrecordedNavigations: [WKNavigation] = []
+    /// The last page asked for, until it starts to load. The web view gives its URL as soon as it's asked for, so a
+    /// switch to the page before it starts, as Show Index asks for a tab and then switches to the page, records the
+    /// page with it, and it isn't recorded again as it starts.
+    private final var unstartedNavigation: WKNavigation?
 
     // MARK: - Initialisation
 
@@ -139,8 +143,14 @@ import WebKit
         }
 
         let fullFileURL = indexDirURL.appendingPathComponent(relativePath)
-        let aRequest = URLRequest(url: fullFileURL)
-        return webView.load(aRequest)
+        return load(fullFileURL)
+    }
+
+    /// Asks the web view for a page
+    private final func load(_ url: URL) -> WKNavigation? {
+        let navigation = webView.load(URLRequest(url: url))
+        unstartedNavigation = navigation
+        return navigation
     }
 
     func openHistoricalURL(_ url: URL?) {
@@ -149,8 +159,7 @@ import WebKit
         }
 
         // Because we are opening this URL as part of replaying history, we don't add it to the history itself.
-        let aRequest = URLRequest(url: url)
-        leaveOutOfHistory(webView.load(aRequest))
+        leaveOutOfHistory(load(url))
     }
 
     func `switch`(toTab tabIdentifier: Int32) {
@@ -279,6 +288,10 @@ import WebKit
         let url = webView.url
         NSLog("HISTORY: Index Page: (didSwitchToPage) requestURL %@", url?.absoluteString ?? "(null)")
         recordInHistory { self.openHistoricalURL(url) }
+        // A page asked for that hasn't started to load is the one just recorded
+        if let unstartedNavigation, !unrecordedNavigations.contains(where: { $0 === unstartedNavigation }) {
+            leaveOutOfHistory(unstartedNavigation)
+        }
 
         // Highlight the indexCell to something appropriate for the new URL
         highlightAppropriateIndexCell(for: url)
@@ -335,14 +348,21 @@ extension IFIndexPage {
                         didStartProvisionalNavigation navigation: WKNavigation!) {
         let url = theWebView.url
         NSLog("HISTORY: Index Page: (didStartProvisionalLoadForFrame) requestURL %@", url?.absoluteString ?? "(null)")
+        if navigation === unstartedNavigation {
+            unstartedNavigation = nil
+        }
+        // A link that does something rather than show a page, as one to the source, leaves the page shown as it was
+        let showsPage = IFWebViewHelper.showsPage(url)
         if let index = unrecordedNavigations.firstIndex(where: { $0 === navigation }) {
             unrecordedNavigations.remove(at: index)
-        } else if pageIsVisible {
+        } else if pageIsVisible && showsPage {
             recordInHistory { self.switchToPage() }
             recordInHistory { self.openHistoricalURL(url) }
         }
 
         // Highlight the indexCell to something appropriate for the new URL
-        highlightAppropriateIndexCell(for: url)
+        if showsPage {
+            highlightAppropriateIndexCell(for: url)
+        }
     }
 }

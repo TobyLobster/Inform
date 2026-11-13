@@ -288,6 +288,82 @@ final class IFProjectControllerTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(right.currentView, .indexPane)
     }
 
+    /// Shows the Settings page on the right, as the page shown before the index, once the documentation has loaded,
+    /// and then an index tab, waiting for it to load
+    private func showAnIndexTabAfterTheSettings() {
+        waitForPagesToLoad(in: [right])
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+        right.tabView.selectTabViewItem(withIdentifier: IFSettingsPage.description())
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+
+        let item = NSMenuItem()
+        item.tag = Int(IFIndexTabType.actions.rawValue)
+        controller.showIndexTab(item)
+        waitForPagesToLoad(in: [right])
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+        XCTAssertEqual(pageShown(right), IFIndexPage.description())
+    }
+
+    /// Showing an index tab from another page is one step in the pane's history, though the tab starts to load in a
+    /// later pass of the run loop than the page is shown in
+    func testOneBackLeavesAnIndexTabShownFromAnotherPage() {
+        showAnIndexTabAfterTheSettings()
+
+        right.goBackwards(nil)
+        XCTAssertEqual(pageShown(right), IFSettingsPage.description())
+        right.goForwards(nil)
+        XCTAssertEqual(pageShown(right), IFIndexPage.description())
+    }
+
+    /// Opening a page of the documentation from another page is one step in the pane's history
+    func testOneBackLeavesADocumentationPageOpenedFromAnotherPage() {
+        waitForPagesToLoad(in: [right])
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+        right.tabView.selectTabViewItem(withIdentifier: IFSettingsPage.description())
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+
+        controller.docRecipes(nil)
+        waitForPagesToLoad(in: [right])
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+        XCTAssertEqual(pageShown(right), IFDocumentationPage.description())
+
+        right.goBackwards(nil)
+        XCTAssertEqual(pageShown(right), IFSettingsPage.description())
+    }
+
+    /// Opening the extensions' page from another page is one step in the pane's history
+    func testOneBackLeavesTheExtensionsOpenedFromAnotherPage() {
+        waitForPagesToLoad(in: [right])
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+        right.tabView.selectTabViewItem(withIdentifier: IFSettingsPage.description())
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+
+        controller.docExtensions(nil)
+        waitForPagesToLoad(in: [right])
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+        XCTAssertEqual(pageShown(right), IFExtensionsPage.description())
+
+        right.goBackwards(nil)
+        XCTAssertEqual(pageShown(right), IFSettingsPage.description())
+    }
+
+    /// A link in the index to the source shows its line, and isn't a step in the pane's history, as the index stays
+    /// as it was
+    func testALinkFromTheIndexToTheSourceIsntAStepBack() throws {
+        showAnIndexTabAfterTheSettings()
+        let webView = try XCTUnwrap(right.indexPage.view.subviews.compactMap { $0 as? WKWebView }.first)
+        let indexURL = webView.url
+
+        webView.load(URLRequest(url: try XCTUnwrap(URL(string: "source:story.ni#line3"))))
+        waitForPagesToLoad(in: [right])
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+        XCTAssertTrue(highlights("story.ni")?.contains([3, IFLineStyle.error.rawValue]) ?? false)
+        XCTAssertEqual(webView.url, indexURL)
+
+        right.goBackwards(nil)
+        XCTAssertEqual(pageShown(right), IFSettingsPage.description())
+    }
+
     func testWithNoIndexTheIndexCantBeShown() throws {
         try FileManager.default.removeItem(at: folder.appendingPathComponent("Lighthouse.inform/Index"))
         left.indexPage.updateIndexView()
