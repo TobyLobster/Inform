@@ -11,12 +11,37 @@ private final class DrawingRecorder: IFSourceFileView {
     /// Where the bottom tear was drawn each time, at the end of the text laid out as the view drew
     var tearsDrawn: [CGFloat] = []
 
+    /// How much of the text was laid out each time the view started to draw
+    var laidOutAsDrawingStarted: [Int] = []
+    /// What the view was asked to redraw while it was drawing
+    var redrawsAskedWhileDrawing: [NSRect] = []
+    private var drawing = false
+
     override func draw(_ dirtyRect: NSRect) {
         drawn.append(dirtyRect)
+        if let layoutManager {
+            laidOutAsDrawingStarted.append(layoutManager.firstUnlaidCharacterIndex())
+        }
+        drawing = true
         super.draw(dirtyRect)
+        drawing = false
         if let layoutManager, let textContainer {
             tearsDrawn.append(textContainerOrigin.y + layoutManager.usedRect(for: textContainer).maxY)
         }
+    }
+
+    override func setNeedsDisplay(_ invalidRect: NSRect) {
+        if drawing {
+            redrawsAskedWhileDrawing.append(invalidRect)
+        }
+        super.setNeedsDisplay(invalidRect)
+    }
+
+    override func setNeedsDisplay(_ invalidRect: NSRect, avoidAdditionalLayout flag: Bool) {
+        if drawing {
+            redrawsAskedWhileDrawing.append(invalidRect)
+        }
+        super.setNeedsDisplay(invalidRect, avoidAdditionalLayout: flag)
     }
 }
 
@@ -343,6 +368,33 @@ final class IFSourceFileViewTests: XCTestCase, @unchecked Sendable {
         for tear in recorder.tearsDrawn {
             XCTAssertEqual(tear, end, accuracy: 0.5)
         }
+    }
+
+    /// A view torn at the bottom lays out its text before it draws, not as it draws. Laid out as the view drew, to
+    /// place the tear, the text below the line typed in a section was left blank: the text system asks for the text
+    /// it lays out to be drawn, and what it asked for while the view was drawing was forgotten.
+    func testATornViewLaysOutItsTextBeforeItDraws() throws {
+        let recorder = try XCTUnwrap(textView as? DrawingRecorder)
+        let storage = try XCTUnwrap(textView.textStorage)
+        textView.string = (1...500).map { "Line \($0)" }.joined(separator: "\n")
+        textView.setTornAtBottom(true)
+        _ = redraw()
+
+        // As a section's highlighting is copied into its view, after what was typed
+        textView.layoutManager?.backgroundLayoutEnabled = false
+        let rest = NSRange(location: 10, length: storage.length - 10)
+        storage.replaceCharacters(in: rest, with: storage.attributedSubstring(from: rest))
+        recorder.laidOutAsDrawingStarted = []
+        recorder.redrawsAskedWhileDrawing = []
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.05))
+        // As typing asks for the line typed to be redrawn
+        textView.setNeedsDisplay(NSRect(x: 0, y: 0, width: textView.bounds.width, height: 30))
+        textView.displayIfNeeded()
+        XCTAssertFalse(recorder.laidOutAsDrawingStarted.isEmpty)
+        for laidOut in recorder.laidOutAsDrawingStarted {
+            XCTAssertEqual(laidOut, storage.length)
+        }
+        XCTAssertEqual(recorder.redrawsAskedWhileDrawing, [])
     }
 
     func testBelowTheBottomTearIsPaper() throws {
