@@ -97,6 +97,30 @@ final class IFFindInFilesControllerTests: XCTestCase {
         return project
     }
 
+    /// A window for a project controller, which isn't shown, as its own isn't loaded
+    private func projectWindow(_ projectController: IFProjectController) -> NSWindow {
+        let projectWindow = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 200, height: 100),
+                                     styleMask: [.titled],
+                                     backing: .buffered,
+                                     defer: true)
+        projectWindow.setFrameOrigin(NSPoint(x: -20000, y: -20000))
+        projectWindow.isReleasedWhenClosed = false
+        projectWindow.windowController = projectController
+        return projectWindow
+    }
+
+    /// A project with these source files, whose window is said to have become the main window
+    private func projectInFront(source: [String: String]) throws -> (controller: ProjectControllerStandIn,
+                                                                    project: IFProject) {
+        let projectController = ProjectControllerStandIn()
+        NotificationCenter.default.removeObserver(projectController)
+        let project = try openProject(source: source)
+        projectController.document = project
+        NotificationCenter.default.post(name: NSWindow.didBecomeMainNotification,
+                                        object: projectWindow(projectController))
+        return (projectController, project)
+    }
+
     /// Every view of this type in the view, the view included
     private func views<T: NSView>(_ type: T.Type, in view: NSView) -> [T] {
         var found: [T] = []
@@ -476,7 +500,7 @@ final class IFFindInFilesControllerTests: XCTestCase {
     }
 
     /// When the project's window closes, its results go, as they can't be shown without it, and the project and its
-    /// controller are let go of, so Find All does nothing until Find in Files is used from another project
+    /// controller are let go of, so Find All does nothing until another project comes to the front
     func testLetsGoOfAProjectWhenItsWindowCloses() throws {
         let (controller, _, window) = try makeController()
         weak var closedController: IFProjectController?
@@ -490,14 +514,8 @@ final class IFFindInFilesControllerTests: XCTestCase {
             XCTAssertEqual(below(window), [.results])
 
             // The project's window isn't shown, and is only said to close
-            let projectWindow = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 200, height: 100),
-                                         styleMask: [.titled],
-                                         backing: .buffered,
-                                         defer: true)
-            projectWindow.setFrameOrigin(NSPoint(x: -20000, y: -20000))
-            projectWindow.isReleasedWhenClosed = false
-            projectWindow.windowController = projectController
-            NotificationCenter.default.post(name: NSWindow.willCloseNotification, object: projectWindow)
+            NotificationCenter.default.post(name: NSWindow.willCloseNotification,
+                                            object: projectWindow(projectController))
         }
 
         XCTAssertNil(closedController)
@@ -505,6 +523,39 @@ final class IFFindInFilesControllerTests: XCTestCase {
         controller.findAll(nil)
         XCTAssertTrue(progress(window).isHidden)
         XCTAssertEqual(below(window), [])
+    }
+
+    /// Once the project's window has closed, the next project to come to the front is searched, and shows its results
+    func testSearchesTheNextProjectToComeToTheFrontAfterItsProjectCloses() throws {
+        let (controller, _, window) = try makeController()
+        let closing = ProjectControllerStandIn()
+        NotificationCenter.default.removeObserver(closing)
+        controller.setController(closing)
+        controller.setProject(try openProject(source: ["story.ni": "A beaker."]))
+        try findAll("beaker", with: controller)
+        NotificationCenter.default.post(name: NSWindow.willCloseNotification, object: projectWindow(closing))
+
+        let (front, _) = try projectInFront(source: ["story.ni": "The Lab is a room.\nA beaker is in the Lab."])
+        try findAll("BEAKER", with: controller)
+        XCTAssertEqual(below(window), [.results])
+        controller.tableView(try table(window), didClickRow: 0)
+        XCTAssertEqual(front.shown.map { $0.location }, [21])
+        XCTAssertEqual(closing.shown, [])
+    }
+
+    /// While its project is open, another project coming to the front leaves Find All searching the first
+    func testAnotherProjectComingToTheFrontLeavesTheProjectSearched() throws {
+        let (controller, _, window) = try makeController()
+        let projectController = ProjectControllerStandIn()
+        NotificationCenter.default.removeObserver(projectController)
+        controller.setController(projectController)
+        controller.setProject(try openProject(source: ["story.ni": "The Lab is a room.\nA beaker is in the Lab."]))
+
+        let (front, _) = try projectInFront(source: ["story.ni": "A beaker."])
+        try findAll("beaker", with: controller)
+        controller.tableView(try table(window), didClickRow: 0)
+        XCTAssertEqual(projectController.shown.map { $0.location }, [21])
+        XCTAssertEqual(front.shown, [])
     }
 
     /// Clicking a result in the documentation shows it at the anchor of the code or definition it's in
