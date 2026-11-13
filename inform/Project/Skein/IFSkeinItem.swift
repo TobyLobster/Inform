@@ -22,7 +22,17 @@ import Cocoa
     private var _isTestSubItem: Bool
 
     let uniqueId: UInt
-    var skein: IFSkein?
+    var skein: IFSkein? {
+        didSet {
+            if let skein {
+                undoSkein = skein
+            }
+        }
+    }
+    /// The skein the knot was last in, whose project's undo manager records changes to the knot while it's out of
+    /// the skein: the skein view takes a knot out to rename it or delete the one before it, and undoing or redoing
+    /// those puts knots back or takes them out
+    private weak var undoSkein: IFSkein?
     var diffCachedResult: IFDiffer
     var commandSizeDidChange: Bool
     var cachedCommandSize: NSSize
@@ -36,6 +46,7 @@ import Cocoa
         _ideal          = ""
         _isTestSubItem  = false
         self.skein      = skein
+        undoSkein       = skein
 
         _parent         = nil
         _children       = NSMutableArray()
@@ -130,7 +141,7 @@ import Cocoa
             if let project = doc as? IFProject {
                 // Look through all skeins in each document looking for our root item
                 for case let skein as IFSkein in project.skeins {
-                    if skein === self.skein {
+                    if skein === self.skein ?? undoSkein {
                         return project
                     }
                 }
@@ -144,12 +155,12 @@ import Cocoa
         return document?.undoManager
     }
 
-    /// Where to send a message that undoes a change, or nil if there's no skein or undo manager. The undo manager
-    /// records the message it's sent next, to send to the skein, so it isn't cast, as a cast asks it its class. Nor
-    /// is the message looked up on AnyObject, which finds none for the undo manager, as the skein is the main
-    /// actor's.
+    /// Where to send a message that undoes a change, or nil if the knot has had no skein or there's no undo manager.
+    /// The undo manager records the message it's sent next, to send to the skein, so it isn't cast, as a cast asks it
+    /// its class. Nor is the message looked up on AnyObject, which finds none for the undo manager, as the skein is
+    /// the main actor's.
     private var undoTarget: IFSkein? {
-        guard let skein, let undoManager else { return nil }
+        guard let skein = skein ?? undoSkein, let undoManager else { return nil }
         return unsafeBitCast(undoManager.prepare(withInvocationTarget: skein) as AnyObject, to: IFSkein.self)
     }
 
