@@ -706,6 +706,14 @@ private extension IFSyntaxStyle {
                           traits: mask,
                           weight: ((style == .bold) || (style == .boldItalic)) ? 9 : 5,
                           size: fontSize)
+
+        // A family with no italic face gives the upright one, as Lucida Grande, the default, does, so it's slanted
+        // instead, as an oblique face would be
+        if mask.contains(.italicFontMask) && !NSFontManager.shared.traits(of: result).contains(.italicFontMask) {
+            let size = result.pointSize
+            let slant = AffineTransform(m11: size, m12: 0, m21: size * 0.2, m22: size, tX: 0, tY: 0)
+            return NSFont(descriptor: result.fontDescriptor, textTransform: slant) ?? result
+        }
         return result
     }
 
