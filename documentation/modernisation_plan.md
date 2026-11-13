@@ -1,6 +1,6 @@
 # Modernisation Plan for the macOS Inform App
 
-Started November 2026, on the `extensions` branch. This is a living document: update it as phases complete or decisions change. Open bugs are listed in `ToFix.md`.
+Started November 2026, on the `extensions` branch. This is a living document: update it as phases complete or decisions change. Open bugs are listed in `ToFix.md`, and features still to add in `NewFeatures.md`.
 
 ## Goals, in order
 
@@ -431,9 +431,8 @@ Started November 2026, on the `extensions` branch. This is a living document: up
 
 ### Phase 6 – New features (goal 6)
 
-- Quick Look preview and thumbnail extensions to replace InformQL.
-- Replacing Distributed Objects with `NSXPCConnection`, coordinated with MaddTheSane upstream.
-- Highlighting the phrase found when a Find in Files result in the documentation is opened (to consider; noted by the maintainer in the app run-through, 13 November 2026). The result opens its page at the anchor of the definition, code or example it's in, and the phrase has never been highlighted: there's no code for it, in the Objective-C of 2014 as now. The documentation's web view can already find a phrase for the Find panel (`IFFindWebView`, with `WKWebView`'s find, which selects the match), but a page can have the phrase in more than one place, and the one selected should be the result's.
+The features still to add are in `NewFeatures.md`: Quick Look extensions to replace InformQL, `NSXPCConnection` in place of Distributed Objects, highlighting a phrase found in the documentation, and separate text sizes for the story and the documentation (moved there 13 November 2026). Each is recorded here once it's done.
+
 - [x] Pointing hands in the launcher (12 November 2026, c1796759), asked for by the maintainer after trying it. The links to websites and to advice show a pointing-hand cursor, as the links in the news already did in their web view. They're `IFLinkButton`s (4d06ccbc), buttons that add a pointing-hand cursor rectangle over themselves. The banner is one too, but shows the hand only while an advice page is shown, when clicking it goes back to the lists: `showWebView` and `hideWebView` turn it on and off, and the window then sets up the banner's cursor rectangles again. The links are hidden while the advice is shown, and AppKit disables a hidden view's cursor rectangles. Tests check that the links and the banner are link buttons, the cursor rectangle a button adds, that its window is told when that changes, and when the banner shows the hand. Seen to work in the app by the maintainer (13 November 2026).
 
 ## Decisions

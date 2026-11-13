@@ -1,6 +1,6 @@
 # InformApp
 
-The macOS IDE for Inform 7. Mostly Objective-C, with some Swift. The modernisation roadmap and its current state are in `documentation/modernisation_plan.md`, and the open bugs in `documentation/ToFix.md`; how to build and release is in `documentation/building_inform.md`.
+The macOS IDE for Inform 7. Mostly Objective-C, with some Swift. The modernisation roadmap and its current state are in `documentation/modernisation_plan.md`, the open bugs in `documentation/ToFix.md`, and the features still to add in `documentation/NewFeatures.md`; how to build and release is in `documentation/building_inform.md`.
 
 ## Layout
 
@@ -23,7 +23,7 @@ The macOS IDE for Inform 7. Mostly Objective-C, with some Swift. The modernisati
 - Don't commit changes inside `zoom/` or its submodules without being asked. Fixes for Zoom/CocoaGlk should be made so they can go upstream.
 - Never commit anything that replaces or removes the `zoom` submodule: checking out such a commit deletes the `zoom` folder, with its uncommitted changes. `inform/Scripts/git-hooks/pre-commit` refuses these commits; install it with `cp inform/Scripts/git-hooks/pre-commit "$(git rev-parse --git-common-dir)/hooks/"` and never bypass it with `--no-verify`. In a worktree whose `zoom` is a symlink to the main checkout, stage paths by name, never with `commit -a` or `add -A`. The hook doesn't run for cherry-pick or rebase, so before landing a branch check that `git diff --raw master <branch> -- zoom` prints nothing.
 - Swift conversion is one-to-one. A commit either moves logic or translates it to Swift, never both.
-- A bug found and not fixed goes in `documentation/ToFix.md`, not the plan. When one is fixed, take it out of there and record the fix in the plan.
+- A bug found and not fixed goes in `documentation/ToFix.md`, not the plan. When one is fixed, take it out of there and record the fix in the plan. A feature asked for goes in `documentation/NewFeatures.md` in the same way, and is recorded in the plan's Phase 6 once done.
 - Match the surrounding code's style. App classes use the `IF` prefix.
 - Unit tests live in `inform/InformTests/` (Swift, hosted in Inform.app). App classes are made visible to them through `InformTests-Bridging-Header.h`; add header search paths to the `InformTests` target as needed.
 - Test runs get their own home folder (`CFFIXED_USER_HOME` in the scheme's Test action), and the app skips its start-up work when hosting them. The Test action removes that folder before each run, and while it's missing CFPreferences cuts the app off from the user's preferences, so tests start with none and their writes stay in memory. Once the folder exists the app has the user's real ones (`cfprefsd` ignores the home folder), and the isolation rests on undocumented behaviour, so tests must still never write user defaults or autosave toolbar or window state. A test host that starts with the folder there, as Xcode restarts one after a crash, stops at once, and the tests left aren't run.
