@@ -73,7 +73,7 @@ private func synchronized<T>(_ lock: AnyObject, _ body: () throws -> T) rethrows
     private final var auxView: NSView?                                          // The auxiliary view that is being displayed
     private final var winFrame = NSRect.zero                                    // The default window frame
 
-    // Project we are going to search, let go of when its window closes
+    // Project we are going to search, let go of when its window closes, until another project comes to the front
     private final weak var project: IFProject?                                  // Project to search in
     private final weak var controller: IFProjectController?                     // Project controller to use
     private final var findInFiles: IFFindInFiles                                // Object used to perform searching
@@ -102,6 +102,12 @@ private func synchronized<T>(_ lock: AnyObject, _ body: () throws -> T) rethrows
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(windowWillClose(_:)),
                                                name: NSWindow.willCloseNotification,
+                                               object: nil)
+
+        // ...and when another window comes to the front
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(mainWindowChanged(_:)),
+                                               name: NSWindow.didBecomeMainNotification,
                                                object: nil)
     }
 
@@ -624,6 +630,29 @@ extension IFFindInFilesController {
             findProgress?.stopAnimation(self)
             findProgress?.isHidden = true
             showAuxiliaryView(nil)
+
+            // A project in front of the one closing won't come to the front again, so it's searched from now
+            if NSApp.mainWindow !== win {
+                searchProject(of: NSApp.mainWindow)
+            }
         }
+    }
+
+    @objc(mainWindowChanged:)
+    public func mainWindowChanged(_ notification: Notification) {
+        searchProject(of: notification.object as? NSWindow)
+    }
+
+    /// Once the project searched has closed, the project of the window in front is searched instead. While it's
+    /// open, it stays the one searched, as its results can only be shown in its window.
+    private final func searchProject(of window: NSWindow?) {
+        guard project == nil,
+              let projectController = window?.windowController as? IFProjectController,
+              let frontProject = projectController.document as? IFProject else {
+            return
+        }
+
+        project = frontProject
+        controller = projectController
     }
 }
