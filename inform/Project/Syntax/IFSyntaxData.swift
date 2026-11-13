@@ -450,8 +450,6 @@ private let tab: unichar            = 0x09      // \t
     ///
     private final func syntaxHighlightRange(_ range: NSRange,
                                             forceUpdateTabs: Bool) -> NSRange {
-        var changedRange = range
-
         //
         // The range of lines to be highlighted
         //
@@ -564,9 +562,11 @@ private let tab: unichar            = 0x09      // \t
         let highlightedRange = NSRange(location: firstRangeChar, length: lastRangeChar - firstRangeChar)
         updateHighlightingForAttributedString(in: highlightedRange)
 
-        // Whole lines are restyled, from before the edit when it wasn't at the start of a line. Typing the number of
-        // a heading turns the start of its line into a heading too.
-        changedRange = NSUnionRange(changedRange, highlightedRange)
+        // The attributes changed are those of the lines highlighted: from the start of the first, before the edit
+        // when it wasn't at the start of a line, as typing the number of a heading turns the start of its line into
+        // a heading too, to where the highlighting stopped. The range asked for runs to the end of the text, and
+        // copying all of that into a restricted view laid the rest of the view out again with every keystroke.
+        var changedRange = highlightedRange
 
         // The call above uses -setAttributes:, which replaces *every* attribute on the edited
         // lines. The highlighter's attributes have no paragraph style, so the lines are left
