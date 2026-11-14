@@ -76,4 +76,19 @@
     return defaultImage.TIFFRepresentation;
 }
 
+- (bycopy NSData*) dataForSoundResource: (glui32) sound {
+	// Get the sound filename from the sounds manifest
+	NSString* soundFile = [self fileInManifestSection: @"Sounds" forResource: sound];
+	if (soundFile == nil) {
+		return nil;
+	}
+
+	// Try to load the sound
+	NSURL* soundURL = [project.materialsDirectoryURL URLByAppendingPathComponent: soundFile];
+	if (soundURL == nil) {
+		return nil;
+	}
+	return [NSData dataWithContentsOfURL: soundURL];
+}
+
 @end

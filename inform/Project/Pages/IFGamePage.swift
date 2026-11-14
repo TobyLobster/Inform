@@ -182,7 +182,11 @@ private final class IFSemiTransparentView: NSView {
             gView.addOutputReceiver(runtimeErrors)
 
             if let project = parent?.document as? IFProject {
-                gView.imageSource = IFGlkResources(project: project)
+                // The pictures and sounds in the materials folder, for a story played without a Blorb, which has its
+                // own and gives them to the interpreter in their place
+                let resources = IFGlkResources(project: project)
+                gView.imageSource = resources
+                gView.soundSource = resources
             }
 
             gView.autoresizingMask = [.width, .height]

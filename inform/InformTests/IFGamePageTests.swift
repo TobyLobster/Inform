@@ -421,4 +421,17 @@ final class IFGamePageTests: XCTestCase, @unchecked Sendable {
         let error = try XCTUnwrap(NSImage(named: "App/Interpreter/Error")?.tiffRepresentation)
         XCTAssertEqual(resources.data(forImageResource: 5), error)
     }
+
+    /// A sound comes from the materials folder, as a picture does, rather than only from a Blorb, which Go doesn't make
+    func testASoundComesFromTheMaterialsFolder() throws {
+        let resources = try XCTUnwrap(try makeResourcesWithAManifest() as AnyObject as? GlkSoundSourceProtocol)
+        XCTAssertEqual(resources.data(forSoundResource: 4), Data("FORM a bell".utf8))
+    }
+
+    /// A sound that isn't there gives the interpreter nothing to play
+    func testASoundThatIsntThere() throws {
+        let resources = try XCTUnwrap(try makeResourcesWithAManifest() as AnyObject as? GlkSoundSourceProtocol)
+        XCTAssertNil(resources.data(forSoundResource: 5))
+        XCTAssertNil(resources.data(forSoundResource: 3), "A picture's number in the manifest isn't a sound's")
+    }
 }
