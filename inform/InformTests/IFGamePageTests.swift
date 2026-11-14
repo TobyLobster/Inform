@@ -505,6 +505,16 @@ final class IFGamePageTests: XCTestCase, @unchecked Sendable {
         }
     }
 
+    /// A section of the manifest that isn't a dictionary, or an entry that isn't a file name, names nothing
+    func testAManifestOfTheWrongShape() throws {
+        var materials = Self.materials
+        materials["Figure 3.png"] = Data("A harbour".utf8)
+        let manifest: [String: Any] = ["Graphics": ["3": 3], "Sounds": "Sounds/Bell.aiff"]
+        let resources = try makeResources(project: ["manifest.plist": plist(manifest)], materials: materials)
+        XCTAssertEqual(resources.data(forImageResource: 3), Data("A harbour".utf8))
+        XCTAssertNil(try sounds(resources).data(forSoundResource: 4))
+    }
+
     /// A picture or sound that the manifest names, whose file isn't there
     func testAFileThatTheManifestNamesIsntThere() throws {
         let resources = try makeResources(project: ["manifest.plist": plist(Self.manifest)])

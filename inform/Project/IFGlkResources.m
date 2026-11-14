@@ -46,9 +46,16 @@
 		}
 	}
 
-	// Get the filename from the section
+	// Get the filename from the section, which is ignored unless it's a dictionary of strings
 	NSDictionary* files = manifest[section];
-	return files[[NSString stringWithFormat: @"%u", resource]];
+	if (![files isKindOfClass: [NSDictionary class]]) {
+		return nil;
+	}
+	NSString* file = files[[NSString stringWithFormat: @"%u", resource]];
+	if (![file isKindOfClass: [NSString class]]) {
+		return nil;
+	}
+	return file;
 }
 
 - (bycopy NSData*) dataForImageResource: (glui32) image {
