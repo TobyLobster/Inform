@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Test's run through an extension project's test cases, by their index, one after another: all of them for Test All,
 /// or the one chosen
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFTestCaseRun : NSObject
 
 /// The index of the test case being tested, or -1 between runs
