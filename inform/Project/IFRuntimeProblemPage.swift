@@ -8,9 +8,10 @@
 
 import Foundation
 
-/// Writes a page saying that the app has no page for a run-time problem, and gives its URL, or nil if it can't be
-/// written. The problem's name is as the story wrote it, so the characters HTML takes as markup are escaped.
-private func writePageForUnknownProblem(_ problem: String) -> URL? {
+/// Writes a page at the URL given saying that the app has no page for a run-time problem, and gives the URL, or nil
+/// if it can't be written. The problem's name is as the story wrote it, so the characters HTML takes as markup are
+/// escaped.
+private func writePageForUnknownProblem(_ problem: String, to url: URL) -> URL? {
     let name = problem.replacingOccurrences(of: "&", with: "&amp;")
                       .replacingOccurrences(of: "<", with: "&lt;")
                       .replacingOccurrences(of: ">", with: "&gt;")
@@ -21,7 +22,6 @@ private func writePageForUnknownProblem(_ problem: String) -> URL? {
         <p>The story reported the run-time problem \(name), which Inform has no page about.</p></body></html>
 
         """
-    let url = IFUtility.temporaryDirectoryURL().appendingPathComponent("RTP_Unknown.html")
     do {
         try html.write(to: url, atomically: true, encoding: .utf8)
     } catch {
@@ -34,12 +34,18 @@ private func writePageForUnknownProblem(_ problem: String) -> URL? {
     private final var errorURL: NSURL?
     private final var _markdownPath: String?
     private final let internalDirectory: String
+    /// Where the page is written, for a problem the app has no page for or one with a markdown file. Each page has its
+    /// own file, so that another project's problem doesn't replace it there, to be shown when the page is reloaded.
+    private final let temporaryPageURL: NSURL
 
     init(problem error: String,
          inDirectory directory: String?,
          materialsDirectory: String?,
          internalDirectory: String) {
         self.internalDirectory = internalDirectory
+        let temporaryPageURL = IFUtility.temporaryDirectoryURL()
+            .appendingPathComponent("RuntimeProblem-\(UUID().uuidString).html")
+        self.temporaryPageURL = temporaryPageURL as NSURL
         if let directory = directory as NSString? {
             let errorFile = "\(error).md"
             if directory.starts(withCaseInsensitive: "Internal/") {
@@ -66,7 +72,7 @@ private func writePageForUnknownProblem(_ problem: String) -> URL? {
             } else {
                 // The error file cannot be found: show a page saying so
                 NSLog("Warning: run-time error file '%@.html' not found", errorFile)
-                errorURL = writePageForUnknownProblem(error) as NSURL?
+                errorURL = writePageForUnknownProblem(error, to: temporaryPageURL) as NSURL?
             }
         }
 
@@ -83,7 +89,7 @@ private func writePageForUnknownProblem(_ problem: String) -> URL? {
 
     var pageURL: URL? {
         if _markdownPath != nil {
-            return IFUtility.temporaryDirectoryURL().appendingPathComponent("temp.html")
+            return temporaryPageURL as URL
         }
         return appPageURL
     }

@@ -32,7 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// The markdown file to make the page from, for a problem with a folder, or nil
 @property (atomic, readonly, nullable) NSString* markdownPath;
 /// The page to show: the app's own page, or the one saying it has none, for a problem with no folder; for one with a
-/// markdown file, temp.html in the temporary folder, where makePageFromMarkdownWithInBuild:settings: writes it; or nil
+/// markdown file, a file of the page's own in the temporary folder, where makePageFromMarkdownWithInBuild:settings:
+/// writes it; or nil
 @property (atomic, readonly, nullable) NSURL* pageURL;
 
 /// Makes the page, at pageURL, from the problem's markdown file with inbuild. When that fails, inbuild writes a page
