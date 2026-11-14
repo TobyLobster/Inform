@@ -66,6 +66,7 @@ private struct Row {
 private struct Controls {
     let fontFamily: NSTextField
     let appTextSize: NSSlider
+    let storyTextSize: NSSlider
     let enableSyntaxHighlighting: NSButton
     let restoreSettings: NSButton
     let rows: [Row]
@@ -82,6 +83,7 @@ private struct Controls {
         }
         fontFamily = try control("fontFamily")
         appTextSize = try control("appTextSize")
+        storyTextSize = try control("storyTextSize")
         enableSyntaxHighlighting = try control("enableSyntaxHighlighting")
         restoreSettings = try control("restoreSettingsButton")
         let types: [(IFSyntaxHighlightingOptionType, String, String)] = [(.headings, "headings", "Headings"),
@@ -167,8 +169,20 @@ final class IFEditingPreferencesTests: XCTestCase {
     func testThePaneCanBeAnyHeightAboveItsSmallest() throws {
         let (pane, _, _, _) = try makePane()
         XCTAssertEqual(pane.maxHeight, .greatestFiniteMagnitude)
-        XCTAssertEqual(pane.minHeight, 574)
+        XCTAssertEqual(pane.minHeight, 600)
         XCTAssertNotNil(pane.preferenceView)
+    }
+
+    /// At its smallest, the pane still has room for some of its preview
+    func testThePreviewIsShownWhenThePaneIsAtItsSmallest() throws {
+        let (pane, _, _, controls) = try makePane()
+        let view = try XCTUnwrap(pane.preferenceView)
+        let preview = try XCTUnwrap(controls.preview.enclosingScrollView)
+
+        view.setFrameSize(NSSize(width: view.frame.width, height: pane.minHeight))
+        view.layoutSubtreeIfNeeded()
+
+        XCTAssertGreaterThanOrEqual(preview.frame.height, 20)
     }
 
     // MARK: - Showing the preferences
@@ -178,6 +192,7 @@ final class IFEditingPreferencesTests: XCTestCase {
 
         XCTAssertEqual(controls.fontFamily.stringValue, "Lucida Grande - 12")
         XCTAssertEqual(controls.appTextSize.intValue, IFAppFontSize.normal.rawValue)
+        XCTAssertEqual(controls.storyTextSize.intValue, IFAppFontSize.normal.rawValue)
         XCTAssertEqual(controls.enableSyntaxHighlighting.state, .on)
         for row in controls.rows {
             XCTAssertEqual(row.bold.state, .off, row.name)
@@ -254,6 +269,31 @@ final class IFEditingPreferencesTests: XCTestCase {
 
         XCTAssertEqual(controls.appTextSize.intValue, IFAppFontSize.minus25.rawValue)
         XCTAssertFalse(controls.restoreSettings.isEnabled)
+    }
+
+    /// The story's text size is shown too, and isn't one of the editing preferences either
+    func testTheStorysTextSizeIsShownAndDoesntEnableRestore() throws {
+        let (_, _, _, controls) = try makePane { $0.storyFontSizeMultiplierEnum = .plus25 }
+
+        XCTAssertEqual(controls.storyTextSize.intValue, IFAppFontSize.plus25.rawValue)
+        XCTAssertEqual(controls.appTextSize.intValue, IFAppFontSize.normal.rawValue)
+        XCTAssertFalse(controls.restoreSettings.isEnabled)
+    }
+
+    /// Until the story's text size is set, it's the app's, and its slider shows that
+    func testTheStorysTextSizeShownIsTheAppsUntilItsSet() throws {
+        let (_, _, _, controls) = try makePane { $0.appFontSizeMultiplierEnum = .minus50 }
+
+        XCTAssertEqual(controls.storyTextSize.intValue, IFAppFontSize.minus50.rawValue)
+    }
+
+    /// The story's text size set elsewhere, as by another pane, is shown as it changes
+    func testTheStorysTextSizeIsShownAsItChanges() throws {
+        let (_, preferences, _, controls) = try makePane()
+
+        preferences.storyFontSizeMultiplierEnum = .plus100
+
+        XCTAssertEqual(controls.storyTextSize.intValue, IFAppFontSize.plus100.rawValue)
     }
 
     func testThePreviewIsOnTheSourcePaper() throws {
@@ -444,6 +484,36 @@ final class IFEditingPreferencesTests: XCTestCase {
         XCTAssertFalse(controls.restoreSettings.isEnabled)
     }
 
+    /// The story's slider sets the size of the story's text alone
+    func testTheStorySliderSetsTheStorysTextSize() throws {
+        let (_, preferences, _, controls) = try makePane()
+        let posted = expectation(forNotification: .IFPreferencesStoryFontSizeDidChange, object: preferences)
+
+        slide(controls.storyTextSize, to: Double(IFAppFontSize.plus75.rawValue))
+
+        wait(for: [posted], timeout: 0)
+        XCTAssertEqual(preferences.storyFontSizeMultiplierEnum, .plus75)
+        XCTAssertEqual(preferences.appFontSizeMultiplierEnum, .normal)
+        XCTAssertEqual(controls.appTextSize.intValue, IFAppFontSize.normal.rawValue)
+        XCTAssertTrue(haveTheDefaults(preferences))
+        XCTAssertFalse(controls.restoreSettings.isEnabled)
+    }
+
+    /// The story's slider moves with the documentation's until the story has a size of its own
+    func testTheStorySliderFollowsTheTextSizeSliderUntilItsSet() throws {
+        let (_, preferences, _, controls) = try makePane()
+
+        slide(controls.appTextSize, to: Double(IFAppFontSize.plus50.rawValue))
+
+        XCTAssertEqual(controls.storyTextSize.intValue, IFAppFontSize.plus50.rawValue)
+
+        slide(controls.storyTextSize, to: Double(IFAppFontSize.minus25.rawValue))
+        slide(controls.appTextSize, to: Double(IFAppFontSize.plus75.rawValue))
+
+        XCTAssertEqual(controls.storyTextSize.intValue, IFAppFontSize.minus25.rawValue)
+        XCTAssertEqual(preferences.storyFontSizeMultiplierEnum, .minus25)
+    }
+
     /// The font chosen in the Font panel is shown as its family and size, which the pane then sets
     func testTheFontShownIsSet() throws {
         let (pane, preferences, _, controls) = try makePane()
@@ -537,6 +607,7 @@ final class IFEditingPreferencesTests: XCTestCase {
             preferences.elasticTabs = false
             preferences.autoNumberSections = false
             preferences.appFontSizeMultiplierEnum = .plus50
+            preferences.storyFontSizeMultiplierEnum = .minus25
         }
         XCTAssertTrue(controls.restoreSettings.isEnabled)
 
@@ -552,6 +623,8 @@ final class IFEditingPreferencesTests: XCTestCase {
         XCTAssertEqual(controls.tabStop.doubleValue, 24)
         XCTAssertEqual(controls.autoNumber.state, .on)
         XCTAssertEqual(controls.appTextSize.intValue, IFAppFontSize.plus50.rawValue)
+        XCTAssertEqual(preferences.storyFontSizeMultiplierEnum, .minus25)
+        XCTAssertEqual(controls.storyTextSize.intValue, IFAppFontSize.minus25.rawValue)
         XCTAssertFalse(controls.restoreSettings.isEnabled)
     }
 }

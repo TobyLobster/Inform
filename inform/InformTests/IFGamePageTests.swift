@@ -348,12 +348,13 @@ final class IFGamePageTests: XCTestCase, @unchecked Sendable {
         XCTAssertTrue(controller.finishedSources.allSatisfy { $0 == nil })
     }
 
-    /// A Z-machine story's text is shown at the app's text size, as Zoom multiplies the sizes of its view's fonts by
-    /// the view's scale factor. (No story runs here: the view only has its fonts.)
-    func testAZMachineStorysTextIsShownAtTheAppTextSize() throws {
-        let largest = ["appFontSizeMultiplierFineEnum": IFAppFontSize.plus100.rawValue]
+    /// A Z-machine story's text is shown at the story's text size, not the documentation's, as Zoom multiplies the
+    /// sizes of its view's fonts by the view's scale factor. (No story runs here: the view only has its fonts.)
+    func testAZMachineStorysTextIsShownAtTheStorysTextSize() throws {
+        let largest = ["storyFontSizeMultiplierFineEnum": IFAppFontSize.plus100.rawValue,
+                       "appFontSizeMultiplierFineEnum": IFAppFontSize.minus100.rawValue]
         let preferences = IFPreferences(userDefaults: MemoryDefaults([IFPreferencesDefault: largest]))
-        XCTAssertEqual(preferences.appFontSizeMultiplier, 1.375, accuracy: 0.001)
+        XCTAssertEqual(preferences.storyFontSizeMultiplier, 1.375, accuracy: 0.001)
 
         let zoomView = ZoomView()
         let normalSize = try XCTUnwrap(zoomView.font(from: [])).pointSize

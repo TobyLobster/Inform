@@ -36,9 +36,11 @@ private final class NotificationRecorder: @unchecked Sendable {
     private(set) var names: [NSNotification.Name] = []
     private var observers: [NSObjectProtocol] = []
 
-    init(_ object: AnyObject) {
-        for name: NSNotification.Name in [.IFPreferencesEditingDidChange, .IFPreferencesAdvancedDidChange,
-                                          .IFPreferencesAppFontSizeDidChange, .IFPreferencesAuthorDidChange] {
+    init(_ object: AnyObject, names: [NSNotification.Name] = [.IFPreferencesEditingDidChange,
+                                                              .IFPreferencesAdvancedDidChange,
+                                                              .IFPreferencesAppFontSizeDidChange,
+                                                              .IFPreferencesAuthorDidChange]) {
+        for name in names {
             observers.append(NotificationCenter.default.addObserver(forName: name, object: object, queue: nil) { [weak self] notification in
                 self?.names.append(notification.name)
             })
@@ -346,6 +348,86 @@ final class IFPreferencesTests: XCTestCase {
 
             XCTAssertEqual(prefs.appFontSizeMultiplier, 1.0, "\(size)")
         }
+    }
+
+    // MARK: - The story's font size
+
+    private let fontSizeNotifications: [NSNotification.Name] = [.IFPreferencesAppFontSizeDidChange,
+                                                                 .IFPreferencesStoryFontSizeDidChange]
+
+    /// As it was before it had a size of its own
+    func testTheStorysFontSizeIsTheDocumentationsUntilItsSet() {
+        let (prefs, _) = makePreferences(["appFontSizeMultiplierFineEnum": IFAppFontSize.plus50.rawValue])
+
+        XCTAssertEqual(prefs.storyFontSizeMultiplierEnum, .plus50)
+        XCTAssertEqual(prefs.storyFontSizeMultiplier, prefs.appFontSizeMultiplier)
+    }
+
+    func testTheStorysFontSizeIsWrittenUnderItsKeyAndToldOfAlone() {
+        let (prefs, defaults) = makePreferences()
+        let recorder = NotificationRecorder(prefs, names: fontSizeNotifications)
+
+        prefs.storyFontSizeMultiplierEnum = .minus50
+
+        XCTAssertEqual(written(defaults)["storyFontSizeMultiplierFineEnum"] as? NSNumber, 2)
+        XCTAssertEqual(type(written(defaults)["storyFontSizeMultiplierFineEnum"]), "i")
+        XCTAssertEqual(prefs.storyFontSizeMultiplierEnum, .minus50)
+        XCTAssertEqual(prefs.storyFontSizeMultiplier, 0.8125)
+        XCTAssertEqual(prefs.appFontSizeMultiplierEnum, .normal)
+        XCTAssertEqual(recorder.names, [.IFPreferencesStoryFontSizeDidChange])
+    }
+
+    /// So a story being shown follows the documentation's size until it has its own
+    func testChangingTheDocumentationsFontSizeTellsOfTheStorysUntilItsSet() {
+        let (prefs, _) = makePreferences()
+        let recorder = NotificationRecorder(prefs, names: fontSizeNotifications)
+
+        prefs.appFontSizeMultiplierEnum = .plus100
+
+        XCTAssertEqual(prefs.storyFontSizeMultiplier, 1.375)
+        XCTAssertEqual(recorder.names, [.IFPreferencesAppFontSizeDidChange, .IFPreferencesStoryFontSizeDidChange])
+    }
+
+    func testOnceSetTheStorysFontSizeIsntChangedWithTheDocumentations() {
+        let (prefs, _) = makePreferences(["storyFontSizeMultiplierFineEnum": IFAppFontSize.minus25.rawValue])
+        let recorder = NotificationRecorder(prefs, names: fontSizeNotifications)
+
+        prefs.appFontSizeMultiplierEnum = .plus100
+
+        XCTAssertEqual(prefs.storyFontSizeMultiplierEnum, .minus25)
+        XCTAssertEqual(recorder.names, [.IFPreferencesAppFontSizeDidChange])
+    }
+
+    /// When the story's size is set to the documentation's, so it doesn't change
+    func testTheStorysFontSizeIsntToldOfWhenItsTheSameAfterTheDocumentationsChange() {
+        let (prefs, _) = makePreferences()
+        prefs.storyFontSizeMultiplierEnum = .normal
+        let recorder = NotificationRecorder(prefs, names: fontSizeNotifications)
+
+        prefs.appFontSizeMultiplierEnum = .plus100
+
+        XCTAssertEqual(prefs.storyFontSizeMultiplierEnum, .normal)
+        XCTAssertEqual(recorder.names, [.IFPreferencesAppFontSizeDidChange])
+    }
+
+    /// Told of once, as the batch ends, as the others are
+    func testTheStorysFontSizeChangedInABatchIsToldOfAsTheBatchEnds() {
+        let (prefs, _) = makePreferences()
+        let recorder = NotificationRecorder(prefs, names: fontSizeNotifications)
+
+        prefs.startBatchEditing()
+        prefs.appFontSizeMultiplierEnum = .plus25
+        prefs.appFontSizeMultiplierEnum = .plus50
+        XCTAssertEqual(recorder.names, [])
+        prefs.endBatchEditing()
+
+        XCTAssertEqual(recorder.names, [.IFPreferencesAppFontSizeDidChange, .IFPreferencesStoryFontSizeDidChange])
+    }
+
+    func testAnUnknownStoryFontSizeIsTheNormalSize() {
+        let (prefs, _) = makePreferences(["storyFontSizeMultiplierFineEnum": 42])
+
+        XCTAssertEqual(prefs.storyFontSizeMultiplier, 1.0)
     }
 
     // MARK: - The author's name

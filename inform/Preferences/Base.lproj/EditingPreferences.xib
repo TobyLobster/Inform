@@ -38,6 +38,7 @@
                 <outlet property="rowMainText" destination="Wnk-nK-IFv" id="llY-kG-MKq"/>
                 <outlet property="rowQuotedText" destination="ITQ-yg-h9g" id="0zg-nH-tAS"/>
                 <outlet property="rowTextSubstitutions" destination="5Kp-Ym-FNE" id="XKD-lk-2Sm"/>
+                <outlet property="storyTextSize" destination="Sf3-Sl-Kq9" id="Sf6-Ou-KqC"/>
                 <outlet property="tabStopSlider" destination="139" id="140"/>
                 <outlet property="tabStopView" destination="138" id="143"/>
                 <outlet property="textSubstitutionsBold" destination="Itg-XG-VnG" id="BA5-t9-9wt"/>
@@ -49,11 +50,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView misplaced="YES" id="5" userLabel="EditingPreferences">
-            <rect key="frame" x="0.0" y="0.0" width="512" height="766"/>
+            <rect key="frame" x="0.0" y="0.0" width="512" height="792"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="166">
-                    <rect key="frame" x="18" y="727" width="286" height="20"/>
+                    <rect key="frame" x="18" y="753" width="286" height="20"/>
                     <string key="toolTip">Styles will automatically style your source code to indicate what different parts do.</string>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="284" id="aN6-sS-ntT"/>
@@ -67,7 +68,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IXf-Fa-1JU">
-                    <rect key="frame" x="306" y="719" width="179" height="32"/>
+                    <rect key="frame" x="306" y="745" width="179" height="32"/>
                     <buttonCell key="cell" type="push" title="Restore default settings" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vcX-vv-gWL">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -445,15 +446,15 @@
                     </constraints>
                 </box>
                 <box autoresizesSubviews="NO" borderType="line" title="Font" translatesAutoresizingMaskIntoConstraints="NO" id="sFK-Ii-9ea">
-                    <rect key="frame" x="17" y="626" width="466" height="86"/>
-                    <view key="contentView" placeholderIntrinsicWidth="458" placeholderIntrinsicHeight="66" id="jmv-bN-PYl">
-                        <rect key="frame" x="4" y="5" width="458" height="66"/>
+                    <rect key="frame" x="17" y="626" width="466" height="112"/>
+                    <view key="contentView" placeholderIntrinsicWidth="458" placeholderIntrinsicHeight="92" id="jmv-bN-PYl">
+                        <rect key="frame" x="4" y="5" width="458" height="92"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField verticalHuggingPriority="750" id="5Fw-2b-02w">
-                                <rect key="frame" x="18" y="39" width="156" height="16"/>
+                                <rect key="frame" x="18" y="65" width="156" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Font family:" id="pAZ-Hy-MHu">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Source Font:" id="pAZ-Hy-MHu">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -476,8 +477,25 @@
                                     <action selector="styleSetHasChanged:" target="-2" id="ZMh-X9-TUw"/>
                                 </connections>
                             </slider>
+                            <textField horizontalHuggingPriority="200" verticalHuggingPriority="750" id="Sf1-Lb-Kq7" userLabel="Story font size:">
+                                <rect key="frame" x="18" y="39" width="156" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Story font size:" id="Sf2-Lc-Kq8" userLabel="Story font size:">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <slider verticalHuggingPriority="750" id="Sf3-Sl-Kq9">
+                                <rect key="frame" x="182" y="36" width="149" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" controlSize="small" state="on" alignment="left" maxValue="8" doubleValue="4" tickMarkPosition="above" numberOfTickMarks="9" allowsTickMarkValuesOnly="YES" sliderType="linear" id="Sf4-Sc-KqA"/>
+                                <connections>
+                                    <action selector="styleSetHasChanged:" target="-2" id="Sf5-Ac-KqB"/>
+                                </connections>
+                            </slider>
                             <textField horizontalHuggingPriority="240" verticalHuggingPriority="750" id="D8j-JM-wLJ">
-                                <rect key="frame" x="182" y="38" width="175" height="16"/>
+                                <rect key="frame" x="182" y="64" width="175" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Font Name" drawsBackground="YES" id="6E5-3g-rjD">
                                     <font key="font" usesAppearanceFont="YES"/>
@@ -486,7 +504,7 @@
                                 </textFieldCell>
                             </textField>
                             <button horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="700" id="TqX-cB-22g">
-                                <rect key="frame" x="363" y="29" width="84" height="32"/>
+                                <rect key="frame" x="363" y="55" width="84" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Select..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="E7W-bf-VJb">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -499,7 +517,7 @@
                         </subviews>
                     </view>
                     <constraints>
-                        <constraint firstAttribute="height" constant="82" id="90z-ee-1dq"/>
+                        <constraint firstAttribute="height" constant="108" id="90z-ee-1dq"/>
                     </constraints>
                 </box>
                 <box title="Tab width" translatesAutoresizingMaskIntoConstraints="NO" id="135">
