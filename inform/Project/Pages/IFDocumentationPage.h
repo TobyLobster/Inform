@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 // The documentation view
 /// Tells the documentation view to open a specific URL
 - (void) openURL: (NSURL*) url;
+/// Opens a URL, and selects a match that Find in Files found in its page, after the URL's anchor, once it's shown
+- (void) openURL: (NSURL*) url selectingMatchAtRange: (NSRange) range inContext: (NSString*) context
+    NS_SWIFT_NAME(open(_:selectingMatchAt:inContext:));
 /// Opens a URL from the history, without recording it in the history again
 - (void) openHistoricalURL: (nullable NSURL*) url;
 /// Opens the table of contents

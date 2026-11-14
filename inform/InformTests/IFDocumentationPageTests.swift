@@ -71,6 +71,7 @@ private final class NavigationWatcher: NSObject, WKNavigationDelegate {
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        page.webView?(webView, didFinish: navigation)
         onFinish?()
     }
 
@@ -259,6 +260,40 @@ final class IFDocumentationPageTests: XCTestCase, @unchecked Sendable {
     }
 
     /// Opening a URL switches to the page and shows it, with no cell highlighted for a page that isn't one of theirs
+    /// Where Find in Files finds "paranormal" in WI_11_3's code extract with the anchor given: the context it gives,
+    /// and the match's range in it
+    private func paranormal(inCode anchor: String) throws -> (context: String, range: NSRange) {
+        let url = try XCTUnwrap(Bundle.main.url(forResource: "WI_11_3", withExtension: "html"))
+        let parser = IFDocParser(html: try String(contentsOf: url, encoding: .utf8))
+        let code = try XCTUnwrap(parser.codeInfo.first { $0.anchorTag == anchor })
+        let text = parser.plainText as NSString
+        let location = text.range(of: "paranormal", range: code.range).location
+        var range = NSRange()
+        let context = IFFindInFiles.getContextFromText(text as String,
+                                                       withLocation: UInt(location),
+                                                       andLength: 10,
+                                                       findingContextRange: &range)
+        return (context, range)
+    }
+
+    /// The page's selection
+    private func selection(in shown: Shown) throws -> String? {
+        return try evaluate("window.getSelection().toString()", in: shown.webView) as? String
+    }
+
+    /// Waits until the page's selection is the text given, and gives the anchor of the code extract it's in
+    private func waitForSelection(_ text: String, in shown: Shown) throws -> String? {
+        let limit = Date(timeIntervalSinceNow: 10)
+        while try selection(in: shown) != text && Date() < limit {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+        }
+        XCTAssertEqual(try selection(in: shown), text)
+        return try evaluate("""
+            (node => node && node.parentElement.closest("blockquote").querySelector("a").id)
+                (window.getSelection().anchorNode) || ""
+            """, in: shown.webView) as? String
+    }
+
     func testOpeningAURL() throws {
         let shown = try makePage()
         let posted = notifications(.IFSwitchToPage, from: shown.page) {
@@ -268,6 +303,59 @@ final class IFDocumentationPageTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(shown.webView.url?.absoluteString, "inform:/WI_1_1.html")
         XCTAssertEqual(shown.page.toolbarCells.map { $0.state }, [.off, .off, .off])
         XCTAssertTrue(shown.watcher.errors.isEmpty)
+    }
+
+    /// A Find in Files result opens its page at its anchor, with its match selected there, though the page has the
+    /// same line before it
+    func testOpeningAURLSelectingAMatch() throws {
+        let shown = try makePage()
+        let match = try paranormal(inCode: "code612")
+
+        waitForNavigation(shown.watcher) {
+            shown.page.open(URL(string: "inform:/WI_11_3.html#code612")!,
+                            selectingMatchAt: match.range,
+                            inContext: match.context)
+        }
+
+        XCTAssertEqual(try waitForSelection("paranormal", in: shown), "code612")
+        XCTAssertEqual(shown.webView.url?.absoluteString, "inform:/WI_11_3.html#code612")
+        XCTAssertTrue(shown.watcher.errors.isEmpty)
+    }
+
+    /// A result in the page shown goes to its anchor without loading the page again, and its match is selected
+    func testOpeningAURLInThePageShownSelectingAMatch() throws {
+        let shown = try makePage()
+        open("inform:/WI_11_3.html#code611", in: shown)
+        let started = shown.watcher.started.count
+        let match = try paranormal(inCode: "code612")
+
+        shown.page.open(URL(string: "inform:/WI_11_3.html#code612")!,
+                        selectingMatchAt: match.range,
+                        inContext: match.context)
+
+        XCTAssertEqual(try waitForSelection("paranormal", in: shown), "code612")
+        XCTAssertEqual(shown.webView.url?.absoluteString, "inform:/WI_11_3.html#code612")
+        XCTAssertEqual(shown.watcher.started.count, started)
+    }
+
+    /// The match is selected once, not each time the page loads again
+    func testTheMatchIsSelectedOnce() throws {
+        let shown = try makePage()
+        let match = try paranormal(inCode: "code612")
+        waitForNavigation(shown.watcher) {
+            shown.page.open(URL(string: "inform:/WI_11_3.html#code612")!,
+                            selectingMatchAt: match.range,
+                            inContext: match.context)
+        }
+        _ = try waitForSelection("paranormal", in: shown)
+
+        waitForNavigation(shown.watcher) {
+            NotificationCenter.default.post(name: .IFCensusFinished, object: nil)
+        }
+        // Long enough for a selection to be made
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.5))
+
+        XCTAssertEqual(try selection(in: shown), "")
     }
 
     /// A cell is highlighted for its page's URL in any case
