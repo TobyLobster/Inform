@@ -439,6 +439,34 @@ final class IFProjectTests: XCTestCase {
                                                             hidingExtension: false))
     }
 
+    /// As a release asks inblorb to copy the blorb into the Release folder in the project's materials
+    func testCopiesTheCompilerOutputToTheBlorbLocationOverAFileThatsThere() throws {
+        let project = try open(makeProject(source: ["story.ni": Data()]))
+        let output = try makeFolder().appendingPathComponent("output.gblorb")
+        try Data("Story".utf8).write(to: output)
+        project.compiler.outputFile = output.path
+        let copy = try makeFolder().appendingPathComponent("Lighthouse.gblorb")
+        try Data("Old".utf8).write(to: copy)
+
+        project.copyCompilerOutput(toBlorbLocation: copy.path)
+
+        XCTAssertEqual(try String(contentsOf: copy, encoding: .utf8), "Story")
+        XCTAssertEqual(try String(contentsOf: output, encoding: .utf8), "Story")
+    }
+
+    func testCopyingTheCompilerOutputToABlorbLocationInNoFolderDoesNothing() throws {
+        let project = try open(makeProject(source: ["story.ni": Data()]))
+        let output = try makeFolder().appendingPathComponent("output.gblorb")
+        try Data("Story".utf8).write(to: output)
+        project.compiler.outputFile = output.path
+        let copy = try makeFolder().appendingPathComponent("Missing/Lighthouse.gblorb")
+
+        project.copyCompilerOutput(toBlorbLocation: copy.path)
+
+        XCTAssertFalse(FileManager.default.fileExists(atPath: copy.path))
+        XCTAssertEqual(try String(contentsOf: output, encoding: .utf8), "Story")
+    }
+
     func testExportsAnExtensionOverAFileThatsThere() throws {
         let project = try openExtensionProject()
         let copy = try makeFolder().appendingPathComponent("Lamplighting.i7x")

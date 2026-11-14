@@ -74,6 +74,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Copies the compiler's output to a file the user chose, with its extension hidden or not, in place of any file there.
 /// NO, with the error, if it couldn't
 - (BOOL) saveCompilerOutputToURL: (NSURL*) url hidingExtension: (BOOL) hideExtension error: (NSError**) error;
+/// Copies the compiler's output to where inblorb asked for the blorb to be copied as the story was released, in place
+/// of any file there. Nothing is reported if it can't.
+- (void) copyCompilerOutputToBlorbLocation: (NSString*) path NS_SWIFT_NAME(copyCompilerOutput(toBlorbLocation:));
 - (void) saveDocumentWithoutUserInteraction;
 
 #pragma mark - Extension projects

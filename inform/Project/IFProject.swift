@@ -616,6 +616,14 @@ extension IFProject {
         try copyFile(at: URL(fileURLWithPath: compiler.outputFile), over: url, hidingExtension: hideExtension)
     }
 
+    @objc(copyCompilerOutputToBlorbLocation:)
+    func copyCompilerOutput(toBlorbLocation copyLocation: String) {
+        // Copy the result to the specified location (overwriting any existing file)
+        try? FileManager.default.removeItem(atPath: copyLocation)
+        try? FileManager.default.copyItem(atPath: compiler.outputFile,
+                                          toPath: copyLocation)
+    }
+
     /// Copies a file to one the user chose in a save panel, which has asked whether to replace a file that's there
     private final func copyFile(at source: URL, over destination: URL, hidingExtension hideExtension: Bool) throws {
         let filepath = (destination.path as NSString).resolvingSymlinksInPath
