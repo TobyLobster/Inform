@@ -254,8 +254,9 @@ import WebKit
     // MARK: - Preferences
 
     @objc private final func fontSizePreferenceChanged(_ not: Notification) {
-        if let currentWebView = _currentWebView {
-            helper?.fontSizePreferenceChanged(currentWebView)
+        // Every tab's page, not only the one shown
+        for case let webView as WKWebView in tabs.map({ $0.view }) {
+            helper?.fontSizePreferenceChanged(webView)
         }
     }
 

@@ -135,6 +135,18 @@ final class IFCompilerControllerTests: XCTestCase, @unchecked Sendable {
         post(.IFCompilerStderr, ["string": string])
     }
 
+    /// Runs some JavaScript in the web view, and gives its result
+    private func evaluate(_ script: String, in webView: WKWebView) throws -> Any? {
+        let evaluated = expectation(description: "evaluated")
+        var result: Result<Any?, Error> = .success(nil)
+        webView.evaluateJavaScript(script) { value, error in
+            result = error.map { .failure($0) } ?? .success(value)
+            evaluated.fulfill()
+        }
+        wait(for: [evaluated], timeout: 10)
+        return try result.get()
+    }
+
     /// Starts a build, as the project controller does
     private func startBuild() {
         post(.IFCompilerClearConsole)
@@ -580,6 +592,31 @@ final class IFCompilerControllerTests: XCTestCase, @unchecked Sendable {
         delegate.forget()
         controller.clearTabViewsExcept(.tabInform6)
         XCTAssertEqual(delegate.told, [])
+    }
+
+    /// When the documentation's text size changes, the page in every tab is zoomed for it, not only the one shown
+    func testATextSizeChangeZoomsThePageInEveryTab() throws {
+        controller.setProject(try XCTUnwrap(projectController), with: IFProjectPane())
+        controller.makeTab(forFile: try write("Report.html", "<html><body>Report</body></html>").path)
+        controller.showRuntimeError(try write("RTP_1.html", "<html><body>One</body></html>"))
+        let webViews = controller.viewTabs.compactMap { $0.view as? WKWebView }
+        XCTAssertEqual(webViews.count, 2)
+        XCTAssertTrue(controller.currentWebView === webViews.last)
+        for webView in webViews {
+            let limit = Date(timeIntervalSinceNow: 10)
+            while webView.isLoading && Date() < limit {
+                RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+            }
+            XCTAssertEqual(try evaluate("document.body.style.zoom = '3'", in: webView) as? String, "3")
+        }
+
+        NotificationCenter.default.post(name: .IFPreferencesAppFontSizeDidChange, object: IFPreferences.shared)
+
+        let expected = Double(String(format: "%.2f", IFPreferences.shared.appFontSizeMultiplier))
+        for webView in webViews {
+            let zoom = try XCTUnwrap(evaluate("document.body.style.zoom", in: webView) as? String)
+            XCTAssertEqual(Double(zoom), expected)
+        }
     }
 
     func testARunTimeProblem() throws {
