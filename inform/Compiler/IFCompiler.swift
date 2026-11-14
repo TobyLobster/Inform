@@ -491,7 +491,8 @@ extension IFCompiler {
     }
 
     /// Starts a stage's task. One that can't be run, as when its command isn't there, ends the build as a stage that
-    /// fails does, with the exit code `IFToolRun` gives, and stderr says why.
+    /// fails does, with the exit code `IFToolRun` gives, and stderr says why. Having no problems page, it's marked as
+    /// one that couldn't run, for the Errors page to show the console.
     private final func start(_ task: Process) {
         sendTaskDetails(task)
         do {
@@ -514,7 +515,8 @@ extension IFCompiler {
             theTask = nil
 
             let uiDict: [String: Any] = ["exitCode": NSNumber(value: Int32(-1)),
-                                         "problemType": NSNumber(value: problemType.rawValue)]
+                                         "problemType": NSNumber(value: problemType.rawValue),
+                                         "couldntRun": NSNumber(value: true)]
             NotificationCenter.default.post(name: .IFCompilerFinished,
                                             object: self,
                                             userInfo: uiDict)

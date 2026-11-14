@@ -72,6 +72,8 @@ import WebKit
     private final var lastProblemURL: NSURL?
     /// The overridden problems URL
     private final var overrideURL: NSURL?
+    /// Whether the last build stopped at a stage that couldn't be run, which has no problems page
+    private final var stageCouldntRun = false
 
     // Styles
     /// The attributes used to render various strings recognised by the parser
@@ -337,6 +339,7 @@ import WebKit
         else {
             lastProblemURL = _compiler?.problemsURL as NSURL?
         }
+        stageCouldntRun = (not.userInfo?["couldntRun"] as? NSNumber)?.boolValue ?? false
 
         // Add to results
         compilerResults?.textStorage?.mutableString.append("\n")
@@ -761,10 +764,15 @@ import WebKit
         for key in IFCompilerResultFiles.filesToShow(of: files.fileWrappers.map { Array($0.keys) } ?? [],
                                                      showDebuggingLogs: IFPreferences.shared.showDebuggingLogs,
                                                      problemsURL: lastProblemURL as URL?) {
+            // A stage that couldn't be run leaves the problems page that an earlier stage or build wrote...
+            if stageCouldntRun && IFCompilerResultFiles.tabId(forFile: key) == .tabReport {
+                continue
+            }
             makeTab(forFile: (path as NSString).appendingPathComponent(key))
         }
 
-        switchToView(with: .tabReport)
+        // ...so the console, which says why the build stopped, is shown instead
+        switchToView(with: stageCouldntRun ? .tabConsole : .tabReport)
     }
 
     @objc(clearTabViewsExcept:)

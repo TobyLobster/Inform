@@ -485,6 +485,28 @@ final class IFCompilerControllerTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(Set(controller.viewTabs.map { $0.name }), ["Console", "Report", "Notes", "ErrorI6TooBig"])
     }
 
+    /// A stage whose tool couldn't be run leaves the build folder's problems page as an earlier stage or build wrote
+    /// it, which doesn't say why the build stopped, so the console, which does, is shown instead
+    func testAStageThatCouldntBeRunShowsTheConsole() throws {
+        controller.setProject(try XCTUnwrap(projectController), with: IFProjectPane())
+        try write("Problems.html", "<html><body>Succeeded</body></html>")
+        try write("Notes.txt")
+
+        startBuild()
+        stderr("Couldn't run /Inform Core/inform6/Tangled/inform6: The file doesn't exist.\n")
+        post(.IFCompilerFinished, ["exitCode": NSNumber(value: -1), "couldntRun": NSNumber(value: true)])
+        controller.showContentsOfFiles(in: try FileWrapper(url: folder), fromPath: folder.path)
+        XCTAssertEqual(Set(controller.viewTabs.map { $0.name }), ["Console", "Notes"])
+        XCTAssertEqual(controller.selectedTabId, .tabConsole)
+
+        // The next build shows the problems page again
+        startBuild()
+        post(.IFCompilerFinished, ["exitCode": NSNumber(value: 0)])
+        controller.showContentsOfFiles(in: try FileWrapper(url: folder), fromPath: folder.path)
+        XCTAssertEqual(Set(controller.viewTabs.map { $0.name }), ["Console", "Report", "Notes"])
+        XCTAssertEqual(controller.selectedTabId, .tabReport)
+    }
+
     func testFilesThatArentAFolderShowNothing() throws {
         let file = try write("Notes.txt")
         controller.showContentsOfFiles(in: try FileWrapper(url: file), fromPath: file.path)
