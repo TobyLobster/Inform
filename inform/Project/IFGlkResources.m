@@ -25,19 +25,16 @@
 }
 
 
-- (bycopy NSData*) dataForImageResource: (glui32) image {
-	// Get the location of the image directory
-	NSURL* materialsURL = project.materialsDirectoryURL;
-	NSURL* projectURL	= project.fileURL;
-
+/// The file that a section of the project's manifest gives for a resource, relative to the materials directory
+- (nullable NSString*) fileInManifestSection: (NSString*) section forResource: (glui32) resource {
 	// Load the manifest, if it exists
 	if (manifest == nil) {
 		// Try the project directory first
-		NSURL* manifestFileURL = [projectURL URLByAppendingPathComponent: @"manifest.plist"];
+		NSURL* manifestFileURL = [project.fileURL URLByAppendingPathComponent: @"manifest.plist"];
 
 		// If there's no manifest in the project, look in the materials directory
 		if (![[NSFileManager defaultManager] fileExistsAtPath: manifestFileURL.path]) {
-			manifestFileURL = [materialsURL URLByAppendingPathComponent: @"manifest.plist"];
+			manifestFileURL = [project.materialsDirectoryURL URLByAppendingPathComponent: @"manifest.plist"];
 		}
 
 		// Load the manifest file if it appears to exist
@@ -49,16 +46,17 @@
 		}
 	}
 
-	// Get the graphics manifest
-	NSDictionary* graphics = manifest[@"Graphics"];
+	// Get the filename from the section
+	NSDictionary* files = manifest[section];
+	return files[[NSString stringWithFormat: @"%u", resource]];
+}
 
-    // Get the (default) location of the image file
-    NSString* imageFile = nil;
+- (bycopy NSData*) dataForImageResource: (glui32) image {
+	// Get the location of the image directory
+	NSURL* materialsURL = project.materialsDirectoryURL;
 
 	// Get the image filename from the graphics manifest
-	if (graphics != nil) {
-		imageFile = graphics[[NSString stringWithFormat: @"%u", image]];
-	}
+	NSString* imageFile = [self fileInManifestSection: @"Graphics" forResource: image];
 
     // Fallback
     if(imageFile == nil ) {
