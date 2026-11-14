@@ -18,6 +18,9 @@ private let idealGapBetweenTitleAndStory: CGFloat  = 5.0
 private let cancelHeight: CGFloat                  = 16.0
 private let gapWidthBetweenStoryAndCancel: CGFloat = 5.0
 private let gapBetweenWelcomeImageAndText: CGFloat = 10.0
+/// How far above the middle of the view the progress bar and a message above it go, keeping the bar clear of the
+/// border along the bottom, as the message has room above its capitals
+private let progressAndTitleRaise: CGFloat         = 2.0
 
 @objc @implementation extension IFToolbarStatusView {
     private final var progressIndicator: IFToolbarProgressIndicator!
@@ -184,13 +187,13 @@ private let gapBetweenWelcomeImageAndText: CGFloat = 10.0
         }
 
         // While the progress bar is shown, the story text is hidden, so a message goes above the bar, the two
-        // together in the middle of the view, if they fit
+        // together a little above the middle of the view, if they fit
         let progressAndTitleBottom = floor((frame.size.height - progressRect.size.height - titleRect.size.height) / 2)
         if isInProgress && !titleText.stringValue.isEmpty && progressAndTitleBottom >= minTopBorder {
             titleText.isHidden = false
 
-            progressRect.origin.y = progressAndTitleBottom
-            titleRect.origin.y    = progressAndTitleBottom + progressRect.size.height
+            progressRect.origin.y = progressAndTitleBottom + progressAndTitleRaise
+            titleRect.origin.y    = progressRect.origin.y + progressRect.size.height
             cancelRect.origin.y   = frame.size.height / 2 - cancelRect.size.height / 2
         } else {
             // Make sure title doesn't overlap story text

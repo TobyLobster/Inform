@@ -191,8 +191,9 @@ final class IFToolbarStatusViewTests: XCTestCase, @unchecked Sendable {
         XCTAssertTrue(titleText.isHidden)
     }
 
-    /// The story line is hidden while the progress bar is shown, so a message has room above the bar, the two
-    /// together in the middle of the view
+    /// The story line is hidden while the progress bar is shown, so a message has room above the bar. The view's
+    /// rounded border, a point wide, runs along its top and a point above its bottom, and the bar and the message's
+    /// capitals each keep 2 points clear of it
     func testAMessageIsShownAboveTheProgressBar() {
         view.startProgress()
         view.showMessage("Compiling")
@@ -200,8 +201,11 @@ final class IFToolbarStatusViewTests: XCTestCase, @unchecked Sendable {
         XCTAssertFalse(titleText.isHidden)
         XCTAssertEqual(progressBar.frame.size, NSSize(width: 260, height: 10))
         XCTAssertEqual(titleText.frame.minY, progressBar.frame.maxY)
-        XCTAssertEqual(progressBar.frame.minY, toolbarSize.height - titleText.frame.maxY, accuracy: 1)
-        XCTAssertGreaterThanOrEqual(progressBar.frame.minY, 2)
+        XCTAssertGreaterThanOrEqual(progressBar.frame.minY, 4)
+        let font = titleText.font!
+        let capitalsTop = titleText.frame.maxY - titleText.firstBaselineOffsetFromTop + font.capHeight
+        XCTAssertLessThanOrEqual(capitalsTop, toolbarSize.height - 3)
+        XCTAssertLessThanOrEqual(titleText.frame.maxY, toolbarSize.height)
         XCTAssertFalse(welcomeIsShown)
     }
 
