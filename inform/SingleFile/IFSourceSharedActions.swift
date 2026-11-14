@@ -14,6 +14,17 @@ private func ascii(_ scalar: Unicode.Scalar) -> unichar {
     return unichar(scalar.value)
 }
 
+/// A line without its line ending, and the ending
+private func splitLineEnding(_ line: String) -> (text: String, ending: String) {
+    var text = line
+    var ending = ""
+    while let last = text.last, last.isNewline {
+        ending = String(last) + ending
+        text.removeLast()
+    }
+    return (text, ending)
+}
+
 @objc @implementation extension IFSourceSharedActions {
 
     // MARK: Menu options
@@ -227,40 +238,35 @@ private func ascii(_ scalar: Unicode.Scalar) -> unichar {
         // the intelligence would sometimes delete symbols
         for lineInfo in linesToRenumber {
             let lineNumber = Int32(truncatingIfNeeded: lineInfo.lineNumber)
-            let sectionLine = IFSyntaxManager.textForLine(with: storage, lineNumber: lineNumber)
-            let words = sectionLine?.components(separatedBy: " ") ?? []
+            // The line's ending is kept, as the number may be the line's last word
+            let (sectionLine, ending) = splitLineEnding(IFSyntaxManager.textForLine(with: storage,
+                                                                                    lineNumber: lineNumber) ?? "")
+            let words = sectionLine.components(separatedBy: " ")
 
-            let sectionNumber = words.count > 1 ? (words[1] as NSString).intValue : 0
+            // A heading's number is its second word, in figures or in words
+            let sectionNumber = IFHeadingNumber.numberOfHeading(sectionLine)
 
             if sectionNumber > 0 {
                 // This looks like something we can renumber... Get the preceding number (none for the first section)
                 let lastLineNumber = lineInfo.lastLineNumber
-                var lastLine: String? = ""
+                var lastLine = ""
                 if lastLineNumber != UInt(NSNotFound) {
                     lastLine = IFSyntaxManager.textForLine(with: storage,
-                                                           lineNumber: Int32(truncatingIfNeeded: lastLineNumber))
+                                                           lineNumber: Int32(truncatingIfNeeded: lastLineNumber)) ?? ""
                 }
-                let lastWords = lastLine?.components(separatedBy: " ") ?? []
 
-                let lastSectionNumber = lastWords.count > 1 ? (lastWords[1] as NSString).intValue : 0
+                let lastSectionNumber = IFHeadingNumber.numberOfHeading(splitLineEnding(lastLine).text)
 
                 // (A number too big for intValue is read as Int32.max, so adding one wraps round, as in C)
                 if lastSectionNumber >= 0 && lastSectionNumber &+ 1 != sectionNumber {
-                    // This section needs renumbering
+                    // This section needs renumbering, in words or figures, as its number was
                     var newWords = words
-
-                    if newWords.count == 2 {
-                        // Must be followed by a newline
-                        newWords[1] = String(format: "%i\n", lastSectionNumber &+ 1)
-                    } else {
-                        // Must not be followed by a newline
-                        newWords[1] = String(format: "%i", lastSectionNumber &+ 1)
-                    }
+                    newWords[1] = IFHeadingNumber.numberText(lastSectionNumber &+ 1, like: words[1])
 
                     // OK, replace the text
                     IFSyntaxManager.replaceLine(with: storage,
                                                 lineNumber: lineNumber,
-                                                withLine: newWords.joined(separator: " "))
+                                                withLine: newWords.joined(separator: " ") + ending)
                 }
             }
         }

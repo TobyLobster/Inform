@@ -33,8 +33,8 @@ final class IFRenumberSectionsTests: XCTestCase {
     }
 
     /// A source text storage with syntax intelligence, as a project has, and a view showing it.
-    private func makeSource(undoManager: UndoManager? = nil) -> (NSTextStorage, NSTextView) {
-        let storage = NSTextStorage(string: source)
+    private func makeSource(_ text: String? = nil, undoManager: UndoManager? = nil) -> (NSTextStorage, NSTextView) {
+        let storage = NSTextStorage(string: text ?? source)
         IFSyntaxManager.register(storage, name: "IFRenumberSectionsTests", type: .inform7,
                                  intelligence: IFNaturalIntel(), undoManager: undoManager)
         addTeardownBlock { IFSyntaxManager.unregisterTextStorage(storage) }
@@ -74,6 +74,63 @@ final class IFRenumberSectionsTests: XCTestCase {
         undo.undo()
         XCTAssertEqual(storage.string, source)
         XCTAssertEqual(shown.string, String(source[source.range(of: "Chapter 2")!.lowerBound...]))
+    }
+
+    /// A source text after Renumber All Sections
+    private func renumbered(_ text: String) -> String {
+        let (storage, textView) = makeSource(text)
+        IFSourceSharedActions().renumberSections(in: NSDocument(), textView: textView)
+        return storage.string
+    }
+
+    /// A heading numbered in words is renumbered in words, in its own capitals, even when the number is the last word
+    /// of its line
+    func testHeadingsNumberedInWordsAreRenumberedInWords() {
+        let text = """
+            "Words" by Tester
+
+            Chapter One - The Start
+
+            Chapter Three - The Middle
+
+            CHAPTER FIVE - The End
+
+            chapter seven - The Epilogue
+
+            Chapter Nine
+
+            """
+        XCTAssertEqual(renumbered(text), text
+            .replacingOccurrences(of: "Chapter Three", with: "Chapter Two")
+            .replacingOccurrences(of: "CHAPTER FIVE", with: "CHAPTER THREE")
+            .replacingOccurrences(of: "chapter seven", with: "chapter four")
+            .replacingOccurrences(of: "Chapter Nine", with: "Chapter Five"))
+    }
+
+    /// Headings numbered in words and in figures keep their own way, and are counted together
+    func testHeadingsInWordsAndFiguresAreCountedTogether() {
+        let text = """
+            "Mixed" by Tester
+
+            Chapter Two - The Start
+
+            Chapter 4
+
+            Chapter Six - The End
+
+            """
+        XCTAssertEqual(renumbered(text), text
+            .replacingOccurrences(of: "Chapter Two", with: "Chapter One")
+            .replacingOccurrences(of: "Chapter 4", with: "Chapter 2")
+            .replacingOccurrences(of: "Chapter Six", with: "Chapter Three"))
+    }
+
+    /// A number that would take more than one word, from 100, is put in figures, as a heading's number is its second
+    /// word
+    func testAHundredIsPutInFiguresThoughTheHeadingWasInWords() {
+        let numbered = (1...99).map { "Section \($0) - Room\n\n" }.joined()
+        let text = "\"Many\" by Tester\n\n" + numbered + "Section Seven - The Last Room\n\n"
+        XCTAssertEqual(renumbered(text), "\"Many\" by Tester\n\n" + numbered + "Section 100 - The Last Room\n\n")
     }
 
     func testAViewOfUnregisteredTextHasNoRegisteredStorage() {
