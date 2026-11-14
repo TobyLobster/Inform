@@ -17,11 +17,10 @@ private func ascii(_ scalar: Unicode.Scalar) -> unichar {
 private let headingList = ["---- documentation ----", "volume", "book", "part", "chapter", "section", "example"]
 private let autoNumberHeading = [false, true, true, true, true, true, false]
 
-@objc @implementation extension IFNaturalIntel {
-
-    /// The highlighter that wants us to gather intelligence. It holds this intelligence, so it's held weakly, or
-    /// neither would ever be let go.
-    private final weak var highlighter: IFSyntaxData? = nil
+/// Reading and writing a heading's number, which is its second word, in figures or in English words. Typing a
+/// heading and Renumber All Sections both use these.
+@MainActor
+enum IFHeadingNumber {
 
     // MARK: - Useful parsing functions
 
@@ -35,7 +34,7 @@ private let autoNumberHeading = [false, true, true, true, true, true, false]
 
     /// A number in figures, or in English words, such as "Two" or "twenty-one". A word that only reads as a number
     /// another way, such as "second", isn't one.
-    private static func parseNumber(_ number: String) -> Int32 {
+    static func parseNumber(_ number: String) -> Int32 {
         let figures = (number as NSString).intValue
         if figures != 0 { return figures }
 
@@ -49,7 +48,7 @@ private let autoNumberHeading = [false, true, true, true, true, true, false]
 
     /// A number written as another heading's number is: in figures, or, if that's in words, in one word, in its
     /// capitals
-    private static func numberText(_ number: Int32, like other: String) -> String {
+    static func numberText(_ number: Int32, like other: String) -> String {
         let figures = "\(number)"
         let otherIsInWords = (other as NSString).intValue == 0 && parseNumber(other) != 0
 
@@ -64,19 +63,26 @@ private let autoNumberHeading = [false, true, true, true, true, true, false]
         return words
     }
 
-    private static func numberOfHeading(_ heading: String) -> Int32 {
+    static func numberOfHeading(_ heading: String) -> Int32 {
         let words = heading.components(separatedBy: " ")
 
         if words.count < 2 { return 0 }
 
-        return IFNaturalIntel.parseNumber(words[1])
+        return IFHeadingNumber.parseNumber(words[1])
     }
 
     /// A heading's second word, where its number is
-    private static func numberWordOfHeading(_ heading: String) -> String {
+    static func numberWordOfHeading(_ heading: String) -> String {
         let words = heading.components(separatedBy: " ")
         return words.count < 2 ? "" : words[1]
     }
+}
+
+@objc @implementation extension IFNaturalIntel {
+
+    /// The highlighter that wants us to gather intelligence. It holds this intelligence, so it's held weakly, or
+    /// neither would ever be let go.
+    private final weak var highlighter: IFSyntaxData? = nil
 
     // MARK: - Notifying of the highlighter currently in use
 
@@ -289,8 +295,8 @@ private let autoNumberHeading = [false, true, true, true, true, true, false]
                     if symbol.level != headingLevel {
                         lastHeadingNumber = 0           // No preceding items at this level
                     } else {
-                        lastHeadingNumber = IFNaturalIntel.numberOfHeading(symbol.name ?? "")
-                        lastNumberWord = IFNaturalIntel.numberWordOfHeading(symbol.name ?? "")
+                        lastHeadingNumber = IFHeadingNumber.numberOfHeading(symbol.name ?? "")
+                        lastNumberWord = IFHeadingNumber.numberWordOfHeading(symbol.name ?? "")
                         if lastHeadingNumber == 0 {
                             lastHeadingNumber = -1      // There was a preceding heading, but we don't know the number
                         }
@@ -302,7 +308,7 @@ private let autoNumberHeading = [false, true, true, true, true, true, false]
 
                 if lastHeadingNumber >= 0 {
                     // Insert a suitable new heading number
-                    res = " \(IFNaturalIntel.numberText(lastHeadingNumber + 1, like: lastNumberWord)) - "
+                    res = " \(IFHeadingNumber.numberText(lastHeadingNumber + 1, like: lastNumberWord)) - "
 
                     highlighter.callback(forEditing: #selector(renumberSections(afterLine:)),
                                          withValue: NSNumber(value: lineNumber))
@@ -325,7 +331,7 @@ private let autoNumberHeading = [false, true, true, true, true, true, false]
         let data = highlighter.intelligenceData
         guard let firstSymbol = data.nearestSymbol(toLine: lineNumber) else { return }
 
-        var currentSectionNumber = IFNaturalIntel.numberOfHeading(firstSymbol.name ?? "")
+        var currentSectionNumber = IFHeadingNumber.numberOfHeading(firstSymbol.name ?? "")
 
         if currentSectionNumber <= 0 { return }
         if firstSymbol.level == 0 { return }
@@ -340,7 +346,7 @@ private let autoNumberHeading = [false, true, true, true, true, true, false]
         while let current = symbol, current.level == firstSymbol.level {
             currentSectionNumber += 1
 
-            let symbolSectionNumber = IFNaturalIntel.numberOfHeading(current.name ?? "")
+            let symbolSectionNumber = IFHeadingNumber.numberOfHeading(current.name ?? "")
             if symbolSectionNumber <= 0 { break }
 
             if symbolSectionNumber != currentSectionNumber {
@@ -359,7 +365,7 @@ private let autoNumberHeading = [false, true, true, true, true, true, false]
                 var words = line.components(separatedBy: " ")
 
                 if words.count > 1 {
-                    words[1] = IFNaturalIntel.numberText(currentSectionNumber, like: words[1])
+                    words[1] = IFHeadingNumber.numberText(currentSectionNumber, like: words[1])
                     let newString = words.joined(separator: " ") + ending
 
                     // Add to our 'todo' list
