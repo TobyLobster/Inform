@@ -148,7 +148,6 @@ dSYMs
     GlkView.framework.dSYM
     glulxe-client.dSYM
     Inform.app.dSYM
-    InformQL.qlgenerator.dSYM
     SFBAudioEngine.framework.dSYM
     ZoomServer.dSYM
     ZoomView.framework.dSYM
