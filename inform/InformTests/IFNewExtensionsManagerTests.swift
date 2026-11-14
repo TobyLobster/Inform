@@ -110,4 +110,43 @@ final class IFNewExtensionsManagerTests: XCTestCase, @unchecked Sendable {
                        folder.appendingPathComponent("Test.materials/Extensions/Reserved/Temporary/Locksmith.i7x").standardizedFileURL)
         XCTAssertEqual(try Data(contentsOf: result), try Data(contentsOf: source))
     }
+
+    /// An extension unzipped into a project's temporary folder replaces what was there, as a copy whose install wasn't
+    /// confirmed stays until the next install
+    func testUnzippingIntoAProjectsTemporaryFolderReplacesWhatWasThere() throws {
+        let first = try zip(try makeExtensionFolder("Locksmith.i7xd"), as: "Locksmith.zip")
+        let second = try zip(try makeExtensionFolder("Lamplighting.i7xd"), as: "Lamplighting.zip")
+        let project = IFProject()
+        project.fileURL = folder.appendingPathComponent("Test.inform")
+        XCTAssertNotNil(manager.copy(withUnzip: first, toProjectTemporary: project, extensionName: "Locksmith.zip"))
+
+        let result = try XCTUnwrap(manager.copy(withUnzip: second, toProjectTemporary: project,
+                                                extensionName: "Lamplighting.zip"))
+
+        let temporary = folder.appendingPathComponent("Test.materials/Extensions/Reserved/Temporary")
+        XCTAssertEqual(try FileManager.default.contentsOfDirectory(atPath: temporary.path), ["Lamplighting.i7xd"])
+        let source = result.appendingPathComponent("Source/Locksmith.i7x")
+        XCTAssertTrue(FileManager.default.fileExists(atPath: source.path))
+    }
+
+    /// Removing a project's temporary folder takes away the copies made there, and leaves the rest of its extensions'
+    /// reserved folder as it was
+    func testRemovingAProjectsTemporaryFolder() throws {
+        let source = folder.appendingPathComponent("Locksmith.i7x")
+        try Data("Locksmith begins here.".utf8).write(to: source)
+        let project = IFProject()
+        project.fileURL = folder.appendingPathComponent("Test.inform")
+        let reserved = folder.appendingPathComponent("Test.materials/Extensions/Reserved")
+        let documentation = reserved.appendingPathComponent("Documentation")
+        try FileManager.default.createDirectory(at: documentation, withIntermediateDirectories: true)
+        XCTAssertNotNil(manager.copy(withUnzip: source, toProjectTemporary: project, extensionName: "Locksmith.i7x"))
+
+        manager.removeTemporaryFolder(of: project)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: reserved.appendingPathComponent("Temporary").path))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: documentation.path))
+
+        // Nothing happens with no folder, or no project file
+        manager.removeTemporaryFolder(of: project)
+        manager.removeTemporaryFolder(of: IFProject())
+    }
 }

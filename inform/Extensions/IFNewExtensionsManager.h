@@ -30,6 +30,8 @@ NS_SWIFT_UI_ACTOR
 - (nullable NSURL*) copyWithUnzip: (NSURL *) sourceURL toProjectTemporary: (IFProject *) project extensionName: (NSString*) name;
 /// Copies (or unzips) an extension into the given folder, and returns where it is. \c nil if that fails.
 - (nullable NSURL*) copyWithUnzip: (NSURL *) sourceURL to: (NSURL *) destinationURL extensionName: (NSString*) name;
+/// Removes the project's temporary extensions folder, with the copies made there to be installed
+- (void) removeTemporaryFolderOfProject: (IFProject *) project NS_SWIFT_NAME(removeTemporaryFolder(of:));
 
 @end
 

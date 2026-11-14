@@ -512,6 +512,32 @@ final class IFProjectControllerTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(left.compilerController.selectedTabId, .tabRuntime)
     }
 
+    // MARK: - Installing extensions
+
+    /// An extension is installed from its copy in the project's temporary folder. The copy stays while inbuild reports
+    /// on the extension, as the install has yet to be confirmed, and goes once the confirmed install has run.
+    func testInstallingAnExtensionRemovesItsCopyOnceInstalled() throws {
+        let file = folder.appendingPathComponent("Lamplighting.i7x")
+        try "Lamplighting by Jane Doe begins here.\n\nA lamp is a kind of thing.\n\nLamplighting ends here.\n"
+            .write(to: file, atomically: true, encoding: .utf8)
+        let copy = try XCTUnwrap(IFNewExtensionsManager.shared.copy(withUnzip: file, toProjectTemporary: project,
+                                                                    extensionName: "Lamplighting.i7x"))
+        let extensions = folder.appendingPathComponent("Lighthouse.materials/Extensions", isDirectory: true)
+        // Where inbuild writes its report, which a project has once the app has saved it
+        try FileManager.default.createDirectory(at: folder.appendingPathComponent("Lighthouse.inform/Build"),
+                                                withIntermediateDirectories: true)
+
+        controller.installExtensionURL(copy)
+        XCTAssertTrue(FileManager.default.fileExists(atPath: copy.path))
+        XCTAssertFalse(FileManager.default.fileExists(atPath: extensions.appendingPathComponent("Jane Doe").path))
+
+        controller.confirmInbuildAction()
+        let installed = extensions.appendingPathComponent("Jane Doe/Lamplighting.i7x")
+        XCTAssertTrue(FileManager.default.fileExists(atPath: installed.path))
+        let temporary = extensions.appendingPathComponent("Reserved/Temporary")
+        XCTAssertFalse(FileManager.default.fileExists(atPath: temporary.path))
+    }
+
     // MARK: - The window
 
     func testTheWindowIsTitledWithTheProjectsName() {

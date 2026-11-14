@@ -1265,6 +1265,12 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
                                     action: inbuildAction,
                                     withConfirmation: true)
 
+            // Whether or not the install worked, inbuild is done with the copy made in the project's temporary
+            // folder of an extension downloaded or chosen from a file
+            if inbuildAction == "-install", let project {
+                IFNewExtensionsManager.shared.removeTemporaryFolder(of: project)
+            }
+
             // Show results
             for pane in projectPanes ?? [] {
                 pane.compilerController.clearTabViewsExcept(.tabConsole)
