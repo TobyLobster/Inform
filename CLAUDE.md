@@ -1,6 +1,6 @@
 # InformApp
 
-The macOS IDE for Inform 7. Mostly Objective-C, with some Swift. The modernisation roadmap and its current state are in `documentation/modernisation_plan.md`, the open bugs in `documentation/ToFix.md`, and the features still to add in `documentation/NewFeatures.md`; how to build and release is in `documentation/building_inform.md`.
+The macOS IDE for Inform 7. The app is in Swift, though most of its classes keep an Objective-C header as their interface; Zoom and CocoaGlk are Objective-C. The modernisation roadmap and its current state are in `documentation/modernisation_plan.md`, the open bugs in `documentation/ToFix.md`, and the features still to add in `documentation/NewFeatures.md`; how to build and release is in `documentation/building_inform.md`.
 
 ## Layout
 
