@@ -70,6 +70,7 @@ private struct Posted {
     var style: String? { userInfo["style"] as? String }
     var exitCode: Int? { userInfo["exitCode"] as? Int }
     var problemType: Int? { userInfo["problemType"] as? Int }
+    var couldntRun: Bool? { userInfo["couldntRun"] as? Bool }
 }
 
 @MainActor
@@ -288,6 +289,7 @@ final class IFCompilerTests: XCTestCase {
         XCTAssertEqual(handler.errorCodes, [3])
         XCTAssertEqual(compiler.problemsURL, URL(string: "inform:/Problem.html"))
         XCTAssertEqual(compiler.progress.message, "Error code 3")
+        XCTAssertNil(posted.last?.couldntRun, "The stage ran")
         XCTAssertFalse(FileManager.default.fileExists(atPath: marker))
         XCTAssertFalse(compiler.isRunning)
 
@@ -344,6 +346,7 @@ final class IFCompilerTests: XCTestCase {
         XCTAssertEqual(finishes(posted).count, 1)
         XCTAssertEqual(posted.last?.exitCode, -1)
         XCTAssertEqual(posted.last?.problemType, Int(ECompilerProblemType.unknown.rawValue))
+        XCTAssertEqual(posted.last?.couldntRun, true)
         XCTAssertEqual(handler.errorCodes, [], "There's no problems page for a stage that never ran")
         XCTAssertNil(compiler.problemsURL)
         XCTAssertEqual(compiler.progress.message, "Couldn't run no-such-tool")
@@ -374,6 +377,7 @@ final class IFCompilerTests: XCTestCase {
         XCTAssertEqual(finishes(posted).count, 1)
         XCTAssertEqual(posted.last?.exitCode, -1)
         XCTAssertEqual(posted.last?.problemType, Int(ECompilerProblemType.none.rawValue))
+        XCTAssertEqual(posted.last?.couldntRun, true)
         XCTAssertFalse(FileManager.default.fileExists(atPath: marker))
         XCTAssertFalse(compiler.isRunning)
     }
