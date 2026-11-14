@@ -30,6 +30,13 @@ private final class ProjectControllerStandIn: IFProjectController {
         let file: String
         let type: IFFindLocation
         let anchorTag: String?
+        let context: String
+        let contextRange: NSRange
+
+        /// The match, from its context
+        var match: String {
+            return (context as NSString).substring(with: contextRange)
+        }
     }
 
     private(set) var shown: [Shown] = []
@@ -47,8 +54,16 @@ private final class ProjectControllerStandIn: IFProjectController {
                                          phrase: String,
                                          inFile filename: String,
                                          type: IFFindLocation,
-                                         anchorTag: String?) {
-        shown.append(Shown(location: location, phrase: phrase, file: filename, type: type, anchorTag: anchorTag))
+                                         anchorTag: String?,
+                                         context: String,
+                                         rangeInContext contextRange: NSRange) {
+        shown.append(Shown(location: location,
+                           phrase: phrase,
+                           file: filename,
+                           type: type,
+                           anchorTag: anchorTag,
+                           context: context,
+                           contextRange: contextRange))
     }
 }
 
@@ -496,7 +511,9 @@ final class IFFindInFilesControllerTests: XCTestCase {
                                                        phrase: "beaker",
                                                        file: "story.ni",
                                                        type: .source,
-                                                       anchorTag: "")])
+                                                       anchorTag: "",
+                                                       context: "A beaker is in the Lab.",
+                                                       contextRange: NSRange(location: 2, length: 6))])
     }
 
     /// When the project's window closes, its results go, as they can't be shown without it, and the project and its
@@ -578,6 +595,10 @@ final class IFFindInFilesControllerTests: XCTestCase {
         XCTAssertEqual(try anchors("Bodleian", .documentationSource), ["code466", "code466"])
         XCTAssertEqual(try anchors("arccosine", .documentationDefinitions).first, "defn260")
         XCTAssertEqual(try anchors("Sybil", .documentationBasic), ["", "", "", "", ""])
+
+        // Each is given with its context, for the page to select its match in
+        XCTAssertEqual(Set(projectController.shown.map { $0.match.lowercased() }), ["bodleian", "arccosine", "sybil"])
+        XCTAssertEqual(projectController.shown.filter { $0.context.count <= $0.match.count }.map { $0.match }, [])
     }
 
     /// The documentation's results are named by the book they're in, or as examples, and the recipe book's are shown

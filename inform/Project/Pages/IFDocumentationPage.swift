@@ -33,6 +33,9 @@ import WebKit
     /// page as it's opened records the page with it, and it isn't recorded again as it starts. (The switch comes
     /// straight after the page is asked for, so a load that starts before then is the page, or one that overtook it.)
     private final var unstartedNavigation: WKNavigation?
+    /// A match that Find in Files found, to select once the load of its page finishes, and that load
+    private final var matchToSelect: (range: NSRange, context: String, anchor: String?)?
+    private final var matchNavigation: WKNavigation?
 
     // MARK: - Initialisation
 
@@ -123,6 +126,32 @@ import WebKit
     @objc(openURL:)
     func open(_ url: URL) {
         load(url)
+    }
+
+    @objc(openURL:selectingMatchAtRange:inContext:)
+    func open(_ url: URL, selectingMatchAt range: NSRange, inContext context: String) {
+        // Going to another anchor in the page shown doesn't load the page again, so the match is selected now, as
+        // well as when a load finishes, if there is one
+        let shownPage = wView.url.map { IFDocumentationPage.page(of: $0) }
+        let samePage = !wView.isLoading && shownPage == IFDocumentationPage.page(of: url)
+        let match = (range: range, context: context, anchor: url.fragment)
+        matchToSelect = match
+        matchNavigation = load(url)
+        if samePage {
+            selectMatch(match)
+        }
+
+        // The match is shown selected when the project window is next the key window, as a source file's is
+        wView.window?.makeFirstResponder(wView)
+    }
+
+    /// A URL without its anchor
+    private static func page(of url: URL) -> String {
+        return url.absoluteString.components(separatedBy: "#")[0]
+    }
+
+    private final func selectMatch(_ match: (range: NSRange, context: String, anchor: String?)) {
+        wView.selectMatch(at: match.range, inContext: match.context, afterAnchor: match.anchor, completionHandler: nil)
     }
 
     @discardableResult
@@ -236,6 +265,17 @@ extension IFDocumentationPage {
             let url = webView.url
             recordInHistory { self.switchToPage() }
             recordInHistory { self.openHistoricalURL(url) }
+        }
+    }
+
+    @objc(webView:didFinishNavigation:)
+    public func webView(_ webView: WKWebView,
+                        didFinish navigation: WKNavigation!) {
+        // Select the match that Find in Files found, once its page has loaded
+        if let matchToSelect, let matchNavigation, navigation === matchNavigation {
+            self.matchToSelect = nil
+            self.matchNavigation = nil
+            selectMatch(matchToSelect)
         }
     }
 }
