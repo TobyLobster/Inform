@@ -740,11 +740,13 @@ final class IFExtensionsManagerTests: XCTestCase {
         XCTAssertTrue(controller.removed.first?.progress === progress)
         XCTAssertEqual(controller.removed.first?.message, installed(2, of: 2))
         XCTAssertFalse(progress.isInProgress)
-        // Each is unzipped in the project's materials, and given to its controller to install
+        // Each is unzipped in the project's materials, and given to its controller to install. The second takes the
+        // first's place there, as it takes its place as the extension whose install the controller asks to confirm.
         let temporary = folder.appendingPathComponent("Test.materials/Extensions/Reserved/Temporary")
         XCTAssertEqual(controller.installing.map(\.standardizedFileURL),
-                       [temporary.appendingPathComponent("Locksmith.i7xd").standardizedFileURL,
-                        temporary.appendingPathComponent("Keys.i7xd").standardizedFileURL])
+                       [temporary.appendingPathComponent("Locksmith.i7xd", isDirectory: true).standardizedFileURL,
+                        temporary.appendingPathComponent("Keys.i7xd", isDirectory: true).standardizedFileURL])
+        XCTAssertEqual(try FileManager.default.contentsOfDirectory(atPath: temporary.path), ["Keys.i7xd"])
         XCTAssertEqual(controller.updated, ["1", "2"])
     }
 
