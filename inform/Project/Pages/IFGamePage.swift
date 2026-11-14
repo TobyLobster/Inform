@@ -60,10 +60,10 @@ private final class IFSemiTransparentView: NSView {
         super.init(nibName: "Game",
                    projectController: controller)
 
-        // Register for changes to the app's font size
+        // Register for changes to the story's font size
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(preferencesChanged(_:)),
-                                               name: .IFPreferencesAppFontSizeDidChange,
+                                               name: .IFPreferencesStoryFontSizeDidChange,
                                                object: IFPreferences.shared)
     }
 
@@ -108,12 +108,12 @@ private final class IFSemiTransparentView: NSView {
     @objc(zoomScaleFactorForPreferences:)
     class func zoomScaleFactor(for preferences: IFPreferences) -> CGFloat {
         // Zoom multiplies its fonts' sizes by the scale factor, as Glk does (it divided them until 2023)
-        return preferences.appFontSizeMultiplier
+        return preferences.storyFontSizeMultiplier
     }
 
     @objc private final func preferencesChanged(_ not: Notification) {
         zView?.scaleFactor = IFGamePage.zoomScaleFactor(for: IFPreferences.shared)
-        gView?.scaleFactor = IFPreferences.shared.appFontSizeMultiplier
+        gView?.scaleFactor = IFPreferences.shared.storyFontSizeMultiplier
     }
 
     func activateDebug() {
@@ -193,7 +193,7 @@ private final class IFSemiTransparentView: NSView {
             gView.frame = view.bounds
             view.addSubview(gView)
 
-            gView.scaleFactor = IFPreferences.shared.appFontSizeMultiplier
+            gView.scaleFactor = IFPreferences.shared.storyFontSizeMultiplier
 
             gView.setInputFileURL(URL(fileURLWithPath: fileName))
 

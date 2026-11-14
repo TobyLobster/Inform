@@ -19,6 +19,9 @@ static NSNotificationName const IFPreferencesAdvancedDidChangeNotification =
 // Change to app font size
 static NSNotificationName const IFPreferencesAppFontSizeDidChangeNotification =
     @"IFPreferencesAppFontSizeDidChangeNotification";
+// Change to the story's font size
+static NSNotificationName const IFPreferencesStoryFontSizeDidChangeNotification =
+    @"IFPreferencesStoryFontSizeDidChangeNotification";
 
 static NSString* const IFPreferencesDefault = @"IFApplicationPreferences";
 typedef NS_ENUM(int, IFAppFontSize) {
@@ -102,8 +105,12 @@ NS_SWIFT_UI_ACTOR
 // Editing preferences
 @property (nonatomic, copy) NSString *sourceFontFamily;
 @property (nonatomic) CGFloat sourceFontSize;
+/// The documentation's text size, which the app's other pages and the skein have too, as a multiplier
 @property (nonatomic, readonly) CGFloat appFontSizeMultiplier;
 @property (nonatomic) IFAppFontSize appFontSizeMultiplierEnum;
+/// The story's text size, as a multiplier. Until it's set, it's the documentation's, which the story had before.
+@property (nonatomic, readonly) CGFloat storyFontSizeMultiplier;
+@property (nonatomic) IFAppFontSize storyFontSizeMultiplierEnum;
 @property (nonatomic) CGFloat tabWidth;
 
 -(IFColourTheme*) getCurrentTheme;

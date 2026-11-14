@@ -117,6 +117,15 @@ private extension IFSyntaxStyle {
         notificationString = nil
     }
 
+    /// Tells of a change that a preference's change made to another, which has no value of its own to write
+    private final func tellOfChange(_ notification: NSNotification.Name) {
+        if !batchEditingPreferences {
+            NotificationCenter.default.post(name: notification, object: self)
+        } else if !batchNotificationTypes.contains(notification) {
+            batchNotificationTypes.append(notification)
+        }
+    }
+
     // MARK: - batch editing of preferences
 
     func startBatchEditing() {
@@ -482,7 +491,11 @@ private extension IFSyntaxStyle {
     }
 
     var appFontSizeMultiplier: CGFloat {
-        let appFontSize = appFontSizeMultiplierEnum
+        return IFPreferences.multiplier(for: appFontSizeMultiplierEnum)
+    }
+
+    /// The multiplier for one of the text sizes
+    private final class func multiplier(for appFontSize: IFAppFontSize) -> CGFloat {
         switch appFontSize {
         case .minus100: return 0.625 + 0.75 * 0 / 8
         case .minus75:  return 0.625 + 0.75 * 1 / 8
@@ -504,7 +517,27 @@ private extension IFSyntaxStyle {
             return IFAppFontSize(rawValue: getPreferenceInt("appFontSizeMultiplierFineEnum", default: IFAppFontSize.normal.rawValue))!
         }
         set {
+            // Until the story has a size of its own, it has this one, so its size may change too
+            let storySize = storyFontSizeMultiplierEnum
             setPreferenceInt("appFontSizeMultiplierFineEnum", value: newValue.rawValue, notification: .IFPreferencesAppFontSizeDidChange)
+            if storyFontSizeMultiplierEnum != storySize {
+                tellOfChange(.IFPreferencesStoryFontSizeDidChange)
+            }
+        }
+    }
+
+    var storyFontSizeMultiplier: CGFloat {
+        return IFPreferences.multiplier(for: storyFontSizeMultiplierEnum)
+    }
+
+    var storyFontSizeMultiplierEnum: IFAppFontSize {
+        get {
+            return IFAppFontSize(rawValue: getPreferenceInt("storyFontSizeMultiplierFineEnum",
+                                                            default: appFontSizeMultiplierEnum.rawValue))!
+        }
+        set {
+            setPreferenceInt("storyFontSizeMultiplierFineEnum", value: newValue.rawValue,
+                             notification: .IFPreferencesStoryFontSizeDidChange)
         }
     }
 
