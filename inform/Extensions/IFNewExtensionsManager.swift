@@ -35,6 +35,9 @@ extension IFNewExtensionsManager {
         guard let destinationURL = temporaryFolder(of: project) else {
             return nil
         }
+        // Leave only this extension there, not one whose install wasn't confirmed. (A copy of a file or folder
+        // replaces the folder anyway, but a zip is unzipped into it.)
+        removeTemporaryFolder(of: project)
         return copy(withUnzip: sourceURL,
                     to: destinationURL,
                     extensionName: name)
