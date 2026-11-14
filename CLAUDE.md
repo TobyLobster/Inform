@@ -4,7 +4,7 @@ The macOS IDE for Inform 7. Mostly Objective-C, with some Swift. The modernisati
 
 ## Layout
 
-- `Inform.xcworkspace` → `inform/Inform.xcodeproj`, with targets `Inform` (the app), `InformQL` (Quick Look plugin) and `InformTests` (unit tests).
+- `Inform.xcworkspace` → `inform/Inform.xcodeproj`, with targets `Inform` (the app) and `InformTests` (unit tests).
 - `inform/` is the app source. `IFProject` (NSDocument) and `IFProjectController` (window controller) are the core; `Project/Pages/` holds the Source, Errors, Index, Skein, Game, Documentation, Extensions and Settings pages. `Compiler/`, `InBuild/` and `InTest/` run the command-line tools (`ni`, `inform6`, `cBlorb`, `inbuild`, `intest`) with NSTask.
 - `zoom/` is a submodule (MaddTheSane/zoom, branch `madds`), with CocoaGlk nested at `zoom/depends/CocoaGlk`. ZoomView and GlkView run games in separate interpreter processes (ZoomServer, glulxe-client, git-client) and talk to them with Distributed Objects.
 - `inform/StagingArea/` holds Inform Core binaries and resources (tracked in git), copied into the app by `inform/Scripts/final_build_phase.sh`.
