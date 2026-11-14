@@ -101,6 +101,22 @@ final class IFAdvancedPreferencesTests: XCTestCase {
         return button.state == .on
     }
 
+    /// What's written to the standard error while the block runs, where AppKit says when it can't satisfy a view's
+    /// constraints
+    private func standardError(during block: () -> Void) throws -> String {
+        let pipe = Pipe()
+        let saved = dup(STDERR_FILENO)
+        XCTAssertNotEqual(saved, -1)
+        fflush(stderr)
+        dup2(pipe.fileHandleForWriting.fileDescriptor, STDERR_FILENO)
+        block()
+        fflush(stderr)
+        dup2(saved, STDERR_FILENO)
+        close(saved)
+        try pipe.fileHandleForWriting.close()
+        return String(decoding: pipe.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self)
+    }
+
     // MARK: - The toolbar item
 
     func testThePaneIsNamedAdvanced() throws {
@@ -135,6 +151,27 @@ final class IFAdvancedPreferencesTests: XCTestCase {
         XCTAssertEqual(menu.alignmentRect(forFrame: menu.frame).height, menu.intrinsicContentSize.height,
                        "the menu isn't squashed")
         XCTAssertLessThanOrEqual(view.fittingSize.height, view.frame.height)
+    }
+
+    /// The preferences window shows the pane at the height of the pane before, and then grows to fit it, so from the
+    /// Author pane, which is much shorter, the boxes are squeezed at first. That leaves no room in the Interpreters
+    /// box for its menu, but the menu's constraints give way without AppKit saying it can't satisfy them.
+    func testThePaneShownAtTheHeightOfAShorterOne() throws {
+        let (pane, _, _, controls) = try makePane()
+        let view = try XCTUnwrap(pane.preferenceView)
+        let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: view.frame.width, height: 110),
+                              styleMask: [.titled], backing: .buffered, defer: true)
+        window.isReleasedWhenClosed = false
+        window.setFrameOrigin(NSPoint(x: -20000, y: -20000))
+
+        let said = try standardError {
+            window.contentView = view
+            view.layoutSubtreeIfNeeded()
+        }
+        let menu = controls.glulxInterpreter
+        let box = try XCTUnwrap(menu.superview)
+        XCTAssertLessThan(box.bounds.height, menu.intrinsicContentSize.height + 16, "there's no room for the menu")
+        XCTAssertFalse(said.contains("Unable to simultaneously satisfy constraints"), said)
     }
 
     // MARK: - Showing the preferences
