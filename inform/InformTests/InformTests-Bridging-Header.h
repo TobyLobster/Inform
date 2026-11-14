@@ -104,6 +104,7 @@
 #import "IFIntelSymbol.h"
 #import "IFSourceSharedActions.h"
 #import "IFGamePage.h"
+#import "IFGlkResources.h"
 #import "IFFindResult.h"
 #import "IFFindInFiles.h"
 #import "IFFindInFilesController.h"
