@@ -203,6 +203,8 @@ final class IFProjectFileTests: XCTestCase {
 
     // MARK: - Settings
 
+    /// Writing the settings takes out an old-style Settings file, which Inform 10.2 warns about as a file a project
+    /// shouldn't have
     func testWritesSettingsInPlaceOfOldOnes() throws {
         let wrapper = project(["Settings": file("old settings")])
         let projectFile = try XCTUnwrap(IFProjectFile(fileWrapper: wrapper))
@@ -215,14 +217,6 @@ final class IFProjectFileTests: XCTestCase {
         XCTAssertEqual(names(wrapper), ["Build", "Settings.plist", "Source", "uuid.txt"])
         XCTAssertEqual(try XCTUnwrap(projectFile.settings).zcodeVersion, 8)
         XCTAssertFalse(try XCTUnwrap(projectFile.settings) === settings)
-    }
-
-    func testAnOldSettingsFileItCantReadGivesTheDefaults() throws {
-        let projectFile = try XCTUnwrap(IFProjectFile(fileWrapper: project(["Settings": file("old settings")])))
-
-        let settings = try XCTUnwrap(projectFile.settings)
-
-        XCTAssertEqual(settings.zcodeVersion, 256)
     }
 
     /// No settings are written as an empty file, which gives the defaults
@@ -246,24 +240,14 @@ final class IFProjectFileTests: XCTestCase {
         EElGT3V0cHV0U2V0dGluZ3OGkoSYlgGShJOVFUlGU2V0dGluZ1pDb2RlVmVyc2lvboaShJ6chJaWCIaGhoY=
         """
 
-    func testReadsAnOldSettingsFile() throws {
+    /// Such a file is no longer read, so the project has no settings, as with no settings file, and opens with the
+    /// defaults
+    func testAnOldSettingsFileIsntRead() throws {
         let data = try XCTUnwrap(Data(base64Encoded: oldSettings))
-        let projectFile = try XCTUnwrap(IFProjectFile(fileWrapper: project(["Settings": FileWrapper(regularFileWithContents: data)])))
+        let wrapper = project(["Settings": FileWrapper(regularFileWithContents: data)])
+        let projectFile = try XCTUnwrap(IFProjectFile(fileWrapper: wrapper))
 
-        let settings = try XCTUnwrap(projectFile.settings)
-
-        XCTAssertEqual(settings.zcodeVersion, 8)
-        XCTAssertFalse(settings.strict)
-    }
-
-    func testADamagedOldSettingsFileGivesTheDefaults() throws {
-        let data = try XCTUnwrap(Data(base64Encoded: oldSettings))
-        let damaged = FileWrapper(regularFileWithContents: data.prefix(data.count / 2))
-        let projectFile = try XCTUnwrap(IFProjectFile(fileWrapper: project(["Settings": damaged])))
-
-        let settings = try XCTUnwrap(projectFile.settings)
-
-        XCTAssertEqual(settings.zcodeVersion, 256)
+        XCTAssertNil(projectFile.settings)
     }
 
     // MARK: - Notes

@@ -84,7 +84,6 @@
 #import "IFProjectMaterialsPresenter.h"
 #import "IFCollapsableView.h"
 #import "IFCompilerSettings.h"
-#import "IFCompilerSettings+OldStyle.h"
 #import "IFSetting.h"
 #import "IFSettingsController.h"
 #import "IFSettingsPage.h"

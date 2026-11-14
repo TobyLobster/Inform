@@ -98,19 +98,16 @@ final class IFCompilerSettingsTests: XCTestCase {
         XCTAssertFalse(settings.restore(fromPlist: Data("<plist version=\"1.0\"><array/></plist>".utf8)))
     }
 
-    /// A project whose settings file (new or old style) is a folder, not a file, opens with the
-    /// default settings.
+    /// A project whose settings file is a folder, not a file, opens with the default settings.
     func testASettingsFolderGivesTheDefaults() throws {
-        for name in ["Settings.plist", "Settings"] {
-            let folder = FileWrapper(directoryWithFileWrappers: [:])
-            folder.preferredFilename = name
-            let project = FileWrapper(directoryWithFileWrappers: [name: folder])
-            let projectFile = try XCTUnwrap(IFProjectFile(fileWrapper: project))
+        let folder = FileWrapper(directoryWithFileWrappers: [:])
+        folder.preferredFilename = "Settings.plist"
+        let project = FileWrapper(directoryWithFileWrappers: ["Settings.plist": folder])
+        let projectFile = try XCTUnwrap(IFProjectFile(fileWrapper: project))
 
-            let settings = try XCTUnwrap(projectFile.settings, name)
-            XCTAssertEqual(settings.zcodeVersion, 256, name)
-            XCTAssertTrue(settings.strict, name)
-        }
+        let settings = try XCTUnwrap(projectFile.settings)
+        XCTAssertEqual(settings.zcodeVersion, 256)
+        XCTAssertTrue(settings.strict)
     }
 
     /// Settings survive being saved and loaded, and settings from elsewhere (such as the
