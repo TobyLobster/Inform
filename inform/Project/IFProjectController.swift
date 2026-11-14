@@ -850,12 +850,7 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
         projectPanes?[1].selectView(of: .errorPane)
 
         if let copyLocation {
-            // Copy the result to the specified location (overwriting any existing file)
-            try? FileManager.default.removeItem(atPath: copyLocation)
-            if let outputFile = project?.compiler.outputFile {
-                try? FileManager.default.copyItem(atPath: outputFile,
-                                                  toPath: copyLocation)
-            }
+            project?.copyCompilerOutput(toBlorbLocation: copyLocation)
         } else {
             if let window, let project {
                 IFProjectPanels(project: project).saveCompilerOutput(with: window)
