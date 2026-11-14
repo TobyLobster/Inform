@@ -32,15 +32,26 @@ extension IFNewExtensionsManager {
 
     @objc(copyWithUnzip:toProjectTemporary:extensionName:)
     func copy(withUnzip sourceURL: URL, toProjectTemporary project: IFProject, extensionName name: String) -> URL? {
-        guard let materialsDirectoryURL = project.materialsDirectoryURL else {
+        guard let destinationURL = temporaryFolder(of: project) else {
             return nil
         }
-        let destinationURL = materialsDirectoryURL.appendingPathComponent("Extensions")
-                                                  .appendingPathComponent("Reserved")
-                                                  .appendingPathComponent("Temporary", isDirectory: true)
         return copy(withUnzip: sourceURL,
                     to: destinationURL,
                     extensionName: name)
+    }
+
+    /// The project's temporary extensions folder, where an extension is copied to be installed from
+    private final func temporaryFolder(of project: IFProject) -> URL? {
+        return project.materialsDirectoryURL?.appendingPathComponent("Extensions")
+                                             .appendingPathComponent("Reserved")
+                                             .appendingPathComponent("Temporary", isDirectory: true)
+    }
+
+    @objc(removeTemporaryFolderOfProject:)
+    func removeTemporaryFolder(of project: IFProject) {
+        if let folder = temporaryFolder(of: project) {
+            try? FileManager.default.removeItem(at: folder)
+        }
     }
 
     // Returns a URL of the downloaded file (or the .i7xd directory inside an unzipped zip file)
