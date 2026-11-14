@@ -452,6 +452,53 @@ final class IFProjectControllerTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(highlights("Notes.txt"), [])
     }
 
+    // MARK: - Find in Files
+
+    /// A result in the documentation opens its page at its anchor where the documentation goes, with its match
+    /// selected, here in the second of two code extracts in WI_11_3 that start "(About the paranormal."
+    func testAResultInTheDocumentationIsShownSelected() throws {
+        let url = try XCTUnwrap(Bundle.main.url(forResource: "WI_11_3", withExtension: "html"))
+        let parser = IFDocParser(html: try String(contentsOf: url, encoding: .utf8))
+        let code = try XCTUnwrap(parser.codeInfo.first { $0.anchorTag == "code612" })
+        let text = parser.plainText as NSString
+        let location = text.range(of: "paranormal", range: code.range).location
+        var range = NSRange()
+        let context = IFFindInFiles.getContextFromText(text as String,
+                                                       withLocation: UInt(location),
+                                                       andLength: 10,
+                                                       findingContextRange: &range)
+
+        controller.searchShowSelectedItem(atLocation: location,
+                                          phrase: "paranormal",
+                                          inFile: url.path,
+                                          type: .documentationSource,
+                                          anchorTag: "code612",
+                                          context: context,
+                                          rangeInContext: range)
+
+        XCTAssertEqual(right.currentView, .documentationPane)
+        let webView = try XCTUnwrap(right.documentationPage.view.subviews.compactMap { $0 as? WKWebView }.first)
+        XCTAssertEqual(webView.url?.absoluteString, "inform:/WI_11_3.html#code612")
+        func selected() -> String? {
+            let evaluated = expectation(description: "evaluated")
+            var anchor: String?
+            webView.evaluateJavaScript("""
+                (node => node && node.parentElement.closest("blockquote").querySelector("a").id)
+                    (window.getSelection().anchorNode) || ""
+                """) { value, _ in
+                anchor = value as? String
+                evaluated.fulfill()
+            }
+            wait(for: [evaluated], timeout: 10)
+            return anchor
+        }
+        let limit = Date(timeIntervalSinceNow: 10)
+        while selected() != "code612" && Date() < limit {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+        }
+        XCTAssertEqual(selected(), "code612")
+    }
+
     // MARK: - Test cases
 
     func testShowingATestCaseTheToolbarDoesntHaveDoesNothing() {

@@ -1450,7 +1450,9 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
                                 phrase: String,
                                 inFile filename: String,
                                 type: IFFindLocation,
-                                anchorTag: String?) {
+                                anchorTag: String?,
+                                context: String,
+                                rangeInContext contextRange: NSRange) {
         // If the match is a document, order the documentation pane to display it
         // (Not sure how to deal with the location: I don't think it makes much sense
         // relative to a web view)
@@ -1469,7 +1471,7 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
 
             // (The Objective-C passed on no URL, where the string doesn't make one)
             if let url = URL(string: urlString) {
-                auxPane?.documentationPage.open(url)
+                auxPane?.documentationPage.open(url, selectingMatchAt: contextRange, inContext: context)
             }
         } else if type == .extensions {
             // Show the appropriate extension source file

@@ -436,7 +436,9 @@ private func synchronized<T>(_ lock: AnyObject, _ body: () throws -> T) rethrows
                                            phrase: row.phrase,
                                            inFile: row.filepath ?? "",
                                            type: row.locationType,
-                                           anchorTag: anchorTag)
+                                           anchorTag: anchorTag,
+                                           context: row.context,
+                                           rangeInContext: row.contextRange)
     }
 
     // MARK: - The auxiliary view

@@ -130,11 +130,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction) testMe:            (nullable id) sender;
 
 - (void) changeFirstResponder: (nullable NSResponder*) first;
+/// Shows a Find in Files result: in the documentation, its page at its anchor, with the match in its context selected
 - (void) searchShowSelectedItemAtLocation: (NSInteger) location
                                    phrase: (NSString*) phrase
                                    inFile: (NSString*) filename
                                      type: (IFFindLocation) type
-                                anchorTag: (nullable NSString*) anchorTag;
+                                anchorTag: (nullable NSString*) anchorTag
+                                  context: (NSString*) context
+                           rangeInContext: (NSRange) contextRange;
 
 // Spelling
 - (void) setSourceSpellChecking: (BOOL) spellChecking;
