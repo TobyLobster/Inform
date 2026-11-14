@@ -363,6 +363,32 @@ final class IFWebViewHelperTests: XCTestCase, @unchecked Sendable {
         XCTAssertEqual(Double(zoom), Double(expectedZoom))
     }
 
+    /// A page loaded after the font size preference changes is zoomed for it, not for the size the web view was made
+    /// with, and is given the scripts that post its messages as before
+    func testZoomsPagesLoadedAfterTheFontSizePreferenceChanges() throws {
+        let helper = makeHelper()
+        let (webView, watcher) = makeLoadedWebView(helper)
+        // As if the web view had been made with another size
+        let scripts = webView.configuration.userContentController
+        let made = try XCTUnwrap(scripts.userScripts.first)
+        XCTAssertTrue(made.source.contains("zoom = '\(expectedZoom)'"))
+        scripts.removeAllUserScripts()
+        scripts.addUserScript(WKUserScript(source: made.source.replacingOccurrences(of: "zoom = '\(expectedZoom)'",
+                                                                                    with: "zoom = '3.00'"),
+                                           injectionTime: .atDocumentStart,
+                                           forMainFrameOnly: true))
+
+        helper.fontSizePreferenceChanged(webView)
+
+        XCTAssertEqual(scripts.userScripts.map { $0.source }, [made.source])
+        let loaded = expectation(description: "loaded")
+        watcher.onFinish = { loaded.fulfill() }
+        webView.loadHTMLString("<html><body><p>Lantern</p></body></html>", baseURL: nil)
+        wait(for: [loaded], timeout: 10)
+        let zoom = try XCTUnwrap(evaluate("document.body.style.zoom", in: webView) as? String)
+        XCTAssertEqual(Double(zoom), Double(expectedZoom))
+    }
+
     /// A page's script posts its messages to the helper through the Project object that the helper's script gives it
     func testAPagesScriptPostsItsMessagesToTheHelper() throws {
         let helper = makeHelper()

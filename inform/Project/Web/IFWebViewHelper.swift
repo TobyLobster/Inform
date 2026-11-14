@@ -601,6 +601,11 @@ private let resourcePathsByLowercaseName: [String: String] = {
         let fontSizeMultiplier = Float(IFPreferences.shared.appFontSizeMultiplier)
         let js = String(format: "document.body.style.zoom = '%.2f'", fontSizeMultiplier)
         wView.evaluateJavaScript(js, completionHandler: nil)
+
+        // The pages it loads from now on start at the new size too
+        let userContentController = wView.configuration.userContentController
+        userContentController.removeAllUserScripts()
+        userContentController.addUserScript(userScript())
     }
 }
 
