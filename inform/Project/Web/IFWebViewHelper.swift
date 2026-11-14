@@ -73,21 +73,7 @@ private let resourcePathsByLowercaseName: [String: String] = {
         // We recieve messages from Javascript
         config.userContentController.add(self, name: "scriptHandler")
 
-        // We inject Javascript to post appropriate messages
-        let resourceURL = Bundle.main.url(forResource: "messages_to_objc", withExtension: "js")
-        let javascriptTemplate = resourceURL.flatMap { try? String(contentsOf: $0, encoding: .utf8) } ?? ""
-
-        // We inject Javascript to initially resize based on font size preference
-        let fontSizeMultiplier = Float(IFPreferences.shared.appFontSizeMultiplier)
-        let js = String(format: "window.addEventListener(\"load\",function () { document.body.style.zoom = '%.2f'; }, false);",
-                        fontSizeMultiplier)
-
-        // Inject both the message template and the font size Javascript
-        let javascriptInjection = js + javascriptTemplate
-        let userScript = WKUserScript(source: javascriptInjection,
-                                      injectionTime: .atDocumentStart,
-                                      forMainFrameOnly: true)
-        config.userContentController.addUserScript(userScript)
+        config.userContentController.addUserScript(userScript())
 
         // Javascript code like the following now posts a message to us that we recieve in Swift land:
         //      window.webkit.messageHandlers.scriptHandler.postMessage(["functionName", "param1", "param2"]):
@@ -100,6 +86,25 @@ private let resourcePathsByLowercaseName: [String: String] = {
         wView.uiDelegate = self
 
         return wView
+    }
+
+    /// The script each page is given as it starts, which resizes it for the font size preference and posts its
+    /// messages to the app
+    private final func userScript() -> WKUserScript {
+        // We inject Javascript to post appropriate messages
+        let resourceURL = Bundle.main.url(forResource: "messages_to_objc", withExtension: "js")
+        let javascriptTemplate = resourceURL.flatMap { try? String(contentsOf: $0, encoding: .utf8) } ?? ""
+
+        // We inject Javascript to initially resize based on font size preference
+        let fontSizeMultiplier = Float(IFPreferences.shared.appFontSizeMultiplier)
+        let js = String(format: "window.addEventListener(\"load\",function () { document.body.style.zoom = '%.2f'; }, false);",
+                        fontSizeMultiplier)
+
+        // Inject both the message template and the font size Javascript
+        let javascriptInjection = js + javascriptTemplate
+        return WKUserScript(source: javascriptInjection,
+                            injectionTime: .atDocumentStart,
+                            forMainFrameOnly: true)
     }
 
     // MARK: - WKURLSchemeHandler
