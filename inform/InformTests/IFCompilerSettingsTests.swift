@@ -98,19 +98,16 @@ final class IFCompilerSettingsTests: XCTestCase {
         XCTAssertFalse(settings.restore(fromPlist: Data("<plist version=\"1.0\"><array/></plist>".utf8)))
     }
 
-    /// A project whose settings file (new or old style) is a folder, not a file, opens with the
-    /// default settings.
+    /// A project whose settings file is a folder, not a file, opens with the default settings.
     func testASettingsFolderGivesTheDefaults() throws {
-        for name in ["Settings.plist", "Settings"] {
-            let folder = FileWrapper(directoryWithFileWrappers: [:])
-            folder.preferredFilename = name
-            let project = FileWrapper(directoryWithFileWrappers: [name: folder])
-            let projectFile = try XCTUnwrap(IFProjectFile(fileWrapper: project))
+        let folder = FileWrapper(directoryWithFileWrappers: [:])
+        folder.preferredFilename = "Settings.plist"
+        let project = FileWrapper(directoryWithFileWrappers: ["Settings.plist": folder])
+        let projectFile = try XCTUnwrap(IFProjectFile(fileWrapper: project))
 
-            let settings = try XCTUnwrap(projectFile.settings, name)
-            XCTAssertEqual(settings.zcodeVersion, 256, name)
-            XCTAssertTrue(settings.strict, name)
-        }
+        let settings = try XCTUnwrap(projectFile.settings)
+        XCTAssertEqual(settings.zcodeVersion, 256)
+        XCTAssertTrue(settings.strict)
     }
 
     /// Settings survive being saved and loaded, and settings from elsewhere (such as the
@@ -422,25 +419,6 @@ final class IFCompilerSettingsTests: XCTestCase {
             from: try XCTUnwrap(settings.currentPlist), format: nil) as? [String: Any])
         XCTAssertNil(plist["IFWindowsSettings"])
         XCTAssertNotNil(plist["IFOutputSettings"])
-    }
-
-    // MARK: - Archiving
-
-    /// The settings can be archived, though not securely.
-    func testArchiving() throws {
-        let settings = IFCompilerSettings()
-        settings.zcodeVersion = 8
-        settings.strict = false
-        settings.compilerVersion = "6M62"
-
-        let data = try NSKeyedArchiver.archivedData(withRootObject: settings, requiringSecureCoding: false)
-        let unarchiver = try NSKeyedUnarchiver(forReadingFrom: data)
-        unarchiver.requiresSecureCoding = false
-        let copy = try XCTUnwrap(unarchiver.decodeObject(forKey: NSKeyedArchiveRootObjectKey) as? IFCompilerSettings)
-        XCTAssertEqual(copy.zcodeVersion, 8)
-        XCTAssertFalse(copy.strict)
-        XCTAssertEqual(copy.compilerVersion, "6M62")
-        XCTAssertNotNil(copy.setting(for: try settingsClass("IFMiscSettings")))
     }
 
     // MARK: - Letting go

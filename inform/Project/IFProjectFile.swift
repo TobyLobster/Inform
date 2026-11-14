@@ -76,20 +76,12 @@ extension IFProjectFile {
 
     var settings: IFCompilerSettings? {
         get {
+            // A project without a Settings.plist has no settings, even with an old-style Settings file, archived
+            // before Settings.plist, which is no longer read
             guard let settingsFile = bundleDirectory.fileWrappers?["Settings.plist"] else {
-                // Old-style loading
-                guard let oldSettingsFile = bundleDirectory.fileWrappers?["Settings"] else {
-                    return nil
-                }
-                if !oldSettingsFile.isRegularFile {
-                    // A folder has no settings to read
-                    return IFCompilerSettings()
-                }
-
-                return IFCompilerSettings(fromOldStyleData: oldSettingsFile.regularFileContents)
+                return nil
             }
 
-            // New-style loading
             let newSettings = IFCompilerSettings()
 
             // A folder has no settings to read
@@ -111,7 +103,7 @@ extension IFProjectFile {
             bundleDirectory.addRegularFile(withContents: settingsData ?? Data(),
                                            preferredFilename: "Settings.plist")
 
-            // Delete the old-style file, if it exists
+            // Delete the old-style file, if it exists, which Inform 10.2 warns about as a file a project shouldn't have
             if let settingsFile = bundleDirectory.fileWrappers?["Settings"] {
                 bundleDirectory.removeFileWrapper(settingsFile)
             }
