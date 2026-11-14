@@ -108,6 +108,7 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
         super.init(window: window)
 
         shouldCloseDocument = false
+        testCaseRun.delegate = self
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(intelFileChanged(_:)),
@@ -729,7 +730,7 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
                 // Show the skein page on the right
                 projectPanes?[1].selectView(of: .skeinPane)
 
-                startNextTestCase()
+                testCaseRun.startNextTestCase()
 
                 // Update toolbar
                 toolbarManager?.validateVisibleItems()
@@ -989,16 +990,7 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
 
         // If not successful, start the next test case
         if exitCode != 0 && isCurrentlyTesting {
-            if startNextTestCaseSoon() {
-                return
-            }
-
-            // All test cases finished.
-
-            // Create a consolidated report and display it.
-            if !(testAllProgress?.isCancelled ?? false) && reportURL != nil {
-                createAndShowReport(testCaseRun.numberTested, reportURL: reportURL)
-            }
+            testCaseRun.testCaseDidntCompile(withReport: reportURL)
         }
     }
 
@@ -1880,73 +1872,6 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
         inputSourceHasFinished(nil)
     }
 
-    private final func finishRunningTestCases() {
-        // Stop the current game
-        for pane in projectPanes ?? [] {
-            pane.stopRunningGame()
-        }
-
-        // Show completion message
-        if testAllProgress?.isCancelled ?? false {
-            testAllProgress?.message = IFUtility.localizedString("Tests cancelled")
-        } else {
-            testAllProgress?.message = IFUtility.localizedString("Tests completed")
-        }
-        testAllProgress?.stop()
-        if let testAllProgress {
-            removeProgressIndicator(testAllProgress)
-        }
-
-        // Reset variables
-        testCaseRun.finish()
-
-        // Update toolbar
-        toolbarManager?.validateVisibleItems()
-
-        // Restore the skein
-        project?.selectSkein(toolbarManager?.testCaseIndex ?? 0)
-    }
-
-    @discardableResult
-    @objc private final func startNextTestCase() -> Bool {
-        testCaseRun.moveToNextTestCase()
-
-        // Did we reach the end of the test cases?
-        if (testCaseRun.isPastTheLastTestCase || currentTestCase() == nil) || (testAllProgress?.isCancelled ?? false) {
-            finishRunningTestCases()
-            return false
-        }
-
-        let done  = testCaseRun.numberStarted
-        let total = testCaseRun.numberInRun
-        let message = String(format: IFUtility.localizedString("Testing %d of %d"), done, total)
-        testAllProgress?.percentage = CGFloat(testCaseRun.percentageStarted)
-        testAllProgress?.message = message
-
-        testMeInternal()
-        return true
-    }
-
-    private final func startNextTestCaseSoon() -> Bool {
-        if currentTestCase() == nil || (testAllProgress?.isCancelled ?? false) {
-            finishRunningTestCases()
-            return false
-        }
-
-        // After the last test case, finish now, so that the caller knows to make the report
-        if testCaseRun.isOnTheLastTestCase {
-            return startNextTestCase()
-        }
-
-        // Enforce a delay to let current task finish gracefully before starting another
-        Timer.scheduledTimer(timeInterval: 0.0,
-                             target: self,
-                             selector: #selector(startNextTestCase),
-                             userInfo: nil,
-                             repeats: false)
-        return true
-    }
-
     @objc private final func inputSourceHasFinishedAfterDelay() {
         // Gather report data
         let currentSkein = project?.currentSkein
@@ -1972,15 +1897,8 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
                                         skeinNodes: skeinNodes,
                                         outputURL: reportURL)
             }
-            // Start next case
-            if startNextTestCase() {
-                return
-            }
-
-            // All test cases finished. Create a consolidated report and display it.
-            if !(testAllProgress?.isCancelled ?? false) {
-                createAndShowReport(testCaseRun.numberTested, reportURL: reportURL)
-            }
+            // Start next case, or show the report
+            testCaseRun.testCaseWasPlayed(withReport: reportURL)
         }
     }
 
@@ -1991,6 +1909,60 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
                              selector: #selector(inputSourceHasFinishedAfterDelay),
                              userInfo: nil,
                              repeats: false)
+    }
+
+    // MARK: - The run through the test cases
+
+    @objc(testCaseRun:testCaseAtIndex:)
+    func testCaseRun(_ run: IFTestCaseRun, testCaseAt index: Int32) -> String? {
+        if isExtensionProject {
+            return toolbarManager?.getTestCase(index)
+        }
+        return nil
+    }
+
+    func testCaseRunIsCancelled(_ run: IFTestCaseRun) -> Bool {
+        return testAllProgress?.isCancelled ?? false
+    }
+
+    func testCaseRunTestsCurrentTestCase(_ run: IFTestCaseRun) {
+        let done  = run.numberStarted
+        let total = run.numberInRun
+        let message = String(format: IFUtility.localizedString("Testing %d of %d"), done, total)
+        testAllProgress?.percentage = CGFloat(run.percentageStarted)
+        testAllProgress?.message = message
+
+        testMeInternal()
+    }
+
+    func testCaseRunDidFinish(_ run: IFTestCaseRun) {
+        // Stop the current game
+        for pane in projectPanes ?? [] {
+            pane.stopRunningGame()
+        }
+
+        // Show completion message
+        if testAllProgress?.isCancelled ?? false {
+            testAllProgress?.message = IFUtility.localizedString("Tests cancelled")
+        } else {
+            testAllProgress?.message = IFUtility.localizedString("Tests completed")
+        }
+        testAllProgress?.stop()
+        if let testAllProgress {
+            removeProgressIndicator(testAllProgress)
+        }
+
+        // Update toolbar
+        toolbarManager?.validateVisibleItems()
+
+        // Restore the skein
+        project?.selectSkein(toolbarManager?.testCaseIndex ?? 0)
+    }
+
+    func testCaseRun(_ run: IFTestCaseRun,
+                     showReportOnTestCases numberTested: Int32,
+                     fromReport reportURL: URL?) {
+        createAndShowReport(numberTested, reportURL: reportURL)
     }
 
     // MARK: - Importing skein information
