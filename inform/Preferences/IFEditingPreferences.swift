@@ -15,6 +15,7 @@ import Cocoa
     // Text section
     @IBOutlet private final var fontFamily: NSTextField?
     @IBOutlet private final var appTextSize: NSSlider?
+    @IBOutlet private final var storyTextSize: NSSlider?
 
     // Syntax highlighting section
     @IBOutlet private final var enableSyntaxHighlighting: NSButton?
@@ -81,6 +82,11 @@ import Cocoa
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reflectCurrentPreferences),
                                                name: .IFPreferencesEditingDidChange,
+                                               object: preferences)
+        // The story's text size follows the documentation's until it's set
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(reflectCurrentPreferences),
+                                               name: .IFPreferencesStoryFontSizeDidChange,
                                                object: preferences)
 
         // Create the preview
@@ -150,7 +156,7 @@ import Cocoa
     }
 
     public override var minHeight: CGFloat {
-        return 574.0
+        return 600.0
     }
 
     // MARK: - Receiving data from/updating the interface
@@ -235,6 +241,9 @@ import Cocoa
             if sender === appTextSize, let appTextSize {
                 prefs.appFontSizeMultiplierEnum = IFAppFontSize(rawValue: appTextSize.intValue)!
             }
+            if sender === storyTextSize, let storyTextSize {
+                prefs.storyFontSizeMultiplierEnum = IFAppFontSize(rawValue: storyTextSize.intValue)!
+            }
 
             // Syntax highlighting section
             if sender === enableSyntaxHighlighting {
@@ -316,6 +325,7 @@ import Cocoa
         // Text section
         setFontFamilyUI(currentSet.fontFamily, fontSize: currentSet.fontSize)
         appTextSize?.intValue = prefs.appFontSizeMultiplierEnum.rawValue
+        storyTextSize?.intValue = prefs.storyFontSizeMultiplierEnum.rawValue
 
         // Syntax highlighting section
         enableSyntaxHighlighting?.state = currentSet.enableSyntaxHighlighting ? .on : .off
