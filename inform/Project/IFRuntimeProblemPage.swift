@@ -33,11 +33,13 @@ private func writePageForUnknownProblem(_ problem: String) -> URL? {
 @objc @implementation extension IFRuntimeProblemPage {
     private final var errorURL: NSURL?
     private final var _markdownPath: String?
+    private final let internalDirectory: String
 
     init(problem error: String,
          inDirectory directory: String?,
          materialsDirectory: String?,
          internalDirectory: String) {
+        self.internalDirectory = internalDirectory
         if let directory = directory as NSString? {
             let errorFile = "\(error).md"
             if directory.starts(withCaseInsensitive: "Internal/") {
@@ -77,5 +79,26 @@ private func writePageForUnknownProblem(_ problem: String) -> URL? {
 
     var markdownPath: String? {
         return _markdownPath
+    }
+
+    var pageURL: URL? {
+        if _markdownPath != nil {
+            return IFUtility.temporaryDirectoryURL().appendingPathComponent("temp.html")
+        }
+        return appPageURL
+    }
+
+    @MainActor @objc(makePageFromMarkdownWithInBuild:settings:)
+    func makePageFromMarkdown(with inBuild: IFInBuild,
+                              settings: IFCompilerSettings) {
+        if let markdownPath = _markdownPath, let htmlURL = pageURL {
+            // Run inbuild to convert the markdown file to HTML. When that fails, inbuild writes a page about the
+            // error there instead, which is shown in its place.
+            let internalURL = URL(fileURLWithPath: internalDirectory)
+            inBuild.execute(forConvertingMarkdown: markdownPath,
+                            toHTML: htmlURL.path,
+                            withInternal: internalURL,
+                            settings: settings)
+        }
     }
 }
