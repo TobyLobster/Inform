@@ -385,4 +385,53 @@ final class IFGamePageTests: XCTestCase, @unchecked Sendable {
 
         XCTAssertNil(skein.activeItem)
     }
+
+    // MARK: - Pictures and sounds from the materials
+
+    /// A project whose manifest, as Inform writes it, names a picture and a sound in its materials folder, with the
+    /// Glk resources that give them to a story played without a Blorb
+    private func makeResourcesWithAManifest() throws -> IFGlkResources {
+        let folder = try XCTUnwrap(folder)
+        let project = IFProject()
+        project.fileURL = folder.appendingPathComponent("Test.inform")
+        let manifest: [String: Any] = ["Graphics": ["3": "Figures/Lighthouse.png"],
+                                       "Sounds": ["4": "Sounds/Bell.aiff"]]
+        let projectFolder = folder.appendingPathComponent("Test.inform", isDirectory: true)
+        try FileManager.default.createDirectory(at: projectFolder, withIntermediateDirectories: true)
+        XCTAssertTrue((manifest as NSDictionary).write(to: projectFolder.appendingPathComponent("manifest.plist"),
+                                                       atomically: true))
+        let materials = folder.appendingPathComponent("Test.materials", isDirectory: true)
+        for (file, contents) in [("Figures/Lighthouse.png", "A lighthouse"), ("Sounds/Bell.aiff", "FORM a bell")] {
+            let url = materials.appendingPathComponent(file)
+            try FileManager.default.createDirectory(at: url.deletingLastPathComponent(),
+                                                    withIntermediateDirectories: true)
+            try Data(contents.utf8).write(to: url)
+        }
+        return IFGlkResources(project: project)
+    }
+
+    func testAPictureComesFromTheMaterialsFolder() throws {
+        let resources = try makeResourcesWithAManifest()
+        XCTAssertEqual(resources.data(forImageResource: 3), Data("A lighthouse".utf8))
+    }
+
+    /// A picture that isn't there is shown as the interpreter's error picture
+    func testAPictureThatIsntThere() throws {
+        let resources = try makeResourcesWithAManifest()
+        let error = try XCTUnwrap(NSImage(named: "App/Interpreter/Error")?.tiffRepresentation)
+        XCTAssertEqual(resources.data(forImageResource: 5), error)
+    }
+
+    /// A sound comes from the materials folder, as a picture does, rather than only from a Blorb, which Go doesn't make
+    func testASoundComesFromTheMaterialsFolder() throws {
+        let resources = try XCTUnwrap(try makeResourcesWithAManifest() as AnyObject as? GlkSoundSourceProtocol)
+        XCTAssertEqual(resources.data(forSoundResource: 4), Data("FORM a bell".utf8))
+    }
+
+    /// A sound that isn't there gives the interpreter nothing to play
+    func testASoundThatIsntThere() throws {
+        let resources = try XCTUnwrap(try makeResourcesWithAManifest() as AnyObject as? GlkSoundSourceProtocol)
+        XCTAssertNil(resources.data(forSoundResource: 5))
+        XCTAssertNil(resources.data(forSoundResource: 3), "A picture's number in the manifest isn't a sound's")
+    }
 }

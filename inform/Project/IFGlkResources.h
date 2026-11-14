@@ -14,13 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
 @class IFProject;
 
 ///
-/// Class that retrieves Glk resources from the materials directory
+/// Class that retrieves Glk resources from the materials directory, for a story played without a Blorb
 ///
-@interface IFGlkResources : NSObject<GlkImageSource>
+@interface IFGlkResources : NSObject<GlkImageSource, GlkSoundSource>
 
 - (instancetype)init NS_UNAVAILABLE;
 
-/// Initialise this resource file to get image resources from the specified project
+/// Initialise this resource file to get image and sound resources from the specified project
 - (instancetype) initWithProject: (IFProject*) project NS_DESIGNATED_INITIALIZER;
 
 @end
