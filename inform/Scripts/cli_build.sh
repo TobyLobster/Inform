@@ -54,6 +54,8 @@ mkdir -p "${BUILD_DIR}"
 cd "${REPO_ROOT}" || exit 1
 
 echo "Building Inform (${CONFIGURATION}, ${CLEAN:+clean }${ACTION}); log in ${LOG}"
+# Keep building after an error, so that the log has every error. Otherwise xcodebuild cancels the compile jobs still
+# running once one fails, and only the jobs that finished first report their errors.
 xcodebuild -workspace Inform.xcworkspace \
            -scheme Inform \
            -configuration "${CONFIGURATION}" \
@@ -62,6 +64,7 @@ xcodebuild -workspace Inform.xcworkspace \
            "${SIGNING_SETTINGS[@]}" \
            INFORM_CORE_UPDATE="${UPDATE_CORE}" \
            INFORM_APP_SYMLINK=NO \
+           -IDEBuildingContinueBuildingAfterErrors=YES \
            ${CLEAN} ${ACTION} > "${LOG}" 2>&1
 RESULT=$?
 
