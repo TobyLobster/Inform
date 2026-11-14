@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Class that retrieves Glk resources from the materials directory, for a story played without a Blorb
 ///
+NS_SWIFT_UI_ACTOR
 @interface IFGlkResources : NSObject<GlkImageSource, GlkSoundSource>
 
 - (instancetype)init NS_UNAVAILABLE;
