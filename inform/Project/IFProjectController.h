@@ -15,6 +15,7 @@
 #import "IFSourceSharedActions.h"
 #import "IFRuntimeErrorParser.h"
 #import "IFProjectMenuValidation.h"
+#import "IFTestCaseRun.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -33,7 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
                                                     IFRuntimeErrorParserDelegate,
                                                     NSMenuItemValidation,
                                                     NSToolbarItemValidation,
-                                                    IFProjectMenuState>
+                                                    IFProjectMenuState,
+                                                    IFTestCaseRunDelegate>
 
 - (void) layoutPanes;
 
