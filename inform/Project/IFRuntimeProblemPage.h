@@ -7,6 +7,9 @@
 
 #import <Foundation/Foundation.h>
 
+@class IFInBuild;
+@class IFCompilerSettings;
+
 NS_ASSUME_NONNULL_BEGIN
 
 ///
@@ -28,6 +31,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, readonly, nullable) NSURL* appPageURL;
 /// The markdown file to make the page from, for a problem with a folder, or nil
 @property (atomic, readonly, nullable) NSString* markdownPath;
+/// The page to show: the app's own page, or the one saying it has none, for a problem with no folder; for one with a
+/// markdown file, temp.html in the temporary folder, where makePageFromMarkdownWithInBuild:settings: writes it; or nil
+@property (atomic, readonly, nullable) NSURL* pageURL;
+
+/// Makes the page, at pageURL, from the problem's markdown file with inbuild. When that fails, inbuild writes a page
+/// about the error there instead. Does nothing for a problem with no markdown file.
+- (void) makePageFromMarkdownWithInBuild: (IFInBuild*) inBuild
+                                settings: (IFCompilerSettings*) settings
+    NS_SWIFT_UI_ACTOR NS_SWIFT_NAME(makePageFromMarkdown(with:settings:));
 
 @end
 

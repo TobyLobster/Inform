@@ -1637,24 +1637,12 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
                                         inDirectory: directory,
                                         materialsDirectory: project?.materialsDirectoryURL?.path,
                                         internalDirectory: IFUtility.path(forInformInternalAppSupport: ""))
-        var errorURL = page.appPageURL
-        let markdownPath = page.markdownPath
-
-        if let markdownPath {
-            // Run inbuild to convert the markdown file to HTML. When that fails, inbuild writes a page about the
-            // error there instead, which is shown in its place.
-            let htmlURL = IFUtility.temporaryDirectoryURL().appendingPathComponent("temp.html")
-            errorURL = htmlURL
-            let internalURL = URL(fileURLWithPath: IFUtility.path(forInformInternalAppSupport: ""))
-            if let project {
-                project.inBuild.execute(forConvertingMarkdown: markdownPath,
-                                        toHTML: htmlURL.path,
-                                        withInternal: internalURL,
-                                        settings: project.settings)
-            }
+        if let project {
+            page.makePageFromMarkdown(with: project.inBuild,
+                                      settings: project.settings)
         }
 
-        if let errorURL {
+        if let errorURL = page.pageURL {
             // For each pane, add the runtime error message
             for pane in projectPanes ?? [] {
                 pane.compilerController.showRuntimeError(errorURL)
