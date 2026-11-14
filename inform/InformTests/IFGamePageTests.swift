@@ -389,26 +389,51 @@ final class IFGamePageTests: XCTestCase, @unchecked Sendable {
 
     // MARK: - Pictures and sounds from the materials
 
-    /// A project whose manifest, as Inform writes it, names a picture and a sound in its materials folder, with the
-    /// Glk resources that give them to a story played without a Blorb
-    private func makeResourcesWithAManifest() throws -> IFGlkResources {
+    /// A manifest, as Inform writes it, naming a picture and a sound in the materials folder
+    private static let manifest: [String: Any] = ["Graphics": ["3": "Figures/Lighthouse.png"],
+                                                  "Sounds": ["4": "Sounds/Bell.aiff"]]
+
+    /// The picture and the sound that the manifest names
+    private static let materials = ["Figures/Lighthouse.png": Data("A lighthouse".utf8),
+                                    "Sounds/Bell.aiff": Data("FORM a bell".utf8)]
+
+    /// A manifest as a property list file
+    private func plist(_ manifest: Any) throws -> Data {
+        try PropertyListSerialization.data(fromPropertyList: manifest, format: .xml, options: 0)
+    }
+
+    /// The Glk resources that give a story played without a Blorb the pictures and sounds of a project called Test in
+    /// the test's folder, with these files in its project and materials folders
+    private func makeResources(project projectFiles: [String: Data] = [:],
+                               materials materialsFiles: [String: Data] = [:]) throws -> IFGlkResources {
         let folder = try XCTUnwrap(folder)
         let project = IFProject()
         project.fileURL = folder.appendingPathComponent("Test.inform")
-        let manifest: [String: Any] = ["Graphics": ["3": "Figures/Lighthouse.png"],
-                                       "Sounds": ["4": "Sounds/Bell.aiff"]]
-        let projectFolder = folder.appendingPathComponent("Test.inform", isDirectory: true)
-        try FileManager.default.createDirectory(at: projectFolder, withIntermediateDirectories: true)
-        XCTAssertTrue((manifest as NSDictionary).write(to: projectFolder.appendingPathComponent("manifest.plist"),
-                                                       atomically: true))
-        let materials = folder.appendingPathComponent("Test.materials", isDirectory: true)
-        for (file, contents) in [("Figures/Lighthouse.png", "A lighthouse"), ("Sounds/Bell.aiff", "FORM a bell")] {
-            let url = materials.appendingPathComponent(file)
-            try FileManager.default.createDirectory(at: url.deletingLastPathComponent(),
-                                                    withIntermediateDirectories: true)
-            try Data(contents.utf8).write(to: url)
+        for (subfolder, files) in [("Test.inform", projectFiles), ("Test.materials", materialsFiles)] {
+            for (file, contents) in files {
+                let url = folder.appendingPathComponent(subfolder, isDirectory: true).appendingPathComponent(file)
+                try FileManager.default.createDirectory(at: url.deletingLastPathComponent(),
+                                                        withIntermediateDirectories: true)
+                try contents.write(to: url)
+            }
         }
         return IFGlkResources(project: project)
+    }
+
+    /// A project whose manifest names a picture and a sound in its materials folder, with the Glk resources that give
+    /// them to a story played without a Blorb
+    private func makeResourcesWithAManifest() throws -> IFGlkResources {
+        try makeResources(project: ["manifest.plist": plist(Self.manifest)], materials: Self.materials)
+    }
+
+    /// The Glk resources as the sound handler sees them
+    private func sounds(_ resources: IFGlkResources) throws -> GlkSoundSourceProtocol {
+        try XCTUnwrap(resources as AnyObject as? GlkSoundSourceProtocol)
+    }
+
+    /// The interpreter's error picture
+    private func errorPicture() throws -> Data {
+        try XCTUnwrap(NSImage(named: "App/Interpreter/Error")?.tiffRepresentation)
     }
 
     func testAPictureComesFromTheMaterialsFolder() throws {
@@ -419,20 +444,90 @@ final class IFGamePageTests: XCTestCase, @unchecked Sendable {
     /// A picture that isn't there is shown as the interpreter's error picture
     func testAPictureThatIsntThere() throws {
         let resources = try makeResourcesWithAManifest()
-        let error = try XCTUnwrap(NSImage(named: "App/Interpreter/Error")?.tiffRepresentation)
-        XCTAssertEqual(resources.data(forImageResource: 5), error)
+        XCTAssertEqual(resources.data(forImageResource: 5), try errorPicture())
     }
 
     /// A sound comes from the materials folder, as a picture does, rather than only from a Blorb, which Go doesn't make
     func testASoundComesFromTheMaterialsFolder() throws {
-        let resources = try XCTUnwrap(try makeResourcesWithAManifest() as AnyObject as? GlkSoundSourceProtocol)
+        let resources = try sounds(try makeResourcesWithAManifest())
         XCTAssertEqual(resources.data(forSoundResource: 4), Data("FORM a bell".utf8))
     }
 
     /// A sound that isn't there gives the interpreter nothing to play
     func testASoundThatIsntThere() throws {
-        let resources = try XCTUnwrap(try makeResourcesWithAManifest() as AnyObject as? GlkSoundSourceProtocol)
+        let resources = try sounds(try makeResourcesWithAManifest())
         XCTAssertNil(resources.data(forSoundResource: 5))
         XCTAssertNil(resources.data(forSoundResource: 3), "A picture's number in the manifest isn't a sound's")
+    }
+
+    /// With no manifest in the project's folder, the one in the materials folder is used
+    func testTheManifestCanBeInTheMaterialsFolder() throws {
+        var materials = Self.materials
+        materials["manifest.plist"] = try plist(Self.manifest)
+        let resources = try makeResources(materials: materials)
+        XCTAssertEqual(resources.data(forImageResource: 3), Data("A lighthouse".utf8))
+        XCTAssertEqual(try sounds(resources).data(forSoundResource: 4), Data("FORM a bell".utf8))
+    }
+
+    /// The manifest in the project's folder comes before the one in the materials folder
+    func testTheProjectsManifestComesFirst() throws {
+        let resources = try makeResources(project: ["manifest.plist": plist(["Graphics": ["3": "Lighthouse.png"]])],
+                                          materials: ["manifest.plist": plist(["Graphics": ["3": "Harbour.png"]]),
+                                                      "Lighthouse.png": Data("A lighthouse".utf8),
+                                                      "Harbour.png": Data("A harbour".utf8)])
+        XCTAssertEqual(resources.data(forImageResource: 3), Data("A lighthouse".utf8))
+    }
+
+    /// A picture that the manifest doesn't name is the one called "Figure" and its number in the materials folder
+    func testAPictureThatTheManifestDoesntName() throws {
+        let resources = try makeResources(project: ["manifest.plist": plist(Self.manifest)],
+                                          materials: ["Figure 7.png": Data("A harbour".utf8)])
+        XCTAssertEqual(resources.data(forImageResource: 7), Data("A harbour".utf8))
+    }
+
+    /// Without a manifest, pictures are found by their numbers, and there are no sounds
+    func testPicturesAndSoundsWithoutAManifest() throws {
+        var materials = Self.materials
+        materials["Figure 3.png"] = Data("A harbour".utf8)
+        let resources = try makeResources(materials: materials)
+        XCTAssertEqual(resources.data(forImageResource: 3), Data("A harbour".utf8))
+        XCTAssertNil(try sounds(resources).data(forSoundResource: 4))
+    }
+
+    /// A manifest that can't be read counts as one that names nothing
+    func testAManifestThatCantBeRead() throws {
+        var materials = Self.materials
+        materials["Figure 3.png"] = Data("A harbour".utf8)
+        for manifest in [Data("Not a property list".utf8), try plist(["Figures/Lighthouse.png"])] {
+            let resources = try makeResources(project: ["manifest.plist": manifest], materials: materials)
+            XCTAssertEqual(resources.data(forImageResource: 3), Data("A harbour".utf8))
+            XCTAssertNil(try sounds(resources).data(forSoundResource: 4))
+        }
+    }
+
+    /// A picture or sound that the manifest names, whose file isn't there
+    func testAFileThatTheManifestNamesIsntThere() throws {
+        let resources = try makeResources(project: ["manifest.plist": plist(Self.manifest)])
+        XCTAssertEqual(resources.data(forImageResource: 3), try errorPicture())
+        XCTAssertNil(try sounds(resources).data(forSoundResource: 4))
+    }
+
+    /// A project that has never been saved has no materials folder, and so no pictures or sounds
+    func testAProjectThatHasNeverBeenSaved() throws {
+        let resources = IFGlkResources(project: IFProject())
+        XCTAssertEqual(resources.data(forImageResource: 3), try errorPicture())
+        XCTAssertNil(try sounds(resources).data(forSoundResource: 4))
+    }
+
+    /// The manifest is read once, when it's first needed
+    func testTheManifestIsReadOnce() throws {
+        var materials = Self.materials
+        materials["Figures/Harbour.png"] = Data("A harbour".utf8)
+        let resources = try makeResources(project: ["manifest.plist": plist(Self.manifest)], materials: materials)
+        XCTAssertEqual(resources.data(forImageResource: 3), Data("A lighthouse".utf8))
+
+        let manifest = try XCTUnwrap(folder).appendingPathComponent("Test.inform/manifest.plist")
+        try plist(["Graphics": ["3": "Figures/Harbour.png"]]).write(to: manifest)
+        XCTAssertEqual(resources.data(forImageResource: 3), Data("A lighthouse".utf8))
     }
 }
