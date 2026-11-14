@@ -308,6 +308,19 @@ final class IFProjectPaneTests: XCTestCase, @unchecked Sendable {
         XCTAssertNil(right.paneView.superview)
     }
 
+    /// The bar of the pane's tabs, with Back and Forward, is 20 points high, giving its icons room, and the pages
+    /// are below it
+    func testThePageBarIsTwentyPointsHigh() throws {
+        controller.window?.layoutIfNeeded()
+        for pane in [left!, right!] {
+            let bar = try XCTUnwrap(pane.paneView.subviews.first { $0 is IFPageBarView })
+            XCTAssertEqual(bar.frame.height, 20)
+            XCTAssertEqual(bar.frame.maxY, pane.paneView.bounds.maxY)
+            let pages = try XCTUnwrap(pane.paneView.subviews.first { $0 !== bar })
+            XCTAssertEqual(pages.frame.maxY, bar.frame.minY)
+        }
+    }
+
     func testTheAttributesOfASyntaxStyleAreThePreferencesStyle() {
         for style in [IFSyntaxStyle.string, .comment, .naturalInform, .heading] {
             XCTAssertEqual(IFProjectPane.attribute(for: style) as NSDictionary,
