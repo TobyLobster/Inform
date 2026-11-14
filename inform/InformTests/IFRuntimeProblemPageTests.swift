@@ -14,15 +14,19 @@ final class IFRuntimeProblemPageTests: XCTestCase {
     private let basicInformRTPs = "INTERNAL/Extensions/Graham Nelson/Basic Inform.i7xd/Materials/Inter/BasicInformKit/RTPs"
 
     private func page(_ problem: String, in directory: String?) -> IFRuntimeProblemPage {
-        return IFRuntimeProblemPage(problem: problem,
-                                    inDirectory: directory,
-                                    materialsDirectory: materials,
-                                    internalDirectory: internalFiles)
+        let page = IFRuntimeProblemPage(problem: problem,
+                                        inDirectory: directory,
+                                        materialsDirectory: materials,
+                                        internalDirectory: internalFiles)
+        removeAtTeardown(page)
+        return page
     }
 
-    /// Where the page made from a problem's markdown file is written
-    private var temporaryPage: URL {
-        return IFUtility.temporaryDirectoryURL().appendingPathComponent("temp.html")
+    /// Removes the page's file, if it wrote one in the temporary folder, once the test is done
+    private func removeAtTeardown(_ page: IFRuntimeProblemPage) {
+        if let url = page.pageURL, url.isFileURL {
+            addTeardownBlock { try? FileManager.default.removeItem(at: url) }
+        }
     }
 
     /// The page for a problem in a new folder, made with inbuild and the app's internal files from the markdown
@@ -36,14 +40,12 @@ final class IFRuntimeProblemPageTests: XCTestCase {
         if let markdown {
             try markdown.write(to: folder.appendingPathComponent("\(problem).md"), atomically: true, encoding: .utf8)
         }
-        let temporaryPage = self.temporaryPage
-        try? FileManager.default.removeItem(at: temporaryPage)
-        addTeardownBlock { try? FileManager.default.removeItem(at: temporaryPage) }
 
         let page = IFRuntimeProblemPage(problem: problem,
                                         inDirectory: folder.path,
                                         materialsDirectory: materials,
                                         internalDirectory: IFUtility.path(forInformInternalAppSupport: ""))
+        removeAtTeardown(page)
         page.makePageFromMarkdown(with: IFInBuild(), settings: IFCompilerSettings())
         return page
     }
@@ -117,8 +119,11 @@ final class IFRuntimeProblemPageTests: XCTestCase {
         XCTAssertEqual(page("P26", in: nil).pageURL?.absoluteString, "inform:/RTP_P26.html")
     }
 
-    func testThePageMadeFromAProblemsMarkdownIsShownFromTheTemporaryFolder() {
-        XCTAssertEqual(page("Problem", in: "/Users/Shared/Kits/LocksKit/RTPs").pageURL, temporaryPage)
+    func testThePageMadeFromAProblemsMarkdownIsShownFromTheTemporaryFolder() throws {
+        let url = try XCTUnwrap(page("Problem", in: "/Users/Shared/Kits/LocksKit/RTPs").pageURL)
+
+        XCTAssertTrue(url.isFileURL, url.absoluteString)
+        XCTAssertEqual(url.deletingLastPathComponent().path, IFUtility.temporaryDirectoryURL().path)
     }
 
     func testNoPageIsShownForAProblemInMaterialsWithoutAMaterialsFolder() {
@@ -146,13 +151,30 @@ final class IFRuntimeProblemPageTests: XCTestCase {
         XCTAssertTrue(html.contains("Locks Kit/Problem.md"), html)
     }
 
-    func testNothingIsMadeForAProblemWithNoFolder() {
-        try? FileManager.default.removeItem(at: temporaryPage)
+    func testInbuildIsntRunForAProblemWithNoFolder() {
         let inBuild = IFInBuild()
 
         page("P26", in: nil).makePageFromMarkdown(with: inBuild, settings: IFCompilerSettings())
 
         XCTAssertNil(inBuild.stdOut, "inbuild was run")
-        XCTAssertFalse(FileManager.default.fileExists(atPath: temporaryPage.path))
+    }
+
+    /// Two projects' problems, as each project's Errors page shows them, and shows them again when reloaded
+    func testEachPageMadeFromMarkdownKeepsItsOwnFile() throws {
+        let first = try makePage("Problem", withMarkdown: "The *first* project's problem.\n")
+        let second = try makePage("Problem", withMarkdown: "The *second* project's problem.\n")
+
+        XCTAssertNotEqual(first.pageURL, second.pageURL)
+        let html = try String(contentsOf: try XCTUnwrap(first.pageURL), encoding: .utf8)
+        XCTAssertTrue(html.contains("The <em>first</em> project's problem."), html)
+    }
+
+    func testEachPageSayingThereIsNoPageKeepsItsOwnFile() throws {
+        let first = page("FirstUnknownProblem", in: nil)
+        let second = page("SecondUnknownProblem", in: nil)
+
+        XCTAssertNotEqual(first.appPageURL, second.appPageURL)
+        let html = try String(contentsOf: try XCTUnwrap(first.appPageURL), encoding: .utf8)
+        XCTAssertTrue(html.contains("run-time problem FirstUnknownProblem"), html)
     }
 }
