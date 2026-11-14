@@ -1263,13 +1263,7 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
                 IFNewExtensionsManager.shared.removeTemporaryFolder(of: project)
             }
 
-            // Show results
-            for pane in projectPanes ?? [] {
-                pane.compilerController.clearTabViewsExcept(.tabConsole)
-                let id = pane.compilerController.makeTab(forFile: project?.extensionReportURL?.path ?? "")
-                pane.compilerController.switchToView(with: id)
-            }
-            projectPanes?[1].selectView(of: .errorPane)
+            showExtensionReport()
         }
     }
 
@@ -1278,40 +1272,11 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
     }
 
     func installExtensionURL(_ extensionURL: URL) {
-        self.extensionURL = extensionURL as NSURL
-        inbuildAction = "-install"
-
-        let project = self.project
-        project?.executeInBuild(forExtension: extensionURL,
-                                action: inbuildAction,
-                                withConfirmation: false)
-
-        // Show results
-        for pane in projectPanes ?? [] {
-            pane.compilerController.clearTabViewsExcept(.tabConsole)
-            let id = pane.compilerController.makeTab(forFile: project?.extensionReportURL?.path ?? "")
-            pane.compilerController.switchToView(with: id)
-        }
-        projectPanes?[1].selectView(of: .errorPane)
+        runInbuild("-install", forExtension: extensionURL)
     }
 
     func uninstallExtension(_ extensionPath: String) {
-        let project = self.project
-        let extensionURL = URL(fileURLWithPath: extensionPath)
-        self.extensionURL = extensionURL as NSURL
-        inbuildAction = "-uninstall"
-
-        project?.executeInBuild(forExtension: extensionURL,
-                                action: inbuildAction,
-                                withConfirmation: false)
-
-        // Show results
-        for pane in projectPanes ?? [] {
-            pane.compilerController.clearTabViewsExcept(.tabConsole)
-            let id = pane.compilerController.makeTab(forFile: project?.extensionReportURL?.path ?? "")
-            pane.compilerController.switchToView(with: id)
-        }
-        projectPanes?[1].selectView(of: .errorPane)
+        runInbuild("-uninstall", forExtension: URL(fileURLWithPath: extensionPath))
     }
 
     func moderniseExtension(_ extensionPath: String) {
@@ -1319,15 +1284,24 @@ private typealias IFOpenPanelProperty = ReferenceWritableKeyPath<IFProjectContro
     }
 
     private final func moderniseExtensionURL(_ extensionURL: URL) {
-        self.extensionURL = extensionURL as NSURL
-        inbuildAction = "-run-moderniser"
+        runInbuild("-run-moderniser", forExtension: extensionURL)
+    }
 
-        let project = self.project
+    /// Runs inbuild on an extension, without asking for confirmation, and shows its report. The extension and the
+    /// action are kept for the report's button to confirm.
+    private final func runInbuild(_ action: String, forExtension extensionURL: URL) {
+        self.extensionURL = extensionURL as NSURL
+        inbuildAction = action
+
         project?.executeInBuild(forExtension: extensionURL,
                                 action: inbuildAction,
                                 withConfirmation: false)
 
-        // Show results
+        showExtensionReport()
+    }
+
+    /// Shows inbuild's report on an extension in each pane's Results page, with the right pane showing that page
+    private final func showExtensionReport() {
         for pane in projectPanes ?? [] {
             pane.compilerController.clearTabViewsExcept(.tabConsole)
             let id = pane.compilerController.makeTab(forFile: project?.extensionReportURL?.path ?? "")
