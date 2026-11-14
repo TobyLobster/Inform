@@ -44,7 +44,7 @@ static NSString* const IFCompilerNaturalInform = @"IFCompilerNaturalInform";
 /// Object used to describe the settings for the compilers
 ///
 NS_SWIFT_UI_ACTOR
-@interface IFCompilerSettings : NSObject<NSCoding>
+@interface IFCompilerSettings : NSObject
 
 /// The paths to Inform 6 libraries
 @property (class, atomic, readonly, copy) NSArray<NSString*> *inform6LibraryPaths;

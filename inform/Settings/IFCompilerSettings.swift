@@ -508,21 +508,6 @@ private let libraryPaths: [String] = {
         return nil
     }
 
-    // MARK: - NSCoding
-
-    @objc(encodeWithCoder:)
-    func encode(with encoder: NSCoder) {
-        encoder.encode(store)
-    }
-
-    public required convenience init?(coder decoder: NSCoder) {
-        self.init() // Call the designated initialiser first
-
-        store = decoder.decodeObject() as? NSMutableDictionary
-
-        // Convert from the old format to the new format -- not done yet (do we really need this?)
-    }
-
     // MARK: - Property lists
 
     var currentPlist: Data? {

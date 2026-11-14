@@ -421,25 +421,6 @@ final class IFCompilerSettingsTests: XCTestCase {
         XCTAssertNotNil(plist["IFOutputSettings"])
     }
 
-    // MARK: - Archiving
-
-    /// The settings can be archived, though not securely.
-    func testArchiving() throws {
-        let settings = IFCompilerSettings()
-        settings.zcodeVersion = 8
-        settings.strict = false
-        settings.compilerVersion = "6M62"
-
-        let data = try NSKeyedArchiver.archivedData(withRootObject: settings, requiringSecureCoding: false)
-        let unarchiver = try NSKeyedUnarchiver(forReadingFrom: data)
-        unarchiver.requiresSecureCoding = false
-        let copy = try XCTUnwrap(unarchiver.decodeObject(forKey: NSKeyedArchiveRootObjectKey) as? IFCompilerSettings)
-        XCTAssertEqual(copy.zcodeVersion, 8)
-        XCTAssertFalse(copy.strict)
-        XCTAssertEqual(copy.compilerVersion, "6M62")
-        XCTAssertNotNil(copy.setting(for: try settingsClass("IFMiscSettings")))
-    }
-
     // MARK: - Letting go
 
     /// NSDocument can let go of a closed project, and so its settings, on another thread, which mustn't stop the
