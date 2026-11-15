@@ -174,7 +174,9 @@ private final class IFSemiTransparentView: NSView {
             // Start running as a glulxe task
             let gView = GlkView()
             self.gView = gView
-            gView.soundHandler = GlkSoundHandler()
+            let soundHandler = GlkSoundHandler()
+            soundHandler.glkctl = gView
+            gView.soundHandler = soundHandler
             gView.delegate = self
             if let parent {
                 gView.addOutputReceiver(parent)
