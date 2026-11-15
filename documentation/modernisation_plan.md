@@ -39,6 +39,7 @@ Started November 2026, on the `extensions` branch. This is a living document: up
 
 - [x] Make the Inform Core rebuild opt-in (`inform/Config/Inform.xcconfig`, `Local.xcconfig`).
 - [x] Command-line build script with a warnings baseline (`inform/Scripts/cli_build.sh`).
+    - A failing build lists every error (14 November 2026, 7105e819). xcodebuild cancels the compile jobs still running once one fails, so the log had only the errors of the jobs that finished first; the script now passes `-IDEBuildingContinueBuildingAfterErrors=YES`.
 - [x] Unit-test target (`InformTests`, hosted in Inform.app) with a first test (`IFSemVer`).
 - [x] `CLAUDE.md`, this plan, and updated build documentation.
 - [x] Keep the submodule trees clean. `configure.py` no longer edits the submodule projects, except `SKIP_INSTALL` on `Builder`, `ZoomServer` (Zoom) and `GlkView` (CocoaGlk) for release builds. The final build phase now signs ZoomServer and re-seals ZoomView.framework. Debug builds are active-architecture only. Verified with untouched submodule projects: signed Debug build, and a Developer ID archive exported by Xcode with every executable Developer ID signed, hardened runtime, timestamped and universal.
