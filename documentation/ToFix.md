@@ -26,7 +26,27 @@ Found checking the fixes in the app, in a Debug build (12 November 2026), and no
 
 ## Zoom and CocoaGlk
 
-- **Possibly real, from the static analyser** (4 November 2026), to look at upstream: a possible null `win->stream` in `glk_window_set_echo_stream` (`glk_windows.m`), a nil font in an attributes dictionary (`ZoomTextView.m`), a variable-length array that could have a negative size (`GlkTypesetter.m`), null `buf` arrays with a non-zero length in `glk_stream.m` and `glk_unicode.m`, and leaks in Zoom's `debug.c` and `rc.c`.
+Found looking for bugs in Zoom and CocoaGlk at `origin/madds` (15 November 2026; see the plan's Phase 4), and to be fixed upstream. Those that say so were reproduced with small programs that call the built frameworks, with no game running; the others were traced through the code. None has been seen in the app.
+
+- **`@erase_line` in Zoom's lower window raises.** `ZDisplay.m` sends `eraseLineWithStyle:` to the current window whichever it is, but `ZoomLowerWindow` doesn't implement it, so `@erase_line 1` in the lower window raises inside `flushBuffer:`. The rest of that buffer is lost, and `editingTextView` stays set. It should only go to the upper window.
+- **Delete in Zoom's `read_char` arrives as '?'.** The Mac's Delete key gives U+007F, which `ZDisplay.m` passes to `zscii_get_char`, giving '?'; the Standard wants 8.
+- **Case changes and normalisation in CocoaGlk.** `glk_buffer_to_title_case_uni` capitalises every word, where the spec changes only the first character (reproduced: "Hello World"). `glk_char_to_upper(0xDF)` gives 'S', where the spec leaves a character unchanged if it doesn't become one character (reproduced). `glk_buffer_canon_normalize_uni` and `glk_buffer_canon_decompose_uni` crash for an invalid code point, such as a lone surrogate, as its string is nil (reproduced).
+- **`glk_window_set_arrangement` with no key window clears the key.** The spec says a NULL key window leaves the key as it was; Inform 7 passes 0. Then the view has no key, which matters only for nested fixed splits, as `GlkPairWindow` sizes them by its right-hand child. Related: `glk_window_close` clears `parent->parent` before discarding the parent, so a grandparent whose key was the closed window keeps a freed pointer (`glk_windows.m`).
+- **Images in text buffer windows.** `glk_image_draw` returns 0 although it draws, and `glk_image_draw_scaled` draws nothing (`glk_image.m`).
+- **Unicode line input can report one character more than it wrote.** `glk_events.m` copies `bufLen-1` characters but limits `val1` to `bufLen`.
+- **Accessibility queries raise when there's no root window.** `GlkView.m` answers the accessibility children with `@[rootWindow]`, which raises before the first window opens or after the root window closes.
+- **Smaller ones in CocoaGlk.** `GlkStyle` never sets `lastScaleFactor`, so its cache of attributes is never used; merging arrange events compares the views' `identifier`s, which are always nil; `GlkPreferences`' `changeNotified` is never reset; `GlkEvent` isn't sent `bycopy`, so each event takes about five round trips to the interpreter; and glulxe passes NULL for an array of length 0, which `glk_get_buffer_stream` and the other reading functions treat as an error that ends the game.
+- **Not confirmed, but plausible:**
+    - `glk_cancel_line_event` always reports `evtype_LineInput`, where the spec wants `evtype_None` if no line input was requested. The view would have to say whether it was.
+    - Restoring a Quetzal save trusts its lengths (`state.c`): a chunk length of 0xFFFFFFF8 loops for ever, and `CMem` is written before the end of memory is checked. Needs a damaged save.
+    - Two Zoom views starting at once may each be paired with the other's server (`ZoomConnector.m`).
+    - A second running copy of Inform can't register the Glk hub's fixed name, "GlkInform", so its stories' interpreters reach the first copy. The session cookies come from `random()`, never seeded.
+    - Duplicate input receivers could change `GlkView`'s `inputReceivers` while it's being enumerated.
+    - Line input in a text grid with the cursor off the grid may raise (`GlkTextGridWindow.m`).
+    - In ZoomView: a dead key while terminating characters are set raises (AppKit logs it); the window key notifications are registered with the old window when the view moves to another; an unbalanced `@output_stream -3` writes two zeros into dynamic memory (`interp.c`); and the screen height is taken from the document view's bounds.
+    - `glk_schannel_play_multi` counts by the wrong array when the two counts differ, which is an illegal call anyway.
+    - Slow, not wrong: read-only binary files, and Unicode file streams, take a round trip to Inform for each character.
+- The static analyser's findings in their own code, which were listed here, were checked by hand. Apart from `glk_style_measure`'s (in the plan), they are false positives, or small leaks in Zoom's `debug.c` and `rc.c`, of debugging information and at start-up.
 
 ## GitHub issues
 
