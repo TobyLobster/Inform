@@ -641,7 +641,8 @@ extension IFAppDelegate {
         // Glk hub
         if !IFUtility.isHostingUnitTests {
             GlkHub.shared.setRandomHubCookie()
-            GlkHub.shared.hubName = "GlkInform"
+            // A name of our own, so that a second copy of Inform running at once has its own hub
+            GlkHub.shared.useProcessHubName()
         }
 
         // Remove the 'tab' related menu entries on the Window menu
