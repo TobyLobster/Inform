@@ -24,16 +24,8 @@ Found checking the fixes in the app, in a Debug build (12 November 2026), and no
 
 Found looking for bugs in Zoom and CocoaGlk at `origin/madds` (15 November 2026; see the plan's Phase 4), and to be fixed upstream. None has been seen in the app.
 
-- **A new pair window's key is the wrong window in CocoaGlk.** The Glk spec makes the new window the key of the pair window that `glk_window_open` creates, but `glk_windows.m` makes it the window that was split, so `glk_window_get_arrangement` returns that one. Changing it needs care: `GlkPairWindow` sizes a fixed split by its right-hand child, and a pair window on the right by its own key, which the present choice happens to keep right. Nor does anything check that a key given to `glk_window_set_arrangement` is inside the pair window and isn't a pair window, as the spec asks.
-- **`GlkEvent` isn't sent `bycopy`**, so each event takes about five round trips to the interpreter.
-- **Not confirmed, but plausible:**
-    - `glk_cancel_line_event` always reports `evtype_LineInput`, where the spec wants `evtype_None` if no line input was requested. The view would have to say whether it was.
-    - Two Zoom views starting at once may each be paired with the other's server (`ZoomConnector.m`).
-    - A second running copy of Inform can't register the Glk hub's fixed name, "GlkInform", so its stories' interpreters reach the first copy. The session cookies come from `random()`, never seeded.
-    - Duplicate input receivers could change `GlkView`'s `inputReceivers` while it's being enumerated.
-    - Line input in a text grid with the cursor off the grid: `GlkTextGridWindow.m` puts the input at `xpos + ypos*width`, past the end of the grid's text, where preloading the input or ending the line may raise. Where the input should go needs deciding first.
-    - In ZoomView, the screen height is taken from the document view's bounds.
-    - Slow, not wrong: read-only binary files, and Unicode file streams, take a round trip to Inform for each character.
+- **Reading a text file is slow, though not wrong.** CocoaGlk buffers a binary file opened only to read, on the interpreter's side, but not a text file, so each `glk_get_char_stream` from a text file takes a round trip to Inform. A Unicode text file is decoded by `GlkUTF8Stream` a byte or two at a time, so each character read from it takes one, by whichever call. This said that read-only binary files were slow, which was wrong (corrected 16 November 2026).
+- **Tab doesn't reach the windows inside a pair window on the right.** `-[GlkView performTabFrom:forward:keepLooking:]` moves to a right-hand child that's a pair window, and then, as the window it came from isn't one of that pair's children, goes straight back up, so it skips every window in it; going backwards, it skips a pair window on the left in the same way. Splitting the newer window of a pair makes one, as splitting a story's status line would. Found reading the code while fixing pair windows' keys (16 November 2026), and older than that fix, which only changed which children it walks.
 - The static analyser's findings in their own code, which were listed here, were checked by hand. Apart from `glk_style_measure`'s (in the plan), they are false positives, or small leaks in Zoom's `debug.c` and `rc.c`, of debugging information and at start-up.
 
 ## GitHub issues
