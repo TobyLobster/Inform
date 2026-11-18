@@ -406,10 +406,12 @@ private let tab: unichar            = 0x09      // \t
                 attributesOfStyle[style.rawValue] = styleAttributes
             }
             textStorage.setAttributes(styleAttributes, range: styleRange)
-            textStorage.fixFontAttribute(in: styleRange)
 
             location = styleEnd
         }
+
+        // Fix the fonts of all the runs at once
+        textStorage.fixFontAttribute(in: range)
 
 #if HighlighterDebug
         textStorage.enumerateAttributes(in: NSRange(location: 0, length: textStorage.length),
