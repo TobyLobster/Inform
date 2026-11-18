@@ -41,36 +41,6 @@ import Foundation
     }
 
     //
-    // What's the range of the current style at the given character index?
-    //
-    @objc(rangeOfStyleAtIndex:)
-    func rangeOfStyle(at index: Int) -> NSRange {
-        let style = charStyles.read(index)
-
-        var localRange = NSRange(location: index, length: 0)       // Optimisation suggested by Shark
-
-        while localRange.location > 0 {
-            if charStyles.read(localRange.location - 1) == style {
-                localRange.location -= 1
-            } else {
-                break
-            }
-        }
-
-        let strLen = count
-
-        while localRange.location + localRange.length < strLen {
-            if charStyles.read(localRange.location + localRange.length) == style {
-                localRange.length += 1
-            } else {
-                break
-            }
-        }
-
-        return localRange
-    }
-
-    //
     // Given an edit that has just occured to the text, update the character styles
     //
     @objc(replaceStylesAfterEditingRange:changeInLength:)

@@ -231,7 +231,7 @@ private func isInform6Style(_ style: IFSyntaxStyle) -> Bool {
                     styles: IFSyntaxStyles,
                     initialState: IFSyntaxState) {
         let line = line as NSString
-        let thisLine = line.lowercased.trimmingCharacters(in: .whitespacesAndNewlines)
+        let length = line.length
 
         // This line might be a header line
         var isHeader = false
@@ -241,7 +241,13 @@ private func isInform6Style(_ style: IFSyntaxStyle) -> Bool {
             return
         }
 
-        if isInAppropriateStateForHeader && !isInform6Style(styles.read(0)) {
+        // The styles are read and written where they're kept, not with a call for each character
+        precondition(length <= styles.numCharStyles, "style index out of range")
+        let lineStyles = styles.styles!
+
+        if isInAppropriateStateForHeader && !isInform6Style(lineStyles[0]) {
+            let thisLine = line.lowercased.trimmingCharacters(in: .whitespacesAndNewlines)
+
             if thisLine.hasPrefix("---- documentation ----") { isHeader = true }
             if thisLine.hasPrefix("volume ")   { isHeader = true }
             if thisLine.hasPrefix("volume: ")  { isHeader = true }
@@ -257,28 +263,28 @@ private func isInform6Style(_ style: IFSyntaxStyle) -> Bool {
         }
 
         if isHeader {
-            for x in 0..<line.length {
-                styles.write(x, value: .heading)
+            for x in 0..<length {
+                lineStyles[x] = .heading
             }
         }
 
         // This line might have some Inform 6 highlighting to do
         let i6Styles = IFSyntaxStyles()
         var x = 0
-        while x < line.length {
-            if isInform6Style(styles.read(x)) {
+        while x < length {
+            if isInform6Style(lineStyles[x]) {
                 // Found an Inform 6 region
                 var thisRegion = NSRange(location: x, length: 0)
 
                 // Convert to standard style, work out how long the region is
-                while x < line.length && isInform6Style(styles.read(x)) {
+                while x < length && isInform6Style(lineStyles[x]) {
                     thisRegion.length += 1
-                    styles.write(x, value: IFSyntaxStyle(rawValue: styles.read(x).rawValue - 0x20))
+                    lineStyles[x] = IFSyntaxStyle(rawValue: lineStyles[x].rawValue - 0x20)
                     x += 1
                 }
 
                 // Get the Inform 6 highlighter to rehint this section
-                i6Styles.styles = styles.styles.map { $0 + thisRegion.location }
+                i6Styles.styles = lineStyles + thisRegion.location
                 i6Styles.numCharStyles = styles.numCharStyles - UInt(thisRegion.location)
                 inform6Highlighter.rehintLine(line.substring(with: thisRegion),
                                               styles: i6Styles,

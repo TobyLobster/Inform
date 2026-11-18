@@ -42,7 +42,8 @@ NS_SWIFT_UI_ACTOR
     NS_SWIFT_NAME(replaceLines(after:through:with:));
 /// Gives a line the standard style
 - (void) resetLine: (NSInteger) line NS_SWIFT_NAME(resetLine(_:));
-/// Puts the lines' styles onto the text, from one line through another
+/// Puts the lines' styles onto the text, from one line through another. Paragraph styles don't change fonts, so the
+/// fonts, which the highlighting has fixed, aren't fixed again.
 - (void) applyStylesFromLine: (NSInteger) firstLine
                      through: (NSInteger) lastLine
     NS_SWIFT_NAME(applyStyles(from:through:));

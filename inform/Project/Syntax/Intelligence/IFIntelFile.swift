@@ -19,13 +19,13 @@ import Cocoa
 
     // Data
     /// List of symbols added to the file
-    private var symbols: [IFIntelSymbol]
+    private final var symbols: [IFIntelSymbol]
     /// The line number each symbol in the symbols array occurs on (ie, one entry per symbol)
-    private var symbolLines: [Int]
+    private final var symbolLines: [Int]
 
     // Notifications
     /// true if we're preparing to send a notification that this object has changed
-    private var notificationPending: Bool
+    private final var notificationPending: Bool
 
     override init() {
         symbols             = []
@@ -35,7 +35,7 @@ import Cocoa
         super.init()
     }
 
-    private func indexOfSymbol(onLine lineNumber: Int) -> Int {
+    private final func indexOfSymbol(onLine lineNumber: Int) -> Int {
         // BINARY SEARCH POWER! Is there anything this wacky algorithm cannot do?
 
         // Either the last item of the previous line, or the first item of this line
@@ -61,7 +61,7 @@ import Cocoa
         return middle
     }
 
-    private func indexOfStartOfLine(_ lineNumber: Int) -> Int {
+    private final func indexOfStartOfLine(_ lineNumber: Int) -> Int {
         // Returns the symbol location of the symbol before the start of the line
         var symbol = indexOfSymbol(onLine: lineNumber)
 
@@ -70,7 +70,7 @@ import Cocoa
         return symbol
     }
 
-    private func indexOfEndOfLine(_ lineNumber: Int) -> Int {
+    private final func indexOfEndOfLine(_ lineNumber: Int) -> Int {
         // Returns the symbol location of the symbol after the start of the line
         var symbol = indexOfSymbol(onLine: lineNumber)
         let nSymbols = symbols.count
