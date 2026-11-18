@@ -481,6 +481,12 @@ private let tab: unichar            = 0x09      // \t
         let str = textStorage.mutableString
         let highlighter = self.highlighter
 
+        // The styles are written where they're kept, and each line's characters are read at once, not with a call
+        // for each character
+        let numCharStyles = Int(allStyles.numCharStyles)
+        let charStylesBuffer = allStyles.styles
+        var lineCharacters: [unichar] = []
+
         for line in firstLine...lastLine {
             // The range of characters in this line
             let firstChar = lineStarts.start(ofLine: line)
@@ -491,28 +497,44 @@ private let tab: unichar            = 0x09      // \t
 
             let initialState = highlighterState.state
 
-            // Highlight this line
-            while highlighterState.position < lastChar {
+            // The characters in this line
+            precondition(lastChar <= numCharStyles, "index out of range")
+            if lineCharacters.count < lastChar - firstChar {
+                lineCharacters = [unichar](repeating: 0, count: lastChar - firstChar)
+            }
+            if lastChar > firstChar {
+                lineCharacters.withUnsafeMutableBufferPointer { buffer in
+                    str.getCharacters(buffer.baseAddress!,
+                                      range: NSRange(location: firstChar, length: lastChar - firstChar))
+                }
+            }
+
+            // Highlight this line. Only this changes the position and the state, but the highlighter reads them
+            // through IFSyntaxData, so they're kept up to date there as well.
+            var position = firstChar
+            var state = initialState
+            while position < lastChar {
                 // Current state
-                let curChar = str.character(at: highlighterState.position)
+                let curChar = lineCharacters[position - firstChar]
 
                 // Next state
                 let nextState = highlighter?.state(forCharacter: curChar,
-                                                   afterState: highlighterState.state) ?? 0
+                                                   afterState: state) ?? 0
 
                 // Next style
                 let nextStyle = highlighter?.style(forCharacter: curChar,
                                                    nextState: nextState,
-                                                   lastState: highlighterState.state) ?? []
+                                                   lastState: state) ?? []
 
                 // Store the style
-                precondition(highlighterState.position < Int(allStyles.numCharStyles), "index out of range")
-                allStyles.styles![highlighterState.position] = nextStyle
+                charStylesBuffer![position] = nextStyle
 
                 // Store the state
-                highlighterState.state = nextState
+                state = nextState
+                highlighterState.state = state
 
-                highlighterState.position += 1
+                position += 1
+                highlighterState.position = position
             }
 
             // Provide an opportunity for the highlighter to hint keywords, etc
