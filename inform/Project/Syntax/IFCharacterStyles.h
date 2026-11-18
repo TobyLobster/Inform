@@ -26,8 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (IFSyntaxStyle) styleAtIndex: (NSInteger) index NS_SWIFT_NAME(style(at:));
 /// Sets the style of a character
 - (void) setStyle: (IFSyntaxStyle) style atIndex: (NSInteger) index NS_SWIFT_NAME(setStyle(_:at:));
-/// The range of the characters around a character, and including it, that have the same style as it
-- (NSRange) rangeOfStyleAtIndex: (NSInteger) index NS_SWIFT_NAME(rangeOfStyle(at:));
 /// Keeps the styles in step with an edit: the new characters aren't highlighted, and those after them keep their styles
 - (void) replaceStylesAfterEditingRange: (NSRange) editedRange
                          changeInLength: (NSInteger) changeInLength

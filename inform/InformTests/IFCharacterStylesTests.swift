@@ -145,23 +145,6 @@ final class IFCharacterStylesTests: XCTestCase {
         XCTAssertGreaterThan(expected.count, 100)
     }
 
-    // MARK: - Runs of a style
-
-    /// The run of a character's style is the characters around it, and including it, with the same style
-    func testTheRunOfACharactersStyle() {
-        let characterStyles = self.characterStyles([.string, .string, .comment, .comment, .comment, .string])
-        XCTAssertEqual(characterStyles.rangeOfStyle(at: 0), NSRange(location: 0, length: 2))
-        XCTAssertEqual(characterStyles.rangeOfStyle(at: 1), NSRange(location: 0, length: 2))
-        XCTAssertEqual(characterStyles.rangeOfStyle(at: 3), NSRange(location: 2, length: 3))
-        XCTAssertEqual(characterStyles.rangeOfStyle(at: 5), NSRange(location: 5, length: 1))
-    }
-
-    /// A text of one style is one run
-    func testATextOfOneStyleIsOneRun() {
-        let characterStyles = self.characterStyles([.heading, .heading, .heading])
-        XCTAssertEqual(characterStyles.rangeOfStyle(at: 1), NSRange(location: 0, length: 3))
-    }
-
     // MARK: - The styles from a character
 
     /// The styles from a character on share the characters' styles
