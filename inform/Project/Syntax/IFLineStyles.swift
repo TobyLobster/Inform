@@ -112,9 +112,9 @@ import Cocoa
             let lastChar  = nextLine < lineStarts.count ? lineStarts.start(ofLine: nextLine) : textStorage.length
             let linesRange = NSRange(location: firstChar, length: lastChar - firstChar)
 
+            // A paragraph style leaves the fonts as they are, which IFSyntaxData has just fixed
             textStorage.addAttributes(lineStyles[line],
                                       range: linesRange)
-            textStorage.fixFontAttribute(in: linesRange)
 
             line = nextLine
         }
