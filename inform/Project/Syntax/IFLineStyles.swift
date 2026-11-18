@@ -100,9 +100,38 @@ import Cocoa
 
     @objc(applyStylesFromLine:through:)
     func applyStyles(from firstLine: Int, through lastLine: Int) {
-        for line in firstLine...lastLine {
-            applyLineStyle(forLine: line)
+        // Lines in a row with the same style, as lines outside tables have, are given it at once
+        var line = firstLine
+        while line <= lastLine {
+            var nextLine = line + 1
+            while nextLine <= lastLine && isSameStyle(lineStyles[nextLine], lineStyles[line]) {
+                nextLine += 1
+            }
+
+            let firstChar = lineStarts.start(ofLine: line)
+            let lastChar  = nextLine < lineStarts.count ? lineStarts.start(ofLine: nextLine) : textStorage.length
+            let linesRange = NSRange(location: firstChar, length: lastChar - firstChar)
+
+            textStorage.addAttributes(lineStyles[line],
+                                      range: linesRange)
+            textStorage.fixFontAttribute(in: linesRange)
+
+            line = nextLine
         }
+    }
+
+    /// Whether two lines' styles have the same objects, so that giving both lines either one is the same
+    private final func isSameStyle(_ style: [NSAttributedString.Key: Any],
+                                   _ otherStyle: [NSAttributedString.Key: Any]) -> Bool {
+        if style.count != otherStyle.count {
+            return false
+        }
+        for (key, value) in style {
+            guard let otherValue = otherStyle[key], (otherValue as AnyObject) === (value as AnyObject) else {
+                return false
+            }
+        }
+        return true
     }
 
     // MARK: - Elastic tabs
