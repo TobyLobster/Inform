@@ -362,8 +362,6 @@ private let tab: unichar            = 0x09      // \t
     // Update the attributes based on the new character styles for the range specified
     //
     private final func updateHighlightingForAttributedString(in range: NSRange) {
-        var range = range
-
         guard let highlighter else {
             return
         }
@@ -378,31 +376,39 @@ private let tab: unichar            = 0x09      // \t
             return
         }
 
-        while range.length > 0 {
-            // What's the current style and it's range?
-            let style = charStyles.style(at: range.location)
-            var styleRange = charStyles.rangeOfStyle(at: range.location)
+        // The styles are read where they're kept, not with a call for each character, and each style's attributes
+        // are looked up once
+        let end = range.location + range.length
+        precondition(end <= textStorage.length && end <= charStyles.count, "Help!")
+        let styles = charStyles.styles(from: 0).styles
+        var attributesOfStyle: [IFSyntaxStyle.RawValue: [NSAttributedString.Key: Any]] = [:]
 
-            // The run of this style can extend past either end of the range we were asked
-            // to update, across line boundaries. Never touch text outside the range: those
-            // lines were not re-highlighted, and -setAttributes: would wipe their paragraph
-            // style (including any elastic tab stops) while lineStyles[] still records it.
-            styleRange = NSIntersectionRange(styleRange, range)
+        var location = range.location
+        while location < end {
+            // What's the current style and it's range? The run of this style can extend past
+            // either end of the range we were asked to update, across line boundaries. Never
+            // touch text outside the range: those lines were not re-highlighted, and
+            // -setAttributes: would wipe their paragraph style (including any elastic tab
+            // stops) while lineStyles[] still records it.
+            let style = styles![location]
+            var styleEnd = location + 1
+            while styleEnd < end && styles![styleEnd] == style {
+                styleEnd += 1
+            }
+            let styleRange = NSRange(location: location, length: styleEnd - location)
 
             // Get the style attributes
-            let styleAttributes = highlighter.attributes(for: style)
+            let styleAttributes: [NSAttributedString.Key: Any]
+            if let known = attributesOfStyle[style.rawValue] {
+                styleAttributes = known
+            } else {
+                styleAttributes = highlighter.attributes(for: style)
+                attributesOfStyle[style.rawValue] = styleAttributes
+            }
             textStorage.setAttributes(styleAttributes, range: styleRange)
             textStorage.fixFontAttribute(in: styleRange)
 
-            precondition((styleRange.location + styleRange.length) <= textStorage.length, "Help!")
-
-            let nextStart = styleRange.location + styleRange.length
-            let consumed  = nextStart - range.location
-            range.location = nextStart
-
-            precondition(consumed >= 1, "Consumed too little")
-
-            range.length -= min(consumed, range.length)
+            location = styleEnd
         }
 
 #if HighlighterDebug
